@@ -11,8 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
-
-
 public class UsuarioDAO implements CRUDOperations {
 
 	String sql;
