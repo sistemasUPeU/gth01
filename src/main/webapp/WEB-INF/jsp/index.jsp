@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="icon"
-	href="<c:url value='resources/img/favicon/favicon.png'/>"
+	href="<c:url value='resources/img/favicon/alpha.ico'/>"
 	type="image/x-icon">
 
 <title>Login || GTH</title>
