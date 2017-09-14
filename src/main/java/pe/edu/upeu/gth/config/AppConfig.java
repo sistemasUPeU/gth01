@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import pe.edu.upeu.gth.dao.UsuarioDAO;
 import pe.edu.upeu.gth.properties.globalProperties;
 
 import javax.sql.DataSource;
@@ -45,11 +46,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
     public static DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("oracle.jdbc.OracleDriver");//driver-conexion//
+        dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@" + globalProperties.HOSTNAME + ":" + globalProperties.PORT + ":" + globalProperties.SID + "");
-        dataSource.setUsername(globalProperties.USER);//user-conexion//
-        dataSource.setPassword(globalProperties.USER_PWD);//pass-conexion//
+        dataSource.setUsername(globalProperties.USER);
+        dataSource.setPassword(globalProperties.USER_PWD);
         return dataSource;
+    }
+	
+	@Bean
+    public UsuarioDAO getUsuarioDAO() {
+        return new UsuarioDAO(getDataSource());
     }
 	
 }
