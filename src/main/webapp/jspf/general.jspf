@@ -1,11 +1,14 @@
 <link href="resources/css/materialize.min.css" type="text/css" rel="stylesheet"	media="screen,projection">
 <link href="resources/css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 <link href="resources/css/layouts/page-center.css" type="text/css" 	rel="stylesheet" media="screen,projection">
+<link href="css/plugins/media-hover-effects.css" type="text/css" rel="stylesheet" media="screen,projection">
 <!-- Custome CSS-->    
 <link href="resources/css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 
 <link href="resources/js/plugins/prism/prism.css" type="text/css" rel="stylesheet"	media="screen,projection">
 <link href="resources/js/plugins/perfect-scrollbar/perfect-scrollbar.css"	type="text/css" rel="stylesheet" media="screen,projection">	
+<<<<<<< HEAD
+
 <link href="resources/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 <script type="text/javascript" src="resources/js/plugins/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="resources/js/materialize.min.js"></script>
@@ -13,3 +16,4 @@
 <script type="text/javascript" src="resources/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="resources/js/plugins.min.js"></script>
 <script type="text/javascript" src="resources/js/custom-script.js"></script>
+  
