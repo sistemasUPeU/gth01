@@ -85,7 +85,11 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency> 
-        
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160212</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<finalName>gth</finalName>
