@@ -18,13 +18,12 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pe.edu.upeu.gth.config.AppConfig;
-import pe.edu.upeu.gth.interfaces.Operaciones;
 
 /**
  *
  * @author Brandux
  */
-public class RenunciaDAO implements Operaciones {
+public class RenunciaDAO{
 
     String sql;
     PreparedStatement ps;
@@ -39,7 +38,6 @@ public class RenunciaDAO implements Operaciones {
         jt = new JdbcTemplate(dataSource);
     }
 
-    @Override
     public ArrayList<Map<String, Object>> listar() {
         sql = "SELECT * FROM RENUNCIA r,RHTM_DGP d,RHTM_TRABAJADOR t\n"
                 + "where r.ID_DGP=d.ID_DGP\n"
@@ -71,17 +69,14 @@ public class RenunciaDAO implements Operaciones {
         return lista;
     }
 
-    @Override
     public boolean add(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public boolean edit(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public boolean delete(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

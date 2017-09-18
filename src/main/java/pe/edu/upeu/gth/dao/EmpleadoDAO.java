@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import pe.edu.upeu.gth.interfaces.Operaciones;
 import pe.edu.upeu.gth.util.Sql;
 
 /**

@@ -16,13 +16,12 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pe.edu.upeu.gth.config.AppConfig;
-import pe.edu.upeu.gth.interfaces.Operaciones;
 
 /**
  *
  * @author Alfa003
  */
-public class ejemploDAO implements Operaciones {
+public class ejemploDAO{
 
     String sql;
     PreparedStatement ps;
@@ -46,7 +45,6 @@ public class ejemploDAO implements Operaciones {
     }
 
     //---------------
-    @Override
     public ArrayList<Map<String, Object>> listar() {
         sql = "select * from rhtr_puesto where id_puesto=?";
         ArrayList<Map<String, Object>> lista = new ArrayList<>();
@@ -69,7 +67,6 @@ public class ejemploDAO implements Operaciones {
         return lista;
     }
 
-    @Override
     public boolean add(Object o) {
         boolean p = false;
         sql = "INSERT INTO rhtr_puesto VALUES(null,?,?,?,?,?)";
@@ -92,7 +89,6 @@ public class ejemploDAO implements Operaciones {
         return p;
     }
 
-    @Override
     public boolean edit(Object o) {
         boolean p = false;
         sql = "UPDATE rhtr_puesto SET ESTADO=? ";
@@ -110,7 +106,6 @@ public class ejemploDAO implements Operaciones {
         return p;
     }
 
-    @Override
     public boolean delete(Object o) {
         boolean p = true;
         sql = "delete from rhtr_puesto where id_puesto=?";
