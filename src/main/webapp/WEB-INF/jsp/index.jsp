@@ -12,6 +12,7 @@
 ================================================================================ -->
 
 <head>
+<<<<<<< HEAD
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +20,11 @@
   <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
   <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
   <title>Page Blank | Materialize - Material Design Admin Template</title>
+=======
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="icon" href="<c:url value='resources/img/favicon/alpha.ico'/>"
+	type="image/x-icon">
+>>>>>>> branch 'master' of https://github.com/sistemasUPeU/gth01.git
 
   <!-- Favicons-->
   <link rel="icon" href="resources/img/favicon/alpha.ico" sizes="32x32">
@@ -29,6 +35,7 @@
   <meta name="msapplication-TileImage" content="resources/img/favicon/alpha.ico">
   <!-- For Windows Phone -->
 
+<<<<<<< HEAD
 
   <!-- CORE CSS-->
   <link href="resources/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -40,8 +47,16 @@
   <link href="resources/js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="resources/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="resources/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+=======
+<%@include file="../../jspf/general.jspf"%>
+>>>>>>> branch 'master' of https://github.com/sistemasUPeU/gth01.git
 </head>
+<<<<<<< HEAD
+=======
+<body onload="nobackbutton()" class="grey">
+>>>>>>> branch 'master' of https://github.com/sistemasUPeU/gth01.git
 
+<<<<<<< HEAD
 <body>
   <!-- Start Page Loading -->
   <div id="loader-wrapper">
@@ -50,6 +65,13 @@
       <div class="loader-section section-right"></div>
   </div>
   <!-- End Page Loading -->
+=======
+	<div id="loader-wrapper">
+		<div id="loader"></div>
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
+>>>>>>> branch 'master' of https://github.com/sistemasUPeU/gth01.git
 
   <!-- //////////////////////////////////////////////////////////////////////////// -->
 
@@ -110,6 +132,7 @@
   </header>
   <!-- END HEADER -->
 
+<<<<<<< HEAD
   <!-- //////////////////////////////////////////////////////////////////////////// -->
 
   <!-- START MAIN -->
@@ -409,7 +432,40 @@
         </div>
         <!--breadcrumbs end-->
         
+=======
+	<div id="login-page" class="row">
+		<div class="col s12 z-depth-4 card-panel">
+			<form class="login-form">
+				<div class="row">
+					<div class="input-field col s12 center">
+						<img src="images/login-logo.png" alt=""
+							class="circle responsive-img valign profile-image-login">
+						<p class="center login-form-text">Sistema de Gestión del
+							Talento Humano</p>
+					</div>
+				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<i class="mdi-social-person-outline prefix"></i> <input
+							id="username" type="text"> <label for="username"
+							class="center-align">Usuario</label>
+					</div>
+				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<i class="mdi-action-lock-outline prefix"></i> <input
+							id="password" type="password"> <label for="password">Contraseña</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<a href="index.html"
+							class="btn waves-effect waves-light col s12">Ingresar</a>
+					</div>
+				</div>
+>>>>>>> branch 'master' of https://github.com/sistemasUPeU/gth01.git
 
+<<<<<<< HEAD
         <!--start container-->
         <div class="container">
           <div class="section">
@@ -617,7 +673,6 @@
     <script type="text/javascript" src="resources/js/plugins.min.js"></script>
     <!--custom-script.js - Add your own theme custom JS-->
     <script type="text/javascript" src="resources/js/custom-script.js"></script>
-    
 </body>
 
 </html>
