@@ -20,15 +20,12 @@
 		<div class="loader-section section-right"></div>
 	</div>
 
-
-
 	<div id="login-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
 			<form class="login-form">
 				<div class="row">
 					<div class="input-field col s12 center">
-						<img src="images/login-logo.png" alt=""
-							class="circle responsive-img valign profile-image-login">
+						
 						<p class="center login-form-text">Sistema de Gestión del
 							Talento Humano</p>
 					</div>
@@ -36,19 +33,19 @@
 				<div class="row margin">
 					<div class="input-field col s12">
 						<i class="mdi-social-person-outline prefix"></i> <input
-							id="username" type="text"> <label for="username"
+							id="txtUsuario" type="text" name="username"> <label for="txtUsuario"
 							class="center-align">Usuario</label>
 					</div>
 				</div>
 				<div class="row margin">
 					<div class="input-field col s12">
 						<i class="mdi-action-lock-outline prefix"></i> <input
-							id="password" type="password"> <label for="password">Contraseña</label>
+							id="txtClave" type="password" name="clave"> <label for="txtClave">Contraseña</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<a href="index.html"
+						<a onclick="validarLogin()"
 							class="btn waves-effect waves-light col s12">Ingresar</a>
 					</div>
 				</div>

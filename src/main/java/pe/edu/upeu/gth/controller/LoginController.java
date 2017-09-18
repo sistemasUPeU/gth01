@@ -24,10 +24,6 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.RolDAO;
 import pe.edu.upeu.gth.dao.UsuarioDAO;
 
-/**
- *
- * @author Leandro Burgos
- */
 @Controller
 public class LoginController {
 
