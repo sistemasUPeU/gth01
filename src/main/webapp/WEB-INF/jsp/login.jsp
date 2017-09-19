@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,7 +12,7 @@
 
 <%@include file="../../jspf/general.jspf"%>
 </head>
-<body onload="nobackbutton()" class="grey">
+<body class="grey">
 
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -22,7 +22,7 @@
 
 	<div id="login-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
-			<form class="login-form">
+			<form class="login-form" method="POST" action="login">
 				<div class="row">
 					<div class="input-field col s12 center">
 						
@@ -40,13 +40,11 @@
 				<div class="row margin">
 					<div class="input-field col s12">
 						<i class="mdi-action-lock-outline prefix"></i> <input
-							id="txtClave" type="password" name="clave"> <label for="txtClave">Contraseña</label>
+							id="txtClave" type="password" name="password"> <label for="txtClave">Contraseña</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<a onclick="validarLogin()"
-							class="btn waves-effect waves-light col s12">Ingresar</a>
 							
 							
 							<input type="submit" class="btn waves-effect waves-light col s12 pink darken-4" value="Ingresar"/>

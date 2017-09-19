@@ -50,5 +50,9 @@ public class UsuarioDAO implements CRUDOperations {
         sql = "select * from rhvd_usuario where trim(no_usuario)=? and trim(pw_usuario)=?";
         return (ArrayList<Map<String, Object>>) jt.queryForList(sql, usuario, pass);
     }
+	public Map<String, Object> getByUserName(String usuario) {
+        sql = "select * from rhvd_usuario where trim(no_usuario)=?";
+        return jt.queryForMap(sql, usuario);
+    }
     
 }
