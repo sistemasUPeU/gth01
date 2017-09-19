@@ -41,7 +41,7 @@
 	</div>
 
 <div>
-	<div class='circulo'>
+	<div class='circulo' style="background: red">
 	<div class='circulo2'>
 	<i class="mdi-action-favorite-outline large icon-demo size-icon"></i>
 	</div>

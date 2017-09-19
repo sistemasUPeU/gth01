@@ -40,7 +40,6 @@ public class LoginController {
         try {
             String Usuario = request.getParameter("username");
             String Clave = request.getParameter("clave");
-            System.out.println(Usuario+" "+Clave);
             ArrayList<Map<String, Object>> user = uD.validar(Usuario, Clave);
             if (Usuario.equals("") && Clave.equals("")) {
                 mp.put("rpta", false);

@@ -45,14 +45,14 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<!--<button onclick="validarLogin()"
-							class="btn waves-effect waves-light col s12" type="button">Ingresar</button>-->
+						<button onclick="validarLogin()"
+							class="btn waves-effect waves-light col s12" type="button">Ingresar</button>
 
 
-						<button type="submit"
+						<!-- <button type="submit"
 							class="btn waves-effect waves-light col s12">Ingresar</button>
 						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+							value="${_csrf.token}" />-->
 					</div>
 				</div>
 
