@@ -5,16 +5,10 @@
  */
 package pe.edu.upeu.gth.dao;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import pe.edu.upeu.gth.config.AppConfig;
 
 /**
  *

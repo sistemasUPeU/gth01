@@ -47,7 +47,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public static DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@" + globalProperties.HOSTNAME + ":" + globalProperties.PORT + ":" + globalProperties.SID + "");
+        dataSource.setUrl("jdbc:oracle:thin:@" + globalProperties.HOSTNAME + ":" + globalProperties.PORT + ":" + globalProperties.SID);
         dataSource.setUsername(globalProperties.USER);
         dataSource.setPassword(globalProperties.USER_PWD);
         return dataSource;

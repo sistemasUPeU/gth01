@@ -5,14 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="icon" href="<c:url value='resources/img/favicon/alpha.ico'/>"
-	type="image/x-icon">
 
 <title>GTH</title>
 
 <%@include file="../../jspf/general.jspf"%>
 </head>
-<body class="grey">
+<body class="grey" onload="nobackbutton()">
 
 	<div id="loader-wrapper">
 		<div id="loader"></div>

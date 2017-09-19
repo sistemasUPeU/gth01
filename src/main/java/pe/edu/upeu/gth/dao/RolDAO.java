@@ -83,7 +83,7 @@ public class RolDAO implements CRUDOperations {
     }
 
     public ArrayList<Map<String, Object>> List_Modulos(Object idrol) {
-        sql = "select DISTINCT(ID_MODULO) AS ID_MODULO,NO_MODULO ,DE_MODULO, IC_MODULO,ID_ROL from  RHVD_PRIVILEGIO WHERE trim(id_rol)=?";
+        sql = "select DISTINCT(ID_MODULO) AS ID_MODULO,NO_MODULO ,DE_MODULO, IC_MODULO,CO_MODULO,ID_ROL from  RHVD_PRIVILEGIO WHERE trim(id_rol)=?";
         return (ArrayList<Map<String, Object>>) jt.queryForList(sql, idrol.toString().trim());
     }
 
