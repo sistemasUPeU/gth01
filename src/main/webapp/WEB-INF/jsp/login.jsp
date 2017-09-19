@@ -40,8 +40,7 @@
 				<div class="row margin">
 					<div class="input-field col s12">
 						<i class="mdi-action-lock-outline prefix"></i> <input
-							id="txtClave" type="password" name="clave"> <label
-							for="txtClave">Contraseña</label>
+							id="txtClave" type="password" name="clave"> <label for="txtClave">Contraseña</label>
 					</div>
 				</div>
 				<div class="row">

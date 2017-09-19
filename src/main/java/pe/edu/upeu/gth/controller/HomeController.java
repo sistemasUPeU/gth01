@@ -17,37 +17,40 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-	@GetMapping(value = { "login", "/" })
-	public String hello(Model model) {
+	@GetMapping("/login")
+	public String hello(HttpServletRequest request, HttpServletResponse response) {
+		/*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.isAuthenticated()) {
+			System.out.println("Está autenticado");
+			return "menu";
+		} else {
+			System.out.println("No está autenticado");
+			return "login";
+		}*/
 		return "login";
 	}
-	@RequestMapping(value = "/menu")
+
+	@GetMapping(value = { "menu", "/" })
 	public String menu(HttpServletRequest request, HttpServletResponse response) {
 		String opc = request.getParameter("opc");
 		HttpSession session = request.getSession(true);
 		String pagina = "menu";
-		try {
-			if (opc == null) {
-				pagina = "menu";
-			}
-			if (opc.equals("logout")) {
-				session.invalidate();
-				pagina = "login";
-			}
-
-		} catch (Exception e) {
-			System.out.println("Error : " + e);
-		}
+		/*
+		 * try { if (opc == null) { pagina = "menu"; } if (opc.equals("logout")) {
+		 * session.invalidate(); pagina = "login"; }
+		 * 
+		 * } catch (Exception e) { System.out.println("Error : " + e); }
+		 */
 		return pagina;
 	}
 
 	@GetMapping("/logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-            System.out.println("Logged Out Successfully!");
-        }
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+			System.out.println("Logged Out Successfully!");
+		}
 		try {
 			response.sendRedirect("login");
 		} catch (IOException e) {
