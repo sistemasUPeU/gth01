@@ -14,7 +14,6 @@
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
-	background: #4527a0 ;
 	display: inline-block;
 }
 .circulo2 {
@@ -25,7 +24,7 @@
 	border-radius: 50%;
 	margin: 25%;
 }
-.abc {
+.size-icon {
 	margin-top: 25px;
 	margin-right: 5px;
 	margin-left: 5px;
@@ -44,10 +43,10 @@
 <div>
 	<div class='circulo'>
 	<div class='circulo2'>
-	<i class="mdi-action-favorite-outline large icon-demo abc"></i>
+	<i class="mdi-action-favorite-outline large icon-demo size-icon"></i>
 	</div>
 	</div>
-	<div class='circulo' style="background: #5e35b1  ;">
+	<!--<div class='circulo' style="background: #5e35b1  ;">
 	<div class='circulo2'>
 	<i class="mdi-action-info large icon-demo abc"></i>
 	</div>
@@ -56,7 +55,7 @@
 	<div class='circulo2'>
 	<i class="mdi-action-spellcheck large icon-demo abc"></i>
 	</div>
-	</div>
+	</div>-->
 </div>
 
 </body>

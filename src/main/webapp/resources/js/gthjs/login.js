@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	console.log("asdsad");
 });
 
 function validarLogin() {
@@ -9,7 +8,7 @@ function validarLogin() {
     $.ajax({
         type: 'POST',
         url: 'valida',
-        data: "username="+usuario+"&clave="+clave,
+        data: "username="+usuario+"&clave="+clave+"&${_csrf.parameterName}=${_csrf.token}",
         success: function (objJson) {
             console.log(objJson);
             if (objJson.status) {
