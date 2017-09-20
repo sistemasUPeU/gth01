@@ -21,7 +21,7 @@
             <!-- START LEFT SIDEBAR NAV-->
             <aside id="left-sidebar-nav">
                 <ul id="slide-out" class="side-nav fixed leftside-navigation">
-                <li class="user-details purple darken-4">
+                <li class="user-details blue-grey darken-4">
                 <div class="row">
                     <div class="col col s4 m4 l4">
                         <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
@@ -40,7 +40,7 @@
                             <li><a href="#"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                             </li>
                         </ul>
-                        <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">John Doe<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                        <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">Iván Huamán<i class="mdi-navigation-arrow-drop-down right"></i></a>
                         <p class="user-roal">Administrator</p>
                     </div>
                 </div>
