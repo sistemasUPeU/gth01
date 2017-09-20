@@ -7,47 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>GTH</title>
 <%@include file="../../jspf/general.jspf"%>
-<style>
-.circulo {
-	width: 200px;
-	height: 200px;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	display: inline-block;
-	cursor: pointer;
-}
+<link rel="stylesheet" href="<c:url value='resources/css/custom/menu.css'/>" />
+<link href="<c:url value='resources/css/layouts/page-center.css" type="text/css'/>" 	rel="stylesheet" media="screen,projection">
 
-.circulo:hover {
-	-webkit-transform: scale(1.3);
-	-ms-transform: scale(1.3);
-	transform: scale(1.3);
-}
-
-.circulo2 {
-	width: 100px;
-	height: 100px;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	margin: 25%;
-}
-
-.size-icon {
-	margin-top: 25px;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-bottom: 25px;
-	color: white;
-}
-</style>
 </head>
-<body>
-	<div id="loader-wrapper">
-		<div id="loader"></div>
-		<div class="loader-section section-left"></div>
-		<div class="loader-section section-right"></div>
-	</div>
+<body>	
 
 	<div id="contMod">
 		<div class='circulo' style="background: red">
@@ -84,34 +48,27 @@
 		function createModulo(idmodulo, nombre, icon, color) {
 			var m = idmodulo.split("-");
 			var n = parseInt(m[1]);
-			var s = '<div class="circulo" style="background: '+color+'">';
+			var s = '<div class="circulo" style="background: '+color+'" id="'+idmodulo+'" onclick="show(this.id)">';
 			s += "<div class='circulo2'>";
 			s += '<i class="'+icon+' large icon-demo size-icon"></i>';
 			s += '</div>';
 			s += '</div>';
-			console.log(s);
 			return s;
 		}
-
-		function enterMod(a) {
-			var m = a.toString();
-			var id;
-			if (m === "10" || m === "11") {
-				id = "MOD-00" + m;
-			} else {
-				id = "MOD-000" + m;
-			}
+		
+		function show(id){
 			try {
-				$.get("components?opc=redMod", "idmod=" + id,
+				$.getJSON("components?opc=redMod", "idmod=" + id,
 						function(objJson) {
 							if (objJson.rpta) {
-								location.href = 'index';
+								location.href = 'home';
 							}
 						});
 			} catch (e) {
 				console.error(e);
 			}
 		}
+		
 	</script>
 
 </body>

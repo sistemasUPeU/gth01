@@ -58,4 +58,12 @@ public class HomeController {
 			e.printStackTrace();
 		}
 	}
+	
+	@GetMapping(value = { "home", "/" })
+	public String home(HttpServletRequest request, HttpServletResponse response) {
+		String opc = request.getParameter("opc");
+		HttpSession session = request.getSession(true);
+		String pagina = "home";
+		return pagina;
+	}
 }
