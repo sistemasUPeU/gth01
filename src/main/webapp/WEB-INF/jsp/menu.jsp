@@ -13,11 +13,6 @@
 </head>
 <body>	
 	<div id="contMod">
-		<div class='circulo' style="background: red">
-			<div class='circulo2'>
-				<i class="mdi-social-person-add large icon-demo size-icon"></i>
-			</div>
-		</div>
 	</div>
 
 	<script type="text/javascript">

@@ -30,7 +30,7 @@ public class HomeController {
 		return "login";
 	}
 
-	@GetMapping(value = { "menu", "/" })
+	@GetMapping(value = { "menu", "/"  })
 	public String menu(HttpServletRequest request, HttpServletResponse response) {
 		String opc = request.getParameter("opc");
 		HttpSession session = request.getSession(true);
@@ -59,7 +59,7 @@ public class HomeController {
 		}
 	}
 	
-	@GetMapping(value = { "home", "/" })
+	@GetMapping(value = { "home"})
 	public String home(HttpServletRequest request, HttpServletResponse response) {
 		String opc = request.getParameter("opc");
 		HttpSession session = request.getSession(true);
