@@ -10,7 +10,7 @@
 	});
 
 	function create_DataAside() {
-		var s = '<li class="user-details blue-grey darken-4">';
+		var s = '<li class="user-details grey darken-1">';
 		s += '<div class="row">';
 		s += '<div class="col col s4 m4 l4">';
 		s+='<img src="resources/img/user.png" alt="" class="circle responsive-img valign profile-image">';

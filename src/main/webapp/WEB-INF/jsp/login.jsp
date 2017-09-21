@@ -5,13 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
 <title>GTH</title>
 <link href="<c:url value='resources/css/layouts/page-center.css" type="text/css'/>" 	rel="stylesheet" media="screen,projection">
 <%@include file="../../jspf/general.jspf"%>
 </head>
-<body class="grey" onload="nobackbutton()">
-
+<body class="grey" >
 	<div id="loader-wrapper">
 		<div id="loader"></div>
 		<div class="loader-section section-left"></div>
@@ -44,7 +42,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<button onclick="validarLogin()"
-							class="btn waves-effect waves-light col s12" type="button">Ingresar</button>
+							class="btn waves-effect waves-light col s12 green accent-3" type="button">Ingresar</button>
 
 
 						<!-- <button type="submit"
@@ -58,15 +56,5 @@
 		</div>
 	</div>
 	<script src="<c:url value='resources/js/gthjs/login.js'/>"></script>
-	<script>
-		function nobackbutton() {
-			window.location.hash = "no-back-button";
-			window.location.hash = "Again-No-back-button";
-			window.onhashchange = function() {
-				window.location.hash = "";
-			};
-		}
-	</script>
-
 </body>
 </html>
