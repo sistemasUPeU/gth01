@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.PrivilegioDAO;
 import pe.edu.upeu.gth.dao.RolDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 
 /**
  *
@@ -33,7 +36,7 @@ public class MainController {
     Map<String, Object> mp = new HashMap<>();
 
     @RequestMapping(value = "/components")
-    public void Logueo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void Logueo(HttpServletRequest request, HttpServletResponse response,Authentication authentication) throws IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession(true);
@@ -42,12 +45,12 @@ public class MainController {
         try {
             switch (opc) {
                 case "privilegios":
-                    String Rol = session.getAttribute("IDROL").toString();
+                    String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
                     String Modulo = session.getAttribute("ModE").toString();
                     mp.put("pr", pD.listarURLs(Rol, Modulo));
                     break;
                 case "modulos":
-                    mp.put("lista", session.getAttribute("LIST_MODULO"));
+                    mp.put("lista", ((CustomUser) authentication.getPrincipal()).getLIST_MODULO());
                     break;
                 case "redMod":
                     idm = request.getParameter("idmod");

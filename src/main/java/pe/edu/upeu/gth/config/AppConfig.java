@@ -15,9 +15,11 @@ import pe.edu.upeu.gth.properties.globalProperties;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan(basePackages = "pe.edu.upeu.gth")
 public class AppConfig extends WebMvcConfigurerAdapter {
 	

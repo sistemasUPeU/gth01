@@ -7,11 +7,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import pe.edu.upeu.gth.config.AppConfig;
-import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
-public class UsuarioDAO implements CRUDOperations {
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import pe.edu.upeu.gth.config.AppConfig;
+
+@Repository
+public class UsuarioDAO {
 
 	String sql;
     PreparedStatement ps;
