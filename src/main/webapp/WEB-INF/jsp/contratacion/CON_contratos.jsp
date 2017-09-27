@@ -6,7 +6,7 @@
 
 <head>
 <title>GTH</title>
-<%@include file="../../jspf/general.jspf"%>
+<%@include file="../../../jspf/general.jspf"%>
 <link
 	href="<c:url value='resources/js/plugins/jvectormap/jquery-jvectormap.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
@@ -17,12 +17,12 @@
 </head>
 
 <body>
-	<%@include file="../../jspf/header.jspf"%>
+	<%@include file="../../../jspf/header.jspf"%>
 
 	<div id="main">
 		<div class="wrapper">
 
-			<%@include file="../../jspf/aside_left.jspf"%>
+			<%@include file="../../../jspf/aside_left.jspf"%>
 
 			<section id="content"></section>
 
@@ -33,6 +33,7 @@
 
 
 	</div>
-	<%@include file="../../jspf/footer.jspf"%>
+
+	<%@include file="../../../jspf/footer.jspf"%>
 <body>
 </html>

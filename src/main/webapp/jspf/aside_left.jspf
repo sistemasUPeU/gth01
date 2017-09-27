@@ -10,28 +10,18 @@
 	});
 
 	function create_DataAside() {
-		var s = '<li class="user-details grey darken-1">';
+		var s = '<li class="user-details grey darken-2">';
 		s += '<div class="row">';
+		
 		s += '<div class="col col s4 m4 l4">';
 		s+='<img src="resources/img/user.png" alt="" class="circle responsive-img valign profile-image">';
 		s += '</div>';
-		s += '<div class="col col s8 m8 l8">';
-		s += '<ul id="profile-dropdown" class="dropdown-content">';
-		s += '<li><a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>';
-		s += '</li>';
-		s += '<li><a href="#"><i class="mdi-action-settings"></i> Settings</a>';
-		s += '</li>';
-		s += '<li><a href="#"><i class="mdi-communication-live-help"></i> Help</a>';
-		s += '</li>';
-		s += '<li class="divider"></li>';
-		s += '<li><a href="#"><i class="mdi-action-lock-outline"></i> Lock</a>';
-		s += '</li>';
-		s += '<li><a href="#"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>';
-		s += '</li>';
-		s += '</ul>';
-		s += '<a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">Iván Huamán<i class="mdi-navigation-arrow-drop-down right"></i></a>';
+		
+		s += '<div class="col col s8 m8 l8">';		
+		s += '<a class="white-text" data-activates="profile-dropdown">Iván Huamán</a>';
 		s += '<p class="user-roal">Administrator</p>';
 		s += '</div>';
+		
 		s += '</div>';
 		s += '</li>';
 		return s;
