@@ -36,19 +36,19 @@
 				<div class="row margin">
 					<div class="input-field col s12">
 						<i class="mdi-action-lock-outline prefix"></i> <input
-							id="txtClave" type="password" name="clave"> <label for="txtClave">Contraseña</label>
+							id="txtClave" type="password" name="password"> <label for="txtClave">Contraseña</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<button onclick="validarLogin()"
-							class="btn waves-effect waves-light col s12 green accent-3" type="button">Ingresar</button>
+						<!-- <button onclick="validarLogin()"
+							class="btn waves-effect waves-light col s12 green accent-3" type="button">Ingresar</button> -->
 
 
-						<!-- <button type="submit"
+						<button type="submit"
 							class="btn waves-effect waves-light col s12">Ingresar</button>
 						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />-->
+							value="${_csrf.token}" />
 					</div>
 				</div>
 
