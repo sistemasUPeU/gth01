@@ -4,7 +4,9 @@
         <div class="navbar-fixed">
             <nav class="navbar-color">
                 <div class="nav-wrapper grey darken-3">
-                    <ul class="left">                      
+                    <ul class="left">
+                    <li><a href="#" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="GTH"><i class="mdi-toggle-check-box"></i></a>
+                        </li>                      
                       <li>
                       <h1 class="logo-wrapper">
                       <a href="index.html" class="brand-logo darken-2">
