@@ -51,7 +51,7 @@
 							value="${_csrf.token}" />
 					</div>
 				</div>
-
+<!-- borrar esto -->
 			</form>
 		</div>
 	</div>
