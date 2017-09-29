@@ -1,4 +1,4 @@
-package pe.edu.upeu.gth.controller;
+package pe.edu.upeu.gth.controller.principal;
 
 import java.io.IOException;
 
@@ -32,7 +32,6 @@ public class HomeController {
 	@GetMapping(value = { "menu", "/"  })
 	public String menu(HttpServletRequest request, HttpServletResponse response) {
 		String opc = request.getParameter("opc");
-		HttpSession session = request.getSession(true);
 		String pagina = "menu";
 		/*
 		 * try { if (opc == null) { pagina = "menu"; } if (opc.equals("logout")) {

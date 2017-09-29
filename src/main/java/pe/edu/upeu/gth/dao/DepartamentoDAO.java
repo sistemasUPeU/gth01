@@ -14,12 +14,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  * @author Cesar
  */
-public class DepartamentoDao {
+public class DepartamentoDAO {
 
     JdbcTemplate jt = new JdbcTemplate();
     String sql = "";
 
-    public DepartamentoDao(DataSource datasource) {
+    public DepartamentoDAO(DataSource datasource) {
         jt = new JdbcTemplate(datasource);
     }
 
