@@ -125,7 +125,7 @@ public class Datos_Hijo_TrabajadorDAO {
     }
 
     /*CHECK USE OF THIS METHOD (CHANGE KEY VALUES OF MAP OBJECTS IN CONTROLLERS IF NECESSARY)*/
-    public List<Map<String, Object>> Listar_CumpleaÃ±os(String mes,
+    public List<Map<String, Object>> Listar_Cumpleaños(String mes,
             String dia, String aps, String dep, String are,
             String sec, String pue, String fec, String edad,
             String ape, String mat, String nom, String tip, String num) {

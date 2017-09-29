@@ -39,6 +39,24 @@
 							id="txtClave" type="password" name="password"> <label for="txtClave">Contraseña</label>
 					</div>
 				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<c:if test="${not empty error}">
+							<div id="card-alert" class="card red lighten-5">
+								<div class="card-content red-text">
+									<p>${error}</p>
+								</div>
+								<button type="button" class="close red-text"
+									data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+						</c:if>
+						<c:if test="${not empty msg}">
+							<div class="msg">${msg}</div>
+						</c:if>
+					</div>
+				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<!-- <button onclick="validarLogin()"
