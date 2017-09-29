@@ -21,7 +21,7 @@ import pe.edu.upeu.gth.dao.PasoDAO;
 
 @Controller
 @RequestMapping("/paso/")
-public class CPaso {
+public class PasoController {
 	DataSource ds=AppConfig.getDataSource();
 	PasoDAO p =new PasoDAO(ds);
     Map<String, Object> rpta = new HashMap<String, Object>();
