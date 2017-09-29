@@ -53,7 +53,15 @@
 							</div>
 						</c:if>
 						<c:if test="${not empty msg}">
-							<div class="msg">${msg}</div>
+							<div id="card-alert" class="card blue lighten-5">
+								<div class="card-content blue-text">
+									<p>${msg}</p>
+								</div>
+								<button type="button" class="close blue-text"
+									data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
 						</c:if>
 					</div>
 				</div>
