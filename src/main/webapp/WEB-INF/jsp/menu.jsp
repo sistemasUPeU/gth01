@@ -8,12 +8,12 @@
 <title>GTH</title>
 <%@include file="../../jspf/general.jspf"%>
 <link rel="stylesheet" href="<c:url value='resources/css/custom/menu.css'/>" />
-<link href="<c:url value='resources/css/layouts/page-center.css" type="text/css'/>" 	rel="stylesheet" media="screen,projection">
 
 </head>
-<body>	
-	<div id="contMod">
-	</div>
+<body>
+<%@include file="../../jspf/header.jspf"%>	
+	<center><div id="contMod" style="margin-top: 10%">
+	</div></center>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
