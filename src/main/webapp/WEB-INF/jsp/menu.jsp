@@ -27,6 +27,7 @@
 				var s = "";
 				if (list.length > 0) {
 					for (var i = 0; i < list.length; i++) {
+						console.log(i);
 						var idmod = list[i].ID_MODULO;
 						var nom = list[i].NO_MODULO;
 						var ico = list[i].IC_MODULO;
@@ -42,7 +43,7 @@
 		function createModulo(idmodulo, nombre, icon, color) {
 			var m = idmodulo.split("-");
 			var n = parseInt(m[1]);
-			var s = '<div class="circulo waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="'+nombre+'" style="background: '+color+'" id="'+idmodulo+'" onclick="show(this.id)">';
+			var s = '<div class="circulo waves-effect waves-light" style="background: '+color+'" id="'+idmodulo+'" onclick="show(this.id)">';
 			s += "<div class='circulo2'>";
 			s += '<i class="'+icon+' large icon-demo size-icon"></i>';
 			s += '</div>';

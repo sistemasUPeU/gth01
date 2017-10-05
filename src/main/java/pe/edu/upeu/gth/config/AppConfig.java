@@ -19,8 +19,7 @@ import pe.edu.upeu.gth.dao.Carrera_UniversidadDAO;
 import pe.edu.upeu.gth.dao.CentroCostoDAO;
 import pe.edu.upeu.gth.dao.Comentario_DGPDAO;
 import pe.edu.upeu.gth.dao.ContratoDAO;
-import pe.edu.upeu.gth.dao.Datos_Hijo_TrabajadorDAO;
-import pe.edu.upeu.gth.dao.DepartamentoDAO;
+//import pe.edu.upeu.gth.dao.DepartamentoDAO;
 import pe.edu.upeu.gth.dao.DetalleReqProcesoDAO;
 import pe.edu.upeu.gth.dao.Detalle_Centro_Costo_DAO;
 import pe.edu.upeu.gth.dao.Detalle_PrivilegioDAO;
@@ -35,7 +34,6 @@ import pe.edu.upeu.gth.dao.GrupoOcupacionesDAO;
 import pe.edu.upeu.gth.dao.Hist_Estado_CivilDAO;
 import pe.edu.upeu.gth.dao.HorarioDAO;
 import pe.edu.upeu.gth.dao.ImagenDAO;
-import pe.edu.upeu.gth.dao.ListaDAO;
 import pe.edu.upeu.gth.dao.ModuloDAO;
 import pe.edu.upeu.gth.dao.NacionalidadDAO;
 import pe.edu.upeu.gth.dao.NotificationDAO;
@@ -51,7 +49,6 @@ import pe.edu.upeu.gth.dao.PrivilegioDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dao.SeccionDAO;
 import pe.edu.upeu.gth.dao.UsuarioDAO;
-import pe.edu.upeu.gth.dao.vacacionesDAO;
 import pe.edu.upeu.gth.properties.globalProperties;
 
 import java.io.IOException;
@@ -99,14 +96,14 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
     
 //    CONFIGURACION DE MULTIPARTRESOLVER PARA TRABAJAR CONN ARCHUIVOS--
-    @Bean(name = "multipartResolver")
+    /*@Bean(name = "multipartResolver")
     public CommonsMultipartResolver getResolver() throws IOException {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         // no limit
         resolver.setMaxUploadSize(500000);
         
         return resolver;
-    }
+    }*/
 	
 	
 	

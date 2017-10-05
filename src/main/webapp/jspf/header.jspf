@@ -5,7 +5,7 @@
             <nav class="navbar-color">
                 <div class="nav-wrapper grey darken-3">
                     <ul class="left">
-                    <li><a href="#" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="GTH"><i class="mdi-toggle-check-box"></i></a>
+                    <li><a href="#" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="ACA VA EL LOGO"><i class="mdi-toggle-check-box"></i></a>
                         </li>                      
                       <li>
                       <h1 class="logo-wrapper">
@@ -30,7 +30,7 @@
                         
                         </a>
                         </li>
-                        <li><a href="#" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cerrar Sesión"><i class="mdi-action-exit-to-app"></i></a>
+                        <li><a href="logout" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cerrar Sesión"><i class="mdi-action-exit-to-app"></i></a>
                         </li>
                     </ul>
                     <!-- translation-button -->
@@ -43,22 +43,6 @@
                       <li>
                         <a href="#!"><i class="mdi-action-add-shopping-cart"></i> A new order has been placed!</a>
                         <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
-                      </li>
-                      <li>
-                        <a href="#!"><i class="mdi-action-stars"></i> Completed the task</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
-                      </li>
-                      <li>
-                        <a href="#!"><i class="mdi-action-settings"></i> Settings updated</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
-                      </li>
-                      <li>
-                        <a href="#!"><i class="mdi-editor-insert-invitation"></i> Director meeting started</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
-                      </li>
-                      <li>
-                        <a href="#!"><i class="mdi-action-trending-up"></i> Generate monthly report</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
                       </li>
                     </ul>
                 </div>

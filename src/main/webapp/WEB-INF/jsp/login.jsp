@@ -41,20 +41,14 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<!-- <button onclick="validarLogin()"
-							class="btn waves-effect waves-light col s12 green accent-3" type="button">Ingresar</button> -->
-
-
 						<button type="submit"
 							class="btn waves-effect waves-light col s12 green accent-3">Ingresar</button>
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 					</div>
 				</div>
-<!-- borrar esto -->
 			</form>
 		</div>
 	</div>
-	<script src="<c:url value='resources/js/gthjs/login.js'/>"></script>
 </body>
 </html>

@@ -18,14 +18,6 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 	@GetMapping("/login")
 	public String hello(HttpServletRequest request, HttpServletResponse response) {
-		/*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth.isAuthenticated()) {
-			System.out.println("Está autenticado");
-			return "menu";
-		} else {
-			System.out.println("No está autenticado");
-			return "login";
-		}*/
 		return "login";
 	}
 
@@ -33,12 +25,6 @@ public class HomeController {
 	public String menu(HttpServletRequest request, HttpServletResponse response) {
 		String opc = request.getParameter("opc");
 		String pagina = "menu";
-		/*
-		 * try { if (opc == null) { pagina = "menu"; } if (opc.equals("logout")) {
-		 * session.invalidate(); pagina = "login"; }
-		 * 
-		 * } catch (Exception e) { System.out.println("Error : " + e); }
-		 */
 		return pagina;
 	}
 
@@ -52,7 +38,6 @@ public class HomeController {
 		try {
 			response.sendRedirect("login");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
