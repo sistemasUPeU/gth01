@@ -28,15 +28,15 @@ public class DetalleReqProcesoDAO {
     /*CHECK USE OF THIS METHOD (DTO OBJECTS WERE REPLACED, 
     WE USE MAP OBJECTS INSTEAD). ONCE EDITED, 
     PLEASE DELETE THESE COMMENTS IF THEY  ARE ALREADY NOT NECESSARY*/
-    public String insertDetalleReqProceso(String IdProceso,String EsReqProceso,String IdDireccion,String IdDepartamento,String IdArea,String IdRequerimiento) {
+    public String insertDetalleReqProceso(Map<String, Object> drp) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jt).withProcedureName("RHSP_INSERT_DETALLE_REQ_PROC");
         Map<String, Object> inParamMap = new HashMap<String, Object>();
-        inParamMap.put("ID_PROCESO_SP", IdProceso);
-        inParamMap.put("ES_REQ_PROCESO_SP", EsReqProceso);
-        inParamMap.put("ID_DIRECCION_SP", IdDireccion);
-        inParamMap.put("ID_DEPARTAMENTO_SP", IdDepartamento);
-        inParamMap.put("ID_AREA_SP", IdArea);
-        inParamMap.put("ID_REQUERIMIENTO_SP", IdRequerimiento);
+        inParamMap.put("ID_PROCESO_SP", drp.get("IdProceso"));
+        inParamMap.put("ES_REQ_PROCESO_SP", drp.get("EsReqProceso"));
+        inParamMap.put("ID_DIRECCION_SP", drp.get("IdDireccion"));
+        inParamMap.put("ID_DEPARTAMENTO_SP", drp.get("IdDepartamento"));
+        inParamMap.put("ID_AREA_SP", drp.get("IdArea"));
+        inParamMap.put("ID_REQUERIMIENTO_SP", drp.get("IdRequerimiento"));
         SqlParameterSource in = new MapSqlParameterSource(inParamMap);
         Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
         return (String) simpleJdbcCallResult.get("ID_TABLE");

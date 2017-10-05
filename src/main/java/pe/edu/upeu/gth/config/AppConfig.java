@@ -49,6 +49,7 @@ import pe.edu.upeu.gth.dao.PrivilegioDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dao.SeccionDAO;
 import pe.edu.upeu.gth.dao.UsuarioDAO;
+
 import pe.edu.upeu.gth.properties.globalProperties;
 
 import java.io.IOException;
