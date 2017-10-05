@@ -29,6 +29,11 @@ public class ProcesoController {
     Gson gson = new Gson();
 	PrintWriter out;
 	
+	@GetMapping("Menu_Mantenimiento")
+	public String Menu_Mantenimiento() {
+		return "Proceso/Menu_Mantenimiento";
+	}
+	
 	@GetMapping("Mantenimiento")
 	public void Mantenimiento(HttpServletRequest request, HttpServletResponse response) {
 		try {
