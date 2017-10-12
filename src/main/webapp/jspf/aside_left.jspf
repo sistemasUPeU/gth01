@@ -1,8 +1,9 @@
 <aside id="left-sidebar-nav">
 	<ul id="slide-out" class="side-nav fixed leftside-navigation dataAside">
 	</ul>
+	<a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only green accent-3"><i class="mdi-navigation-menu"></i></a>
 </aside>
-
+<!-- hide-on-large-only -->
 
 <script>
 	$(document).ready(function() {
@@ -12,16 +13,16 @@
 	function create_DataAside() {
 		var s = '<li class="user-details grey darken-2">';
 		s += '<div class="row">';
-		
+
 		s += '<div class="col col s4 m4 l4">';
-		s+='<img src="resources/img/user.png" alt="" class="circle responsive-img valign profile-image">';
+		s += '<img src="<c:url value="/resources/img/user.png"/>" alt="" class="circle responsive-img valign profile-image waves-effect waves-light">';
 		s += '</div>';
-		
-		s += '<div class="col col s8 m8 l8">';		
+
+		s += '<div class="col col s8 m8 l8">';
 		s += '<a class="white-text" data-activates="profile-dropdown">Iván Huamán</a>';
 		s += '<p class="user-roal">Administrator</p>';
 		s += '</div>';
-		
+
 		s += '</div>';
 		s += '</li>';
 		return s;
@@ -29,22 +30,24 @@
 
 	function listPrivilegios() {
 		try {
-			$.getJSON(
-				'components?opc=privilegios',
-				function(objJson) {
-				var lista = objJson.pr;
-				var s = '';
-				if (lista.length > 0) {
-				for (var i = 0; i < lista.length; i++) {
-				s += '<li class="bold">';
-				s += '<a href="' + lista[i].DI_URL + '" class="waves-effect waves-cyan" ><i class="mdi-action-dashboard"></i>  '
-				+ lista[i].NO_LINK + '</a>';
-				s += '</li>';
-				}
-				$(".dataAside").empty();
-				$(".dataAside").append(create_DataAside() + s);
-				}
-			});
+			$
+					.getJSON(
+							gth_context_path + '/components?opc=privilegios',
+							function(objJson) {
+								var lista = objJson.pr;
+								var s = '';
+								if (lista.length > 0) {
+									for (var i = 0; i < lista.length; i++) {
+										s += '<li class="bold">';
+										s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="mdi-action-dashboard"></i>  '
+												+ lista[i].NO_LINK + '</a>';
+										s += '</li>';
+									}
+									$(".dataAside").empty();
+									$(".dataAside").append(
+											create_DataAside() + s);
+								}
+							});
 		} catch (e) {
 			console.error(e);
 		}

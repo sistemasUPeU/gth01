@@ -5,17 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>GTH</title>
-<link href="<c:url value='resources/css/layouts/page-center.css" type="text/css'/>" 	rel="stylesheet" media="screen,projection">
+<link href="<c:url value='/resources/css/layouts/page-center.css" type="text/css'/>" 	rel="stylesheet" media="screen,projection">
 <%@include file="../../jspf/general.jspf"%>
 </head>
 <body class="grey" >
-	<div id="loader-wrapper">
-		<div id="loader"></div>
-		<div class="loader-section section-left"></div>
-		<div class="loader-section section-right"></div>
-	</div>
-
+<div id="loader-wrapper">
+	<div id="loader"></div>
+	<div class="loader-section section-left"></div>
+	<div class="loader-section section-right"></div>
+</div>
 	<div id="login-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
 			<form class="login-form" action="login" method="POST">

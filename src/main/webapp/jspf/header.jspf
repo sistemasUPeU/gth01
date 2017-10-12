@@ -4,25 +4,12 @@
         <div class="navbar-fixed">
             <nav class="navbar-color">
                 <div class="nav-wrapper grey darken-3">
-                    <ul class="left">
-                    <li><a href="#" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="ACA VA EL LOGO"><i class="mdi-toggle-check-box"></i></a>
-                        </li>                      
-                      <li>
-                      <h1 class="logo-wrapper">
-                      <a href="index.html" class="brand-logo darken-2">
-                      <img src="resources/img/gth.png">
-                      </a>
-                      <span class="logo-text">
-                      Materialize</span>
-                      </h1>
-                      </li>
-                    </ul>
                     <!--<div class="header-search-wrapper hide-on-med-and-down">
                         <i class="mdi-action-search"></i>
                         <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Buscar"/>
                     </div>-->
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="menu" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Menú"><i class="mdi-action-view-module"></i></a>
+                        <li><a href="<%=request.getContextPath()%>/menu" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Menú"><i class="mdi-action-view-module"></i></a>
                         </li>
                         <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen tooltipped" data-position="bottom" data-delay="50" data-tooltip="Pantalla Completa"><i class="mdi-action-settings-overscan"></i></a>
                         </li>
@@ -30,7 +17,7 @@
                         
                         </a>
                         </li>
-                        <li><a href="logout" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cerrar Sesión"><i class="mdi-action-exit-to-app"></i></a>
+                        <li><a href="<%=request.getContextPath()%>/logout" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cerrar Sesión"><i class="mdi-action-exit-to-app"></i></a>
                         </li>
                     </ul>
                     <!-- translation-button -->
