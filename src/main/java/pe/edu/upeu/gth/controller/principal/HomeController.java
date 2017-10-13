@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import pe.edu.upeu.gth.dto.CustomUser;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -44,9 +46,19 @@ public class HomeController {
 	}
 
 	@GetMapping(value = { "menu", "/"  })
-	public String menu(HttpServletRequest request, HttpServletResponse response) {
-		String opc = request.getParameter("opc");
-		String pagina = "menu";
+	public String menu(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
+		String pagina="";
+		HttpSession session = request.getSession(true);
+		System.out.println(Rol);
+		if(Rol.equals("ROL-0013")) {
+			System.out.println("redireccionar a home");
+			session.setAttribute("ModE", "MOD-0001");
+			pagina = "home";
+		}
+		else {
+			pagina = "menu";
+		}
 		return pagina;
 	}
 
@@ -64,10 +76,8 @@ public class HomeController {
 		}
 	}
 	
-	@GetMapping(value = { "home"})
-	public String home(HttpServletRequest request, HttpServletResponse response) {
-		String opc = request.getParameter("opc");
-		HttpSession session = request.getSession(true);
+	@GetMapping("home")
+	public String home() {
 		String pagina = "home";
 		return pagina;
 	}
