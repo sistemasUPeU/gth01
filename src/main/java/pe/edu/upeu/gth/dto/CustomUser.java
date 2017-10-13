@@ -63,7 +63,7 @@ public class CustomUser implements UserDetails,Serializable {
 		this.ID_USUARIO = (String) userinfo.get("ID_USUARIO");
 		this.ID_TRABAJADOR = (String) userinfo.get("ID_TRABAJADOR");
 		this.ID_EMPLEADO = (String) userinfo.get("ID_EMPLEADO");
-		this.ID_ROL = (String) userinfo.get("ID_ROL");
+		this.ID_ROL = ((String) userinfo.get("ID_ROL")).trim();
 		this.ID_PUESTO = (String) userinfo.get("ID_PUESTO");
 		this.ID_AREA = (String) userinfo.get("ID_AREA");
 		this.NO_AREA = (String) userinfo.get("NO_AREA");		
@@ -75,8 +75,8 @@ public class CustomUser implements UserDetails,Serializable {
 		this.NO_DIRECCION = (String) userinfo.get("NO_DIRECCION");
 		this.ES_SEXO = (String) userinfo.get("ES_SEXO");
 		this.NOMBRE_AP = (userinfo.get("AP_PATERNO") == null) ? " "
-				: (String) userinfo.get("AP_PATERNO") + " " + (String) userinfo.get("AP_MATERNO") + " "
-						+ (String) userinfo.get("NO_TRABAJADOR");
+				: ((String) userinfo.get("AP_PATERNO")).trim() + " " + ((String) userinfo.get("AP_MATERNO")).trim() + " "
+						+ ((String) userinfo.get("NO_TRABAJADOR")).trim();
 		this.LIST_MODULO = listmod;
 		this.accountNonExpired = accountNonExpired;
 		this.AccountNonLocked = AccountNonLocked;
