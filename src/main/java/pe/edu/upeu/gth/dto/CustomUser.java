@@ -18,6 +18,8 @@ public class CustomUser implements UserDetails,Serializable {
 	private String ID_PUESTO;
 	private String ID_AREA;
 	private String NO_AREA;
+	private String ID_SECCION;
+	private String NO_SECCION;
 	private String NO_DEP;
 	private String ID_DEPARTAMENTO;
 	private String NO_PUESTO;
@@ -32,7 +34,7 @@ public class CustomUser implements UserDetails,Serializable {
 
 	public CustomUser(String nousuario, String pwusuario, String idusuario, String idtrabajador, String idempleado,
 			String idrol, String idpuesto, String idarea, String noarea, String nodep, String iddep, String nopuesto,
-			String nodireccion, String essexo, String nombreap, ArrayList<Map<String, Object>> listmod) {
+			String nodireccion, String essexo, String nombreap, ArrayList<Map<String, Object>> listmod,String noseccion,String idseccion) {
 		this.NO_USUARIO = nousuario;
 		this.PW_USUARIO = pwusuario;
 		this.ID_USUARIO = idusuario;
@@ -42,6 +44,8 @@ public class CustomUser implements UserDetails,Serializable {
 		this.ID_PUESTO = idpuesto;
 		this.ID_AREA = idarea;
 		this.NO_AREA = noarea;
+		this.ID_SECCION = idseccion;
+		this.NO_SECCION = noseccion;
 		this.NO_DEP = nodep;
 		this.ID_DEPARTAMENTO = iddep;
 		this.NO_PUESTO = nopuesto;
@@ -62,7 +66,9 @@ public class CustomUser implements UserDetails,Serializable {
 		this.ID_ROL = (String) userinfo.get("ID_ROL");
 		this.ID_PUESTO = (String) userinfo.get("ID_PUESTO");
 		this.ID_AREA = (String) userinfo.get("ID_AREA");
-		this.NO_AREA = (String) userinfo.get("NO_AREA");
+		this.NO_AREA = (String) userinfo.get("NO_AREA");		
+		this.ID_SECCION = (String) userinfo.get("ID_SECCION");
+		this.NO_SECCION = (String) userinfo.get("NO_SECCION");		
 		this.NO_DEP = (String) userinfo.get("NO_DEP");
 		this.ID_DEPARTAMENTO = (String) userinfo.get("ID_DEPARTAMENTO");
 		this.NO_PUESTO = (String) userinfo.get("NO_PUESTO");
@@ -153,6 +159,16 @@ public class CustomUser implements UserDetails,Serializable {
 		// TODO Auto-generated method stub
 		return this.NO_AREA;
 	}
+		
+	public String getID_SECCION() {
+		// TODO Auto-generated method stub
+		return this.ID_SECCION;
+	}
+
+	public String getNO_SECCION() {
+		// TODO Auto-generated method stub
+		return this.NO_SECCION;
+	}	
 
 	public String getNO_DEP() {
 		// TODO Auto-generated method stub

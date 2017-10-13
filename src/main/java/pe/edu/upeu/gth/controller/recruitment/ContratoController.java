@@ -21,4 +21,10 @@ public class ContratoController {
         return modelAndView;
     }
 	
+	@RequestMapping(value = "/autorizar", method = RequestMethod.GET)
+	public ModelAndView showJspMAINContrato(ModelMap model) {
+        modelAndView = new ModelAndView("contratacion/con_autorizar", model);
+        return modelAndView;
+    }
+	
 }
