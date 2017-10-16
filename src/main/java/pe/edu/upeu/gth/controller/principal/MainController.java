@@ -71,7 +71,9 @@ public class MainController {
 				sr.put("puesto", ((CustomUser) authentication.getPrincipal()).getNO_PUESTO());
 				mp.put("info_puesto", sr);
 				break;
-
+			case "usuario":
+				mp.put("datos_usuario", ((CustomUser) authentication.getPrincipal()).getNOMBRE_AP());
+				break;
 			}
 
 		} catch (Exception e) {

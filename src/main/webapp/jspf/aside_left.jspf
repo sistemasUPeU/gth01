@@ -13,7 +13,7 @@
 		list_info_puesto();
 	});
 
-	function create_DataAside() {
+	/*function create_DataAside() {
 		var s = '<li class="user-details grey darken-2">';
 		s += '<div class="row">';
 
@@ -28,7 +28,7 @@
 		s += '</div>';
 		s += '</li>';
 		return s;
-	}
+	}*/
 
 	function listPrivilegios() {
 		try {
@@ -40,6 +40,7 @@
 								var lista = objJson.pr;
 								var s = '';
 								if (lista.length > 0) {
+									s+='<li class="li-hover"><p class="ultra-small margin more-text">MENÚ</p></li>';
 									for (var i = 0; i < lista.length; i++) {
 										s += '<li class="bold">';
 										s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="mdi-action-dashboard"></i>  '
@@ -47,8 +48,7 @@
 										s += '</li>';
 									}
 									$(".dataAside").empty();
-									$(".dataAside").append(
-											create_DataAside() + s);
+									$(".dataAside").append(s);
 								}
 							});
 		} catch (e) {

@@ -6,23 +6,21 @@
 			<div class="nav-wrapper grey darken-3">
 				<ul class="left">
 					<li><h1 class="logo-wrapper">
-							<a href="index.html" class="brand-logo darken-1"><img
-								src="<c:url value="/resources/img/gth.png"/>" alt="gth logo"></a>
+							<a href="<%=request.getContextPath()%>/menu"
+								class="brand-logo darken-1"><img
+								src="<c:url value="/resources/img/gth.png"/>" alt="gth logo" style="width: 125px;"></a>
 						</h1></li>
 				</ul>
 				<ul class="right hide-on-med-and-down">
 
 					<li>
-
-						<div class="chip grey darken-1 white-text">
-							<img src="<c:url value="/resources/img/user.png"/>"
-								alt="Contact Person">43421244
+						<div class="chip grey darken-1 white-text cgProfile" onclick="loadProfile()" style="cursor: pointer;">
 						</div>
 					</li>
 					<li><a href="<%=request.getContextPath()%>/menu"
 						class="waves-effect waves-block waves-light tooltipped"
 						data-position="bottom" data-delay="50" data-tooltip="Menú"><i
-							class="mdi-action-view-module"></i></a></li>
+							class="mdi-navigation-apps"></i></a></li>
 					<li><a href="javascript:void(0);"
 						class="waves-effect waves-block waves-light toggle-fullscreen tooltipped"
 						data-position="bottom" data-delay="50"
@@ -56,5 +54,29 @@
 		</nav>
 	</div>
 </header>
+<script type="text/javascript">
+function loadProfile(){
+	location.href="<%=request.getContextPath()%>/trabajador/profile";
+}
+
+$(document).ready(function(){
+	try{
+		$.getJSON(gth_context_path + '/components',"opc=usuario",function(objJSON){
+			if(objJSON !== null){
+				var s='';
+				s +='<img src="<c:url value="/resources/img/user.png"/>" alt="Usuario">';
+				s +=objJSON.datos_usuario;
+				$(".cgProfile").empty();
+				$(".cgProfile").append(s);
+			}else{
+				console.error("No se esta cargando la información");
+			}
+		});
+	}catch(e){
+		console.error("error al listar info : "+e);
+	}	
+});
+
+</script>
 
 
