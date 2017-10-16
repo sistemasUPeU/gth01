@@ -26,4 +26,10 @@ public class ContratoController {
         return modelAndView;
     }
 	
+	@RequestMapping(value = "/casos_especiales", method = RequestMethod.GET)
+	public ModelAndView showJspReqEspeciales(ModelMap model) {
+        modelAndView = new ModelAndView("contratacion/con_casos_esp", model);
+        return modelAndView;
+    }
+	
 }
