@@ -30,15 +30,15 @@ import pe.edu.upeu.gth.dto.CustomUser;
 @RequestMapping("/autorizacion/")
 public class AutorizacionController {
 
-	Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+	
 	PrintWriter out;
 	Gson gson = new Gson();
-	String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
-	String ide = ((CustomUser) authentication.getPrincipal()).getID_EMPLEADO();
-	String idu = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-	String idp = ((CustomUser) authentication.getPrincipal()).getID_PUESTO();
-	String iddep=((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO();
-	String iddir=((CustomUser) authentication.getPrincipal()).getID_DIRECCION();
+	String Rol;
+	String ide;
+	String idu;
+	String idp;
+	String iddep;
+	String iddir;
 	AutorizacionDAO a = new AutorizacionDAO(AppConfig.getDataSource());
 	NotificationDAO notdao = new NotificationDAO(AppConfig.getDataSource());
 	CorreoDAO correo = new CorreoDAO();
@@ -54,11 +54,12 @@ public class AutorizacionController {
     
     
     @GetMapping("aceptar")
-    public void aceptar(HttpServletRequest request, HttpServletResponse response) {
+    public void aceptar(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
     	String iddgp = request.getParameter("IDDETALLE_DGP");
     	String estado = "1";
     	/*Cambiar con un trigger al momento de insertar*/
         System.out.println("Call List_id_Autorizacion");
+        cargardatos(authentication);
         List<Map<String,Object>> autDGP = a.List_id_Autorizacion(ide, idu, iddgp);
         /*Cambiar con un trigger al momento de insertar*/
         System.out.println("Call List_id_Autorizacion");
@@ -112,10 +113,11 @@ public class AutorizacionController {
         respuesta(response);
     }
     @GetMapping("HDGP")
-    public ModelAndView HDGP(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView HDGP(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
     	String iddgp = request.getParameter("iddgp");
     	out.print(iddgp);
         dgp.HABILITAR_DGP(iddgp);
+        cargardatos(authentication);
         setPermisos();
         if (permissionDepartFilter) {
             rpta.put("LIST_DGP_PROCESO", dgp.LIST_DGP_PROCESO(iddep, "", "", false));
@@ -134,9 +136,10 @@ public class AutorizacionController {
         return new ModelAndView("Dgp/Proceso_Dgp","rpta",gson.toJson(rpta));
     }
     @GetMapping("eliminarDGP")
-    public ModelAndView eliminarDGP(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView eliminarDGP(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
     	String iddgp = request.getParameter("iddgp");
     	dgp.eliminarDGP(iddgp);
+    	cargardatos(authentication);
         setPermisos();
         if (permissionDepartFilter) {
         	rpta.put("LIST_DGP_PROCESO", dgp.LIST_DGP_PROCESO(iddep, "", "", false));
@@ -154,7 +157,8 @@ public class AutorizacionController {
     }
     
     @GetMapping("Rechazar")
-    public ModelAndView Rechazar(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView Rechazar(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	String iddgp = request.getParameter("IDDETALLE_DGP");
         String comentario = request.getParameter("comentario");
         String estado = "2";
@@ -189,13 +193,15 @@ public class AutorizacionController {
     }
 	
     @GetMapping("Autorizacion_CD")
-    public ModelAndView Autorizacion_CD(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView Autorizacion_CD(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	rpta.put("List_Autorizacion_Academico", a.List_Autorizacion_Academico(idp, idu, ""));
     	return new ModelAndView("Vista/Academico/Autorizar_Carga_Academica.jsp","rpta",gson.toJson(rpta));
     }
     
     @GetMapping("headerTableAutorizacionCA")
-    public void headerTableAutorizacionCA(HttpServletRequest request, HttpServletResponse response) {
+    public void headerTableAutorizacionCA(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	String htmlHeader = "";
     	if (Rol.trim().equals("ROL-0007") | Rol.trim().equals("ROL-0001")) {
 
@@ -441,14 +447,16 @@ public class AutorizacionController {
     }
     
     @GetMapping("mens_cod_aps")
-    public ModelAndView mens_cod_aps(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView mens_cod_aps(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	codapsAndCodhuella();
         //It needs to be checked
         return new ModelAndView("Vista/Dgp/Autorizar_Requerimiento?m=si","rpta",gson.toJson(rpta));
     }
     
     @GetMapping("mens_cod_huella")
-    public ModelAndView mens_cod_huella(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView mens_cod_huella(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
         codapsAndCodhuella();
         //It needs to be checked
         return new ModelAndView("Vista/Dgp/Autorizar_Requerimiento?h=si","rpta",gson.toJson(rpta));
@@ -481,7 +489,8 @@ public class AutorizacionController {
     }
     
     @GetMapping("List_Dgp_Aut")
-    public void List_Dgp_Aut(HttpServletRequest request, HttpServletResponse response) {
+    public void List_Dgp_Aut(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	String draw = request.getParameter("draw");
     	int start = Integer.parseInt(request.getParameter("start"));
         int length = Integer.parseInt(request.getParameter("length"));
@@ -504,7 +513,8 @@ public class AutorizacionController {
     }
     
     @GetMapping("ValBtnAutorizacion")
-    public void ValBtnAutorizacion(HttpServletRequest request, HttpServletResponse response) {
+    public void ValBtnAutorizacion(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	String html = "";
         String idtr = request.getParameter("trabajador");
         if (Rol.trim().equals("ROL-0009")) {
@@ -537,9 +547,10 @@ public class AutorizacionController {
     }
     
     @GetMapping("ShowListProcesarReq")
-    public void ShowListProcesarReq(HttpServletRequest request, HttpServletResponse response) {
+    public void ShowListProcesarReq(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
     	boolean tipo_lista = Boolean.parseBoolean((request.getParameter("tipo_lista")));
         String html_table = "";
+        cargardatos(authentication);
         setPermisos();
         if (tipo_lista) {
             html_table += "<table id='table_procesar' class='table table-striped table-bordered table-hover' width='100%'>";
@@ -664,7 +675,8 @@ public class AutorizacionController {
     }
     
     @GetMapping("/")
-    public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView principal(HttpServletRequest request, HttpServletResponse response,Authentication authentication) {
+    	cargardatos(authentication);
     	rpta.put("List_id_Autorizacion", a.List_id_Autorizacion(idp, idu, ""));
     	return new ModelAndView("Vista/Dgp/Autorizar_Requerimiento","rpta",rpta);
     }
@@ -672,6 +684,15 @@ public class AutorizacionController {
     public void codapsAndCodhuella() {
     	rpta.put("List_id_Autorizacion", a.List_id_Autorizacion(idp, idu, ""));
         rpta.put("List_id_Autorizados", a.List_Autorizados(idp));
+    }
+    public void cargardatos(Authentication authentication) {
+    	authentication=SecurityContextHolder.getContext().getAuthentication();
+		String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
+		String ide = ((CustomUser) authentication.getPrincipal()).getID_EMPLEADO();
+		String idu = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+		String idp = ((CustomUser) authentication.getPrincipal()).getID_PUESTO();
+		String iddep=((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO();
+		String iddir=((CustomUser) authentication.getPrincipal()).getID_DIRECCION();
     }
     
 	public void setPermisos(){
