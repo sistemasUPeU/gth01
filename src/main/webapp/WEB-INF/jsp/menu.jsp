@@ -47,7 +47,8 @@ footer {
 						var nom = list[i].NO_MODULO;
 						var ico = list[i].IC_MODULO;
 						var color = list[i].CO_MODULO;
-						s += createModulo(idmod, nom, ico, color);
+						var link = list[i].DF_MODULO;
+						s += createModulo(idmod, nom, ico, color, link);
 					}
 					$("#contMod").empty();
 					$("#contMod").append(s);
@@ -55,13 +56,13 @@ footer {
 			});
 		}
 
-		function createModulo(idmodulo, nombre, icon, color) {
-			var m = idmodulo.split("-");
-			var n = parseInt(m[1]);
+		function createModulo(idmodulo, nombre, icon, color, link) {
 			var s = '<div class="circulo waves-effect waves-light" style="background: '
 					+ color
 					+ '" id="'
 					+ idmodulo
+					+ "*"
+					+ link
 					+ '" onclick="show(this.id)">';
 			s += "<div class='circulo2'>";
 			s += '<i class="'+icon+' large icon-demo size-icon"></i>';
@@ -71,11 +72,15 @@ footer {
 		}
 
 		function show(id) {
+
 			try {
-				$.getJSON("components?opc=redMod", "idmod=" + id, function(
+				var m = id.split("*");
+				var n = m[0];
+				var p = m[1];
+				$.getJSON("components?opc=redMod", "idmod=" + n, function(
 						objJson) {
 					if (objJson.rpta) {
-						location.href = 'home';
+						location.href = p;
 					}
 				});
 			} catch (e) {

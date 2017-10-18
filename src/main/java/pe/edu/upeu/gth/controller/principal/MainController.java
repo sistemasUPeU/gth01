@@ -31,47 +31,59 @@ import pe.edu.upeu.gth.dto.CustomUser;
 @Controller
 public class MainController {
 
-    DataSource d = AppConfig.getDataSource();
-    PrivilegioDAO pD = new PrivilegioDAO(d);
-    RolDAO rD = new RolDAO(d);
-    Map<String, Object> mp = new HashMap<>();
+	DataSource d = AppConfig.getDataSource();
+	PrivilegioDAO pD = new PrivilegioDAO(d);
+	RolDAO rD = new RolDAO(d);
+	Map<String, Object> mp = new HashMap<>();
 
-    @RequestMapping(value = "/components")
-    public void Logueo(HttpServletRequest request, HttpServletResponse response,Authentication authentication) throws IOException {
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        HttpSession session = request.getSession(true);
-        String opc = request.getParameter("opc");
-        String idm;
-        try {
-            switch (opc) {
-                case "privilegios":
-                    String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
-                    String Modulo = session.getAttribute("ModE").toString();
-                    mp.put("pr", pD.listarURLs(Rol, Modulo));
-                    break;
-                case "modulos":
-                    mp.put("lista", ((CustomUser) authentication.getPrincipal()).getLIST_MODULO());
-                    break;
-                case "redMod":
-                    idm = request.getParameter("idmod");
-                    if (!idm.equals("")) {
-                        session.setAttribute("ModE", idm);
-                        mp.put("rpta", true);
-                    } else {
-                        mp.put("rpta", false);
-                    }
-                    break;
-            }
+	@RequestMapping(value = "/components")
+	public void Logueo(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws IOException {
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(true);
+		String opc = request.getParameter("opc");
+		String idm;
+		try {
+			switch (opc) {
+			case "privilegios":
+				String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
+				String Modulo = session.getAttribute("ModE").toString();
+				mp.put("pr", pD.listarURLs(Rol, Modulo));
+				break;
+			case "modulos":
+				mp.put("lista", ((CustomUser) authentication.getPrincipal()).getLIST_MODULO());
+				break;
+			case "redMod":
+				idm = request.getParameter("idmod");
+				if (!idm.equals("")) {
+					session.setAttribute("ModE", idm);
+					mp.put("rpta", true);
+				} else {
+					mp.put("rpta", false);
+				}
+				break;
+			case "puesto":
+				Map<String, Object> sr = new HashMap<>();
+				sr.put("dep", ((CustomUser) authentication.getPrincipal()).getNO_DEP());
+				sr.put("area", ((CustomUser) authentication.getPrincipal()).getNO_AREA());
+				sr.put("seccion", ((CustomUser) authentication.getPrincipal()).getNO_SECCION());
+				sr.put("puesto", ((CustomUser) authentication.getPrincipal()).getNO_PUESTO());
+				mp.put("info_puesto", sr);
+				break;
+			case "usuario":
+				mp.put("datos_usuario", ((CustomUser) authentication.getPrincipal()).getNOMBRE_AP());
+				break;
+			}
 
-        } catch (Exception e) {
-            mp.put("rpta", false);
-            System.out.println("Error controlador COMPONENTS : " + e);
-        }
-        Gson gson = new Gson();
-        out.println(gson.toJson(mp));
-        out.flush();
-        out.close();
-    }
+		} catch (Exception e) {
+			mp.put("rpta", false);
+			System.out.println("Error controlador COMPONENTS : " + e);
+		}
+		Gson gson = new Gson();
+		out.println(gson.toJson(mp));
+		out.flush();
+		out.close();
+	}
 
 }
