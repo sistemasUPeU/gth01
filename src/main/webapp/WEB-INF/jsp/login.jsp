@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link
-	href="<c:url value='/resources/css/layouts/page-center.css" type="text/css'/>"
+	href="<c:url value='/resources/css/page-center.css" type="text/css'/>"
 	rel="stylesheet" media="screen,projection">
 <%@include file="../../jspf/general.jspf"%>
 </head>

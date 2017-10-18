@@ -64,5 +64,15 @@
 	</div>
 
 	<%@include file="../../../jspf/footer.jspf"%>
+	<script src="<c:url value='/resources/js/businessCore/connection.js'></c:url>"
+	type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var connector = new jsConnector();
+		connector.post("trabajador/Form_Reg", JSON.stringify({idTrabajador : 1}), function (result){
+			console.log(result);
+		});
+	});
+	</script>
 <body>
 </html>
