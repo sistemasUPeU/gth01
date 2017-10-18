@@ -134,7 +134,11 @@ public class AutorizacionDAO {
     }
 
     /*REVISAR Y MODIFICAR EL USO DE SER NECESARIO*/
-    public Map<String, Object> Insert_Autorizacion_dev(String ID_AUTORIZACION, String ID_DGP, String ES_AUTORIZACION, String NU_PASOS, String IP_USUARIO, String US_CREACION, String US_MODIF, String FE_MODIF, String CO_PUESTO, String ID_PUESTO, String ID_DETALLE_REQ_PROCESO, String ID_PASOS) {
+    public Map<String, Object> Insert_Autorizacion_dev(String ID_AUTORIZACION, 
+    		String ID_DGP, String ES_AUTORIZACION, String NU_PASOS, 
+    		String IP_USUARIO, String US_CREACION, String US_MODIF, 
+    		String FE_MODIF, String CO_PUESTO, String ID_PUESTO, 
+    		String ID_DETALLE_REQ_PROCESO, String ID_PASOS) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jt).withProcedureName("RHSP_INSERT_AUTORIZACION_DEV");
         Map<String, Object> inParamMap = new HashMap<String, Object>();
         inParamMap.put("ID_AUTORIZACION_SP", null);
@@ -160,13 +164,13 @@ public class AutorizacionDAO {
     }
 
     /*REVISAR Y MODIFICAR EL USO DE SER NECESARIO*/
-    public Map<String, Object> Mes_plazo(String id_dgp) {
+    public String Mes_plazo(String id_dgp) {
         sql = "SELECT TO_CHAR(pl.FE_HASTA,'MONTH',"
                 + "'nls_date_language=spanish') as mes_hasta "
                 + "FROM RHTR_CUMPLIMIENTO_PLAZO cp,RHTR_PLAZO pl "
                 + "WHERE  pl.ID_PLAZO = cp.ID_PLAZO and "
                 + "pl.TI_PLAZO='2'  and cp.ID_DGP=?";
-        return jt.queryForMap(sql, id_dgp.trim());
+        return jt.queryForObject(sql, String.class, id_dgp.trim());
     }
 
     public List<Map<String, Object>> List_Dgp_Autorizados(String id_usuario, int pageNumber, int pageSize, int mes, String año) {
