@@ -22,8 +22,18 @@ public class CustomUser implements UserDetails,Serializable {
 	private String ID_DEPARTAMENTO;
 	private String NO_PUESTO;
 	private String NO_DIRECCION;
+	private String ID_DIRECCION;
 	private String ES_SEXO;
 	private String NOMBRE_AP;
+	public String getID_DIRECCION() {
+		return ID_DIRECCION;
+	}
+
+	public void setID_DIRECCION(String iD_DIRECCION) {
+		ID_DIRECCION = iD_DIRECCION;
+	}
+
+	private String AR_FOTO;
 	private ArrayList<Map<String, Object>> LIST_MODULO;
 	boolean accountNonExpired;
 	boolean AccountNonLocked;
@@ -32,7 +42,7 @@ public class CustomUser implements UserDetails,Serializable {
 
 	public CustomUser(String nousuario, String pwusuario, String idusuario, String idtrabajador, String idempleado,
 			String idrol, String idpuesto, String idarea, String noarea, String nodep, String iddep, String nopuesto,
-			String nodireccion, String essexo, String nombreap, ArrayList<Map<String, Object>> listmod) {
+			String nodireccion, String essexo, String nombreap, String iddir, ArrayList<Map<String, Object>> listmod) {
 		this.NO_USUARIO = nousuario;
 		this.PW_USUARIO = pwusuario;
 		this.ID_USUARIO = idusuario;
@@ -49,6 +59,7 @@ public class CustomUser implements UserDetails,Serializable {
 		this.ES_SEXO = essexo;
 		this.NOMBRE_AP = nombreap;
 		this.LIST_MODULO = listmod;
+		this.ID_DIRECCION = iddir;
 
 	}
 
@@ -76,6 +87,7 @@ public class CustomUser implements UserDetails,Serializable {
 		this.AccountNonLocked = AccountNonLocked;
 		this.CredentialsNonExpired = CredentialsNonExpired;
 		this.Enabled = Enabled;
+		this.ID_DIRECCION = (String) userinfo.get("ID_DIRECCION");
 
 	}
 
@@ -119,69 +131,122 @@ public class CustomUser implements UserDetails,Serializable {
 		return Enabled;
 	}
 
+	
+
 	public String getID_USUARIO() {
-		// TODO Auto-generated method stub
-		return this.ID_USUARIO;
+		return ID_USUARIO;
+	}
+
+	public void setID_USUARIO(String iD_USUARIO) {
+		ID_USUARIO = iD_USUARIO;
 	}
 
 	public String getID_TRABAJADOR() {
-		// TODO Auto-generated method stub
-		return this.ID_TRABAJADOR;
+		return ID_TRABAJADOR;
+	}
+
+	public void setID_TRABAJADOR(String iD_TRABAJADOR) {
+		ID_TRABAJADOR = iD_TRABAJADOR;
 	}
 
 	public String getID_EMPLEADO() {
-		// TODO Auto-generated method stub
-		return this.ID_EMPLEADO;
+		return ID_EMPLEADO;
+	}
+
+	public void setID_EMPLEADO(String iD_EMPLEADO) {
+		ID_EMPLEADO = iD_EMPLEADO;
 	}
 
 	public String getID_ROL() {
-		// TODO Auto-generated method stub
-		return this.ID_ROL;
+		return ID_ROL;
+	}
+
+	public void setID_ROL(String iD_ROL) {
+		ID_ROL = iD_ROL;
 	}
 
 	public String getID_PUESTO() {
-		// TODO Auto-generated method stub
-		return this.ID_PUESTO;
+		return ID_PUESTO;
+	}
+
+	public void setID_PUESTO(String iD_PUESTO) {
+		ID_PUESTO = iD_PUESTO;
 	}
 
 	public String getID_AREA() {
-		// TODO Auto-generated method stub
-		return this.ID_AREA;
+		return ID_AREA;
+	}
+
+	public void setID_AREA(String iD_AREA) {
+		ID_AREA = iD_AREA;
 	}
 
 	public String getNO_AREA() {
-		// TODO Auto-generated method stub
-		return this.NO_AREA;
+		return NO_AREA;
+	}
+
+	public void setNO_AREA(String nO_AREA) {
+		NO_AREA = nO_AREA;
 	}
 
 	public String getNO_DEP() {
-		// TODO Auto-generated method stub
-		return this.NO_DEP;
+		return NO_DEP;
+	}
+
+	public void setNO_DEP(String nO_DEP) {
+		NO_DEP = nO_DEP;
 	}
 
 	public String getID_DEPARTAMENTO() {
-		// TODO Auto-generated method stub
-		return this.ID_DEPARTAMENTO;
+		return ID_DEPARTAMENTO;
+	}
+
+	public void setID_DEPARTAMENTO(String iD_DEPARTAMENTO) {
+		ID_DEPARTAMENTO = iD_DEPARTAMENTO;
 	}
 
 	public String getNO_PUESTO() {
-		// TODO Auto-generated method stub
-		return this.NO_PUESTO;
+		return NO_PUESTO;
+	}
+
+	public void setNO_PUESTO(String nO_PUESTO) {
+		NO_PUESTO = nO_PUESTO;
 	}
 
 	public String getNO_DIRECCION() {
-		// TODO Auto-generated method stub
-		return this.NO_DIRECCION;
+		return NO_DIRECCION;
+	}
+
+	public void setNO_DIRECCION(String nO_DIRECCION) {
+		NO_DIRECCION = nO_DIRECCION;
 	}
 
 	public String getES_SEXO() {
-		// TODO Auto-generated method stub
-		return this.ES_SEXO;
+		return ES_SEXO;
+	}
+
+	public void setES_SEXO(String eS_SEXO) {
+		ES_SEXO = eS_SEXO;
 	}
 
 	public String getNOMBRE_AP() {
-		// TODO Auto-generated method stub
-		return this.NOMBRE_AP;
+		return NOMBRE_AP;
+	}
+
+	public void setNOMBRE_AP(String nOMBRE_AP) {
+		NOMBRE_AP = nOMBRE_AP;
+	}
+
+	public String getAR_FOTO() {
+		return AR_FOTO;
+	}
+
+	public void setAR_FOTO(String aR_FOTO) {
+		AR_FOTO = aR_FOTO;
+	}
+
+	public void setLIST_MODULO(ArrayList<Map<String, Object>> lIST_MODULO) {
+		LIST_MODULO = lIST_MODULO;
 	}
 
 	@Override
