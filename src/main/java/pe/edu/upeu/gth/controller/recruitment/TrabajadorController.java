@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import pe.edu.upeu.gth.dao.DireccionDAO;
 import pe.edu.upeu.gth.dao.ListaDAO;
 import pe.edu.upeu.gth.dao.Tipo_DocumentoDAO;
 import pe.edu.upeu.gth.dao.UbigeoDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 
 @Controller
 @Scope("request")
@@ -31,7 +34,22 @@ public class TrabajadorController {
 	DireccionDAO dir =new DireccionDAO(d);
 	UbigeoDAO ub=new UbigeoDAO(d);
 	Tipo_DocumentoDAO tdoc = new Tipo_DocumentoDAO(d);
-	
+	String idrol = "";
+    String iduser = "";
+    String iddep = "";
+    boolean permisoShowAFP_SP = false;
+    public void cargardatos(Authentication authentication) {
+    	authentication=SecurityContextHolder.getContext().getAuthentication();
+		idrol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
+		//String ide = ((CustomUser) authentication.getPrincipal()).getID_EMPLEADO();
+		iduser = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+		//String idp = ((CustomUser) authentication.getPrincipal()).getID_PUESTO();
+		iddep=((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO();
+		//String iddir=((CustomUser) authentication.getPrincipal()).getID_DIRECCION();
+		if(idrol.equals("ROL-0006")) {
+			permisoShowAFP_SP = true;
+		}
+    }
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView showProfile(ModelMap model) {
