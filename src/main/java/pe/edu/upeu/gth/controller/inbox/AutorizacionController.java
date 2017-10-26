@@ -762,7 +762,9 @@ public class AutorizacionController {
 		try {
 			switch (opc) {
 			case "con_autorizar":
-				rpta.put("List_id_Autorizacion", a.List_id_Autorizacion(idp, idu, ""));
+				mp.put("List_id_Autorizacion", a.List_id_Autorizacion(idp, idu, ""));
+				mp.put("usuario", ((CustomUser) authentication.getPrincipal()));
+				rpta.put("datos", mp);
 				break;
 			}
 

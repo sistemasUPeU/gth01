@@ -21,6 +21,12 @@ footer {
 	<center>
 		<div id="contMod" style="margin-top: 10%"></div>
 	</center>
+	<!-- <div id="b1">
+		<div id="infob1">
+		<i class="mdi-action-accessibility large"></i>
+			<p id="inp1b">Administrador del sistema</p>
+		</div>
+	</div>-->
 	<footer class="page-footer green accent-3" style="padding:0">
 	<div class="footer-copyright">
 		<div class="container">
@@ -57,15 +63,14 @@ footer {
 		}
 
 		function createModulo(idmodulo, nombre, icon, color, link) {
-			var s = '<div class="circulo waves-effect waves-light" style="background: '
-					+ color
-					+ '" id="'
-					+ idmodulo
-					+ "*"
-					+ link
-					+ '" onclick="show(this.id)">';
-			s += "<div class='circulo2'>";
-			s += '<i class="'+icon+' large icon-demo size-icon"></i>';
+			var s = '<div class="circulo waves-effect waves-light"  id="'
+					+ idmodulo + "*" + link + '" onclick="show(this.id)">';
+
+			s += '<div class="circulo2">';
+			s += '<i class="contA '+icon+' large icon-demo size-icon" style="color:'+color+';"></i>';
+			s += '<h6 class="contB light italic">' + nombre + '</h6>';
+			s += '</div>';
+
 			s += '</div>';
 			s += '</div>';
 			return s;

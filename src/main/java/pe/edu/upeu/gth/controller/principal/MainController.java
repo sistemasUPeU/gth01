@@ -19,6 +19,8 @@ import javax.sql.DataSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.PrivilegioDAO;
 import pe.edu.upeu.gth.dao.RolDAO;
@@ -35,6 +37,7 @@ public class MainController {
 	PrivilegioDAO pD = new PrivilegioDAO(d);
 	RolDAO rD = new RolDAO(d);
 	Map<String, Object> mp = new HashMap<>();
+	Map<String, Object> sr = new HashMap<>();
 
 	@RequestMapping(value = "/components")
 	public void Logueo(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -49,7 +52,9 @@ public class MainController {
 			case "privilegios":
 				String Rol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
 				String Modulo = session.getAttribute("ModE").toString();
-				mp.put("pr", pD.listarURLs(Rol, Modulo));
+				sr.put("pr", pD.listarURLs(Rol, Modulo));
+				sr.put("usuario", ((CustomUser) authentication.getPrincipal()));
+				mp.put("datos", sr);
 				break;
 			case "modulos":
 				mp.put("lista", ((CustomUser) authentication.getPrincipal()).getLIST_MODULO());
@@ -85,5 +90,7 @@ public class MainController {
 		out.flush();
 		out.close();
 	}
+	
+	
 
 }

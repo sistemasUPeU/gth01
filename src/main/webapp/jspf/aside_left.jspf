@@ -13,23 +13,6 @@
 		list_info_puesto();
 	});
 
-	/*function create_DataAside() {
-		var s = '<li class="user-details grey darken-2">';
-		s += '<div class="row">';
-
-		s += '<div class="col s6 m6 l6">';
-		s += '<img src="<c:url value="/resources/img/user.png"/>" alt="" class="circle responsive-img valign profile-image">';
-		s += '</div>';
-
-		s += '<div class="col s6  m6 l6">';
-		s += '<h6 class="white-text" style="text-align:right">HUAMAN FERNANDEZ IVAN WILMER</h6>';
-		s += '</div>';
-
-		s += '</div>';
-		s += '</li>';
-		return s;
-	}*/
-
 	function listPrivilegios() {
 		try {
 			$
@@ -37,18 +20,52 @@
 							gth_context_path + '/components',
 							"opc=privilegios",
 							function(objJson) {
-								var lista = objJson.pr;
+								var lista = objJson.datos.pr;
+								var user = objJson.datos.usuario;
 								var s = '';
 								if (lista.length > 0) {
-									s+='<li class="li-hover"><p class="ultra-small margin more-text">MENÚ</p></li>';
+									s += '<li class="li-hover"><p class="ultra-small margin more-text">MENÚ</p></li>';
 									for (var i = 0; i < lista.length; i++) {
-										s += '<li class="bold">';
-										s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="mdi-action-dashboard"></i>  '
-												+ lista[i].NO_LINK + '</a>';
-										s += '</li>';
+										if (lista[i].ID_PRIVILEGIO === "PRV-000012") {
+											s += '<li class="no-padding">';
+											s += '<ul class="collapsible collapsible-accordion">';
+											s += '<li class="bold"><a class="collapsible-header waves-effect waves-light"><i class="mdi-editor-insert-drive-file"></i> Generar Requerimiento</a>';
+											s += '<div class="collapsible-body">';
+											s += '<ul>';
+											if (user.ID_ROL !== "ROL-0011"
+													|| user.ID_ROL === "ROL-0001") {
+												s += '<li><a href="layout-fullscreen.html">En Planilla</a></li>';
+												s += '<li><a href="layout-horizontal-menu.html">Fuera de Planilla</a></li>';
+											}
+											if (user.ID_ROL == "ROL-0011"
+													|| user.ID_ROL === "ROL-0001") {
+												s += '<li><a href="layout-fullscreen.html">Carga Academica</a></li>';
+											}
+											s += '</ul>';
+											s += '</div>';
+											s += '</li>';
+											s += '</ul>';
+											s += '</li>';
+
+										} else {
+											s += '<li class="bold">';
+												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+														+ lista[i].NO_LINK
+														+ '</a>';
+											s += '</li>';
+										}
 									}
 									$(".dataAside").empty();
 									$(".dataAside").append(s);
+									$('.collapsible').collapsible({
+										accordion : false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+										onOpen : function(el) {
+											alert('Open');
+										}, // Callback for Collapsible open
+										onClose : function(el) {
+											alert('Closed');
+										} // Callback for Collapsible close
+									});
 								}
 							});
 		} catch (e) {
