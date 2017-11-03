@@ -19,5 +19,11 @@ public class globalProperties {
 	public static final String USER_PWD = "123";
 	public static final String PORT = "1521";
 	public static final String SID = "xe";
+	
+	/*public static final String HOSTNAME = "procesrh-db.upeu";
+    public static final String USER = "procesosrh";
+    public static final String USER_PWD = "gestionrrhh";
+    public static final String PORT = "1521";
+    public static final String SID = "upeu";*/
 
 }

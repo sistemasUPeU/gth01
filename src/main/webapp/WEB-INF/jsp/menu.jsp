@@ -5,16 +5,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>GTH</title>
 <%@include file="../../jspf/general.jspf"%>
-<link rel="stylesheet" href="<c:url value='resources/css/custom/menu.css'/>" />
-<link href="<c:url value='resources/css/layouts/page-center.css" type="text/css'/>" 	rel="stylesheet" media="screen,projection">
-
+<link rel="stylesheet"
+	href="<c:url value='resources/css/custom/menu.css'/>" />
+<style>
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0; /* NUEVO */
+}
+</style>
 </head>
-<body>	
-	<div id="contMod">
+<body>
+	<%@include file="../../jspf/header.jspf"%>
+	<center>
+		<div id="contMod" style="margin-top: 10%"></div>
+	</center>
+	<!-- <div id="b1">
+		<div id="infob1">
+		<i class="mdi-action-accessibility large"></i>
+			<p id="inp1b">Administrador del sistema</p>
+		</div>
+	</div>-->
+	<footer class="page-footer green accent-3" style="padding:0">
+	<div class="footer-copyright">
+		<div class="container">
+			Copyright © 2017 <a class="grey-text text-lighten-4" target="_blank">Alpha
+				Team</a> All rights reserved. <span class="right">Developed by <a
+				class="grey-text text-lighten-4">Alpha Team</a></span>
+		</div>
 	</div>
-
+	</footer>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			listarModulos();
@@ -27,11 +48,13 @@
 				var s = "";
 				if (list.length > 0) {
 					for (var i = 0; i < list.length; i++) {
+						console.log(i);
 						var idmod = list[i].ID_MODULO;
 						var nom = list[i].NO_MODULO;
 						var ico = list[i].IC_MODULO;
 						var color = list[i].CO_MODULO;
-						s += createModulo(idmod, nom, ico, color);
+						var link = list[i].DF_MODULO;
+						s += createModulo(idmod, nom, ico, color, link);
 					}
 					$("#contMod").empty();
 					$("#contMod").append(s);
@@ -39,30 +62,36 @@
 			});
 		}
 
-		function createModulo(idmodulo, nombre, icon, color) {
-			var m = idmodulo.split("-");
-			var n = parseInt(m[1]);
-			var s = '<div class="circulo" style="background: '+color+'" id="'+idmodulo+'" onclick="show(this.id)">';
-			s += "<div class='circulo2'>";
-			s += '<i class="'+icon+' large icon-demo size-icon"></i>';
+		function createModulo(idmodulo, nombre, icon, color, link) {
+			var s = '<div class="circulo waves-effect waves-light"  id="'
+					+ idmodulo + "*" + link + '" onclick="show(this.id)">';
+
+			s += '<div class="circulo2">';
+			s += '<i class="contA '+icon+' large icon-demo size-icon" style="color:'+color+';"></i>';
+			s += '<h6 class="contB light italic">' + nombre + '</h6>';
+			s += '</div>';
+
 			s += '</div>';
 			s += '</div>';
 			return s;
 		}
-		
-		function show(id){
+
+		function show(id) {
+
 			try {
-				$.getJSON("components?opc=redMod", "idmod=" + id,
-						function(objJson) {
-							if (objJson.rpta) {
-								location.href = 'home';
-							}
-						});
+				var m = id.split("*");
+				var n = m[0];
+				var p = m[1];
+				$.getJSON("components?opc=redMod", "idmod=" + n, function(
+						objJson) {
+					if (objJson.rpta) {
+						location.href = p;
+					}
+				});
 			} catch (e) {
 				console.error(e);
 			}
 		}
-		
 	</script>
 
 </body>

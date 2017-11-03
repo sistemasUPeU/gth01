@@ -54,7 +54,7 @@ public class vacacionesDAO{
      }
 
      public void vacacion(String id_trabajador, String direccion_doc,String nombre_doc,String descripcion_doc,String size_doc,
-     String type_doc,String es_vacacion,String iddocumento, Date rang_aÃ±o_inicio,Date rang_aÃ±o_fin,String fecha_inicio [],String fecha_fin[]) throws ParseException
+     String type_doc,String es_vacacion,String iddocumento, Date rang_año_inicio,Date rang_año_fin,String fecha_inicio [],String fecha_fin[]) throws ParseException
      {
          String a[]={"7-Jun-2013","7-Jun-2013"};
          String sql="{}";
@@ -63,6 +63,6 @@ public class vacacionesDAO{
              Date d=(Date) formatter.parse(string);
          }
          
-         jt.update(sql,id_trabajador,direccion_doc,nombre_doc,descripcion_doc,size_doc,type_doc,es_vacacion,iddocumento,rang_aÃ±o_inicio,rang_aÃ±o_fin,fecha_inicio,fecha_fin);
+         jt.update(sql,id_trabajador,direccion_doc,nombre_doc,descripcion_doc,size_doc,type_doc,es_vacacion,iddocumento,rang_año_inicio,rang_año_fin,fecha_inicio,fecha_fin);
      }
 }
