@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
@@ -23,53 +25,38 @@ import pe.edu.upeu.gth.dao.Carrera_UniversidadDAO;
 @Scope("request")
 @RequestMapping("/detalle_carrera/")
 public class Carrera_InstitucionController {
-	
-	PrintWriter out;
-	
 	Gson gson = new Gson();
 	
 	Carrera_UniversidadDAO caruni= new Carrera_UniversidadDAO(AppConfig.getDataSource());
 	
 	Map<String, Object> rpta = new HashMap<String,Object>();
 	
-	@GetMapping("institucion")
-	public void institucion(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/institucion", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object> institucion(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("ti");
         List<Map<String, Object>> lista = caruni.Istitucion(id);
         rpta.put("rpta", "1");
         rpta.put("lista", lista);
+        return rpta;
 	}
 	
-	@GetMapping("ti_inst")
-	public void ti_inst(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/ti_inst", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object> ti_inst(HttpServletRequest request, HttpServletResponse response) {
 		 String reg = request.getParameter("regimen");
          List<Map<String, Object>> lista = caruni.Tipo_Institucion(reg);
          rpta.put("rpta", "1");
          rpta.put("lista", lista);
+         return rpta;
 	}
 	
-	@GetMapping("carrera")
-	public void carrera(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/carrera", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> carrera(HttpServletRequest request, HttpServletResponse response) {
 		String reg = request.getParameter("inst");
         List<Map<String, Object>> lista = caruni.Carrera_Id_universidad(reg);
         rpta.put("rpta", "1");
         rpta.put("lista", lista);
-	}
-	
-	public void respuesta(HttpServletResponse response) {
-		try {
-			rpta.put("rpta", true);
-			out = response.getWriter();
-			out.println(gson.toJson(rpta));
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			rpta.put("rpta", "-1");
-			rpta.put("mensaje", e.getMessage());
-			out.print(gson.toJson(rpta));
-			out.flush();
-			out.close();
-		}
+        return rpta;
 	}
 }

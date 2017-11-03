@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
@@ -26,8 +28,6 @@ import pe.edu.upeu.gth.dao.UbigeoDAO;
 @RequestMapping("/ubigeo/")
 public class UbigeoController {
 	
-	PrintWriter out;
-	
 	Gson gson = new Gson();
 	
 	UbigeoDAO ubi = new UbigeoDAO(AppConfig.getDataSource());
@@ -35,61 +35,54 @@ public class UbigeoController {
 	
 	Map<String, Object> rpta = new HashMap<String,Object>();
 	
-	@GetMapping("dep_nac")
-	public void dep_nac(HttpServletRequest request, HttpServletResponse response) {
+	
+	@RequestMapping(value="/dep_nac", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object> dep_nac(HttpServletRequest request, HttpServletResponse response) {
 		String id_dep = request.getParameter("id_dep");
 		List<Map<String, Object>> lista = ubi.Provincia(id_dep);
 		rpta.put("list", "1");
 		rpta.put("lista", lista);		
-		respuesta(response);
+		return rpta;
 	}
 	
-	@GetMapping("pro_nac")
-	public void pro_nac(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/pro_nac", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object> pro_nac(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id_dist");
         List<Map<String, Object>> lista = ubi.Distrito(id);
         rpta.put("rpta", "1");
         rpta.put("lista", lista);
+        return rpta;
 	}
 	
-	@GetMapping("Lista_D")
-	public void Lista_D(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/Lista_D", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object> Lista_D(HttpServletRequest request, HttpServletResponse response) {
 		 List<Map<String, Object>> lista = ubi.Departamento();
          rpta.put("rpta", "1");
          rpta.put("lista", lista);
+         return rpta;
 	}
 	
-	@GetMapping("Listar_P")
-	public void Listar_P(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/Listar_P", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object>  Listar_P(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id_dep");
         List<Map<String, Object>> lista = ubi.Provincia(id);
         rpta.put("rpta", "1");
         rpta.put("lista", lista);
+        return rpta;
 	}
 	
-	@GetMapping("Listar_Di")
-	public void Listar_Di(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="Listar_Di", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+    Map<String, Object>  Listar_Di(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id_pro");
         List<Map<String, Object>> lista = ubi.Distrito(id);
         rpta.put("rpta", "1");
         rpta.put("lista", lista);
+        return rpta;
 	}
 	
-	
-	public void respuesta(HttpServletResponse response) {
-		try {
-			rpta.put("rpta", true);
-			out = response.getWriter();
-			out.println(gson.toJson(rpta));
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			rpta.put("rpta", "-1");
-			rpta.put("mensaje", e.getMessage());
-			out.print(gson.toJson(rpta));
-			out.flush();
-			out.close();
-		}
-	}
 }
