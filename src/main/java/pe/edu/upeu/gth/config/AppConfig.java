@@ -10,14 +10,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import pe.edu.upeu.gth.dao.UsuarioDAO;
+
 import pe.edu.upeu.gth.properties.globalProperties;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan(basePackages = "pe.edu.upeu.gth")
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
@@ -52,11 +54,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         dataSource.setPassword(globalProperties.USER_PWD);
         return dataSource;
     }
-	
-	@Bean
-    public UsuarioDAO getUsuarioDAO() {
-        return new UsuarioDAO(getDataSource());
-    }
+    
+//    CONFIGURACION DE MULTIPARTRESOLVER PARA TRABAJAR CONN ARCHUIVOS--
+    /*@Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() throws IOException {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        // no limit
+        resolver.setMaxUploadSize(500000);
+        
+        return resolver;
+    }*/
 	
 	
 	

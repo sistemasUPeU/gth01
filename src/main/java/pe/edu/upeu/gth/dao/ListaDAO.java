@@ -224,6 +224,19 @@ public class ListaDAO {
 
         return l;
     }
+    
+    public List<String> List_Dom_D3_Id() {
+        List<String> list = new ArrayList<String>();
+        list.add("Numero");
+        list.add("Lote");
+        list.add("S/N");
+        list.add("Km");
+        list.add("Block");
+        list.add("Etapa");
+        list.add("Departamento");
+        list.add("Interior");
+        return list;
+    }
 
     /*CHECK AND REPLACE USE OF THIS METHOD (DTO OBJECTS WERE REMOVED, 
     WE USE MAP OBJECTS INSTEAD). ONCE EDITED, 
@@ -233,7 +246,7 @@ public class ListaDAO {
         return jt.queryForList(sql);
     }
 
-    public List<String> lista_aÃ±os() {
+    public List<String> lista_años() {
         List<String> list = new ArrayList<String>();
         for (int i = 0; i < 50; i++) {
             sql = "select  to_number(to_char(sysdate,'yyyy')) - ? from dual";

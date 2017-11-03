@@ -11,12 +11,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+		auth.authenticationProvider(authenticationProvider());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/resources/**").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll().and().authorizeRequests().antMatchers("/menu").permitAll().anyRequest().anonymous();
+				.loginPage("/login").permitAll().and().logout().permitAll()/*.and().
+				authorizeRequests().antMatchers("/menu").permitAll().anyRequest().
+				anonymous()*/;
+	}
+	
+	public CustomAuthenticationProvider authenticationProvider() {
+		CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider();
+	    return authProvider;
 	}
 }

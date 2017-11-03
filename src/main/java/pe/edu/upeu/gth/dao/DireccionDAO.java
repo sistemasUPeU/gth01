@@ -34,6 +34,14 @@ public class DireccionDAO {
     /*CHECK USE OF THIS METHOD (DTO OBJECTS WERE REPLACED, 
     WE USE MAP OBJECTS INSTEAD). ONCE EDITED, 
     PLEASE DELETE THESE COMMENTS IF THEY ARE ALREADY NOT NECESSARY*/
+    public List<Map<String, Object>> Listar_via() {
+        sql = " select * from RHTX_VIA";
+        return jt.queryForList(sql);
+    }
+    
+    /*CHECK USE OF THIS METHOD (DTO OBJECTS WERE REPLACED, 
+    WE USE MAP OBJECTS INSTEAD). ONCE EDITED, 
+    PLEASE DELETE THESE COMMENTS IF THEY ARE ALREADY NOT NECESSARY*/
     public List<Map<String, Object>> Listar_zona() {
         sql = " select * from RHTX_ZONA";
         return jt.queryForList(sql);
