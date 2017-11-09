@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -32,9 +32,7 @@
 							</h6>
 						</div>
 
-						<div class="col l4 m4 s12">
-						
-						</div>
+						<div class="col l4 m4 s12"></div>
 					</div>
 
 					<div class="col s12">
@@ -64,15 +62,11 @@
 	</div>
 
 	<%@include file="../../../jspf/footer.jspf"%>
-	<script src="<c:url value='/resources/js/businessCore/connection.js'></c:url>"
-	type="text/javascript"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		var connector = new jsConnector();
-		connector.post("trabajador/Form_Reg", JSON.stringify({idTrabajador : 1}), function (result){
-			console.log(result);
+		$(document).ready(function() {
+			var objJson = ${rpta};
+			console.log(objJson);
 		});
-	});
 	</script>
 <body>
 </html>
