@@ -22,6 +22,7 @@
 													var plazo = parseInt(lista[i].VAL_PLAZO);
 													var fe_creacion = new Date(
 															lista[i].FE_CREACION);
+													var mes=parseInt(fe_creacion.getMonth())+1;
 													var p = "";
 													var f = "";
 													var t = "";
@@ -85,8 +86,7 @@
 															+ lista[i].DE_PASOS
 															+ '</a></td>';
 													s += '<td>'
-															+ new Date(
-																	lista[i].FE_CREACION)
+															+ fe_creacion.getDate()+"/"+mes+"/"+fe_creacion.getFullYear()
 															+ '</td>';
 													s += '<td>' + p + '</td>';
 													s += '<td>' + f + '</td>';
