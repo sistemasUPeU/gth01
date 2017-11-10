@@ -63,6 +63,7 @@ footer {
 		}
 
 		function createModulo(idmodulo, nombre, icon, color, link) {
+			console.log(idmodulo + "*" + link );
 			var s = '<div class="circulo waves-effect waves-light"  id="'
 					+ idmodulo + "*" + link + '" onclick="show(this.id)">';
 
