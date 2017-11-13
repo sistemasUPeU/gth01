@@ -42,17 +42,20 @@ public class AutorizacionController {
 	String idp;
 	String iddep;
 	String iddir;
+	
 	AutorizacionDAO a = new AutorizacionDAO(AppConfig.getDataSource());
 	NotificationDAO notdao = new NotificationDAO(AppConfig.getDataSource());
 	CorreoDAO correo = new CorreoDAO();
 	DgpDAO dgp = new DgpDAO(AppConfig.getDataSource());
 	EmpleadoDAO e = new EmpleadoDAO(AppConfig.getDataSource());
-	/* permisos */
+	
+	/* permisos */	
 	boolean permisoAsigFam = false;
 	boolean permisoEsSistema = false;
 	boolean permissionDireccionFilter = false;
 	boolean permissionDepartFilter = false;
 	boolean permissionPuestoFilter = false;
+	
 	Map<String, Object> rpta = new HashMap<String, Object>();
 	Map<String, Object> mp = new HashMap<>();
 

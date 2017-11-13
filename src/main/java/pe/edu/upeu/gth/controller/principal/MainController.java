@@ -91,6 +91,10 @@ public class MainController {
 		out.close();
 	}
 	
+	@RequestMapping("/administrador")
+	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("home");
+	}
 	
 
 }

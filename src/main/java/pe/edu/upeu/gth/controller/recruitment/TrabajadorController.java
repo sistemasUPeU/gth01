@@ -77,9 +77,9 @@ public class TrabajadorController {
     }
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView showProfile(ModelMap model) {
-        modelAndView = new ModelAndView("trabajador/profile", model);
-        return modelAndView;
+    public ModelAndView showProfile() {        
+        mp.put("msg", "leandro");        
+        return new ModelAndView("trabajador/profile","rpta",gson.toJson(mp));
     }
 	
 	@RequestMapping(value = "/Form_Reg", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
@@ -647,7 +647,7 @@ public class TrabajadorController {
 	}
 	
 	@RequestMapping("/edit_perfil")
-	public ModelAndView edit_perfil(@RequestBody HttpServletRequest request, Authentication authentication) {
+	public ModelAndView edit_perfil(Authentication authentication) {
 		String iduser = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 		String idtr = tr.ID_TRB(iduser);
 		mp.put("List_Cuenta_Sueldo", tr.List_Cuenta_Sueldo(idtr));
@@ -659,7 +659,7 @@ public class TrabajadorController {
 		mp.put("id_empleadox_ide", em.id_empleadox_ide(idtr));
         mp.put("idtr",idtr.trim());
         mp.put("edit","ok");
-		return new ModelAndView("Vista/Trabajador/Detalle_Trabajador","rpta",gson.toJson(mp));
+		return new ModelAndView("trabajador/profile","rpta",gson.toJson(mp));
 	}
 	
 	@RequestMapping("/Form_Cambiar_Clave")
