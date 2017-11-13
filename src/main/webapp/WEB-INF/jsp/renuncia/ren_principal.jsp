@@ -13,6 +13,7 @@
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<%@include file="../../../jspf/info_puesto.jspf"%>
 			<section id="content" class="col m12 l12 s12">
+				<h1>PA TODOS</h1>
 			</section>
 
 		</div>
