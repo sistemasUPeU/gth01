@@ -46,7 +46,7 @@ public class RenunciaController {
 	public ModelAndView detalles(ModelMap model) {
 		return new ModelAndView("renuncia/ren_detalle");
     }
-
+	
 	
 }
 
