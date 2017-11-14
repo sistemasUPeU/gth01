@@ -42,11 +42,17 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/ren_entregar");
     }
 
+
+	@RequestMapping(value = "/processDetails", method = RequestMethod.GET)
+	public ModelAndView detalleP(ModelMap model) {
+		return new ModelAndView("renuncia/ren_DetalleP");
+    }
+	
+
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView detalles(ModelMap model) {
 		return new ModelAndView("renuncia/ren_detalle");
     }
-	
 	
 }
 
