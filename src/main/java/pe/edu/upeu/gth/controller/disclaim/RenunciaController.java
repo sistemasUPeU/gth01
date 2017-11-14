@@ -42,6 +42,11 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/ren_entregar");
     }
 	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public ModelAndView detalleRenuncia(ModelMap model) {
+		return new ModelAndView("renuncia/ren_detaRenuncia");
+    }
+	
 	
 }
 
