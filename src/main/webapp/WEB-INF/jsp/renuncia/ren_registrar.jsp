@@ -145,17 +145,6 @@
 				<form class="col s12">
 					<div class="row">
 						<div class="input-field col s6">
-							<h5>Puesto:</h5>
-						</div>
-						<div class="input-field col s4">
-							<input placeholder="puesto" id="first_name" type="text"
-								class="validate">
-						</div>
-					</div>
-				</form>
-				<form class="col s12">
-					<div class="row">
-						<div class="input-field col s6">
 							<h5>Tipo de contrato:</h5>
 						</div>
 						<div class="input-field col s4">
@@ -190,6 +179,9 @@
 						</div>
 					</div>	
 				</div>
+				<br>
+				<br>
+				<br>
 			</div>
 		</div>
 		<script
