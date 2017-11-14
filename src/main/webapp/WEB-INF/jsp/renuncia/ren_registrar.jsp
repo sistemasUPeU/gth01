@@ -13,6 +13,9 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	<link
+	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
 </head>
 <body>
 <%@include file="../../../jspf/header.jspf"%>
@@ -190,7 +193,6 @@
 			</div>
 		</div>
 	</div>
-	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
@@ -200,48 +202,15 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-		type="text/javascript"></script>
-    <script 
-        src="<c:url  value='/resources/js/jquery-1.11.2.min.js'></c:url>"
-        type="text/javascript" ></script> --   
-    <script
-        src="js/plugins/dropify/js/dropify.min.js"
-        type="text/javascript" ></script>--
-    
-    <script type="text/javascript">
-        $(document).ready(function(){
-            // Basic
-            $('.dropify').dropify();
-
-            // Translated
-            $('.dropify-fr').dropify({
-                messages: {
-                    default: 'Glissez-déposez un fichier ici ou cliquez',
-                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                    remove:  'Supprimer',
-                    error:   'Désolé, le fichier trop volumineux'
-                }
-            });
-
-            // Used events
-            var drEvent = $('.dropify-event').dropify();
-
-            drEvent.on('dropify.beforeClear', function(event, element){
-                return confirm("Do you really want to delete \"" + element.filename + "\" ?");
-            });
-
-            drEvent.on('dropify.afterClear', function(event, element){
-                alert('File deleted');
-            });
-        });
-    </script>
+<!-- 	<script -->
+<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
+<!-- 		type="text/javascript"></script> -->
+		<script 
+        src="<c:url  value='/resources/js/carpeta.js'></c:url>"
+        type="text/javascript" ></script>
+        <script 
+        src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+        type="text/javascript" ></script>
+	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>   
 </body>
 </html>
