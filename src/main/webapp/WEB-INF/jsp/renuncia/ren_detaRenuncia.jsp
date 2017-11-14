@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div>hola soy detalle</div>
+<div>hola soy detalles</div>
 </body>
 </html>
