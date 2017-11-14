@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
         $(document).ready(function(){
             // Basic
@@ -25,7 +24,7 @@
                 alert('File deleted');
             });
         });
-=======
+
 $(document).ready(function(){
             // Basic
             $('.dropify').dropify();
@@ -51,4 +50,3 @@ $(document).ready(function(){
                 alert('File deleted');
             });
         });
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git

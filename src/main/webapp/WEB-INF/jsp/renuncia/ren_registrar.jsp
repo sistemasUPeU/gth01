@@ -53,7 +53,7 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
+
 		<div class="container">
 			<section id="content" class="col m12 l12 s12">
 			<div id="profile-page-content" class="row">
@@ -183,8 +183,8 @@
 						</div>
 					</div>
 					<div class="modal-footer  teal lighten-4">
-						 <a href="#"
-=======
+						 <a href="#"></a>
+
 		<div class="container" style="margin-right:2em">
 			<section id="content" class="col m12 l12 s12">
 			<div id="profile-page-content" class="row">
@@ -314,10 +314,7 @@
 						</div>
 					</div>
 					<div class="modal-footer  teal lighten-4">
-						<a href="#"
-							class="waves-effect waves-red btn-flat modal-action modal-close">Subir
-							archivo</a> <a href="#"
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+						 <a href="#"
 							class="waves-effect waves-red btn-flat modal-action modal-close">Enviar</a>
 						<a href="#"
 							class="waves-effect waves-green btn-flat modal-action modal-close">Cancelar</a>
