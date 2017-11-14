@@ -190,7 +190,7 @@
 							class="waves-effect waves-green btn-flat modal-action modal-close">Cancelar</a>
 					</div>
 				</div>
-			</div>
+			</div> 
 		</div>
 	</div>
 	<script
