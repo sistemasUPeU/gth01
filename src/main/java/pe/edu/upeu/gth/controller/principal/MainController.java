@@ -36,8 +36,8 @@ public class MainController {
 	DataSource d = AppConfig.getDataSource();
 	PrivilegioDAO pD = new PrivilegioDAO(d);
 	RolDAO rD = new RolDAO(d);
-	Map<String, Object> mp = new HashMap<>();
-	Map<String, Object> sr = new HashMap<>();
+	Map<String, Object> mp = new HashMap<String, Object>();
+	Map<String, Object> sr = new HashMap<String, Object>();
 
 	@RequestMapping(value = "/components")
 	public void Logueo(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -69,7 +69,7 @@ public class MainController {
 				}
 				break;
 			case "puesto":
-				Map<String, Object> sr = new HashMap<>();
+				Map<String, Object> sr = new HashMap<String, Object>();
 				sr.put("dep", ((CustomUser) authentication.getPrincipal()).getNO_DEP());
 				sr.put("area", ((CustomUser) authentication.getPrincipal()).getNO_AREA());
 				sr.put("seccion", ((CustomUser) authentication.getPrincipal()).getNO_SECCION());
