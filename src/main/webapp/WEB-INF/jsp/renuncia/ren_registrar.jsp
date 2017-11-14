@@ -182,9 +182,7 @@
 						</div>
 					</div>
 					<div class="modal-footer  teal lighten-4">
-						<a href="#"
-							class="waves-effect waves-red btn-flat modal-action modal-close">Subir
-							archivo</a> <a href="#"
+						 <a href="#"
 							class="waves-effect waves-red btn-flat modal-action modal-close">Enviar</a>
 						<a href="#"
 							class="waves-effect waves-green btn-flat modal-action modal-close">Cancelar</a>
