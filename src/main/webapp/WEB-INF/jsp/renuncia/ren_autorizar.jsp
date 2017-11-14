@@ -89,8 +89,13 @@
 								<td>$320,800</td>
 								<td>$320,800</td>
 								<td><a class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>	
+<<<<<<< HEAD
 								<td><a href="<c:url value='/jsp/renuncia/ren_detaRenuncia.jsp'></c:url>" class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>				     
 <!-- 								<td><a href="/jsp/renuncia/ren_detaRenuncia.jsp" class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td> -->
+=======
+								<td><a href="<c:url value='details'></c:url>" class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>				     
+							
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 							</tr>
 							<tr>
 						        <td>2</td>

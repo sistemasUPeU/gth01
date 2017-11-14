@@ -42,11 +42,18 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/ren_entregar");
     }
 	
+<<<<<<< HEAD
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public ModelAndView detalleRenuncia(ModelMap model) {
 		return new ModelAndView("renuncia/ren_detaRenuncia");
     }
 	
+=======
+	@RequestMapping(value = "/details", method = RequestMethod.GET)
+	public ModelAndView detalles(ModelMap model) {
+		return new ModelAndView("renuncia/ren_detalle");
+    }
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 	
 }
 
