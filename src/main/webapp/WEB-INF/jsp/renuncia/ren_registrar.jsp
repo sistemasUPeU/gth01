@@ -211,6 +211,6 @@
         <script 
         src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
         type="text/javascript" ></script>
-	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>   
+	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
 </body>
 </html>
