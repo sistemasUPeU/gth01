@@ -37,7 +37,7 @@
 					<form class="col s12">
 						<div class="row">
 							<div class="input-field col s3"></div>
-							<div class="input-field col s5">
+							<div class="input-field col s5"> 
 								<h5>Ingrese DNI del trabajador</h5>
 								<input placeholder="DNI" id="first_name" type="number"
 									class="validate">
