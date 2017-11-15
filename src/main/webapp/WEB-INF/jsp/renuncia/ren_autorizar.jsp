@@ -90,7 +90,7 @@
 								<td>$320,800</td>
 								<td><a class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>	
 								<td><a href="<c:url value='details'></c:url>" class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>				     
-							
+
 							</tr>
 							<tr>
 						        <td>2</td>
