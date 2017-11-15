@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,13 +39,13 @@
 							<div class="input-field col s3"></div>
 							<div class="input-field col s5"> 
 								<h5>Ingrese DNI del trabajador</h5>
-								<input placeholder="DNI" id="first_name" type="number"
-									class="validate">
+								<input placeholder="DNI" id="dni" type="text"
+									class="validate" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength=8>
 							</div>
 							<div class="input-field col s4">
 								<p>
 									<a
-										class="btn btn-large waves-effect waves-light yellow darken-4">Buscar</a>
+										class="btn btn-large waves-effect waves-light yellow darken-4" onclick="buscarDetalle()">Buscar</a>
 								</p>
 							</div>
 						</div>
@@ -53,7 +53,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="container" style="margin-right:2em">
+		<div class="container" style="margin-bottom:3em">
+		<div id="detalleR">
+
 			<section id="content" class="col m12 l12 s12">
 			<div id="profile-page-content" class="row">
 				<div class="row card-panel">
@@ -66,10 +68,10 @@
 							<i class="mdi-image-camera-alt left"></i>Cambiar Foto
 						</button>
 						<h6 class="light italic black-text">
-							<strong><label>Nombres : </label></strong> Nicole<br> <strong><label>Apellido
-									Paterno : </label></strong> Garcia<br> <strong><label>Apellido
-									Materno : </label></strong> Guevara<br> <strong><label>Fecha
-									de Nacimiento : </label></strong> 05/12/1998
+							<strong><h6 >Nombres : </strong><span id="nombres"></span><br> <strong></h6><h6>Apellido
+									Paterno : </strong><span id="paterno"></span><br> <strong></h6><h6>Apellido
+									Materno : </strong><span id="materno"></span><br> <strong></h6><h6>Fecha
+									de Nacimiento : </strong><span id="fecha_nac"></span> </h6>
 						</h6>
 					</div>
 				</div>
@@ -78,11 +80,11 @@
 			<form class="col s12">
 				<div class="row">
 					<div class="input-field col s6">
-						<h5>Feca de Inicio:</h5>
+						<h5>Fecha de Inicio:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="fecha de inicio" id="first_name" type="date"
-							class="validate">
+						<input placeholder="fecha_inicio" id="fecha_inicio" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
@@ -92,8 +94,8 @@
 						<h5>Dirección:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="Dirección" id="first_name" type="text"
-							class="validate">
+						<input placeholder="Dirección" id="direccion" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
@@ -103,8 +105,8 @@
 						<h5>Departamento:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="Departamento" id="first_name" type="text"
-							class="validate">
+						<input placeholder="Departamento" id="departamento" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
@@ -114,8 +116,8 @@
 						<h5>Area:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="Area" id="first_name" type="text"
-							class="validate">
+						<input placeholder="Area" id="area" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
@@ -125,8 +127,8 @@
 						<h5>Sección:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="sección" id="first_name" type="text"
-							class="validate">
+						<input placeholder="sección" id="seccion" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
@@ -136,34 +138,26 @@
 						<h5>Puesto:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="puesto" id="first_name" type="text"
-							class="validate">
+						<input placeholder="puesto" id="puesto" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s6">
-						<h5>Puesto:</h5>
-					</div>
-					<div class="input-field col s4">
-						<input placeholder="puesto" id="first_name" type="text"
-							class="validate">
-					</div>
-				</div>
-			</form>
+			
 			<form class="col s12">
 				<div class="row">
 					<div class="input-field col s6">
 						<h5>Tipo de contrato:</h5>
 					</div>
 					<div class="input-field col s4">
-						<input placeholder="titpo de contrato" id="first_name" type="text"
-							class="validate">
+						<input placeholder="tito de contrato" id="tipo_contrato" type="text"
+							class="validate" disabled>
 					</div>
 				</div>
 			</form>
-			<div class="col s12 m8 l9">
+	
+			</div>
+			<div class="col s12 m8 l9" style='display:none'>
 				<p>
 					<a class="waves-effect waves-light btn modal-trigger  teal "
 						href="#modal3">Adjuntar Carta de Renuncia</a>
@@ -176,15 +170,13 @@
 								<p>Subir archivo</p>
 							</div>
 							<div class="col s12 m8 l9">
-								<input type="file" id="input-file-now-custom-2" class="dropify"
+								<input type="file"  class="dropify"
 									data-height="500" />
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer  teal lighten-4">
-						<a href="#"
-							class="waves-effect waves-red btn-flat modal-action modal-close">Subir
-							archivo</a> <a href="#"
+						 <a href="#"
 							class="waves-effect waves-red btn-flat modal-action modal-close">Enviar</a>
 						<a href="#"
 							class="waves-effect waves-green btn-flat modal-action modal-close">Cancelar</a>
@@ -192,6 +184,7 @@
 				</div>
 			</div> 
 		</div>
+		<hr />
 	</div>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"

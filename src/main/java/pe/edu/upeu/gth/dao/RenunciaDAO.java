@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -110,5 +111,14 @@ public class RenunciaDAO{
     public void Renuncia(String idContr, String idDgp, String User_au, String DirecADj, String Nom_Adj, String Desc, String Size_Adj, String Type_Adj, String Opc) {
         String sql = "{CALL RHSP_INSERT_ADJUNTARRENUNCIA ( ? , ? , ? , ? , ? , ? , ? , ? , ? )}";
         jt.update(sql, idContr, idDgp, User_au, DirecADj, Nom_Adj, Desc, Size_Adj, Type_Adj, Opc);
+    }
+    
+ // Esto Lista el detalle del Trabajador filtrado por DNI en la interfaz "Registrar Renuncia".
+    public List<Map<String,Object>> Buscar_DetalleTrabajador(String dni) {
+    	sql = "select ID_TRABAJADOR,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
+
+        sql += " where DNI='" + dni + "' ";
+
+        return jt.queryForList(sql);
     }
 }
