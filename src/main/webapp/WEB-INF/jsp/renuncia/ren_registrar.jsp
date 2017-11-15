@@ -38,7 +38,7 @@
 						<div class="row">
 							<div class="input-field col s3"></div>
 							<div class="input-field col s5"> 
-								<h5>Ingrese DNI del trabajador</h5>
+								<h5>Ingrese el DNI del trabajador</h5>
 								<input placeholder="DNI" id="dni" type="text"
 									class="validate" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength=8>
 							</div>
