@@ -24,6 +24,7 @@ $(document).ready(function(){
             });
             
             $("#detalleR").hide();
+       
         });
 
 function buscarDetalle(){	
@@ -35,6 +36,7 @@ function buscarDetalle(){
 		if(detalle.length==0){
 			location.reload();
 		}else{
+
 			$("#detalleR").show();
 			$("#nombres").text(detalle[0].NOMBRES);
 			$("#paterno").text(detalle[0].PATERNO);    
