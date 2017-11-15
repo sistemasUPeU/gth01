@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,7 +36,7 @@
 						cellspacing="0">
 						<thead>
 							<tr>
-							    <th>N°</th>
+							    <th>NÂ°</th>
 								<th>Mes</th>
 								<th>Foto</th>
 								<th>Apellidos y Nombres</th>
@@ -45,17 +44,17 @@
 								<th>Area</th>
 								<th>Departatmento</th>
 								<th>Tipo de contrato</th>
-								<th>Descripción</th>
+								<th>DescripciÃ³n</th>
 								<th>Fecha de inicio</th>
 								<th>Dni</th>
 								<th>MFL</th>
 								<th>Estado</th>
-								<th>Operaciones</th>
+								<th colspan="2">Operaciones</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>N°</th>
+								<th>NÂ°</th>
 								<th>Mes</th>
 								<th>Foto</th>
 								<th>Apellidos y Nombres</th>
@@ -63,7 +62,7 @@
 								<th>Area</th>
 								<th>Departatmento</th>
 								<th>Tipo de contrato</th>
-								<th>Descripción</th>
+								<th>DescripciÃ³n</th>
 								<th>Fecha de inicio</th>
 								<th>Dni</th>
 								<th>MFL</th>
@@ -72,10 +71,12 @@
 							</tr>
 						</tfoot>
 
-						<tbody>
-							<tr>
-						        <td>1</td>
-								<td>Carlos</td>
+						<tbody id="tablita"	>
+						<% int i = 1;%>
+						<c:forEach items="${lista}" var="au">
+						<tr>
+						        <td class="warning"><%=i++%></td> 
+						        <td class="warning">${au.no_trabajador}</td>							
 								<td class=""><img width="30" height="30"
 									src="<c:url value='main/webapp/resources/img/user.png'></c:url> "
 									alt="Usuario"></td>
@@ -90,30 +91,8 @@
 								<td>$320,800</td>
 								<td><a class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>	
 								<td><a href="<c:url value='details'></c:url>" class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>				     
-<<<<<<< HEAD
-
-=======
-
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 							</tr>
-							<tr>
-						        <td>2</td>
-								<td>Nicole</td>
-								<td class=""><img width="30" height="30"
-									src="<c:url value='main/webapp/resources/img/user.png'></c:url> "
-									alt="Usuario"></td>
-								<td>Edinburgh</td>
-								<td>60</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td><a class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>						     
-								<td><a class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
-							</tr>
+							</c:forEach>														
 						</tbody>
 					</table>
 				</div>
@@ -129,7 +108,7 @@
 						cellspacing="0">
 						<thead>
 							<tr>
-							    <th>N°</th>
+							    <th>NÂ°</th>
 								<th>Mes</th>
 								<th>Foto</th>
 								<th>Apellidos y Nombres</th>
@@ -137,7 +116,7 @@
 								<th>Area</th>
 								<th>Departatmento</th>
 								<th>Tipo de contrato</th>
-								<th>Descripción</th>
+								<th>DescripciÃ³n</th>
 								<th>Fecha de inicio</th>
 								<th>Dni</th>
 								<th>MFL</th>
