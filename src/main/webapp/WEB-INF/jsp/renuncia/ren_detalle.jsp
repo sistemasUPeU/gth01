@@ -177,15 +177,10 @@
 						<div class="input-field col s6">
 							<h5>Carta de Renuncia:</h5>
 						</div>
-						<div class="divider"></div>
-						<div class="row section">
-							<div class="col s12 m8 l5">
-								<input type="file" id="input-file-now" class="dropify"
-									data-default-file="" /> <a
-									class="btn waves-effect waves-light light-blue darken-4">ver
-									mas detalles</a>
-							</div>
-						</div>
+						<div class="row">								
+                        <div class="material-placeholder">
+                        <img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="<c:url value="/resources/img/carta de renuncia.png"/>"></div>
+              </div>
 					</div>
 				</form>
 				<form class="col s12">

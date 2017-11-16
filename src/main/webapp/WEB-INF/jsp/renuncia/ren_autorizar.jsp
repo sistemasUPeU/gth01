@@ -30,16 +30,15 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<div id="table-datatables">
 			<h4 class="header">Renuncias por Autorizar</h4>
-			
+
 			<div class="row">
 				<div class="col s12 m8 l9">
 					<table id="data-table-simple" class="responsive-table display"
 						cellspacing="0">
 						<thead>
 							<tr>
-							    <th>N°</th>
+								<th>N°</th>
 								<th>Mes</th>
-								<th>Foto</th>
 								<th>Apellidos y Nombres</th>
 								<th>Puesto</th>
 								<th>Area</th>
@@ -57,7 +56,6 @@
 							<tr>
 								<th>N°</th>
 								<th>Mes</th>
-								<th>Foto</th>
 								<th>Apellidos y Nombres</th>
 								<th>Puesto</th>
 								<th>Area</th>
@@ -74,11 +72,8 @@
 
 						<tbody>
 							<tr>
-						        <td>1</td>
+								<td>1</td>
 								<td>Carlos</td>
-								<td class=""><img width="30" height="30"
-									src="<c:url value='main/webapp/resources/img/user.png'></c:url> "
-									alt="Usuario"></td>
 								<td>Edinburgh</td>
 								<td>61</td>
 								<td>2011/04/25</td>
@@ -88,16 +83,15 @@
 								<td>$320,800</td>
 								<td>$320,800</td>
 								<td>$320,800</td>
-								<td><a class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>	
-								<td><a href="<c:url value='details'></c:url>" class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>				     
+								<td><a
+									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>
+								<td><a href="<c:url value='details'></c:url>"
+									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
 
 							</tr>
 							<tr>
-						        <td>2</td>
+								<td>2</td>
 								<td>Nicole</td>
-								<td class=""><img width="30" height="30"
-									src="<c:url value='main/webapp/resources/img/user.png'></c:url> "
-									alt="Usuario"></td>
 								<td>Edinburgh</td>
 								<td>60</td>
 								<td>2011/04/25</td>
@@ -107,7 +101,8 @@
 								<td>$320,800</td>
 								<td>$320,800</td>
 								<td>$320,800</td>
-								<td><a class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>						     
+								<td><a
+									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>
 								<td><a class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
 							</tr>
 						</tbody>
@@ -117,71 +112,96 @@
 		</div>
 	</div>
 	<div id="main">
-			<p style="color:#FF0000";><h4 class="header" >Renuncias Autorizados</h4></p>
-			
-			<div class="row">
-				<div class="col s12 m8 l9">
-					<table id="data-table-simple" class="responsive-table display"
-						cellspacing="0">
-						<thead>
-							<tr>
-							    <th>N°</th>
-								<th>Mes</th>
-								<th>Foto</th>
-								<th>Apellidos y Nombres</th>
-								<th>Puesto</th>
-								<th>Area</th>
-								<th>Departatmento</th>
-								<th>Tipo de contrato</th>
-								<th>Descripción</th>
-								<th>Fecha de inicio</th>
-								<th>Dni</th>
-								<th>MFL</th>
-								<th>Estado</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-						        <td>1</td>
-								<td>Carlos</td>
-								<td class=""><img width="30" height="30"
-									src="<c:url value='main/webapp/resources/img/user.png'></c:url> "
-									alt="Usuario"></td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td><a class="btn waves-effect waves-effect waves-light green darken-4">Autorizado</a></td>						     
-							</tr>
-							<tr>
-						        <td>1</td>
-								<td>Nicole</td>
-								<td class=""><img width="30" height="30"
-									src="<c:url value='main/webapp/resources/img/user.png'></c:url> "
-									alt="Usuario"></td>
-								<td>Edinburgh</td>
-								<td>60</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td><a class="btn waves-effect waves-effect waves-light green darken-4">Autorizado</a></td>	
-							</tr>
-						</tbody>
-					</table>
+	<div class="col s12 m6">
+		<ul class="collapsible collapsible-accordion"
+			data-collapsible="accordion">
+			<li class="active">
+				<div class="collapsible-header active">
+					<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
 				</div>
-			</div>
-		</div>
+				<div class="collapsible-body" style="display: none;">
+					<div id="table-datatables">
+						<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
+						<div class="row">
+							<div class="col s12 m8 l9">
+								<table id="data-table-simple" class="responsive-table display"
+									cellspacing="0">
+									<tr>
+										<th>Mes</th>
+										<th>Apellidos y Nombres</th>
+										<th>Puesto</th>
+										<th>Area</th>
+										<th>Departamento</th>
+										<th>Tipo de contrato</th>
+										<th>Descripcion</th>
+										<th>Fecha de inicio</th>
+										<th>DNI</th>
+										<th>MFL</th>
+										<th>Estado</th>
+									</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>Mes</th>
+											<th>Apellidos y Nombres</th>
+											<th>Puesto</th>
+											<th>Area</th>
+											<th>Departamento</th>
+											<th>Tipo de contrato</th>
+											<th>Descripcion</th>
+											<th>Fecha de inicio</th>
+											<th>DNI</th>
+											<th>MFL</th>
+											<th>Estado</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<tr>
+											<td>DICIEMBRE</td>
+											<td>Norma Lucia Riquelme</td>
+											<td>Auxiliar de Embalaje</td>
+											<td>Distribucion</td>
+											<td>Productos Union</td>
+											<td>Contrato persona: Tiempo completo</td>
+											<td>Entregar y/o enviar documentos. Reglamentos y otros
+												al trabajador</td>
+											<td>02/10/17 12:47:50</td>
+											<td>12458976</td>
+											<td>No</td>
+											<td><a
+												class="btn waves-effect waves-effect waves-light green darken-4">Autorizado</a></td>
+										</tr>
+										<tr>
+											<td>ENERO</td>
+											<td>Flor Flores Guillen</td>
+											<td>Auxiliar de Embalaje</td>
+											<td>Distribucion</td>
+											<td>Productos Union</td>
+											<td>Contrato persona: Tiempo completo</td>
+											<td>Entregar y/o enviar documentos. Reglamentos y otros
+												al trabajador</td>
+											<td>02/10/17 12:47:50</td>
+											<td>12458976</td>
+											<td>No</td>
+											<td><a
+												class="btn waves-effect waves-effect waves-light green darken-4">Autorizado</a></td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</li>
+		</ul>
 	</div>
-	
+	</div>
+	</div>
+
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>

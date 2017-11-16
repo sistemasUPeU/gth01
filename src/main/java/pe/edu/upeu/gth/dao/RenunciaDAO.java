@@ -22,7 +22,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 
 /**
  *
- * @author Brandux
+ * @author Nicole
  */
 public class RenunciaDAO{
 

@@ -58,7 +58,7 @@ public class RenunciaController {
 	public ModelAndView entregarRenuncia(ModelMap model) {
 		return new ModelAndView("renuncia/ren_entregar");
     }
-	
+
 
 	@RequestMapping(value = "/processDetails", method = RequestMethod.GET)
 	public ModelAndView detalleP(ModelMap model) {
@@ -70,7 +70,6 @@ public class RenunciaController {
 	public ModelAndView detalles(ModelMap model) {
 		return new ModelAndView("renuncia/ren_detalle");
     }
-
 	
 //	@RequestMapping("/BuscarDNIDetalleR")
 //	public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest request) {

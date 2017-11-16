@@ -2,17 +2,26 @@ package pe.edu.upeu.gth.test;
 
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
+
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.RenAutorizarDAO;
+import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
 public class ConfigTest {
 
 	public static DataSource d = AppConfig.getDataSource();
+	public static Gson gs = new Gson();
+	public static RenAutorizarDAO au = new RenAutorizarDAO(d);
+	public static RenunciaDAO re = new RenunciaDAO(d);
 
 	public static void main(String[] args) {
-		conect();
-		checkSecurityDaoAuthentication();
+//		conect();
+//		checkSecurityDaoAuthentication();
+		listar();
+		//Renuncia();
 	}
 
 	public static void conect() {
@@ -33,6 +42,15 @@ public class ConfigTest {
 		System.out.println("password: "+user.getPassword());
 		System.out.println("checked!");
 		
+	}
+	public static void listar() {
+//		DataSource d = AppConfig.getDataSource();
+		System.out.println(gs.toJson(au.listar()));
+	}
+	
+	public static void Renuncia() {
+		DataSource d = AppConfig.getDataSource();
+		System.out.println(gs.toJson(re.listar()));
 	}
 
 }
