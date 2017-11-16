@@ -54,7 +54,7 @@
 						</thead>
 						<tfoot>
 							<tr>
-								<th>N°</th>
+								<th>N° lalallala</th>
 								<th>Mes</th>
 								<th>Apellidos y Nombres</th>
 								<th>Puesto</th>
