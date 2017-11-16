@@ -156,7 +156,7 @@
 				</div>
 			</form>
 	
-			</div>
+			
 			<div class="col s12 m8 l9" id="adjuntar" >
 				<p>
 					<a class="waves-effect waves-light btn modal-trigger  teal "
@@ -183,6 +183,7 @@
 					</div>
 				</div>
 			</div> 
+			</div>
 		</div>
 		<hr />
 	</div>
