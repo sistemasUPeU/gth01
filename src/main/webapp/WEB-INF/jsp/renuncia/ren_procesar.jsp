@@ -35,7 +35,7 @@
 			<h4 class="header">PROCESAR RENUNCIA</h4>
 			<div class="row">
 				<div class="col s12 m8 l9">
-					<table id="data-table-simple" class="responsive-table display"
+					<table class="responsive-table display" id="data-table-simple" 
 						cellspacing="0">
 						<thead>
 							<tr>
@@ -54,99 +54,82 @@
 								<th>Operaciones</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th>Mes</th>
-								<th>Foto</th>
-								<th>Apellidos y Nombres</th>
-								<th>Puesto</th>
-								<th>Area</th>
-								<th>Departamento</th>
-								<th>Tipo de contrato</th>
-								<th>Descripcion</th>
-								<th>Fecha de inicio</th>
-								<th>DNI</th>
-								<th>MFL</th>
-								<th>Estado</th>
-								<th>Operaciones</th>
-							</tr>
-						</tfoot>
-						<tbody>
-							<tr>
-								<td>OCTUBRE</td>
-								<td>Foto</td>
-								<td>Rcopa Inuma Angel</td>
-								<td>Auxiliar de Embalaje</td>
-								<td>Distribucion</td>
-								<td>Productos Union</td>
-								<td>Contrato persona: Tiempo completo</td>
-								<td>Entregar y/o enviar documentos. Reglamentos y otros al
-									trabajador</td>
-								<td>02/10/17 12:47:50</td>
-								<td>12458976</td>
-								<td>No</td>
-								<td><a
-									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>
-								<td><a href="processDetails"
-									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
-								<!-- 							<a href="/gth/renuncias/processR" class="waves-effect waves-light"><i class="mdi-notification-sync-problem"></i>  Procesar Renuncia</a> -->
-							</tr>
-							<tr>
-								<td>NOVIEMBRE</td>
-								<td>Foto</td>
-								<td>Nicole Garcia Guevara</td>
-								<td>Auxiliar de Embalaje</td>
-								<td>Distribucion</td>
-								<td>Productos Union</td>
-								<td>Contrato persona: Tiempo completo</td>
-								<td>Entregar y/o enviar documentos. Reglamentos y otros al
-									trabajador</td>
-								<td>02/10/17 12:47:50</td>
-								<td>12458976</td>
-								<td>No</td>
-								<td><a
-									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>
-								<td><a href="processDetails"
-									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
-							</tr>
-							<tr>
-								<td>DICIEMBRE</td>
-								<td>Foto</td>
-								<td>Norma Lucia Riquelme</td>
-								<td>Auxiliar de Embalaje</td>
-								<td>Distribucion</td>
-								<td>Productos Union</td>
-								<td>Contrato persona: Tiempo completo</td>
-								<td>Entregar y/o enviar documentos. Reglamentos y otros al
-									trabajador</td>
-								<td>02/10/17 12:47:50</td>
-								<td>12458976</td>
-								<td>No</td>
-								<td><a
-									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>
-								<td><a href="processDetails"
-									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
-							</tr>
-							<tr>
-								<td>ENERO</td>
-								<td>Foto</td>
-								<td>Flor Flores Guillen</td>
-								<td>Auxiliar de Embalaje</td>
-								<td>Distribucion</td>
-								<td>Productos Union</td>
-								<td>Contrato persona: Tiempo completo</td>
-								<td>Entregar y/o enviar documentos. Reglamentos y otros al
-									trabajador</td>
-								<td>02/10/17 12:47:50</td>
-								<td>12458976</td>
-								<td>No</td>
-								<td><a
-									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td>
-								<td><a href="processDetails"
-									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td>
-							</tr>
+<!-- 						<tbody> -->
+<!-- 							<tr> -->
+<!-- 								<td>OCTUBRE</td> -->
+<!-- 								<td>Foto</td> -->
+<!-- 								<td>Rcopa Inuma Angel</td> -->
+<!-- 								<td>Auxiliar de Embalaje</td> -->
+<!-- 								<td>Distribucion</td> -->
+<!-- 								<td>Productos Union</td> -->
+<!-- 								<td>Contrato persona: Tiempo completo</td> -->
+<!-- 								<td>Entregar y/o enviar documentos. Reglamentos y otros al -->
+<!-- 									trabajador</td> -->
+<!-- 								<td>02/10/17 12:47:50</td> -->
+<!-- 								<td>12458976</td> -->
+<!-- 								<td>No</td> -->
+<!-- 								<td><a -->
+<!-- 									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td> -->
+<!-- 								<td><a href="processDetails" -->
+<!-- 									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td> -->
+<!-- 															<a href="/gth/renuncias/processR" class="waves-effect waves-light"><i class="mdi-notification-sync-problem"></i>  Procesar Renuncia</a> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>NOVIEMBRE</td> -->
+<!-- 								<td>Foto</td> -->
+<!-- 								<td>Nicole Garcia Guevara</td> -->
+<!-- 								<td>Auxiliar de Embalaje</td> -->
+<!-- 								<td>Distribucion</td> -->
+<!-- 								<td>Productos Union</td> -->
+<!-- 								<td>Contrato persona: Tiempo completo</td> -->
+<!-- 								<td>Entregar y/o enviar documentos. Reglamentos y otros al -->
+<!-- 									trabajador</td> -->
+<!-- 								<td>02/10/17 12:47:50</td> -->
+<!-- 								<td>12458976</td> -->
+<!-- 								<td>No</td> -->
+<!-- 								<td><a -->
+<!-- 									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td> -->
+<!-- 								<td><a href="processDetails" -->
+<!-- 									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>DICIEMBRE</td> -->
+<!-- 								<td>Foto</td> -->
+<!-- 								<td>Norma Lucia Riquelme</td> -->
+<!-- 								<td>Auxiliar de Embalaje</td> -->
+<!-- 								<td>Distribucion</td> -->
+<!-- 								<td>Productos Union</td> -->
+<!-- 								<td>Contrato persona: Tiempo completo</td> -->
+<!-- 								<td>Entregar y/o enviar documentos. Reglamentos y otros al -->
+<!-- 									trabajador</td> -->
+<!-- 								<td>02/10/17 12:47:50</td> -->
+<!-- 								<td>12458976</td> -->
+<!-- 								<td>No</td> -->
+<!-- 								<td><a -->
+<!-- 									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td> -->
+<!-- 								<td><a href="processDetails" -->
+<!-- 									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>ENERO</td> -->
+<!-- 								<td>Foto</td> -->
+<!-- 								<td>Flor Flores Guillen</td> -->
+<!-- 								<td>Auxiliar de Embalaje</td> -->
+<!-- 								<td>Distribucion</td> -->
+<!-- 								<td>Productos Union</td> -->
+<!-- 								<td>Contrato persona: Tiempo completo</td> -->
+<!-- 								<td>Entregar y/o enviar documentos. Reglamentos y otros al -->
+<!-- 									trabajador</td> -->
+<!-- 								<td>02/10/17 12:47:50</td> -->
+<!-- 								<td>12458976</td> -->
+<!-- 								<td>No</td> -->
+<!-- 								<td><a -->
+<!-- 									class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td> -->
+<!-- 								<td><a href="processDetails" -->
+<!-- 									class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td> -->
+<!-- 							</tr> -->
 
-						</tbody>
+<!-- 						</tbody> -->
 					</table>
 
 				</div>
@@ -291,7 +274,7 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-	<%-- <%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
+	<%@include file="../../../resources/js/businessCore/prueba.jspf"%>
 
 </body>
 </html>

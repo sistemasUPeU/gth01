@@ -4,23 +4,23 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
-public class RenAutorizarDAO implements CRUDOperations{
+public class RenProcesarDAO implements CRUDOperations{
+	private static final String Connection = null;
 	String sql;
+	String resultado;
+	String query;
     PreparedStatement ps;
     CallableStatement cs;
     ResultSet rs;
@@ -29,22 +29,16 @@ public class RenAutorizarDAO implements CRUDOperations{
 
     private static JdbcTemplate jt;
 
-    public RenAutorizarDAO(DataSource dataSource) {
+    public RenProcesarDAO(DataSource dataSource) {
         jt = new JdbcTemplate(dataSource);
     }
 
 	@Override
-	 public ArrayList<Map<String, Object>> listar() {
-       
-        return null;
-    }
-
-	public List<Map<String, Object>> readAll() {
-		List<Map<String, Object>> readAll =  new ArrayList<>();
-		sql="SELECT * FROM RHTC_PASOS";
-		
-		return readAll;
+	public ArrayList<Map<String, Object>> listar() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public boolean add(Object o) {
 		// TODO Auto-generated method stub
@@ -63,8 +57,9 @@ public class RenAutorizarDAO implements CRUDOperations{
 		return false;
 	}
 	
-	public List<Map<String,Object>> Autorizar() {
-    	sql = "select ID_TRABAJADOR,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
+	public List<Map<String,Object>> Procesar() {
+		sql = "select ID_TRABAJADOR,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
+		
         return jt.queryForList(sql);
     }
 

@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 
 @Controller
@@ -33,6 +34,7 @@ public class RenunciaController {
 	Map<String, Object> mp = new HashMap<>();
 	DataSource d = AppConfig.getDataSource();
 	RenunciaDAO rd = new RenunciaDAO(d);
+	RenAutorizarDAO ra = new RenAutorizarDAO(d);
 	private Gson gson = new Gson();
 	@RequestMapping("/")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
@@ -85,6 +87,7 @@ public class RenunciaController {
 //        }
 //	}
 	
+	//Registar Renuncia
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -96,6 +99,28 @@ public class RenunciaController {
 			out.println(gson.toJson(rd.Buscar_DetalleTrabajador(dni)));
 			break;
 			
+		case 2:/*
+			Pedido d = new Pedido();
+			d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
+			d.setHora(request.getParameter("hora"));
+			d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
+			d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
+			out.println((hs.create(d)));*/
+			break;
+		}	
+			
+	}
+	
+	//Autorizar Renuncia
+	@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
+	protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		int op = Integer.parseInt(request.getParameter("opc"));
+		switch (op) {
+		case 1:
+			out.println(gson.toJson(ra.Autorizar()));
+			break;			
 		case 2:/*
 			Pedido d = new Pedido();
 			d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));

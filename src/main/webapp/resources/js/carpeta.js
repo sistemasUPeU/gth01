@@ -1,3 +1,7 @@
+$(document).ready(function(){
+	listar();
+//	alert("hkdfjgh");
+});
 //TextArea
 $(document).ready(function(){
             // Basic
@@ -27,7 +31,7 @@ $(document).ready(function(){
             $("#detalleR").hide();
        
         });
-
+//Registar Renuncia
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
@@ -55,3 +59,4 @@ function buscarDetalle(){
 	});
 
 }
+

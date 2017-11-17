@@ -20,7 +20,7 @@ public class ConfigTest {
 	public static void main(String[] args) {
 //		conect();
 //		checkSecurityDaoAuthentication();
-		listar();
+		Autorizar();
 		//Renuncia();
 	}
 
@@ -43,9 +43,9 @@ public class ConfigTest {
 		System.out.println("checked!");
 		
 	}
-	public static void listar() {
+	public static void Autorizar() {
 //		DataSource d = AppConfig.getDataSource();
-		System.out.println(gs.toJson(au.listar()));
+		System.out.println(gs.toJson(au.Autorizar()));
 	}
 	
 	public static void Renuncia() {
