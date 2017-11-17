@@ -38,4 +38,10 @@
 	</div>
 	
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		console.log("si");
+	})
+</script>
 </html>
