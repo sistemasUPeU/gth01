@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 
 @Controller
@@ -32,6 +33,7 @@ public class RenunciaController {
 	Map<String, Object> mp = new HashMap<>();
 	DataSource d = AppConfig.getDataSource();
 	RenunciaDAO rd = new RenunciaDAO(d);
+	RenAutorizarDAO ra = new RenAutorizarDAO(d);
 	private Gson gson = new Gson();
 
 	@RequestMapping("/")
@@ -72,6 +74,7 @@ public class RenunciaController {
 	@RequestMapping(value = "/letterR", method = RequestMethod.GET)
 	public ModelAndView imprimir(ModelMap model) {
 		return new ModelAndView("renuncia/ren_emitir");
+<<<<<<< HEAD
 	}
 
 	// @RequestMapping("/BuscarDNIDetalleR")
@@ -89,6 +92,25 @@ public class RenunciaController {
 	// }
 	// }
 
+=======
+    }
+	
+//	@RequestMapping("/BuscarDNIDetalleR")
+//	public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest request) {
+//	
+//        String dni = request.getParameter("dni");
+//
+//        System.out.println(dni);
+//        if (!"".equals(dni)) {
+//        	mp.put("ListarTrabajador", rd.Buscar_DetalleTrabajadorR(dni));
+//        	return new ModelAndView("/registrationR","rpta",gson.toJson(mp));
+//        } else {
+//        	return new ModelAndView("/registrationR");
+//        }
+//	}
+	
+	//Registar Renuncia
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -112,6 +134,7 @@ public class RenunciaController {
 		}
 
 	}
+<<<<<<< HEAD
 
 	@RequestMapping(value = "/gg", method = RequestMethod.GET)
 	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
@@ -137,4 +160,29 @@ public class RenunciaController {
 
 	}
 
+=======
+	
+	//Autorizar Renuncia
+	@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
+	protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		int op = Integer.parseInt(request.getParameter("opc"));
+		switch (op) {
+		case 1:
+			out.println(gson.toJson(ra.Autorizar()));
+			break;			
+		case 2:/*
+			Pedido d = new Pedido();
+			d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
+			d.setHora(request.getParameter("hora"));
+			d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
+			d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
+			out.println((hs.create(d)));*/
+			break;
+		}	
+			
+	}
+	
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 }
