@@ -21,8 +21,20 @@ public class PrincipalController {
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/default");
 	}
+
 	@GetMapping("/GestionarProgramaVacaciones")
 	public ModelAndView GestionarProgramaVacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
+
+	}
+	@GetMapping("/control_firma_vacaciones")
+	public ModelAndView control_firma_vacaciones(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/control_firma_vacaciones");
+	}
+	
+	@GetMapping("/gestionar_lista_filtrada")
+	public ModelAndView gestionar_lista_filtrada(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/gestionar_lista_filtrada");
+
 	}
 }
