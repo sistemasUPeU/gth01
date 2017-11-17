@@ -71,6 +71,11 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/ren_detalle");
     }
 	
+	@RequestMapping(value = "/letterR", method = RequestMethod.GET)
+	public ModelAndView imprimir(ModelMap model) {
+		return new ModelAndView("renuncia/ren_emitir");
+    }
+	
 //	@RequestMapping("/BuscarDNIDetalleR")
 //	public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest request) {
 //	

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="renuncia2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="182b4db9-3c5e-4b6d-81b5-0a55d72b9065">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gth"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT *FROM
+(SELECT con.ID_TRABAJADOR, MIN(con.FE_DESDE) AS FECHA_CONTRATO,pues.NO_PUESTO, CAST(SYSDATE AS varchar(12)) AS FECHA_RENUNCIA, tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION
+FROM RHTM_CONTRATO con
+LEFT JOIN  RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO 
+LEFT JOIN   RHTM_DGP dgp ON con.ID_DGP=dgp.ID_DGP 
+LEFT JOIN RHTM_TRABAJADOR tra ON  con.ID_TRABAJADOR=tra.ID_TRABAJADOR
+LEFT JOIN  RHTX_REGIMEN_LABORAL reg ON con.ID_REGIMEN_LABORAL=reg.ID_REGIMEN_LABORAL
+LEFT JOIN RHTX_SUB_MODALIDAD sub ON con.ID_SUB_MODALIDAD=sub.ID_SUB_MODALIDAD
+LEFT JOIN RHTX_GRUPO_OCUPACION gr ON con.ID_GRUPO_OCUPACION=gr.ID_GRUPO_OCUPACION 
+LEFT JOIN RHTR_TIPO_PLANILLA tipopla ON con.ID_TIPO_PLANILLA=tipopla.ID_TIPO_PLANILLA
+LEFT JOIN RHTD_DETALLE_HORARIO dethor ON con.ID_DETALLE_HORARIO=dethor.ID_DETALLE_HORARIO
+LEFT JOIN RHTC_PLANTILLA_CONTRACTUAL placon ON con.ID_PLANTILLA_CONTRACTUAL=placon.ID_PLANTILLA_CONTRACTUAL
+LEFT JOIN RHTR_SITUACION_ESPECIAL sitesp ON con.ID_SITUACION_ESPECIAL=sitesp.ID_SITUACION_ESPECIAL 
+WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION) WHERE ROWNUM<2]]>
+	</queryString>
+	<field name="ID_TRABAJADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ID_TRABAJADOR"/>
+	</field>
+	<field name="FECHA_CONTRATO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_CONTRATO"/>
+	</field>
+	<field name="NO_PUESTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NO_PUESTO"/>
+	</field>
+	<field name="FECHA_RENUNCIA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_RENUNCIA"/>
+	</field>
+	<field name="NO_TRABAJADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NO_TRABAJADOR"/>
+	</field>
+	<field name="AP_PATERNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_PATERNO"/>
+	</field>
+	<field name="AP_MATERNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_MATERNO"/>
+	</field>
+	<field name="DE_OBSERVACION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DE_OBSERVACION"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="162" y="30" width="230" height="30" uuid="dfc97d2a-5333-4d96-8b14-1ffb7113327f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="18"/>
+				</textElement>
+				<text><![CDATA[CARTA DE RENUNCIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="400" y="30" width="104" height="64" uuid="5d55ec74-142a-44d8-bb6c-895668dc4c15"/>
+				<imageExpression><![CDATA["http://admision.upeu.pe/static/custom/img/logo-upeu.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="145" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="80" width="130" height="20" uuid="97b21675-17ce-4928-a277-53282d13f0d7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESENTE. -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="60" width="210" height="20" uuid="7ed59667-27a0-48f8-aa3a-47d1f935598a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jhon Kennedy Valerio Tamara]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="100" height="20" uuid="67f2db2e-d2c8-4712-b776-a39cbf94648b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEÑOR:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement stretchType="ElementGroupHeight" x="70" y="10" width="160" height="30" uuid="e7dfc66c-944d-40c1-b35e-a4c23e590de2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="30" y="10" width="30" height="30" uuid="1931a6cd-4b1b-4101-a938-d28893ba748f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lima,]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="282" splitType="Stretch">
+			<staticText>
+				<reportElement key="" mode="Opaque" x="30" y="0" width="514" height="50" uuid="157e822a-5ca0-48d8-bcc5-24066b407f10"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Es grato dirigirme a usted a fin de comunicarle al amparo de lo establecido en el articulo 18°                         TUO del D. Leg. N° 728 aprobado por D.  S. N° 003-97-TR formulo mi renuncia al cargo de (2)              			  Que he venido desempeñando en esta empresa desde (3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="100" width="515" height="30" uuid="4579d2d1-0f62-47a6-8cc7-67a83d2352f3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Por motivos de indole personal que motivan esta decisión y que espero tenga a bien comprender, solicito me dispense del plazo de 30 días de anticipación que exige la Ley en caso de renuncia.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="138" width="514" height="30" uuid="a5831566-3e47-4b33-9973-ce9cc72e6816"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Asimismo agredeceré mucho que me facilite con prontitud los beneficios sociales que me corresponden, así como la entrega de mi certificado de trabajo y la carta de cese para de esta forma solicitar al Banco la Compensacion por Tiempo de Servicios depositados.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="180" width="514" height="30" uuid="c252e113-ea41-42f7-a3ca-7b56eb97404f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Agradezco también la confianza y la oportunidad que se me ha dado de trabajar en esta empresa.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="240" width="210" height="30" uuid="89dfba33-594e-49b3-b9ca-d84e30837888"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="240" width="420" height="30" uuid="e30c6015-4e15-481c-9de9-74ee7d6258ba"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NO_TRABAJADOR} + " " + $F{AP_PATERNO} +" "+ $F{AP_MATERNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="28" width="160" height="20" uuid="eaf6b09c-1fff-42d1-80d2-6cbe5e1a4637">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NO_PUESTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="28" width="50" height="15" uuid="5a58a2cd-03fc-4f0f-9b7a-07f3f4e32a74">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_CONTRATO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="43" width="100" height="20" uuid="83df46dd-0e9d-4bab-8a3a-66009893cb80"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[hasta (4)]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="80" y="43" width="100" height="20" uuid="a435ac1e-b7ca-4d3e-928b-7ecc5b21836e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

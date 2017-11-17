@@ -306,5 +306,23 @@ public class TrabajadorDAO {
     	sql = "SELECT ID_NO_AFP,CO_SISTEMA_PENSIONARIO FROM rhtm_trabajador where id_trabajador =? ";
     	return jt.queryForMap(sql,idtr);
     }
+    
+    public List<Map<String,Object>> DATOS_TRABAJADOR(String idtr) {
+    	sql = "SELECT *FROM\r\n" + 
+    			"(SELECT con.ID_TRABAJADOR, MIN(con.FE_DESDE) AS FECHA_CONTRATO,pues.NO_PUESTO, CAST(SYSDATE AS varchar(12)) AS FECHA_RENUNCIA, tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION\r\n" + 
+    			"FROM RHTM_CONTRATO con\r\n" + 
+    			"LEFT JOIN  RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO \r\n" + 
+    			"LEFT JOIN   RHTM_DGP dgp ON con.ID_DGP=dgp.ID_DGP \r\n" + 
+    			"LEFT JOIN RHTM_TRABAJADOR tra ON  con.ID_TRABAJADOR=tra.ID_TRABAJADOR\r\n" + 
+    			"LEFT JOIN  RHTX_REGIMEN_LABORAL reg ON con.ID_REGIMEN_LABORAL=reg.ID_REGIMEN_LABORAL\r\n" + 
+    			"LEFT JOIN RHTX_SUB_MODALIDAD sub ON con.ID_SUB_MODALIDAD=sub.ID_SUB_MODALIDAD\r\n" + 
+    			"LEFT JOIN RHTX_GRUPO_OCUPACION gr ON con.ID_GRUPO_OCUPACION=gr.ID_GRUPO_OCUPACION \r\n" + 
+    			"LEFT JOIN RHTR_TIPO_PLANILLA tipopla ON con.ID_TIPO_PLANILLA=tipopla.ID_TIPO_PLANILLA\r\n" + 
+    			"LEFT JOIN RHTD_DETALLE_HORARIO dethor ON con.ID_DETALLE_HORARIO=dethor.ID_DETALLE_HORARIO\r\n" + 
+    			"LEFT JOIN RHTC_PLANTILLA_CONTRACTUAL placon ON con.ID_PLANTILLA_CONTRACTUAL=placon.ID_PLANTILLA_CONTRACTUAL\r\n" + 
+    			"LEFT JOIN RHTR_SITUACION_ESPECIAL sitesp ON con.ID_SITUACION_ESPECIAL=sitesp.ID_SITUACION_ESPECIAL \r\n" + 
+    			"WHERE con.ID_TRABAJADOR=? GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION) WHERE ROWNUM<2";
+    	return jt.queryForList(sql,idtr);
+    }
 	
 }
