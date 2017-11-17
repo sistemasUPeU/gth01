@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -865,4 +866,22 @@ public class TrabajadorController {
         mp.put("status", true);
         return mp;
 	}
+	
+	//REPORTES
+	
+	@RequestMapping(value = "/print")
+	// public @ResponseBody
+	String verReporte(Model model, Authentication authentication) {
+
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		String idtr = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		System.out.println(idtr);
+
+		System.out.println("asdasdasdasdasd");
+		model.addAttribute("format", "pdf");
+		model.addAttribute("datasource", (tr.DATOS_TRABAJADOR(idtr)));
+		model.addAttribute("AUTOR", "Tutor de programacion");
+		return "renuncia2_report";
+	}
+
 }
