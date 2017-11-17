@@ -136,6 +136,7 @@
 											
 											
 										});
+					listar();
 					});
 	
 	function redirect(link){
@@ -184,6 +185,49 @@
 		s += '</tbody>';
 		s += '</table>';
 		return s;
+	}
+	
+	
+	
+	 
+	
+	function listar() {
+		$
+				.ajax({
+					url : 'gth/renuncias/gg',
+					data : {opc :1},
+					method : 'get',
+					dataType : 'json',
+					headers : {
+						Accept : "application/json; charset=UTF-8",
+						"Content-Type" : "application/json; charset=UTF-8"
+					},
+					success : function(data) {
+						console.log("asdasds");
+						console.log(data);
+
+						var table = $("#tablita")
+								.DataTable(
+										{
+											"language" : {
+												url : 'recursos/Spanish_lang.json'
+											},
+											"data" : data,
+											"columns" : [
+													{
+														"data" : "nombre"
+													},
+													{
+														"data" : "correo"
+													},
+													{
+														"defaultContent" : "<button type='button' class='editar btn btn-primary'><i class='fa fa-pencil-square-o'></i></button>	<button type='button' class='eliminar btn btn-danger' data-toggle='modal' data-target='#modalEliminar' ><i class='fa fa-trash-o'></i></button>"
+													} ]
+
+										});
+
+					}
+				});
 	}
 	
 	
