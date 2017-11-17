@@ -1,10 +1,7 @@
-$(document).ready(function(){
-	listar();
-//	alert("hkdfjgh");
-});
-//TextArea
+
 $(document).ready(function(){
             // Basic
+			
             $('.dropify').dropify();
 
             // Translated
