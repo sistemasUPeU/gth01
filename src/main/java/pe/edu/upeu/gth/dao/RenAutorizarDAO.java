@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import pe.edu.upeu.gth.config.AppConfig;
+//import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
 public class RenAutorizarDAO implements CRUDOperations{
@@ -25,7 +25,7 @@ public class RenAutorizarDAO implements CRUDOperations{
     CallableStatement cs;
     ResultSet rs;
     Connection cn;
-    DataSource d = AppConfig.getDataSource();
+//    DataSource d = AppConfig.getDataSource();
 
     private static JdbcTemplate jt;
 

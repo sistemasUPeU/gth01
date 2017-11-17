@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
 
-import pe.edu.upeu.gth.config.AppConfig;
+//import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
 public class RenProcesarDAO implements CRUDOperations{
@@ -25,7 +25,7 @@ public class RenProcesarDAO implements CRUDOperations{
     CallableStatement cs;
     ResultSet rs;
     Connection cn;
-    DataSource d = AppConfig.getDataSource();
+//    DataSource d = AppConfig.getDataSource();
 
     private static JdbcTemplate jt;
 

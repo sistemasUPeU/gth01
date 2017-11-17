@@ -8,13 +8,10 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,9 +28,9 @@ import pe.edu.upeu.gth.dao.RenunciaDAO;
 public class RenunciaController {
 
 	Map<String, Object> mp = new HashMap<>();
-	DataSource d = AppConfig.getDataSource();
-	RenunciaDAO rd = new RenunciaDAO(d);
-	RenAutorizarDAO ra = new RenAutorizarDAO(d);
+
+	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
+	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
 
 	@RequestMapping("/")
@@ -74,7 +71,7 @@ public class RenunciaController {
 	@RequestMapping(value = "/letterR", method = RequestMethod.GET)
 	public ModelAndView imprimir(ModelMap model) {
 		return new ModelAndView("renuncia/ren_emitir");
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	}
 
 	// @RequestMapping("/BuscarDNIDetalleR")
@@ -92,8 +89,8 @@ public class RenunciaController {
 	// }
 	// }
 
-=======
-    }
+//=======
+//    }
 	
 //	@RequestMapping("/BuscarDNIDetalleR")
 //	public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest request) {
@@ -110,7 +107,7 @@ public class RenunciaController {
 //	}
 	
 	//Registar Renuncia
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+//>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -134,7 +131,7 @@ public class RenunciaController {
 		}
 
 	}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 	@RequestMapping(value = "/gg", method = RequestMethod.GET)
 	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
@@ -160,7 +157,7 @@ public class RenunciaController {
 
 	}
 
-=======
+//=======
 	
 	//Autorizar Renuncia
 	@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
@@ -184,5 +181,5 @@ public class RenunciaController {
 			
 	}
 	
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+//>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 }

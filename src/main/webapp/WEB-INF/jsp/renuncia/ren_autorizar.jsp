@@ -193,7 +193,8 @@
 	</div>
 	
 	<%@include file="../../../jspf/footer.jspf"%>
-	<script
+	<script 
+	
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
 	<script

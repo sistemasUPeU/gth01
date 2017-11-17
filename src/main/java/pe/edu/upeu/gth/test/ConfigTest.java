@@ -24,7 +24,8 @@ public class ConfigTest {
 		//Renuncia();
 	}
 
-	public static void conect() {
+	public static void conect() {	
+		
 		DataSource d = AppConfig.getDataSource();
 
 		if (d != null) {

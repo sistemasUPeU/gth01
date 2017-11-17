@@ -6,10 +6,14 @@
 
 <head>
 <%@include file="../../../jspf/general.jspf"%>
+
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
+	rel="stylesheet" type="text/css" />
+<link
+	href="<c:url value='/resources/js/plugins/data-tables/css/dataTables.material.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
@@ -68,9 +72,9 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-		type="text/javascript"></script>
+<!-- 	<script -->
+<%-- 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>" --%>
+<!-- 		type="text/javascript"></script> -->
 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
 <body>
 </html>
