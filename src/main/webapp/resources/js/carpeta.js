@@ -29,6 +29,16 @@ $(document).ready(function(){
             });
             
             $("#detalleR").hide();
+            
+            $("#dni").keypress(function(e) {
+    			if (e.which == 13) {
+    				$("#buscarDetalle").click();
+    			}
+    		});
+            
+            $("#mot").change(function(){
+            	$("#motivos option:selected").map(function(){ return this.value }).get().join(", ");          		
+            });
        
         });
 //Registar Renuncia
@@ -54,6 +64,8 @@ function buscarDetalle(){
 			$("#seccion").text(detalle[0].NOM_SECCION);
 			$("#puesto").text(detalle[0].NOM_PUESTO);
 			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+			$("#dni").val("");
+			$("#dni").focus();
 		}
 		  
 	});
