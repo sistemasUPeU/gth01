@@ -33,7 +33,7 @@ $(document).ready(function(){
     		});
             
             $("#mot").change(function(){
-            	$("#motivos option:selected").map(function(){ return this.value }).get().join(", ");          		
+            	$("#motivos option:selected").map(function(){ return this.value }).get().join(", ");  		
             });
        
         });
