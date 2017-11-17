@@ -21,5 +21,8 @@ public class PrincipalController {
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/default");
 	}
-	
+	@GetMapping("/GestionarProgramaVacaciones")
+	public ModelAndView GestionarProgramaVacaciones(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
+	}
 }
