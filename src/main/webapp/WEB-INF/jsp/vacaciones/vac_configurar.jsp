@@ -14,7 +14,6 @@
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 </head>
-
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
@@ -28,14 +27,7 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<section id="content" class="col m12 l12 s12">
-			<div class="card-panel">
-			<h1>Hola</h1>
-			</div>
 
-			</section>
-		
 	</div>
-	
 </body>
 </html>
