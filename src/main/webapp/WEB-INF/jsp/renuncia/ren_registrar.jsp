@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="../../../jspf/general.jspf"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
@@ -62,8 +63,10 @@
 					<section class="plans-container" id="plans"> <article
 						class="col s12 m6 l4 ">
 					<div class="card z-depth-2 ">
-						<div class="card-image #424242 grey darken-3 waves-effect ">
-							<div class="card-title"><h5>DETALLES DEL TRABAJADOR</h5></div>
+						<div class="card-image #304ffe indigo accent-4 waves-effect ">
+							<div class="card-title">
+								<h5>DETALLES DEL TRABAJADOR</h5>
+							</div>
 							<hr />
 							<div class="price flow-text">
 								<div class="col m12 l12 s12">
@@ -98,7 +101,7 @@
 								</div>
 								</sup>
 							</div>
-							<div class="price-desc white-text" >
+							<div class="price-desc white-text">
 								<form class="col s12 ">
 									<div class="row">
 										<div class="input-field col s6  ">
@@ -114,7 +117,7 @@
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
-											<h5>Dirección:</h5>
+											<h5>DirecciÃ³n:</h5>
 										</div>
 										<div class="input-field col s4 ">
 											<h5>
@@ -150,7 +153,7 @@
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6">
-											<h5>Sección:</h5>
+											<h5>SecciÃ³n:</h5>
 										</div>
 										<div class="input-field col s4 ">
 											<h5>
@@ -193,23 +196,21 @@
 									<a class="waves-effect waves-light btn modal-trigger  teal "
 										href="#modal3">Adjuntar Carta de Renuncia</a>
 								</p>
-								<div id="modal3" class="modal">
+								<div id="modal3" class="modal modal modal-fixed-footer">
 									<div class="modal-header  ">
-										<h4><b>ADJUNTAR CARTA DE RENUNCIA</b></h4>
+										<h4>
+											<b>ADJUNTAR CARTA DE RENUNCIA</b>
+										</h4>
 									</div>
-									<div class="modal-content #e65100 orange darken-4 white-text">
+									<div class="modal-content #009688 teal white-text">
 										<div class="divider"></div>
 										<div class="row section">
 											<form class="col s12">
 												<div class="row">
 													<div id="mot" class="input-field col s6">
-														<select multiple id="motivo">
-															<option value="" disabled selected>Motivo de renuncia</option>
-															<option value="1">Incomodidades con el jefe</option>
-															<option value="2">Compañeros de trabajo</option>
-															<option value="3">Sueldo</option>
-															<option value="4">Otros</option>
-														</select> 
+														<select id="motivo" multiple>
+
+														</select>
 													</div>
 													<div class="input-field col s2">
 														<h5>Fecha:</h5>
@@ -218,27 +219,28 @@
 														<input placeholder="seleccione la fecha" id="first_name"
 															type="date" class="datepicker">
 													</div>
-
 												</div>
 											</form>
-											<div class="row">
-												<form class="col s12">
-													<div class="row">
-														<div class="input-field col s12">
-															<textarea id="textarea1" class="materialize-textarea"></textarea>
-															<label for="textarea1" class='active green-text'><h6>Escriba
-																el motivo de la renuncia</h6></label>
+											<form action="" id="other" class="col s12" style="display:none">
+
+												<div class="row">
+													<form class="col s12">
+														<div class="row">
+															<div class="input-field col s12">
+																<textarea id="otros" class="materialize-textarea"></textarea>
+																<label for="otros">Ingrese el motivo en particular</label>
+															</div>
 														</div>
-													</div>
-												</form>
-											</div>
+													</form>
+												</div>
+											</form>
 
 											<div class="col s12 m8 l11">
 												<input type="file" class="dropify" data-height="500" />
 											</div>
 										</div>
 									</div>
-									<div class="modal-footer #e65100 orange darken-4">
+									<div class="modal-footer #009688 teal ">
 										<a href="#"
 											class="waves-effect waves-red btn-flat modal-action #1a237e indigo darken-4 modal-close">Enviar</a>
 										<a href="#"
