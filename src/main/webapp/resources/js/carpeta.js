@@ -1,5 +1,23 @@
 
 $(document).ready(function(){
+	
+	
+	 $('#pelon').val("asdasdas");
+	
+	// FORMATEAR EL DATEPICKER DEL MATERIALIZE
+	  $('#pelon').pickadate({
+		    selectMonths: false, // Creates a dropdown to control month
+		    selectYears: 15, // Creates a dropdown of 15 years to control year,
+		    today: 'Today',
+		    clear: 'Clear',
+		    close: 'Ok',
+		    closeOnSelect: true // Close upon selecting a date,
+		  });
+	
+	
+	
+	
+	
             // Basic
 			
             $('.dropify').dropify();
@@ -45,8 +63,9 @@ $(document).ready(function(){
             	$('#motivo').html("");
             	$('#motivo').append("<option value='' disabled selected>Elija una o varias opciones</option>");
             	$.each(mot,function(key,val){
-            		//alert(val.ID_MOTIVO);
-//            		$("#motivo").first().after("<option id='"+val.ID_MOTIVO+"'>"+val.NO_MOTIVO+"</option>");
+            		// alert(val.ID_MOTIVO);
+// $("#motivo").first().after("<option
+// id='"+val.ID_MOTIVO+"'>"+val.NO_MOTIVO+"</option>");
             		
             		$('#motivo').append($("<option></option>")
                                .attr("value",val.ID_MOTIVO)
@@ -67,31 +86,32 @@ $(document).ready(function(){
          	  
          	}); 
             	
-//            	$("#motivo option:selected").each(function () {
+// $("#motivo option:selected").each(function () {
 //            		
-//             	   var $this = $(this);
-//             	   if($this.val()!=""){
-//             		  if ($this.length) {
-//                   	    var selText = $this.val();
-//                   	    alert(selText);
-//                   	   }
-//             	   }
-//             	   if($this.val()=='MOT-000007'){
-//             		   $("#other").show();
-//             	   }
+// var $this = $(this);
+// if($this.val()!=""){
+// if ($this.length) {
+// var selText = $this.val();
+// alert(selText);
+// }
+// }
+// if($this.val()=='MOT-000007'){
+// $("#other").show();
+// }
 //             	  
-//             	});    
+// });
             });
            
        
         });
-//Mostrando los detalles del trabajador 
+// Mostrando los detalles del trabajador
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
 	$.get("detalleR",{dni:dni,opc:1},function(data,status){
-		//alert(data);
+		// alert(data);
 		var detalle = JSON.parse(data);
+		console.log(detalle);
 		if(detalle.length==0){
 			location.reload();
 		}else{
@@ -107,12 +127,17 @@ function buscarDetalle(){
 			$("#seccion").text(detalle[0].NOM_SECCION);
 			$("#puesto").text(detalle[0].NOM_PUESTO);
 			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+			$("#idtra").text(detalle[0].ID_TRABAJADOR);
 			$("#dni").val("");
 			$("#dni").focus();
 		}
 		  
 	});
 
+}
+
+function Pruebita() {
+	alert("Hola Pelon c:");
 }
 
 

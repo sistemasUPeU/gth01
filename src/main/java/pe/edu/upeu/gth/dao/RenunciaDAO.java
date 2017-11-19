@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pe.edu.upeu.gth.config.AppConfig;
-
+import pe.edu.upeu.gth.dto.Renuncia;
 /**
  *
  * @author Nicole
@@ -128,11 +128,23 @@ public class RenunciaDAO {
 		sql = "select ID_TRABAJADOR,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 		return jt.queryForList(sql);
 	}
-	
-	//Lista de motivos de renuncia
+
+	// Lista de motivos de renuncia
 	public List<Map<String, Object>> mostrarMotivo() {
 		sql = "SELECT* FROM REN_MOTIVO ";
 		return jt.queryForList(sql);
 	}
 
+	public int crearRenuncia(Renuncia r) {
+		int x = 0;
+		String sql = "INSERT INTO REN_RENUNCIAS";
+		try {
+			jt.update(sql, new Object[] { r.getId_trabajador(), r.getOtros()});
+			x = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
 }

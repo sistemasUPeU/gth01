@@ -71,7 +71,7 @@ public class RenunciaController {
 	@RequestMapping(value = "/letterR", method = RequestMethod.GET)
 	public ModelAndView imprimir(ModelMap model) {
 		return new ModelAndView("renuncia/ren_emitir");
-//<<<<<<< HEAD
+		// <<<<<<< HEAD
 	}
 
 	// @RequestMapping("/BuscarDNIDetalleR")
@@ -89,25 +89,27 @@ public class RenunciaController {
 	// }
 	// }
 
-//=======
-//    }
-	
-//	@RequestMapping("/BuscarDNIDetalleR")
-//	public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest request) {
-//	
-//        String dni = request.getParameter("dni");
-//
-//        System.out.println(dni);
-//        if (!"".equals(dni)) {
-//        	mp.put("ListarTrabajador", rd.Buscar_DetalleTrabajadorR(dni));
-//        	return new ModelAndView("/registrationR","rpta",gson.toJson(mp));
-//        } else {
-//        	return new ModelAndView("/registrationR");
-//        }
-//	}
-	
-	//Registar Renuncia
-//>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+	// =======
+	// }
+
+	// @RequestMapping("/BuscarDNIDetalleR")
+	// public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest
+	// request) {
+	//
+	// String dni = request.getParameter("dni");
+	//
+	// System.out.println(dni);
+	// if (!"".equals(dni)) {
+	// mp.put("ListarTrabajador", rd.Buscar_DetalleTrabajadorR(dni));
+	// return new ModelAndView("/registrationR","rpta",gson.toJson(mp));
+	// } else {
+	// return new ModelAndView("/registrationR");
+	// }
+	// }
+
+	// Registar Renuncia
+	// >>>>>>> branch 'modulo-renuncias' of
+	// https://github.com/sistemasUPeU/gth01.git
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -122,10 +124,13 @@ public class RenunciaController {
 		case 2:
 			out.println(gson.toJson(rd.mostrarMotivo()));
 			break;
+		case 3:
+			out.println(gson.toJson(rd.mostrarMotivo()));
+			break;
 		}
 
 	}
-//<<<<<<< HEAD
+	// <<<<<<< HEAD
 
 	@RequestMapping(value = "/gg", method = RequestMethod.GET)
 	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
@@ -134,7 +139,7 @@ public class RenunciaController {
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
 		case 1:
-//			String dni = request.getParameter("dni");
+			// String dni = request.getParameter("dni");
 			out.println(gson.toJson(rd.gg()));
 			break;
 
@@ -151,9 +156,9 @@ public class RenunciaController {
 
 	}
 
-//=======
-	
-	//Autorizar Renuncia
+	// =======
+
+	// Autorizar Renuncia
 	@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
 	protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -162,18 +167,20 @@ public class RenunciaController {
 		switch (op) {
 		case 1:
 			out.println(gson.toJson(ra.Autorizar()));
-			break;			
-		case 2:/*
-			Pedido d = new Pedido();
-			d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
-			d.setHora(request.getParameter("hora"));
-			d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
-			d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
-			out.println((hs.create(d)));*/
 			break;
-		}	
-			
+		case 2:/*
+				 * Pedido d = new Pedido();
+				 * d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
+				 * d.setHora(request.getParameter("hora"));
+				 * d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
+				 * d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
+				 * out.println((hs.create(d)));
+				 */
+			break;
+		}
+
 	}
-	
-//>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+
+	// >>>>>>> branch 'modulo-renuncias' of
+	// https://github.com/sistemasUPeU/gth01.git
 }

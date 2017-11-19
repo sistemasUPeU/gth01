@@ -187,6 +187,18 @@
 										</div>
 									</div>
 								</form>
+								<form class="col s12">
+									<div class="row">
+										<div class="input-field col s6 ">
+											<h5>ID DEL TRABAJADOR:</h5>
+										</div>
+										<div class="input-field col s4 ">
+											<h5>
+												<span id="idtra"></span><br>
+											</h5>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
 						<div class="card-content"></div>
@@ -216,19 +228,21 @@
 														<h5>Fecha:</h5>
 													</div>
 													<div class="input-field col s4">
-														<input placeholder="seleccione la fecha" id="first_name"
-															type="date" class="datepicker">
+														<input placeholder="seleccione la fecha" type="date" id="pelon"
+															class="datepicker">
 													</div>
 												</div>
 											</form>
-											<form action="" id="other" class="col s12" style="display:none">
+											<form action="" id="other" class="col s12"
+												style="display: none">
 
 												<div class="row">
 													<form class="col s12">
 														<div class="row">
 															<div class="input-field col s12">
 																<textarea id="otros" class="materialize-textarea"></textarea>
-																<label for="otros">Ingrese el motivo en particular</label>
+																<label for="otros">Ingrese el motivo en
+																	particular</label>
 															</div>
 														</div>
 													</form>
@@ -241,7 +255,7 @@
 										</div>
 									</div>
 									<div class="modal-footer #009688 teal ">
-										<a href="#"
+										<a href="#" onclick="Pruebita()"
 											class="waves-effect waves-red btn-flat modal-action #1a237e indigo darken-4 modal-close">Enviar</a>
 										<a href="#"
 											class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a>
