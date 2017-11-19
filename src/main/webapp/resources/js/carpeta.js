@@ -78,7 +78,7 @@ $(document).ready(function(){
             	alert($("#motivo").val());
             	
             	$("#motivo option:selected").change(function () {
-            		$("#motivo > option").attr("selected",false);
+        
         		
          	   if($this.val()=='MOT-000007'){
          		   $("#other").show();

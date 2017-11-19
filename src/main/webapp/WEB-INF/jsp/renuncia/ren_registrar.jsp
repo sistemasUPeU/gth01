@@ -20,7 +20,7 @@
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
 </head>
-<body>
+<body class="#ede7f6 deep-purple lighten-5">
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -62,13 +62,13 @@
 				<div id="detalleR">
 					<section class="plans-container" id="plans"> <article
 						class="col s12 m6 l4 ">
-					<div class="card z-depth-2 ">
-						<div class="card-image #304ffe indigo accent-4 waves-effect ">
+					<div class="card z-depth-2" style="width:75%;margin-left:5%">
+						<div class="card-image #424242 grey darken-3 waves-effect ">
 							<div class="card-title">
 								<h5>DETALLES DEL TRABAJADOR</h5>
 							</div>
 							<hr />
-							<div class="price flow-text">
+							<div class="price flow-text ">
 								<div class="col m12 l12 s12">
 									<sup id="profile-page-content" class="row">
 										<div class="row card-panel">
@@ -105,72 +105,72 @@
 								<form class="col s12 ">
 									<div class="row">
 										<div class="input-field col s6  ">
-											<h5>Fecha de Inicio:</h5>
+											<h6>Fecha de Inicio:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="fecha_inicio"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
-											<h5>Dirección:</h5>
+											<h6>Dirección:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="direccion"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
-											<h5>Departamento:</h5>
+											<h6>Departamento:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="departamento"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
-											<h5>Area:</h5>
+											<h6>Area:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="area"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6">
-											<h5>Sección:</h5>
+											<h6>Sección:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="seccion"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
-											<h5>Puesto:</h5>
+											<h6>Puesto:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="puesto"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
@@ -178,12 +178,12 @@
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
-											<h5>Tipo de contrato:</h5>
+											<h6>Tipo de contrato:</h6>
 										</div>
 										<div class="input-field col s4 ">
-											<h5>
+											<h6>
 												<span id="tipo_contrato"></span><br>
-											</h5>
+											</h6>
 										</div>
 									</div>
 								</form>
@@ -211,11 +211,11 @@
 								<div id="modal3" class="modal modal modal-fixed-footer">
 									<div class="modal-header  ">
 										<h4>
-											<b>ADJUNTAR CARTA DE RENUNCIA</b>
+											Registrar renuncia
 										</h4>
 									</div>
-									<div class="modal-content #009688 teal white-text">
-										<div class="divider"></div>
+									<div class="modal-content #00695c teal darken-3 white-text" style="z-index: 0">
+
 										<div class="row section">
 											<form class="col s12">
 												<div class="row">
@@ -254,8 +254,13 @@
 											</div>
 										</div>
 									</div>
+<<<<<<< HEAD
 									<div class="modal-footer #009688 teal ">
 										<a href="#" onclick="Pruebita()"
+=======
+									<div class="modal-footer #00695c teal darken-3 " style="z-index: 2">
+										<a href="#"
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 											class="waves-effect waves-red btn-flat modal-action #1a237e indigo darken-4 modal-close">Enviar</a>
 										<a href="#"
 											class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a>
