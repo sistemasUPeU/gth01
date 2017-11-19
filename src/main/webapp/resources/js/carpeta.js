@@ -33,12 +33,59 @@ $(document).ready(function(){
     			}
     		});
             
-            $("#mot").change(function(){
-            	$("#motivos option:selected").map(function(){ return this.value }).get().join(", ");          		
+            
+            
+            
+            
+        	
+        	
+        
+            $.get("detalleR",{opc:2},function(data,status){
+            	var mot = JSON.parse(data);
+            	$('#motivo').html("");
+            	$('#motivo').append("<option value='' disabled selected>Elija una o varias opciones</option>");
+            	$.each(mot,function(key,val){
+            		//alert(val.ID_MOTIVO);
+//            		$("#motivo").first().after("<option id='"+val.ID_MOTIVO+"'>"+val.NO_MOTIVO+"</option>");
+            		
+            		$('#motivo').append($("<option></option>")
+                               .attr("value",val.ID_MOTIVO)
+                               .text(val.NO_MOTIVO));  $('#motivo').material_select();
+            	});
+            	 
             });
+            $("#motivo option:selected").prop("selected",false);
+            $("#mot").change(function(){
+            	alert($("#motivo").val());
+            	
+            	$("#motivo option:selected").change(function () {
+            		$("#motivo > option").attr("selected",false);
+        		
+         	   if($this.val()=='MOT-000007'){
+         		   $("#other").show();
+         	   }
+         	  
+         	}); 
+            	
+//            	$("#motivo option:selected").each(function () {
+//            		
+//             	   var $this = $(this);
+//             	   if($this.val()!=""){
+//             		  if ($this.length) {
+//                   	    var selText = $this.val();
+//                   	    alert(selText);
+//                   	   }
+//             	   }
+//             	   if($this.val()=='MOT-000007'){
+//             		   $("#other").show();
+//             	   }
+//             	  
+//             	});    
+            });
+           
        
         });
-//Registar Renuncia
+//Mostrando los detalles del trabajador 
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
@@ -48,7 +95,6 @@ function buscarDetalle(){
 		if(detalle.length==0){
 			location.reload();
 		}else{
-//alert(detalle[0].DOMICILIO);
 			$("#detalleR").show();
 			$("#nombres").text(detalle[0].NOMBRES);
 			$("#paterno").text(detalle[0].PATERNO);    
@@ -68,4 +114,5 @@ function buscarDetalle(){
 	});
 
 }
+
 

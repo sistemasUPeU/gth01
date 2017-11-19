@@ -128,5 +128,11 @@ public class RenunciaDAO {
 		sql = "select ID_TRABAJADOR,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 		return jt.queryForList(sql);
 	}
+	
+	//Lista de motivos de renuncia
+	public List<Map<String, Object>> mostrarMotivo() {
+		sql = "SELECT* FROM REN_MOTIVO ";
+		return jt.queryForList(sql);
+	}
 
 }
