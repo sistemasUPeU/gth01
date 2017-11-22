@@ -42,43 +42,17 @@
 						onkeyup="searchDepartamento()"> <label
 						for="searchDepartamento">Departamento</label>
 				</div>
-				<table id="tablita" class="bordered highlight centered">
+				<table id="table_trabajador-filtrado"
+					class="bordered highlight centered">
 					<thead>
 						<tr>
-							<th>Apellidos</th>
-							<th>Nombres</th>
+							<th>Apellidos y Nombres</th>
 							<th>Departamento</th>
 							<th>Área</th>
 							<th>Sección</th>
 							<th>Condición</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Eclair</td>
-							<td>Alvin</td>
-							<td>Hornato</td>
-							<td>null</td>
-							<td>null</td>
-							<td>null</td>
-						</tr>
-						<tr>
-							<td>Jellybean</td>
-							<td>Alan</td>
-							<td>Limpieza</td>
-							<td>null</td>
-							<td>null</td>
-							<td>null</td>
-						</tr>
-						<tr>
-							<td>Lollipop</td>
-							<td>Jonathan</td>
-							<td>Hornato</td>
-							<td>null</td>
-							<td>null</td>
-							<td>null</td>
-						</tr>
-					</tbody>
 				</table>
 				<br> <a class="btn waves-effect waves-light right"><i
 					class="mdi-navigation-check"></i> Confirmar</a>
@@ -90,13 +64,14 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
+		readAllTF();
 	})
-	
+
 	function searchTrabajador() {
 		var input, filter, table, tr, td, i;
 		input = document.getElementById("searchTrabajador");
 		filter = input.value.toUpperCase();
-		table = document.getElementById("tablita");
+		table = document.getElementById("table_trabajador-filtrado");
 		tr = table.getElementsByTagName("tr");
 
 		for (i = 0; i < tr.length; i++) {
@@ -115,7 +90,7 @@
 		var input, filter, table, tr, td, i;
 		input = document.getElementById("searchDepartamento");
 		filter = input.value.toUpperCase();
-		table = document.getElementById("tablita");
+		table = document.getElementById("table_trabajador-filtrado");
 		tr = table.getElementsByTagName("tr");
 
 		for (i = 0; i < tr.length; i++) {
@@ -128,6 +103,27 @@
 				}
 			}
 		}
+	}
+
+	function readAllTF() {
+		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+		console.log("READALL PEDIDOS");
+		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+		console.log("");
+		$.get("readallTrabajadorFiltrado", function(data, status) {
+			$("#table_trabajador-filtrado").find("tr:gt(0)").remove();
+			$("#table_trabajador-filtrado thead:last").after(
+					"<tbody id='table-body'></tbody>");
+			var lista = document.getElementById("table-body");
+			for ( var i in data) {
+				//$("#table_trabajador-filtrado tbody:last").after("<tr><td>"+data[i].AP_PATERNO+" "+data[i].AP_MATERNO+" "+data[i].NO_TRABAJADOR+"</td><td>"+data[i].NO_DEP+"</td><td>"+data[i].NO_AREA+"</td><td>"+data[i].NO_SECCION+"</td><td>"+data[i].LI_CONDICION+"</td></tr>");
+				lista.innerHTML += "<tr><td>" + data[i].AP_PATERNO + " "
+						+ data[i].AP_MATERNO + " " + data[i].NO_TRABAJADOR
+						+ "</td><td>" + data[i].NO_DEP + "</td><td>"
+						+ data[i].NO_AREA + "</td><td>" + data[i].NO_SECCION
+						+ "</td><td>" + data[i].LI_CONDICION + "</td></tr>";
+			}
+		});
 	}
 </script>
 
