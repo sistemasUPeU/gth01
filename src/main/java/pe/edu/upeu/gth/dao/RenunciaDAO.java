@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.Renuncia;
 /**
@@ -131,15 +133,25 @@ public class RenunciaDAO {
 
 	// Lista de motivos de renuncia
 	public List<Map<String, Object>> mostrarMotivo() {
-		sql = "SELECT* FROM REN_MOTIVO ";
+		sql = "SELECT* FROM REN_MOTIVO";
+		return jt.queryForList(sql);
+	}
+	
+	public List<Map<String, Object>> cargarMotivo(String idtr) {
+		sql = "SELECT * FROM REN_RENUNCIA r, RHTM_TRABAJADOR t WHERE r.ID_TRABAJADOR=t.ID_TRABAJADOR";
+
+		sql += " and r.ID_TRABAJADOR='" + idtr + "' ";
+
 		return jt.queryForList(sql);
 	}
 
+	
+	//falta
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIAS";
+		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,TI_ARCHIVO,NO_ARCHIVO,TAM_ARCHIVO,PIXEL) VALUES(?,?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_trabajador(), r.getOtros()});
+			jt.update(sql, new Object[] { r.getId_trabajador(),r.getTi_archivo(),r.getNo_archivo(),r.getTam_archivo(),r.getPixel()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -57,12 +57,26 @@
 						</form>
 					</div>
 				</div>
+				<div>
+					<object data="" id="hola" type="application/pdf" width="300"
+						height="200">
+						alt : <a href="test.pdf">test.pdf</a>
+					</object>
+				</div>
+				<form method="post" action="form" enctype="multipart/form-data">
+					<input type="file" name="file"
+						accept="image/jpeg,image/png,image/gif,application/pdf" /> <input
+						type="text" name="idtr" id="idtr" value=""> <input
+						type="submit" value="Subir archivo" />
+				</form>
+
+				<!-- 				<a href="#" onclick="Prueba()">ver</a> -->
 			</div>
 			<div class="container" style="margin-bottom: 3em">
 				<div id="detalleR">
 					<section class="plans-container" id="plans"> <article
 						class="col s12 m6 l4 ">
-					<div class="card z-depth-2" style="width:75%;margin-left:5%">
+					<div class="card z-depth-2" style="width: 75%; margin-left: 5%">
 						<div class="card-image #424242 grey darken-3 waves-effect ">
 							<div class="card-title">
 								<h5>DETALLES DEL TRABAJADOR</h5>
@@ -77,11 +91,7 @@
 													class="circle responsive-img valign profile-image">
 											</div>
 											<div class="col l3 m3 s6">
-												<button
-													class="btn #00bfa5 teal accent-4 waves-effect waves-light">
-													<i class="mdi-image-camera-alt left"></i><span
-														class="flow-text">Cambiar Foto</span>
-												</button>
+												<input type="hidden"  id="idt"/>
 												<h6 class="light italic black-text">
 													<strong><h6>Nombres :</strong><span id="nombres"></span><br>
 													<strong>
@@ -138,6 +148,7 @@
 										</div>
 									</div>
 								</form>
+
 								<form class="col s12">
 									<div class="row">
 										<div class="input-field col s6 ">
@@ -187,18 +198,6 @@
 										</div>
 									</div>
 								</form>
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6 ">
-											<h5>ID DEL TRABAJADOR:</h5>
-										</div>
-										<div class="input-field col s4 ">
-											<h5>
-												<span id="idtra"></span><br>
-											</h5>
-										</div>
-									</div>
-								</form>
 							</div>
 						</div>
 						<div class="card-content"></div>
@@ -210,11 +209,10 @@
 								</p>
 								<div id="modal3" class="modal modal modal-fixed-footer">
 									<div class="modal-header  ">
-										<h4>
-											Registrar renuncia
-										</h4>
+										<h4>Registrar renuncia</h4>
 									</div>
-									<div class="modal-content #00695c teal darken-3 white-text" style="z-index: 0">
+									<div class="modal-content #00695c teal darken-3 white-text"
+										style="z-index: 0">
 
 										<div class="row section">
 											<form class="col s12">
@@ -228,8 +226,8 @@
 														<h5>Fecha:</h5>
 													</div>
 													<div class="input-field col s4">
-														<input placeholder="seleccione la fecha" type="date" id="pelon"
-															class="datepicker">
+														<input placeholder="seleccione la fecha" type="date"
+															id="pelon" class="datepicker">
 													</div>
 												</div>
 											</form>
@@ -248,20 +246,22 @@
 													</form>
 												</div>
 											</form>
-
-											<div class="col s12 m8 l11">
-												<input type="file" class="dropify" data-height="500" />
-											</div>
+											<form method="post" action="form"
+												enctype="multipart/form-data" class="col s12 m8 l11" >
+												<input type="file" name="file" class="dropify" id="pelon1"
+													data-height="500"
+													accept="image/jpeg,image/png,image/gif,application/pdf" />
+<!-- 												<input type="hidden" name="idtr" id="idtr" value=""> <input -->
+<!-- 													type="submit" value="Subir archivo" /> -->
+											</form>
 										</div>
 									</div>
-<<<<<<< HEAD
-									<div class="modal-footer #009688 teal ">
+
+									<div class="modal-footer #00695c teal darken-3 "
+										style="z-index: 2">
 										<a href="#" onclick="Pruebita()"
-=======
-									<div class="modal-footer #00695c teal darken-3 " style="z-index: 2">
-										<a href="#"
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
-											class="waves-effect waves-red btn-flat modal-action #1a237e indigo darken-4 modal-close">Enviar</a>
+											class="waves-effect waves-red btn-flat modal-action #1a237e 
+											indigo darken-4 modal-close">Enviar</a>
 										<a href="#"
 											class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a>
 									</div>
@@ -278,6 +278,8 @@
 		<hr />
 
 	</div>
+
+
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>

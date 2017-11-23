@@ -7,7 +7,8 @@ $(document).ready(function(){
 	// FORMATEAR EL DATEPICKER DEL MATERIALIZE
 	  $('#pelon').pickadate({
 		    selectMonths: false, // Creates a dropdown to control month
-		    selectYears: 15, // Creates a dropdown of 15 years to control year,
+		    selectYears: 15, // Creates a dropdown of 15 years to control
+								// year,
 		    today: 'Today',
 		    clear: 'Clear',
 		    close: 'Ok',
@@ -20,7 +21,9 @@ $(document).ready(function(){
 	
             // Basic
 			
-            $('.dropify').dropify();
+            $('.dropify').dropify(function(event, element){
+                return confirm("Do you really want to delete \"" + element.filename + "\" ?");
+            });
 
             // Translated
             $('.dropify-fr').dropify({
@@ -33,7 +36,7 @@ $(document).ready(function(){
             });
 
             // Used events
-            var drEvent = $('.dropify-event').dropify();
+            var drEvent = $('#pelon1').dropify();
 
             drEvent.on('dropify.beforeClear', function(event, element){
                 return confirm("Do you really want to delete \"" + element.filename + "\" ?");
@@ -116,6 +119,8 @@ function buscarDetalle(){
 			location.reload();
 		}else{
 			$("#detalleR").show();
+//			alert(detalle[0].ID_TRABAJADOR);
+			$("#idt").text(detalle[0].ID_TRABAJADOR);
 			$("#nombres").text(detalle[0].NOMBRES);
 			$("#paterno").text(detalle[0].PATERNO);    
 			$("#materno").text(detalle[0].MATERNO); 
@@ -127,9 +132,18 @@ function buscarDetalle(){
 			$("#seccion").text(detalle[0].NOM_SECCION);
 			$("#puesto").text(detalle[0].NOM_PUESTO);
 			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-			$("#idtra").text(detalle[0].ID_TRABAJADOR);
+			$("#idtr").val(detalle[0].ID_TRABAJADOR);
 			$("#dni").val("");
 			$("#dni").focus();
+//			var idtra = 	$("#idtr").val();
+//			console.log(idtra);
+// $.get("detalleR",{idtr:idtra,opc:4},function(data,status){
+// // console.log(data);
+// var mot = JSON.parse(data);
+// console.log(mot[0].NO_ARCHIVO+"."+mot[0].TI_ARCHIVO);
+// var url = mot[0].NO_ARCHIVO+"."+mot[0].TI_ARCHIVO;
+// $(".dropify-filename-inner").text(url);
+// });
 		}
 		  
 	});
@@ -137,7 +151,76 @@ function buscarDetalle(){
 }
 
 function Pruebita() {
-	alert("Hola Pelon c:");
+  alert("Hola Pelon c:");
+ var x = $(".dropify-filename-inner").text();
+  alert(x);
+ var m = x.split(".");
+ var no_archivo = m[0];
+  alert(no_archivo);
+ var ti_archivo = m[1];
+ alert(ti_archivo);
+// var idtr = $("#idtra").text();
+// // alert(idtr);
+$.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
+ alert(data);
+});
+  
+  
+  
+//	var idtr = "TRB-003651";
+//	var x = $("#file").val();
+//	$.get("detalleR",{idtr:idtr,file:x,opc:3},function(data,status){
+//		 alert(data);		  
+//	});
+// console.log(x);
+ var data = new FormData();
+ $.each(jQuery('#pelon1')[0].files, function(i, file) {
+     data.append('file-'+i, file);
+ });
+ //So now you have a FormData object, ready to be sent along with the XMLHttpRequest.
+
+ $.ajax({
+     url: 'form',
+     data: data,
+     cache: false,
+     contentType: false,
+     processData: false,
+     method: 'POST',
+     type: 'POST', // For jQuery < 1.9
+     success: function(data){
+         alert(data);
+     }
+ });
 }
+
+
+
+function Prueba() {
+// //alert("Hola Pelon c:");
+// var x = $(".dropify-filename-inner").text();
+// //alert(x);
+// var m = x.split(".");
+// var no_archivo = m[0];
+// //alert(n);
+// var ti_archivo = m[1];
+// var idtr = $("#idtra").text();
+// //alert(idtr);
+// $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
+// alert(data);
+// });
+//	alert();
+var idtr = $("#idtr").val();
+//var x = $("#file").val();
+$.get("uploaded",{idtr:idtr},function(data,status){
+	 alert(data);	
+	 $("#hola").data(data);
+});
+// console.log(x);
+}
+
+
+
+
+
 
 

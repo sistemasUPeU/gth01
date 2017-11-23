@@ -185,7 +185,7 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="56" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
