@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author Cesar
+ * @author Jonathan
  */
 public class DateFormat {
     public static String toFormat1(String fecha) throws ParseException {

@@ -5,6 +5,7 @@
  */
 package pe.edu.upeu.gth.dao;
 
+import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import oracle.jdbc.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.Renuncia;
 /**
@@ -140,7 +142,7 @@ public class RenunciaDAO {
 	public List<Map<String, Object>> cargarMotivo(String idtr) {
 		sql = "SELECT * FROM REN_RENUNCIA r, RHTM_TRABAJADOR t WHERE r.ID_TRABAJADOR=t.ID_TRABAJADOR";
 
-		sql += " and r.ID_TRABAJADOR='" + idtr + "' ";
+		sql += " and r.ID_RENUNCIA='" + idtr + "' ";
 
 		return jt.queryForList(sql);
 	}
@@ -149,9 +151,9 @@ public class RenunciaDAO {
 	//falta
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,TI_ARCHIVO,NO_ARCHIVO,TAM_ARCHIVO,PIXEL) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,TI_ARCHIVO,NO_ARCHIVO) VALUES(?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_trabajador(),r.getTi_archivo(),r.getNo_archivo(),r.getTam_archivo(),r.getPixel()});
+			jt.update(sql, new Object[] { r.getId_trabajador(),r.getTi_archivo(),r.getNo_archivo()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -159,4 +161,28 @@ public class RenunciaDAO {
 		}
 		return x;
 	}
+	
+	//documentos
+	public List<Map<String, Object>> mostrardocs(String id) {
+		sql = "SELECT * FROM DOC_ADJUNTO WHERE IDDOCUMENTO='" + id + "' ";
+		return jt.queryForList(sql);
+	}
+	
+	//insertar motivos
+		@SuppressWarnings("deprecation")
+		public void  insertarMotivos(String[] array){
+			
+			try {
+				cn = d.getConnection();
+				Array arreglo = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_MOTIVO", array);
+				cs= cn.prepareCall("call REN_SP_INSERTAR_MOTIVOS( ? )");
+				cs.setArray(1, arreglo);
+				cs.execute();
+				cn.commit();
+				cn.close();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			
+		}
 }

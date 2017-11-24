@@ -1,7 +1,9 @@
 package pe.edu.upeu.gth.controller.disclaim;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +32,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.Renuncia;
+import pe.edu.upeu.gth.util.DateFormat;
 
 @Controller
 @Scope("request")
@@ -38,7 +41,7 @@ public class RenunciaController {
 
 	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
-
+	Renuncia r = new Renuncia();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
@@ -135,18 +138,23 @@ public class RenunciaController {
 			out.println(gson.toJson(rd.mostrarMotivo()));
 			break;
 		case 3:
-			System.out.println("Creando...");
-			Renuncia r = new Renuncia();
-			Object s = request.getParameter("file");
-			MultipartFile file = (MultipartFile) s;
-			r.setId_trabajador(request.getParameter("idtr"));
-			// r.setNo_archivo(request.getParameter("no_arch"));
-			// r.setTi_archivo(request.getParameter("ti_arch"));
-			System.out.println(file.getOriginalFilename());
-			System.out.println(file.getContentType());
-			// r.setTam_archivo(file.getContentType());
-			// r.setFecha(request.getParameter("fecha"));
-			out.println(rd.crearRenuncia(r));
+//			System.out.println("Creando...");
+//			Renuncia r = new Renuncia();
+//			Object s = request.getParameter("file");
+//			MultipartFile file = (MultipartFile) s;
+//			r.setId_trabajador(request.getParameter("idtr"));
+//			// r.setNo_archivo(request.getParameter("no_arch"));
+//			// r.setTi_archivo(request.getParameter("ti_arch"));
+//			System.out.println(file.getOriginalFilename());
+//			System.out.println(file.getContentType());
+//			// r.setTam_archivo(file.getContentType());
+//			// r.setFecha(request.getParameter("fecha"));
+//			out.println(rd.crearRenuncia(r));
+			
+			String array = request.getParameter("array");
+			String[] listaMotivos = array.split(",");
+			System.out.println("arreglo"+listaMotivos);
+			rd.insertarMotivos(listaMotivos);
 			break;
 
 		case 4:
@@ -160,19 +168,16 @@ public class RenunciaController {
 	ServletContext context;
 
 	@RequestMapping(path = "/form", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file)
-			throws IOException {
-		String url = "/";
-		
-		if (!file.isEmpty()) {
+	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idtr") String idtr) throws IOException {
 
+		Renuncia r = new Renuncia();
+		String url = "/renuncias//registrationR";
+		if (!file.isEmpty()) {
 			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
 			// ?, ?)";
-
 			try {
-
 				for (MultipartFile fi : file) {
-					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					String path = context.getRealPath("/WEB-INF/david/") + File.separator + fi.getOriginalFilename();
 					File destFile = new File(path);
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
@@ -180,41 +185,72 @@ public class RenunciaController {
 					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
-
-				}
+					
+					DateFormat df = new DateFormat();
+					
+					r.setNo_archivo(destFile.getName());
+					r.setId_trabajador(idtr);
+					rd.crearRenuncia(r);
+					}
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
 				ec.printStackTrace();
 			}
 			System.out.println(gson.toJson(archi));
+		}
+		return "redirect:" + url;
+	}
 
-			// String nombre = file.getOriginalFilename();
-			// String tipo = file.getContentType();
-			// Long tamano = file.getSize();
-			// byte[] pixel = file.getBytes();
-			// System.out.println(nombre + "//" + tipo + "//" + tamano + "//" + pixel);
-			// System.out.println(idtr);
-			//
-			// Renuncia r = new Renuncia();
-			// r.setId_trabajador(idtr);
-			// r.setNo_archivo(nombre);
-			// r.setTi_archivo(tipo);
-			// r.setTam_archivo(tamano);
-			// r.setPixel(pixel);
-			// System.out.println(rd.crearRenuncia(r));
-			// if (rd.crearRenuncia(r) > 0) {
-			// System.out.println("BIEN");
-			// url = "/renuncias/registrationR";
-			// } else {
-			// System.out.println("MAL");
-			// url = "/";
-			//
-			// }
-			// jdbc.update(sql, nombre, tipo, tamano, pixel);
+	@RequestMapping(value = "/mostrardoc")
+	public void jarchiv(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("application/json");
+		try (PrintWriter out = response.getWriter()) {
+
+			out.print(gson.toJson(rd.mostrardocs("DOC-000008")));
+			out.flush();
+		}
+	}
+
+	@RequestMapping(value = "/mostrardoc1")
+	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ServletContext cntx = request.getServletContext();
+		// Get the absolute path of the image
+//		String filename = cntx.getRealPath("/WEB-INF/dddd.png");
+		
+		List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
+		System.out.println(gson.toJson(result1));
+		System.out.println();
+		
+		String nom = (String) result1.get(0).get("NO_ARCHIVO");
+		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
+		String filename = context.getRealPath("/WEB-INF/david/"+nom.trim()+"."+tipo.trim());
+//		String filename = "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
+		
+		System.out.println(nom+"//"+tipo+"//"+filename);
+		// retrieve mimeType dynamically
+		String mime = cntx.getMimeType(filename);
+		if (mime == null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
 		}
 
-		return "redirect:" + url;
+		response.setContentType(mime);
+		File file = new File(filename);
+		response.setContentLength((int) file.length());
+
+		FileInputStream in = new FileInputStream(file);
+		OutputStream out = response.getOutputStream();
+
+		// Copy the contents of the file to the output stream
+		byte[] buf = new byte[1024];
+		int count = 0;
+		while ((count = in.read(buf)) >= 0) {
+			out.write(buf, 0, count);
+		}
+		out.close();
+		in.close();
+
 	}
 
 	@RequestMapping(value = "/uploaded")
@@ -287,35 +323,5 @@ public class RenunciaController {
 		}
 
 	}
-
-	
-	@RequestMapping(value ="/vacacion-finish", method = RequestMethod.POST)
-    public void jarchiv(HttpServletRequest request, HttpServletResponse response) throws IOException
-    {
-        response.setContentType("application/json");
-        try (PrintWriter out = response.getWriter()) {
-//            String id_trabajador=request.getParameter("").toString();
-//            String direccion_doc=request.getParameter("").toString();
-//            String nombre_doc=request.getParameter("").toString();
-//            String descripcion_doc=request.getParameter("").toString();
-//            String size_doc=request.getParameter("").toString();
-//            String type_doc=request.getParameter("").toString();
-//            String estado_vacacion=request.getParameter("").toString();
-//            String rango_año_inicio=request.getParameter("").toString();
-//            String rango_año_fin=request.getParameter("").toString();
-//            int numero_detalle=Integer.parseInt(request.getParameter(""));
-//            String fecha_inicio=request.getParameter("").toString();
-//            String x[]=fecha_inicio.split("");
-//            String fecha_fin=request.getParameter("").toString();
-//            String y[]=fecha_fin.split("");
-//            
-            //vaO.vacacion(id_trabajador,direccion_doc,nombre_doc,descripcion_doc,size_doc,type_doc,estado_vacacion,rango_año_inicio,rango_año_fin,numero_detalle, x, y);
-//            System.out.println(x);
-            Gson g= new Gson();
-            out.print(g.toJson(archi));
-            out.flush();
-        }
-        
-    }
 
 }

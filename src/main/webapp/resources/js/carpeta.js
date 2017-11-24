@@ -1,6 +1,79 @@
 
 $(document).ready(function(){
-	
+//	$("#RegistrarR").click(function () {
+//		alert("Insertando motivos...");
+//		insertarMotivos();     
+//    });
+	if(!alertify.errorAlert){
+		  //define a new errorAlert base on alert
+		  alertify.dialog('errorAlert',function factory(){
+		    return{
+		            build:function(){
+		                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
+		                +    'style="vertical-align:middle;color:#e10000;">'
+		                + '</span> Error al guardar los datos';
+		                this.setHeader(errorHeader);
+		            }
+		        };
+		    },true,'alert');
+		}
+	$("#RegistrarR").click(function (event) {
+
+        //stop submit the form, we will post it manually.
+        event.preventDefault();
+
+        // Get form
+        var form = $('#RenunciaForm')[0];
+
+		// Create an FormData object
+        var data = new FormData(form);
+
+		// If you want to add an extra field for the FormData
+//        data.append("CustomField", "This is some extra data, testing");
+        var file=$("#pelon1").val();
+        var fecha = $("#fecha").val();
+        var array = $("#array_motivos").val();
+
+		// disabled the submit button
+//        $("#RegistrarR").prop("disabled", true);
+        
+        if(file!=""&&fecha!=""&&array!=""){
+        	$.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "form",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                	
+//                	event.preventDefault();
+                	insertarMotivos();
+                	
+//                  $("#result").text(data);
+                    alert("BIEN JONÁS : ", data);
+                    $("#RegistrarR").prop("disabled", false);
+
+                },
+                error: function (e) {
+                	
+//                    $("#result").text(e.responseText);
+                    alert("NADA JONÁS : ", e);
+                    $("#RegistrarR").prop("disabled", false);
+
+                }
+            });
+        }else{
+        	
+        	alertify
+            .errorAlert("Error al guardar los datos <br/>");
+        }
+        
+
+    });
+
 	
 	 $('#pelon').val("asdasdas");
 	
@@ -14,15 +87,13 @@ $(document).ready(function(){
 		    close: 'Ok',
 		    closeOnSelect: true // Close upon selecting a date,
 		  });
-	
-	
-	
-	
+	  
+	  $('#ficha').pickadate('picker').set('select', '21/05/2017', { format: 'dd/mm/yyyy' }).trigger("change");
 	
             // Basic
 			
             $('.dropify').dropify(function(event, element){
-                return confirm("Do you really want to delete \"" + element.filename + "\" ?");
+                return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
             });
 
             // Translated
@@ -39,11 +110,11 @@ $(document).ready(function(){
             var drEvent = $('#pelon1').dropify();
 
             drEvent.on('dropify.beforeClear', function(event, element){
-                return confirm("Do you really want to delete \"" + element.filename + "\" ?");
+                return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
             });
 
             drEvent.on('dropify.afterClear', function(event, element){
-                alert('File deleted');
+                alert('Archivo eliminado');
             });
             
             $("#detalleR").hide();
@@ -54,21 +125,38 @@ $(document).ready(function(){
     			}
     		});
             
-            
-            
-            
-            
-        	
-        	
-        
+            $('#motivo').material_select();
+            $("#motivo option:selected").prop("selected",false);
+            $('#motivo').change(function(){
+            	//CON EL SIGUIENTE SCRIPT EVITAMOS QUE EL SELECT MULTIPLE MANTENGA VALORES DESELECCIONADOS
+                var newValuesArr = [],
+                    select = $(this),
+                    ul = select.prev();
+                ul.children('li').toArray().forEach(function (li, i) {
+                    if ($(li).hasClass('active')) {
+                    	var item = select.children('option').toArray()[i].value;                       
+                        newValuesArr.push(item);                     
+                        if(item=='MOT-000007'){
+                        	$("#other").show();
+                        }else{
+                      		$("#other").hide();
+                      	}
+                        
+                        
+                    }
+                    $("#array_motivos").val(newValuesArr);
+                });
+                select.val(newValuesArr);
+                //---------------------------------              	  
+               // alert($("#motivo").val());
+            });
+       
             $.get("detalleR",{opc:2},function(data,status){
             	var mot = JSON.parse(data);
             	$('#motivo').html("");
             	$('#motivo').append("<option value='' disabled selected>Elija una o varias opciones</option>");
             	$.each(mot,function(key,val){
-            		// alert(val.ID_MOTIVO);
-// $("#motivo").first().after("<option
-// id='"+val.ID_MOTIVO+"'>"+val.NO_MOTIVO+"</option>");
+ 
             		
             		$('#motivo').append($("<option></option>")
                                .attr("value",val.ID_MOTIVO)
@@ -76,36 +164,6 @@ $(document).ready(function(){
             	});
             	 
             });
-            $("#motivo option:selected").prop("selected",false);
-            $("#mot").change(function(){
-            	alert($("#motivo").val());
-            	
-            	$("#motivo option:selected").change(function () {
-        
-        		
-         	   if($this.val()=='MOT-000007'){
-         		   $("#other").show();
-         	   }
-         	  
-         	}); 
-            	
-// $("#motivo option:selected").each(function () {
-//            		
-// var $this = $(this);
-// if($this.val()!=""){
-// if ($this.length) {
-// var selText = $this.val();
-// alert(selText);
-// }
-// }
-// if($this.val()=='MOT-000007'){
-// $("#other").show();
-// }
-//             	  
-// });
-            });
-           
-       
         });
 // Mostrando los detalles del trabajador
 function buscarDetalle(){	
@@ -120,7 +178,6 @@ function buscarDetalle(){
 		}else{
 			$("#detalleR").show();
 //			alert(detalle[0].ID_TRABAJADOR);
-			$("#idt").text(detalle[0].ID_TRABAJADOR);
 			$("#nombres").text(detalle[0].NOMBRES);
 			$("#paterno").text(detalle[0].PATERNO);    
 			$("#materno").text(detalle[0].MATERNO); 
@@ -162,6 +219,7 @@ function Pruebita() {
 // var idtr = $("#idtra").text();
 // // alert(idtr);
 $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
+	alert(status);
  alert(data);
 });
   
@@ -173,42 +231,12 @@ $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},functio
 //		 alert(data);		  
 //	});
 // console.log(x);
- var data = new FormData();
- $.each(jQuery('#pelon1')[0].files, function(i, file) {
-     data.append('file-'+i, file);
- });
- //So now you have a FormData object, ready to be sent along with the XMLHttpRequest.
 
- $.ajax({
-     url: 'form',
-     data: data,
-     cache: false,
-     contentType: false,
-     processData: false,
-     method: 'POST',
-     type: 'POST', // For jQuery < 1.9
-     success: function(data){
-         alert(data);
-     }
- });
 }
 
 
 
 function Prueba() {
-// //alert("Hola Pelon c:");
-// var x = $(".dropify-filename-inner").text();
-// //alert(x);
-// var m = x.split(".");
-// var no_archivo = m[0];
-// //alert(n);
-// var ti_archivo = m[1];
-// var idtr = $("#idtra").text();
-// //alert(idtr);
-// $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
-// alert(data);
-// });
-//	alert();
 var idtr = $("#idtr").val();
 //var x = $("#file").val();
 $.get("uploaded",{idtr:idtr},function(data,status){
@@ -216,6 +244,23 @@ $.get("uploaded",{idtr:idtr},function(data,status){
 	 $("#hola").data(data);
 });
 // console.log(x);
+}
+
+
+function insertarMotivos(){
+	alert("Motivos: "+$("#array_motivos").val());
+	var array = $("#array_motivos").val();
+	$.ajax("detalleR",{
+		data:{
+			'opc':3,
+			'array':array
+		},
+		type:'GET',
+		success:function(data){
+			alert("Muy bien!")
+	
+		}
+	});
 }
 
 

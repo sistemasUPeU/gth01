@@ -5,7 +5,7 @@
 <html>
 <head>
 <%@include file="../../../jspf/general.jspf"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
@@ -18,9 +18,15 @@
 <link
 	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	
+<link
+	href="<c:url value='/resources/css/alertify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+	
 <link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
+
 </head>
-<body class="#ede7f6 deep-purple lighten-5">
+<body class="#e8f5e9 green lighten-5">
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -42,6 +48,7 @@
 								<div class="input-field col s3"></div>
 								<div class="input-field col s5">
 									<h5>Ingrese DNI del trabajador</h5>
+
 									<input placeholder="DNI" id="dni" type="text" class="validate"
 										onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
 										maxlength=8 autofocus>
@@ -57,23 +64,24 @@
 						</form>
 					</div>
 				</div>
-				<div>
-					<object data="" id="hola" type="application/pdf" width="300"
-						height="200">
-						alt : <a href="test.pdf">test.pdf</a>
-					</object>
-				</div>
-				<form method="post" action="form" enctype="multipart/form-data">
-					<input type="file" name="file"
-						accept="image/jpeg,image/png,image/gif,application/pdf" /> <input
-						type="text" name="idtr" id="idtr" value=""> <input
-						type="submit" value="Subir archivo" />
-				</form>
+				<!-- AQUÍ SE INSERTA A TRAVÉS DE FORM PERO DAAHHH -->
+				<!-- 				<div> -->
+				<!-- 					<object data="" id="hola" type="application/pdf" width="300" -->
+				<!-- 						height="200"> -->
+				<!-- 						alt : <a href="test.pdf">test.pdf</a> -->
+				<!-- 					</object> -->
+				<!-- 				</div> -->
+				<!-- 				<form method="post" action="form" enctype="multipart/form-data"> -->
+				<!-- 					<input type="file" name="file"  class="dropify" -->
+				<!-- 						accept="image/jpeg,image/png,image/gif,application/pdf" /> <input -->
+				<!-- 						type="text" name="idtr" id="idtr" value=""> <input -->
+				<!-- 						type="submit" value="Subir archivo" /> -->
+				<!-- 				</form> -->
 
 				<!-- 				<a href="#" onclick="Prueba()">ver</a> -->
 			</div>
 			<div class="container" style="margin-bottom: 3em">
-				<div id="detalleR">
+				<div id="detalleR" style="display:none">
 					<section class="plans-container" id="plans"> <article
 						class="col s12 m6 l4 ">
 					<div class="card z-depth-2" style="width: 75%; margin-left: 5%">
@@ -91,7 +99,7 @@
 													class="circle responsive-img valign profile-image">
 											</div>
 											<div class="col l3 m3 s6">
-												<input type="hidden"  id="idt"/>
+												<input type="hidden" id="idt" />
 												<h6 class="light italic black-text">
 													<strong><h6>Nombres :</strong><span id="nombres"></span><br>
 													<strong>
@@ -202,72 +210,99 @@
 						</div>
 						<div class="card-content"></div>
 						<div class="card-action center-align">
-							<div class="col s12 m8 l9" id="adjuntar">
-								<p>
-									<a class="waves-effect waves-light btn modal-trigger  teal "
-										href="#modal3">Adjuntar Carta de Renuncia</a>
-								</p>
-								<div id="modal3" class="modal modal modal-fixed-footer">
-									<div class="modal-header  ">
-										<h4>Registrar renuncia</h4>
-									</div>
-									<div class="modal-content #00695c teal darken-3 white-text"
-										style="z-index: 0">
+							<form method="post" action="form" enctype="multipart/form-data"
+								class="col s12 m8 l11" id="RenunciaForm">
+								<div class="col s12 m8 l9" id="adjuntar">
+									<p class="center  m,">
+										<a class="waves-effect waves-light btn modal-trigger  teal "
+											href="#modal3">Adjuntar Carta de Renuncia</a>
+									</p>
 
-										<div class="row section">
-											<form class="col s12">
-												<div class="row">
-													<div id="mot" class="input-field col s6">
-														<select id="motivo" multiple>
+									<div id="modal3" class="modal modal modal-fixed-footer">
+										<div class="modal-header #1de9b6 teal accent-3">
+											<h4><div class="center" style="font-family: 'Dosis', sans-serif;">Registrar renuncia</div></h4>
+										</div>
+										<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0" >
 
-														</select>
-													</div>
-													<div class="input-field col s2">
-														<h5>Fecha:</h5>
-													</div>
-													<div class="input-field col s4">
-														<input placeholder="seleccione la fecha" type="date"
-															id="pelon" class="datepicker">
+											<div class="row section">
+												<div class="col s12">
+													<div class="row">
+														<div id="mot" class="input-field col s12">
+															<select id="motivo" multiple>
+
+															</select>
+														</div>
+
 													</div>
 												</div>
-											</form>
-											<form action="" id="other" class="col s12"
-												style="display: none">
+												<div class="col s12">
+													<div class="input-field col s6">
+														<h5>Fecha de entrega de carta de renuncia:</h5>
+													</div>
+													<div class="input-field col s6">
+														<label for=""></label> <input
+															placeholder="seleccione la fecha" type="date"
+															name="fecha" class="datepicker">
+													</div>
+												</div>
+												<div action="" id="other" class="col s12"
+													style="display: none">
 
-												<div class="row">
-													<form class="col s12">
-														<div class="row">
-															<div class="input-field col s12">
-																<textarea id="otros" class="materialize-textarea"></textarea>
-																<label for="otros">Ingrese el motivo en
-																	particular</label>
+													<div class="row">
+														<div class="col s12">
+															<div class="row">
+																<div class="input-field col s12">
+																	<textarea id="otros" class="materialize-textarea"></textarea>
+																	<label for="otros">Ingrese el motivo en
+																		particular</label>
+																</div>
 															</div>
 														</div>
-													</form>
+													</div>
 												</div>
-											</form>
-											<form method="post" action="form"
-												enctype="multipart/form-data" class="col s12 m8 l11" >
-												<input type="file" name="file" class="dropify" id="pelon1"
-													data-height="500"
-													accept="image/jpeg,image/png,image/gif,application/pdf" />
-<!-- 												<input type="hidden" name="idtr" id="idtr" value=""> <input -->
-<!-- 													type="submit" value="Subir archivo" /> -->
-											</form>
+												<div class="col s12">
+												
+														<input type="file" name="file" class="dropify" id="pelon1"
+															data-height="500" /> 
+												
+
+												</div>
+												<input type="hidden" name="idtr"
+															id="idtr" value="">
+												<!-- 												<input type="submit" value="Subir archivo" />  -->
+
+											</div>
+										</div>
+
+										<div class="modal-footer #1de9b6 teal accent-3"
+											style="z-index: 2">
+
+											<div class="col s6" style="margin-right: 2em;">
+												<button type="submit"
+													class="btn waves-effect waves-light indigo" id="RegistrarR">
+													Enviar <i class="mdi-content-send right"></i>
+												</button>
+
+											</div>
+											<div class="col s6" style="margin-right: 2em">
+												<a class="btn waves-effect waves-light blue-grey modal-close">
+													Cancelar </a>
+
+											</div>
+											<input type="hidden" id="array_motivos"/>
+
+											<!-- 											<a href="#" -->
+											<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
+
+
+
+
 										</div>
 									</div>
-
-									<div class="modal-footer #00695c teal darken-3 "
-										style="z-index: 2">
-										<a href="#" onclick="Pruebita()"
-											class="waves-effect waves-red btn-flat modal-action #1a237e 
-											indigo darken-4 modal-close">Enviar</a>
-										<a href="#"
-											class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a>
-									</div>
 								</div>
-							</div>
+							</form>
 						</div>
+
 					</div>
 					</article> </section>
 
@@ -292,11 +327,16 @@
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
 	<!-- 		type="text/javascript"></script> -->
+	
 	<script src="<c:url  value='/resources/js/carpeta.js'></c:url>"
 		type="text/javascript"></script>
-	<script
+		<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
+		<script
+		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+		type="text/javascript"></script>
+	
 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
 </body>
 </html>
