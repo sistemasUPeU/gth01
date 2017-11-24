@@ -151,9 +151,9 @@ public class RenunciaDAO {
 	//falta
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,TI_ARCHIVO,NO_ARCHIVO) VALUES(?,?,?)";
+		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA) VALUES(?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_trabajador(),r.getTi_archivo(),r.getNo_archivo()});
+			jt.update(sql, new Object[] { r.getId_trabajador(),r.getTi_archivo(),r.getNo_archivo(),r.getFecha()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -1,11 +1,39 @@
+//var dia= ;
+//var mes;
+//var anio;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).ready(function(){
-//	$("#RegistrarR").click(function () {
-//		alert("Insertando motivos...");
-//		insertarMotivos();     
-//    });
+    $('#fecha').pickadate({
+    	selectMonths: true, // Creates a dropdown to control month
+    	selectYears: 15, // Creates a dropdown of 15 years to control
+    	closeOnSelect: true, // Close upon selecting a date,
+    	format: 'dd/mm/yyyy'
+    		
+// onStart: function() {
+// alert('Hello there :)')
+// },
+      });
+	  
+// $("#RegistrarR").click(function () {
+// alert("Insertando motivos...");
+// insertarMotivos();
+// });
 	if(!alertify.errorAlert){
-		  //define a new errorAlert base on alert
+		  // define a new errorAlert base on alert
 		  alertify.dialog('errorAlert',function factory(){
 		    return{
 		            build:function(){
@@ -18,9 +46,8 @@ $(document).ready(function(){
 		    },true,'alert');
 		}
 	$("#RegistrarR").click(function (event) {
-
-        //stop submit the form, we will post it manually.
-        event.preventDefault();
+		event.preventDefault();
+ 
 
         // Get form
         var form = $('#RenunciaForm')[0];
@@ -29,13 +56,14 @@ $(document).ready(function(){
         var data = new FormData(form);
 
 		// If you want to add an extra field for the FormData
-//        data.append("CustomField", "This is some extra data, testing");
+// data.append("CustomField", "This is some extra data, testing");
         var file=$("#pelon1").val();
         var fecha = $("#fecha").val();
+        console.log(fecha);
         var array = $("#array_motivos").val();
 
 		// disabled the submit button
-//        $("#RegistrarR").prop("disabled", true);
+// $("#RegistrarR").prop("disabled", true);
         
         if(file!=""&&fecha!=""&&array!=""){
         	$.ajax({
@@ -49,17 +77,17 @@ $(document).ready(function(){
                 timeout: 600000,
                 success: function (data) {
                 	
-//                	event.preventDefault();
+// event.preventDefault();
                 	insertarMotivos();
                 	
-//                  $("#result").text(data);
+// $("#result").text(data);
                     alert("BIEN JONÁS : ", data);
                     $("#RegistrarR").prop("disabled", false);
 
                 },
                 error: function (e) {
                 	
-//                    $("#result").text(e.responseText);
+// $("#result").text(e.responseText);
                     alert("NADA JONÁS : ", e);
                     $("#RegistrarR").prop("disabled", false);
 
@@ -75,21 +103,13 @@ $(document).ready(function(){
     });
 
 	
-	 $('#pelon').val("asdasdas");
+// $('#pelon').val("asdasdas");
 	
 	// FORMATEAR EL DATEPICKER DEL MATERIALIZE
-	  $('#pelon').pickadate({
-		    selectMonths: false, // Creates a dropdown to control month
-		    selectYears: 15, // Creates a dropdown of 15 years to control
-								// year,
-		    today: 'Today',
-		    clear: 'Clear',
-		    close: 'Ok',
-		    closeOnSelect: true // Close upon selecting a date,
-		  });
-	  
-	  $('#ficha').pickadate('picker').set('select', '21/05/2017', { format: 'dd/mm/yyyy' }).trigger("change");
-	
+
+// $('#fecha').pickadate('picker').set('select', '21/05/2017', { format:
+// 'dd/mm/yyyy' }).trigger("change");
+//	
             // Basic
 			
             $('.dropify').dropify(function(event, element){
@@ -128,7 +148,8 @@ $(document).ready(function(){
             $('#motivo').material_select();
             $("#motivo option:selected").prop("selected",false);
             $('#motivo').change(function(){
-            	//CON EL SIGUIENTE SCRIPT EVITAMOS QUE EL SELECT MULTIPLE MANTENGA VALORES DESELECCIONADOS
+            	// CON EL SIGUIENTE SCRIPT EVITAMOS QUE EL SELECT MULTIPLE
+				// MANTENGA VALORES DESELECCIONADOS
                 var newValuesArr = [],
                     select = $(this),
                     ul = select.prev();
@@ -147,7 +168,7 @@ $(document).ready(function(){
                     $("#array_motivos").val(newValuesArr);
                 });
                 select.val(newValuesArr);
-                //---------------------------------              	  
+                // ---------------------------------
                // alert($("#motivo").val());
             });
        
@@ -177,7 +198,7 @@ function buscarDetalle(){
 			location.reload();
 		}else{
 			$("#detalleR").show();
-//			alert(detalle[0].ID_TRABAJADOR);
+// alert(detalle[0].ID_TRABAJADOR);
 			$("#nombres").text(detalle[0].NOMBRES);
 			$("#paterno").text(detalle[0].PATERNO);    
 			$("#materno").text(detalle[0].MATERNO); 
@@ -192,8 +213,8 @@ function buscarDetalle(){
 			$("#idtr").val(detalle[0].ID_TRABAJADOR);
 			$("#dni").val("");
 			$("#dni").focus();
-//			var idtra = 	$("#idtr").val();
-//			console.log(idtra);
+// var idtra = $("#idtr").val();
+// console.log(idtra);
 // $.get("detalleR",{idtr:idtra,opc:4},function(data,status){
 // // console.log(data);
 // var mot = JSON.parse(data);
@@ -225,11 +246,11 @@ $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},functio
   
   
   
-//	var idtr = "TRB-003651";
-//	var x = $("#file").val();
-//	$.get("detalleR",{idtr:idtr,file:x,opc:3},function(data,status){
-//		 alert(data);		  
-//	});
+// var idtr = "TRB-003651";
+// var x = $("#file").val();
+// $.get("detalleR",{idtr:idtr,file:x,opc:3},function(data,status){
+// alert(data);
+// });
 // console.log(x);
 
 }
@@ -238,7 +259,7 @@ $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},functio
 
 function Prueba() {
 var idtr = $("#idtr").val();
-//var x = $("#file").val();
+// var x = $("#file").val();
 $.get("uploaded",{idtr:idtr},function(data,status){
 	 alert(data);	
 	 $("#hola").data(data);

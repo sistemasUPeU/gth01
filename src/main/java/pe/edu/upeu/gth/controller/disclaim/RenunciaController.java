@@ -138,22 +138,22 @@ public class RenunciaController {
 			out.println(gson.toJson(rd.mostrarMotivo()));
 			break;
 		case 3:
-//			System.out.println("Creando...");
-//			Renuncia r = new Renuncia();
-//			Object s = request.getParameter("file");
-//			MultipartFile file = (MultipartFile) s;
-//			r.setId_trabajador(request.getParameter("idtr"));
-//			// r.setNo_archivo(request.getParameter("no_arch"));
-//			// r.setTi_archivo(request.getParameter("ti_arch"));
-//			System.out.println(file.getOriginalFilename());
-//			System.out.println(file.getContentType());
-//			// r.setTam_archivo(file.getContentType());
-//			// r.setFecha(request.getParameter("fecha"));
-//			out.println(rd.crearRenuncia(r));
-			
+			// System.out.println("Creando...");
+			// Renuncia r = new Renuncia();
+			// Object s = request.getParameter("file");
+			// MultipartFile file = (MultipartFile) s;
+			// r.setId_trabajador(request.getParameter("idtr"));
+			// // r.setNo_archivo(request.getParameter("no_arch"));
+			// // r.setTi_archivo(request.getParameter("ti_arch"));
+			// System.out.println(file.getOriginalFilename());
+			// System.out.println(file.getContentType());
+			// // r.setTam_archivo(file.getContentType());
+			// // r.setFecha(request.getParameter("fecha"));
+			// out.println(rd.crearRenuncia(r));
+
 			String array = request.getParameter("array");
 			String[] listaMotivos = array.split(",");
-			System.out.println("arreglo"+listaMotivos);
+			System.out.println("arreglo" + listaMotivos);
 			rd.insertarMotivos(listaMotivos);
 			break;
 
@@ -168,10 +168,11 @@ public class RenunciaController {
 	ServletContext context;
 
 	@RequestMapping(path = "/form", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idtr") String idtr) throws IOException {
+	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
+			@RequestParam("idtr") String idtr) throws IOException {
 
 		Renuncia r = new Renuncia();
-		String url = "/renuncias//registrationR";
+		String url = "/renuncias/registrationR";
 		if (!file.isEmpty()) {
 			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
 			// ?, ?)";
@@ -185,13 +186,14 @@ public class RenunciaController {
 					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
-					
+
 					DateFormat df = new DateFormat();
-					
+					r.setFecha(fecha);
 					r.setNo_archivo(destFile.getName());
+					r.setTi_archivo(FilenameUtils.getExtension(path));
 					r.setId_trabajador(idtr);
 					rd.crearRenuncia(r);
-					}
+				}
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
@@ -216,18 +218,19 @@ public class RenunciaController {
 	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		// Get the absolute path of the image
-//		String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-		
+		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
+
 		List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
 		System.out.println(gson.toJson(result1));
 		System.out.println();
-		
+
 		String nom = (String) result1.get(0).get("NO_ARCHIVO");
 		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
-		String filename = context.getRealPath("/WEB-INF/david/"+nom.trim()+"."+tipo.trim());
-//		String filename = "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
-		
-		System.out.println(nom+"//"+tipo+"//"+filename);
+		String filename = context.getRealPath("/WEB-INF/david/" + nom.trim() + "." + tipo.trim());
+		// String filename =
+		// "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
+
+		System.out.println(nom + "//" + tipo + "//" + filename);
 		// retrieve mimeType dynamically
 		String mime = cntx.getMimeType(filename);
 		if (mime == null) {

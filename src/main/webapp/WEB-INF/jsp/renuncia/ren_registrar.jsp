@@ -240,9 +240,9 @@
 														<h5>Fecha de entrega de carta de renuncia:</h5>
 													</div>
 													<div class="input-field col s6">
-														<label for=""></label> <input
-															placeholder="seleccione la fecha" type="date"
-															name="fecha" class="datepicker">
+														<label for=""></label> <input type="text" name="fecha" id="fecha" class="datepicker">
+														 <input type="text"  id="fechap">
+														
 													</div>
 												</div>
 												<div action="" id="other" class="col s12"
@@ -315,15 +315,10 @@
 	</div>
 
 
-	<script
-		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-		type="text/javascript"></script>
+<!-- 	<script -->
+<%-- 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>" --%>
+<!-- 		type="text/javascript"></script> -->
+
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
 	<!-- 		type="text/javascript"></script> -->
@@ -337,6 +332,6 @@
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
 	
-	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
+<%-- 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 </body>
 </html>
