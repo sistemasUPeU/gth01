@@ -2,7 +2,7 @@ package pe.edu.upeu.gth.dto;
 
 public class Renuncia {
 	private String id_renuncia;
-	private String id_trabajador;
+	private String id_contrato;
 	private String otros;
 	private String fecha;
 	private String estado;
@@ -19,12 +19,12 @@ public class Renuncia {
 		this.id_renuncia = id_renuncia;
 	}
 
-	public String getId_trabajador() {
-		return id_trabajador;
+	public String getId_contrato() {
+		return id_contrato;
 	}
 
-	public void setId_trabajador(String id_trabajador) {
-		this.id_trabajador = id_trabajador;
+	public void setId_contrato(String id_contrato) {
+		this.id_contrato = id_contrato;
 	}
 
 	public String getOtros() {
@@ -82,7 +82,5 @@ public class Renuncia {
 	public void setPixel(byte[] pixel) {
 		this.pixel = pixel;
 	}
-	
-	
 
 }

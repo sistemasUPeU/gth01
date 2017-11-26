@@ -121,7 +121,7 @@ public class RenunciaDAO {
 	// Esto Lista el detalle del Trabajador filtrado por DNI en la interfaz
 	// "Registrar Renuncia".
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni) {
-		sql = "select ID_TRABAJADOR,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
+		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 
 		sql += " where DNI='" + dni + "' ";
 
@@ -151,9 +151,9 @@ public class RenunciaDAO {
 	//falta
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO REN_RENUNCIA(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA) VALUES(?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_trabajador(),r.getTi_archivo(),r.getNo_archivo(),r.getFecha()});
+			jt.update(sql, new Object[] { r.getId_contrato(),r.getTi_archivo(),r.getNo_archivo(),r.getFecha()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

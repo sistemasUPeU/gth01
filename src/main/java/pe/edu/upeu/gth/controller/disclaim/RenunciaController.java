@@ -84,45 +84,18 @@ public class RenunciaController {
 	@RequestMapping(value = "/letterR", method = RequestMethod.GET)
 	public ModelAndView imprimir(ModelMap model) {
 		return new ModelAndView("renuncia/ren_emitir");
-		// <<<<<<< HEAD
 	}
 
-	// @RequestMapping("/BuscarDNIDetalleR")
-	// public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest
-	// request) {
-	//
-	// String dni = request.getParameter("dni");
-	//
-	// System.out.println(dni);
-	// if (!"".equals(dni)) {
-	// mp.put("ListarTrabajador", rd.Buscar_DetalleTrabajadorR(dni));
-	// return new ModelAndView("/registrationR","rpta",gson.toJson(mp));
-	// } else {
-	// return new ModelAndView("/registrationR");
-	// }
-	// }
+	@RequestMapping(path = "/crearR", method = RequestMethod.GET)
+	public String insertarRenuncias(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String url = "/";
+		String array = request.getParameter("array");
+		String[] listaMotivos = array.split(",");
+		System.out.println("arreglo" + listaMotivos);
+		rd.insertarMotivos(listaMotivos);
+		return "redirect:" + url;
+	}
 
-	// =======
-	// }
-
-	// @RequestMapping("/BuscarDNIDetalleR")
-	// public ModelAndView Buscar_Trabajador(@RequestBody HttpServletRequest
-	// request) {
-	//
-	// String dni = request.getParameter("dni");
-	//
-	// System.out.println(dni);
-	// if (!"".equals(dni)) {
-	// mp.put("ListarTrabajador", rd.Buscar_DetalleTrabajadorR(dni));
-	// return new ModelAndView("/registrationR","rpta",gson.toJson(mp));
-	// } else {
-	// return new ModelAndView("/registrationR");
-	// }
-	// }
-
-	// Registar Renuncia
-	// >>>>>>> branch 'modulo-renuncias' of
-	// https://github.com/sistemasUPeU/gth01.git
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -169,10 +142,10 @@ public class RenunciaController {
 
 	@RequestMapping(path = "/form", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
-			@RequestParam("idtr") String idtr) throws IOException {
+			@RequestParam("idcontrato") String idcon) throws IOException {
 
 		Renuncia r = new Renuncia();
-		String url = "/renuncias/registrationR";
+		String url = "/";
 		if (!file.isEmpty()) {
 			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
 			// ?, ?)";
@@ -187,11 +160,11 @@ public class RenunciaController {
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
 
-					DateFormat df = new DateFormat();
+					System.out.println(idcon);
 					r.setFecha(fecha);
 					r.setNo_archivo(destFile.getName());
 					r.setTi_archivo(FilenameUtils.getExtension(path));
-					r.setId_trabajador(idtr);
+					r.setId_contrato(idcon);
 					rd.crearRenuncia(r);
 				}
 

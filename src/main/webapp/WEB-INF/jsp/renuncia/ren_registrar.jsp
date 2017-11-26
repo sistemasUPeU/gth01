@@ -5,7 +5,8 @@
 <html>
 <head>
 <%@include file="../../../jspf/general.jspf"%>
-<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dosis"
+	rel="stylesheet">
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
@@ -18,11 +19,10 @@
 <link
 	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-	
-<link
-	href="<c:url value='/resources/css/alertify.min.css'/>"
+
+<link href="<c:url value='/resources/css/alertify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-	
+
 <link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
 
 </head>
@@ -61,7 +61,14 @@
 									</p>
 								</div>
 							</div>
+
 						</form>
+						<div id="fo" class="col s12" >
+							<div id="msj" class="card-panel teal lighten-2" ></div>
+						</div>
+
+
+
 					</div>
 				</div>
 				<!-- AQUÍ SE INSERTA A TRAVÉS DE FORM PERO DAAHHH -->
@@ -81,7 +88,7 @@
 				<!-- 				<a href="#" onclick="Prueba()">ver</a> -->
 			</div>
 			<div class="container" style="margin-bottom: 3em">
-				<div id="detalleR" style="display:none">
+				<div id="detalleR" style="display: none">
 					<section class="plans-container" id="plans"> <article
 						class="col s12 m6 l4 ">
 					<div class="card z-depth-2" style="width: 75%; margin-left: 5%">
@@ -201,7 +208,7 @@
 										</div>
 										<div class="input-field col s4 ">
 											<h6>
-												<span id="tipo_contrato"></span><br>
+												<span id="tipo_contrato"></span><br>												
 											</h6>
 										</div>
 									</div>
@@ -212,6 +219,7 @@
 						<div class="card-action center-align">
 							<form method="post" action="form" enctype="multipart/form-data"
 								class="col s12 m8 l11" id="RenunciaForm">
+								<input type="hidden" name="idcontrato" id="idcontrato" value="">
 								<div class="col s12 m8 l9" id="adjuntar">
 									<p class="center  m,">
 										<a class="waves-effect waves-light btn modal-trigger  teal "
@@ -220,14 +228,23 @@
 
 									<div id="modal3" class="modal modal modal-fixed-footer">
 										<div class="modal-header #1de9b6 teal accent-3">
-											<h4><div class="center" style="font-family: 'Dosis', sans-serif;">Registrar renuncia</div></h4>
+											<h4>
+												<div class="center"
+													style="font-family: 'Dosis', sans-serif;">Registrar
+													renuncia</div>
+											</h4>
 										</div>
-										<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0" >
+										<div class="modal-content #e0f7fa cyan lighten-5"
+											style="z-index: 0">
 
 											<div class="row section">
 												<div class="col s12">
 													<div class="row">
-														<div id="mot" class="input-field col s12">
+														<div class="input-field col s6">
+															<h5 style="font-family: 'Dosis', sans-serif;">Ingrese
+																el motivo de la renuncia:</h5>
+														</div>
+														<div id="mot" class="input-field col s6">
 															<select id="motivo" multiple>
 
 															</select>
@@ -237,12 +254,14 @@
 												</div>
 												<div class="col s12">
 													<div class="input-field col s6">
-														<h5>Fecha de entrega de carta de renuncia:</h5>
+														<h5 style="font-family: 'Dosis', sans-serif;">Fecha
+															de entrega de carta de renuncia:</h5>
 													</div>
 													<div class="input-field col s6">
-														<label for=""></label> <input type="text" name="fecha" id="fecha" class="datepicker">
-														 <input type="text"  id="fechap">
-														
+														<label for=""></label> <input type="text" name="fecha"
+															id="fecha" class="datepicker">
+														<!-- 														 <input type="text"  id="fechap"> -->
+
 													</div>
 												</div>
 												<div action="" id="other" class="col s12"
@@ -260,15 +279,18 @@
 														</div>
 													</div>
 												</div>
+												<div class="input-field col s12">
+													<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
+														la carta de renuncia:</h5>
+												</div>
 												<div class="col s12">
-												
-														<input type="file" name="file" class="dropify" id="pelon1"
-															data-height="500" /> 
-												
+
+													<input type="file" name="file" class="dropify" id="pelon1"
+														data-height="500" />
+
 
 												</div>
-												<input type="hidden" name="idtr"
-															id="idtr" value="">
+												
 												<!-- 												<input type="submit" value="Subir archivo" />  -->
 
 											</div>
@@ -285,11 +307,12 @@
 
 											</div>
 											<div class="col s6" style="margin-right: 2em">
-												<a class="btn waves-effect waves-light blue-grey modal-close">
+												<a
+													class="btn waves-effect waves-light blue-grey modal-close">
 													Cancelar </a>
 
 											</div>
-											<input type="hidden" id="array_motivos"/>
+											<input type="hidden" id="array_motivos" />
 
 											<!-- 											<a href="#" -->
 											<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
@@ -315,23 +338,23 @@
 	</div>
 
 
-<!-- 	<script -->
-<%-- 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>" --%>
-<!-- 		type="text/javascript"></script> -->
+	<!-- 	<script -->
+	<%-- 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>" --%>
+	<!-- 		type="text/javascript"></script> -->
 
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
 	<!-- 		type="text/javascript"></script> -->
-	
+
 	<script src="<c:url  value='/resources/js/carpeta.js'></c:url>"
 		type="text/javascript"></script>
-		<script
+	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
-		<script
+	<script
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
-	
-<%-- 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
+
+	<%-- 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 </body>
 </html>
