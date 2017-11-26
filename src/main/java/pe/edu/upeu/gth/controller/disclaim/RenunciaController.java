@@ -29,8 +29,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.Detalle_motivoDAO;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
+import pe.edu.upeu.gth.dto.Detalle_motivo;
 import pe.edu.upeu.gth.dto.Renuncia;
 import pe.edu.upeu.gth.util.DateFormat;
 
@@ -43,6 +45,7 @@ public class RenunciaController {
 	public List<String> archi = new ArrayList<>();
 	Renuncia r = new Renuncia();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
+	Detalle_motivoDAO det = new Detalle_motivoDAO(AppConfig.getDataSource());
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
 
@@ -86,15 +89,15 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/ren_emitir");
 	}
 
-	@RequestMapping(path = "/crearR", method = RequestMethod.GET)
-	public String insertarRenuncias(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String url = "/";
-		String array = request.getParameter("array");
-		String[] listaMotivos = array.split(",");
-		System.out.println("arreglo" + listaMotivos);
-		rd.insertarMotivos(listaMotivos);
-		return "redirect:" + url;
-	}
+//	@RequestMapping(path = "/crearR", method = RequestMethod.GET)
+//	public String insertarRenuncias(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		String url = "/";
+//		String array = request.getParameter("array");
+//		String[] listaMotivos = array.split(",");
+//		System.out.println("arreglo" + listaMotivos);
+//		rd.insertarMotivos(listaMotivos);
+//		return "redirect:" + url;
+//	}
 
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
@@ -127,11 +130,16 @@ public class RenunciaController {
 			String array = request.getParameter("array");
 			String[] listaMotivos = array.split(",");
 			System.out.println("arreglo" + listaMotivos);
-			rd.insertarMotivos(listaMotivos);
+			out.print(rd.insertarMotivos(listaMotivos));
 			break;
 
 		case 4:
 			out.println(gson.toJson(rd.cargarMotivo(request.getParameter("idtr"))));
+			break;
+		case 5:
+			Detalle_motivo d = new Detalle_motivo();
+			d.setOtros(request.getParameter("otros"));
+			out.println(gson.toJson(det.insertarOtros(d)));
 			break;
 		}
 
@@ -187,47 +195,47 @@ public class RenunciaController {
 		}
 	}
 
-	@RequestMapping(value = "/mostrardoc1")
-	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		ServletContext cntx = request.getServletContext();
-		// Get the absolute path of the image
-		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-
-		List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
-		System.out.println(gson.toJson(result1));
-		System.out.println();
-
-		String nom = (String) result1.get(0).get("NO_ARCHIVO");
-		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
-		String filename = context.getRealPath("/WEB-INF/david/" + nom.trim() + "." + tipo.trim());
-		// String filename =
-		// "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
-
-		System.out.println(nom + "//" + tipo + "//" + filename);
-		// retrieve mimeType dynamically
-		String mime = cntx.getMimeType(filename);
-		if (mime == null) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return;
-		}
-
-		response.setContentType(mime);
-		File file = new File(filename);
-		response.setContentLength((int) file.length());
-
-		FileInputStream in = new FileInputStream(file);
-		OutputStream out = response.getOutputStream();
-
-		// Copy the contents of the file to the output stream
-		byte[] buf = new byte[1024];
-		int count = 0;
-		while ((count = in.read(buf)) >= 0) {
-			out.write(buf, 0, count);
-		}
-		out.close();
-		in.close();
-
-	}
+//	@RequestMapping(value = "/mostrardoc1")
+//	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		ServletContext cntx = request.getServletContext();
+//		// Get the absolute path of the image
+//		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
+//
+//		List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
+//		System.out.println(gson.toJson(result1));
+//		System.out.println();
+//
+//		String nom = (String) result1.get(0).get("NO_ARCHIVO");
+//		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
+//		String filename = context.getRealPath("/WEB-INF/david/" + nom.trim() + "." + tipo.trim());
+//		// String filename =
+//		// "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
+//
+//		System.out.println(nom + "//" + tipo + "//" + filename);
+//		// retrieve mimeType dynamically
+//		String mime = cntx.getMimeType(filename);
+//		if (mime == null) {
+//			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//			return;
+//		}
+//
+//		response.setContentType(mime);
+//		File file = new File(filename);
+//		response.setContentLength((int) file.length());
+//
+//		FileInputStream in = new FileInputStream(file);
+//		OutputStream out = response.getOutputStream();
+//
+//		// Copy the contents of the file to the output stream
+//		byte[] buf = new byte[1024];
+//		int count = 0;
+//		while ((count = in.read(buf)) >= 0) {
+//			out.write(buf, 0, count);
+//		}
+//		out.close();
+//		in.close();
+//
+//	}
 
 	@RequestMapping(value = "/uploaded")
 	public void getUploadedPicture(HttpServletRequest request, HttpServletResponse response) throws IOException {

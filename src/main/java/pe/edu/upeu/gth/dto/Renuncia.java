@@ -9,6 +9,16 @@ public class Renuncia {
 	private String no_archivo;
 	private String ti_archivo;
 	private Long tam_archivo;
+	private String id_motivo;
+
+	public String getId_motivo() {
+		return id_motivo;
+	}
+
+	public void setId_motivo(String id_motivo) {
+		this.id_motivo = id_motivo;
+	}
+
 	private byte[] pixel;
 
 	public String getId_renuncia() {

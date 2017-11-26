@@ -63,8 +63,8 @@
 							</div>
 
 						</form>
-						<div id="fo" class="col s12" >
-							<div id="msj" class="card-panel teal lighten-2" ></div>
+						<div id="fo" class="col s12" hidden>
+							<div id="msj" class="card-panel teal lighten-2"></div>
 						</div>
 
 
@@ -208,7 +208,7 @@
 										</div>
 										<div class="input-field col s4 ">
 											<h6>
-												<span id="tipo_contrato"></span><br>												
+												<span id="tipo_contrato"></span><br>
 											</h6>
 										</div>
 									</div>
@@ -264,21 +264,21 @@
 
 													</div>
 												</div>
-												<div action="" id="other" class="col s12"
-													style="display: none">
+												<!-- 												<div action="" id="other" class="col s12" -->
+												<!-- 													style="display: none"> -->
 
-													<div class="row">
-														<div class="col s12">
-															<div class="row">
-																<div class="input-field col s12">
-																	<textarea id="otros" class="materialize-textarea"></textarea>
-																	<label for="otros">Ingrese el motivo en
-																		particular</label>
-																</div>
+												<div class="row" id="otrosdiv">
+													<div class="col s12">
+														<div class="row">
+															<div class="input-field col s12">
+																<textarea id="otros" class="materialize-textarea"></textarea>
+																<label for="otros">Ingrese el motivo en
+																	particular</label>
 															</div>
 														</div>
 													</div>
 												</div>
+												<!-- 												</div> -->
 												<div class="input-field col s12">
 													<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
 														la carta de renuncia:</h5>
@@ -290,7 +290,7 @@
 
 
 												</div>
-												
+
 												<!-- 												<input type="submit" value="Subir archivo" />  -->
 
 											</div>

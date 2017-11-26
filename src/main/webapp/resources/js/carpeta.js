@@ -1,34 +1,14 @@
 $(document).ready(function(){
-//	  $('#modal3').modal({
-//	      dismissible: false, // Modal can be dismissed by clicking outside of the modal
-//	      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-//	        alert("Ready");
-//	        console.log(modal, trigger);
-//	      },
-//	      complete: function() { alert('Closed'); } // Callback for Modal close
-//	    }
-//	  );
 	
+	$("#otrosdiv").addClass("hide");
 	
-	
-	$("#fo").hide();
     $('#fecha').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
     	selectYears: 15, // Creates a dropdown of 15 years to control
-    	closeOnSelect: true, // Close upon selecting a date,
-    	format: 'dd/mm/yyyy'
-    		
-// onStart: function() {
-// alert('Hello there :)')
-// },
+    	format: 'dd/mm/yyyy',
       });
-	  
-// $("#RegistrarR").click(function () {
-// alert("Insertando motivos...");
-// insertarMotivos();
-// });
+
 	if(!alertify.errorAlert){
-		  // define a new errorAlert base on alert
 		  alertify.dialog('errorAlert',function factory(){
 		    return{
 		            build:function(){
@@ -57,8 +37,14 @@ $(document).ready(function(){
         console.log(fecha);
         var array = $("#array_motivos").val();
 
-		// disabled the submit button
-// $("#RegistrarR").prop("disabled", true);
+        
+        if (!$("#otrosdiv").hasClass("hide")) {
+			alert("visible");
+		} else {
+			alert("invisible :'v");
+		}
+        
+        
         alertify.confirm('Confirmar renuncia', '¿Está seguro(a) de confirmar la renuncia de este trabajador?', function(){
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
@@ -71,10 +57,11 @@ $(document).ready(function(){
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-//                    	alert(data);
+                    	
+                    	
                     	insertarMotivos();
-//                        alert("BIEN JONÁS : ", data);
-//                        $('#modal3').modal('close');
+// alert("BIEN JONÁS : ", data);
+// $('#modal3').modal('close');
                         $("#RegistrarR").prop("disabled", false);
                     },
                     error: function (e) {
@@ -141,9 +128,11 @@ $(document).ready(function(){
                     	var item = select.children('option').toArray()[i].value;                       
                         newValuesArr.push(item);                     
                         if(item=='MOT-000007'){
-                        	$("#other").show();
+                        	$("#otrosdiv").removeClass("hide");
+                        	$("#otrosdiv").addClass("show");
                         }else{
-                      		$("#other").hide();
+                        	$("#otrosdiv").removeClass("show");
+                      		$("#otrosdiv").addClass("hide");
                       	}
                         
                         
@@ -152,7 +141,8 @@ $(document).ready(function(){
                 });
                 select.val(newValuesArr);
                 // ---------------------------------
-               // alert($("#motivo").val());
+//                alert($("#motivo").val());
+
             });
        
             $.get("detalleR",{opc:2},function(data,status){
@@ -174,11 +164,11 @@ function buscarDetalle(){
 	dni = $("#dni").val();
 	
 	$.get("detalleR",{dni:dni,opc:1},function(data,status){
-//		 alert(data);
+// alert(data);
 		var detalle = JSON.parse(data);
 		console.log(detalle);
 		if(detalle.length==0){
-//			location.reload();
+// location.reload();
 			$("#detalleR").hide();
 			$("#fo").show();
 			$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha renunciado... :'v");
@@ -206,19 +196,19 @@ function buscarDetalle(){
 
 }
 
-//function Pruebita() {
-//  alert("Hola Pelon c:");
+// function Pruebita() {
+// alert("Hola Pelon c:");
 // var x = $(".dropify-filename-inner").text();
-//  alert(x);
+// alert(x);
 // var m = x.split(".");
 // var no_archivo = m[0];
-//  alert(no_archivo);
+// alert(no_archivo);
 // var ti_archivo = m[1];
 // alert(ti_archivo);
-//$.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
-//	alert(status);
+// $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
+// alert(status);
 // alert(data);
-//});
+// });
   
   
   
@@ -229,39 +219,56 @@ function buscarDetalle(){
 // });
 // console.log(x);
 
-//}
+// }
 
 
 
-//function Prueba() {
-//var idtr = $("#idtr").val();
-//// var x = $("#file").val();
-//$.get("uploaded",{idtr:idtr},function(data,status){
-//	 alert(data);	
-//	 $("#hola").data(data);
-//});
-//// console.log(x);
-//}
+// function Prueba() {
+// var idtr = $("#idtr").val();
+// // var x = $("#file").val();
+// $.get("uploaded",{idtr:idtr},function(data,status){
+// alert(data);
+// $("#hola").data(data);
+// });
+// // console.log(x);
+// }
 
 
 function insertarMotivos(){
-//	alert("Motivos: "+$("#array_motivos").val());
+// alert("Motivos: "+$("#array_motivos").val());
 	var array = $("#array_motivos").val();
-	$.ajax("crearR",{
+	$.ajax("detalleR",{
 		data:{
+			'opc' : 3,
 			'array':array
 		},
 		type:'GET',
 		success:function(data){
 //			alert(data);
-//			window.location.assign(data);
-			alert();
-//			limpiar();
+			otros = $("#otros").val();
+			if (otros=="") {
+				alert("NO VAS A INSERTAR OTROS XD");
+			} else {
+				insertarOtros(otros);
+			}
+			window.location.href = "http://localhost:8081/gth/renuncias/";
+			
+//			alert(otros);
+			
+// window.location.assign(data);
+// alert();
+// limpiar();
 	
 		}
 	});
 }
 
+
+function insertarOtros(otros){
+	$.get("detalleR",{otros:otros,opc:5},function(data,status){
+		alert(data);
+	});
+}
 limpiar();
 
 function limpiar(){

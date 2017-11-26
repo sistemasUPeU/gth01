@@ -162,6 +162,7 @@ public class RenunciaDAO {
 		return x;
 	}
 	
+	
 	//documentos
 	public List<Map<String, Object>> mostrardocs(String id) {
 		sql = "SELECT * FROM DOC_ADJUNTO WHERE IDDOCUMENTO='" + id + "' ";
@@ -169,20 +170,22 @@ public class RenunciaDAO {
 	}
 	
 	//insertar motivos
-		@SuppressWarnings("deprecation")
-		public void  insertarMotivos(String[] array){
-			
+//		@SuppressWarnings("deprecation")
+		public int  insertarMotivos(String[] array){
+			int x =0;
 			try {
 				cn = d.getConnection();
 				Array arreglo = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_MOTIVO", array);
 				cs= cn.prepareCall("call REN_SP_INSERTAR_MOTIVOS( ? )");
 				cs.setArray(1, arreglo);
+					x=1;
+				
 				cs.execute();
 				cn.commit();
 				cn.close();
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println("Error al insertar motivos "+e);
 			}
-			
+			return x;
 		}
 }
