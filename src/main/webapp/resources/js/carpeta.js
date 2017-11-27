@@ -131,7 +131,7 @@ $(document).ready(function(){
                         	$("#otrosdiv").removeClass("hide");
                         	$("#otrosdiv").addClass("show");
                         }else{
-                        	$("#otrosdiv").removeClass("show");
+//                        	$("#otrosdiv").removeClass("show");
                       		$("#otrosdiv").addClass("hide");
                       	}
                         
