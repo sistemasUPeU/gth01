@@ -68,16 +68,5 @@ public class PrincipalController {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
-	
-	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllTrabajadorFiltrado() {
-		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL());
-	}
-	
-	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String confirmarListaFiltrada(HttpServletRequest RQ) {
-		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.CONFIRMAR());
-	}
+
 }
