@@ -2,8 +2,11 @@ package pe.edu.upeu.gth.test;
 
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
+
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
 public class ConfigTest {
@@ -13,6 +16,13 @@ public class ConfigTest {
 	public static void main(String[] args) {
 		conect();
 		checkSecurityDaoAuthentication();
+		listaFiltrada();
+	}
+
+	private static void listaFiltrada() {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		Gson GSON = new Gson();
+		System.out.println(GSON.toJson(DAO.CONFIRMAR()));
 	}
 
 	public static void conect() {
