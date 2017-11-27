@@ -4,10 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+
+import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 
 
 @Controller
@@ -16,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class PrincipalController {
 
+	Gson GSON = new Gson();
 	
 	@GetMapping("/")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
@@ -46,5 +55,29 @@ public class PrincipalController {
 	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/AprobarPV");
 
+	}
+	
+	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllTrabajadorFiltrado() {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READALL());
+	}
+	
+	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String confirmarListaFiltrada(HttpServletRequest RQ) {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.CONFIRMAR());
+	}
+	
+	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllTrabajadorFiltrado() {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READALL());
+	}
+	
+	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String confirmarListaFiltrada(HttpServletRequest RQ) {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.CONFIRMAR());
 	}
 }

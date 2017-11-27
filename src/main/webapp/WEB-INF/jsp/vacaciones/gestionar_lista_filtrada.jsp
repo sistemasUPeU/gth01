@@ -30,7 +30,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="input-field col s6">
+				<!-- <div class="input-field col s6">
 					<i class="mdi-action-search prefix"></i> <input
 						id="searchTrabajador" type="text" class="validate"
 						onkeyup="searchTrabajador()"> <label
@@ -42,93 +42,166 @@
 						onkeyup="searchDepartamento()"> <label
 						for="searchDepartamento">Departamento</label>
 				</div>
-				<table id="tablita" class="bordered highlight centered">
+				<table id="table_trabajador-filtrado"
+					class="bordered highlight centered">
 					<thead>
 						<tr>
-							<th>Apellidos</th>
-							<th>Nombres</th>
+							<th>Apellidos y Nombres</th>
 							<th>Departamento</th>
 							<th>Área</th>
 							<th>Sección</th>
 							<th>Condición</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Eclair</td>
-							<td>Alvin</td>
-							<td>Hornato</td>
-							<td>null</td>
-							<td>null</td>
-							<td>null</td>
-						</tr>
-						<tr>
-							<td>Jellybean</td>
-							<td>Alan</td>
-							<td>Limpieza</td>
-							<td>null</td>
-							<td>null</td>
-							<td>null</td>
-						</tr>
-						<tr>
-							<td>Lollipop</td>
-							<td>Jonathan</td>
-							<td>Hornato</td>
-							<td>null</td>
-							<td>null</td>
-							<td>null</td>
-						</tr>
-					</tbody>
-				</table>
-				<br> <a class="btn waves-effect waves-light right"><i
+				</table> -->
+				<div id="table_contenido" class="col s12 m12 l12"></div>
+				<br> <a id="confirmar_lista" class="btn waves-effect waves-light right"><i
 					class="mdi-navigation-check"></i> Confirmar</a>
 			</div>
 		</div>
 	</div>
+	<script
+		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		type="text/javascript"></script>
 </body>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
+		listarTrabajadorFiltrado();
+		//readAllTF();
 	})
 	
-	function searchTrabajador() {
-		var input, filter, table, tr, td, i;
-		input = document.getElementById("searchTrabajador");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("tablita");
-		tr = table.getElementsByTagName("tr");
-
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[0];
-			if (td) {
-				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
+$("#confirmar_lista").click(function(){
+	console.log("1");
+	$.post("confirmarListaFiltrada", function(data, status) {
+		console.log("2");
+		console.log(data);
+		if(data == 1){
+			var $toastContent = $('<span>Lista filtrada correctamente</span>');
+			Materialize.toast($toastContent, 10000);	
+			location.reload();
 		}
-	}
-
-	function searchDepartamento() {
-		var input, filter, table, tr, td, i;
-		input = document.getElementById("searchDepartamento");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("tablita");
-		tr = table.getElementsByTagName("tr");
-
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[2];
-			if (td) {
-				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
+		if(data == 0){
+			var $toastContent = $('<span>Error</span>');
+			Materialize.toast($toastContent, 10000);
 		}
-	}
+	});
+});
+// 	function searchTrabajador() {
+// 		var input, filter, table, tr, td, i;
+// 		input = document.getElementById("searchTrabajador");
+// 		filter = input.value.toUpperCase();
+// 		table = document.getElementById("table_trabajador-filtrado");
+// 		tr = table.getElementsByTagName("tr");
+
+// 		for (i = 0; i < tr.length; i++) {
+// 			td = tr[i].getElementsByTagName("td")[0];
+// 			if (td) {
+// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+// 					tr[i].style.display = "";
+// 				} else {
+// 					tr[i].style.display = "none";
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	function searchDepartamento() {
+// 		var input, filter, table, tr, td, i;
+// 		input = document.getElementById("searchDepartamento");
+// 		filter = input.value.toUpperCase();
+// 		table = document.getElementById("table_trabajador-filtrado");
+// 		tr = table.getElementsByTagName("tr");
+
+// 		for (i = 0; i < tr.length; i++) {
+// 			td = tr[i].getElementsByTagName("td")[2];
+// 			if (td) {
+// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+// 					tr[i].style.display = "";
+// 				} else {
+// 					tr[i].style.display = "none";
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	function readAllTF() {
+// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+// 		console.log("READALL PEDIDOS");
+// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+// 		console.log("");
+// 		$.get("readallTrabajadorFiltrado", function(data, status) {
+// 			$("#table_trabajador-filtrado").find("tr:gt(0)").remove();
+// 			$("#table_trabajador-filtrado thead:last").after(
+// 					"<tbody id='table-body'></tbody>");
+// 			var lista = document.getElementById("table-body");
+// 			for ( var i in data) {
+// 				//$("#table_trabajador-filtrado tbody:last").after("<tr><td>"+data[i].AP_PATERNO+" "+data[i].AP_MATERNO+" "+data[i].NO_TRABAJADOR+"</td><td>"+data[i].NO_DEP+"</td><td>"+data[i].NO_AREA+"</td><td>"+data[i].NO_SECCION+"</td><td>"+data[i].LI_CONDICION+"</td></tr>");
+// 				lista.innerHTML += "<tr><td>" + data[i].AP_PATERNO + " "
+// 						+ data[i].AP_MATERNO + " " + data[i].NO_TRABAJADOR
+// 						+ "</td><td>" + data[i].NO_DEP + "</td><td>"
+// 						+ data[i].NO_AREA + "</td><td>" + data[i].NO_SECCION
+// 						+ "</td><td>" + data[i].LI_CONDICION + "</td></tr>";
+// 			}
+// 		});
+// 	}
+
+	function listarTrabajadorFiltrado()
+	{
+		 $.get('readallTrabajadorFiltrado', function (obj) {
+		        var s='';
+		        var emp = obj[0];
+		        for (var i = 0; i < obj.length; i++) {
+					s += '<tr>';
+		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
+		            s += '<td>'+obj[i].NO_DEP+'</td>';
+		            s += '<td>'+obj[i].NO_AREA+'</td>';
+		            s += '<td>'+obj[i].NO_SECCION+'</td>';
+		            s += '<td>'+obj[i].LI_CONDICION+'</td>';
+		            s += '</tr>';
+		   
+				}
+		        $("#table_contenido").empty();
+		        $("#table_contenido").append(createTable());
+		        $("#data").empty();
+		        $("#data").append(s);
+		        $('#data-table-row-grouping').dataTable();
+		        $("#ckbCheckAll").click(function () {
+	                $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+	            });
+		        function getSelected() {
+	                var allVals = [];
+	                $('#data :checked').each(function () {
+	                    allVals.push($(this).parents("#data tr").find(".sorting_1").text());
+	                });
+	                return allVals;
+	            }
+		    });
+		};
+		
+	function createTable() {
+	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+	    s += '<thead>';
+	    s += '<tr>';
+	    s += '<th>Apellidos y Nombres</th>';
+	    s += '<th>Departamento</th>';
+	    s += '<th>Área</th>';
+	    s += '<th>Sección</th>';
+	    s += '<th>Condición</th>';
+	    s += ' </tr>';
+	    s += '</thead>';
+	    s += '<tbody id="data"></tbody>';
+	    s += '</table>';
+	    return s;
+	    
+	};
 </script>
 
 </html>
