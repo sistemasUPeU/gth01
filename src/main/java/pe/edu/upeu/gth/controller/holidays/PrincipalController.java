@@ -46,6 +46,16 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/gestionar_lista_filtrada");
 
 	}
+	@GetMapping("/vac_gest_consol")
+	public ModelAndView vac_gest_consol(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/vac_gest_consol");
+
+	}
+	@GetMapping("/programa_vacaciones")
+	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/AprobarPV");
+
+	}
 	
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
@@ -58,4 +68,5 @@ public class PrincipalController {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
+
 }
