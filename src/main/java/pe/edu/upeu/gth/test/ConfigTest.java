@@ -22,7 +22,7 @@ public class ConfigTest {
 	private static void listaFiltrada() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		Gson GSON = new Gson();
-		System.out.println(GSON.toJson(DAO.CONFIRMAR()));
+		System.out.println(GSON.toJson(DAO.READALL()));
 	}
 
 	public static void conect() {

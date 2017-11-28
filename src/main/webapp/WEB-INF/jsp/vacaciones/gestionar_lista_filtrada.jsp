@@ -80,7 +80,7 @@
 	
 $("#confirmar_lista").click(function(){
 	console.log("1");
-	$.post("confirmarListaFiltrada", function(data, status) {
+	$.get("confirmarListaFiltrada", function(data, status) {
 		console.log("2");
 		console.log(data);
 		if(data == 1){

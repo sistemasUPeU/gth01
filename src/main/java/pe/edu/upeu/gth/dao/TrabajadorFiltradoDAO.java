@@ -24,7 +24,7 @@ public class TrabajadorFiltradoDAO {
 	public List<Map<String, Object>> READALL() {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "SELECT * FROM RHVV_TRABAJADOR_CONTRATO";
+			String SQL = "SELECT * FROM RHVV_TRABAJADOR_FILTRADO";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
