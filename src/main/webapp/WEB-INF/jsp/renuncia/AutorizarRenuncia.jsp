@@ -171,60 +171,114 @@
 								</div>
 							</div>
 						</form>
-					</div>
-				</div>
-			</div>
-			
-			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
-
-				<div class="col s6" style="margin-right: 2em;">
-					<button type="submit" class="btn waves-effect waves-light indigo"
-						id="RegistrarR">
-						Enviar <i class="mdi-content-send right"></i>
-					</button>
-
-				</div>
-				<div class="col s6" style="margin-right: 2em">
-					<a class="btn waves-effect waves-light blue-grey modal-close">
-						Cancelar </a>
-
-				</div>
-				<!-- 											<a href="#" -->
-				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
-			</div>
-		</div>
-	</div>
-	<div class="col s12 m6"  style="position: absolute;display:none">
-			<ul class="collapsible collapsible-accordion"
-				data-collapsible="accordion">
-				<li class="active" style="position: relative">
-					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
-					</div>
-					<div class="collapsible-body" style="display: none;">
-						<div id="table-datatables">
-							<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
+						<form class="col s12">
 							<div class="row">
-								<div class="col s12 m8 l9">
-									
-
+								<div class="input-field col s6 ">
+									<h6>Antecedentes Policiales:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="ante"></span><br>
+									</h6>
 								</div>
 							</div>
-						</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Certificado de salud:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="certi"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Carta de renuncia:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="tipo_contrato">
+											<div>
+												<object data="" id="hola" type="application/pdf" width="300"
+													height="200">
+													alt : <a href="test.pdf">test.pdf</a>
+												</object>
+											</div>
 
-
+										</span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
 					</div>
-				</li>
-			</ul>
+				</div>
+			</div>
+
+			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
+
+				<form class="col s12">
+					<div class="row">
+						<div class="input-field col s6 ">
+
+							<button class="btn waves-effect waves-light blue-grey"
+								id="RechazarR">
+								Rechazar <i class="mdi-content-send right"></i>
+							</button>
+						</div>
+						<div class="input-field col s4 ">
+							<span id="tipo_contrato">
+								<div>
+									<button class="btn waves-effect waves-light indigo"
+										id="AutorizaR">
+										Autorizar <i class="mdi-content-send right"></i>
+									</button>
+								</div>
+
+							</span><br>
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+			<!-- 											<a href="#" -->
+			<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
+
+
+
+
 		</div>
-	<div style="position:fixed;width:100%;bottom: 0; ">
+	</div>
+	</div>
+	<div class="col s12 m6" style="position: absolute; display: none">
+		<ul class="collapsible collapsible-accordion"
+			data-collapsible="accordion">
+			<li class="active" style="position: relative">
+				<div class="collapsible-header active">
+					<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
+				</div>
+				<div class="collapsible-body" style="display: none;">
+					<div id="table-datatables">
+						<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
+						<div class="row">
+							<div class="col s12 m8 l9"></div>
+						</div>
+					</div>
+
+
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div style="position: fixed; width: 100%; bottom: 0;">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
-	
+
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>

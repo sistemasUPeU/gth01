@@ -85,5 +85,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 
 		return jt.queryForList(sql);
 	}
+	
+	
 
 }

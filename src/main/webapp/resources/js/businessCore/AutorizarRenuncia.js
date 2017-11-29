@@ -146,7 +146,7 @@ $(document)
 															.text();
 													console.log(cantidad);
 													
-													$("#modal2").openModal();
+													DetalleRenuncia(cantidad)
 													$("#otros").val(cantidad);
 
 												
@@ -166,6 +166,16 @@ $(document)
 
 									});
 					// listar();
+					
+					$("#AutorizarR").click(function(){
+						alert("autoriza");
+					});
+					
+					$("#RechazarR").click(function(){
+						alert("rechaza");
+					});
+						
+					
 
 				});
 
@@ -213,40 +223,57 @@ function createTable(idDepartamento, idRol) {
 }
 function DetalleRenuncia(idc) {
 	$("#modal2").openModal();
-	alert(idc);
+	//alert(idc);
 	$.get("AutorizarR", {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
-		 alert(data);
+		 //alert(data);
 		var detalle = JSON.parse(data);
 		console.log(detalle);
 		if (detalle.length == 0) {
 			// location.reload();
 			alert("nada de datos");
 		} else {
-			alert("BIEN JONAS");
-//			$("#fo").hide();
-//			$("#detalleR").show();
-//			$("#nombres").text(detalle[0].NOMBRES);
-//			$("#paterno").text(detalle[0].PATERNO);
-//			$("#materno").text(detalle[0].MATERNO);
-//			$("#fecha_nac").text(detalle[0].FECHA_NAC);
-//			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-//			$("#direccion").text(detalle[0].DOMICILIO);
-//			$("#departamento").text(detalle[0].NOM_DEPA);
-//			$("#area").text(detalle[0].NOM_AREA);
-//			$("#seccion").text(detalle[0].NOM_SECCION);
-//			$("#puesto").text(detalle[0].NOM_PUESTO);
-//			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-//			$("#idcontrato").val(detalle[0].ID_CONTRATO);
-//			$("#dni").val("");
-//			$("#dni").focus();
+//			alert("BIEN JONAS");
+			$("#nombres").text(detalle[0].NOMBRES);
+			$("#paterno").text(detalle[0].PATERNO);
+			$("#materno").text(detalle[0].MATERNO);
+			$("#fecha_nac").text(detalle[0].FECHA_NAC);
+			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
+			$("#direccion").text(detalle[0].DOMICILIO);
+			$("#departamento").text(detalle[0].NOM_DEPA);
+			$("#area").text(detalle[0].NOM_AREA);
+			$("#seccion").text(detalle[0].NOM_SECCION);
+			$("#puesto").text(detalle[0].NOM_PUESTO);
+			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+			if(detalle[0].ANTECEDENTES!=1){
+				$("#ante").text("Si");
+			}else{
+				$("#ante").text("No");
+			}
+			var archi = detalle[0].ARCHIVO;
+			if(detalle[0].ANTECEDENTES!=0){
+				$("#certi").text("Si");
+			}else{
+				$("#certi").text("No");
+			}
+			$.get("/mostrardoc1",{
+				archi: archi
+			},function(data){
+				alert(data);
+			})
+			
+			
+		
+
 		}
 
 	});
 
 }
+
+
 
 function id(idc) {
 	alert(idc);
