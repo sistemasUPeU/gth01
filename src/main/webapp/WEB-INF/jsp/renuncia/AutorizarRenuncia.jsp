@@ -174,7 +174,7 @@
 					</div>
 				</div>
 			</div>
-
+			
 			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
 
 				<div class="col s6" style="margin-right: 2em;">
@@ -198,6 +198,29 @@
 			</div>
 		</div>
 	</div>
+	<div class="col s12 m6"  style="position: absolute;display:none">
+			<ul class="collapsible collapsible-accordion"
+				data-collapsible="accordion">
+				<li class="active" style="position: relative">
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
+					</div>
+					<div class="collapsible-body" style="display: none;">
+						<div id="table-datatables">
+							<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
+							<div class="row">
+								<div class="col s12 m8 l9">
+									
+
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</li>
+			</ul>
+		</div>
 	<div style="position:fixed;width:100%;bottom: 0; ">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>

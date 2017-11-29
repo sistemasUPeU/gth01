@@ -284,7 +284,7 @@
 												<div class="col s12">
 
 													<input type="file" name="file" class="dropify" id="pelon1"
-														data-height="500" />
+														data-height="500"/>
 
 
 												</div>

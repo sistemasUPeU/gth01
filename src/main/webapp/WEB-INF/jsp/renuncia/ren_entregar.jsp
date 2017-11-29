@@ -40,45 +40,20 @@
 	</div>
 
 	<div id="modalentregar" class="modal">
-		<div class="modal-header #1de9b6 teal accent-3">
-			<div class="center">
-				<h4 style="font-family: 'Dosis', sans-serif; color: grey">Autorización
-					de renuncia</h4>
-			</div>
-		</div>
+		
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
-				<div class="card-image #424242 grey darken-3 waves-effect ">
+				<div class="card-image #82b1ff blue accent-1 waves-effect ">
 
 					<hr />
 					<div class="price flow-text ">
 						<div class="col m12 l12 s12">
 							<div id="profile-page-content" class="row">
 								<div class="row card-panel">
-									<div class="col l1 m1 s6">
-										<img src="<c:url value="/resources/img/user.png"/>" alt=""
-											class="circle responsive-img valign profile-image">
-									</div>
-									<div class="col l3 m3 s6">
-										<input type="hidden" id="idt" />
-										<h6 class="light italic black-text">
-											<strong>Nombres :</strong><span id="nombres"></span><br>
-
-										</h6>
-										<h6>
-											<strong> Apellido Paterno : </strong> <span id="paterno"></span><br>
-										</h6>
-										<h6>
-											<strong> Apellido Materno : </strong><span id="materno"></span><br>
-											<!-- 											<strong> -->
-										</h6>
-										<h6>
-											<strong> Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
-										</h6>
-									</div>
+																	
 									<div class="col s12">
-										<h4>Motivos de rechazo</h4>
+										<h4>Comunicar entrega de documentos</h4>
 									</div>
 									<div class="col s4">
 										<input type="text" class=""
@@ -140,7 +115,7 @@
 										<div class="col s12">
 											This is an inline input field:
 											<div class="input-field inline">
-												<p id="mensaje1">Señor <span id="nombre"></span> sus documentos ya se encuentran realizados,
+												<p id="mensaje1">Señor <span id="nombre"></span> sus documentos ya se encuentran listos para ser entregados,
 												por favor se le invita a pasar por la oficina de Gestion de Talentos Humanos (GTH)
 												a recoger sus documentos de beneficios sociales en la fecha <span><input type="date">.</span>
 												Atentamente GTH,
@@ -154,92 +129,7 @@
 						</div>
 					</div>
 					<div class="price-desc white-text">
-						<form class="col s12 ">
-							<div class="row">
-								<div class="input-field col s6  ">
-									<h6>Fecha de Inicio:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="fecha_inicio"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6 ">
-									<h6>Dirección:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="direccion"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6 ">
-									<h6>Departamento:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="departamento"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6 ">
-									<h6>Area:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="area"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6">
-									<h6>Sección:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="seccion"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6 ">
-									<h6>Correo:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="correo"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6 ">
-									<h6>Tipo de contrato:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="tipo_contrato"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
+						
 					</div>
 				</div>
 			</div>

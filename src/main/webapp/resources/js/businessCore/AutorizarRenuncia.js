@@ -47,7 +47,7 @@ $(document)
 												s += '<tr>';
 												s += '<td>'
 														+ a
-														+ '<label  class="idtr" hidden>'
+														+ '<label  class="idc" hidden>'
 														+ lista[i].ID_CONTRATO
 														+ '</label></td>';
 												s += '<td>'
@@ -142,7 +142,7 @@ $(document)
 													cantidad = $(this).parents(
 															"tr").find("td")
 															.eq(0)
-															.find(".idtr")
+															.find(".idc")
 															.text();
 													console.log(cantidad);
 													
@@ -212,20 +212,20 @@ function createTable(idDepartamento, idRol) {
 	return s;
 }
 function DetalleRenuncia(idc) {
-	
+	$("#modal2").openModal();
 	alert(idc);
 	$.get("AutorizarR", {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
-		// alert(data);
+		 alert(data);
 		var detalle = JSON.parse(data);
 		console.log(detalle);
 		if (detalle.length == 0) {
 			// location.reload();
 			alert("nada de datos");
 		} else {
-			alert("BIEN JONAS")
+			alert("BIEN JONAS");
 //			$("#fo").hide();
 //			$("#detalleR").show();
 //			$("#nombres").text(detalle[0].NOMBRES);
@@ -248,8 +248,8 @@ function DetalleRenuncia(idc) {
 
 }
 
-function id(idtr) {
-	alert(idtr);
+function id(idc) {
+	alert(idc);
 }
 
 function ParsearMes(mesint) {

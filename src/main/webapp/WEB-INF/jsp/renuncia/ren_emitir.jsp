@@ -47,7 +47,9 @@
 
 
 	</div>
-
+		<div style="position:fixed;width:100%;bottom: 0;z-index:5 ">
+		<%@include file="../../../jspf/footer.jspf"%>
+	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// 			prueba1();
