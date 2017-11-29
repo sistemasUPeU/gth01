@@ -108,7 +108,7 @@ public class RegistrarRenunciaController {
 			// ?, ?)";
 			try {
 				for (MultipartFile fi : file) {
-					String path = context.getRealPath("/WEB-INF/david/") + File.separator + fi.getOriginalFilename();
+					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
 					File destFile = new File(path);
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());

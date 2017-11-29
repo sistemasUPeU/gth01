@@ -66,7 +66,7 @@ $(document)
 														+ lista[i].TIPO_CONTRATO
 														+ '</td>';
 												s += '<td><a class="green-text accent-3" href="#">'
-														+ lista[i].TIPO_CONTRATO
+														+ lista[i].DESCRIPCION
 														+ '</a></td>';
 												s += '<td>'
 														+ fe_creacion.getDate()

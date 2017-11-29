@@ -63,6 +63,11 @@ public class RenAutorizarDAO implements CRUDOperations{
 		return false;
 	}
 	
+	public List<Map<String, Object>> Pendiente() {
+		sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Pendiente'";
+		return jt.queryForList(sql);
+	}
+	
 	public List<Map<String,Object>> Autorizar() {
     	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
         return jt.queryForList(sql);

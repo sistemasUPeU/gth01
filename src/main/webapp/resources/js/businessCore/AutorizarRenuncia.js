@@ -6,8 +6,8 @@ $(document)
 					// alert();
 					$
 							.getJSON(
-									gth_context_path + "/renuncias/listarxd",
-									"opc=1",
+									gth_context_path + "/renuncias/AutorizarR",
+									"opc=3",
 									function(objJson) {
 										var s = "";
 										var lista = objJson;
@@ -22,9 +22,15 @@ $(document)
 												var plazo = parseInt(lista[i].VAL_PLAZO);
 												var fe_creacion = new Date(
 														lista[i].FECHA_RENUNCIA);
-												var mes = parseInt(fe_creacion
+												var mesInt = parseInt(fe_creacion
 														.getMonth()) + 1;
-												alert(ddd(mes));
+												var mes = ParsearMes(mesInt);
+												var mfl="";
+												if(lista[i].VAL_PLAZO=='1'){
+													 mfl="Sí"
+												}else{
+													 mfl="No";
+												}
 												var p = "";
 												var f = "";
 												var t = "";
@@ -45,41 +51,42 @@ $(document)
 														+ lista[i].ID_CONTRATO
 														+ '</label></td>';
 												s += '<td>'
-														+ lista[i].MES_ACTUAL
+														+ mes;
 														+ '</td>';
 												s += '<td class="">'
 
-														+ lista[i].AP_MATERNO
+														+ lista[i].PATERNO
 														+ ' '
-														+ lista[i].AP_MATERNO
+														+ lista[i].MATERNO
 														+ ' '
-														+ lista[i].NO_TRABAJADOR
+														+ lista[i].NOMBRES
 														+ '</td>';
 												s += '<td>'
-														+ lista[i].NO_PUESTO
+														+ lista[i].NOM_PUESTO
 														+ '</td>';
-												s += '<td>' + lista[i].NO_AREA
+												s += '<td>' + lista[i].NOM_AREA
 														+ '</td>';
-												s += '<td>' + lista[i].NO_DEP
+												s += '<td>' + lista[i].NOM_DEPA
 														+ '</td>';
 												s += '<td>'
-														+ lista[i].DE_TI_CONTRATO
+														+ lista[i].TIPO_CONTRATO
 														+ '</td>';
 												s += '<td><a class="green-text accent-3" href="#">'
-														+ lista[i].DE_TI_CONTRATO
+														+ lista[i].DESCRIPCION
 														+ '</a></td>';
 												s += '<td>'
-														+ fe_creacion.getDate()
-														+ "/"
-														+ mes
-														+ "/"
-														+ fe_creacion
-																.getFullYear()
-														+ '</td>';
+														+lista[i].FECHA_RENUNCIA+
+														 '</td>';
+												s += '<td>'
+													+lista[i].DNI+
+													 '</td>';
+												s += '<td>'
+													+mfl+
+													 '</td>';
 												// s += '<td>' + p + '</td>';
-												s += '<td>' + 'Procesado'
+												s += '<td>' + lista[i].ESTADO
 														+ '</td>';
-												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Detalle</button>';
+												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" onclick="DetalleRenuncia('+lista[i].ID_CONTRATO+')">Detalle</button>';
 
 												// s += '<td><button
 												// class="notificar waves-effect
@@ -142,7 +149,7 @@ $(document)
 													$("#modal2").openModal();
 													$("#otros").val(cantidad);
 
-													otros
+												
 												});
 										// $('.dropdown-button')
 										// .dropdown(
@@ -177,7 +184,9 @@ function createTable(idDepartamento, idRol) {
 	s += '<th>Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de Inicio</th>';
+	s += '<th>Fecha de renuncia</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';
 	s += '<th>Estado</th>';
 	s += '<th>Opcion</th>';
 	if (Departamento === "DPT-0019") {
@@ -202,9 +211,9 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-function DetalleRenuncia() {
-	dni = $("#dni").val();
-
+function DetalleRenuncia(idc) {
+	
+	alert(idc);
 	$.get("AutorizarR", {
 		idc : idc,
 		opc : 2
@@ -214,29 +223,25 @@ function DetalleRenuncia() {
 		console.log(detalle);
 		if (detalle.length == 0) {
 			// location.reload();
-			$("#detalleR").hide();
-			$("#fo").show();
-			$("#msj").text(
-					"El trabajador identificado con DNI: " + dni
-							+ " no tiene un contrato activo o ha renunciado");
-			$("#dni").val("");
+			alert("nada de datos");
 		} else {
-			$("#fo").hide();
-			$("#detalleR").show();
-			$("#nombres").text(detalle[0].NOMBRES);
-			$("#paterno").text(detalle[0].PATERNO);
-			$("#materno").text(detalle[0].MATERNO);
-			$("#fecha_nac").text(detalle[0].FECHA_NAC);
-			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-			$("#direccion").text(detalle[0].DOMICILIO);
-			$("#departamento").text(detalle[0].NOM_DEPA);
-			$("#area").text(detalle[0].NOM_AREA);
-			$("#seccion").text(detalle[0].NOM_SECCION);
-			$("#puesto").text(detalle[0].NOM_PUESTO);
-			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-			$("#idcontrato").val(detalle[0].ID_CONTRATO);
-			$("#dni").val("");
-			$("#dni").focus();
+			alert("BIEN JONAS")
+//			$("#fo").hide();
+//			$("#detalleR").show();
+//			$("#nombres").text(detalle[0].NOMBRES);
+//			$("#paterno").text(detalle[0].PATERNO);
+//			$("#materno").text(detalle[0].MATERNO);
+//			$("#fecha_nac").text(detalle[0].FECHA_NAC);
+//			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
+//			$("#direccion").text(detalle[0].DOMICILIO);
+//			$("#departamento").text(detalle[0].NOM_DEPA);
+//			$("#area").text(detalle[0].NOM_AREA);
+//			$("#seccion").text(detalle[0].NOM_SECCION);
+//			$("#puesto").text(detalle[0].NOM_PUESTO);
+//			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+//			$("#idcontrato").val(detalle[0].ID_CONTRATO);
+//			$("#dni").val("");
+//			$("#dni").focus();
 		}
 
 	});
@@ -247,7 +252,7 @@ function id(idtr) {
 	alert(idtr);
 }
 
-function ddd(mesint) {
+function ParsearMes(mesint) {
 	var mes;
 	console.log(mesint);
 	switch (mesint) {
@@ -288,4 +293,6 @@ function ddd(mesint) {
 		mes = "Diciembre";
 		break;
 	}
+	return mes;
+
 }

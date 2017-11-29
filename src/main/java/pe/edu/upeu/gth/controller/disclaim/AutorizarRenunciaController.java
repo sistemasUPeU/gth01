@@ -38,24 +38,14 @@ public class AutorizarRenunciaController {
 				out.println(gson.toJson(ra.Autorizar()));
 				break;
 			case 2:
-				out.println(gson.toJson(ra.DetalleAutorizar()));
+				String idc = request.getParameter("idc");
+				out.println(gson.toJson(ra.Buscar_DetalleTrabajador(idc)));
+				break;
+			case 3:
+				out.println(gson.toJson(ra.Pendiente()));
 				break;
 			}
 
 		}
 		
-		@RequestMapping(value = "/listarRen", method = RequestMethod.GET)
-		protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			PrintWriter out = response.getWriter();
-			int op = Integer.parseInt(request.getParameter("opc"));
-			switch (op) {
-			case 1:
-				// String dni = request.getParameter("dni");
-				out.println(gson.toJson(rd.gg()));
-				break;
-
-			}
-
-		}
 }

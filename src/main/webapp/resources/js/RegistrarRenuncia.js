@@ -39,13 +39,13 @@ $(document).ready(function(){
 
         
         if (!$("#otrosdiv").hasClass("hide")) {
-			alert("visible");
+			//alert("visible");
 		} else {
-			alert("invisible :'v");
+			//alert("invisible :'v");
 		}
         
         
-        alertify.confirm('Confirmar renuncia', '¿Está seguro(a) de confirmar la renuncia de este trabajador?', function(){
+        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la renuncia de este trabajador?', function(){
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
                     type: "POST",
@@ -71,14 +71,15 @@ $(document).ready(function(){
                 });
             }else{          	
             	alertify
-                .errorAlert("Error al guardar los datos <br/>");
+                .errorAlert("Rellene todos los campos<br/>");
             }
         	
         	
         	
-        	alertify.success('Se ha registrado la renuncia satisfactoriamente') }
+        	}
         , function(){ 
-        	        	
+        	alertify
+            .errorAlert("Error al intentar guardar los datos<br/>");     	
         });
     });
 			
@@ -167,30 +168,33 @@ function buscarDetalle(){
 // alert(data);
 		var detalle = JSON.parse(data);
 		console.log(detalle);
-		if(detalle.length==0){
-// location.reload();
-			$("#detalleR").hide();
-			$("#fo").show();
-			$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha renunciado... :'v");
-			$("#dni").val("");
-		}else{
-			$("#fo").hide();
-			$("#detalleR").show();
-			$("#nombres").text(detalle[0].NOMBRES);
-			$("#paterno").text(detalle[0].PATERNO);    
-			$("#materno").text(detalle[0].MATERNO); 
-			$("#fecha_nac").text(detalle[0].FECHA_NAC);  
-			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);  
-			$("#direccion").text(detalle[0].DOMICILIO);  
-			$("#departamento").text(detalle[0].NOM_DEPA);
-			$("#area").text(detalle[0].NOM_AREA);
-			$("#seccion").text(detalle[0].NOM_SECCION);
-			$("#puesto").text(detalle[0].NOM_PUESTO);
-			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-			$("#idcontrato").val(detalle[0].ID_CONTRATO);
-			$("#dni").val("");
-			$("#dni").focus();
-		}
+	
+			if(detalle.length==0){
+				// location.reload();
+							$("#detalleR").hide();
+							$("#fo").show();
+							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha renunciado");
+							$("#dni").val("");
+						}else{
+							$("#fo").hide();
+							$("#detalleR").show();
+							$("#nombres").text(detalle[0].NOMBRES);
+							$("#paterno").text(detalle[0].PATERNO);    
+							$("#materno").text(detalle[0].MATERNO); 
+							$("#fecha_nac").text(detalle[0].FECHA_NAC);  
+							$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);  
+							$("#direccion").text(detalle[0].DOMICILIO);  
+							$("#departamento").text(detalle[0].NOM_DEPA);
+							$("#area").text(detalle[0].NOM_AREA);
+							$("#seccion").text(detalle[0].NOM_SECCION);
+							$("#puesto").text(detalle[0].NOM_PUESTO);
+							$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+							$("#idcontrato").val(detalle[0].ID_CONTRATO);
+							$("#dni").val("");
+							$("#dni").focus();
+						}
+		
+		
 		  
 	});
 
@@ -247,7 +251,7 @@ function insertarMotivos(){
 // alert(data);
 			otros = $("#otros").val();
 			if (otros=="") {
-				alert("NO VAS A INSERTAR OTROS XD");
+				// alert("NO VAS A INSERTAR OTROS XD");
 			} else {
 				insertarOtros(otros);
 			}
@@ -266,7 +270,7 @@ function insertarMotivos(){
 
 function insertarOtros(otros){
 	$.get("detalleR",{otros:otros,opc:5},function(data,status){
-		alert(data);
+		// alert(data);
 	});
 }
 limpiar();

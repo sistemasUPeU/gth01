@@ -342,6 +342,9 @@
 
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
+	<div style="position:fixed;width:100%;bottom: 0;z-index:5 ">
+		<%@include file="../../../jspf/footer.jspf"%>
+	</div>
 	<!-- 		type="text/javascript"></script> -->
 
 	<script src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
