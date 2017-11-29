@@ -78,6 +78,7 @@ public class MainController {
 				break;
 			case "usuario":
 				mp.put("datos_usuario", ((CustomUser) authentication.getPrincipal()).getNOMBRE_AP());
+				mp.put("username", ((CustomUser) authentication.getPrincipal()).getUsername());
 				break;
 			}
 
