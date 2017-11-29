@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 
 
@@ -36,6 +37,7 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
 
 	}
+	
 	@GetMapping("/control_firma_vacaciones")
 	public ModelAndView control_firma_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/control_firma_vacaciones");
@@ -67,6 +69,11 @@ public class PrincipalController {
 	public @ResponseBody String confirmarListaFiltrada(HttpServletRequest RQ) {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.CONFIRMAR());
+	}
+	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllProgramaVacaciones() {
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READALL());
 	}
 
 }
