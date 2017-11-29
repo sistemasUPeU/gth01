@@ -98,47 +98,48 @@ public class RenunciaController {
 	
 
 
-//	@RequestMapping(value = "/mostrardoc1")
-//	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		ServletContext cntx = request.getServletContext();
-//		// Get the absolute path of the image
-//		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-//
-//		List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
-//		System.out.println(gson.toJson(result1));
-//		System.out.println();
-//
-//		String nom = (String) result1.get(0).get("NO_ARCHIVO");
+	@RequestMapping(value = "/mostrardoc1")
+	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ServletContext cntx = request.getServletContext();
+		// Get the absolute path of the image
+		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
+//		PrintWriter out = response.getWriter();
+
+		List<Map<String, Object>> result1 = rd.cargarMotivo("CTO-002058");
+		System.out.println(gson.toJson(result1));
+		System.out.println();
+
+		String nom = (String) result1.get(0).get("NO_ARCHIVO");
 //		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
-//		String filename = context.getRealPath("/WEB-INF/david/" + nom.trim() + "." + tipo.trim());
-//		// String filename =
-//		// "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
-//
-//		System.out.println(nom + "//" + tipo + "//" + filename);
-//		// retrieve mimeType dynamically
-//		String mime = cntx.getMimeType(filename);
-//		if (mime == null) {
-//			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-//			return;
-//		}
-//
-//		response.setContentType(mime);
-//		File file = new File(filename);
-//		response.setContentLength((int) file.length());
-//
-//		FileInputStream in = new FileInputStream(file);
-//		OutputStream out = response.getOutputStream();
-//
-//		// Copy the contents of the file to the output stream
-//		byte[] buf = new byte[1024];
-//		int count = 0;
-//		while ((count = in.read(buf)) >= 0) {
-//			out.write(buf, 0, count);
-//		}
-//		out.close();
-//		in.close();
-//
-//	}
+//		String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim());
+		 String filename ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\norm.jpg";
+
+		System.out.println(nom + "//" + "//" + filename);
+//		out.println(filename);
+		// retrieve mimeType dynamically
+		String mime = cntx.getMimeType(filename);
+		if (mime == null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
+		}
+
+		response.setContentType(mime);
+		File file = new File(filename);
+		response.setContentLength((int) file.length());
+
+		FileInputStream in = new FileInputStream(file);
+		OutputStream out = response.getOutputStream();
+
+		// Copy the contents of the file to the output stream
+		byte[] buf = new byte[1024];
+		int count = 0;
+		while ((count = in.read(buf)) >= 0) {
+			out.write(buf, 0, count);
+		}
+		out.close();
+		in.close();
+
+	}
 
 	@RequestMapping(value = "/uploaded")
 	public void getUploadedPicture(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -17,13 +17,13 @@
 <%-- 			<a href="<c:url value="/renuncias/mostrardoc1"/>">ver</a> --%>
 
 
-<!-- 			<div class=""> -->
-<!-- 				<center> -->
-<!-- 					<object type="image/jpeg" -->
-<!-- 						data="http://localhost:8081/gth/renuncias/mostrardoc1" width="500" -->
-<!-- 						height="650"></object> -->
-<!-- 				</center> -->
-<!-- 			</div> -->
+			<div class="">
+				<center>
+					<object type="image/jpeg"
+						data="http://localhost:8081/gth/renuncias/mostrardoc1" width="500"
+						height="650"></object>
+				</center>
+			</div>
 			<section id="content" class="col m12 l12 s12">
 			<h1></h1>
 

@@ -86,7 +86,7 @@ $(document)
 												// s += '<td>' + p + '</td>';
 												s += '<td>' + lista[i].ESTADO
 														+ '</td>';
-												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" onclick="DetalleRenuncia('+lista[i].ID_CONTRATO+')">Detalle</button>';
+												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
 
 												// s += '<td><button
 												// class="notificar waves-effect
@@ -145,8 +145,13 @@ $(document)
 															.find(".idc")
 															.text();
 													console.log(cantidad);
+<<<<<<< HEAD
 													
 													DetalleRenuncia(cantidad)
+=======
+													DetalleRenuncia(cantidad);
+													$("#modal2").openModal();
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 													$("#otros").val(cantidad);
 
 												

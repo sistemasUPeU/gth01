@@ -148,9 +148,9 @@ public class RenunciaDAO {
 	}
 
 	public List<Map<String, Object>> cargarMotivo(String idtr) {
-		sql = "SELECT * FROM REN_RENUNCIA r, RHTM_TRABAJADOR t WHERE r.ID_TRABAJADOR=t.ID_TRABAJADOR";
+		sql = "SELECT * FROM REN_RENUNCIA r, RHTM_CONTRATO t WHERE r.ID_CONTRATO=t.ID_CONTRATO";
 
-		sql += " and r.ID_RENUNCIA='" + idtr + "' ";
+		sql += " and r.ID_CONTRATO='" + idtr + "' ";
 
 		return jt.queryForList(sql);
 	}
@@ -207,14 +207,23 @@ public class RenunciaDAO {
 		try {
 
 			String host = "smtp.gmail.com";
+			int port = 587;
 
 			Properties prop = System.getProperties();
+			String[] parts = de.split("@");
+			String part1 = parts[0]; // 123
+			String tipo = parts[1]; // 654321
+			
+			if (tipo.equals("live.com")|| tipo.equals("hotmail.com")||tipo.equals("outlook.com")) {
+				host = "smtp.live.com";
+				port = 27;
+			}
 
 			prop.put("mail.smtp.starttls.enable", "true");
 			prop.put("mail.smtp.host", host);
 			prop.put("mail.smtp.user", de);
-//			prop.put("mail.smtp.password", clave);
-			prop.put("mail.smtp.port", 587);
+			prop.put("mail.smtp.password", clave);
+			prop.put("mail.smtp.port", port);
 			prop.put("mail.smtp.auth", "true");
 
 			Session sesion = Session.getDefaultInstance(prop, null);
