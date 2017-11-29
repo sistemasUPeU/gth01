@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
+import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 
 import pe.edu.upeu.gth.properties.globalProperties;
 
@@ -31,12 +32,25 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
+	public JasperReportsViewResolver getJasperReportsViewResolver() {
+		JasperReportsViewResolver resolver = new JasperReportsViewResolver();
+		resolver.setPrefix("classpath:/jasperreports/");
+		resolver.setSuffix(".jasper");
+		resolver.setReportDataKey("datasource");
+		resolver.setViewNames("*_report");
+		resolver.setViewClass(JasperReportsMultiFormatView.class);
+		resolver.setOrder(1);
+		return resolver;
+	}
+	
+	
+	@Bean
 	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/jsp/");
 		viewResolver.setSuffix(".jsp");
-
+		viewResolver.setOrder(2);
 		return viewResolver;
 	}
 

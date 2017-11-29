@@ -25,10 +25,7 @@
 	type="text/javascript"></script>
 <script src="<c:url value='/resources/js/plugins.min.js'></c:url>"
 	type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/data/jsConnector.js'></c:url>" type="text/javascript"></script>
 <script>
-var gth_context_path = "<%=request.getContextPath()%>";
-	function setUrlPath(url) {
-		var s = gth_context_path + url;
-		return s;
-	}
+	var gth_context_path = '${pageContext.request.contextPath}';
 </script>

@@ -4,17 +4,43 @@
 	<a href="#" data-activates="slide-out"
 		class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only green accent-3"><i
 		class="mdi-navigation-menu"></i></a>
+	<div class="input-field col s12 l12">
+		<input id="trab" type="hidden" class="validate">
+	</div>
 </aside>
 <!-- hide-on-large-only -->
 
 <script>
 	$(document).ready(function() {
+
 		listPrivilegios();
 		list_info_puesto();
+
 	});
 
 	function listPrivilegios() {
 		try {
+
+			$
+					.getJSON(
+							gth_context_path + '/components',
+							"opc=usuario",
+							function(objJSON) {
+								if (objJSON !== null) {
+
+									var t = objJSON.idtrb;
+									var r = objJSON.idrol;
+									$("#trab").val("");
+									$("#trab").val(t)
+
+
+
+								} else {
+									console
+											.error("No se esta cargando la información");
+								}
+							});
+
 			$
 					.getJSON(
 							gth_context_path + '/components',
@@ -22,6 +48,8 @@
 							function(objJson) {
 								var lista = objJson.datos.pr;
 								var user = objJson.datos.usuario;
+								var idtrab = $("#trab").val();
+								console.log(idtrab);
 								var s = '';
 								if (lista.length > 0) {
 									s += '<li class="li-hover"><p class="ultra-small margin more-text">MENÚ</p></li>';
@@ -48,11 +76,23 @@
 											s += '</li>';
 
 										} else {
-											s += '<li class="bold">';
-												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+
+											if (lista[i].DI_URL = 'solicitud/registrar') {
+												s += '<li class="bold">';
+												s += '<a id = "solicitud" href="#" onclick= "validar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
 														+ lista[i].NO_LINK
 														+ '</a>';
-											s += '</li>';
+												s += '</li>';
+
+											} else {
+
+												s += '<li class="bold">';
+												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '"class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+														+ lista[i].NO_LINK
+														+ '</a>';
+												s += '</li>';
+											}
+
 										}
 									}
 									$(".dataAside").empty();
@@ -71,5 +111,55 @@
 		} catch (e) {
 			console.error(e);
 		}
-	}
+	};
+
+	function validar() {
+		var id = $("#trab").val();
+
+
+		var url ="/gth/solicitud/validar";
+		var data ="&id=" + id ;
+
+		
+		$.getJSON(url, data, function(res, status) {
+
+
+				console.log("devuelve controller: "+res);
+
+				switch (res) {
+				case 0:
+
+					Materialize.toast('Aun no ha llegado su tiempo para recibir vacaciones!', 3000, 'rounded');
+
+					break;
+				case 1:
+
+// 					var url ="solicitud/registrar";
+// 					 var datos ="&op=1";
+// 					 datos += "&idrol=" +idrol;
+
+// 					$.post(url,{op:1,rol:idrol},function(){
+// 						//console.log(objJson);
+// 						//window.location.href = "http://localhost:8097/gth/solicitud/open";
+// 					});
+
+					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=1";
+					
+					
+					break;
+				case 2:
+					console.log("es dos");
+					Materialize
+					.toast(
+							'Usted tiene una solicitud en proceso!',
+							3000,
+							'rounded');
+					break;
+				case 3:
+					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
+					console.log("reprogramacion");
+					break;
+				}
+		});
+	};
 </script>
