@@ -228,11 +228,9 @@
 
 									<div id="modal3" class="modal modal modal-fixed-footer">
 										<div class="modal-header #1de9b6 teal accent-3">
-											<h4>
-												<div class="center"
-													style="font-family: 'Dosis', sans-serif;">Registrar
-													renuncia</div>
-											</h4>
+											<div class="center">												
+												<h4 style="font-family: 'Dosis', sans-serif;">Registrar renuncia</h4>
+											</div>
 										</div>
 										<div class="modal-content #e0f7fa cyan lighten-5"
 											style="z-index: 0">
@@ -346,7 +344,7 @@
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
 	<!-- 		type="text/javascript"></script> -->
 
-	<script src="<c:url  value='/resources/js/carpeta.js'></c:url>"
+	<script src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"

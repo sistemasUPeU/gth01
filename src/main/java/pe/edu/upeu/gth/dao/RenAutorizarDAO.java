@@ -64,8 +64,21 @@ public class RenAutorizarDAO implements CRUDOperations{
 	}
 	
 	public List<Map<String,Object>> Autorizar() {
-    	sql = "select ID_TRABAJADOR,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
+    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
         return jt.queryForList(sql);
     }
+	
+	public List<Map<String,Object>> DetalleAutorizar() {
+    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM REN_VIEW_RENUNCIA";
+        return jt.queryForList(sql);
+    }
+	
+	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
+		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
+
+		sql += " where ID_CONTRATO='" + idc + "' ";
+
+		return jt.queryForList(sql);
+	}
 
 }
