@@ -169,7 +169,12 @@ $(document)
 					// listar();
 					
 					$("#AutorizarR").click(function(){
-						alert("autoriza");
+						
+
+									$("#modal3").openModal();
+						
+
+							
 					});
 					
 					$("#RechazarR").click(function(){
