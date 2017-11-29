@@ -4,6 +4,8 @@ import javax.sql.DataSource;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
+import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
 public class ConfigTest {
@@ -13,6 +15,15 @@ public class ConfigTest {
 	public static void main(String[] args) {
 		conect();
 		checkSecurityDaoAuthentication();
+		//listar();
+		proc();
+		listaFiltrada();
+	}
+
+	private static void listaFiltrada() {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		Gson GSON = new Gson();
+		System.out.println(GSON.toJson(DAO.READALL()));
 	}
 
 	public static void conect() {

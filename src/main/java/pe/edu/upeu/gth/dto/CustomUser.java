@@ -27,6 +27,7 @@ public class CustomUser implements UserDetails,Serializable {
 	private String ID_DIRECCION;
 	private String ES_SEXO;
 	private String NOMBRE_AP;
+	private String NU_DOC;
 	public String getID_DIRECCION() {
 		return ID_DIRECCION;
 	}
@@ -44,7 +45,7 @@ public class CustomUser implements UserDetails,Serializable {
 
 	public CustomUser(String nousuario, String pwusuario, String idusuario, String idtrabajador, String idempleado,
 			String idrol, String idpuesto, String idarea, String noarea, String nodep, String iddep, String nopuesto,
-			String nodireccion, String essexo, String nombreap, String iddir, ArrayList<Map<String, Object>> listmod,String noseccion,String idseccion) {
+			String nodireccion, String essexo, String nombreap, String iddir, ArrayList<Map<String, Object>> listmod,String noseccion,String idseccion, String nudoc) {
 		this.NO_USUARIO = nousuario;
 		this.PW_USUARIO = pwusuario;
 		this.ID_USUARIO = idusuario;
@@ -64,6 +65,8 @@ public class CustomUser implements UserDetails,Serializable {
 		this.NOMBRE_AP = nombreap;
 		this.LIST_MODULO = listmod;
 		this.ID_DIRECCION = iddir;
+		this.NU_DOC = nudoc;
+		
 
 	}
 
@@ -75,6 +78,7 @@ public class CustomUser implements UserDetails,Serializable {
 		this.ID_TRABAJADOR = (String) userinfo.get("ID_TRABAJADOR");
 		this.ID_EMPLEADO = (String) userinfo.get("ID_EMPLEADO");
 		this.ID_ROL = ((String) userinfo.get("ID_ROL")).trim();
+		this.NU_DOC = ((String) userinfo.get("NU_DOC")).trim();
 		this.ID_PUESTO = (String) userinfo.get("ID_PUESTO");
 		this.ID_AREA = (String) userinfo.get("ID_AREA");
 		this.NO_AREA = (String) userinfo.get("NO_AREA");		
@@ -263,6 +267,15 @@ public class CustomUser implements UserDetails,Serializable {
 
 	public void setLIST_MODULO(ArrayList<Map<String, Object>> lIST_MODULO) {
 		LIST_MODULO = lIST_MODULO;
+	}
+	
+
+	public String getNU_DOC() {
+		return NU_DOC;
+	}
+
+	public void setNU_DOC(String nU_DOC) {
+		NU_DOC = nU_DOC;
 	}
 
 	@Override

@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 
-
 @Controller
 @Scope("request")
 @RequestMapping("/vacaciones")
@@ -25,7 +24,7 @@ import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 public class PrincipalController {
 
 	Gson GSON = new Gson();
-	
+
 	@GetMapping("/")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/default");
@@ -36,26 +35,45 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
 
 	}
+
 	@GetMapping("/control_firma_vacaciones")
 	public ModelAndView control_firma_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/control_firma_vacaciones");
 	}
-	
+
 	@GetMapping("/gestionar_lista_filtrada")
 	public ModelAndView gestionar_lista_filtrada(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/gestionar_lista_filtrada");
 
 	}
-	
+
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
+<<<<<<< HEAD
 	
 	@GetMapping("/programa_vacaciones")
 	public ModelAndView aprobarPV(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/AprobarPV");
 
+=======
+
+	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String confirmarListaFiltrada() {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.CONFIRMAR());
+	}
+
+	@GetMapping("/vac_gest_consol")
+	public ModelAndView vac_gest_consol(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/vac_gest_consol");
+	}
+
+	@GetMapping("/programa_vacaciones")
+	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/AprobarPV");
+>>>>>>> branch 'modulo-vacaciones' of https://github.com/sistemasUPeU/gth01
 	}
 }
