@@ -105,16 +105,17 @@ public class RenunciaController {
 		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
 //		PrintWriter out = response.getWriter();
 
-		List<Map<String, Object>> result1 = rd.cargarMotivo("CTO-002058");
+		List<Map<String, Object>> result1 = rd.cargarMotivo("CTO-001841");
 		System.out.println(gson.toJson(result1));
 		System.out.println();
 
 		String nom = (String) result1.get(0).get("NO_ARCHIVO");
 //		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
-//		String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim());
-		 String filename ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\norm.jpg";
+		String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim());
+//		 String filenam1e ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\"+nom;
 
 		System.out.println(nom + "//" + "//" + filename);
+//		System.out.println(nom + "//" + "//" + filenam1e);
 //		out.println(filename);
 		// retrieve mimeType dynamically
 		String mime = cntx.getMimeType(filename);
