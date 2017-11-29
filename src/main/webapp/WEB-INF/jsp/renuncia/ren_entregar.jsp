@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,97 +40,31 @@
 	</div>
 
 	<div id="modalentregar" class="modal">
-		
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
-
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
-				<div class="card-image #82b1ff blue accent-1 waves-effect ">
+				<div class="row card-panel">
 
-					<hr />
-					<div class="price flow-text ">
-						<div class="col m12 l12 s12">
-							<div id="profile-page-content" class="row">
-								<div class="row card-panel">
-																	
-									<div class="col s12">
-										<h4>Comunicar entrega de documentos</h4>
-									</div>
-									<div class="col s4">
-										<input type="text" class=""
-											placeholder="Descripcion del motivo del rechazo">
-									</div>
-									<div class="col s4">
-										<label>Fecha:</label>
-
-									</div>
-									<div class="col s4">
-										<label id="fecha">Fecha</label>
-									</div>
-
-
-
-								</div>
-							</div>
-							<div class="row">
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6">
-											<input placeholder="Placeholder" id="first_name" type="text"
-												class="validate"> <label for="first_name">First
-												Name</label>
-										</div>
-										<div class="input-field col s6">
-											<input id="last_name" type="text" class="validate"> <label
-												for="last_name">Last Name</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="input-field col s12">
-											<input disabled value="I am not editable" id="disabled"
-												type="text" class="validate"> <label for="disabled">Disabled</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="input-field col s12">
-											<input id="password" type="password" class="validate">
-											<label for="password">Password</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="input-field col s12">
-											<input id="email" type="email" class="validate"> <label
-												for="email">Email</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col s12">
-											This is an inline input field:
-											<div class="input-field inline">
-												<input id="email" type="email" class="validate"> <label
-													for="email" data-error="wrong" data-success="right">Email</label>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col s12">
-											This is an inline input field:
-											<div class="input-field inline">
-												<p id="mensaje1">Señor <span id="nombre"></span> sus documentos ya se encuentran listos para ser entregados,
-												por favor se le invita a pasar por la oficina de Gestion de Talentos Humanos (GTH)
-												a recoger sus documentos de beneficios sociales en la fecha <span><input type="date">.</span>
-												Atentamente GTH,
-												Gracias</p>
-												
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
+					<div class="col s12">
+						<h4>Comunicar entrega de documentos</h4>
 					</div>
-					<div class="price-desc white-text">
-						
+					<div class="col s12">
+
+						<p id="mensaje1">
+							SeÃ±or <span id="nombre"></span> sus documentos ya se encuentran
+							listos para ser entregados, por favor se le invita a pasar por la
+							oficina de Gestion de Talentos Humanos (GTH) a recoger sus
+							documentos de beneficios sociales en la fecha <span><input
+								type="date" id="fecha" class="datepicker"></span>
+
+						</p>
+						<p id="mensaje2">
+							<br>
+							<span>Atentamente GTH,</span><br>
+							<span>Gracias</span>
+						</p>
 					</div>
+					<input type="password" id="pass">
+					<label id="idtr"></label>
 				</div>
 			</div>
 
@@ -146,7 +80,6 @@
 				<div class="col s6" style="margin-right: 2em">
 					<a class="btn waves-effect waves-light blue-grey modal-close">
 						Cancelar </a>
-
 				</div>
 				<!-- 											<a href="#" -->
 				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->

@@ -78,7 +78,7 @@ $(document)
 														+ '</td>';
 												s += '<td>' + 'Procesado'
 														+ '</td>';
-												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Detalle</button>';
+												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Notificar</button>';
 
 												s += '</button>';
 
@@ -228,33 +228,11 @@ function verCorreo(idc) {
 
 		 var detalle = JSON.parse(data);
 		 console.log(detalle);
-		// if(detalle.length==0){
-		// // location.reload();
-		// $("#detalleR").hide();
-		// $("#fo").show();
-		// $("#msj").text("El trabajador identificado con DNI: " +dni+ " no
-		// tiene un contrato activo o ha renunciado... :'v");
-		// $("#dni").val("");
-		// }else{
-		// $("#fo").hide();
-		// $("#detalleR").show();
 		 $("#correo").text(detalle[0].CORREO);
+		 $("#idtr").text(detalle[0].ID_TRABAJADOR);
+
 		 $("#nombre").text(detalle[0].NOMBRES+" "+detalle[0].PATERNO+" "+detalle[0].MATERNO);
 
-		// $("#paterno").text(detalle[0].PATERNO);
-		// $("#materno").text(detalle[0].MATERNO);
-		// $("#fecha_nac").text(detalle[0].FECHA_NAC);
-		// $("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-		// $("#direccion").text(detalle[0].DOMICILIO);
-		// $("#departamento").text(detalle[0].NOM_DEPA);
-		// $("#area").text(detalle[0].NOM_AREA);
-		// $("#seccion").text(detalle[0].NOM_SECCION);
-		// $("#puesto").text(detalle[0].NOM_PUESTO);
-		// $("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-		// $("#idcontrato").val(detalle[0].ID_CONTRATO);
-		// $("#dni").val("");
-		// $("#dni").focus();
-		// }
 
 	});
 
@@ -262,17 +240,52 @@ function verCorreo(idc) {
 
 function enviarCorreo() {
 	 var msj = $("#mensaje1").text();
-	console.log(msj);
+	 var de = "neisserrey@upeu.edu.pe";
+	 var para = "jonathanromero@upeu.edu.pe";
+	 var clave = $("#pass").val();
+	 var mensaje = $("#mensaje2").text();
+	 var msjs = msj+$("#fecha").val()+mensaje+".";
+	 var asunto = "GTH";
+	console.log(msjs);
 	$.get("listarxd", {
 		de : de,
 		clave : clave,
 		para : para,
-		mensaje : mensaje,
+		mensaje : msjs,
 		asunto : asunto,
 		opc : 3
 	}, function(data, status) {
 		console.log(data);
-		$("#modalentregar").openModal();
+//		$("#modalentregar").closeModal();
+		 if(data==1){
+			 alert("SE MANDO");
+			 insertarLegajo();
+		 }else{
+			 alert(" NOOOOOOOOOOOOO SE MANDO");
+		 }
+
+	});
+}
+
+function insertarLegajo() {
+	 var msj = $("#mensaje1").text();
+	 var de = "neisserrey@upeu.edu.pe";
+	 var para = "jonathanromero@upeu.edu.pe";
+	 var clave = $("#pass").val();
+	 var mensaje = $("#mensaje2").text();
+	 var detalle = msj+$("#fecha").val()+mensaje+".";
+	 var asunto = "GTH";
+	 var otros = de+" para: "+para;
+	 var idtr = $("#idtr").text();
+//	console.log(msjs);
+	$.get("listarxd", {
+		idtr : idtr,
+		otros : otros,
+		detalle : detalle,
+		opc : 4
+	}, function(data, status) {
+		console.log(data);
+		$("#modalentregar").closeModal();
 		 if(data==1){
 			 alert("SE MANDO");
 		 }else{

@@ -38,8 +38,11 @@ footer {
 	</footer>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			listarModulos();
+			listarModulos();		
 		});
+		
+
+		
 		function listarModulos() {
 			var url = "components";
 			var data = "opc=modulos";
