@@ -1,13 +1,11 @@
 package pe.edu.upeu.gth.test;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
+import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
 public class ConfigTest {
@@ -19,6 +17,13 @@ public class ConfigTest {
 		checkSecurityDaoAuthentication();
 		//listar();
 		proc();
+		listaFiltrada();
+	}
+
+	private static void listaFiltrada() {
+		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		Gson GSON = new Gson();
+		System.out.println(GSON.toJson(DAO.READALL()));
 	}
 
 	public static void conect() {
@@ -39,39 +44,6 @@ public class ConfigTest {
 		System.out.println("password: "+user.getPassword());
 		System.out.println("checked!");
 		
-	}
-	
-	public static void listar() {
-		
-		try {
-			SolicitudVacacionesDAO vd = new SolicitudVacacionesDAO(AppConfig.getDataSource());
-			List<Map<String, Object>> sd = vd.llenar_solicitud("TRF-00002");
-			for(Object x:sd) {
-				System.out.println(x);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error - test:"+ e); 
-		}
-	
-	
-	}
-	
-	public static void proc() {
-		
-		try {
-			SolicitudVacacionesDAO vd = new SolicitudVacacionesDAO(AppConfig.getDataSource());
-			 int sd = vd.validarTipoSolicitud("TRB-003890");
-					 System.out.println("hi:_"+ sd);
-//			for(Object x:sd) {
-//				System.out.println(x);
-//			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error - test:"+ e); 
-		}
-	
-	
 	}
 
 }
