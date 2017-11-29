@@ -145,13 +145,9 @@ $(document)
 															.find(".idc")
 															.text();
 													console.log(cantidad);
-<<<<<<< HEAD
-													
-													DetalleRenuncia(cantidad)
-=======
+
 													DetalleRenuncia(cantidad);
 													$("#modal2").openModal();
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 													$("#otros").val(cantidad);
 
 												
