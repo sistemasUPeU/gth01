@@ -21,9 +21,17 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import oracle.jdbc.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.Renuncia;
+
 /**
  *
  * @author Nicole
@@ -129,31 +137,7 @@ public class RenunciaDAO {
 	}
 
 	public List<Map<String, Object>> gg() {
-		sql = "SELECT DISTINCT TO_CHAR(MIN(ren.FECHA_REGISTRO),'MM') AS MES_ACTUAL,con.ID_CONTRATO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO,TO_CHAR(MIN(tra.FE_NAC),'DD/MM/YYYY') as FECHA_NAC,tra.DI_DOM_A_D6, tra.NU_DOC, \r\n" + 
-				"TO_CHAR(MIN(con.FE_DESDE),'DD/MM/YYYY') AS FECHA_CONTRATO,dep.NO_DEP, area.NO_AREA,sec.NO_SECCION,pues.NO_PUESTO,cenc.DE_CENTRO_COSTO,\r\n" + 
-				"tipocon.DE_TI_CONTRATO,dgp.DE_ANTECEDENTES_POLICIALES,dgp.ES_CERTIFICADO_SALUD,con.ES_MFL, ren.NO_ARCHIVO,ren.FECHA_REGISTRO, con.ID_TRABAJADOR\r\n" + 
-				"FROM REN_RENUNCIA ren\r\n" + 
-				"LEFT JOIN RHTM_CONTRATO con ON ren.ID_CONTRATO=con.ID_CONTRATO\r\n" + 
-				"LEFT JOIN RHTX_TIPO_CONTRATO tipocon ON con.TI_CONTRATO=tipocon.ID_TIPO_CONTRATO\r\n" + 
-				"LEFT JOIN  RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO \r\n" + 
-				"LEFT JOIN RHTR_SECCION sec ON pues.ID_SECCION=sec.ID_SECCION\r\n" + 
-				"LEFT JOIN RHTD_AREA area ON sec.ID_AREA=area.ID_AREA\r\n" + 
-				"LEFT JOIN RHTX_DEPARTAMENTO dep ON area.ID_DEPARTAMENTO=dep.ID_DEPARTAMENTO\r\n" + 
-				"LEFT JOIN RHTM_DGP dgp ON con.ID_DGP=dgp.ID_DGP \r\n" + 
-				"LEFT JOIN RHTD_DETALLE_CENTRO_COSTO dcencos ON dgp.ID_DGP=dcencos.ID_DGP \r\n" + 
-				"LEFT JOIN RHTR_CENTRO_COSTO cenc ON dcencos.ID_CENTRO_COSTO=cenc.ID_CENTRO_COSTO\r\n" + 
-				"LEFT JOIN RHTM_TRABAJADOR tra ON  con.ID_TRABAJADOR=tra.ID_TRABAJADOR\r\n" + 
-				"LEFT JOIN RHTX_REGIMEN_LABORAL reg ON con.ID_REGIMEN_LABORAL=reg.ID_REGIMEN_LABORAL\r\n" + 
-				"LEFT JOIN RHTX_SUB_MODALIDAD sub ON con.ID_SUB_MODALIDAD=sub.ID_SUB_MODALIDAD\r\n" + 
-				"LEFT JOIN RHTX_GRUPO_OCUPACION gr ON con.ID_GRUPO_OCUPACION=gr.ID_GRUPO_OCUPACION \r\n" + 
-				"LEFT JOIN RHTR_TIPO_PLANILLA tipopla ON con.ID_TIPO_PLANILLA=tipopla.ID_TIPO_PLANILLA\r\n" + 
-				"LEFT JOIN RHTD_DETALLE_HORARIO dethor ON con.ID_DETALLE_HORARIO=dethor.ID_DETALLE_HORARIO\r\n" + 
-				"LEFT JOIN RHTC_PLANTILLA_CONTRACTUAL placon ON con.ID_PLANTILLA_CONTRACTUAL=placon.ID_PLANTILLA_CONTRACTUAL\r\n" + 
-				"LEFT JOIN RHTR_SITUACION_ESPECIAL sitesp ON con.ID_SITUACION_ESPECIAL=sitesp.ID_SITUACION_ESPECIAL\r\n" + 
-				"GROUP BY con.ID_CONTRATO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO,TO_CHAR(tra.FE_NAC,'DD/MM/YYYY'),tra.DI_DOM_A_D6, tra.NU_DOC,dep.NO_DEP ,\r\n" + 
-				"area.NO_AREA,sec.NO_SECCION,pues.NO_PUESTO,cenc.DE_CENTRO_COSTO,tipocon.DE_TI_CONTRATO\r\n" + 
-				", dgp.DE_ANTECEDENTES_POLICIALES,dgp.ES_CERTIFICADO_SALUD,con.ES_MFL,ren.NO_ARCHIVO,ren.FECHA_REGISTRO, con.ID_TRABAJADOR\r\n" + 
-				"ORDER BY FECHA_CONTRATO";
+		sql = "select * from REN_VIEW_RENUNCIA";
 		return jt.queryForList(sql);
 	}
 
@@ -162,7 +146,7 @@ public class RenunciaDAO {
 		sql = "SELECT* FROM REN_MOTIVO";
 		return jt.queryForList(sql);
 	}
-	
+
 	public List<Map<String, Object>> cargarMotivo(String idtr) {
 		sql = "SELECT * FROM REN_RENUNCIA r, RHTM_TRABAJADOR t WHERE r.ID_TRABAJADOR=t.ID_TRABAJADOR";
 
@@ -171,13 +155,17 @@ public class RenunciaDAO {
 		return jt.queryForList(sql);
 	}
 
-	
-	//falta
+	public List<Map<String, Object>> correo(String idcontrato) {
+		sql = "select * from REN_VIEW_RENUNCIA where ID_CONTRATO='" + idcontrato + "'";
+		return jt.queryForList(sql);
+	}
+
+	// falta
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIA(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO REN_RENUNCIA(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO) VALUES(?,?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_contrato(),r.getTi_archivo(),r.getNo_archivo(),r.getFecha()});
+			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario() });
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -185,33 +173,88 @@ public class RenunciaDAO {
 		}
 		return x;
 	}
-	
-	
-	//documentos
+
+	// documentos
 	public List<Map<String, Object>> mostrardocs(String id) {
 		sql = "SELECT * FROM DOC_ADJUNTO WHERE IDDOCUMENTO='" + id + "' ";
 		return jt.queryForList(sql);
 	}
-	
-	//insertar motivos
-//		@SuppressWarnings("deprecation")
-		public int  insertarMotivos(String[] array){
-			int x =0;
-			try {
-				cn = d.getConnection();
-				Array arreglo = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_MOTIVO", array);
-				cs= cn.prepareCall("call REN_SP_INSERTAR_MOTIVOS( ? )");
-				cs.setArray(1, arreglo);
-					x=1;
-				
-				cs.execute();
-				cn.commit();
-				cn.close();
-			} catch (Exception e) {
-				System.out.println("Error al insertar motivos "+e);
-			}
-			return x;
+
+	// insertar motivos
+	// @SuppressWarnings("deprecation")
+	public int insertarMotivos(String[] array) {
+		int x = 0;
+		try {
+			cn = d.getConnection();
+			Array arreglo = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_MOTIVO", array);
+			cs = cn.prepareCall("call REN_SP_INSERTAR_MOTIVOS( ? )");
+			cs.setArray(1, arreglo);
+			x = 1;
+
+			cs.execute();
+			cn.commit();
+			cn.close();
+		} catch (Exception e) {
+			System.out.println("Error al insertar motivos " + e);
 		}
-		
-		
+		return x;
+	}
+
+	// public boolean enviarCorreo(String de, String clave, String[] para, String
+	// mensaje, String asunto){
+	public int enviarCorreo(String de, String clave, String para, String mensaje, String asunto) {
+		int enviado = 0;
+		try {
+
+			String host = "smtp.gmail.com";
+
+			Properties prop = System.getProperties();
+
+			prop.put("mail.smtp.starttls.enable", "true");
+			prop.put("mail.smtp.host", host);
+			prop.put("mail.smtp.user", de);
+//			prop.put("mail.smtp.password", clave);
+			prop.put("mail.smtp.port", 587);
+			prop.put("mail.smtp.auth", "true");
+
+			Session sesion = Session.getDefaultInstance(prop, null);
+
+			MimeMessage message = new MimeMessage(sesion);
+
+			message.setFrom(new InternetAddress(de));
+
+			/*
+			 * 
+			 * NOTA: para enviar correo electronico masivo
+			 * 
+			 * InternetAddress[] direcciones = new InternetAddress[para.length]; for(int
+			 * i=0;i<para.length;i++){ direcciones[i] = new InternetAddress(para[i]); }
+			 * 
+			 * for(int i=0;i<direcciones.length;i++){
+			 * message.addRecipient(Message.RecipientType.TO, direcciones[i]); }
+			 * 
+			 */
+
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(para));
+
+			message.setSubject(asunto);
+			message.setText(mensaje);
+
+			Transport transport = sesion.getTransport("smtp");
+
+			transport.connect(host, de, clave);
+
+			transport.sendMessage(message, message.getAllRecipients());
+
+			transport.close();
+
+			enviado = 1;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return enviado;
+	}
+
 }

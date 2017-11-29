@@ -22,179 +22,255 @@
 		<div id="loader"></div>
 
 	</div>
+
 	<div id="main">
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<div id="table-datatables">
-			<h4 class="header">Renuncias por Autorizar</h4>
+		<div class="col s12 m8 l9">
+			<div id="data-table-row-grouping col s12 m8 l9"
+				class="card-panel display #e3f2fd blue lighten-5"
+				style="position: absolute">
 
-			<div class="row">
-				<div class="col s12 m8 l9">
-					<!-- 					<table id="data-table-simple" class="responsive-table display" -->
-					<!-- 						cellspacing="0"> -->
-					<table class="responsive-table display" id="tablita" 
-						cellspacing="0">
-						<thead>
-							<tr>
-								<th>N°</th>
-								<th>Mes</th>
-								<th>Apellidos y Nombres</th>
-								<th>Puesto</th>
-								<th>Area</th>
-								<th>Departamento</th>
-								<th>Tipo de contrato</th>
-								<th>Descripción</th>
-								<th>Fecha de inicio</th>
-								<th>Dni</th>
-								<th>MFL</th>
-								<th>Estado</th>
-								<th colspan="2">Operaciones</th>
-							</tr>
-						</thead>
-					</table>
-<!-- 					<table id="data-table-simple" class="responsive-table display" -->
-<!-- 											cellspacing="0"> -->
-<!-- 											<thead> -->
-<!-- 												<tr> -->
-<!-- 													<th>Mes</th> -->
-<!-- 													<th>Foto</th> -->
-<!-- 													<th>Apellidos y Nombres</th> -->
-<!-- 													<th>Puesto</th> -->
-<!-- 													<th>Area</th> -->
-<!-- 													<th>Departamento</th> -->
-<!-- 													<th>Tipo de contrato</th> -->
-<!-- 													<th>Descripcion</th> -->
-<!-- 													<th>Fecha de inicio</th> -->
-<!-- 													<th>DNI</th> -->
-<!-- 													<th>MFL</th> -->
-<!-- 													<th>Estado</th> -->
-<!-- 													<th>Operaciones</th> -->
-<!-- 												</tr> -->
-<!-- 											</thead> -->
-
-<!-- 											<tbody> -->
-<!-- 												<tr> -->
-<!-- 													<td>OCTUBRE</td> -->
-<!-- 													<td>Foto</td> -->
-<!-- 													<td>Rcopa Inuma Angel</td> -->
-<!-- 													<td>Auxiliar de Embalaje</td> -->
-<!-- 													<td>Distribucion</td> -->
-<!-- 													<td>Productos Union</td> -->
-<!-- 													<td>Contrato persona: Tiempo completo</td> -->
-<!-- 													<td>Entregar y/o enviar documentos. Reglamentos y otros al -->
-<!-- 														trabajador</td> -->
-<!-- 													<td>02/10/17 12:47:50</td> -->
-<!-- 													<td>12458976</td> -->
-<!-- 													<td>No</td> -->
-<!-- 													<td><a -->
-<!-- 														class="btn waves-effect waves-effect waves-light yellow darken-4">Pendiente</a></td> -->
-<!-- 													<td><a href="processDetails" -->
-<!-- 														class="btn waves-effect waves-light  cyan darken-2">Detalle</a></td> -->
-<!-- 																				<a href="/gth/renuncias/processR" class="waves-effect waves-light"><i class="mdi-notification-sync-problem"></i>  Procesar Renuncia</a> -->
-<!-- 												</tr> -->
-
-<!-- 											</tbody> -->
-<!-- 										</table> -->
-				</div>
+				<div class="col s12 m8 l9 contT"></div>
 			</div>
 		</div>
 	</div>
-	<div id="main">
-		<div class="col s12 m6">
-			<ul class="collapsible collapsible-accordion"
-				data-collapsible="accordion">
-				<li class="active">
-					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
-					</div>
-					<div class="collapsible-body" style="display: none;">
-						<div id="table-datatables">
-							<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
-							<div class="row">
-								<div class="col s12 m8 l9">
-									<table id="data-table-simple" class="responsive-table display"
-										cellspacing="0">
-										<tr>
-											<th>Mes</th>
-											<th>Apellidos y Nombres</th>
-											<th>Puesto</th>
-											<th>Area</th>
-											<th>Departamento</th>
-											<th>Tipo de contrato</th>
-											<th>Descripcion</th>
-											<th>Fecha de inicio</th>
-											<th>DNI</th>
-											<th>MFL</th>
-											<th>Estado</th>
-										</tr>
-										</thead>
-										<tfoot>
-											<tr>
-												<th>Mes</th>
-												<th>Apellidos y Nombres</th>
-												<th>Puesto</th>
-												<th>Area</th>
-												<th>Departamento</th>
-												<th>Tipo de contrato</th>
-												<th>Descripcion</th>
-												<th>Fecha de inicio</th>
-												<th>DNI</th>
-												<th>MFL</th>
-												<th>Estado</th>
-											</tr>
-										</tfoot>
-										<tbody>
-											<tr>
-												<td>DICIEMBRE</td>
-												<td>Norma Lucia Riquelme</td>
-												<td>Auxiliar de Embalaje</td>
-												<td>Distribucion</td>
-												<td>Productos Union</td>
-												<td>Contrato persona: Tiempo completo</td>
-												<td>Entregar y/o enviar documentos. Reglamentos y otros
-													al trabajador</td>
-												<td>02/10/17 12:47:50</td>
-												<td>12458976</td>
-												<td>No</td>
-												<td><a
-													class="btn waves-effect waves-effect waves-light green darken-4">Autorizado</a></td>
-											</tr>
-											<tr>
-												<td>ENERO</td>
-												<td>Flor Flores Guillen</td>
-												<td>Auxiliar de Embalaje</td>
-												<td>Distribucion</td>
-												<td>Productos Union</td>
-												<td>Contrato persona: Tiempo completo</td>
-												<td>Entregar y/o enviar documentos. Reglamentos y otros
-													al trabajador</td>
-												<td>02/10/17 12:47:50</td>
-												<td>12458976</td>
-												<td>No</td>
-												<td><a
-													class="btn waves-effect waves-effect waves-light green darken-4">Autorizado</a></td>
-											</tr>
 
-										</tbody>
-									</table>
+	<div id="modalentregar" class="modal">
+		<div class="modal-header #1de9b6 teal accent-3">
+			<div class="center">
+				<h4 style="font-family: 'Dosis', sans-serif; color: grey">Autorización
+					de renuncia</h4>
+			</div>
+		</div>
+		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
+
+			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
+				<div class="card-image #424242 grey darken-3 waves-effect ">
+
+					<hr />
+					<div class="price flow-text ">
+						<div class="col m12 l12 s12">
+							<div id="profile-page-content" class="row">
+								<div class="row card-panel">
+									<div class="col l1 m1 s6">
+										<img src="<c:url value="/resources/img/user.png"/>" alt=""
+											class="circle responsive-img valign profile-image">
+									</div>
+									<div class="col l3 m3 s6">
+										<input type="hidden" id="idt" />
+										<h6 class="light italic black-text">
+											<strong>Nombres :</strong><span id="nombres"></span><br>
+
+										</h6>
+										<h6>
+											<strong> Apellido Paterno : </strong> <span id="paterno"></span><br>
+										</h6>
+										<h6>
+											<strong> Apellido Materno : </strong><span id="materno"></span><br>
+											<!-- 											<strong> -->
+										</h6>
+										<h6>
+											<strong> Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
+										</h6>
+									</div>
+									<div class="col s12">
+										<h4>Motivos de rechazo</h4>
+									</div>
+									<div class="col s4">
+										<input type="text" class=""
+											placeholder="Descripcion del motivo del rechazo">
+									</div>
+									<div class="col s4">
+										<label>Fecha:</label>
+
+									</div>
+									<div class="col s4">
+										<label id="fecha">Fecha</label>
+									</div>
+
+
 
 								</div>
 							</div>
+							<div class="row">
+								<form class="col s12">
+									<div class="row">
+										<div class="input-field col s6">
+											<input placeholder="Placeholder" id="first_name" type="text"
+												class="validate"> <label for="first_name">First
+												Name</label>
+										</div>
+										<div class="input-field col s6">
+											<input id="last_name" type="text" class="validate"> <label
+												for="last_name">Last Name</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s12">
+											<input disabled value="I am not editable" id="disabled"
+												type="text" class="validate"> <label for="disabled">Disabled</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s12">
+											<input id="password" type="password" class="validate">
+											<label for="password">Password</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s12">
+											<input id="email" type="email" class="validate"> <label
+												for="email">Email</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col s12">
+											This is an inline input field:
+											<div class="input-field inline">
+												<input id="email" type="email" class="validate"> <label
+													for="email" data-error="wrong" data-success="right">Email</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col s12">
+											This is an inline input field:
+											<div class="input-field inline">
+												<p id="mensaje1">Señor <span id="nombre"></span> sus documentos ya se encuentran realizados,
+												por favor se le invita a pasar por la oficina de Gestion de Talentos Humanos (GTH)
+												a recoger sus documentos de beneficios sociales en la fecha <span><input type="date">.</span>
+												Atentamente GTH,
+												Gracias</p>
+												
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
-
-
 					</div>
-				</li>
-			</ul>
+					<div class="price-desc white-text">
+						<form class="col s12 ">
+							<div class="row">
+								<div class="input-field col s6  ">
+									<h6>Fecha de Inicio:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="fecha_inicio"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Dirección:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="direccion"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Departamento:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="departamento"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Area:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="area"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6">
+									<h6>Sección:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="seccion"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Correo:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="correo"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 ">
+									<h6>Tipo de contrato:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="tipo_contrato"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
+
+				<div class="col s6" style="margin-right: 2em;">
+					<button type="submit" class="btn waves-effect waves-light indigo"
+						id="" onclick="enviarCorreo()">
+						Enviar <i class="mdi-content-send right"></i>
+					</button>
+
+				</div>
+				<div class="col s6" style="margin-right: 2em">
+					<a class="btn waves-effect waves-light blue-grey modal-close">
+						Cancelar </a>
+
+				</div>
+				<!-- 											<a href="#" -->
+				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
+
+
+
+
+			</div>
 		</div>
 	</div>
-	
+
+
 	<%@include file="../../../jspf/footer.jspf"%>
-	<script 
-	
+	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
 	<script
@@ -203,8 +279,9 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-		
-	
-		
+
+	<script
+		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 <body>
 </html>

@@ -40,22 +40,20 @@
 				<div class="col s12 m8 l9 contT"></div>
 			</div>
 		</div>
-
-
 	</div>
 
 	<div id="modal2" class="modal">
 		<div class="modal-header #1de9b6 teal accent-3">
 			<div class="center">
-				<h4 style="font-family: 'Dosis', sans-serif;color:grey">Autorización de
-					renuncia</h4>
+				<h4 style="font-family: 'Dosis', sans-serif; color: grey">Autorización
+					de renuncia</h4>
 			</div>
 		</div>
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
 				<div class="card-image #424242 grey darken-3 waves-effect ">
-					
+
 					<hr />
 					<div class="price flow-text ">
 						<div class="col m12 l12 s12">
@@ -199,21 +197,21 @@
 
 			</div>
 		</div>
+	</div>
 
+	<script
+		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		type="text/javascript"></script>
+	<%-- 		<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 
-		<script
-			src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-			type="text/javascript"></script>
-		<%-- 		<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
-
-		<script
-			src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>"
-			type="text/javascript"></script>
-		<body>
+	<script
+		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
+<body>
 </html>

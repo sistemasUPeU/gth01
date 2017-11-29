@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +30,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.Detalle_motivoDAO;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.Detalle_motivo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -42,7 +45,7 @@ public class RegistrarRenunciaController {
 	Detalle_motivoDAO det = new Detalle_motivoDAO(AppConfig.getDataSource());
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
-
+	
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -91,12 +94,13 @@ public class RegistrarRenunciaController {
 
 	@Autowired
 	ServletContext context;
-	
 
 	@RequestMapping(path = "/form", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
-			@RequestParam("idcontrato") String idcon) throws IOException {
+			@RequestParam("idcontrato") String idcon, Authentication authentication) throws IOException {
 
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 		Renuncia r = new Renuncia();
 		String url = "/";
 		if (!file.isEmpty()) {
@@ -112,12 +116,13 @@ public class RegistrarRenunciaController {
 					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
-
+//					System.out.println("asdasdasdasdasdas" +idusuario);
 					System.out.println(idcon);
 					r.setFecha(fecha);
 					r.setNo_archivo(destFile.getName());
 					r.setTi_archivo(FilenameUtils.getExtension(path));
 					r.setId_contrato(idcon);
+					r.setId_usuario(idusuario);
 					rd.crearRenuncia(r);
 				}
 

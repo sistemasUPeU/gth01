@@ -36,15 +36,21 @@ public class GestionarEntregaDocController {
 			out.println(gson.toJson(rd.gg()));
 			break;
 
-		case 2:/*
-				 * Pedido d = new Pedido();
-				 * d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
-				 * d.setHora(request.getParameter("hora"));
-				 * d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
-				 * d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
-				 * out.println((hs.create(d)));
-				 */
+		case 2:
+			out.println(gson.toJson(rd.correo(request.getParameter("idc"))));
 			break;
+			
+		case 3:
+			String de = request.getParameter("de");
+            String clave = request.getParameter("clave");
+            String para = request.getParameter("para");
+            String mensaje = request.getParameter("mensaje");
+            String asunto = request.getParameter("asunto");
+//            boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
+			out.println(rd.enviarCorreo(de, clave, para, mensaje, asunto));
+			break;
+			
+			
 		}
 
 	}

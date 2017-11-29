@@ -10,6 +10,15 @@ public class Renuncia {
 	private String ti_archivo;
 	private Long tam_archivo;
 	private String id_motivo;
+	private String id_usuario;
+
+	public String getId_usuario() {
+		return id_usuario;
+	}
+
+	public void setId_usuario(String id_usuario) {
+		this.id_usuario = id_usuario;
+	}
 
 	public String getId_motivo() {
 		return id_motivo;

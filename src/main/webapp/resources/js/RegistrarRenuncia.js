@@ -131,7 +131,7 @@ $(document).ready(function(){
                         	$("#otrosdiv").removeClass("hide");
                         	$("#otrosdiv").addClass("show");
                         }else{
-//                        	$("#otrosdiv").removeClass("show");
+// $("#otrosdiv").removeClass("show");
                       		$("#otrosdiv").addClass("hide");
                       	}
                         
@@ -141,7 +141,7 @@ $(document).ready(function(){
                 });
                 select.val(newValuesArr);
                 // ---------------------------------
-//                alert($("#motivo").val());
+// alert($("#motivo").val());
 
             });
        
@@ -244,7 +244,7 @@ function insertarMotivos(){
 		},
 		type:'GET',
 		success:function(data){
-//			alert(data);
+// alert(data);
 			otros = $("#otros").val();
 			if (otros=="") {
 				alert("NO VAS A INSERTAR OTROS XD");
@@ -253,7 +253,7 @@ function insertarMotivos(){
 			}
 			window.location.href = "http://localhost:8081/gth/renuncias/";
 			
-//			alert(otros);
+// alert(otros);
 			
 // window.location.assign(data);
 // alert();
