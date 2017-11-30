@@ -250,9 +250,8 @@ function DetalleRenuncia(idc) {
 //	$("#modal2").openModal();
 
 	
-//	$.get("details",{},function(data){
-//		alert(data);
-//	});
+		window.location.href = "http://localhost:8081/gth/renuncias/details";
+		
 //	$.get("AutorizarR", {
 //		idc : idc,
 //		opc : 2

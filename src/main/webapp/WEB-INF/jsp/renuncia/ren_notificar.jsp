@@ -29,15 +29,52 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<div class="col s12 m8 l9">
-			<div id="data-table-row-grouping col s12 m8 l9"
-				class="card-panel display #e3f2fd blue lighten-5"
-				style="position: absolute">
+		<!-- 		<div class="col s12 m8 l9"> -->
+		<!-- 			<div id="data-table-row-grouping col s12 m8 l9" -->
+		<!-- 				class="card-panel display #e3f2fd blue lighten-5" -->
+		<!-- 				style="position: absolute"> -->
 
-				<div class="col s12 m8 l9 contT"></div>
-			</div>
+		<!-- 				<div class="col s12 m8 l9 contT"></div> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
+
+		<div class="col s12 m12" style="width: 100%; position: absolute;">
+			<ul class="collapsible popout" data-collapsible="accordion">
+				<li class="active">
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Renuncias por notificar
+					</div>
+					<div id="data-table-row-grouping col s12 m8 l9"
+						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+						style="display: none;">
+
+						<div class="col s12 m8 l9 contT"></div>
+
+
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Renuncias por entregar
+					</div>
+					<div class="collapsible-body" style="display: none;">
+						<div id="table-datatables">
+							<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
+							<div class="row">
+								<div class="col s12 m8 l9 con"></div>
+							</div>
+						</div>
+
+
+					</div>
+				</li>
+			</ul>
+
 		</div>
 	</div>
+
+
+
 
 	<div id="modalentregar" class="modal">
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
@@ -58,13 +95,10 @@
 
 						</p>
 						<p id="mensaje2">
-							<br>
-							<span>Atentamente GTH,</span><br>
-							<span>Gracias</span>
+							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
 						</p>
 					</div>
-					<input type="password" id="pass">
-					<label id="idtr"></label>
+					<input type="password" id="pass"> <label id="idtr"></label>
 				</div>
 			</div>
 
@@ -92,7 +126,10 @@
 	</div>
 
 
-	<%@include file="../../../jspf/footer.jspf"%>
+
+	<div style="position: fixed; width: 100%; bottom: 0;">
+		<%@include file="../../../jspf/footer.jspf"%>
+	</div>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
