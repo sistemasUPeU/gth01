@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 	$("#otrosdiv").addClass("hide");
 	
     $('#fecha').pickadate({

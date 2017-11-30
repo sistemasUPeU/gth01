@@ -147,11 +147,8 @@ $(document)
 													console.log(cantidad);
 
 													DetalleRenuncia(cantidad);
-<<<<<<< HEAD
-												
-=======
-													$("#modal2").openModal();
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+
+
 													$("#otros").val(cantidad);
 
 												
@@ -250,8 +247,11 @@ function createTable(idDepartamento, idRol) {
 	return s;
 }
 function DetalleRenuncia(idc) {
-	$("#modal2").openModal();
-	//alert(idc);
+//	$("#modal2").openModal();
+
+	$.get("details",{},function(data){
+		alert(data);
+	});
 	$.get("AutorizarR", {
 		idc : idc,
 		opc : 2

@@ -68,46 +68,46 @@ public class AutorizarRenunciaController {
 		ServletContext context;
 
 		
-		@RequestMapping(value = "/mostrardoc1")
-		public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-			ServletContext cntx = request.getServletContext();
-			// Get the absolute path of the image
-			// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-	
-//			List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
-//			System.out.println(gson.toJson(result1));
-//			System.out.println();
+//		@RequestMapping(value = "/mostrardoc1")
+//		public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//			ServletContext cntx = request.getServletContext();
+//			// Get the absolute path of the image
+//			// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
 //	
-			String nom = request.getParameter("archi");
-
-			String filename = context.getRealPath("/WEB-INF/" + nom.trim());
-			// String filename =
-			// "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
-	
-			System.out.println(nom + "//"+ filename);
-			// retrieve mimeType dynamically
-			String mime = cntx.getMimeType(filename);
-			if (mime == null) {
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				return;
-			}
-	
-			response.setContentType(mime);
-			File file = new File(filename);
-			response.setContentLength((int) file.length());
-	
-			FileInputStream in = new FileInputStream(file);
-			OutputStream out = response.getOutputStream();
-	
-			// Copy the contents of the file to the output stream
-			byte[] buf = new byte[1024];
-			int count = 0;
-			while ((count = in.read(buf)) >= 0) {
-				out.write(buf, 0, count);
-			}
-			out.close();
-			in.close();
-	
-		}
+////			List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
+////			System.out.println(gson.toJson(result1));
+////			System.out.println();
+////	
+//			String nom = request.getParameter("archi");
+//
+//			String filename = context.getRealPath("/WEB-INF/" + nom.trim());
+//			// String filename =
+//			// "E:\\\\TRABAJO\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\gth\\\\WEB-INF\\\\JUANCETO.jpg";
+//	
+//			System.out.println(nom + "//"+ filename);
+//			// retrieve mimeType dynamically
+//			String mime = cntx.getMimeType(filename);
+//			if (mime == null) {
+//				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//				return;
+//			}
+//	
+//			response.setContentType(mime);
+//			File file = new File(filename);
+//			response.setContentLength((int) file.length());
+//	
+//			FileInputStream in = new FileInputStream(file);
+//			OutputStream out = response.getOutputStream();
+//	
+//			// Copy the contents of the file to the output stream
+//			byte[] buf = new byte[1024];
+//			int count = 0;
+//			while ((count = in.read(buf)) >= 0) {
+//				out.write(buf, 0, count);
+//			}
+//			out.close();
+//			in.close();
+//	
+//		}
 		
 }

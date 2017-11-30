@@ -98,7 +98,6 @@ public class RenunciaController {
 	
 
 
-<<<<<<< HEAD
 	@RequestMapping(value = "/mostrardoc1")
 	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
@@ -142,7 +141,7 @@ public class RenunciaController {
 		in.close();
 
 	}
-=======
+
 //	@RequestMapping(value = "/mostrardoc1")
 //	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		ServletContext cntx = request.getServletContext();
@@ -185,7 +184,6 @@ public class RenunciaController {
 //		in.close();
 //
 //	}
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 
 	@RequestMapping(value = "/uploaded")
 	public void getUploadedPicture(HttpServletRequest request, HttpServletResponse response) throws IOException {

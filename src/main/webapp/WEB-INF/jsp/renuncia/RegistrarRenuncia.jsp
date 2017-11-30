@@ -100,231 +100,226 @@
 							<div class="price flow-text ">
 								<div class="col m12 l12 s12">
 									<sup id="profile-page-content" class="row">
-										<div class="row card-panel">
-											<div class="col l1 m1 s6">
-												<img src="<c:url value="/resources/img/user.png"/>" alt=""
-													class="circle responsive-img valign profile-image">
-											</div>
-											<div class="col l3 m3 s6">
-												<input type="hidden" id="idt" />
-												<h6 class="light italic black-text">
-													<strong><h6>Nombres :</strong><span id="nombres"></span><br>
-													<strong>
-												</h6>
-												<h6>
-													Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
-												</h6>
-												<h6>
-													Apellido Materno : </strong><span id="materno"></span><br> <strong>
-												</h6>
-												<h6>
-													Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
-												</h6>
-												</h6>
-											</div>
+										<div class="row card-panel " style="text-align:center">
+											<input type="hidden" id="idt" />
+											<h6 class="light italic black-text">
+												<strong><h6>Nombres : </strong><span id="nombres"></span><br>
+												<strong>
+											</h6>
+											<h6>
+												Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
+											</h6>
+											<h6>
+												Apellido Materno : </strong><span id="materno"></span><br> <strong>
+											</h6>
+											<h6>
+												Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
+											</h6>
+											</h6>
+
+
+
 										</div>
+									</sup>
 								</div>
-								</sup>
-							</div>
-							<div class="price-desc white-text">
-								<form class="col s12 ">
-									<div class="row">
-										<div class="input-field col s6  ">
-											<h6>Fecha de Inicio:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="fecha_inicio"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6 ">
-											<h6>Dirección:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="direccion"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6 ">
-											<h6>Departamento:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="departamento"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6 ">
-											<h6>Area:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="area"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6">
-											<h6>Sección:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="seccion"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6 ">
-											<h6>Puesto:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="puesto"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-
-								<form class="col s12">
-									<div class="row">
-										<div class="input-field col s6 ">
-											<h6>Tipo de contrato:</h6>
-										</div>
-										<div class="input-field col s4 ">
-											<h6>
-												<span id="tipo_contrato"></span><br>
-											</h6>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="card-content"></div>
-						<div class="card-action center-align">
-							<form method="post" action="form" enctype="multipart/form-data"
-								class="col s12 m8 l11" id="RenunciaForm">
-								<input type="hidden" name="idcontrato" id="idcontrato" value="">
-								<div class="col s12 m8 l9" id="adjuntar">
-									<p class="center  m,">
-										<a class="waves-effect waves-light btn modal-trigger  teal "
-											href="#modal3">Adjuntar Carta de Renuncia</a>
-									</p>
-
-									<div id="modal3" class="modal modal modal-fixed-footer">
-										<div class="modal-header #1de9b6 teal accent-3">
-											<div class="center">												
-												<h4 style="font-family: 'Dosis', sans-serif;">Registrar renuncia</h4>
+								</div>
+								<div class="price-desc white-text">
+									<form class="col s12 ">
+										<div class="row">
+											<div class="input-field col s6  ">
+												<h6>Fecha de Inicio:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="fecha_inicio"></span><br>
+												</h6>
 											</div>
 										</div>
-										<div class="modal-content #e0f7fa cyan lighten-5"
-											style="z-index: 0">
+									</form>
+									<form class="col s12">
+										<div class="row">
+											<div class="input-field col s6 ">
+												<h6>Dirección:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="direccion"></span><br>
+												</h6>
+											</div>
+										</div>
+									</form>
+									<form class="col s12">
+										<div class="row">
+											<div class="input-field col s6 ">
+												<h6>Departamento:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="departamento"></span><br>
+												</h6>
+											</div>
+										</div>
+									</form>
 
-											<div class="row section">
-												<div class="col s12">
-													<div class="row">
-														<div class="input-field col s6">
-															<h5 style="font-family: 'Dosis', sans-serif;">Ingrese
-																el motivo de la renuncia:</h5>
-														</div>
-														<div id="mot" class="input-field col s6">
-															<select id="motivo" multiple>
+									<form class="col s12">
+										<div class="row">
+											<div class="input-field col s6 ">
+												<h6>Area:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="area"></span><br>
+												</h6>
+											</div>
+										</div>
+									</form>
+									<form class="col s12">
+										<div class="row">
+											<div class="input-field col s6">
+												<h6>Sección:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="seccion"></span><br>
+												</h6>
+											</div>
+										</div>
+									</form>
+									<form class="col s12">
+										<div class="row">
+											<div class="input-field col s6 ">
+												<h6>Puesto:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="puesto"></span><br>
+												</h6>
+											</div>
+										</div>
+									</form>
 
-															</select>
-														</div>
+									<form class="col s12">
+										<div class="row">
+											<div class="input-field col s6 ">
+												<h6>Tipo de contrato:</h6>
+											</div>
+											<div class="input-field col s4 ">
+												<h6>
+													<span id="tipo_contrato"></span><br>
+												</h6>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="card-content"></div>
+							<div class="card-action center-align">
+								<form method="post" action="form" enctype="multipart/form-data"
+									class="col s12 m8 l11" id="RenunciaForm">
+									<input type="hidden" name="idcontrato" id="idcontrato" value="">
+									<div class="col s12 m8 l9" id="adjuntar">
+										<p class="center  m,">
+											<a class="waves-effect waves-light btn modal-trigger  teal "
+												href="#modal3">Adjuntar Carta de Renuncia</a>
+										</p>
 
-													</div>
+										<div id="modal3" class="modal modal modal-fixed-footer" style="width:100%;height:100%">
+											<div class="modal-header #1de9b6 teal accent-3">
+												<div class="center">
+													<h4 style="font-family: 'Dosis', sans-serif;">Registrar
+														renuncia</h4>
 												</div>
-												<div class="col s12">
-													<div class="input-field col s6">
-														<h5 style="font-family: 'Dosis', sans-serif;">Fecha
-															de entrega de carta de renuncia:</h5>
-													</div>
-													<div class="input-field col s6">
-														<label for=""></label> <input type="text" name="fecha"
-															id="fecha" class="datepicker">
-														<!-- 														 <input type="text"  id="fechap"> -->
+											</div>
+											<div class="modal-content #e0f7fa cyan lighten-5"
+												style="z-index: 0">
 
-													</div>
-												</div>
-												<!-- 												<div action="" id="other" class="col s12" -->
-												<!-- 													style="display: none"> -->
-
-												<div class="row" id="otrosdiv">
+												<div class="row section">
 													<div class="col s12">
 														<div class="row">
-															<div class="input-field col s12">
-																<textarea id="otros" class="materialize-textarea"></textarea>
-																<label for="otros">Ingrese el motivo en
-																	particular</label>
+															<div class="input-field col s6">
+																<h5 style="font-family: 'Dosis', sans-serif;">Ingrese
+																	el motivo de la renuncia:</h5>
+															</div>
+															<div id="mot" class="input-field col s6">
+																<select id="motivo" multiple>
+
+																</select>
+															</div>
+
+														</div>
+													</div>
+													<div class="col s12">
+														<div class="input-field col s6">
+															<h5 style="font-family: 'Dosis', sans-serif;">Fecha
+																de entrega de carta de renuncia:</h5>
+														</div>
+														<div class="input-field col s6">
+															<label for=""></label> <input type="text" name="fecha"
+																id="fecha" class="datepicker">
+															<!-- 														 <input type="text"  id="fechap"> -->
+
+														</div>
+													</div>
+													<!-- 												<div action="" id="other" class="col s12" -->
+													<!-- 													style="display: none"> -->
+
+													<div class="row" id="otrosdiv">
+														<div class="col s12">
+															<div class="row">
+																<div class="input-field col s12">
+																	<textarea id="otros" class="materialize-textarea"></textarea>
+																	<label for="otros">Ingrese el motivo en
+																		particular</label>
+																</div>
 															</div>
 														</div>
 													</div>
+													<!-- 												</div> -->
+													<div class="input-field col s12">
+														<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
+															la carta de renuncia:</h5>
+													</div>
+													<div class="col s12">
+
+														<input type="file" name="file" class="dropify" id="pelon1"
+															data-height="500" />
+
+
+													</div>
+
+													<!-- 												<input type="submit" value="Subir archivo" />  -->
+
 												</div>
-												<!-- 												</div> -->
-												<div class="input-field col s12">
-													<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
-														la carta de renuncia:</h5>
+											</div>
+
+											<div class="modal-footer #1de9b6 teal accent-3"
+												style="z-index: 2">
+
+												<div class="col s6" style="margin-right: 2em;">
+													<button type="submit"
+														class="btn waves-effect waves-light indigo"
+														id="RegistrarR">
+														Enviar <i class="mdi-content-send right"></i>
+													</button>
+
 												</div>
-												<div class="col s12">
-
-													<input type="file" name="file" class="dropify" id="pelon1"
-														data-height="500"/>
-
+												<div class="col s6" style="margin-right: 2em">
+													<a
+														class="btn waves-effect waves-light blue-grey modal-close">
+														Cancelar </a>
 
 												</div>
+												<input type="hidden" id="array_motivos" />
 
-												<!-- 												<input type="submit" value="Subir archivo" />  -->
-
+												<!-- 											<a href="#" -->
+												<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
 											</div>
-										</div>
-
-										<div class="modal-footer #1de9b6 teal accent-3"
-											style="z-index: 2">
-
-											<div class="col s6" style="margin-right: 2em;">
-												<button type="submit"
-													class="btn waves-effect waves-light indigo" id="RegistrarR">
-													Enviar <i class="mdi-content-send right"></i>
-												</button>
-
-											</div>
-											<div class="col s6" style="margin-right: 2em">
-												<a
-													class="btn waves-effect waves-light blue-grey modal-close">
-													Cancelar </a>
-
-											</div>
-											<input type="hidden" id="array_motivos" />
-
-											<!-- 											<a href="#" -->
-											<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
 										</div>
 									</div>
-								</div>
-							</form>
-						</div>
+								</form>
+							</div>
 
-					</div>
+						</div>
 					</article> </section>
 
 
@@ -342,12 +337,13 @@
 
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
-	<div style="position:fixed;width:100%;bottom: 0;z-index:5 ">
+	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
 	<!-- 		type="text/javascript"></script> -->
 
-	<script src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
+	<script
+		src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
