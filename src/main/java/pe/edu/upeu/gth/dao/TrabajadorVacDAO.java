@@ -49,9 +49,7 @@ public class TrabajadorVacDAO {
 			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_APR_VAC (?,?)}");
 			cst.setString(1, usuario);
 			cst.setArray(2, idarr);
-//			cst.registerOutParameter(2, Types.NUMERIC);
 			cst.execute();
-//			System.out.println(cst.getInt(2));
 			cn.close();
 			i = 1;
 		} catch (SQLException e) {

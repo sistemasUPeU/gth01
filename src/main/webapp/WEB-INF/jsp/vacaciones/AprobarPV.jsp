@@ -320,6 +320,11 @@
 								if (data == 1) {
 									Materialize.toast('Felicidades!!, ha aprobado a sus trabajadores', 3000, 'rounded');
 								} else {
+									$("#data-table-row-grouping").dataTable({
+										"columnDefs" : [ {
+											"targets" : 2,
+											"data" : false
+										} ]
 									Materialize.toast('UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!', 3000, 'rounded');
 								}
 							});

@@ -74,7 +74,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
-// 		listarTrabajadorFiltrado();
+		listarTrabajador0987654321Filtrado();
 		//readAllTF();
 	})
 	
@@ -153,7 +153,7 @@ $("#confirmar_lista").click(function(){
 // 		});
 // 	}
 
-	function listarTrabajadorFiltrado()
+	function listarTrabajador0987654321Filtrado()
 	{
 		 $.get('readallTrabajadorFiltrado', function (obj) {
 		        var s='';
@@ -174,7 +174,7 @@ $("#confirmar_lista").click(function(){
 		   
 				}
 		        $("#table_contenido").empty();
-		        $("#table_contenido").append(createTable());
+		        $("#table_contenido").append(createTabl1111e());
 		        $("#data").empty();
 		        $("#data").append(s);
 		        $('#data-table-row-grouping').dataTable();
@@ -191,7 +191,7 @@ $("#confirmar_lista").click(function(){
 		    });
 		};
 		
-	function createTable() {
+	function createTabl1111e() {
 // 	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
 // 	    s += '<thead>';
 // 	    s += '<tr>';
