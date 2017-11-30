@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,7 +36,7 @@
 				<!-- Modal Structure -->
 
 				<!-- End of Modal Structure -->
-				<input id='usuario' class='hide' />
+				<input id='username' class='hide' />
 				<div class="col s24 m12 l6">
 					<p>
 						<a
@@ -77,11 +77,6 @@
 		// 					console.log(data['det_vac']);
 		// 					alert(data['det_vac']);
 		// 				});
-		$('#enviar').click(function() {
-			arrid = getSelected();
-			alert("Planilla programada! " + arrid + $('#usuario').val());
-
-		});
 
 		function getSelected() {
 			var allVals = [];
@@ -163,11 +158,11 @@
 											+ obj[i].ID_TRABAJADOR
 											+ obj[i].NO_TRABAJADOR
 											+ "' class=' waves-effect waves-light btn modal-trigger light-blue getid'  class='checkBoxClass' value='"
-// 											+ "id:"
+											// 											+ "id:"
 											+ obj[i].ID_DET_VACACIONES
-// 											+ " "
-// 											+ "nombre:"
-// 											+ obj[i].NO_TRABAJADOR
+											// 											+ " "
+											// 											+ "nombre:"
+											// 											+ obj[i].NO_TRABAJADOR
 											+ "'  onclick='preba();'>&#128065;</button>";
 									s += "</td>";
 									s += "</tr>";
@@ -180,9 +175,9 @@
 												function(objJSON) {
 													if (objJSON !== null) {
 														var q = '';
-														q = objJSON.usuario;
-														$("#usuario").val('');
-														$("#usuario").val(q);
+														q = objJSON.username;
+														$("#username").val('');
+														$("#username").val(q);
 													} else {
 														console
 																.error("No se esta cargando la información");
@@ -267,22 +262,18 @@
 			// 												}
 			// 											}
 			$("#cuerpo").append(
-					createModal(
-							$('#data-table-row-grouping').DataTable().row(
-							$(this).parents(
-							"tr").find("td")
-							.eq(1)
-							.find("#idtrab")
-							.text())));
+					createModal($('#data-table-row-grouping').DataTable().row(
+							$(this).parents("tr").find("td").eq(1).find(
+									"#idtrab").text())));
 			// 			$("#data").on('click', '#select', function(e) {
 			// 				e.preventDefault();
 			// 				$(this).closest("tr").find("td:eq(1)").text()
 			// 			})
-//				$('#data-table-row-grouping').DataTable().row(
-//						$(this).closest("tr").find("td:eq(3)").text())
+			//				$('#data-table-row-grouping').DataTable().row(
+			//						$(this).closest("tr").find("td:eq(3)").text())
 			// 					$('#data-table-row-grouping').DataTable().row($(this).closest("tr"))
 			// 					$('#data-table-row-grouping').DataTable().row($(this).closest("tr")).data()['nombre']
-			
+
 			$("#modal2").openModal();
 			// 										});
 		};
@@ -312,18 +303,27 @@
 			s += "</div>\r\n" + "				</div></td>";
 			return s;
 		};
-		
-		$("#enviar").click(function(){
-			alert("sfdfd");
-			var usuario = $("#usuario").val();
-			var id_det = $(".getid").val();
-			
-			$.post("programa_vacaciones/guardarAprovar",{usuario:usuario,id_det:id_det},function (data) {
-		         if(data=='1'){
-		        	 alert("insertado");                          
-		         }
-		     });
-		});
+
+		$("#enviar").click(
+				function() {
+					arrid = getSelected();
+					var username = $("#username").val();
+					var id_arr = arrid;
+					var id_det = id_arr.join(",");
+					console.log(username);
+					console.log(id_det);
+					var datos = "username=" + username;
+					datos += "&id_det=" + id_det;
+					var con = new jsConnector();
+					con.post("vacaciones/programa_vacaciones/guardarAprovar?" + datos,
+							null, function(data) {
+								if (data == 1) {
+									Materialize.toast('Felicidades!!, ha aprobado a sus trabajadores', 3000, 'rounded');
+								} else {
+									Materialize.toast('UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!', 3000, 'rounded');
+								}
+							});
+				});
 	</script>
 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
 

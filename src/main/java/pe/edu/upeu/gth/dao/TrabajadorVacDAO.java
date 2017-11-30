@@ -1,6 +1,8 @@
 package pe.edu.upeu.gth.dao;
 
+import java.sql.Array;
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
@@ -10,11 +12,15 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import oracle.jdbc.driver.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
 
 public class TrabajadorVacDAO {
 	private JdbcTemplate jt;
 	private String sql = "";
+
+	DataSource d = AppConfig.getDataSource();
+	Connection cn;
 
 	public TrabajadorVacDAO(DataSource datasource) {
 		jt = new JdbcTemplate(datasource);
@@ -34,20 +40,21 @@ public class TrabajadorVacDAO {
 		return jt.queryForList(sql);
 	}
 
-	public int apobarVac(String usuario, String id_det) {
+	public int apobarVac(String usuario, String[] id_det) {
 		int i = 0;
 		try {
-			DataSource d = AppConfig.getDataSource();
+			cn = d.getConnection();
+			Array idarr = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_DET_VAC", id_det);
+
 			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_APR_VAC (?,?)}");
 			cst.setString(1, usuario);
-			cst.setString(2, id_det);
-			cst.registerOutParameter(2, Types.CHAR);
+			cst.setArray(2, idarr);
+//			cst.registerOutParameter(2, Types.NUMERIC);
 			cst.execute();
-			System.out.println(cst.getString(2));
-
-			i = cst.getInt(2);
+//			System.out.println(cst.getInt(2));
+			cn.close();
+			i = 1;
 		} catch (SQLException e) {
-			//TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return i;
