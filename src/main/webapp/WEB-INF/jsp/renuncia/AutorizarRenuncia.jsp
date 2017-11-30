@@ -36,7 +36,7 @@
 			<ul class="collapsible popout" data-collapsible="accordion">
 				<li class="active">
 					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
+						<i class="mdi-toggle-check-box"></i> Renuncias por autorizar
 					</div>
 					<div  id="data-table-row-grouping col s12 m8 l9" 
 					class="card-panel collapsible-body display #e3f2fd blue lighten-5" style="display: none;">
@@ -54,7 +54,7 @@
 				</li>
 				<li>
 					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
+						<i class="mdi-toggle-check-box"></i> Renuncias autorizadas
 					</div>
 					<div class="collapsible-body" style="display: none;">
 						<div id="table-datatables">
@@ -279,8 +279,6 @@
 
 		<!-- 			</div> -->
 		<!-- 			<!-- 											<a href="#" -->
-		-->
-		<!-- 			<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
 		-->
 
 
