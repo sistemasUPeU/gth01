@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("#otrosdiv").addClass("hide");
+	$("#otrosdiv").hide();
 	
     $('#fecha').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
@@ -27,7 +27,7 @@ $(document).ready(function(){
         // Get form
         var form = $('#RenunciaForm')[0];
 
-		// Create an FormData object
+		// Create an FormData objectfmotivo
         var data = new FormData(form);
 
 		// If you want to add an extra field for the FormData
@@ -129,19 +129,18 @@ $(document).ready(function(){
                     	var item = select.children('option').toArray()[i].value;                       
                         newValuesArr.push(item);                     
                         if(item=='MOT-000007'){
-                        	$("#otrosdiv").removeClass("hide");
-                        	$("#otrosdiv").addClass("show");
+                        	//alert(select.val(newValuesArr));
+                        	$("#otrosdiv").show();
                         }else{
-// $("#otrosdiv").removeClass("show");
-                      		$("#otrosdiv").addClass("hide");
-                      	}
-                        
-                        
+                      		$("#otrosdiv").hide();
+                      	}  
+                    }
+                    if(newValuesArr.length==0){
+                    	$("#otrosdiv").hide();
                     }
                     $("#array_motivos").val(newValuesArr);
                 });
                 select.val(newValuesArr);
-                // ---------------------------------
 // alert($("#motivo").val());
 
             });
