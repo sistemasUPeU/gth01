@@ -53,6 +53,7 @@ public class PrincipalController {
 		return GSON.toJson(DAO.READALL());
 	}
 
+
 	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String confirmarListaFiltrada() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
