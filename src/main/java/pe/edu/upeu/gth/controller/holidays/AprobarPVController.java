@@ -3,6 +3,7 @@ package pe.edu.upeu.gth.controller.holidays;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +30,11 @@ public class AprobarPVController {
 
 	@RequestMapping(path = "/guardarAprovar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String guardarAprovar(HttpServletRequest request) {
-		String usuario = request.getParameter("usuario");
-		String apellidos = request.getParameter("id_det");
+		String usuario = request.getParameter("username");
+		System.out.println(usuario);
+		String id_det = request.getParameter("id_det");
+		String[] asdf =id_det.split(",");
 		Gson g = new Gson();
-		return g.toJson(t.apobarVac(usuario, apellidos));
+		return g.toJson(t.apobarVac(usuario, asdf));
 	}
 }

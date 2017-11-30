@@ -33,8 +33,6 @@
 									$("#trab").val("");
 									$("#trab").val(t)
 
-
-
 								} else {
 									console
 											.error("No se esta cargando la información");

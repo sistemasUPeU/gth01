@@ -2,6 +2,7 @@
 <script>
 function list_info_puesto(){
 	try{
+		console.log(gth_context_path);
 		$.getJSON(gth_context_path + '/components',"opc=puesto",function(objJSON){
 			if(objJSON !== null){
 				var s='';

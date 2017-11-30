@@ -19,7 +19,6 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 
-
 @Controller
 @Scope("request")
 @RequestMapping("/vacaciones")
@@ -27,7 +26,7 @@ import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 public class PrincipalController {
 
 	Gson GSON = new Gson();
-	
+
 	@GetMapping("/")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/default");
@@ -38,45 +37,58 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
 
 	}
-	
+
 	@GetMapping("/control_firma_vacaciones")
 	public ModelAndView control_firma_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/control_firma_vacaciones");
 	}
-	
+
 	@GetMapping("/gestionar_lista_filtrada")
 	public ModelAndView gestionar_lista_filtrada(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/gestionar_lista_filtrada");
 
 	}
+
 	@GetMapping("/vac_gest_consol")
 	public ModelAndView vac_gest_consol(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/vac_gest_consol");
 
 	}
+
 	@GetMapping("/programa_vacaciones")
 	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/AprobarPV");
 
 	}
-	
+
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
-	
+
+//	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody String confirmarListaFiltrada() {
+//
+//	}
+
 	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String confirmarListaFiltrada(HttpServletRequest RQ) {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
+
 	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+
+//	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
 	public @ResponseBody String getAllProgramaVacaciones() {
 	GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
 	return GSON.toJson(DAO.READALL());
 		
 	}
+
 	@RequestMapping(path = "GestionarProgramaVacaciones/insertProgramaVacaciones", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String insertProgramaVacaciones(HttpServletRequest request) {
 		DataSource ds = AppConfig.getDataSource();
@@ -88,4 +100,5 @@ public class PrincipalController {
 		Gson g = new Gson();
 		return g.toJson(t.apobarVac(usuario, asdf));
 	}
+
 }

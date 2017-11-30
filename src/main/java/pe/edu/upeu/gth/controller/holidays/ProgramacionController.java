@@ -1,4 +1,4 @@
-//<<<<<<< HEAD
+
 package pe.edu.upeu.gth.controller.holidays;
 
 import javax.servlet.http.HttpServletRequest;
