@@ -27,7 +27,7 @@ $(document).ready(function(){
         // Get form
         var form = $('#RenunciaForm')[0];
 
-		// Create an FormData object
+		// Create an FormData objectfmotivo
         var data = new FormData(form);
 
 		// If you want to add an extra field for the FormData
@@ -128,10 +128,16 @@ $(document).ready(function(){
                     if ($(li).hasClass('active')) {
                     	var item = select.children('option').toArray()[i].value;                       
                         newValuesArr.push(item);                     
+<<<<<<< HEAD
                         if(item=="MOT-000007"){
                         	alert(select.val(newValuesArr));
+=======
+                        if(item=='MOT-000007'){
+                        	//alert(select.val(newValuesArr));
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
                         	$("#otrosdiv").show();
                         }else{
+<<<<<<< HEAD
                         	
                       		$("#otrosdiv").hide();
                       	} 
@@ -140,11 +146,17 @@ $(document).ready(function(){
                     if (newValuesArr.length==0) {
                       		$("#otrosdiv").hide();
 
+=======
+                      		$("#otrosdiv").hide();
+                      	}  
+                    }
+                    if(newValuesArr.length==0){
+                    	$("#otrosdiv").hide();
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
                     }
                     $("#array_motivos").val(newValuesArr);
                 });
                 select.val(newValuesArr);
-                // ---------------------------------
 // alert($("#motivo").val());
 
             });
