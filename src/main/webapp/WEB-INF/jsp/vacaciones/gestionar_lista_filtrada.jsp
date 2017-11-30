@@ -74,12 +74,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
-<<<<<<< HEAD
-		listarTrabajador0987654321Filtrado();
-=======
  		listarTrabajadorFiltrado();
->>>>>>> branch 'modulo-vacaciones' of https://github.com/sistemasUPeU/gth01
-		//readAllTF();
 	})
 	
 $("#confirmar_lista").click(function(){
@@ -164,7 +159,7 @@ $("#confirmar_lista").click(function(){
 // 		});
 // 	}
 
-	function listarTrabajador0987654321Filtrado()
+	function listarTrabajadorFiltrado()
 	{
 		 $.get('readallTrabajadorFiltrado', function (obj) {
 		        var s='';
@@ -185,7 +180,7 @@ $("#confirmar_lista").click(function(){
 		   
 				}
 		        $("#table_contenido").empty();
-		        $("#table_contenido").append(createTabl1111e());
+		        $("#table_contenido").append(createTable());
 		        $("#data").empty();
 		        $("#data").append(s);
 		        $('#data-table-row-grouping').dataTable();
@@ -202,23 +197,6 @@ $("#confirmar_lista").click(function(){
 		    });
 		};
 		
-<<<<<<< HEAD
-	function createTabl1111e() {
-// 	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
-// 	    s += '<thead>';
-// 	    s += '<tr>';
-// 	    s += '<th>Apellidos y Nombres</th>';
-// 	    s += '<th>Área</th>';
-// 	    s += '<th>Departamento</th>';
-// 	    s += '<th>Área</th>';
-// 	    s += '<th>Sección</th>';
-// 	    s += '<th>Condición</th>';
-// 	    s += '<th>Aprobar</th>';
-// 	    s += ' </tr>';
-// 	    s += '</thead>';
-// 	    s += '<tbody id="data"></tbody>';
-// 	    s += '</table>';
-=======
 	function createTable() {
 	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
 	    s += '<thead>';
@@ -234,10 +212,8 @@ $("#confirmar_lista").click(function(){
 	    s += '</thead>';
 	    s += '<tbody id="data"></tbody>';
 	    s += '</table>';
->>>>>>> branch 'modulo-vacaciones' of https://github.com/sistemasUPeU/gth01
 	    return s;
 	    
 	};
 </script>
-
 </html>
