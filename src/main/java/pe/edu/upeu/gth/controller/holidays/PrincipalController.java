@@ -71,8 +71,8 @@ public class PrincipalController {
 //
 //	}
 
-	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String confirmarListaFiltrada(HttpServletRequest RQ) {
+	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String confirmarListaFiltrada() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
