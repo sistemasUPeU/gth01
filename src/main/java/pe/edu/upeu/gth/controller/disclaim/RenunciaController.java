@@ -62,7 +62,7 @@ public class RenunciaController {
 
 	@RequestMapping(value = "/processR", method = RequestMethod.GET)
 	public ModelAndView procesarRenuncia(ModelMap model) {
-		return new ModelAndView("renuncia/ren_procesar");
+		return new ModelAndView("renuncia/ProcesarRenuncia");
 	}
 
 	@RequestMapping(value = "/deliveryR", method = RequestMethod.GET)

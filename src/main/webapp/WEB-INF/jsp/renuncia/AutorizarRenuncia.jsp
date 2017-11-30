@@ -32,11 +32,39 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
+<<<<<<< Upstream, based on branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 		<div class="col s12 m12" style="width: 100%; position: absolute;">
 			<ul class="collapsible popout" data-collapsible="accordion">
 				<li class="active">
 					<div class="collapsible-header active">
 						<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
+=======
+		<div class="col s12 m8 l9">
+			<div id="data-table-row-grouping col s12 m8 l9"
+				class="card-panel display #e3f2fd blue lighten-5"
+				style="position: absolute">
+
+				<div class="col s12 m8 l9 contT"></div>
+			</div>
+		</div>
+	</div>
+
+
+	
+	<div class="col s12 m6" style="position: absolute; display: none">
+		<ul class="collapsible collapsible-accordion"
+			data-collapsible="accordion">
+			<li class="active" style="position: relative">
+				<div class="collapsible-header active">
+					<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
+				</div>
+				<div class="collapsible-body" style="display: none;">
+					<div id="table-datatables">
+						<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
+						<div class="row">
+							<div class="col s12 m8 l9"></div>
+						</div>
+>>>>>>> 0721c28 wx
 					</div>
 					<div  id="data-table-row-grouping col s12 m8 l9" 
 					class="card-panel collapsible-body display #e3f2fd blue lighten-5" style="display: none;">
