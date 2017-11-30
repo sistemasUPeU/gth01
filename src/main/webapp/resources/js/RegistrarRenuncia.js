@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("#otrosdiv").addClass("hide");
+	$("#otrosdiv").hide();
 	
     $('#fecha').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
@@ -128,15 +128,18 @@ $(document).ready(function(){
                     if ($(li).hasClass('active')) {
                     	var item = select.children('option').toArray()[i].value;                       
                         newValuesArr.push(item);                     
-                        if(item=='MOT-000007'){
-                        	$("#otrosdiv").removeClass("hide");
-                        	$("#otrosdiv").addClass("show");
+                        if(item=="MOT-000007"){
+                        	alert(select.val(newValuesArr));
+                        	$("#otrosdiv").show();
                         }else{
-// $("#otrosdiv").removeClass("show");
-                      		$("#otrosdiv").addClass("hide");
-                      	}
-                        
-                        
+                        	
+                      		$("#otrosdiv").hide();
+                      	} 
+  
+                    }
+                    if (newValuesArr.length==0) {
+                      		$("#otrosdiv").hide();
+
                     }
                     $("#array_motivos").val(newValuesArr);
                 });

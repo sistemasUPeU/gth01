@@ -249,55 +249,56 @@ function createTable(idDepartamento, idRol) {
 function DetalleRenuncia(idc) {
 //	$("#modal2").openModal();
 
-	$.get("details",{},function(data){
-		alert(data);
-	});
-	$.get("AutorizarR", {
-		idc : idc,
-		opc : 2
-	}, function(data, status) {
-		 //alert(data);
-		var detalle = JSON.parse(data);
-		console.log(detalle);
-		if (detalle.length == 0) {
-			// location.reload();
-			alert("nada de datos");
-		} else {
-//			alert("BIEN JONAS");
-			$("#nombres").text(detalle[0].NOMBRES);
-			$("#paterno").text(detalle[0].PATERNO);
-			$("#materno").text(detalle[0].MATERNO);
-			$("#fecha_nac").text(detalle[0].FECHA_NAC);
-			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-			$("#direccion").text(detalle[0].DOMICILIO);
-			$("#departamento").text(detalle[0].NOM_DEPA);
-			$("#area").text(detalle[0].NOM_AREA);
-			$("#seccion").text(detalle[0].NOM_SECCION);
-			$("#puesto").text(detalle[0].NOM_PUESTO);
-			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-			if(detalle[0].ANTECEDENTES!=1){
-				$("#ante").text("Si");
-			}else{
-				$("#ante").text("No");
-			}
-			var archi = detalle[0].ARCHIVO;
-			if(detalle[0].ANTECEDENTES!=0){
-				$("#certi").text("Si");
-			}else{
-				$("#certi").text("No");
-			}
-			$.get("/mostrardoc1",{
-				archi: archi
-			},function(data){
-				alert(data);
-			})
-			
-			
-		
-
-		}
-
-	});
+	
+//	$.get("details",{},function(data){
+//		alert(data);
+//	});
+//	$.get("AutorizarR", {
+//		idc : idc,
+//		opc : 2
+//	}, function(data, status) {
+//		 //alert(data);
+//		var detalle = JSON.parse(data);
+//		console.log(detalle);
+//		if (detalle.length == 0) {
+//			// location.reload();
+//			alert("nada de datos");
+//		} else {
+////			alert("BIEN JONAS");
+//			$("#nombres").text(detalle[0].NOMBRES);
+//			$("#paterno").text(detalle[0].PATERNO);
+//			$("#materno").text(detalle[0].MATERNO);
+//			$("#fecha_nac").text(detalle[0].FECHA_NAC);
+//			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
+//			$("#direccion").text(detalle[0].DOMICILIO);
+//			$("#departamento").text(detalle[0].NOM_DEPA);
+//			$("#area").text(detalle[0].NOM_AREA);
+//			$("#seccion").text(detalle[0].NOM_SECCION);
+//			$("#puesto").text(detalle[0].NOM_PUESTO);
+//			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+//			if(detalle[0].ANTECEDENTES!=1){
+//				$("#ante").text("Si");
+//			}else{
+//				$("#ante").text("No");
+//			}
+//			var archi = detalle[0].ARCHIVO;
+//			if(detalle[0].ANTECEDENTES!=0){
+//				$("#certi").text("Si");
+//			}else{
+//				$("#certi").text("No");
+//			}
+//			$.get("/mostrardoc1",{
+//				archi: archi
+//			},function(data){
+//				alert(data);
+//			})
+//			
+//			
+//		
+//
+//		}
+//
+//	});
 
 }
 
@@ -312,40 +313,40 @@ function ParsearMes(mesint) {
 	console.log(mesint);
 	switch (mesint) {
 	case 01:
-		mes = "Enero";
+		mes = "ENE";
 		break;
 	case 02:
-		mes = "Febrero";
+		mes = "FEB";
 		break;
 	case 03:
-		mes = "Marzo";
+		mes = "MAR";
 		break;
 	case 04:
-		mes = "Abril";
+		mes = "ABR";
 		break;
 	case 05:
-		mes = "Mayo";
+		mes = "MAY";
 		break;
 	case 06:
-		mes = "Junio";
+		mes = "JUN";
 		break;
 	case 07:
-		mes = "Julio";
+		mes = "JUL";
 		break;
 	case 08:
-		mes = "Agosto";
+		mes = "AGO";
 		break;
 	case 09:
-		mes = "Septiembre";
+		mes = "SET";
 		break;
 	case 10:
-		mes = "Octubre";
+		mes = "OCT";
 		break;
 	case 11:
-		mes = "Noviembre";
+		mes = "NOV";
 		break;
 	case 12:
-		mes = "Diciembre";
+		mes = "DIC";
 		break;
 	}
 	return mes;
