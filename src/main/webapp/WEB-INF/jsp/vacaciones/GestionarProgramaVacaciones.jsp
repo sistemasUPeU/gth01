@@ -24,7 +24,7 @@
 	<div id="main">
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
-			<section id="content"></section>
+<!-- 			<section id="content"></section> -->
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
@@ -55,12 +55,36 @@
 					</thead>
 				</table> -->
 				<div id="table_contenido" class="col s12 m12 l12"></div>
-				<br> <a id="confirmar_lista" class="btn waves-effect waves-light right"><i
+				<br> <a id="confirmar_lista"
+					class="btn waves-effect waves-light right"><i
 					class="mdi-navigation-check"></i> Confirmar</a>
 			</div>
+			<div id="modal2" class="modal">
+				<div class="modal-content">
+					<h4>Modificar fecha de inicio y fecha fin</h4>
+					<p>Seleccione fecha:</p>
+					<div class="row">
+						<div class="col s8 m6 l6">
+
+							<p>Seleccione fecha de inicio:</p>
+							<input type="text" class="datepicker">
+						</div>
+						<div class="col s8 m6 l6">
+							<p>Seleccione fecha de fin:</p>
+							<input type="text" class="datepicker">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#!"
+						class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>
+				</div>
+			</div>
+			<input id='username' class='hide' />
 		</div>
 	</div>
-	<script
+
+<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
 	<script
@@ -69,139 +93,183 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-</body>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		console.log("si");
 		listarTrabajadorFiltrado();
-		//readAllTF();
 	})
-	
-$("#confirmar_lista").click(function(){
-	console.log("1");
-	$.post("confirmarListaFiltrada", function(data, status) {
-		console.log("2");
-		console.log(data);
-		if(data == 1){
-			var $toastContent = $('<span>Lista filtrada correctamente</span>');
-			Materialize.toast($toastContent, 10000);	
-			location.reload();
-		}
-		if(data == 0){
-			var $toastContent = $('<span>Error</span>');
-			Materialize.toast($toastContent, 10000);
-		}
+
+
+	function getSelected() {
+		var allVals = [];
+		$('#data :checked').each(
+				function() {
+					allVals.push($(this).parents("#data tr").find(".sorting_1")
+							.text());
+				});
+		return allVals;
+	}
+	$("#table_contenido").on("click", "#abrir-modal2", function() {
+		$("#modal2").openModal();
 	});
-});
-// 	function searchTrabajador() {
-// 		var input, filter, table, tr, td, i;
-// 		input = document.getElementById("searchTrabajador");
-// 		filter = input.value.toUpperCase();
-// 		table = document.getElementById("table_trabajador-filtrado");
-// 		tr = table.getElementsByTagName("tr");
+	$("#confirmar_lista").click(function() {
+		arrid = getSelected();
+		console.log(arrid);
+		// 				for (var i = 0; i < arrid.length; i++) {
+		// 				}
+	});
 
-// 		for (i = 0; i < tr.length; i++) {
-// 			td = tr[i].getElementsByTagName("td")[0];
-// 			if (td) {
-// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-// 					tr[i].style.display = "";
-// 				} else {
-// 					tr[i].style.display = "none";
-// 				}
-// 			}
-// 		}
-// 	}
 
-// 	function searchDepartamento() {
-// 		var input, filter, table, tr, td, i;
-// 		input = document.getElementById("searchDepartamento");
-// 		filter = input.value.toUpperCase();
-// 		table = document.getElementById("table_trabajador-filtrado");
-// 		tr = table.getElementsByTagName("tr");
+	function listarTrabajadorFiltrado() {
+		$
+				.get(
+						'GestionarProgramaVacaciones/readallProgramaVacaciones',
+						function(obj) {
+							var s = '';
+							var emp =obj[0];
+							for (var i = 0; i < obj.length; i++) {
+								s += '<tr>';
+								s += '<td class="hide">' + obj[i].ID_DET_VACACIONES+ '</td>';
+								s += '<td>' + obj[i].NO_TRABAJADOR + ' '
+										+ obj[i].AP_PATERNO + ' '
+										+ obj[i].AP_MATERNO + '</td>';
+								s += '<td>' + obj[i].NO_AREA + '</td>';
+								s += '<td>' + obj[i].NO_SECCION + '</td>';
+								s += '<td>' + obj[i].FECHA_INICIO + '</td>';
+								s += '<td>' + obj[i].FECHA_FIN + '</td>';
+								s += '<td><p style="text-align: center;">';
+								s += '<input type="checkbox" id="test'+i+'">';
+								s += '<label for="test'+i+'"></label>';
+								s += '</p></td>';
+								s += '<td><button class="waves-effect waves-light btn modal-trigger red" onclick="prueba();">&#128197;</button></td>';
+								s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
+								s += '</tr>';
 
-// 		for (i = 0; i < tr.length; i++) {
-// 			td = tr[i].getElementsByTagName("td")[2];
-// 			if (td) {
-// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-// 					tr[i].style.display = "";
-// 				} else {
-// 					tr[i].style.display = "none";
-// 				}
-// 			}
-// 		}
-// 	}
+							}
+							$
+							.getJSON(
+									gth_context_path
+											+ '/components',
+									"opc=usuario",
+									function(objJSON) {
+										if (objJSON !== null) {
+											var q = '';
+											q = objJSON.username;
+											$("#username").val('');
+											$("#username").val(q);
+										} else {
+											console
+													.error("No se esta cargando la información");
+										}
+									});
+							$("#table_contenido").empty();
+							$("#table_contenido").append(createTable());
+							$("#data").empty();
+							$("#data").append(s);
+							$('#data-table-row-grouping').dataTable();
+							$("#ckbCheckAll").click(
+									function() {
+										$(".checkBoxClass").prop('checked',
+												$(this).prop('checked'));
+									});
 
-// 	function readAllTF() {
-// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
-// 		console.log("READALL PEDIDOS");
-// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
-// 		console.log("");
-// 		$.get("readallTrabajadorFiltrado", function(data, status) {
-// 			$("#table_trabajador-filtrado").find("tr:gt(0)").remove();
-// 			$("#table_trabajador-filtrado thead:last").after(
-// 					"<tbody id='table-body'></tbody>");
-// 			var lista = document.getElementById("table-body");
-// 			for ( var i in data) {
-// 				//$("#table_trabajador-filtrado tbody:last").after("<tr><td>"+data[i].AP_PATERNO+" "+data[i].AP_MATERNO+" "+data[i].NO_TRABAJADOR+"</td><td>"+data[i].NO_DEP+"</td><td>"+data[i].NO_AREA+"</td><td>"+data[i].NO_SECCION+"</td><td>"+data[i].LI_CONDICION+"</td></tr>");
-// 				lista.innerHTML += "<tr><td>" + data[i].AP_PATERNO + " "
-// 						+ data[i].AP_MATERNO + " " + data[i].NO_TRABAJADOR
-// 						+ "</td><td>" + data[i].NO_DEP + "</td><td>"
-// 						+ data[i].NO_AREA + "</td><td>" + data[i].NO_SECCION
-// 						+ "</td><td>" + data[i].LI_CONDICION + "</td></tr>";
-// 			}
-// 		});
-// 	}
-
-	function listarTrabajadorFiltrado()
-	{
-		 $.get('readallProgramaVacaciones', function (obj) {
-		        var s='';
-		        var emp = obj[0];
-		        for (var i = 0; i < obj.length; i++) {
-					s += '<tr>';
-		            s += '<td>'+obj[i].NO_TRABAJADOR+' '+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+'</td>';
-		            s += '<td>'+obj[i].NO_AREA+'</td>';
-		            s += '<td>'+obj[i].NO_SECCION+'</td>';
-		            s += '<td>'+obj[i].FECHA_INICIO+'</td>';
-		            s += '<td>'+obj[i].FECHA_FIN+'</td>';
-		            s += '</tr>';
-		   
-				}
-		        $("#table_contenido").empty();
-		        $("#table_contenido").append(createTable());
-		        $("#data").empty();
-		        $("#data").append(s);
-		        $('#data-table-row-grouping').dataTable();
-		        $("#ckbCheckAll").click(function () {
-	                $(".checkBoxClass").prop('checked', $(this).prop('checked'));
-	            });
-		        function getSelected() {
-	                var allVals = [];
-	                $('#data :checked').each(function () {
-	                    allVals.push($(this).parents("#data tr").find(".sorting_1").text());
-	                });
-	                return allVals;
-	            }
-		    });
-		};
-		
-	function createTable() {
-	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
-	    s += '<thead>';
-	    s += '<tr>';
-	    s += '<th>Apellidos y Nombres</th>';
-	    s += '<th>Área</th>';
-	    s += '<th>Sección</th>';
-	    s += '<th>Fecha Inicio</th>';
-	    s += '<th>Fecha Fin</th>';
-	    s += ' </tr>';
-	    s += '</thead>';
-	    s += '<tbody id="data"></tbody>';
-	    s += '</table>';
-	    return s;
-	    
+						});
 	};
-</script>
+	// 	function pruebita() {
+	// 						$
+	// 								.get(
+	// 										"programa_vacaciones/get",
+	// 										function(obj) {
+	// 											for (var i = 0;i < obj.length; i++) {
+	// 												if ($("#cuerpo")
+	// 														.append(
+	// 																createModal($('.getid')
+	// 																		.attr('id'))) == obj[i].ID_TRABAJADOR
+	// 														+ obj[i].NO_TRABAJADOR) {
+	// 													$("#modal2").openModal();
+	// 												}
+	// 											}za
+	// 		$("#cuerpo").append(
+	// 				createModal($('#data-table-row-grouping').DataTable().row(
+	// 						$(this).parents("tr").find("td").eq(1).find("#idtrab")
+	// 								.text())));
+	// 		console.log("3");
+	// 			$("#data").on('click', '#select', function(e) {
+	// 				e.preventDefault();
+	// 				$(this).closest("tr").find("td:eq(1)").text()
+	// 			})
+	//				$('#data-table-row-grouping').DataTable().row(
+	//						$(this).closest("tr").find("td:eq(3)").text())
+	// 					$('#data-table-row-grouping').DataTable().row($(this).closest("tr"))
+	// 					$('#data-table-row-grouping').DataTable().row($(this).closest("tr")).data()['nombre']
 
+	// 		$("#modal2").openModal();
+	// 			$('#modal2').modal('open');
+	// 										});
+	//};
+
+	// 	function createModal(id) {
+	// 		var s = '<div id="modal2" class="modal" >'
+	// 		s += '<div class="modal-content">'
+	// 		s += '<h4>Modificar fecha de inicio y fecha fin</h4>'
+	// 		s += '<p>Seleccione fecha:</p>'
+	// 		s += '<div class="row">'
+	// 		s += '<div class="col s8 m6 l6">'
+
+	// 		s += '<p>Seleccione fecha de inicio:</p>'
+	// 		s += '<input type="text" class="datepicker">'
+	// 		s += '</div>'
+	// 		s += '<div class="col s8 m6 l6">'
+	// 		s += '<p>Seleccione fecha de fin:</p>'
+	// 		s += '<input type="text" class="datepicker">'
+	// 		s += '</div>'
+	// 		s += '</div>'
+	// 		s += '</div>'
+	// 		s += '<div class="modal-footer">'
+	// 		s += '<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>'
+	// 		s += '</div>' + '</div>';
+	// 		return s;
+	// 	};
+	function createTable() {
+		var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+		s += '<thead>';
+		s += '<tr>';
+		s += '<th class="hide">id</th>';
+		s += '<th>Apellidos y Nombres</th>';
+		s += '<th>Área</th>';
+		s += '<th>Sección</th>';
+		s += '<th>Fecha Inicio</th>';
+		s += '<th>Fecha Fin</th>';
+		s += '<th>Aprobar</th>';
+		s += '<th>Programar</th>';
+		s += '<th>Modificar</th>';
+		s += ' </tr>';
+		s += '</thead>';
+		s += '<tbody id="data"></tbody>';
+		s += '</table>';
+		return s;
+
+	};
+	$("#confirmar_lista").click(
+			function() {
+				arrid = getSelected();
+				var username = $("#username").val();
+				var id_arr = arrid;
+				var id_det = id_arr.join(",");
+				console.log(username);
+				console.log(id_det);
+				var datos = "username=" + username;
+				datos += "&id_det=" + id_det;
+				var con = new jsConnector();
+				con.post("vacaciones/GestionarProgramaVacaciones/insertProgramaVacaciones?" + datos,
+						null, function(data) {
+							if (data == 1) {
+								Materialize.toast('Felicidades!!, ha aprobado a sus trabajadores', 3000, 'rounded');
+							} else {
+								Materialize.toast('UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!', 3000, 'rounded');
+							}
+						});
+			});
+</script>
+</body>
 </html>
