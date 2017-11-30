@@ -78,6 +78,10 @@ public class MainController {
 				break;
 			case "usuario":
 				mp.put("datos_usuario", ((CustomUser) authentication.getPrincipal()).getNOMBRE_AP());
+				mp.put("username", ((CustomUser) authentication.getPrincipal()).getUsername());
+				mp.put("dni",((CustomUser) authentication.getPrincipal()).getNU_DOC());
+				mp.put("idtrb",((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR());
+				mp.put("idrol",((CustomUser) authentication.getPrincipal()).getID_ROL());
 				break;
 			}
 
