@@ -74,7 +74,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
-		listarTrabajadorFiltrado();
+// 		listarTrabajadorFiltrado();
 		//readAllTF();
 	})
 	
@@ -159,13 +159,18 @@ $("#confirmar_lista").click(function(){
 		        var s='';
 		        var emp = obj[0];
 		        for (var i = 0; i < obj.length; i++) {
-					s += '<tr>';
-		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
-		            s += '<td>'+obj[i].NO_DEP+'</td>';
-		            s += '<td>'+obj[i].NO_AREA+'</td>';
-		            s += '<td>'+obj[i].NO_SECCION+'</td>';
-		            s += '<td>'+obj[i].LI_CONDICION+'</td>';
-		            s += '</tr>';
+// 					s += '<tr>';
+// 		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
+// 		            s += '<td>'+obj[i].NO_DEP+'</td>';
+// 		            s += '<td>'+obj[i].NO_DEP+'</td>';
+// 		            s += '<td>'+obj[i].NO_AREA+'</td>';
+// 		            s += '<td>'+obj[i].NO_SECCION+'</td>';
+// 		            s += '<td>'+obj[i].LI_CONDICION+'</td>';
+// 		            s += '<td><p style="text-align: center;">';
+// 					s += '<input type="checkbox" id="test'+i+'">';
+// 					s += ' <label for="test'+i+'"></label>';
+// 					s += '</p></td>';
+// 		            s += '</tr>';
 		   
 				}
 		        $("#table_contenido").empty();
@@ -187,18 +192,20 @@ $("#confirmar_lista").click(function(){
 		};
 		
 	function createTable() {
-	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
-	    s += '<thead>';
-	    s += '<tr>';
-	    s += '<th>Apellidos y Nombres</th>';
-	    s += '<th>Departamento</th>';
-	    s += '<th>Área</th>';
-	    s += '<th>Sección</th>';
-	    s += '<th>Condición</th>';
-	    s += ' </tr>';
-	    s += '</thead>';
-	    s += '<tbody id="data"></tbody>';
-	    s += '</table>';
+// 	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+// 	    s += '<thead>';
+// 	    s += '<tr>';
+// 	    s += '<th>Apellidos y Nombres</th>';
+// 	    s += '<th>Área</th>';
+// 	    s += '<th>Departamento</th>';
+// 	    s += '<th>Área</th>';
+// 	    s += '<th>Sección</th>';
+// 	    s += '<th>Condición</th>';
+// 	    s += '<th>Aprobar</th>';
+// 	    s += ' </tr>';
+// 	    s += '</thead>';
+// 	    s += '<tbody id="data"></tbody>';
+// 	    s += '</table>';
 	    return s;
 	    
 	};

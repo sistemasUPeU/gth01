@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 <%@include file="../../../jspf/general.jspf"%>
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
@@ -14,13 +14,12 @@
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 </head>
-
 <body>
-	<body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
-
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
 	</div>
 	<div id="main">
 		<div class="wrapper">
@@ -28,133 +27,39 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<div id="table-datatables">
-			<p><h4 class="header">Programacion Vacaciones</h4></p>
 
+		<div class="container">
 			<div class="row">
-				<div class="col s12 m8 l9">
-					<table id="data-table-simple" class="responsive-table display"
-						cellspacing="0">
-						<thead>
-							<tr>
-								<th>N°</th>
-								<th>Nombres y Apellidos</th>
-								<th>Area</th>
-								<th>Seccion</th>
-								<th>Fecha-Inicio</th>
-								<th>Fecha-Fin</th>
-								<th>Modificar</th>
-								<td>Programar</td>
-								<td>Aprobar </td>
-								
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Carlos</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>2011/04/25</td>
- <td>                   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger light-blue" href="#modal2">&#9998;</a>
-
-  <!-- Modal Structure -->
-  <div id="modal2" class="modal" style="height: 90%;">
-    <div class="modal-content">
-      <h4>Modificar fecha de inicio y fecha fin</h4>
-      <p>Seleccione fecha:</p>
-      <div class="row">
-      <div class="col s8 m6 l6">
-       <p>Seleccione fecha de inicio:</p>
-        <input type="text" class="datepicker">
-        </div>
-        <div class="col s8 m6 l6">
-       <p>Seleccione fecha de fin:</p>
-        <input type="text" class="datepicker">
-        </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>
-    </div>
-  </div></td>
-                        <td>                   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger light-pink" href="#modal1">&#128198;</a>
-
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal"> 
-    <div class="modal-content">
-      
-      <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input disabled value="Programacion/Reprogramacion" id="disabled" type="text" class="validate">
-          <label for="disabled">Tipo</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="text" type="text" class="validate">
-          <label for="text">Nombres y Apellidos:</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="dni" type="text" class="validate">
-          <label for="dni">DNI:</label>
-        </div>
-      </div>
-      <h5>Programación de Horarios</h5>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
-          <label for="email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          This is an inline input field:
-          <div class="input-field inline">
-            <input id="email" type="email" class="validate">
-            <label for="email" data-error="wrong" data-success="right">Email</label>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div></td>
-                          <td>         <p>
-                      <input type="checkbox" id="test5">
-                      <label for="test5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Aprobar</font></font></label>
-                    </p> </td>
-							</tr>
-					
-						</tbody>
-					</table>
+				<!-- <div class="input-field col s6">
+					<i class="mdi-action-search prefix"></i> <input
+						id="searchTrabajador" type="text" class="validate"
+						onkeyup="searchTrabajador()"> <label
+						for="searchTrabajador">Trabajador</label>
 				</div>
-				
+				<div class="input-field col s6">
+					<i class="mdi-action-search prefix"></i> <input
+						id="searchDepartamento" type="text" class="validate"
+						onkeyup="searchDepartamento()"> <label
+						for="searchDepartamento">Departamento</label>
+				</div>
+				<table id="table_trabajador-filtrado"
+					class="bordered highlight centered">
+					<thead>
+						<tr>
+							<th>Apellidos y Nombres</th>
+							<th>Departamento</th>
+							<th>Área</th>
+							<th>Sección</th>
+							<th>Condición</th>
+						</tr>
+					</thead>
+				</table> -->
+				<div id="table_contenido" class="col s12 m12 l12"></div>
+				<br> <a id="confirmar_lista" class="btn waves-effect waves-light right"><i
+					class="mdi-navigation-check"></i> Confirmar</a>
 			</div>
-			
 		</div>
-	<center>
-            <div class="row">
-            <div class="col s24 m12 l6 ">
-                          <p><a class="btn waves-effect waves-light indigo">Cuaderno de Vacaciones</a></p>
-             </div>
-             <div class="col s24 m12 l6">
-                          <p><a class="btn waves-effect waves-light light-green darken-4">Confirmar</a></p>
-                        </div>
-                        </div></center>	
 	</div>
-	
-	</div>
-
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
@@ -164,8 +69,139 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
-<body>
-
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		console.log("si");
+		listarTrabajadorFiltrado();
+		//readAllTF();
+	})
+	
+$("#confirmar_lista").click(function(){
+	console.log("1");
+	$.post("confirmarListaFiltrada", function(data, status) {
+		console.log("2");
+		console.log(data);
+		if(data == 1){
+			var $toastContent = $('<span>Lista filtrada correctamente</span>');
+			Materialize.toast($toastContent, 10000);	
+			location.reload();
+		}
+		if(data == 0){
+			var $toastContent = $('<span>Error</span>');
+			Materialize.toast($toastContent, 10000);
+		}
+	});
+});
+// 	function searchTrabajador() {
+// 		var input, filter, table, tr, td, i;
+// 		input = document.getElementById("searchTrabajador");
+// 		filter = input.value.toUpperCase();
+// 		table = document.getElementById("table_trabajador-filtrado");
+// 		tr = table.getElementsByTagName("tr");
+
+// 		for (i = 0; i < tr.length; i++) {
+// 			td = tr[i].getElementsByTagName("td")[0];
+// 			if (td) {
+// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+// 					tr[i].style.display = "";
+// 				} else {
+// 					tr[i].style.display = "none";
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	function searchDepartamento() {
+// 		var input, filter, table, tr, td, i;
+// 		input = document.getElementById("searchDepartamento");
+// 		filter = input.value.toUpperCase();
+// 		table = document.getElementById("table_trabajador-filtrado");
+// 		tr = table.getElementsByTagName("tr");
+
+// 		for (i = 0; i < tr.length; i++) {
+// 			td = tr[i].getElementsByTagName("td")[2];
+// 			if (td) {
+// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+// 					tr[i].style.display = "";
+// 				} else {
+// 					tr[i].style.display = "none";
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	function readAllTF() {
+// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+// 		console.log("READALL PEDIDOS");
+// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
+// 		console.log("");
+// 		$.get("readallTrabajadorFiltrado", function(data, status) {
+// 			$("#table_trabajador-filtrado").find("tr:gt(0)").remove();
+// 			$("#table_trabajador-filtrado thead:last").after(
+// 					"<tbody id='table-body'></tbody>");
+// 			var lista = document.getElementById("table-body");
+// 			for ( var i in data) {
+// 				//$("#table_trabajador-filtrado tbody:last").after("<tr><td>"+data[i].AP_PATERNO+" "+data[i].AP_MATERNO+" "+data[i].NO_TRABAJADOR+"</td><td>"+data[i].NO_DEP+"</td><td>"+data[i].NO_AREA+"</td><td>"+data[i].NO_SECCION+"</td><td>"+data[i].LI_CONDICION+"</td></tr>");
+// 				lista.innerHTML += "<tr><td>" + data[i].AP_PATERNO + " "
+// 						+ data[i].AP_MATERNO + " " + data[i].NO_TRABAJADOR
+// 						+ "</td><td>" + data[i].NO_DEP + "</td><td>"
+// 						+ data[i].NO_AREA + "</td><td>" + data[i].NO_SECCION
+// 						+ "</td><td>" + data[i].LI_CONDICION + "</td></tr>";
+// 			}
+// 		});
+// 	}
+
+	function listarTrabajadorFiltrado()
+	{
+		 $.get('readallProgramaVacaciones', function (obj) {
+		        var s='';
+		        var emp = obj[0];
+		        for (var i = 0; i < obj.length; i++) {
+					s += '<tr>';
+		            s += '<td>'+obj[i].NO_TRABAJADOR+' '+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+'</td>';
+		            s += '<td>'+obj[i].NO_AREA+'</td>';
+		            s += '<td>'+obj[i].NO_SECCION+'</td>';
+		            s += '<td>'+obj[i].FECHA_INICIO+'</td>';
+		            s += '<td>'+obj[i].FECHA_FIN+'</td>';
+		            s += '</tr>';
+		   
+				}
+		        $("#table_contenido").empty();
+		        $("#table_contenido").append(createTable());
+		        $("#data").empty();
+		        $("#data").append(s);
+		        $('#data-table-row-grouping').dataTable();
+		        $("#ckbCheckAll").click(function () {
+	                $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+	            });
+		        function getSelected() {
+	                var allVals = [];
+	                $('#data :checked').each(function () {
+	                    allVals.push($(this).parents("#data tr").find(".sorting_1").text());
+	                });
+	                return allVals;
+	            }
+		    });
+		};
+		
+	function createTable() {
+	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+	    s += '<thead>';
+	    s += '<tr>';
+	    s += '<th>Apellidos y Nombres</th>';
+	    s += '<th>Área</th>';
+	    s += '<th>Sección</th>';
+	    s += '<th>Fecha Inicio</th>';
+	    s += '<th>Fecha Fin</th>';
+	    s += ' </tr>';
+	    s += '</thead>';
+	    s += '<tbody id="data"></tbody>';
+	    s += '</table>';
+	    return s;
+	    
+	};
+</script>
+
 </html>
