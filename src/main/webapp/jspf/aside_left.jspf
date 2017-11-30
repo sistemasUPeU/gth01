@@ -77,7 +77,7 @@
 
 										} else {
 
-											if (lista[i].DI_URL = 'solicitud/registrar') {
+											if (lista[i].DI_URL == 'solicitud/registrar') {
 												s += '<li class="bold">';
 												s += '<a id = "solicitud" href="#" onclick= "validar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
 														+ lista[i].NO_LINK

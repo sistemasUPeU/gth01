@@ -209,6 +209,7 @@
     $( document ).ready(function() {
       
         	try{
+            	console.log(gth_context_path);
         		$.getJSON(gth_context_path + '/components',"opc=usuario",function(objJSON){
         			if(objJSON !== null){
         		
