@@ -61,7 +61,8 @@ function loadProfile(){
 
 $(document).ready(function(){
 	try{
-		$.getJSON(gth_context_path + '/components',"opc=usuario",function(objJSON){
+		console.log(gth_context_path);
+		$.getJSON('/components',"opc=usuario",function(objJSON){
 			if(objJSON !== null){
 				var s='';
 				s +='<img src="<c:url value="/resources/img/user.png"/>" alt="Usuario">';

@@ -52,13 +52,6 @@ public class PrincipalController {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
-<<<<<<< HEAD
-	
-	@GetMapping("/programa_vacaciones")
-	public ModelAndView aprobarPV(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("vacaciones/AprobarPV");
-
-=======
 
 	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String confirmarListaFiltrada() {
@@ -74,6 +67,6 @@ public class PrincipalController {
 	@GetMapping("/programa_vacaciones")
 	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/AprobarPV");
->>>>>>> branch 'modulo-vacaciones' of https://github.com/sistemasUPeU/gth01
+
 	}
 }

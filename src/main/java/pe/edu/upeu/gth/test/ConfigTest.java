@@ -2,6 +2,8 @@ package pe.edu.upeu.gth.test;
 
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
+
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
@@ -16,7 +18,7 @@ public class ConfigTest {
 		conect();
 		checkSecurityDaoAuthentication();
 		//listar();
-		proc();
+		//proc();
 		listaFiltrada();
 	}
 
