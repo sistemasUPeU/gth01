@@ -79,22 +79,25 @@
 	})
 	
 $("#confirmar_lista").click(function(){
-	console.log("1");
+	//$('#confirmar_lista').attr("disabled", true);
+	$('#confirmar_lista').addClass('disabled');
 	$.get("confirmarListaFiltrada", function(data, status) {
-		console.log("2");
 		console.log(data);
 		if(data == 1){
 			var $toastContent = $('<span>Lista filtrada correctamente</span>');
 			Materialize.toast($toastContent, 10000);	
 			listarTrabajadorFiltrado();
+			$('#confirmar_lista').removeClass('disabled');
 		}
-		if(data == 2){
+		if(data == 3){
 			var $toastContent = $('<span>No existe consolidado activo</span>');
 			Materialize.toast($toastContent, 10000);
+			$('#confirmar_lista').removeClass('disabled');
 		}
 		if(data == 0){
 			var $toastContent = $('<span>Error interno</span>');
 			Materialize.toast($toastContent, 10000);
+			$('#confirmar_lista').removeClass('disabled');
 		}
 	});
 });
