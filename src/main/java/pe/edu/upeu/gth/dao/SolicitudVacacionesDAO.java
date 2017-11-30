@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.dao;
 
 import java.sql.Array;
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -11,19 +12,15 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
-import oracle.jdbc.internal.OracleTypes;
-import oracle.jdbc.oracore.OracleType;
-import oracle.sql.ArrayDescriptor;
+import oracle.jdbc.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
 
 public class SolicitudVacacionesDAO {
 	private JdbcTemplate jt;
-	// private String sql = "";
-	public static DataSource d = AppConfig.getDataSource();
+
+	DataSource d = AppConfig.getDataSource();
+	Connection cn;
 
 	public SolicitudVacacionesDAO(DataSource datasource) {
 		jt = new JdbcTemplate(datasource);
@@ -81,43 +78,31 @@ public class SolicitudVacacionesDAO {
 		return i;
 	}
 
-	public int insertarSolicitud(Array inicio, String[] fin) {
+	public int insertarSolicitud(String[] inicio, String[] fin, String idt, String tipo, String user) {
 
 		int i = 0;
 		try {
-			DataSource d = AppConfig.getDataSource();
-
-			// ArrayDescriptor arrayDescriptor =
-			// ArrayDescriptor.createDescriptor("UDT_VARCHAR_ARRAY", aConnection);
-			// String[] strings = new String[] { "s1", "s2" };
-			// ARRAY sqlArrays = new ARRAY(arrayDescriptor, aConnection, strings);
-			// CallableStatement callableStatement = aConnection.prepareCall("{call
-			// MY_STORED_PROC(?)}");
-			// callableStatement.setArray(1, sqlArrays);
-			// callableStatement.executeUpdate();
-			// ArrayDescriptor des =
-			// ArrayDescriptor.createDescriptor("SchemaName.ARRAY_TABLE", con);
-			// ARRAY array_to_pass = new ARRAY(des,con,array);
-
-//			String[] array = new String[] { "a", "b", "c" };
-//			oracle.jdbc.OracleDriver ora = new oracle.jdbc.OracleDriver();
-//			java.sql.Connection conn = ora.defaultConnection();
-//			oracle.jdbc.OracleConnection oraConn = (oracle.jdbc.OracleConnection) conn;
-//		
-//			java.sql.Array sqlArray = oraConn.createARRAY("typeName", array);
 			
-			Array array_inicio = d.getConnection().createArrayOf("TYPENAME", fin);
-			Array array_fin = d.getConnection().createArrayOf("TYPENAME", fin);
+			
+			cn = d.getConnection();
+			Array array_inicio = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_FE_INICIO", inicio);
+			Array array_fin = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_FE_FINAL", fin);
 			
 
-			CallableStatement cst = d.getConnection().prepareCall("{call RHSP_INSERT_SOLICITUD (?,?,?)}");
+			CallableStatement cst = d.getConnection().prepareCall("{call RHSP_VAC_INSERT_VACACIONES (?,?,?,?,?,?)}");
 			cst.setArray(1, array_inicio);
 			cst.setArray(2, array_fin);
-			cst.registerOutParameter(2, Types.NUMERIC);
+			cst.setString(3, idt);
+			cst.setString(4, tipo);
+			cst.setString(5, user);
+			cst.registerOutParameter(6, Types.NUMERIC);
 			cst.execute();
-			System.out.println(cst.getInt(2));
+			System.out.println(cst.getInt(6));
+//			cn.commit();
+			cn.close();
+			
 
-			i = cst.getInt(2);
+			i = cst.getInt(6);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -63,6 +63,8 @@
 										<div class="input-field col s12 l12">
 											<input id="idtrb" type="hidden" class="validate"> <input
 												id="idrol" type="hidden" class="validate">
+												<input
+												id="user" class="hide">
 										</div>
 									</div>
 								</form>
@@ -145,7 +147,7 @@
 						</div>
 						<div class="col s5 m4 l2">
 							<a class="btn waves-effect waves-light  cyan darken-2 right"
-								onclick="insertar()">Confirmar<i
+								onclick="insertar()" id="confirmar" disabled>Confirmar<i
 								class="mdi-navigation-check right"></i></a>
 
 						</div>
@@ -173,7 +175,7 @@
 
 						<div class="col s7 m8 l12 center">
 							<a class="waves-effect waves-light btn center"><i
-								class="mdi-file-file-upload right"></i>Guardar documento</a>
+								class="mdi-file-file-upload right" ></i>Guardar documento</a>
 
 						</div>
 					</div>
@@ -209,7 +211,6 @@
     $( document ).ready(function() {
       
         	try{
-            	console.log(gth_context_path);
         		$.getJSON(gth_context_path + '/components',"opc=usuario",function(objJSON){
         			if(objJSON !== null){
         		
@@ -217,12 +218,15 @@
         				var d=objJSON.dni;
         				var t=objJSON.idtrb;
         				var r = objJSON.idrol;
+        				var u = objJSON.username;
         				console.log(s + d + t);
         				$("#nombres").val("");
         				$("#nombres").val(s);
         				$("#dni").val(d);
         				$("#idtrb").val(t);
         				$("#idrol").val(r);
+        				$("#user").val(u);
+        				
         				 Materialize.updateTextFields();
         			}else{
         				console.error("No se esta cargando la información");
@@ -281,16 +285,10 @@
             var idt= $("#idtrb").val();
             console.log(idt);
 
-// 			$.get("reporte", {
-// 				idtr:"TRB-002315"
-// 	        },
-// 		        function (data, status) {
-// 					console.log(data);
 					
 					$("object").attr("data","reporte?idtr="+idt);
-// 					$("embed").attr("src","reporte?idtr=TRB-002315");
-// 		        }
-// 	    	);
+
+
 		});
 
 
@@ -305,17 +303,6 @@
         	$('#fe_final_1').pickadate('picker').set('select', calcular_final(fecha_inicio), { format: 'dd/mm/yyyy' }).trigger("change");
        	 Materialize.updateTextFields();
 			
-        	
-        	//var ex = $("#fe_inicio").pickadate({ dateFormat: 'dd/mm/yyyy' });
-//         	var date = new Date(fei.pickadate),
-//             yr = date.getFullYear(),
-
-//             month = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth(),
-//             day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-//             newDate = day + '/' + month + '/' + yr;
-            
-//         	console.log(newDate);
-			//console.log(calcular());
         	
             });
 
@@ -341,8 +328,7 @@
          month = mes < 10 ? '0' + mes : mes,
                  day = input[0] < 10 ? '0' + input[0] : input[0],
                  newDate = input[2] + '/' + month + '/' + day;
-// 		var inicio = new Date(input[2],(map[mes1.toLowerCase()] || mes1) - 1, input[0]);
-// 		console.log(inicio);
+
 		fecha_extra = day + '/' + month + '/' + input[2];
 		var inicio = new Date(newDate);
 		console.log("fecha_extra: "+fecha_extra);
@@ -359,14 +345,12 @@
 
 
             function calcular_final(begin) {
-            	 // var hoy = new Date();
+       
             	 console.log("fecha enviada "+begin ); 
             	 console.log("fecha enviada "+begin.getFullYear );           	 
             	  var calculado = new Date();
-//             	  console.log("parametro:"+begin.getDate());
-//             	  var dia = begin.getDate() + 30;
-//             	  console.log("DIA: " +dia);
-            	  begin.setDate(begin.getDate() + 30);
+
+            	  begin.setDate(begin.getDate() + 29);
 
             	  var anno=begin.getFullYear();
             	  var mes= begin.getMonth()+1;
@@ -376,27 +360,10 @@
             	  var fechaFinal = dia+"/"+mes+"/"+anno;
 
             	  console.log("fecha calculada: "+fechaFinal);
-//             	  var fin = calculado.getDate() + '/' +
-//             	    (calculado.getMonth() + 1) + '/' + calculado.getFullYear()+
-//             	    ' -- ' + calculado.getFullYear() + '/' +
-//             	    (calculado.getMonth() + 1) + '/' + calculado.getDate();
 
             	    return fechaFinal;
             	}
 
-//             function calcular() {
-//             	  var hoy = new Date();
-//             	 // var dias = parseInt(numero.value);
-//             	  var calculado = new Date();
-//             	  calculado.setDate(
-//             	    hoy.getDate() + 48
-//             	  );
-
-//             	  return calculado.getDate() + '/' +
-//             	    (calculado.getMonth() + 1) + '/' + calculado.getFullYear() +
-//             	    ' -- ' + calculado.getFullYear() + '/' +
-//             	    (calculado.getMonth() + 1) + '/' + calculado.getDate();
-//             	}
 
 
 var cont = 2;
@@ -477,22 +444,24 @@ var cont = 2;
 	if(op == 2){
 		for (var i=1; i<cont; i++) {
 			parseDate($("#fe_final_"+i).val());
-// 			console.log($("#fe_inicio_"+i).val());
 			console.log(fecha_extra);
 		    fechas.push(fecha_extra);
 		}
 
 	}
 	
-//             fecha_i.push();
-//         });
-//         return allVals;
+
 return fechas;
     }
-    var queryArr = [];
+
+
+
+    
     function insertar(){
         var fechas_0=getArray_fechas(1); //fecha inicio
         var fechas_1=getArray_fechas(2); //fecha fin
+        fechas_1.push("05/05/17");
+        fechas_0.push("12/12/17");
 		var tamaño = fechas_0.length;
 
 
@@ -500,29 +469,9 @@ return fechas;
         var inicio=fechas_0.join("-");
         var fin=fechas_1.join("-");
 console.log("ini: "+inicio);
-//         inicio.push(fin);
-//         console.log("fin-fe: "+inicio);
 
-        
-        var locations = [ 
-                fechas_0,                                
-               fechas_1
-             ];
-//         console.log(fechas_0);
-//         for (var n=0; n<2; n++) {
-// 			queryArr.push(fechas_n);
-// 		}
-         console.log(locations);
-         console.log(locations[0]);
-//              queryStr = {locations };
-//              queryArr.push(queryStr);
-        
-//         console.log(queryArr);
-//         console.log(queryArr[1]);
-//         for(var i=0;i<arrid.length;i++)
-		console.log(JSON.stringify(locations));
-		console.log(JSON.stringify(locations));
-		var array = JSON.stringify(locations);
+
+// 		var array = JSON.stringify(locations);
 
         /* $.ajax({
         	    type : "GET",
@@ -551,14 +500,25 @@ console.log("ini: "+inicio);
 //      var datos = {"myArray":array};
 //      {"inicio": fechas_0,"final": fechas_1}
         	
+var idt=$("#idtrb").val();
+var tipo=$("#tipo").val();
+var user=$("#user").val();
 
      var datos="inicio="+inicio;
-     datos += "?final="+fin;
+     datos += "&final="+fin;
+     datos += "&idt="+idt;
+     datos += "&tipo="+tipo;
+     datos += "&user="+user;
 console.log("dat: "+datos);
     
 var con = new jsConnector();
-        	con.post('solicitud/insertar?'+datos,null,function(){
-//         	console.log(algo);
+        	con.post('solicitud/insertar?'+datos,null,function(response){
+					if(response == 1){
+						Materialize.toast('Vacaciones registrada correctamente!', 3000, 'rounded');
+						 $('#confirmar').addClass('disabled');
+					}else{
+						Materialize.toast('UPS!!, No se ha registrado sus vacaciones!', 3000, 'rounded');
+					}
         	});
 
         	
