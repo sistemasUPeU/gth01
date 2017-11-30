@@ -16,7 +16,7 @@ public class LegajoDAO {
 	
 	public int insertarLegajo(Legajo r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIA(ID_TRABAJADOR,FECHA_LEGAJO,ID_TIPO_DOC,OTROS,DETALLE_OTROS) VALUES(?,SYSDATE,?,?,?)";
+		String sql = "INSERT INTO REN_LEGAJO(ID_TRABAJADOR,FECHA_LEGAJO,ID_TIPO_DOC,OTROS,DETALLE_OTROS) VALUES(?,SYSDATE,?,?,?)";
 		try {
 			jt.update(sql, new Object[] { r.getIdtrabajador(),  r.getId_tipo_doc(), r.getOtros(),r.getDetalle_otros()});
 			x = 1;

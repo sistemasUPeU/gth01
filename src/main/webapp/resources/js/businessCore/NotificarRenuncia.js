@@ -241,7 +241,7 @@ function verCorreo(idc) {
 function enviarCorreo() {
 	 var msj = $("#mensaje1").text();
 	 var de = "neisserrey@upeu.edu.pe";
-	 var para = "jonathanromero@upeu.edu.pe";
+	 var para = "neisserrey@upeu.edu.pe";
 	 var clave = $("#pass").val();
 	 var mensaje = $("#mensaje2").text();
 	 var msjs = msj+$("#fecha").val()+mensaje+".";

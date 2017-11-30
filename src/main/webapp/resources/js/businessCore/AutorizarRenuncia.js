@@ -146,7 +146,7 @@ $(document)
 															.text();
 													console.log(cantidad);
 													DetalleRenuncia(cantidad);
-													$("#modal2").openModal();
+												
 													$("#otros").val(cantidad);
 
 												

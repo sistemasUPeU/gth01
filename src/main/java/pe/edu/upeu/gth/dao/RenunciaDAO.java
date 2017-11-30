@@ -137,7 +137,7 @@ public class RenunciaDAO {
 	}
 
 	public List<Map<String, Object>> gg() {
-		sql = "select * from REN_VIEW_RENUNCIA";
+		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Procesado'";
 		return jt.queryForList(sql);
 	}
 
