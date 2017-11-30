@@ -170,8 +170,26 @@ $(document)
 					
 					$("#AutorizarR").click(function(){
 						
+						var idc=$("#idc").val();
+						$.get("AutorizarR", {
+							idc : idc,
+							opc : 4
+						}, function(data, status) {
+							 //alert(data);
+							var detalle = JSON.parse(data);
+							console.log(detalle);
+							if(data==1){
+								alert("BUENA JONAS")
+							}else{
+								alert("NADA JONAS");
+							}
+								
+								
+							
 
-									$("#modal3").openModal();
+							}
+
+						);
 						
 
 							

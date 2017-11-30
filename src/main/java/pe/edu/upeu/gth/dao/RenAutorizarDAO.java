@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import pe.edu.upeu.gth.dto.Renuncia;
 //import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
@@ -85,6 +86,20 @@ public class RenAutorizarDAO implements CRUDOperations{
 
 		return jt.queryForList(sql);
 	}
+	
+	// falta
+		public int AutorizarRenuncia(Renuncia r) {
+			int x = 0;
+			String sql = "UPDATE REN_RENUNCIA SET ESTADO WHERE ID_CONTRATO=? ";
+			try {
+				jt.update(sql, new Object[] { r.getId_contrato()});
+				x = 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Error: " + e);
+			}
+			return x;
+		}
 	
 	
 
