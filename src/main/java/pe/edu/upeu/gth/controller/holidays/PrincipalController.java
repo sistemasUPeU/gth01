@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.controller.holidays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
@@ -77,9 +78,27 @@ public class PrincipalController {
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
 
-	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+
+//	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
 	public @ResponseBody String getAllProgramaVacaciones() {
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL());
+	GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+	return GSON.toJson(DAO.READALL());
+		
 	}
+
+	@RequestMapping(path = "GestionarProgramaVacaciones/insertProgramaVacaciones", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String insertProgramaVacaciones(HttpServletRequest request) {
+		DataSource ds = AppConfig.getDataSource();
+		GestionarPrograVacacDAO t = new GestionarPrograVacacDAO(ds);
+		String usuario = request.getParameter("username");
+		System.out.println(usuario);
+		String id_det = request.getParameter("id_det");
+		String[] asdf =id_det.split(",");
+		Gson g = new Gson();
+		return g.toJson(t.apobarVac(usuario, asdf));
+	}
+
 }
