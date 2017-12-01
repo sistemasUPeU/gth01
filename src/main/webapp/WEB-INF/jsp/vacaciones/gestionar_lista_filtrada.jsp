@@ -74,23 +74,30 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
-// 		listarTrabajadorFiltrado();
+ 		listarTrabajadorFiltrado();
 		//readAllTF();
 	})
 	
 $("#confirmar_lista").click(function(){
-	console.log("1");
+	//$('#confirmar_lista').attr("disabled", true);
+	$('#confirmar_lista').addClass('disabled');
 	$.get("confirmarListaFiltrada", function(data, status) {
-		console.log("2");
 		console.log(data);
 		if(data == 1){
 			var $toastContent = $('<span>Lista filtrada correctamente</span>');
 			Materialize.toast($toastContent, 10000);	
-			location.reload();
+			listarTrabajadorFiltrado();
+			$('#confirmar_lista').removeClass('disabled');
+		}
+		if(data == 3){
+			var $toastContent = $('<span>No existe consolidado activo</span>');
+			Materialize.toast($toastContent, 10000);
+			$('#confirmar_lista').removeClass('disabled');
 		}
 		if(data == 0){
-			var $toastContent = $('<span>Error</span>');
+			var $toastContent = $('<span>Error interno</span>');
 			Materialize.toast($toastContent, 10000);
+			$('#confirmar_lista').removeClass('disabled');
 		}
 	});
 });
@@ -156,21 +163,44 @@ $("#confirmar_lista").click(function(){
 	function listarTrabajadorFiltrado()
 	{
 		 $.get('readallTrabajadorFiltrado', function (obj) {
+			 console.log(obj);
 		        var s='';
 		        var emp = obj[0];
 		        for (var i = 0; i < obj.length; i++) {
-// 					s += '<tr>';
-// 		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
-// 		            s += '<td>'+obj[i].NO_DEP+'</td>';
-// 		            s += '<td>'+obj[i].NO_DEP+'</td>';
-// 		            s += '<td>'+obj[i].NO_AREA+'</td>';
-// 		            s += '<td>'+obj[i].NO_SECCION+'</td>';
-// 		            s += '<td>'+obj[i].LI_CONDICION+'</td>';
+					var con = 8;
+						if (obj[i].LI_CONDICION == 1) {
+							con = "CONTRATADO";
+						}
+						if (obj[i].LI_CONDICION == 2) {
+							con = "EMPLEADO";
+						}
+						if (obj[i].LI_CONDICION == 3) {
+							con = "MISIONERO";
+						}
+						if (obj[i].LI_CONDICION == 4) {
+							con = "PRACTICAS PRE-PROFESIONALES";
+						}
+						if (obj[i].LI_CONDICION == 5) {
+							con = "PRACTICAS PROFESIONALES";
+						}
+						if (obj[i].LI_CONDICION == 6) {
+							con = "CONVENIO LABORAL JUVENIL";
+						}
+						if (obj[i].LI_CONDICION == 7) {
+							con = "CONTRATO";
+						}
+					s += '<tr>';
+		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
+		            s += '<td>'+obj[i].NO_DEP+'</td>';
+		            s += '<td>'+obj[i].NO_DEP+'</td>';
+		            s += '<td>'+obj[i].NO_AREA+'</td>';
+		            s += '<td>'+obj[i].NO_SECCION+'</td>';
+		            s += '<td>'+con+'</td>';
 // 		            s += '<td><p style="text-align: center;">';
 // 					s += '<input type="checkbox" id="test'+i+'">';
 // 					s += ' <label for="test'+i+'"></label>';
 // 					s += '</p></td>';
-// 		            s += '</tr>';
+		            s += '</tr>';
 		   
 				}
 		        $("#table_contenido").empty();
@@ -178,34 +208,34 @@ $("#confirmar_lista").click(function(){
 		        $("#data").empty();
 		        $("#data").append(s);
 		        $('#data-table-row-grouping').dataTable();
-		        $("#ckbCheckAll").click(function () {
-	                $(".checkBoxClass").prop('checked', $(this).prop('checked'));
-	            });
-		        function getSelected() {
-	                var allVals = [];
-	                $('#data :checked').each(function () {
-	                    allVals.push($(this).parents("#data tr").find(".sorting_1").text());
-	                });
-	                return allVals;
-	            }
+// 		        $("#ckbCheckAll").click(function () {
+// 	                $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+// 	            });
+// 		        function getSelected() {
+// 	                var allVals = [];
+// 	                $('#data :checked').each(function () {
+// 	                    allVals.push($(this).parents("#data tr").find(".sorting_1").text());
+// 	                });
+// 	                return allVals;
+// 	            }
 		    });
 		};
 		
 	function createTable() {
-// 	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
-// 	    s += '<thead>';
-// 	    s += '<tr>';
-// 	    s += '<th>Apellidos y Nombres</th>';
-// 	    s += '<th>Área</th>';
-// 	    s += '<th>Departamento</th>';
-// 	    s += '<th>Área</th>';
-// 	    s += '<th>Sección</th>';
-// 	    s += '<th>Condición</th>';
-// 	    s += '<th>Aprobar</th>';
-// 	    s += ' </tr>';
-// 	    s += '</thead>';
-// 	    s += '<tbody id="data"></tbody>';
-// 	    s += '</table>';
+	    var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+	    s += '<thead>';
+	    s += '<tr>';
+	    s += '<th>Apellidos y Nombres</th>';
+	    s += '<th>Área</th>';
+	    s += '<th>Departamento</th>';
+	    s += '<th>Área</th>';
+	    s += '<th>Sección</th>';
+	    s += '<th>Condición</th>';
+// 	    s += '<th>Aprobar</th>';s
+	    s += ' </tr>';
+	    s += '</thead>';
+	    s += '<tbody id="data"></tbody>';
+	    s += '</table>';
 	    return s;
 	    
 	};

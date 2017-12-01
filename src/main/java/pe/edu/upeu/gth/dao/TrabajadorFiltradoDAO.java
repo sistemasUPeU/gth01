@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.dao;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +38,11 @@ public class TrabajadorFiltradoDAO {
 
 		try {
 			DataSource DS = AppConfig.getDataSource();
-			CallableStatement CST = DS.getConnection().prepareCall("{call RHSP_INSERT_TRAB_FIL}");
+			CallableStatement CST = DS.getConnection().prepareCall("{call RHSP_INSERT_TRAB_FIL (?)}");
+			CST.registerOutParameter(1,  Types.NUMERIC);
 			CST.execute();
-			return 1;
+			int i = CST.getInt(1);
+			return i;
 		} catch (SQLException E) {
 			E.printStackTrace();
 			System.out.println("ERROR: " + E);
