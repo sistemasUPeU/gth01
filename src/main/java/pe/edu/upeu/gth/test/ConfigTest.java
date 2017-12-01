@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
-import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
 public class ConfigTest {
@@ -19,13 +19,13 @@ public class ConfigTest {
 		checkSecurityDaoAuthentication();
 		//listar();
 		//proc();
-		listaFiltrada();
+		TestJhorman();
 	}
 
-	private static void listaFiltrada() {
-		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+	private static void TestJhorman() {
+		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		Gson GSON = new Gson();
-		System.out.println(GSON.toJson(DAO.CONFIRMAR()));
+		System.out.println(GSON.toJson(DAO.READFECHA()));
 	}
 
 	public static void conect() {
