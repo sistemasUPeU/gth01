@@ -80,7 +80,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 //    }
 	
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
-		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_RENUNCIA";
+		sql = "select ID_RENUNCIA,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_RENUNCIA";
 
 		sql += " where ID_CONTRATO='" + idc + "' ";
 
@@ -90,9 +90,9 @@ public class RenAutorizarDAO implements CRUDOperations{
 	// falta
 		public int AutorizarRenuncia(Renuncia r) {
 			int x = 0;
-			String sql = "UPDATE REN_RENUNCIA SET ESTADO WHERE ID_CONTRATO=? ";
+			String sql = "UPDATE REN_RENUNCIA SET ESTADO='Autorizado' WHERE ID_RENUNCIA=? ";
 			try {
-				jt.update(sql, new Object[] { r.getId_contrato()});
+				jt.update(sql, new Object[] { r.getId_renuncia()});
 				x = 1;
 			} catch (Exception e) {
 				// TODO: handle exception

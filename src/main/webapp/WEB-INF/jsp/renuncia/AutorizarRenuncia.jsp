@@ -10,7 +10,7 @@
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/js/materialize.min.js'/>"
-	type="text/javascript"  media="screen,projection">
+	type="text/javascript" media="screen,projection">
 <link href="<c:url value='/resources/css/materialize.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
@@ -26,14 +26,14 @@
 	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/rechazar.css'></c:url>" />
-
+<link href="<c:url value='/resources/css/alertify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
 </head>
 
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
-
 	</div>
 	<div id="main">
 		<div class="wrapper">
@@ -59,10 +59,7 @@
 
 							<!-- <div class="col s12 m8 l9 contT"></div> -->
 							<!-- </div> -->
-
 							<div class="col s12 m8 l9 contT"></div>
-							
-
 						</div>
 					</li>
 					<li>
@@ -76,27 +73,13 @@
 									<div class="col s12 m8 l9"></div>
 								</div>
 							</div>
-
-
 						</div>
 					</li>
 				</ul>
 			</div>
-
-
-
 		</div>
-
 	</div>
-
-
-
-
-
-
-
-
-	<div style="position: fixed; width: 100%; bottom: 0;z-index:5">
+	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
 
@@ -111,10 +94,14 @@
 		type="text/javascript"></script>
 	<%-- 		<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 	<script
-			src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
-			type="text/javascript"></script>
+		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+		type="text/javascript"></script>
+			<script
+		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
+		
 </body>
 </html>

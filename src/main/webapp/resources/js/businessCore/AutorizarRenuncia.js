@@ -1,6 +1,18 @@
 $(document)
 		.ready(
 				function() {
+					if(!alertify.errorAlert){
+						  alertify.dialog('errorAlert',function factory(){
+						    return{
+						            build:function(){
+						                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
+						                +    'style="vertical-align:middle;color:#e10000;">'
+						                + '</span> Error al guardar los datos';
+						                this.setHeader(errorHeader);
+						            }
+						        };
+						    },true,'alert');
+						}
 
 					// $('.modal-trigger').leanModal();
 					// alert();
@@ -236,6 +248,10 @@ function createTable(idDepartamento, idRol) {
 	return s;
 }
 var depa="";
+
+
+
+//Detalle para Autorizar Renuncia
 function DetalleRenuncia(idc) {
 	
 //	$("#modal2").openModal();	
@@ -244,13 +260,14 @@ function DetalleRenuncia(idc) {
 //	});
 	$.get("details", {
 	}, function(data, status) {
-		alert(data);		
+		//alert(data);		
 //		 alert("BIEN JONAS");
 		 $("#contenido").html("");
 		 $("#contenido").html(data);
 		 $.get("AutorizarR",{opc:2,idc:idc},function(data,status){	
-			 alert(data);
+			 //alert(data);
 			 var detalle = JSON.parse(data);
+			 $("#idr").val(detalle[0].ID_RENUNCIA);	
 			 $("#nombres").text(detalle[0].NOMBRES);	
 			 $("#paterno").text(detalle[0].PATERNO);
 				$("#materno").text(detalle[0].MATERNO);
@@ -261,18 +278,31 @@ function DetalleRenuncia(idc) {
 				$("#area").text(detalle[0].NOM_AREA);
 				$("#seccion").text(detalle[0].NOM_SECCION);
 				$("#puesto").text(detalle[0].NOM_PUESTO);
+//				$("#centro_costo").tex(detalle[0].CENTRO_COSTO);
 				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
 				if(detalle[0].ANTECEDENTES!=1){
-					ante = "Si";
-				}else{
-					ante = "No";
+					$("#ante_poli").text("Si");
+				}else{	
+					$("#ante_poli").text("No");
 				}
 				var archi = detalle[0].ARCHIVO;
-				if(detalle[0].ANTECEDENTES!=0){
-					certi = "Si";
+				if(detalle[0].CERTI_SALUD!=0){
+					$("#certi_salud").text("Si");
 				}else{
-					certi = "No";
+					$("#certi_salud").text("No");
 				}
+				$("#autorizarRen").click(function(){
+					var idr= $("#idr").val();
+					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
+						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
+							 alert("BIEN JONAS");
+			        		 alert(data);
+			        	});
+						 
+				     	} , function(){ 
+				        	
+				        });
+				});
 		 });
 		 
 	
@@ -298,7 +328,10 @@ function DetalleRenuncia(idc) {
 
 }
 
-
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
 
 function id(idc) {
 	alert(idc);
