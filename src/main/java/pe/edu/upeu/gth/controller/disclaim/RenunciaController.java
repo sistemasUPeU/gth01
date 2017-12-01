@@ -77,6 +77,7 @@ public class RenunciaController {
 
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView detalles(ModelMap model) {
+
 		return new ModelAndView("renuncia/ren_detalle");
 	}
 

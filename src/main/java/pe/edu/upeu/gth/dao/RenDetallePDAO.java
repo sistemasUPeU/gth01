@@ -4,23 +4,18 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import pe.edu.upeu.gth.dto.Renuncia;
-//import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
-public class RenAutorizarDAO implements CRUDOperations{
+public class RenDetallePDAO implements CRUDOperations {
 	String sql;
     PreparedStatement ps;
     CallableStatement cs;
@@ -30,7 +25,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 
     private static JdbcTemplate jt;
 
-    public RenAutorizarDAO(DataSource dataSource) {
+    public RenDetallePDAO(DataSource dataSource) {
         jt = new JdbcTemplate(dataSource);
     }
 
@@ -64,20 +59,11 @@ public class RenAutorizarDAO implements CRUDOperations{
 		return false;
 	}
 	
-	public List<Map<String, Object>> Pendiente() {
-		sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Pendiente'";
-		return jt.queryForList(sql);
-	}
 	
-	public List<Map<String,Object>> Autorizar() {
-    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
+	public List<Map<String,Object>> DetalleProcesar() {
+    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM REN_VIEW_RENUNCIA";
         return jt.queryForList(sql);
     }
-	
-//	public List<Map<String,Object>> DetalleAutorizar() {
-//    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM REN_VIEW_RENUNCIA";
-//        return jt.queryForList(sql);
-//    }
 	
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
 		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_RENUNCIA";
@@ -100,7 +86,6 @@ public class RenAutorizarDAO implements CRUDOperations{
 			}
 			return x;
 		}
-	
 	
 
 }

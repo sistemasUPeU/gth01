@@ -32,39 +32,47 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<div class="col s12 m8 l9">
-			<div id="data-table-row-grouping col s12 m8 l9"
-				class="card-panel display #e3f2fd blue lighten-5"
-				style="position: absolute">
+		<div class="col s12 m12" style="width: 100%; position: absolute;">
+			<ul class="collapsible popout" data-collapsible="accordion">
+				<li class="active">
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Renuncias por Procesar
+					</div>
+					<div id="data-table-row-grouping col s12 m8 l9"
+						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+						style="display: none;">
 
-				<div class="col s12 m8 l9 contT"></div>
-			</div>
+						<!-- <div id="data-table-row-grouping col s12 m8 l9" -->
+						<!-- class="card-panel display #e3f2fd blue lighten-5" -->
+						<!-- style="position: absolute"> -->
+
+						<!-- <div class="col s12 m8 l9 contT"></div> -->
+						<!-- </div> -->
+
+						<div class="col s12 m8 l9 contT"></div>
+						
+
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Renuncias Procesadas
+					</div>
+					<div class="collapsible-body" style="display: none;">
+						<div id="table-datatables">
+							<h4 class="header">NICOLITA</h4>
+							<div class="row">
+								<div class="col s12 m8 l9"></div>
+							</div>
+						</div>
+
+
+					</div>
+				</li>
+			</ul>
 		</div>
 	</div>
 
-    <br>
-	
-	<div class="col s12 m12" style="position: absolute; display:none">
-		<ul class="collapsible collapsible-accordion"
-			data-collapsible="accordion">
-			<li class="active" style="position: relative">
-				<div class="collapsible-header active">
-					<i class="mdi-toggle-check-box"></i> Requerimientos Notificados
-				</div>
-				<div class="collapsible-body" style="display: none;">
-					<div id="table-datatables">
-						<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
-						<div class="row">
-							<div class="col s12 m8 l9"></div>	
-						</div>
-					</div>
-
-
-				</div>
-			</li>
-		</ul>
-	</div>
-	
 	<div style="position: fixed; width: 100%; bottom: 0;">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>

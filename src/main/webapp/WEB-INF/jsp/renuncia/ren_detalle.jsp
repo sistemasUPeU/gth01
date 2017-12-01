@@ -60,7 +60,7 @@
 												<div class="col l6 m6 s6">
 													<input type="hidden" id="idt" />
 													<h6 class="light italic black-text">
-														<strong><h6>Nombres :</strong><span id="nombres"></span><br>
+														<strong><h6>Nombres :</strong><span id="nome"></span><br>
 														<strong>
 													</h6>
 													<h6>
@@ -72,7 +72,7 @@
 													<h6>
 														Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
 													</h6>
-													</h6>
+													
 												</div>
 											</div>
 									</div>
@@ -263,11 +263,17 @@
 		<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
 		<!-- 		type="text/javascript"></script> -->
 		<script
-			src="<c:url  value='/resources/js/AutorizarRenuncia.js'></c:url>"
-			type="text/javascript"></script>
-		<script
 			src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 			type="text/javascript"></script>
-		<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
+			
+			<script>
+			$(document).ready(function(){
+				window.onload = alert(localStorage.getItem("departamento"));
+			});
+			
+			</script>
+		</body>
+			
+		
 </body>
 </html>
