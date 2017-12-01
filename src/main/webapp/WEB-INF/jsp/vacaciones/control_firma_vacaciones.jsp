@@ -131,7 +131,7 @@
 <!-- 						</div> -->
 						<div id="contenedor_fechas"></div>
 						<div class="col s4">
-							<br> <a
+							<br> <a id="guardar"
 								class="btn waves-effect waves-light light-green darken-3  modal-action modal-close"><i
 								class="mdi-content-save"></i> Guardar</a>
 						</div>
@@ -167,9 +167,18 @@
 		listarControlFirmas();
 	})
 
+	$("#guardar").click(function() {
+		console.log("sii");
+		var si = $(".si").attr("name");
+		console.log(si);
+	});
+	
 	$("#table_contenido").on("click", "#open", function() {
-		$.get('readFirma', function (obj) {
+		var id = $(this).attr("name");
+		console.log(id);
+		$.get('readFirma', {id : id}, function (obj) {
 			console.log(obj);
+			$("#contenedor_fechas").empty();
 	    	var j='';
 	        //var emp = obj[0];
 	        //
@@ -196,7 +205,7 @@
 	            j += '</div>';
 		        j += '<div class="col s3">';
 				j += '<br> <br>';
-	            j += '<button class="btn-floating waves-effect waves-light red light-green darken-3">';
+	            j += '<button class="btn-floating waves-effect waves-light red light-green darken-3 si" name="'+obj[i].FIRMA_SALIDA+'">';
 	            j += '<i class="mdi-navigation-check"></i>';
 	            j += '</button>';
 	            j += '</div>';
@@ -206,7 +215,7 @@
 	            j += '</div>';
 		        j += '<div class="col s1">';
 				j += '<br> <br>';
-	            j += '<button class="btn-floating waves-effect waves-light red light-green darken-3">';
+	            j += '<button class="btn-floating waves-effect waves-light red light-green darken-3 si"  name="'+obj[i].FIRMA_ENTRADA+'">';
 	            j += '<i class="mdi-navigation-check"></i>';
 	            j += '</button>';
 	            j += '</div>';
@@ -224,7 +233,7 @@
 	});
 	
 	function listarControlFirmas(){
-	$.get('readallControlFirma', function (obj) {
+		$.get('readallControlFirma', function (obj) {
 	        var s='';
 	        var emp = obj[0];
 	        for (var i = 0; i < obj.length; i++) {

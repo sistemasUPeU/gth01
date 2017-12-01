@@ -81,9 +81,10 @@ public class PrincipalController {
 	}
 	
 	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getFirma() {
+	public @ResponseBody String getFirma(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READFECHA());
+		return GSON.toJson(DAO.READFECHA(id));
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

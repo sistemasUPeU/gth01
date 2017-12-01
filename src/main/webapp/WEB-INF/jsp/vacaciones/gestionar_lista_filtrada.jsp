@@ -163,16 +163,39 @@ $("#confirmar_lista").click(function(){
 	function listarTrabajadorFiltrado()
 	{
 		 $.get('readallTrabajadorFiltrado', function (obj) {
+			 console.log(obj);
 		        var s='';
 		        var emp = obj[0];
 		        for (var i = 0; i < obj.length; i++) {
+					var con = 8;
+						if (obj[i].LI_CONDICION == 1) {
+							con = "CONTRATADO";
+						}
+						if (obj[i].LI_CONDICION == 2) {
+							con = "EMPLEADO";
+						}
+						if (obj[i].LI_CONDICION == 3) {
+							con = "MISIONERO";
+						}
+						if (obj[i].LI_CONDICION == 4) {
+							con = "PRACTICAS PRE-PROFESIONALES";
+						}
+						if (obj[i].LI_CONDICION == 5) {
+							con = "PRACTICAS PROFESIONALES";
+						}
+						if (obj[i].LI_CONDICION == 6) {
+							con = "CONVENIO LABORAL JUVENIL";
+						}
+						if (obj[i].LI_CONDICION == 7) {
+							con = "CONTRATO";
+						}
 					s += '<tr>';
 		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
 		            s += '<td>'+obj[i].NO_DEP+'</td>';
 		            s += '<td>'+obj[i].NO_DEP+'</td>';
 		            s += '<td>'+obj[i].NO_AREA+'</td>';
 		            s += '<td>'+obj[i].NO_SECCION+'</td>';
-		            s += '<td>'+obj[i].LI_CONDICION+'</td>';
+		            s += '<td>'+con+'</td>';
 // 		            s += '<td><p style="text-align: center;">';
 // 					s += '<input type="checkbox" id="test'+i+'">';
 // 					s += ' <label for="test'+i+'"></label>';

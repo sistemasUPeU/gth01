@@ -25,7 +25,8 @@ public class ConfigTest {
 	private static void TestJhorman() {
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		Gson GSON = new Gson();
-		System.out.println(GSON.toJson(DAO.READFECHA()));
+		String id = "VAC-000002";
+		System.out.println(GSON.toJson(DAO.READFECHA(id)));
 	}
 
 	public static void conect() {
