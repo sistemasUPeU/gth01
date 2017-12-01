@@ -249,7 +249,7 @@ function createTable(idDepartamento, idRol) {
 var depa="";
 function DetalleRenuncia(idc) {
 	var ante="";
-	var certi="";
+
 //	$("#modal2").openModal();
 
 	
