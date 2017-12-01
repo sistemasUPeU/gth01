@@ -1,52 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@include file="../../../jspf/general.jspf"%>
 <html>
 <head>
-<%@include file="../../../jspf/general.jspf"%>
-
-<link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/js/materialize.min.js'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/css/materialize.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
 </head>
 <body>
-	<%@include file="../../../jspf/header.jspf"%>
-	<div id="loader-wrapper">
-		<div id="loader"></div>
-
-	</div>
-	<div id="main">
-		<div class="wrapper">
-			<%@include file="../../../jspf/aside_left.jspf"%>
-			<section id="content"></section>
-		</div>
-		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<div id="table-datatables">
-			<div class="wrapper">
-				<section id="content" class="col m12 l12 s12"> </section>
-
-			</div>
-
-			<div class="container">
-				<section id="content" class="col m12 l12 s12">
 
 				<div class="card " style="width: 100%; margin-left: 5%">
-					<div id="detalleR">
-						<section class="plans-container" id="plans"> <article
-							class="col s12 m6 l4 ">
+		
+						<section class="plans-container" id="plans"> 
 						<div class="card " style="width: 85%; margin-left: 5%">
 							<div class="card-image #424242 grey darken-3 waves-effect ">
 								<div class="card-title">
@@ -60,7 +23,7 @@
 												<div class="col l6 m6 s6">
 													<input type="hidden" id="idt" />
 													<h6 class="light italic black-text">
-														<strong><h6>Nombres :</strong><span id="nome"></span><br>
+														<strong><h6>Nombres :</strong><span id="nombres"></span><br>
 														<strong>
 													</h6>
 													<h6>
@@ -180,7 +143,7 @@
 												<img materialboxed class="materialboxed"
 													data-caption="A picture of some deer and tons of trees"
 													width="250" style="z-index: 4"
-													src="<c:url value="/resources/img/carta de renuncia.png"/>">
+													src="<c:url value="/resources/img/carta de renuncia.png"/>"/>
 											</div>
 										</div>
 									</div>
@@ -189,7 +152,7 @@
 
 
 						</div>
-						</article> </section>
+						</section>
 						<form action="col s12">
 							<div class="row">
 								<div class="input-field col s6 center">
@@ -205,11 +168,9 @@
 							</div>
 
 						</form>
-					</div>
+					
 				</div>
-			</div>
-		</div>
-		<br> <br> <br>
+				<br> <br> <br>
 		<div id="modal3" class="modal">
 			<div class="modal-content lead black-text ">
 				<p>
@@ -249,29 +210,10 @@
 					class="waves-effect waves-light btn modal-action  red modal-close">Cancelar</a>
 			</div>
 		</div>
+		
+	
+		
 
-		<script
-			src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-			type="text/javascript"></script>
-		<!-- 	<script -->
-		<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
-		<!-- 		type="text/javascript"></script> -->
-		<script
-			src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
-			type="text/javascript"></script>
-			
-			<script>
-			$(document).ready(function(){
-				window.onload = alert(localStorage.getItem("departamento"));
-			});
-			
-			</script>
 		</body>
 			
 		

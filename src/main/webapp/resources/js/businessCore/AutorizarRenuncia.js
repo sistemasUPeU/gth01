@@ -148,7 +148,6 @@ $(document)
 
 													DetalleRenuncia(cantidad);
 
-
 													$("#otros").val(cantidad);
 
 												
@@ -169,8 +168,7 @@ $(document)
 									});
 					// listar();
 					
-					$("#AutorizarR").click(function(){
-						
+					$("#AutorizarR").click(function(){						
 						var idc=$("#idc").val();
 						$.get("AutorizarR", {
 							idc : idc,
@@ -184,16 +182,7 @@ $(document)
 							}else{
 								alert("NADA JONAS");
 							}
-								
-								
-							
-
-							}
-
-						);
-						
-
-							
+							});
 					});
 					
 					$("#RechazarR").click(function(){
@@ -248,78 +237,62 @@ function createTable(idDepartamento, idRol) {
 }
 var depa="";
 function DetalleRenuncia(idc) {
-	var ante="";
-
-//	$("#modal2").openModal();
-
 	
+//	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
 //		alert(data);
 //	});
-	$.get("AutorizarR", {
-		idc : idc,
-		opc : 2
+	$.get("details", {
 	}, function(data, status) {
-		 //alert(data);
-		
-		var detalle = JSON.parse(data);
-		console.log(detalle);
-		if (detalle.length == 0) {
-			// location.reload();
-			alert("nada de datos");
-		} else {
-//			alert("BIEN JONAS");
-			alert(detalle[0].NOMBRES);
-			window.location.href="http://localhost:8081/gth/renuncias/details";
-			depa=detalle[0].NOM_DEPA;
-			window.onload = function() {
-			    localStorage.setItem("nombres",detalle[0].NOMBRES);
-			    localStorage.setItem("paterno",detalle[0].PATERNO);
-			    localStorage.setItem("materno",detalle[0].MATERNO);
-			    localStorage.setItem("fecha_nac",detalle[0].FECHA_NAC);
-			    localStorage.setItem("fecha_inicio",detalle[0].FECHA_CONTRATO);
-			    localStorage.setItem("direccion",detalle[0].DOMICILIO);
-			    localStorage.setItem("departamento",depa);
-			    localStorage.setItem("area",detalle[0].NOM_AREA);
-			    localStorage.setItem("seccion",detalle[0].NOM_SECCION);
-			    localStorage.setItem("puesto",detalle[0].NOM_PUESTO);
-			    localStorage.setItem("tipo_contrato",detalle[0].TIPO_CONTRATO);
-			    localStorage.setItem("ante",ante);
-			    localStorage.setItem("certi",certi);
-			    
-			}
-			$("#nomes").text(detalle[0].NOMBRES);
-			$("#paterno").text(detalle[0].PATERNO);
-			$("#materno").text(detalle[0].MATERNO);
-			$("#fecha_nac").text(detalle[0].FECHA_NAC);
-			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-			$("#direccion").text(detalle[0].DOMICILIO);
-			$("#departamento").text(detalle[0].NOM_DEPA);
-			$("#area").text(detalle[0].NOM_AREA);
-			$("#seccion").text(detalle[0].NOM_SECCION);
-			$("#puesto").text(detalle[0].NOM_PUESTO);
-			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-			if(detalle[0].ANTECEDENTES!=1){
-				ante = "Si";
-			}else{
-				ante = "No";
-			}
-			var archi = detalle[0].ARCHIVO;
-			if(detalle[0].ANTECEDENTES!=0){
-				certi = "Si";
-			}else{
-				certi = "No";
-			}
-			$.get("/mostrardoc1",{
-				archi: archi
-			},function(data){
-				alert(data);
-			})
-			
-			
-		
-
-		}
+		alert(data);		
+//		 alert("BIEN JONAS");
+		 $("#contenido").html("");
+		 $("#contenido").html(data);
+		 $.get("AutorizarR",{opc:2,idc:idc},function(data,status){	
+			 alert(data);
+			 var detalle = JSON.parse(data);
+			 $("#nombres").text(detalle[0].NOMBRES);	
+			 $("#paterno").text(detalle[0].PATERNO);
+				$("#materno").text(detalle[0].MATERNO);
+				$("#fecha_nac").text(detalle[0].FECHA_NAC);
+				$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
+				$("#direccion").text(detalle[0].DOMICILIO);
+				$("#departamento").text(detalle[0].NOM_DEPA);
+				$("#area").text(detalle[0].NOM_AREA);
+				$("#seccion").text(detalle[0].NOM_SECCION);
+				$("#puesto").text(detalle[0].NOM_PUESTO);
+				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+				if(detalle[0].ANTECEDENTES!=1){
+					ante = "Si";
+				}else{
+					ante = "No";
+				}
+				var archi = detalle[0].ARCHIVO;
+				if(detalle[0].ANTECEDENTES!=0){
+					certi = "Si";
+				}else{
+					certi = "No";
+				}
+		 });
+		 
+	
+//		if (data.length == 0) {
+//			// location.reload();
+//			alert("nada de datos");
+//		} else {
+//			
+//			$("#nomes").text(detalle[0].NOMBRES);
+//			
+//			$.get("/mostrardoc1",{
+//				archi: archi
+//			},function(data){
+//				alert(data);
+//			})
+////			
+//			
+//		
+//
+//		}
 
 	});
 
