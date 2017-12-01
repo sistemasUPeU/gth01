@@ -257,14 +257,14 @@
             $('.dropify').dropify();
 
             // Translated
-            $('.dropify-fr').dropify({
-                messages: {
-                    default: 'Glissez-déposez un fichier ici ou cliquez',
-                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                    remove:  'Supprimer',
-                    error:   'Désolé, le fichier trop volumineux'
-                }
-            });
+//             $('.dropify-fr').dropify({
+//                 messages: {
+//                     default: 'Glissez-déposez un fichier ici ou cliquez',
+//                     replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+//                     remove:  'Supprimer',
+//                     error:   'Désolé, le fichier trop volumineux'
+//                 }
+//             });
 
             // Used events
             var drEvent = $('.dropify-event').dropify();
