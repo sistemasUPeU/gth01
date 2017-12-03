@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
-import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
+import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
 
@@ -33,11 +33,12 @@ import pe.edu.upeu.gth.dto.Renuncia;
 	public class ProcesarRenunciaController {
 		private Gson gson = new Gson();
 		Renuncia r = new Renuncia();
+		Rechazo re = new Rechazo();
 		RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 		RenProcesarDAO ra = new RenProcesarDAO(AppConfig.getDataSource()); 
 		Map<String, Object> mp = new HashMap<>();
 		public List<String> archi = new ArrayList<>();
-		// Autorizar Renuncia
+		// Procesar Renuncia
 			@RequestMapping(value = "/ProcesarR", method = RequestMethod.GET)
 			protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
@@ -55,9 +56,19 @@ import pe.edu.upeu.gth.dto.Renuncia;
 					out.println(gson.toJson(ra.Procesar()));
 					break;
 				case 4:
-					String idco = request.getParameter("idc");
-					r.setId_contrato(idco);
+					String idr = request.getParameter("idr");
+					r.setId_renuncia(idr);
 					out.println(ra.ProcesarRenuncia(r));
+					break;
+				case 5:
+					out.println(gson.toJson(ra.Procesado()));
+					break;
+				case 6:
+					String id = request.getParameter("id");
+					String observacion = request.getParameter("observacion");				
+					re.setId_renuncia(id);
+					re.setObservaciones(observacion);
+					out.println(ra.RechazarRenuncia(re));
 					break;
 				}
 
@@ -110,4 +121,3 @@ import pe.edu.upeu.gth.dto.Renuncia;
 //			}
 			
 	}
-
