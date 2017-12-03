@@ -26,18 +26,20 @@ public class TrabajadorVacDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-	public List<Map<String, Object>> list_trab_vac() {
+	public List<Map<String, Object>> list_trab_vac(String dep) {
 		sql = "select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.NO_SECCION,\r\n"
 				+ "trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))-trunc(to_date(dsv.FECHA_INICIO,'DD/MM/YYYY hh24:mi:ss'))+1 as NU_VAC,\r\n"
-				+ "t.NU_DOC, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, tf.LI_CONDICION, vtc.NO_USUARIO, dsv.ID_DET_VACACIONES\r\n"
+				+ "t.NU_DOC, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, tf.LI_CONDICION,\r\n"
+				+ "vtc.NO_USUARIO, dsv.ID_DET_VACACIONES\r\n"
 				+ "from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\r\n"
-				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc\r\n"
+				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\r\n"
 				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n"
-				+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO=1\r\n"
+				+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO=1\r\n" + "and hd.ESTADO=1\r\n"
+				+ "and hd.EVALUACION =2\r\n" + "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\r\n"
 				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\r\n"
 				+ "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n" + "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\r\n"
-				+ "and co.ES_CONTRATO=1";
-		return jt.queryForList(sql);
+				+ "and co.ES_CONTRATO=1 and tf.NO_DEP=?";
+		return jt.queryForList(sql, dep);
 	}
 
 	public int apobarVac(String usuario, String[] id_det) {

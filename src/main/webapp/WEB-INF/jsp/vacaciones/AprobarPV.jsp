@@ -36,7 +36,6 @@
 				<!-- Modal Structure -->
 
 				<!-- End of Modal Structure -->
-				<input id='username' class='hide' />
 				<div class="col s24 m12 l6">
 					<p>
 						<a
@@ -167,22 +166,7 @@
 									s += "</td>";
 									s += "</tr>";
 								}
-								$
-										.getJSON(
-												gth_context_path
-														+ '/components',
-												"opc=usuario",
-												function(objJSON) {
-													if (objJSON !== null) {
-														var q = '';
-														q = objJSON.username;
-														$("#username").val('');
-														$("#username").val(q);
-													} else {
-														console
-																.error("No se esta cargando la información");
-													}
-												});
+								
 								$("#contTable").empty();
 								$("#contTable").append(createTable00001());
 								$("#data").empty();
@@ -320,11 +304,6 @@
 								if (data == 1) {
 									Materialize.toast('Felicidades!!, ha aprobado a sus trabajadores', 3000, 'rounded');
 								} else {
-									$("#data-table-row-grouping").dataTable({
-										"columnDefs" : [ {
-											"targets" : 2,
-											"data" : false
-										} ]
 									Materialize.toast('UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!', 3000, 'rounded');
 								}
 							});
