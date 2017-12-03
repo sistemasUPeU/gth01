@@ -1,9 +1,6 @@
 package pe.edu.upeu.gth.controller.holidays;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,18 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.HTTP;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,13 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 import pe.edu.upeu.gth.config.AppConfig;
-import pe.edu.upeu.gth.dao.CorreoDAO;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
 
 @Controller
@@ -149,8 +133,8 @@ public class SolicitudController {
 	//
 	// HttpServletRequest request,HttpServletResponse object
 
-	@RequestMapping(value ="/insertar",method = RequestMethod.POST)
-    public int validarTipoSolicitudAAA(HttpServletRequest request,HttpServletResponse object) {
+	@RequestMapping(value ="/insertar",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String validarTipoSolicitudAAA(HttpServletRequest request) {
 		Gson gs = new Gson();
 		System.out.println("llega");
 		String ini = request.getParameter("inicio"); 
@@ -166,10 +150,9 @@ public class SolicitudController {
 		String[] fechas_fin=fin.split("-");
 		System.out.println(fechas_fin[0]);
 		
-		int j =vd.insertarSolicitud(fechas_inicio, fechas_fin, idt, tipo, user);
-//		System.out.println(gs.toJson(request.getParameter("data")));//(request.getParameter("data"), ArrayList<String> )request.getParameter("data"), String));
+		return gs.toJson(vd.insertarSolicitud(fechas_inicio, fechas_fin, idt, tipo, user)); 
+				//		System.out.println(gs.toJson(request.getParameter("data")));//(request.getParameter("data"), ArrayList<String> )request.getParameter("data"), String));
 		//return object.toString();
-		return j;
     }
 
 	// @RequestMapping(value ="/insertarfdd",method = RequestMethod.POST)

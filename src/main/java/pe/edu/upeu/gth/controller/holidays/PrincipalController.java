@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 
@@ -60,22 +61,30 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/AprobarPV");
 
 	}
-
+//
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
 
-//	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody String confirmarListaFiltrada() {
-//
-//	}
+	@RequestMapping(path = "/readallControlFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllControlFirma() {
+		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READALL());
+	}
 
 	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String confirmarListaFiltrada() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.CONFIRMAR());
+	}
+	
+	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getFirma(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READFECHA(id));
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
