@@ -206,7 +206,6 @@
 									</p>
 
 									<div id="modal3" class="modal modal modal-fixed-footer"
-<<<<<<< HEAD
 										style="width: 70%; height: 150%">
 										<div class="modal-header #1de9b6 teal accent-3">
 											<div class="center">
