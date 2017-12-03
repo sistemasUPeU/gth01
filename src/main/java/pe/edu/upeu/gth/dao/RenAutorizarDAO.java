@@ -92,6 +92,12 @@ public class RenAutorizarDAO implements CRUDOperations{
 		return jt.queryForList(sql);
 	}
 	
+	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
+		public List<Map<String, Object>> Autorizado() {
+			sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Autorizado'";
+			return jt.queryForList(sql);
+		}
+	
 	// Autorizar Renuncia
 		public int AutorizarRenuncia(Renuncia r) {
 			int x = 0;

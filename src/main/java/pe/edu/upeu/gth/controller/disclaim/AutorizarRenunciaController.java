@@ -63,6 +63,9 @@ public class AutorizarRenunciaController {
 				out.println(ra.AutorizarRenuncia(r));
 				break;
 			case 5:
+				out.println(gson.toJson(ra.Autorizado()));
+				break;
+			case 6:
 				String id = request.getParameter("id");
 				String observacion = request.getParameter("observacion");				
 				re.setId_renuncia(id);
