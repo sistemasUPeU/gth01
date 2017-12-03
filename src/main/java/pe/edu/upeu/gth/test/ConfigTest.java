@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
+import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
@@ -16,11 +17,13 @@ public class ConfigTest {
 	public static Gson gs = new Gson();
 	public static RenAutorizarDAO au = new RenAutorizarDAO(d);
 	public static RenunciaDAO re = new RenunciaDAO(d);
+	public static RenProcesarDAO pr = new RenProcesarDAO(d);
 
 	public static void main(String[] args) {
 //		conect();
 //		checkSecurityDaoAuthentication();
-		Autorizar();
+		//Autorizar();
+		Procesar();
 		//Renuncia();
 	}
 
@@ -52,6 +55,10 @@ public class ConfigTest {
 	public static void Renuncia() {
 		DataSource d = AppConfig.getDataSource();
 		System.out.println(gs.toJson(re.listar()));
+	}
+	
+	public static void Procesar() {
+		System.out.println(gs.toJson(pr.Procesar()));
 	}
 
 }

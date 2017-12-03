@@ -1,25 +1,13 @@
 $(document)
 		.ready(
 				function() {
-					if(!alertify.errorAlert){
-						  alertify.dialog('errorAlert',function factory(){
-						    return{
-						            build:function(){
-						                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
-						                +    'style="vertical-align:middle;color:#e10000;">'
-						                + '</span> Error al guardar los datos';
-						                this.setHeader(errorHeader);
-						            }
-						        };
-						    },true,'alert');
-						}
 
 					// $('.modal-trigger').leanModal();
 					// alert();
 					$
 							.getJSON(
-									gth_context_path + "/renuncias/AutorizarR",
-									"opc=3",
+									gth_context_path + "/renuncias/ProcesarR",
+									"opc=1",
 									function(objJson) {
 										var s = "";
 										var lista = objJson;
@@ -98,7 +86,7 @@ $(document)
 												// s += '<td>' + p + '</td>';
 												s += '<td>' + lista[i].ESTADO
 														+ '</td>';
-												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
+												s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Detalle</button>';
 
 												// s += '<td><button
 												// class="notificar waves-effect
@@ -160,6 +148,7 @@ $(document)
 
 													DetalleRenuncia(cantidad);
 
+
 													$("#otros").val(cantidad);
 
 												
@@ -180,7 +169,8 @@ $(document)
 									});
 					// listar();
 					
-					$("#AutorizarR").click(function(){						
+					$("#AutorizarR").click(function(){
+						
 						var idc=$("#idc").val();
 						$.get("AutorizarR", {
 							idc : idc,
@@ -194,7 +184,16 @@ $(document)
 							}else{
 								alert("NADA JONAS");
 							}
-							});
+								
+								
+							
+
+							}
+
+						);
+						
+
+							
 					});
 					
 					$("#RechazarR").click(function(){
@@ -208,7 +207,7 @@ $(document)
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px;"';
+	var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
 	s += 'cellspacing="0">';
 	s += '<thead>';
 	s += '<tr>';
@@ -247,104 +246,65 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-var depa="";
-
-
-
-//Detalle para Autorizar Renuncia
 function DetalleRenuncia(idc) {
+//	$("#modal2").openModal();
+alert(idc);
+	window.location.href="http://localhost:8081/gth/renuncias/processDetails";
+
 	
-<<<<<<< HEAD
-		window.location.href = "http://localhost:8081/gth/renuncias/details";
-		
-//	$.get("AutorizarR", {
+//	$.get("processDetails",{},function(data){
+//		alert(data);
+//	});
+//	$.get("ProcesarR", {
 //		idc : idc,
-//		opc : 2
+//		opc : 3
 //	}, function(data, status) {
 //		 //alert(data);
 //		var detalle = JSON.parse(data);
 //		console.log(detalle);
 //		if (detalle.length == 0) {
-=======
-//	$("#modal2").openModal();	
-//	$.get("details",{},function(data){
-//		alert(data);
-//	});
-	$.get("details", {
-	}, function(data, status) {
-		//alert(data);		
-//		 alert("BIEN JONAS");
-		 $("#contenido").html("");
-		 $("#contenido").html(data);
-		 $.get("AutorizarR",{opc:2,idc:idc},function(data,status){	
-			 //alert(data);
-			 var detalle = JSON.parse(data);
-			 $("#idr").val(detalle[0].ID_RENUNCIA);	
-			 $("#nombres").text(detalle[0].NOMBRES);	
-			 $("#paterno").text(detalle[0].PATERNO);
-				$("#materno").text(detalle[0].MATERNO);
-				$("#fecha_nac").text(detalle[0].FECHA_NAC);
-				$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-				$("#direccion").text(detalle[0].DOMICILIO);
-				$("#departamento").text(detalle[0].NOM_DEPA);
-				$("#area").text(detalle[0].NOM_AREA);
-				$("#seccion").text(detalle[0].NOM_SECCION);
-				$("#puesto").text(detalle[0].NOM_PUESTO);
-//				$("#centro_costo").tex(detalle[0].CENTRO_COSTO);
-				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-				if(detalle[0].ANTECEDENTES!=1){
-					$("#ante_poli").text("Si");
-				}else{	
-					$("#ante_poli").text("No");
-				}
-				var archi = detalle[0].ARCHIVO;
-				if(detalle[0].CERTI_SALUD!=0){
-					$("#certi_salud").text("Si");
-				}else{
-					$("#certi_salud").text("No");
-				}
-				$("#autorizarRen").click(function(){
-					var idr= $("#idr").val();
-					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
-						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
-							 alert("BIEN JONAS");
-			        		 alert(data);
-			        	});
-						 
-				     	} , function(){ 
-				        	
-				        });
-				});
-		 });
-		     
-	
-//		if (data.length == 0) {
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 //			// location.reload();
 //			alert("nada de datos");
 //		} else {
-//			
-//			$("#nomes").text(detalle[0].NOMBRES);
-//			
+////			alert("BIEN JONAS");
+//			$("#nombres").text(detalle[0].NOMBRES);
+//			$("#paterno").text(detalle[0].PATERNO);
+//			$("#materno").text(detalle[0].MATERNO);
+//			$("#fecha_nac").text(detalle[0].FECHA_NAC);
+//			$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
+//			$("#direccion").text(detalle[0].DOMICILIO);
+//			$("#departamento").text(detalle[0].NOM_DEPA);
+//			$("#area").text(detalle[0].NOM_AREA);
+//			$("#seccion").text(detalle[0].NOM_SECCION);
+//			$("#puesto").text(detalle[0].NOM_PUESTO);
+//			$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+//			if(detalle[0].ANTECEDENTES!=1){
+//				$("#ante").text("Si");
+//			}else{
+//				$("#ante").text("No");
+//			}
+//			var archi = detalle[0].ARCHIVO;
+//			if(detalle[0].ANTECEDENTES!=0){
+//				$("#certi").text("Si");
+//			}else{
+//				$("#certi").text("No");
+//			}
 //			$.get("/mostrardoc1",{
 //				archi: archi
 //			},function(data){
 //				alert(data);
 //			})
-////			
+//			
 //			
 //		
 //
 //		}
-
-	});
+//
+//	});
 
 }
 
-$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
-  });
+
 
 function id(idc) {
 	alert(idc);
@@ -355,40 +315,40 @@ function ParsearMes(mesint) {
 	console.log(mesint);
 	switch (mesint) {
 	case 01:
-		mes = "ENE";
+		mes = "Enero";
 		break;
 	case 02:
-		mes = "FEB";
+		mes = "Febrero";
 		break;
 	case 03:
-		mes = "MAR";
+		mes = "Marzo";
 		break;
 	case 04:
-		mes = "ABR";
+		mes = "Abril";
 		break;
 	case 05:
-		mes = "MAY";
+		mes = "Mayo";
 		break;
 	case 06:
-		mes = "JUN";
+		mes = "Junio";
 		break;
 	case 07:
-		mes = "JUL";
+		mes = "Julio";
 		break;
 	case 08:
-		mes = "AGO";
+		mes = "Agosto";
 		break;
 	case 09:
-		mes = "SET";
+		mes = "Septiembre";
 		break;
 	case 10:
-		mes = "OCT";
+		mes = "Octubre";
 		break;
 	case 11:
-		mes = "NOV";
+		mes = "Noviembre";
 		break;
 	case 12:
-		mes = "DIC";
+		mes = "Diciembre";
 		break;
 	}
 	return mes;

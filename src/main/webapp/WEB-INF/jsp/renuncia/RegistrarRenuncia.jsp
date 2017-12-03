@@ -101,9 +101,6 @@
 												Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
 											</h6>
 											</h6>
-
-
-
 										</div>
 									</sup>
 								</div>
@@ -209,6 +206,7 @@
 									</p>
 
 									<div id="modal3" class="modal modal modal-fixed-footer"
+<<<<<<< HEAD
 										style="width: 70%; height: 150%">
 										<div class="modal-header #1de9b6 teal accent-3">
 											<div class="center">
@@ -287,6 +285,95 @@
 												</div>
 										
 											<input type="hidden" id="array_motivos" />
+=======
+										style="width: 100%; height: 100%">
+										<div class="modal-header #1de9b6 teal accent-3">
+											<div class="center">
+												<h4 style="font-family: 'Dosis', sans-serif;">Registrar
+													renuncia</h4>
+											</div>
+										</div>
+										<div class="modal-content #e0f7fa cyan lighten-5"
+											style="z-index: 0">
+
+											<div class="row section">
+												<div class="col s12">
+													<div class="row">
+														<div class="input-field col s6">
+															<h5 style="font-family: 'Dosis', sans-serif;">Ingrese
+																el motivo de la renuncia:</h5>
+														</div>
+														<div id="mot" class="input-field col s6">
+															<select id="motivo" multiple>
+
+															</select>
+														</div>
+
+													</div>
+												</div>
+												<div class="col s12">
+													<div class="input-field col s6">
+														<h5 style="font-family: 'Dosis', sans-serif;">Fecha
+															de entrega de carta de renuncia:</h5>
+													</div>
+													<div class="input-field col s6">
+														<label for=""></label> <input type="text" name="fecha"
+															id="fecha" class="datepicker">
+														<!-- 														 <input type="text"  id="fechap"> -->
+
+													</div>
+												</div>
+												<!-- 												<div action="" id="other" class="col s12" -->
+												<!-- 													style="display: none"> -->
+
+												<div class="row" id="otrosdiv">
+													<div class="col s12">
+														<div class="row">
+															<div class="input-field col s12">
+																<textarea id="otros" class="materialize-textarea"></textarea>
+																<label for="otros">Ingrese el motivo en
+																	particular</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- 												</div> -->
+												<div class="input-field col s12">
+													<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
+														la carta de renuncia:</h5>
+												</div>
+												<div class="col s12">
+
+													<input type="file" name="file" class="dropify" id="pelon1"
+														data-height="500" />
+												</div>
+
+												<!-- 												<input type="submit" value="Subir archivo" />  -->
+
+											</div>
+										</div>
+
+										<div class="modal-footer #1de9b6 teal accent-3"
+											style="z-index: 2">
+
+											<div class="col s6" style="margin-right: 2em;">
+												<button type="submit"
+													class="btn waves-effect waves-light indigo" id="RegistrarR">
+													Enviar <i class="mdi-content-send right"></i>
+												</button>
+
+											</div>
+											<div class="col s6" style="margin-right: 2em">
+												<a
+													class="btn waves-effect waves-light blue-grey modal-close">
+													Cancelar </a>
+
+											</div>
+											<input type="hidden" id="array_motivos" />
+
+											<!-- 											<a href="#" -->
+											<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 										</div>
 									</div>
 								</div>

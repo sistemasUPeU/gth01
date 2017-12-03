@@ -56,8 +56,8 @@ public class AutorizarRenunciaController {
 				out.println(gson.toJson(ra.Pendiente()));
 				break;
 			case 4:
-				String idco = request.getParameter("idc");
-				r.setId_contrato(idco);
+				String idr = request.getParameter("idr");
+				r.setId_renuncia(idr);
 				out.println(ra.AutorizarRenuncia(r));
 				break;
 			}
