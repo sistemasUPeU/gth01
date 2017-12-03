@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	PRUEBAJONAS();
+//	PRUEBAJONAS();
 	listarProcesados();
 	listarNotificados();
 	
@@ -17,7 +17,7 @@ function listarProcesados() {
 						var lista = objJson;
 						console.log(objJson);
 						if (lista.length > 0) {
-							// alert("si hay datos causita c:");
+							 //alert("si hay datos causita c:");
 
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
@@ -439,3 +439,9 @@ function notificarRenuncia() {
 
 	});
 }
+
+//FECHA
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });

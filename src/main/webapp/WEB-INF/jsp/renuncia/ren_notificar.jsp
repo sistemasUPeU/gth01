@@ -85,8 +85,8 @@
 							Señor <span id="nombre"></span> sus documentos ya se encuentran
 							listos para ser entregados, por favor se le invita a pasar por la
 							oficina de Gestion de Talentos Humanos (GTH) a recoger sus
-							documentos de beneficios sociales en la fecha <span><input
-								type="date" id="fecha" class="datepicker"></span>
+							documentos de beneficios sociales en la fecha <span>
+							<input type="date" style="width: 20%" class="datepicker"></span>
 
 						</p>
 						<p id="mensaje2">
@@ -100,14 +100,14 @@
 			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
 
 				<div class="col s6" style="margin-right: 2em;">
-					<button type="submit" class="btn waves-effect waves-light indigo"
+					<button type="submit" class="btn waves-effect green waves-light indigo"
 						id="" onclick="enviarCorreo()">
 						Enviar <i class="mdi-content-send right"></i>
 					</button>
 
 				</div>
 				<div class="col s6" style="margin-right: 2em">
-					<a class="btn waves-effect waves-light blue-grey modal-close">
+					<a class="btn waves-effect waves-light red  modal-close">
 						Cancelar </a>
 				</div>
 				<!-- 											<a href="#" -->
