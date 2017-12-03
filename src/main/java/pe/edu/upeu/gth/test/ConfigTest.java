@@ -1,5 +1,9 @@
 package pe.edu.upeu.gth.test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.sql.DataSource;
 
 import com.google.gson.Gson;
@@ -23,7 +27,8 @@ public class ConfigTest {
 //		conect();
 //		checkSecurityDaoAuthentication();
 		//Autorizar();
-		Procesar();
+//		Procesar();
+//		Procesar1();
 		//Renuncia();
 	}
 
@@ -60,5 +65,7 @@ public class ConfigTest {
 	public static void Procesar() {
 		System.out.println(gs.toJson(pr.Procesar()));
 	}
+	
+
 
 }

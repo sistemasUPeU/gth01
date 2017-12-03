@@ -140,6 +140,11 @@ public class RenunciaDAO {
 		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Procesado'";
 		return jt.queryForList(sql);
 	}
+	
+	public List<Map<String, Object>> listarNotificados() {
+		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Notificado'";
+		return jt.queryForList(sql);
+	}
 
 	// Lista de motivos de renuncia
 	public List<Map<String, Object>> mostrarMotivo() {
@@ -264,6 +269,19 @@ public class RenunciaDAO {
 		}
 
 		return enviado;
+	}
+	
+	public int notificarRenuncia(Renuncia r) {
+		int x = 0;
+		String sql = "UPDATE REN_RENUNCIA SET ESTADO=? WHERE ID_RENUNCIA=?";
+		try {
+			jt.update(sql, new Object[] { r.getEstado(), r.getId_renuncia()});
+			x = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
 	}
 
 }

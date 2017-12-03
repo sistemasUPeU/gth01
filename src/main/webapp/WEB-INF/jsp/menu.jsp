@@ -48,6 +48,7 @@ footer {
 			var data = "opc=modulos";
 			$.getJSON(url, data, function(objJson) {
 				var list = objJson.lista;
+				console.log(list);
 				var s = "";
 				if (list.length > 0) {
 					for (var i = 0; i < list.length; i++) {

@@ -57,15 +57,10 @@
 					<div class="collapsible-header active">
 						<i class="mdi-toggle-check-box"></i> Renuncias por entregar
 					</div>
-					<div class="collapsible-body" style="display: none;">
-						<div id="table-datatables">
-							<h4 class="header">REQUERIMIENTOS AUTORIZADO</h4>
-							<div class="row">
-								<div class="col s12 m8 l9 con"></div>
-							</div>
-						</div>
-
-
+					<div id="tabla-notificada "
+						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+						style="display: none;">
+						<div class="col s12 m8 l9 conN"></div>
 					</div>
 				</li>
 			</ul>
@@ -98,7 +93,7 @@
 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
 						</p>
 					</div>
-					<input type="password" id="pass"> <label id="idtr"></label>
+					<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label>
 				</div>
 			</div>
 

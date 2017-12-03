@@ -254,7 +254,7 @@ var depa="";
 //Detalle para Autorizar Renuncia
 function DetalleRenuncia(idc) {
 	
-<<<<<<< HEAD
+
 		window.location.href = "http://localhost:8081/gth/renuncias/details";
 		
 //	$.get("AutorizarR", {
@@ -265,7 +265,7 @@ function DetalleRenuncia(idc) {
 //		var detalle = JSON.parse(data);
 //		console.log(detalle);
 //		if (detalle.length == 0) {
-=======
+
 //	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
 //		alert(data);
@@ -319,7 +319,6 @@ function DetalleRenuncia(idc) {
 		     
 	
 //		if (data.length == 0) {
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 //			// location.reload();
 //			alert("nada de datos");
 //		} else {

@@ -24,6 +24,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.LegajoDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.Legajo;
+import pe.edu.upeu.gth.dto.Renuncia;
 
 @Controller
 @Scope("request")
@@ -73,7 +74,7 @@ public class GestionarEntregaDocController {
 			ServletContext cntx = request.getServletContext();
 			// Get the absolute path of the image
 			// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-//			PrintWriter out = response.getWriter();
+			// PrintWriter out = response.getWriter();
 
 			List<Map<String, Object>> result1 = rd.cargarMotivo("REN-000002");
 			System.out.println(gson.toJson(result1));
@@ -81,8 +82,9 @@ public class GestionarEntregaDocController {
 
 			String nom = (String) result1.get(0).get("NO_ARCHIVO");
 			String tipo = (String) result1.get(0).get("TI_ARCHIVO");
-//			String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim() + "." + tipo.trim());
-			 String filename ="E:/TRABAJO/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/david/norm.jpg";
+			// String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim() + "." +
+			// tipo.trim());
+			String filename = "E:/TRABAJO/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/david/norm.jpg";
 
 			System.out.println(nom + "//" + tipo + "//" + filename);
 			out.println(filename);
@@ -92,14 +94,14 @@ public class GestionarEntregaDocController {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				return;
 			}
-	
+
 			response.setContentType(mime);
 			File file = new File(filename);
 			response.setContentLength((int) file.length());
-	
+
 			FileInputStream in = new FileInputStream(file);
 			OutputStream out1 = response.getOutputStream();
-	
+
 			// Copy the contents of the file to the output stream
 			byte[] buf = new byte[1024];
 			int count = 0;
@@ -108,6 +110,19 @@ public class GestionarEntregaDocController {
 			}
 			out1.close();
 			in.close();
+			break;
+
+		case 6:
+			Renuncia r = new Renuncia();
+			r.setId_renuncia(request.getParameter("idr"));
+			r.setEstado("Notificado");
+//			l.setOtros(request.getParameter("otros"));
+//			l.setDetalle_otros(request.getParameter("detalle"));
+			out.println(rd.notificarRenuncia(r));
+			break;
+			
+		case 7:
+			out.println(gson.toJson(rd.listarNotificados()));
 			break;
 
 		}
