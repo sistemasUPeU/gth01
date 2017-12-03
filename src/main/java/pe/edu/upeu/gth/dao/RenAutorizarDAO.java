@@ -1,5 +1,6 @@
 package pe.edu.upeu.gth.dao;
 
+import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,9 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import oracle.jdbc.OracleConnection;
+import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 //import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
@@ -26,6 +30,7 @@ public class RenAutorizarDAO implements CRUDOperations{
     CallableStatement cs;
     ResultSet rs;
     Connection cn;
+    DataSource d = AppConfig.getDataSource();
 //    DataSource d = AppConfig.getDataSource();
 
     private static JdbcTemplate jt;
@@ -80,14 +85,14 @@ public class RenAutorizarDAO implements CRUDOperations{
 //    }
 	
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
-		sql = "select ID_RENUNCIA,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_RENUNCIA";
+		sql = "select ID_RENUNCIA,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM REN_VIEW_RENUNCIA";
 
 		sql += " where ID_CONTRATO='" + idc + "' ";
 
 		return jt.queryForList(sql);
 	}
 	
-	// falta
+	// Autorizar Renuncia
 		public int AutorizarRenuncia(Renuncia r) {
 			int x = 0;
 			String sql = "UPDATE REN_RENUNCIA SET ESTADO='Autorizado' WHERE ID_RENUNCIA=? ";
@@ -100,7 +105,38 @@ public class RenAutorizarDAO implements CRUDOperations{
 			}
 			return x;
 		}
-	
-	
-
+		
+		public int RechazarRenuncia(Rechazo ob) {
+			int x = 0;
+			String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";
+//			String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+			try {
+			 jt.update(sql,new Object[] {ob.getId_renuncia(),ob.getObservaciones()});
+			 x=1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Error:" + e);
+			}
+			return x;
+			
+		}
+		
+//		public int insertarRechazo(Rechazo ob) {
+//			int x = 0;
+//			try {
+//				cn = d.getConnection();
+////				 jt.update(sql,new Object[] {ob.getObservaciones(),ob.getId_renuncia()});
+//				Array arreglo = ((OracleConnection) cn).createOracleArray(ob.getId_renuncia(),ob.getObservaciones());
+//				cs = cn.prepareCall("call REN_UPDATE_RENUNCIA( ? , ?)");
+//				cs.setArray(1, arreglo);
+//				cs.setArray(2, arreglo);
+//				x = 1;
+//				cs.execute();
+//				cn.commit();
+//				cn.close();
+//			} catch (Exception e) {
+//				System.out.println("Error al insertar rechazo " + e);
+//			}
+//			return x;
+//		}
 }

@@ -24,7 +24,7 @@
 											<strong><h6>Nombres :</strong><span id="nombres"></span><br>
 											<strong>
 										</h6>
-										 <input type="hidden" id="idr" />
+										<input type="hidden" id="idr" />
 										<h6>
 											Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
 										</h6>
@@ -171,10 +171,18 @@
 							</div>
 							<div class="input-field col s6">
 								<div class="material-placeholder">
+									<!-- 									<img materialboxed class="materialboxed" -->
+									<!-- 										data-caption="A picture of some deer and tons of trees" -->
+									<!-- 										width="250" " style="z-index: 4" -->
+									<%--
+									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%>
+									<span id="carta">
 									<img materialboxed class="materialboxed"
 										data-caption="A picture of some deer and tons of trees"
-										width="250"" style="z-index: 4"
-										src="<c:url value="/resources/img/carta de renuncia.png"/>" />
+										width="250" " style="z-index: 4"
+										 id="carta"/>
+									</span>
+									
 								</div>
 							</div>
 						</div>
@@ -186,7 +194,8 @@
 			<div class="row">
 				<div class="input-field col s6 center">
 					<a
-						class="btn btn-large waves-effect waves-light light-green darken-4 " id="autorizarRen">Autorizar</a>
+						class="btn btn-large waves-effect waves-light light-green darken-4 "
+						id="autorizarRen">Autorizar</a>
 				</div>
 				<div class="input-field col s6 center">
 					<a
@@ -199,7 +208,8 @@
 	<br>
 	<br>
 	<br>
-	<div id="modal3" class="modal modal-fixed-footer" style="width: 60%; height: 80%; border: 5px solid black">
+	<div id="modal3" class="modal modal-fixed-footer"
+		style="width: 60%; height: 80%; border: 5px solid black">
 		<div class="modal-content lead black-text ">
 			<p>
 			<h4>Motivos de Rechazo</h4>
@@ -211,9 +221,9 @@
 						<div class="input-field col s7">
 							<h5>Descripción de rechazo:</h5>
 						</div>
-						<div class="input-field col s5">
-							<h5 style="font-family: 'Dosis', sans-serif;">Fecha:</h5>
-						</div>
+						<!-- 						<div class="input-field col s5"> -->
+						<!-- 							<h5 style="font-family: 'Dosis', sans-serif;">Fecha:</h5> -->
+						<!-- 						</div> -->
 
 					</div>
 
@@ -221,35 +231,32 @@
 			</form>
 			<form action="col s12">
 				<div class="row">
-					<div class="col s6">
 
-						<div class="input-field col s12">
-							<textarea id="textarea1" class="materialize-textarea"></textarea>							
-						</div>
+					<div class="input-field col s12">
+						<textarea id="observacion" class="materialize-textarea"></textarea>
 					</div>
-					<div class="input-field col s6">
-						<label for=""></label> <input type="text" name="fecha" id="fecha"
-							class="datepicker" style="z-index:-1">
-						<!-- 														 <input type="text"  id="fechap"> -->
-					</div>
+					<!-- 					<div class="input-field col s6"> -->
+					<!-- 						<input type="text" id="Date" class="datepicker" /> -->
+					<!-- 					</div> -->
 				</div>
 			</form>
 		</div>
-		<div class="modal-footer  black lighten-1  darken-2" style="z-index:5; position:fixed">
-		<div class="row">
-		<div class="col s4">
-		 	<a href="#"
-				class="waves-effect waves-light btn modal-action  green modal-close " >Enviar</a>
-		</div>
-		<div class="col s4">
-		 	<a href="#"
-				class="waves-effect waves-light btn modal-action  red modal-close">Cancelar</a>
-		</div>
-		<div class="col s4">
-		</div>		
-		</div>
-			
-			
+		<div class="modal-footer  black lighten-1  darken-2"
+			style="z-index: 5; position: fixed">
+			<div class="row">
+				<div class="col s4">
+					<a href="#"
+						class="waves-effect waves-light btn modal-action  green modal-close "
+						id="RechazarRenuncia">Enviar</a>
+				</div>
+				<div class="col s4">
+					<a href="#"
+						class="waves-effect waves-light btn modal-action  red modal-close">Cancelar</a>
+				</div>
+				<div class="col s4"></div>
+			</div>
+
+
 		</div>
 	</div>
 

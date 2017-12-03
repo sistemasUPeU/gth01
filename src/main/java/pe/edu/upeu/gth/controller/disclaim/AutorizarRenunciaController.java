@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
+import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
 @Controller
@@ -34,6 +35,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 public class AutorizarRenunciaController {
 	private Gson gson = new Gson();
 	Renuncia r = new Renuncia();
+	Rechazo re = new Rechazo();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource()); 
 	Map<String, Object> mp = new HashMap<>();
@@ -59,6 +61,13 @@ public class AutorizarRenunciaController {
 				String idr = request.getParameter("idr");
 				r.setId_renuncia(idr);
 				out.println(ra.AutorizarRenuncia(r));
+				break;
+			case 5:
+				String id = request.getParameter("id");
+				String observacion = request.getParameter("observacion");				
+				re.setId_renuncia(id);
+				re.setObservaciones(observacion);
+				out.println(ra.RechazarRenuncia(re));
 				break;
 			}
 

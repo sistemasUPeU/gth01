@@ -71,6 +71,21 @@
 
 					</div>
 				</div>
+				<!-- AQUÍ SE INSERTA A TRAVÉS DE FORM PERO DAAHHH -->
+				<!-- 				<div> -->
+				<!-- 					<object data="" id="hola" type="application/pdf" width="300" -->
+				<!-- 						height="200"> -->
+				<!-- 						alt : <a href="test.pdf">test.pdf</a> -->
+				<!-- 					</object> -->
+				<!-- 				</div> -->
+				<!-- 				<form method="post" action="form" enctype="multipart/form-data"> -->
+				<!-- 					<input type="file" name="file"  class="dropify" -->
+				<!-- 						accept="image/jpeg,image/png,image/gif,application/pdf" /> <input -->
+				<!-- 						type="text" name="idtr" id="idtr" value=""> <input -->
+				<!-- 						type="submit" value="Subir archivo" /> -->
+				<!-- 				</form> -->
+
+				<!-- 				<a href="#" onclick="Prueba()">ver</a> -->
 			</div>
 			<div class="container" style="margin-bottom: 3em">
 				<div id="detalleR" style="display: none">
@@ -85,25 +100,31 @@
 							<div class="price flow-text ">
 								<div class="col m12 l12 s12">
 									<sup id="profile-page-content" class="row">
-										<div class="row card-panel " style="text-align: center">
-											<input type="hidden" id="idt" />
-											<h6 class="light italic black-text">
-												<strong><h6>Nombres :</strong><span id="nombres"></span><br>
-												<strong>
-											</h6>
-											<h6>
-												Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
-											</h6>
-											<h6>
-												Apellido Materno : </strong><span id="materno"></span><br> <strong>
-											</h6>
-											<h6>
-												Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
-											</h6>
-											</h6>
+										<div class="row card-panel">
+											<div class="col l1 m1 s6">
+												<img src="<c:url value="/resources/img/user.png"/>" alt=""
+													class="circle responsive-img valign profile-image">
+											</div>
+											<div class="col l3 m3 s6">
+												<input type="hidden" id="idt" />
+												<h6 class="light italic black-text">
+													<strong><h6>Nombres :</strong><span id="nombres"></span><br>
+													<strong>
+												</h6>
+												<h6>
+													Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
+												</h6>
+												<h6>
+													Apellido Materno : </strong><span id="materno"></span><br> <strong>
+												</h6>
+												<h6>
+													Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
+												</h6>
+												</h6>
+											</div>
 										</div>
-									</sup>
 								</div>
+								</sup>
 							</div>
 							<div class="price-desc white-text">
 								<form class="col s12 ">
@@ -205,92 +226,10 @@
 											href="#modal3">Adjuntar Carta de Renuncia</a>
 									</p>
 
-									<div id="modal3" class="modal modal modal-fixed-footer"
-<<<<<<< HEAD
-										style="width: 70%; height: 150%">
+									<div id="modal3" class="modal modal modal-fixed-footer">
 										<div class="modal-header #1de9b6 teal accent-3">
-											<div class="center">
-												<h4 style="font-family: 'Dosis', sans-serif;">Registrar
-													renuncia</h4>
-											</div>
-										</div>
-										<div class="modal-content #e0f7fa cyan lighten-5"
-											style="z-index: 0">
-											<div class="row section">
-												<div class="col s12">
-													<div class="row">
-														<div class="input-field col s3">
-															<h5 style="font-family: 'Dosis', sans-serif;">Ingrese
-																el motivo de la renuncia:</h5>
-														</div>
-
-														<div class="input-field col s6">
-															<h5 style="font-family: 'Dosis', sans-serif;">
-																Fecha de entrega <br>de carta de renuncia:
-															</h5>
-														</div>
-
-														<div class="input-field col s3">
-															<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
-																la carta de renuncia:</h5>
-														</div>
-													</div>
-													<div class="row">
-														<div id="mot" class="input-field col s5">
-															<select id="motivo" multiple>
-
-															</select>
-														</div>
-														
-														<div class="input-field col s3">
-															<label for=""></label> <input type="text" name="fecha"
-																id="fecha" class="datepicker">
-														</div>
-														<div class="col s4">
-															<input type="file" name="file" class="dropify"
-																id="pelon1" data-height="350" />
-														</div>
-														<div class="row" id="otrosdiv">
-															<div class="col s12">
-																<div class="row">
-																	<div class="input-field col s6">
-																		<textarea id="otros" class="materialize-textarea"></textarea>
-																		<label for="otros">Ingrese el motivo en
-																			particular</label>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="modal-footer "
-											style="z-index: 2">
-								
-												<div class="row">
-													<div class="input-field col s6 " style="padding-right:25%">
-														<a class="btn btn-large waves-light  red  modal-close">
-																Cancelar </a>
-													</div>
-													<div class="input-field col s6 center" style="padding-right:25%">
-														<button type="submit"
-																class="btn btn-large waves-light green indigo"
-																id="RegistrarR">
-																Enviar <i class="mdi-content-send right"></i>
-															</button>
-
-													</div>
-													
-												</div>
-										
-											<input type="hidden" id="array_motivos" />
-=======
-										style="width: 100%; height: 100%">
-										<div class="modal-header #1de9b6 teal accent-3">
-											<div class="center">
-												<h4 style="font-family: 'Dosis', sans-serif;">Registrar
-													renuncia</h4>
+											<div class="center">												
+												<h4 style="font-family: 'Dosis', sans-serif;">Registrar renuncia</h4>
 											</div>
 										</div>
 										<div class="modal-content #e0f7fa cyan lighten-5"
@@ -346,6 +285,8 @@
 
 													<input type="file" name="file" class="dropify" id="pelon1"
 														data-height="500" />
+
+
 												</div>
 
 												<!-- 												<input type="submit" value="Subir archivo" />  -->
@@ -373,7 +314,10 @@
 
 											<!-- 											<a href="#" -->
 											<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+
+
+
+
 										</div>
 									</div>
 								</div>
@@ -398,13 +342,12 @@
 
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
-	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
+	<div style="position:fixed;width:100%;bottom: 0;z-index:5 ">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
 	<!-- 		type="text/javascript"></script> -->
 
-	<script
-		src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
+	<script src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"

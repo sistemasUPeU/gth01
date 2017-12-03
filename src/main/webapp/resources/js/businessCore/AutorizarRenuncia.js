@@ -254,18 +254,6 @@ var depa="";
 //Detalle para Autorizar Renuncia
 function DetalleRenuncia(idc) {
 	
-
-		window.location.href = "http://localhost:8081/gth/renuncias/details";
-		
-//	$.get("AutorizarR", {
-//		idc : idc,
-//		opc : 2
-//	}, function(data, status) {
-//		 //alert(data);
-//		var detalle = JSON.parse(data);
-//		console.log(detalle);
-//		if (detalle.length == 0) {
-
 //	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
 //		alert(data);
@@ -297,18 +285,36 @@ function DetalleRenuncia(idc) {
 				}else{	
 					$("#ante_poli").text("No");
 				}
-				var archi = detalle[0].ARCHIVO;
+//				var archi = detalle[0].ARCHIVO;
 				if(detalle[0].CERTI_SALUD!=0){
 					$("#certi_salud").text("Si");
 				}else{
 					$("#certi_salud").text("No");
 				}
+//				var img = document.getElementById("carta")
+				$("#carta").text(detalle[0].ARCHIVO);
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
+					alert(idr);
 					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
 							 alert("BIEN JONAS");
 			        		 alert(data);
+			        	});
+						 
+				     	} , function(){ 
+				        	
+				        });
+				});
+				$("#RechazarRenuncia").click(function(){
+					var id= $("#idr").val();
+					var observacion = $("#observacion").val();					
+					alert(id);
+					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
+						 $.get("AutorizarR",{opc:5,id:id,observacion:observacion},function(data){
+							 alert("BIEN Nicole");
+			        		 alert(data);
+			        		 
 			        	});
 						 
 				     	} , function(){ 
@@ -342,8 +348,15 @@ function DetalleRenuncia(idc) {
 
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
+    selectYears: 15 // Creates a dropdown of 15 years to control year 
   });
+
+window.picker = $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 100, // Creates a dropdown of 15 years to control year
+    format: 'dd/mm/yyyy'    
+});
+$("#Date").val('SYSDATE');
 
 function id(idc) {
 	alert(idc);
