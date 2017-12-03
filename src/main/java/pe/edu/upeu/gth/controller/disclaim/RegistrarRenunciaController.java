@@ -80,7 +80,7 @@ public class RegistrarRenunciaController {
 			out.print(rd.insertarMotivos(listaMotivos));
 			break;
 
-		case 4:
+		case 4:  
 			out.println(gson.toJson(rd.cargarMotivo(request.getParameter("idtr"))));
 			break;
 		case 5:
