@@ -304,7 +304,7 @@ function DetalleRenuncia(idc) {
 				        });
 				});
 		 });
-		 
+		     
 	
 //		if (data.length == 0) {
 //			// location.reload();
