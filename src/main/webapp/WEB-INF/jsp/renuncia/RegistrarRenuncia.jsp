@@ -299,8 +299,8 @@
 											style="z-index: 2">
 
 											<div class="col s6" style="margin-right: 2em;">
-												<button type="submit"
-													class="btn waves-effect waves-light indigo" id="RegistrarR">
+												<button onclick="enviarCorreo()"
+													class="btn waves-effect waves-light indigo" id="NotificarR">
 													Enviar <i class="mdi-content-send right"></i>
 												</button>
 

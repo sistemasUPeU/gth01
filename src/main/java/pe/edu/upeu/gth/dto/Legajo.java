@@ -3,6 +3,7 @@ package pe.edu.upeu.gth.dto;
 public class Legajo {
 	private String idlegajo;
 	private String idtrabajador;
+	private String idrenuncia;
 	private String fecha_legajo;
 	private String id_tipo_doc;
 	private String no_archivo;
@@ -10,6 +11,16 @@ public class Legajo {
 	private String fecha_registro;
 	private String otros;
 	private String detalle_otros;
+
+	
+	
+	public String getIdrenuncia() {
+		return idrenuncia;
+	}
+
+	public void setIdrenuncia(String idrenuncia) {
+		this.idrenuncia = idrenuncia;
+	}
 
 	public String getIdlegajo() {
 		return idlegajo;
