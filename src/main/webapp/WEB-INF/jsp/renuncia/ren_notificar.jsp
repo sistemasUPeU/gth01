@@ -70,15 +70,11 @@
 
 		</div>
 	</div>
-<<<<<<< HEAD
-	<div id="modalentregar" class="modal"> 
-=======
 
 
 
 
 	<div id="modalnotificar" class="modal">
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
 				<div class="row card-panel">
@@ -191,13 +187,6 @@
 
 				</div>
 				<input type="hidden" id="array_motivos" />
-
-				<!-- 											<a href="#" -->
-				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
 			</div>
 		</form>
 	</div>
