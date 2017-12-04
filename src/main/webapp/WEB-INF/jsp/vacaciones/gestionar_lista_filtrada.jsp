@@ -30,30 +30,6 @@
 
 		<div class="container">
 			<div class="row">
-				<!-- <div class="input-field col s6">
-					<i class="mdi-action-search prefix"></i> <input
-						id="searchTrabajador" type="text" class="validate"
-						onkeyup="searchTrabajador()"> <label
-						for="searchTrabajador">Trabajador</label>
-				</div>
-				<div class="input-field col s6">
-					<i class="mdi-action-search prefix"></i> <input
-						id="searchDepartamento" type="text" class="validate"
-						onkeyup="searchDepartamento()"> <label
-						for="searchDepartamento">Departamento</label>
-				</div>
-				<table id="table_trabajador-filtrado"
-					class="bordered highlight centered">
-					<thead>
-						<tr>
-							<th>Apellidos y Nombres</th>
-							<th>Departamento</th>
-							<th>Área</th>
-							<th>Sección</th>
-							<th>Condición</th>
-						</tr>
-					</thead>
-				</table> -->
 				<div id="table_contenido" class="col s12 m12 l12"></div>
 				<br> <a id="confirmar_lista" class="btn waves-effect waves-light right"><i
 					class="mdi-navigation-check"></i> Confirmar</a>
@@ -75,11 +51,9 @@
 	$(document).ready(function() {
 		console.log("si");
  		listarTrabajadorFiltrado();
-		//readAllTF();
 	})
 	
 $("#confirmar_lista").click(function(){
-	//$('#confirmar_lista').attr("disabled", true);
 	$('#confirmar_lista').addClass('disabled');
 	$.get("confirmarListaFiltrada", function(data, status) {
 		console.log(data);
@@ -101,65 +75,7 @@ $("#confirmar_lista").click(function(){
 		}
 	});
 });
-// 	function searchTrabajador() {
-// 		var input, filter, table, tr, td, i;
-// 		input = document.getElementById("searchTrabajador");
-// 		filter = input.value.toUpperCase();
-// 		table = document.getElementById("table_trabajador-filtrado");
-// 		tr = table.getElementsByTagName("tr");
-
-// 		for (i = 0; i < tr.length; i++) {
-// 			td = tr[i].getElementsByTagName("td")[0];
-// 			if (td) {
-// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-// 					tr[i].style.display = "";
-// 				} else {
-// 					tr[i].style.display = "none";
-// 				}
-// 			}
-// 		}
-// 	}
-
-// 	function searchDepartamento() {
-// 		var input, filter, table, tr, td, i;
-// 		input = document.getElementById("searchDepartamento");
-// 		filter = input.value.toUpperCase();
-// 		table = document.getElementById("table_trabajador-filtrado");
-// 		tr = table.getElementsByTagName("tr");
-
-// 		for (i = 0; i < tr.length; i++) {
-// 			td = tr[i].getElementsByTagName("td")[2];
-// 			if (td) {
-// 				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-// 					tr[i].style.display = "";
-// 				} else {
-// 					tr[i].style.display = "none";
-// 				}
-// 			}
-// 		}
-// 	}
-
-// 	function readAllTF() {
-// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
-// 		console.log("READALL PEDIDOS");
-// 		console.log("x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x");
-// 		console.log("");
-// 		$.get("readallTrabajadorFiltrado", function(data, status) {
-// 			$("#table_trabajador-filtrado").find("tr:gt(0)").remove();
-// 			$("#table_trabajador-filtrado thead:last").after(
-// 					"<tbody id='table-body'></tbody>");
-// 			var lista = document.getElementById("table-body");
-// 			for ( var i in data) {
-// 				//$("#table_trabajador-filtrado tbody:last").after("<tr><td>"+data[i].AP_PATERNO+" "+data[i].AP_MATERNO+" "+data[i].NO_TRABAJADOR+"</td><td>"+data[i].NO_DEP+"</td><td>"+data[i].NO_AREA+"</td><td>"+data[i].NO_SECCION+"</td><td>"+data[i].LI_CONDICION+"</td></tr>");
-// 				lista.innerHTML += "<tr><td>" + data[i].AP_PATERNO + " "
-// 						+ data[i].AP_MATERNO + " " + data[i].NO_TRABAJADOR
-// 						+ "</td><td>" + data[i].NO_DEP + "</td><td>"
-// 						+ data[i].NO_AREA + "</td><td>" + data[i].NO_SECCION
-// 						+ "</td><td>" + data[i].LI_CONDICION + "</td></tr>";
-// 			}
-// 		});
-// 	}
-
+	
 	function listarTrabajadorFiltrado()
 	{
 		 $.get('readallTrabajadorFiltrado', function (obj) {
@@ -196,10 +112,6 @@ $("#confirmar_lista").click(function(){
 		            s += '<td>'+obj[i].NO_AREA+'</td>';
 		            s += '<td>'+obj[i].NO_SECCION+'</td>';
 		            s += '<td>'+con+'</td>';
-// 		            s += '<td><p style="text-align: center;">';
-// 					s += '<input type="checkbox" id="test'+i+'">';
-// 					s += ' <label for="test'+i+'"></label>';
-// 					s += '</p></td>';
 		            s += '</tr>';
 		   
 				}
@@ -208,16 +120,6 @@ $("#confirmar_lista").click(function(){
 		        $("#data").empty();
 		        $("#data").append(s);
 		        $('#data-table-row-grouping').dataTable();
-// 		        $("#ckbCheckAll").click(function () {
-// 	                $(".checkBoxClass").prop('checked', $(this).prop('checked'));
-// 	            });
-// 		        function getSelected() {
-// 	                var allVals = [];
-// 	                $('#data :checked').each(function () {
-// 	                    allVals.push($(this).parents("#data tr").find(".sorting_1").text());
-// 	                });
-// 	                return allVals;
-// 	            }
 		    });
 		};
 		
@@ -231,7 +133,6 @@ $("#confirmar_lista").click(function(){
 	    s += '<th>Área</th>';
 	    s += '<th>Sección</th>';
 	    s += '<th>Condición</th>';
-// 	    s += '<th>Aprobar</th>';s
 	    s += ' </tr>';
 	    s += '</thead>';
 	    s += '<tbody id="data"></tbody>';
