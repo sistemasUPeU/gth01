@@ -139,13 +139,27 @@ public class GestionarEntregaDocController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/entregar", method = RequestMethod.GET)
+	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		int op = Integer.parseInt(request.getParameter("opc"));
+		switch (op) {
+		case 1:
+			Legajo l = new Legajo();
+			l.setIdrenuncia(request.getParameter("idr"));
+			// String dni = request.getParameter("dni");
+			out.println(ldao.insertarMaxrRenuncia(l));
+			break;
+		}
+
+	}
 
 	@RequestMapping(path = "/holamundo", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("archivo") List<MultipartFile> file, Authentication authentication)
+	public String handleFormUpload(@RequestParam("archivo") List<MultipartFile> file, @RequestParam("not_idr") String idr)
 			throws IOException {
 		
-		authentication = SecurityContextHolder.getContext().getAuthentication();
-		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 		Renuncia r = new Renuncia();
 		String url = "/renuncias/deliveryR";
 		int x = 0;
@@ -173,8 +187,33 @@ public class GestionarEntregaDocController {
 					// r.setId_usuario(idusuario);
 					// rd.crearRenuncia(r);
 					System.out.println(gson.toJson(archi));
-					System.out.println(x);
+					System.out.println(idr);
+					Legajo l = new Legajo();
+					l.setNo_archivo(destFile.getName());
+					l.setTi_archivo(FilenameUtils.getExtension(path));
+					if (x==1) {
+						l.setId_tipo_doc("DLE-000001");
+					}
+					if (x==2) {
+						l.setId_tipo_doc("DLE-000003");
+					}
+					
+					if (x==3) {
+						l.setId_tipo_doc("DLE-000002");
+					}
+					if (x==4) {
+						l.setId_tipo_doc("DLE-000004");
+					}
+					System.out.println(l.getId_tipo_doc());
+					ldao.InsertarDocBenfSoc(l);
+			
+					
 				}
+				
+				Renuncia r1 = new Renuncia();
+				r1.setId_renuncia(idr);
+				ldao.EntregarRenuncia(r1);
+				
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();

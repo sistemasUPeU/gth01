@@ -170,8 +170,8 @@ function listarNotificados() {
 										: ct = "red darken-1";
 								s += '<tr>';
 								s += '<td>' + a
-										+ '<label  class="idtr" hidden>'
-										+ lista[i].ID_CONTRATO
+										+ '<label  class="idr" hidden>'
+										+ lista[i].ID_RENUNCIA
 										+ '</label></td>';
 								s += '<td>' + mes + '</td>';
 								s += '<td class="">'
@@ -210,8 +210,9 @@ function listarNotificados() {
 								function() {
 
 									idc = $(this).parents("tr").find("td")
-											.eq(0).find(".idtr").text();
+											.eq(0).find(".idr").text();
 									// alert(idc);
+									
 									Entregar(idc);
 
 									// $("#otros").val(cantidad);
@@ -476,24 +477,20 @@ function notificarRenuncia() {
 }
 
 function Entregar(idc) {
+//	alert(idc);
+	$("#not_idr").val(idc);
 //	var idr = $("#idr").text();
-	$("#modalentregar").openModal();
+	
 
-//	$.get("listarxd", {
-//		idr : idr,
-//		opc : 6
-//	}, function(data, status) {
-//		console.log(data);
-//		$("#modalnotificar").closeModal();
-//		if (data == 1) {
-//			// alert("NOTIFICADO :v");
-//			listarNotificados();
-//			listarProcesados();
-//		} else {
-//			// alert(" NOOOOOOOOOOOOO SE MANDO");
-//		}
-//
-//	});
+	$.get("entregar", {
+		idr : idc,
+		opc : 1
+	}, function(data, status) {
+		console.log(data);
+		
+		$("#modalentregar").openModal();
+		
+	});
 }
 
 // FECHA
