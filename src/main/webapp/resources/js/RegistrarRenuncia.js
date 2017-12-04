@@ -250,7 +250,6 @@ function insertarMotivos(){
 		},
 		type:'GET',
 		success:function(data){
-// alert(data);
 			otros = $("#otros").val();
 			if (otros=="") {
 				// alert("NO VAS A INSERTAR OTROS XD");
