@@ -143,7 +143,7 @@
 								for (var i = 0; i < obj.length; i++) {
 									s += "<tr><td class='hide' id='id_det' >";
 									s += obj[i].ID_DET_VACACIONES;
-									s += "</td><td>";
+									s += "</td><td class='hide' >";
 									s += obj[i].ID_TRABAJADOR;
 									s += "</td><td>";
 									s += obj[i].AP_PATERNO + " "
@@ -314,7 +314,7 @@
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th class='hide' >det_vac</th>";
-			s += "<th>N°</th>";
+			s += "<th class='hide' >N°</th>";
 			s += "<th>Nombres</th>";
 			s += "<th>Sección</th>";
 			s += "<th>Dias Totales</th>";
