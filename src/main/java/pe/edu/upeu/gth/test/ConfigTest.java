@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
-import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
 public class ConfigTest {
@@ -25,8 +24,7 @@ public class ConfigTest {
 	private static void TestJhorman() {
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		Gson GSON = new Gson();
-		String id = "VAC-000002";
-		System.out.println(GSON.toJson(DAO.READFECHA(id)));
+		System.out.println(GSON.toJson(DAO.UPDATEFECHA("DEV-00003", 1, 0)));
 	}
 
 	public static void conect() {

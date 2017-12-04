@@ -86,6 +86,15 @@ public class PrincipalController {
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READFECHA(id));
 	}
+	
+	@RequestMapping(path = "/updateFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarFirma(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		int inicio = Integer.parseInt(RQ.getParameter("inicio"));
+		int fin = Integer.parseInt(RQ.getParameter("fin"));
+		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
+	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
