@@ -384,7 +384,7 @@ function DetalleRenuncia(idc) {
 //	$.get("details",{},function(data){
 //		alert(data);
 //	});
-	$.get("details", {
+	$.get("details", {                          
 	}, function(data, status) {
 		//alert(data);		
 //		 alert("BIEN JONAS");
