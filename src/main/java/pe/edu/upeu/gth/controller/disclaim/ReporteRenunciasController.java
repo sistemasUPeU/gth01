@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.controller.disclaim;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.Detalle_motivo;
+import pe.edu.upeu.gth.util.DateFormat;
 
 @Controller
 @Scope("request")
@@ -50,8 +52,11 @@ public class ReporteRenunciasController {
 		case 1:
 			String fecha1 = request.getParameter("fecha1");
 			String fecha2 = request.getParameter("fecha2");
-			out.println(gson.toJson(rd.graficoMotivos2(fecha1, fecha2)));
-			System.out.println(rd.graficoMotivos2(fecha1, fecha2));
+			DateFormat df = new DateFormat();
+			String f1 = df.toFormat2(fecha1);
+			String f2 = df.toFormat2(fecha2);
+			out.println(gson.toJson(rd.graficoMotivos2(f1, f2)));
+			System.out.println(rd.graficoMotivos2(f1, f2));
 			System.out.println(rd.graficoMotivos2("19/01/2015", "19/04/2018"));
 			break;
 
