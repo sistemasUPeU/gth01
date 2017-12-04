@@ -4,10 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+
 <%@include file="../../../jspf/general.jspf"%>
+<link href="https://fonts.googleapis.com/css?family=Dosis"
+	rel="stylesheet">
 <link
 		href="<c:url value='/resources/js/plugins/morris-chart/morris.css'></c:url>"
 		rel="stylesheet" type="text/css" />
+		<link href="js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 </head>
 <body>	
 	<%@include file="../../../jspf/header.jspf"%>
@@ -19,18 +26,7 @@
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<%@include file="../../../jspf/info_puesto.jspf"%>
-<!-- 			<label>RUTA:</label> <label id="ruta"></label><br> -->
-<!-- 			<div id="image" SRC="" WIDTH=140 HEIGHT=210 ALT="Producto1"></div> -->
-<%-- 			<a href="<c:url value="/renuncias/mostrardoc1"/>">ver</a> --%>
 
-
-			<div class="">
-				<center>
-					<object type="image/jpeg"
-						data="http://localhost:8081/gth/renuncias/mostrardoc1" width="500"
-						height="650"></object>
-				</center>
-			</div>
 			<section id="content" class="col m12 l12 s12">
 			<h1></h1>
 
@@ -38,12 +34,41 @@
 			</section>
 
 		</div>
-		h1
-		<div id="line-example">
+		
+		
+		
+		
+		
+		<h1 style="font-family: 'Dosis', sans-serif;text-decoration:underline" class="center">REPORTE DE RENUNCIAS POR MOTIVOS GENERALES</h1>	
+		<div>
+		
 		
 		</div>
+		<div class="row center" style="width:75%">
+			<div class="col s6 center">
+				<h6 class="col s6">Desde:</h6>			
+				<input class="col s6" type="date" id="fecha1" class="dropify" style="width:50%">
+			</div>
+			<div class="col s6 center">
+				<h6 class="col s6">Hasta:</h6>		
+				<input type="date" class="col s6" id="fecha2" class="dropify" style="width:50%">
+			</div>
+		</div>
+		<div class="center">		
+			<button id="buscar">Buscar</button>		
+		</div>
 
-	</div>
+		<div class="container">
+			<div id="line-example">
+		</div>
+		
+		
+		</div>
+		
+		<div class="divider"></div>
+            <!--chart dashboard start-->
+            
+                
 	
 	<script
 		src="<c:url value='/resources/js/plugins/raphael-min.js'></c:url>"></script>
@@ -51,7 +76,29 @@
 		src="<c:url value='/resources/js/plugins/morris-chart/morris.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script>
-		
+		$(document).ready(function(){
+			$("#buscar").click(function(){
+				var fecha1 = $("#fecha1").val();
+				var fecha2 = $("#fecha2").val();
+				$.get("graficando",{fecha1:fecha1,fecha2:fecha2,opc:1},function(data){
+					alert(data);
+				});
+				
+			});
+			
+			$('#fecha1').pickadate({
+		    	selectMonths: true, // Creates a dropdown to control month
+		    	selectYears: 15, // Creates a dropdown of 15 years to control
+		    	format: 'dd/mm/yyyy',
+		      });
+			
+			$('#fecha2').pickadate({
+		    	selectMonths: true, // Creates a dropdown to control month
+		    	selectYears: 15, // Creates a dropdown of 15 years to control
+		    	format: 'dd/mm/yyyy',
+		      });
+			
+		});
 		Morris.Line({
 			  element: 'line-example',
 			  data: [

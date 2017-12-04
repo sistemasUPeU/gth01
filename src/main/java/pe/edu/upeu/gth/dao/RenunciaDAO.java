@@ -29,6 +29,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import oracle.jdbc.OracleConnection;
+import oracle.jdbc.internal.OracleTypes;
+import oracle.jdbc.oracore.OracleType;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -283,5 +285,44 @@ public class RenunciaDAO {
 		}
 		return x;
 	}
+	
+	public List<Map<String, Object>> graficoMotivos(String fecha1,String fecha2) {
+		List<Map<String, Object>> lista = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = null;
+		try {
+			cn = d.getConnection();
+			
+			cs = cn.prepareCall("call REN_SPGRAFICO_MOTIVOS(?,?)");
+			cs.setString(1,fecha1);
+			cs.setString(2,fecha2);
+			cs.registerOutParameter(3, OracleTypes.CURSOR);
+			cs.executeUpdate();
+			rs=(ResultSet) cs.getObject(3);
+			while(rs.next()) {
+				map= new HashMap<String, Object>();
+				map.put("MOTIVO", rs.getString(1));
+				map.put("NUMERO", rs.getString(2));
+				lista.add(map);
+			}
+			
+			cn.commit();
+			cn.close();
+		} catch (Exception e) {
+			System.out.println("Error al insertar motivos " + e);
+		}
+		return lista;
+	}
+	
+	public List<Map<String, Object>> graficoMotivos2(String fecha1,String fecha2) {
+		String sql = "SELECT DISTINCT m.NO_MOTIVO as motivo,count(dm.ID_MOTIVO) as numero\r\n" + 
+				"FROM REN_MOTIVO m \r\n" + 
+				"LEFT JOIN REN_DETALLE_MOTIVO dm ON dm.ID_MOTIVO=m.ID_MOTIVO \r\n" + 
+				"LEFT JOIN REN_RENUNCIA r ON r.ID_RENUNCIA=dm.ID_RENUNCIA\r\n" + 
+				"AND r.FECHA_REGISTRO BETWEEN TO_DATE('"+fecha1+"','YYYY/MM/DD') AND TO_DATE('"+fecha2+"','YYYY/MM/DD') \r\n" + 
+				"GROUP BY  m.NO_MOTIVO";
+		return jt.queryForList(sql);
+	}
+	
+	
 
 }

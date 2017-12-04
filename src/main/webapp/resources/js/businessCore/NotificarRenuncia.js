@@ -206,19 +206,7 @@ function listarNotificados() {
 						$("#dataNot").empty();
 						$("#dataNot").append(s);
 						$("#data-table-row-grouping1").DataTable();
-						$(".entregar").click(
-								function() {
-
-									idc = $(this).parents("tr").find("td")
-											.eq(0).find(".idr").text();
-									// alert(idc);
-									
-									Entregar(idc);
-
-									// $("#otros").val(cantidad);
-
-									// otros
-								});
+		
 						$(".entregar").click(
 								function() {
 
