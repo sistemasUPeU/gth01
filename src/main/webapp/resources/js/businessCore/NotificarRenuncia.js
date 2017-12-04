@@ -165,8 +165,8 @@ function listarNotificados() {
 								s += '<td>' + fe_creacion.getDate() + "/"
 										+ mesint + "/"
 										+ fe_creacion.getFullYear() + '</td>';
-								s += '<td>' + 'Procesado' + '</td>';
-								s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Notificar</button>';
+								s += '<td>' + lista[i].ESTADO + '</td>';
+								s += '<td><button class="entregar waves-effect waves-light btn modal-trigger #00e676 green accent-3">ENTREGAR</button>';
 
 								s += '</button>';
 
@@ -192,6 +192,18 @@ function listarNotificados() {
 											.eq(0).find(".idtr").text();
 									console.log(idc);
 									verCorreo(idc);
+
+									// $("#otros").val(cantidad);
+
+									// otros
+								});
+						$(".entregar").click(
+								function() {
+
+									idc = $(this).parents("tr").find("td")
+											.eq(0).find(".idtr").text();
+									alert(idc);
+									Entregar(idc);
 
 									// $("#otros").val(cantidad);
 

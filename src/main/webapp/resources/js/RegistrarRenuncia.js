@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	
+	$("#huaican").click(function(){
+		
+	});
+	
 	$("#otrosdiv").addClass("hide");
 	
     $('#fecha').pickadate({
@@ -255,7 +259,11 @@ function insertarMotivos(){
 			} else {
 				insertarOtros(otros);
 			}
-			window.location.href = "http://localhost:8081/gth/renuncias/";
+			
+			var url = window.location.href;
+			var arr = url.split("/");
+			var result = arr[0] + "//" + arr[2] + "/gth/renuncias/";
+			window.location.href = result;
 			
 // alert(otros);
 			
