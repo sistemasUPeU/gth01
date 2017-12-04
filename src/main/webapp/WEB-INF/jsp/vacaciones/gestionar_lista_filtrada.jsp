@@ -141,5 +141,4 @@ $("#confirmar_lista").click(function(){
 	    
 	};
 </script>
-
 </html>

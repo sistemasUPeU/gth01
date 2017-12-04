@@ -50,7 +50,7 @@ public class PrincipalController {
 
 	}
 
-	@GetMapping("/vac_gest_consol")
+	@GetMapping("/consolidado")
 	public ModelAndView vac_gest_consol(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/vac_gest_consol");
 
