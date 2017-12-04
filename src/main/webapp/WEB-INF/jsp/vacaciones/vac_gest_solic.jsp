@@ -178,7 +178,7 @@
 						</div>
 						<div class="col s6 center" style="margin-right: 2em;">
 							<button type="submit"
-								class="btn waves-effect waves-light indigo center" id="subir">
+								class="btn waves-effect waves-light center" id="subir">
 								Enviar <i class="mdi-content-send right"></i>
 							</button>
 							<%-- 							<input type="hidden" name="${_csrf.parameterName}" --%>
