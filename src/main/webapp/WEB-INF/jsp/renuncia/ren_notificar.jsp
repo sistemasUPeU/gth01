@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="es">
+<html>
 
 <head>
 <%@include file="../../../jspf/general.jspf"%>
@@ -11,6 +11,9 @@
 <link
 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
+<link
+	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
+	type="text/css" rel="stylesheet">
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
@@ -67,22 +70,35 @@
 
 		</div>
 	</div>
+<<<<<<< HEAD
 	<div id="modalentregar" class="modal"> 
+=======
+
+
+
+
+	<div id="modalnotificar" class="modal">
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
 				<div class="row card-panel">
-
 					<div class="col s12">
 						<h4>Notificar entrega de documentos</h4>
 					</div>
 					<div class="col s12">
+						<span>Correo:</span> <span id="correo"></span>
+					</div>
+					<div class="col s12">
 
+						<p id="men">
 						<p id="mensaje1">
 							Señor <span id="nombre"></span> sus documentos ya se encuentran
 							listos para ser entregados, por favor se le invita a pasar por la
 							oficina de Gestion de Talentos Humanos (GTH) a recoger sus
-							documentos de beneficios sociales en la fecha <span>
-							<input type="date" style="width: 20%" class="datepicker"></span>
+							documentos de beneficios sociales en la fecha
+						</p>
+						<span> <input type="date" id="fecha" style="width: 20%"
+							class="datepicker"></span>
 
 						</p>
 						<p id="mensaje2">
@@ -96,8 +112,9 @@
 			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
 
 				<div class="col s6" style="margin-right: 2em;">
-					<button type="submit" class="btn waves-effect green waves-light indigo"
-						id="" onclick="enviarCorreo()">
+					<button type="submit"
+						class="btn waves-effect green waves-light indigo" id=""
+						onclick="enviarCorreo()">
 						Enviar <i class="mdi-content-send right"></i>
 					</button>
 
@@ -116,6 +133,146 @@
 		</div>
 	</div>
 
+	<div id="modalentregar" class="modal modal modal-fixed-footer">
+		<div class="modal-header #1de9b6 teal accent-3">
+			<div class="center">
+				<h4 style="font-family: 'Dosis', sans-serif;">Documentos a
+					entregar</h4>
+			</div>
+		</div>
+		<form method="post" action="holamundo" enctype="multipart/form-data">
+			<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
+
+				<div class="row section">
+					<div class="col s12">
+						<div class="row">
+							<div class=" input-field col s6">
+								<p>Hoja de liquidacion</p>
+								<input type="file" name="archivo" id="input-file-now"
+									class="dropify" data-default-file="" data-height="350" />
+							</div>
+							<div class=" input-field col s6">
+								<p>Carta CTS</p>
+								<input type="file" name="archivo" id="input-file-now"
+									class="dropify" data-default-file="" data-height="350" />
+							</div>
+
+						</div>
+					</div>
+					<div class="col s12">
+						<div class=" input-field col s6">
+							<p>Certificado de Trabajo</p>
+							<input type="file" name="archivo" id="input-file-now"
+								class="dropify" data-default-file="" data-height="350" />
+						</div>
+						<div class=" input-field col s6">
+							<p>Reporte de Remuneraciones</p>
+							<input type="file" name="archivo" id="input-file-now"
+								class="dropify" data-default-file="" data-height="350" />
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
+
+				<div class="col s6" style="margin-right: 2em;">
+					<button onclick="enviarCorreo()"
+						class="btn waves-effect waves-light indigo" id="NotificarR">
+						Enviar <i class="mdi-content-send right"></i>
+					</button>
+
+				</div>
+				<div class="col s6" style="margin-right: 2em">
+					<a class="btn waves-effect waves-light blue-grey modal-close">
+						Cancelar </a>
+
+				</div>
+				<input type="hidden" id="array_motivos" />
+
+				<!-- 											<a href="#" -->
+				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
+
+
+
+
+			</div>
+		</form>
+	</div>
+
+	<div id="s" class="modal modal modal-fixed-footer" style="width: 70%;">
+		<form method="post" action="holamundo" enctype="multipart/form-data">
+			<div class="row section">
+				<div class="col s12">
+
+					<div class=" input-field col s6">
+						<p>Hoja de liquidacion</p>
+						<input type="file" name="archivo" id="input-file-now"
+							class="dropify" data-default-file="" data-height="350" />
+					</div>
+					<div class=" input-field col s6">
+						<p>Carta CTS</p>
+						<input type="file" name="archivo" id="input-file-now"
+							class="dropify" data-default-file="" data-height="350" />
+					</div>
+
+
+				</div>
+				<div class="col s12">
+					<div class=" input-field col s6">
+						<p>Certificado de Trabajo</p>
+						<input type="file" name="archivo" id="input-file-now"
+							class="dropify" data-default-file="" data-height="350" />
+					</div>
+					<div class=" input-field col s6">
+						<p>Reporte de Remuneraciones</p>
+						<input type="file" name="archivo" id="input-file-now"
+							class="dropify" data-default-file="" data-height="350" />
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
+
+				<div class="col s6" style="margin-right: 2em;">
+					<button type="submit"
+						class="btn waves-effect green waves-light indigo" id=""
+						onclick="enviarCorreo()">
+						Enviar <i class="mdi-content-send right"></i>
+					</button>
+
+				</div>
+				<div class="col s6" style="margin-right: 2em">
+					<a class="btn waves-effect waves-light red  modal-close">
+						Cancelar </a>
+				</div>
+				<!-- 											<a href="#" -->
+				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
+
+
+
+
+			</div>
+
+			<div class="modal-footer teal lighten-2"
+				style="z-index: 5; height: 12.7%">
+				<div class="input-field col s4  ">
+					<a class="btn btn-small waves-light  red  modal-close">Cancelar
+					</a>
+				</div>
+				<div class="input-field col s4">
+					<button type="submit"
+						class="btn btn-small waves-light green indigo" id="RegistrarR">
+						Guardar <i class="mdi-content-send right"></i>
+					</button>
+				</div>
+				<div class="input-field col s4"></div>
+			</div>
+		</form>
+	</div>
+
 
 
 	<div style="position: fixed; width: 100%; bottom: 0;">
@@ -130,9 +287,12 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-
+	<script
+		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
-<body>
+
+</body>
 </html>

@@ -1,9 +1,31 @@
 $(document).ready(function() {
-//	PRUEBAJONAS();
+	// PRUEBAJONAS();
 	listarProcesados();
 	listarNotificados();
-	
-	
+	$('.dropify').dropify(function(event, element){
+        return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
+    });
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove:  'Supprimer',
+            error:   'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#pelon1').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element){
+        return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element){
+        alert('Archivo eliminado');
+    });
 
 });
 
@@ -17,7 +39,7 @@ function listarProcesados() {
 						var lista = objJson;
 						console.log(objJson);
 						if (lista.length > 0) {
-							 //alert("si hay datos causita c:");
+							// alert("si hay datos causita c:");
 
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
@@ -27,7 +49,7 @@ function listarProcesados() {
 								var fe_creacion = new Date(
 										lista[i].FECHA_RENUNCIA);
 								var mesint = parseInt(fe_creacion.getMonth()) + 1;
-								console.log(mesint);
+								// console.log(mesint);
 
 								// console.log(ddd(mesint));
 								var mes = ParsearMes(mesint);
@@ -184,14 +206,13 @@ function listarNotificados() {
 						$("#dataNot").empty();
 						$("#dataNot").append(s);
 						$("#data-table-row-grouping1").DataTable();
-
-						$(".notificar").click(
+						$(".entregar").click(
 								function() {
 
 									idc = $(this).parents("tr").find("td")
 											.eq(0).find(".idtr").text();
-									console.log(idc);
-									verCorreo(idc);
+									// alert(idc);
+									Entregar(idc);
 
 									// $("#otros").val(cantidad);
 
@@ -309,7 +330,7 @@ function createTable2(idDepartamento, idRol) {
 
 function ParsearMes(mesint) {
 	var mes;
-	console.log(mesint);
+	// console.log(mesint);
 	switch (mesint) {
 	case 01:
 		mes = "Enero";
@@ -353,6 +374,7 @@ function ParsearMes(mesint) {
 
 // Mostrando los detalles del trabajador
 function verCorreo(idc) {
+	// alert(idc);
 	// dni = $("#dni").val();
 
 	$.get("listarxd", {
@@ -360,7 +382,7 @@ function verCorreo(idc) {
 		opc : 2
 	}, function(data, status) {
 		// console.log(data);
-		$("#modalentregar").openModal();
+		$("#modalnotificar").openModal();
 
 		var detalle = JSON.parse(data);
 		console.log(detalle);
@@ -377,14 +399,15 @@ function verCorreo(idc) {
 }
 
 function enviarCorreo() {
+	// alert();
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
-	var para = "neisserrey@upeu.edu.pe";
+	var para = $("#correo").text();
 	var clave = "GTH123456";
 	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
-	console.log(msjs);
+	// console.log(msjs);
 	$.get("listarxd", {
 		de : de,
 		clave : clave,
@@ -394,9 +417,9 @@ function enviarCorreo() {
 		opc : 3
 	}, function(data, status) {
 		console.log(data);
-		// $("#modalentregar").closeModal();
+		// $("#modalnotificar").closeModal();
 		if (data == 1) {
-			alert("SE MANDO");
+			// alert("SE MANDO");
 			notificarRenuncia();
 			// insertarLegajo();
 		} else {
@@ -423,7 +446,7 @@ function insertarLegajo() {
 		opc : 4
 	}, function(data, status) {
 		console.log(data);
-		$("#modalentregar").closeModal();
+		$("#modalnotificar").closeModal();
 		if (data == 1) {
 			// alert("SE MANDO");
 		} else {
@@ -440,7 +463,7 @@ function notificarRenuncia() {
 		opc : 6
 	}, function(data, status) {
 		console.log(data);
-		$("#modalentregar").closeModal();
+		$("#modalnotificar").closeModal();
 		if (data == 1) {
 			// alert("NOTIFICADO :v");
 			listarNotificados();
@@ -452,8 +475,30 @@ function notificarRenuncia() {
 	});
 }
 
-//FECHA
+function Entregar(idc) {
+//	var idr = $("#idr").text();
+	$("#modalentregar").openModal();
+
+//	$.get("listarxd", {
+//		idr : idr,
+//		opc : 6
+//	}, function(data, status) {
+//		console.log(data);
+//		$("#modalnotificar").closeModal();
+//		if (data == 1) {
+//			// alert("NOTIFICADO :v");
+//			listarNotificados();
+//			listarProcesados();
+//		} else {
+//			// alert(" NOOOOOOOOOOOOO SE MANDO");
+//		}
+//
+//	});
+}
+
+// FECHA
 $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
-  });
+	selectMonths : true, // Creates a dropdown to control month
+	selectYears : 15, // Creates a dropdown of 15 years to control
+	format : 'dd/mm/yyyy'
+});
