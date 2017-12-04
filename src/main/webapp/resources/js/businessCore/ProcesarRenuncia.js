@@ -35,15 +35,13 @@ $(document)
 							}else{
 								alert("NADA JONAS");
 							}
-							});
-					});
-					
+							
+							});						
+					});					
 					$("#RechazarR").click(function(){
-						alert("rechaza");
-					});
+						//alert("rechaza");
 						
-					
-
+					});
 				});
 
 
@@ -136,7 +134,7 @@ function listarAutorizados() {
 					}
 
 				} else {
-					alert("no hay datos");
+					//alert("no hay datos");
 					s += "";
 				}
 
@@ -294,7 +292,7 @@ function listarProcesados() {
 					}
 
 				} else {
-					alert("no hay datos");
+					//alert("no hay datos");
 					s += "";
 				}
 
@@ -388,10 +386,10 @@ function DetalleRenuncia(idc) {
 		 $("#contenido").html("");
 		 $("#contenido").html(data);
 		 $.get("ProcesarR",{opc:2,idc:idc},function(data,status){	
-			 alert(data);
+			 //alert(data);
 			 var detalle = JSON.parse(data);
 			 $("#idr").val(detalle[0].ID_RENUNCIA);	
-			 alert(detalle[0].ID_RENUNCIA);
+			 //alert(detalle[0].ID_RENUNCIA);
 			 $("#nombres").text(detalle[0].NOMBRES);	
 			 $("#paterno").text(detalle[0].PATERNO);
 				$("#materno").text(detalle[0].MATERNO);
@@ -422,8 +420,8 @@ function DetalleRenuncia(idc) {
 					
 					 alertify.confirm('Confirmar proceso', 'Esta seguro(a) de procesar la renuncia de este trabajador?', function(){
 						 $.get("ProcesarR",{opc:4,idr:idr},function(data){
-							 alert("BIEN ");
-			        		 alert(data);
+							 //alert("BIEN ");
+			        		 //alert(data);
 			        	});
 						 
 				     	} , function(){ 
@@ -436,11 +434,11 @@ function DetalleRenuncia(idc) {
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
 					var observacion = $("#observacion").val();					
-					alert(id);
+					//alert(id);
 					 alertify.confirm('Confirmar Rechazo de proceso', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
 						 $.get("ProcesarR",{opc:6,id:id,observacion:observacion},function(data){
-							 alert("BIEN Nicole");
-			        		 alert(data);
+							 //alert("BIEN Nicole");
+			        		 //alert(data);
 			        		 
 			        	});
 						 

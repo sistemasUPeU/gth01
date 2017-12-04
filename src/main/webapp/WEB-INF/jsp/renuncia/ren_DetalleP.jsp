@@ -241,7 +241,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="modal-footer  black lighten-1  darken-2"
+		<div class="modal-footer  teal lighten-1 darken-2"
 			style="z-index: 5; position: fixed">
 			<div class="row">
 				<div class="col s4">

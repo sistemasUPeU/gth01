@@ -1,10 +1,6 @@
 $(document).ready(function(){
 	
-	$("#huaican").click(function(){
-		
-	});
-	
-	$("#otrosdiv").addClass("hide");
+	$("#otrosdiv").hide();
 	
     $('#fecha').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
@@ -133,14 +129,16 @@ $(document).ready(function(){
                     	var item = select.children('option').toArray()[i].value;                       
                         newValuesArr.push(item);                     
                         if(item=='MOT-000007'){
-                        	$("#otrosdiv").removeClass("hide");
-                        	$("#otrosdiv").addClass("show");
+                        
+                        	$("#otrosdiv").show();
                         }else{
 // $("#otrosdiv").removeClass("show");
-                      		$("#otrosdiv").addClass("hide");
-                      	}
-                        
-                        
+                      		$("#otrosdiv").hide();
+                      	}                        
+                    }
+                    if(newValuesArr.length==0){
+                    	$("#otrosdiv").hide();
+                    	
                     }
                     $("#array_motivos").val(newValuesArr);
                 });
@@ -259,11 +257,7 @@ function insertarMotivos(){
 			} else {
 				insertarOtros(otros);
 			}
-			
-			var url = window.location.href;
-			var arr = url.split("/");
-			var result = arr[0] + "//" + arr[2] + "/gth/renuncias/";
-			window.location.href = result;
+			window.location.href = "http://localhost:8081/gth/renuncias/";
 			
 // alert(otros);
 			

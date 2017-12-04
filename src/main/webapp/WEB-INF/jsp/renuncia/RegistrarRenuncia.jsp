@@ -42,7 +42,6 @@
 			<div class="wrapper">
 				<section id="content" class="col m12 l12 s12"> </section>
 				<div class="row">
-				
 					<div class="container">
 						<form class="col s12">
 							<div class="row">
@@ -110,7 +109,6 @@
 												<input type="hidden" id="idt" />
 												<h6 class="light italic black-text">
 													<strong><h6>Nombres :</strong><span id="nombres"></span><br>
-													<strong>
 												</h6>
 												<h6>
 													Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
@@ -121,11 +119,10 @@
 												<h6>
 													Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
 												</h6>
-												</h6>
 											</div>
 										</div>
+									</sup>
 								</div>
-								</sup>
 							</div>
 							<div class="price-desc white-text">
 								<form class="col s12 ">
@@ -227,10 +224,12 @@
 											href="#modal3">Adjuntar Carta de Renuncia</a>
 									</p>
 
-									<div id="modal3" class="modal modal modal-fixed-footer">
-										<div class="modal-header #1de9b6 teal accent-3">
-											<div class="center">												
-												<h4 style="font-family: 'Dosis', sans-serif;">Registrar renuncia</h4>
+									<div id="modal3" class="modal modal-fixed-footer"
+										style="width: 80%; height: 80%; border: 5px solid black">
+										<div class="modal-header #1de9b6 teal lighten-1">
+											<div class="center">
+												<h4 style="font-family: 'Dosis', sans-serif;">Registrar
+													renuncia</h4>
 											</div>
 										</div>
 										<div class="modal-content #e0f7fa cyan lighten-5"
@@ -239,96 +238,83 @@
 											<div class="row section">
 												<div class="col s12">
 													<div class="row">
-														<div class="input-field col s6">
+														<div class="input-field col s5">
 															<h5 style="font-family: 'Dosis', sans-serif;">Ingrese
 																el motivo de la renuncia:</h5>
 														</div>
-														<div id="mot" class="input-field col s6">
-															<select id="motivo" multiple>
-
-															</select>
+														<div class="input-field col s2">
+															<h5 style="font-family: 'Dosis', sans-serif;">
+																Fecha de entrega <br>de carta de renuncia:
+															</h5>
+														</div>
+														<div class="input-field col s5">
+															<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
+																la carta de renuncia:</h5>
 														</div>
 
 													</div>
 												</div>
 												<div class="col s12">
-													<div class="input-field col s6">
-														<h5 style="font-family: 'Dosis', sans-serif;">Fecha
-															de entrega de carta de renuncia:</h5>
+													<div id="mot" class="input-field col s5">
+														<select id="motivo" multiple>
+
+														</select>
 													</div>
-													<div class="input-field col s6">
+													<div class="input-field col s2">
 														<label for=""></label> <input type="text" name="fecha"
 															id="fecha" class="datepicker">
 														<!-- 														 <input type="text"  id="fechap"> -->
 
 													</div>
-												</div>
-												<!-- 												<div action="" id="other" class="col s12" -->
-												<!-- 													style="display: none"> -->
+													<div class="input-field col s5">
 
-												<div class="row" id="otrosdiv">
-													<div class="col s12">
-														<div class="row">
-															<div class="input-field col s12">
-																<textarea id="otros" class="materialize-textarea"></textarea>
-																<label for="otros">Ingrese el motivo en
-																	particular</label>
+														<input type="file" name="file" class="dropify" id="pelon1"
+															data-height="300" />
+													</div>
+													<div class="row" id="otrosdiv">
+														<div class="col s12">
+															<div class="row">
+																<div class="input-field col s6">
+																	<textarea id="otros" class="materialize-textarea"></textarea>
+																	<label for="otros">Ingrese el motivo en
+																		particular</label>
+																</div>
 															</div>
 														</div>
 													</div>
+													<input type="hidden" id="array_motivos" />
 												</div>
-												<!-- 												</div> -->
-												<div class="input-field col s12">
-													<h5 style="font-family: 'Dosis', sans-serif;">Adjunte
-														la carta de renuncia:</h5>
-												</div>
-												<div class="col s12">
-
-													<input type="file" name="file" class="dropify" id="pelon1"
-														data-height="500" />
-
-
-												</div>
-
-												<!-- 												<input type="submit" value="Subir archivo" />  -->
-
 											</div>
 										</div>
 
-										<div class="modal-footer #1de9b6 teal accent-3"
-											style="z-index: 2">
+										<div class="modal-footer  teal lighten-1  darken-2"
+											style="z-index: 5; position: fixed">
+											<div class="row">
 
-											<div class="col s6" style="margin-right: 2em;">
-												<button onclick="enviarCorreo()"
-													class="btn waves-effect waves-light indigo" id="NotificarR">
-													Enviar <i class="mdi-content-send right"></i>
-												</button>
+												<div class="col s4" style="margin-right: 2em;">
+													<button type="submit"
+														class="btn waves-effect waves-light green indigo"
+														id="RegistrarR">
+														Enviar <i class="mdi-content-send right"></i>
+													</button>
 
+												</div>
+												<div class="col s4" style="margin-right: 2em">
+													<a class="btn waves-effect waves-light red modal-close">
+														Cancelar </a>
+
+												</div>
+												<div class="col s4"></div>
+												<input type="hidden" id="array_motivos" />
 											</div>
-											<div class="col s6" style="margin-right: 2em">
-												<a
-													class="btn waves-effect waves-light blue-grey modal-close">
-													Cancelar </a>
-
-											</div>
-											<input type="hidden" id="array_motivos" />
-
-											<!-- 											<a href="#" -->
-											<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
 										</div>
+
 									</div>
-								</div>
 							</form>
 						</div>
 
 					</div>
 					</article> </section>
-
-
 				</div>
 			</div>
 		</div>
@@ -343,12 +329,13 @@
 
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
-	<div style="position:fixed;width:100%;bottom: 0;z-index:5 ">
+	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
 	<!-- 		type="text/javascript"></script> -->
 
-	<script src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
+	<script
+		src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"

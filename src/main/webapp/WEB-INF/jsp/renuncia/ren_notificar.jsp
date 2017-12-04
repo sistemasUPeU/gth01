@@ -23,9 +23,7 @@
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
-
 	</div>
-
 	<div id="main">
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
@@ -50,10 +48,7 @@
 					<div id="data-table-row-grouping col s12 m8 l9"
 						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
 						style="display: none;">
-
 						<div class="col s12 m8 l9 contT"></div>
-
-
 					</div>
 				</li>
 				<li>
@@ -67,14 +62,10 @@
 					</div>
 				</li>
 			</ul>
-
 		</div>
 	</div>
-
-
-
-
-	<div id="modalnotificar" class="modal">
+	<div id="modalnotificar" class="modal modal-fixed-footer"
+		style="width: 70%; border: 5px solid black">
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
 				<div class="row card-panel">
@@ -86,7 +77,6 @@
 					</div>
 					<br>
 					<div class="col s12">
-
 						<p id="men">
 						<p id="mensaje1">
 							Señor <span id="nombre"></span> sus documentos ya se encuentran
@@ -96,7 +86,6 @@
 						</p>
 						<span> <input type="date" id="fecha" style="width: 20%"
 							class="datepicker"></span>
-
 						</p>
 						<p id="mensaje2">
 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
@@ -105,88 +94,79 @@
 					<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label>
 				</div>
 			</div>
-
-			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
-
-				<div class="col s6" style="margin-right: 2em;">
+		</div>
+		<div class="modal-footer   teal lighten-1   darken-2"
+			style="z-index: 5; position: fixed">
+			<div class="row">
+				<div class="col s4" style="margin-right: 2em;">
 					<button type="submit"
-						class="btn waves-effect green waves-light indigo" id=""
+						class="btn waves-effect green waves-light modal-close" id=""
 						onclick="enviarCorreo()">
 						Enviar <i class="mdi-content-send right"></i>
 					</button>
-
 				</div>
-				<div class="col s6" style="margin-right: 2em">
+				<div class="col s4" style="margin-right: 2em">
 					<a class="btn waves-effect waves-light red  modal-close">
 						Cancelar </a>
 				</div>
-				<!-- 											<a href="#" -->
-				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
+				<div class="col s4"></div>
 			</div>
 		</div>
 	</div>
-
-	<div id="modalentregar" class="modal modal modal-fixed-footer">
-		<div class="modal-header #1de9b6 teal accent-3">
+	<div id="modalentregar" class="modal modal-fixed-footer"
+		style="width: 60%; height: 80%; border: 5px solid black">
+		<div class="modal-header #1de9b6 teal lighten-1">
 			<div class="center">
-				<h4 style="font-family: 'Dosis', sans-serif;">Documentos a
-					entregar</h4>
+				<h4 style="font-family: 'Dosis', sans-serif;">Entregar
+					Documentos</h4>
 			</div>
 		</div>
 		<form method="post" action="holamundo" enctype="multipart/form-data">
 			<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
-
 				<div class="row section">
 					<div class="col s12">
 						<div class="row">
 							<div class=" input-field col s6">
 								<p>Hoja de liquidacion</p>
 								<input type="file" name="archivo" id="input-file-now"
-									class="dropify" data-default-file="" data-height="350" />
+									class="dropify" data-default-file="" data-height="300" />
 							</div>
 							<div class=" input-field col s6">
 								<p>Carta CTS</p>
 								<input type="file" name="archivo" id="input-file-now"
-									class="dropify" data-default-file="" data-height="350" />
+									class="dropify" data-default-file="" data-height="300" />
 							</div>
-
 						</div>
 					</div>
 					<div class="col s12">
 						<div class=" input-field col s6">
 							<p>Certificado de Trabajo</p>
 							<input type="file" name="archivo" id="input-file-now"
-								class="dropify" data-default-file="" data-height="350" />
+								class="dropify" data-default-file="" data-height="300" />
 						</div>
 						<div class=" input-field col s6">
 							<p>Reporte de Remuneraciones</p>
 							<input type="file" name="archivo" id="input-file-now"
-								class="dropify" data-default-file="" data-height="350" />
+								class="dropify" data-default-file="" data-height="300" />
 						</div>
 					</div>
-					<input id="not_idr"  type="text" name="not_idr">
-
-
+					<input id="not_idr" type="text" name="not_idr">
 				</div>
 			</div>
-
-			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
-
-				<div class="col s6" style="margin-right: 2em;">
-					<button onclick="enviarCorreo()"
-						class="btn waves-effect waves-light indigo" id="NotificarR">
-						Enviar <i class="mdi-content-send right"></i>
-					</button>
-
-				</div>
-				<div class="col s6" style="margin-right: 2em">
-					<a class="btn waves-effect waves-light blue-grey modal-close">
-						Cancelar </a>
-
+			<div class="modal-footer   teal lighten-1   darken-2"
+			style="z-index: 5; position: fixed">
+				<div class="row">
+					<div class="col s4" style="margin-right: 2em;">
+						<button onclick="enviarCorreo()"
+							class="btn waves-effect waves-light green modal-close" id="NotificarR">
+							Enviar <i class="mdi-content-send right"></i>
+						</button>
+					</div>
+					<div class="col s4" style="margin-right: 2em">
+						<a class="btn waves-effect waves-light red modal-close">
+							Cancelar </a>
+					</div>
+					<div class="col s4"></div>
 				</div>
 				<input type="hidden" id="array_motivos" />
 			</div>

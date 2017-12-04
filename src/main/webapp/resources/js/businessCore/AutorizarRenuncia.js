@@ -31,15 +31,16 @@ $(document)
 							
 							console.log(detalle);
 							if(data==1){
-								alert("BUENA JONAS")
+								//alert("BUENA JONAS")
+								
 							}else{
-								alert("NADA JONAS");
+								//alert("NADA JONAS");
 							}
 							});
 					});
 					
 					$("#RechazarR").click(function(){
-						alert("rechaza");
+						//alert("rechaza");
 					});
 						
 					
@@ -136,7 +137,7 @@ function listarAutorizados() {
 					}
 
 				} else {
-					alert("no hay datos");
+					//alert("no hay datos");
 					s += "";
 				}
 
@@ -294,7 +295,7 @@ function listarProcesados() {
 					}
 
 				} else {
-					alert("no hay datos");
+					//alert("no hay datos");
 					s += "";
 				}
 
@@ -420,25 +421,26 @@ function DetalleRenuncia(idc) {
 				$("#carta").text(detalle[0].ARCHIVO);
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
-					alert(idr);
+					//alert(idr);
 					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
-							 alert("BIEN JONAS");
-			        		 alert(data);
+							 alert("BIEN Nicole");							 
+							
+			        		 //alert(data);
 			        	});
 						 
 				     	} , function(){ 
-				        	
+				     		
 				        });
 				});
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
 					var observacion = $("#observacion").val();					
-					alert(id);
+					//alert(id);
 					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:6,id:id,observacion:observacion},function(data){
-							 alert("BIEN Nicole");
-			        		 alert(data);
+							 //alert("BIEN Nicole");
+			        		 //alert(data);
 			        		 
 			        	});
 						 

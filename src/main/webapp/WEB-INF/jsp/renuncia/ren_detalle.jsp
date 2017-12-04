@@ -220,28 +220,15 @@
 					<div class="col s12">
 						<div class="input-field col s7">
 							<h5>Descripción de rechazo:</h5>
-						</div>
-						<!-- 						<div class="input-field col s5"> -->
-						<!-- 							<h5 style="font-family: 'Dosis', sans-serif;">Fecha:</h5> -->
-						<!-- 						</div> -->
-
-					</div>
-
-				</div>
-			</form>
-			<form action="col s12">
-				<div class="row">
-
-					<div class="input-field col s12">
+								<div class="input-field col s12">
 						<textarea id="observacion" class="materialize-textarea"></textarea>
 					</div>
-					<!-- 					<div class="input-field col s6"> -->
-					<!-- 						<input type="text" id="Date" class="datepicker" /> -->
-					<!-- 					</div> -->
+					</div>
+					</div>
 				</div>
 			</form>
 		</div>
-		<div class="modal-footer  black lighten-1  darken-2"
+		<div class="modal-footer   teal lighten-1   darken-2"
 			style="z-index: 5; position: fixed">
 			<div class="row">
 				<div class="col s4">
@@ -255,8 +242,6 @@
 				</div>
 				<div class="col s4"></div>
 			</div>
-
-
 		</div>
 	</div>
 
