@@ -226,12 +226,7 @@
 											href="#modal3">Adjuntar Carta de Renuncia</a>
 									</p>
 
-<<<<<<< HEAD
-									<div id="modal3" class="modal modal modal-fixed-footer"
-										style="width: 70%; height: 150%">
-=======
 									<div id="modal3" class="modal modal modal-fixed-footer">
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 										<div class="modal-header #1de9b6 teal accent-3">
 											<div class="center">												
 												<h4 style="font-family: 'Dosis', sans-serif;">Registrar renuncia</h4>
@@ -303,8 +298,8 @@
 											style="z-index: 2">
 
 											<div class="col s6" style="margin-right: 2em;">
-												<button type="submit"
-													class="btn waves-effect waves-light indigo" id="RegistrarR">
+												<button onclick="enviarCorreo()"
+													class="btn waves-effect waves-light indigo" id="NotificarR">
 													Enviar <i class="mdi-content-send right"></i>
 												</button>
 
