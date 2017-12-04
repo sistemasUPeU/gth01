@@ -252,7 +252,7 @@
 							var con = new jsConnector();
 							con
 									.post(
-											"vacaciones/consolidado/guardarAprovarConsolidado123?"
+											"vacaciones/consolidado/guardarAprovarConsolidado?"
 													+ datos,
 											null,
 											function(data) {
@@ -262,6 +262,7 @@
 																	'Felicidades!!, ha aprobado a sus trabajadores',
 																	3000,
 																	'rounded');
+													listar();
 												} else {
 													Materialize
 															.toast(

@@ -78,9 +78,9 @@ public class SolicitudVacacionesDAO {
 		return i;
 	}
 
-	public int insertarSolicitud(String[] inicio, String[] fin, String idt, String tipo, String user) {
+	public String insertarSolicitud(String[] inicio, String[] fin, String idt, String tipo, String user) {
 
-		int i = 0;
+		String i = "";
 		try {
 
 			cn = d.getConnection();
@@ -93,13 +93,13 @@ public class SolicitudVacacionesDAO {
 			cst.setString(3, idt);
 			cst.setString(4, tipo);
 			cst.setString(5, user);
-			cst.registerOutParameter(6, Types.NUMERIC);
+			cst.registerOutParameter(6, Types.CHAR);
 			cst.execute();
-			System.out.println(cst.getInt(6));
+			System.out.println("dao: "+cst.getString(6));
 			// cn.commit();
 			cn.close();
 
-			i = cst.getInt(6);
+			i = cst.getString(6);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,14 +109,9 @@ public class SolicitudVacacionesDAO {
 
 	public int subirDocumento(String nombre, String tipo, String url, String idvac) {
 		int x = 0;
-		// String sql = "UPDATE RHMV_VACACIONES SET URL='" +nombre +"' WHERE
-		// ID_VACACIONES = '" +idvac +"'";
+
 		String sql = "UPDATE RHMV_VACACIONES SET URL=? WHERE ID_VACACIONES =?";
-		// String sql = "update horario set idcurso =?, idaula=?,fecha=?, hora=? where
-		// idhorario=?";
-		// update RHMV_VACACIONES set url = 'sdfs' where ID_VACACIONES = 'VAC-000005';
 		try {
-			// jt.update(sql);
 			jt.update(sql, url, idvac);
 			x = 1;
 		} catch (Exception e) {

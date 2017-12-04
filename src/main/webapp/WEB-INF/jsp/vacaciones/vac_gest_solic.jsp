@@ -561,9 +561,12 @@
 
 			var con = new jsConnector();
 			con.post('solicitud/insertar?' + datos, null, function(response) {
-				if (response == 1) {
+				if (response != null) {
+					console.log("jquery:"+response);
 					Materialize.toast('Vacaciones registrada correctamente!',
 							3000, 'rounded');
+					$("#idvac").val($.trim(response));
+					console.log($("#idvac").val());
 					$('#confirmar').addClass('disabled');
 				} else {
 					Materialize.toast(

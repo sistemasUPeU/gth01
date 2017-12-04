@@ -206,27 +206,10 @@ public class SolicitudController {
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac,
 			HttpServletResponse response,  Authentication authentication) throws IOException {
 
-		System.out.println("entro" + file +"/"+ idvac);
-		
-		
-		//
-//		 authentication = SecurityContextHolder.getContext().getAuthentication();
-		// @RequestMapping(path = "/subir", method = RequestMethod.POST)
-		// public String handleFormUpload(@RequestParam("file") MultipartFile file, )
-		// throws IOException {
-//		String url = "/solicitud/home";
+
 		int res = 0;
 		if (!file.isEmpty()) {
-			System.out.println("es diferente");
-//
-//			// String nombre = file.getOriginalFilename();
-//			// String tipo = file.getContentType();
-//			// Long tamano = file.getSize();
-//			// byte[] pixel = file.getBytes();
-//			//
-//			// System.out.println(nombre + " " + tipo + " " + tamano + " " + pixel);
-//
-			System.out.println("casi entra");
+
 			try {
 				for (MultipartFile fi : file) {
 					System.out.println(file);
@@ -238,11 +221,11 @@ public class SolicitudController {
 					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
-					// System.out.println("asdasdasdasdasdas" +idusuario);
-					System.out.println(idvac);
+					System.out.println("controller: " +idvac);
 					String nombre = destFile.getName();
 					String url = destFile.getPath();
 					System.out.println(nombre);
+
 
 	
 					res = vd.subirDocumento("", "", url, idvac);

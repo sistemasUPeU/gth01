@@ -117,6 +117,19 @@
 	        console.log("***");
 	        $.get('updateFirma', {id : a, inicio : p, fin : q}, function (data) {
 				console.log(data);
+				if(data==1){
+					Materialize
+					.toast(
+							'Firma actualizada correctamente!',
+							3000,
+							'rounded');
+					}else {
+						Materialize
+						.toast(
+								'No se actualizaron las firmas, consulte con su jefe!',
+								3000,
+								'rounded');
+						}
 		    });
 		}
 		if (z == 2) {

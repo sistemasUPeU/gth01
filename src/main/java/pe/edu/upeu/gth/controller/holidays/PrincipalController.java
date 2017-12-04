@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 
 @Controller
 @Scope("request")
@@ -83,6 +85,7 @@ public class PrincipalController {
 	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getFirma(HttpServletRequest RQ) {
 		String id = RQ.getParameter("id");
+		System.out.println(id);
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READFECHA(id));
 	}
@@ -101,23 +104,26 @@ public class PrincipalController {
 
 //	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
-	public @ResponseBody String getAllProgramaVacaciones() {
+	public @ResponseBody String getAllProgramaVacaciones(Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 	GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-	return GSON.toJson(DAO.READALL());
+	System.out.println(depa);
+	return GSON.toJson(DAO.READALL(depa));
 		
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/insertProgramaVacaciones", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String insertProgramaVacaciones(HttpServletRequest request) {
+	public @ResponseBody String insertProgramaVacaciones(HttpServletRequest request, Authentication authentication) {
 		DataSource ds = AppConfig.getDataSource();
 		GestionarPrograVacacDAO t = new GestionarPrograVacacDAO(ds);
-		String usuario = request.getParameter("username");
-		System.out.println(usuario);
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id_det = request.getParameter("id_det");
 		String[] asdf =id_det.split(",");
 		Gson g = new Gson();
 		return g.toJson(t.apobarVac(usuario, asdf));
 	}
+	
+
 	
 	@GetMapping("/reporte")
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {

@@ -419,7 +419,7 @@
 																	'Felicidades!!, ha aprobado a sus trabajadores',
 																	3000,
 																	'rounded');
-													listarSinAprobar();
+													listar();
 												} else {
 													Materialize
 															.toast(

@@ -23,18 +23,18 @@ import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 @RequestMapping("/GestionarProgramaVacaciones")
 public class ProgramacionController {
 	
-	Gson GSON = new Gson();
-	@GetMapping("/GestionarProgramaVacaciones")
-	public ModelAndView GestionarProgramaVacaciones(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("GestionarProgramaVacaciones");
-		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
-
-	}
-	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllProgramaVacaciones() {
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL());
-	}
+//	Gson GSON = new Gson();
+//	@GetMapping("/GestionarProgramaVacaciones")
+//	public ModelAndView GestionarProgramaVacaciones(HttpServletRequest request, HttpServletResponse response) {
+//		System.out.println("GestionarProgramaVacaciones");
+//		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
+//
+//	}
+//	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody String getAllProgramaVacaciones() {
+//		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+//		return GSON.toJson(DAO.READALL());
+//	}
 }
 //=======
 //package pe.edu.upeu.gth.controller.holidays;
