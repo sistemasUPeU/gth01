@@ -84,6 +84,7 @@
 					<div class="col s12">
 						<span>Correo:</span> <span id="correo"></span>
 					</div>
+					<br>
 					<div class="col s12">
 
 						<p id="men">
@@ -167,6 +168,7 @@
 								class="dropify" data-default-file="" data-height="350" />
 						</div>
 					</div>
+					<input id="not_idr"  type="text" name="not_idr">
 
 
 				</div>
@@ -187,90 +189,9 @@
 
 				</div>
 				<input type="hidden" id="array_motivos" />
-
-				<!-- 											<a href="#" -->
-				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
 			</div>
 		</form>
 	</div>
-
-	<div id="s" class="modal modal modal-fixed-footer" style="width: 70%;">
-		<form method="post" action="holamundo" enctype="multipart/form-data">
-			<div class="row section">
-				<div class="col s12">
-
-					<div class=" input-field col s6">
-						<p>Hoja de liquidacion</p>
-						<input type="file" name="archivo" id="input-file-now"
-							class="dropify" data-default-file="" data-height="350" />
-					</div>
-					<div class=" input-field col s6">
-						<p>Carta CTS</p>
-						<input type="file" name="archivo" id="input-file-now"
-							class="dropify" data-default-file="" data-height="350" />
-					</div>
-
-
-				</div>
-				<div class="col s12">
-					<div class=" input-field col s6">
-						<p>Certificado de Trabajo</p>
-						<input type="file" name="archivo" id="input-file-now"
-							class="dropify" data-default-file="" data-height="350" />
-					</div>
-					<div class=" input-field col s6">
-						<p>Reporte de Remuneraciones</p>
-						<input type="file" name="archivo" id="input-file-now"
-							class="dropify" data-default-file="" data-height="350" />
-					</div>
-				</div>
-			</div>
-
-			<div class="modal-footer #1de9b6 teal accent-3" style="z-index: 2">
-
-				<div class="col s6" style="margin-right: 2em;">
-					<button type="submit"
-						class="btn waves-effect green waves-light indigo" id=""
-						onclick="enviarCorreo()">
-						Enviar <i class="mdi-content-send right"></i>
-					</button>
-
-				</div>
-				<div class="col s6" style="margin-right: 2em">
-					<a class="btn waves-effect waves-light red  modal-close">
-						Cancelar </a>
-				</div>
-				<!-- 											<a href="#" -->
-				<!-- 												class="waves-effect waves-green btn-flat modal-action red modal-close">Cancelar</a> -->
-
-
-
-
-			</div>
-
-			<div class="modal-footer teal lighten-2"
-				style="z-index: 5; height: 12.7%">
-				<div class="input-field col s4  ">
-					<a class="btn btn-small waves-light  red  modal-close">Cancelar
-					</a>
-				</div>
-				<div class="input-field col s4">
-					<button type="submit"
-						class="btn btn-small waves-light green indigo" id="RegistrarR">
-						Guardar <i class="mdi-content-send right"></i>
-					</button>
-				</div>
-				<div class="input-field col s4"></div>
-			</div>
-		</form>
-	</div>
-
-
-
 	<div style="position: fixed; width: 100%; bottom: 0;">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
