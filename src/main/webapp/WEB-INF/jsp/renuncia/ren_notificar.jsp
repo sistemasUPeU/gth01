@@ -67,17 +67,13 @@
 
 		</div>
 	</div>
-
-
-
-
-	<div id="modalentregar" class="modal">
+	<div id="modalentregar" class="modal"> 
 		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%">
 				<div class="row card-panel">
 
 					<div class="col s12">
-						<h4>Comunicar entrega de documentos</h4>
+						<h4>Notificar entrega de documentos</h4>
 					</div>
 					<div class="col s12">
 

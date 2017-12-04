@@ -240,7 +240,7 @@ function createTable(idDepartamento, idRol) {
 	s += '<th>Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de Inicio</th>';
+	s += '<th>Fecha de Renuncia</th>';
 	s += '<th>Estado</th>';
 	s += '<th>Opcion</th>';
 	if (Departamento === "DPT-0019") {
