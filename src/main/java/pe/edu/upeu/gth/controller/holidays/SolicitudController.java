@@ -1,23 +1,29 @@
 package pe.edu.upeu.gth.controller.holidays;
 
-
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -36,6 +42,15 @@ public class SolicitudController {
 	Map<String, Object> mp = new HashMap<>();
 	Map<String, Object> rpta = new HashMap<String, Object>();
 	ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+	
+
+	public List<String> archi = new ArrayList<>();
+	private Gson gson = new Gson();
+
+	@RequestMapping(value = "/home")
+	public String redireccionarHome() {
+		return "vacaciones/default";
+	}
 
 	@RequestMapping(value = "/registrar")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
@@ -94,6 +109,7 @@ public class SolicitudController {
 		Gson gs = new Gson();
 
 		String trab = request.getParameter("id");
+		System.out.println(trab);
 		// String rol = request.getParameter("idrol");
 		// System.out.println(trab + "/" + rol);
 
@@ -133,27 +149,28 @@ public class SolicitudController {
 	//
 	// HttpServletRequest request,HttpServletResponse object
 
-	@RequestMapping(value ="/insertar",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String validarTipoSolicitudAAA(HttpServletRequest request) {
+	@RequestMapping(value = "/insertar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String validarTipoSolicitudAAA(HttpServletRequest request) {
 		Gson gs = new Gson();
 		System.out.println("llega");
-		String ini = request.getParameter("inicio"); 
+		String ini = request.getParameter("inicio");
 		String fin = request.getParameter("final");
 		String idt = request.getParameter("idt");
 		String user = request.getParameter("user");
 		String tipo = request.getParameter("tipo");
-		System.out.println(ini + " "+ fin + " "+idt + " "+user + " "+ tipo);
-		
-		String[] fechas_inicio=ini.split("-");
+		System.out.println(ini + " " + fin + " " + idt + " " + user + " " + tipo);
+
+		String[] fechas_inicio = ini.split("-");
 		System.out.println(fechas_inicio[0]);
-	
-		String[] fechas_fin=fin.split("-");
+
+		String[] fechas_fin = fin.split("-");
 		System.out.println(fechas_fin[0]);
-		
-		return gs.toJson(vd.insertarSolicitud(fechas_inicio, fechas_fin, idt, tipo, user)); 
-				//		System.out.println(gs.toJson(request.getParameter("data")));//(request.getParameter("data"), ArrayList<String> )request.getParameter("data"), String));
-		//return object.toString();
-    }
+
+		return gs.toJson(vd.insertarSolicitud(fechas_inicio, fechas_fin, idt, tipo, user));
+		// System.out.println(gs.toJson(request.getParameter("data")));//(request.getParameter("data"),
+		// ArrayList<String> )request.getParameter("data"), String));
+		// return object.toString();
+	}
 
 	// @RequestMapping(value ="/insertarfdd",method = RequestMethod.POST)
 	// public @ResponseBody String validarTipoSolicitudAA(@RequestBody String array)
@@ -180,4 +197,69 @@ public class SolicitudController {
 	//
 	// //return object.toString();
 	// }
+	//
+	// @Autowired
+	// ServletContext context;
+	@Autowired
+	ServletContext context;
+	@RequestMapping(path = "/archivos", method = RequestMethod.POST)
+	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac,
+			HttpServletResponse response,  Authentication authentication) throws IOException {
+
+		System.out.println("entro" + file +"/"+ idvac);
+		
+		
+		//
+//		 authentication = SecurityContextHolder.getContext().getAuthentication();
+		// @RequestMapping(path = "/subir", method = RequestMethod.POST)
+		// public String handleFormUpload(@RequestParam("file") MultipartFile file, )
+		// throws IOException {
+//		String url = "/solicitud/home";
+		int res = 0;
+		if (!file.isEmpty()) {
+			System.out.println("es diferente");
+//
+//			// String nombre = file.getOriginalFilename();
+//			// String tipo = file.getContentType();
+//			// Long tamano = file.getSize();
+//			// byte[] pixel = file.getBytes();
+//			//
+//			// System.out.println(nombre + " " + tipo + " " + tamano + " " + pixel);
+//
+			System.out.println("casi entra");
+			try {
+				for (MultipartFile fi : file) {
+					System.out.println(file);
+					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					archi.add(destFile.getName());
+					archi.add(destFile.getPath());
+					FilenameUtils fich = new FilenameUtils();
+					archi.add(FilenameUtils.getExtension(path));
+					archi.add(String.valueOf(destFile.length()));
+					// System.out.println("asdasdasdasdasdas" +idusuario);
+					System.out.println(idvac);
+					String nombre = destFile.getName();
+					String url = destFile.getPath();
+					System.out.println(nombre);
+
+	
+					res = vd.subirDocumento("", "", url, idvac);
+				}
+
+			} catch (IOException | IllegalStateException ec) {
+				ec.getMessage();
+				ec.printStackTrace();
+			}
+			System.out.println(gson.toJson(archi));
+
+			System.out.println(res);
+
+		}
+
+		 return "redirect:/vacaciones/";// + url;
+		// return gson.toJson(archi);
+	}
+
 }

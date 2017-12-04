@@ -109,5 +109,12 @@ public class PrincipalController {
 		Gson g = new Gson();
 		return g.toJson(t.apobarVac(usuario, asdf));
 	}
+	
+	@GetMapping("/reporte")
+	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/vac_reportes");
+	}
+	
+	
 
 }

@@ -76,7 +76,7 @@
 						<button type="submit"
 							class="btn waves-effect waves-light col s12 green accent-3">Ingresar</button>
 						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+							value="${_csrf.token}" id="cod"/>
 					</div>
 				</div>
 			</form>

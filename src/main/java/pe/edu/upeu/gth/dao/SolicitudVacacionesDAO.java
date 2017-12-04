@@ -82,12 +82,10 @@ public class SolicitudVacacionesDAO {
 
 		int i = 0;
 		try {
-			
-			
+
 			cn = d.getConnection();
 			Array array_inicio = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_FE_INICIO", inicio);
 			Array array_fin = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_FE_FINAL", fin);
-			
 
 			CallableStatement cst = d.getConnection().prepareCall("{call RHSP_VAC_INSERT_VACACIONES (?,?,?,?,?,?)}");
 			cst.setArray(1, array_inicio);
@@ -98,9 +96,8 @@ public class SolicitudVacacionesDAO {
 			cst.registerOutParameter(6, Types.NUMERIC);
 			cst.execute();
 			System.out.println(cst.getInt(6));
-//			cn.commit();
+			// cn.commit();
 			cn.close();
-			
 
 			i = cst.getInt(6);
 		} catch (SQLException e) {
@@ -108,6 +105,47 @@ public class SolicitudVacacionesDAO {
 			e.printStackTrace();
 		}
 		return i;
+	}
+
+	public int subirDocumento(String nombre, String tipo, String url, String idvac) {
+		int x = 0;
+		// String sql = "UPDATE RHMV_VACACIONES SET URL='" +nombre +"' WHERE
+		// ID_VACACIONES = '" +idvac +"'";
+		String sql = "UPDATE RHMV_VACACIONES SET URL=? WHERE ID_VACACIONES =?";
+		// String sql = "update horario set idcurso =?, idaula=?,fecha=?, hora=? where
+		// idhorario=?";
+		// update RHMV_VACACIONES set url = 'sdfs' where ID_VACACIONES = 'VAC-000005';
+		try {
+			// jt.update(sql);
+			jt.update(sql, url, idvac);
+			x = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
+
+	public List<Map<String, Object>> reportePorDepartamento(String fecha1, String fecha2) {
+
+		String sql = "SELECT COUNT(C.NO_DEP)AS NRO, D.NO_DEP  FROM (\r\n" + 
+				"SELECT B.NO_DEP, TO_CHAR(A.FECHA_CREACION, 'DD/MM/YYYY') FROM RHMV_VACACIONES A \r\n" + 
+				"JOIN RHMV_TRABAJADOR_FILTRADO B ON A.ID_TRABAJADOR_FILTRADO = B.ID_TRABAJADOR_FILTRADO\r\n" + 
+				"WHERE TO_CHAR(A.FECHA_CREACION, 'DD/MM/YYYY') BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YY')) C \r\n" + 
+				"RIGHT JOIN RHTX_DEPARTAMENTO D\r\n" + 
+				"ON C.NO_DEP = D.NO_DEP\r\n" + 
+				"GROUP BY D.NO_DEP\r\n" + 
+				"ORDER BY NRO DESC";
+
+		return jt.queryForList(sql, fecha1, fecha2);
+
+	}
+	public List<Map<String, Object>> reportePorMeses() {
+
+		String sql = "";
+
+		return jt.queryForList(sql);
+
 	}
 
 }

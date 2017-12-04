@@ -141,7 +141,7 @@
 // 						//window.location.href = "http://localhost:8097/gth/solicitud/open";
 // 					});
 
-					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=1";
+					window.location.href = gth_context_path +"/solicitud/registrar?op=1";
 					
 					
 					break;
