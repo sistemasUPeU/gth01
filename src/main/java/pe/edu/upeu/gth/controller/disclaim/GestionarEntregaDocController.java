@@ -209,7 +209,7 @@ public class GestionarEntregaDocController {
 			
 					
 				}
-				
+				System.out.println(idr);
 				Renuncia r1 = new Renuncia();
 				r1.setId_renuncia(idr);
 				ldao.EntregarRenuncia(r1);

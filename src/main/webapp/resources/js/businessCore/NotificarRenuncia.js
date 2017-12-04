@@ -211,8 +211,8 @@ function listarNotificados() {
 								function() {
 
 									idc = $(this).parents("tr").find("td")
-											.eq(0).find(".idtr").text();
-									alert(idc);
+											.eq(0).find(".idr").text();
+//									alert(idc);
 									Entregar(idc);
 
 									// $("#otros").val(cantidad);
@@ -476,6 +476,7 @@ function Entregar(idc) {
 	}, function(data, status) {
 		console.log(data);
 		
+		$("#not_idr").val(idc);
 		$("#modalentregar").openModal();
 		
 	});

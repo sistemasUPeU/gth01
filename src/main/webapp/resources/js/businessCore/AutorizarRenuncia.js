@@ -424,7 +424,8 @@ function DetalleRenuncia(idc) {
 					//alert(idr);
 					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
-							 alert("BIEN Nicole");							 
+//							 alert("BIEN Nicole");	
+							 window.location.href = "http://localhost:8081/gth/renuncias/authorizationR";					 
 							
 			        		 //alert(data);
 			        	});

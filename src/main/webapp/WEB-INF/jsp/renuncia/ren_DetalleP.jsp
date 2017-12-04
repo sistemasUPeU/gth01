@@ -245,7 +245,7 @@
 			style="z-index: 5; position: fixed">
 			<div class="row">
 				<div class="col s4">
-					<a href="#"
+					<a href="<c:url value='/renuncias/processR'></c:url>"
 						class="waves-effect waves-light btn modal-action  green modal-close "
 						id="RechazarRenuncia">Enviar</a>
 				</div>

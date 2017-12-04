@@ -150,7 +150,7 @@
 								class="dropify" data-default-file="" data-height="300" />
 						</div>
 					</div>
-					<input id="not_idr" type="text" name="not_idr">
+					<input id="not_idr" type="hidden" name="not_idr">
 				</div>
 			</div>
 			<div class="modal-footer   teal lighten-1   darken-2"

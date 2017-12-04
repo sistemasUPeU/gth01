@@ -420,6 +420,7 @@ function DetalleRenuncia(idc) {
 					
 					 alertify.confirm('Confirmar proceso', 'Esta seguro(a) de procesar la renuncia de este trabajador?', function(){
 						 $.get("ProcesarR",{opc:4,idr:idr},function(data){
+							 window.location.href = "http://localhost:8081/gth/renuncias/processR";		
 							 //alert("BIEN ");
 			        		 //alert(data);
 			        	});

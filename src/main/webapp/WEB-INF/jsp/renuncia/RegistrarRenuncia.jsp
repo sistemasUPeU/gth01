@@ -108,16 +108,17 @@
 											<div class="col l3 m3 s6">
 												<input type="hidden" id="idt" />
 												<h6 class="light italic black-text">
-													<strong><h6>Nombres :</strong><span id="nombres"></span><br>
+													<strong>Nombres :</strong><span id="nombres"></span><br>
 												</h6>
-												<h6>
-													Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
+												<h6 class="light italic black-text">
+													<strong> Apellido Paterno : </strong><span id="paternos"></span><br>
 												</h6>
-												<h6>
-													Apellido Materno : </strong><span id="materno"></span><br> <strong>
+												<h6 class="light italic black-text">
+													<strong> Apellido Materno : </strong><span id="maternos"></span><br>
 												</h6>
-												<h6>
-													Fecha de Nacimiento : </strong><span id="fecha_nac"></span>
+												<h6 class="light italic black-text">
+													<strong> Fecha de Nacimiento : </strong><span
+														id="fecha_nacs"></span>
 												</h6>
 											</div>
 										</div>

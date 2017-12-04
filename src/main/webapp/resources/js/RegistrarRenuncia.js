@@ -181,9 +181,9 @@ function buscarDetalle(){
 							$("#fo").hide();
 							$("#detalleR").show();
 							$("#nombres").text(detalle[0].NOMBRES);
-							$("#paterno").text(detalle[0].PATERNO);    
-							$("#materno").text(detalle[0].MATERNO); 
-							$("#fecha_nac").text(detalle[0].FECHA_NAC);  
+							$("#paternos").text(detalle[0].PATERNO);    
+							$("#maternos").text(detalle[0].MATERNO); 
+							$("#fecha_nacs").text(detalle[0].FECHA_NAC);  
 							$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);  
 							$("#direccion").text(detalle[0].DOMICILIO);  
 							$("#departamento").text(detalle[0].NOM_DEPA);
