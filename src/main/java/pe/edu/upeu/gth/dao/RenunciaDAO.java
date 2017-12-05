@@ -318,7 +318,7 @@ public class RenunciaDAO {
 				"FROM REN_MOTIVO m \r\n" + 
 				"LEFT JOIN REN_DETALLE_MOTIVO dm ON dm.ID_MOTIVO=m.ID_MOTIVO \r\n" + 
 				"LEFT JOIN REN_RENUNCIA r ON r.ID_RENUNCIA=dm.ID_RENUNCIA\r\n" + 
-				"AND r.FECHA_REGISTRO BETWEEN TO_DATE('"+fecha1+"','YYYY/MM/DD') AND TO_DATE('"+fecha2+"','YYYY/MM/DD') \r\n" + 
+				"WHERE r.FECHA_REGISTRO BETWEEN TO_DATE('"+fecha1+"','DD/MM/YYYY') AND TO_DATE('"+fecha2+"','DD/MM/YYYY') \r\n" + 
 				"GROUP BY  m.NO_MOTIVO";
 		return jt.queryForList(sql);
 	}
