@@ -5,7 +5,7 @@
 		<![CDATA[IlJITVZfVFJBQkFKQURPUl9GSUxUUkFETyIgLDQ4NSw4OTQsOGZhYzhiNjAtMmI0Ny00MDk4LWE5
 YzAtZDE1ZmVjMGM4M2IyOw==]]>
 	</property>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="OracleVacaciones"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT a.ID_TRABAJADOR_FILTRADO, a.ID_CONSOLIDADO, b.ID_TRABAJADOR, b.AP_PATERNO, b.AP_MATERNO, b.NO_TRABAJADOR,b.NU_DOC , c.ID_VACACIONES, c.TIPO, c.ESTADO,
 d.ID_DET_VACACIONES, d.FECHA_INICIO, d.FECHA_FIN, D.ESTADO
@@ -58,11 +58,7 @@ AND C.ESTADO = 1]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="96" splitType="Stretch">
-			<image>
-				<reportElement x="50" y="-1" width="90" height="80" uuid="2e455fa6-3fe6-4663-be8f-bfb3b79abdcc"/>
-				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
-			</image>
+		<band height="98" splitType="Stretch">
 			<textField>
 				<reportElement x="370" y="50" width="50" height="30" uuid="9c147d93-d797-437b-9ac9-967c70f53ffb"/>
 				<textFieldExpression><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
@@ -71,6 +67,10 @@ AND C.ESTADO = 1]]>
 				<reportElement x="322" y="50" width="195" height="30" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
 				<text><![CDATA[Solicito                            de Vacaciones]]></text>
 			</staticText>
+			<image>
+				<reportElement x="60" y="29" width="71" height="69" uuid="6dc7fa46-4723-47da-a8ea-4ecd898e677c"/>
+				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -89,7 +89,7 @@ AND C.ESTADO = 1]]>
 		<band height="274" splitType="Stretch">
 			<textField>
 				<reportElement x="60" y="10" width="440" height="59" uuid="6fa4c7d5-d065-442c-82e7-a1696edcc598"/>
-				<textFieldExpression><![CDATA[$F{AP_PATERNO} +" " + $F{AP_MATERNO} + "," + $F{NO_TRABAJADOR} + "identificada(o) con DNI :"  + $F{NU_DOC}  + "expongo: "]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AP_PATERNO} +" " + $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR} + " identificada(o) con DNI :"  + $F{NU_DOC}  + "expongo: "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="60" y="110" width="440" height="30" uuid="b661ea1a-520d-492f-975a-4e3d998cf205"/>

@@ -33,6 +33,18 @@ public class TrabajadorFiltradoDAO {
 			return null;
 		}
 	}
+	public List<Map<String, Object>> GetEmail() {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		
+		try {
+			String SQL = "SELECT DI_CORREO_PERSONAL FROM RHVV_TRABAJADOR_FILTRADO WHERE DI_CORREO_PERSONAL != '--' AND DI_CORREO_PERSONAL !='-' AND DI_CORREO_PERSONAL IS NOT NULL";
+			LST = JDBC.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
+	}
 
 	public int CONFIRMAR () {
 

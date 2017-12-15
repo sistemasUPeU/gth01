@@ -132,30 +132,39 @@
 					break;
 				case 1:
 
-// 					var url ="solicitud/registrar";
-// 					 var datos ="&op=1";
-// 					 datos += "&idrol=" +idrol;
-
-// 					$.post(url,{op:1,rol:idrol},function(){
-// 						//console.log(objJson);
-// 						//window.location.href = "http://localhost:8097/gth/solicitud/open";
-// 					});
-
-					window.location.href = gth_context_path +"/solicitud/registrar?op=1";
+// 					window.location.href = gth_context_path +"/solicitud/registrar?op=1";
+					var datos = "op=1"
+						$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
+							console.log(response);
+							$("#desktop").html(response);
+						});
 					
 					
 					break;
 				case 2:
-					console.log("es dos");
+// 					console.log("es dos");
 					Materialize
 					.toast(
 							'Usted tiene una solicitud en proceso!',
 							3000,
-							'rounded');
+							'rounded', function(){
+								var datos = "op=3"
+								$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
+									console.log(response);
+									$("#desktop").html(response);
+								});
+								
+							});
+					
 					break;
 				case 3:
-					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
-					console.log("reprogramacion");
+// 					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
+// 					console.log("reprogramacion");
+					var datos = "op=2"
+						$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
+							console.log(response);
+							$("#desktop").html(response);
+						});
 					break;
 				}
 		});

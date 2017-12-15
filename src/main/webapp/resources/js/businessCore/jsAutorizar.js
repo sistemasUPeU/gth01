@@ -3,8 +3,7 @@
 						function() {
 							$
 									.getJSON(
-											gth_context_path
-													+ "/autorizacion/listas",
+											gth_context_path+ "/autorizacion/listas",
 											"opc=con_autorizar",
 											function(objJson) {
 												var lista = objJson.datos.List_id_Autorizacion;

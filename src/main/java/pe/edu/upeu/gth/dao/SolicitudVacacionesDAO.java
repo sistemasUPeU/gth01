@@ -9,18 +9,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import com.google.gson.Gson;
 
 import oracle.jdbc.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dto.ProductOrder;
 
 public class SolicitudVacacionesDAO {
 	private JdbcTemplate jt;
 
 	DataSource d = AppConfig.getDataSource();
 	Connection cn;
+	
+	
+	@Autowired
+	JavaMailSender mailSender;
 
 	public SolicitudVacacionesDAO(DataSource datasource) {
 		jt = new JdbcTemplate(datasource);
@@ -95,7 +111,7 @@ public class SolicitudVacacionesDAO {
 			cst.setString(5, user);
 			cst.registerOutParameter(6, Types.CHAR);
 			cst.execute();
-			System.out.println("dao: "+cst.getString(6));
+			System.out.println("dao: "+cst.getString(6).trim());
 			// cn.commit();
 			cn.close();
 
@@ -143,4 +159,53 @@ public class SolicitudVacacionesDAO {
 
 	}
 
+
+
+	public void sendEmail(Object object) {
+
+		ProductOrder order = (ProductOrder) object;
+
+		MimeMessagePreparator preparator = getMessagePreparator(order);
+
+		try {
+			mailSender.send(preparator);
+			System.out.println("Message Send...Hurrey");
+		} catch (MailException ex) {
+			System.err.println(ex.getMessage());
+		}
+	}
+
+	private MimeMessagePreparator getMessagePreparator(final ProductOrder order) {
+
+//		MimeMessagePreparator preparator = new MimeMessagePreparator()
+//		{
+//			public void prepare(MimeMessage mimeMessage) throws Exception {
+//				mimeMessage.setFrom("harolcotac@gmail.com");
+//				mimeMessage.setRecipient(Message.RecipientType.TO,
+//						new InternetAddress(order.getCustomerInfo().getEmail()));
+//				mimeMessage.setText("Dear " + order.getCustomerInfo().getName()
+//						+ ", thank you for placing order. Your order id is " + order.getOrderId() + ".");
+//				mimeMessage.setSubject("Your order on Demoapp");
+//				System.out.println("mime> " + mimeMessage);
+//			}
+//		};
+
+		
+		MimeMessagePreparator preparator1 = new MimeMessagePreparator() {
+			   public void prepare(MimeMessage mimeMessage) throws MessagingException {
+			     MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+			     message.setFrom("harolcotac@gmail.com");
+			     message.setTo("harolcotac@gmail.com");
+			     message.setSubject("mi aplicacion2");
+			     message.setText("my hiiii i am testing, please see it", true);
+//			     message.addInline("myLogo", new ClassPathResource("img/mylogo.gif"));
+//			     message.addAttachment("myDocument.pdf", new ClassPathResource("doc/myDocument.pdf"));
+			   }
+			 };
+		System.out.println("prepa>" +preparator1);
+		
+		return preparator1;
+		
+
+	}
 }
