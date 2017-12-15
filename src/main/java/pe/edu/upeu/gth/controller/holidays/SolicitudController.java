@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,9 +30,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+
 import net.sf.jasperreports.engine.JRException;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
+import pe.edu.upeu.gth.dto.CustomerInfo;
+import pe.edu.upeu.gth.dto.ProductOrder;
+import pe.edu.upeu.gth.interfaz.MailService;
 
 @Controller
 @Scope("request")
@@ -54,8 +60,9 @@ public class SolicitudController {
 
 	@RequestMapping(value = "/registrar")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
-
+		System.out.println("entro");
 		int opcion = Integer.parseInt(request.getParameter("op"));
+		System.out.println(opcion);
 		// String rol = request.getParameter("idrol");
 		// System.out.println(opcion + "/"+ rol);
 		// ModelAndView model = new ModelAndView("redirect:vacaciones/vac_gest_solic");
@@ -68,6 +75,10 @@ public class SolicitudController {
 		} else {
 			if (opcion == 2) {
 				model.addObject("tipo", "Reprogramacion");
+			}else {
+				if(opcion ==3) {
+					model.addObject("tipo", "Programacion");
+				}
 			}
 		}
 
@@ -81,17 +92,23 @@ public class SolicitudController {
 	// return "vacaciones/vac_gest_solic";
 	// }
 
-	@RequestMapping("/reporte")
+	@RequestMapping(path="/reporte", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String verReporte(Model model, HttpServletRequest request,
 			@RequestParam(name = "format", defaultValue = "pdf", required = false) String format) throws JRException {
 		// JasperCompileManager.compileReport("D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml");
-		System.out.println("reporte");
-		String idt = request.getParameter("idtr");
-		System.out.println(idt);
-		List<Map<String, Object>> sd = vd.llenar_solicitud(idt);
-		model.addAttribute("format", format);
-		model.addAttribute("datasource", sd);
-		model.addAttribute("AUTOR", "Tutor de programacion");
+		try {
+			System.out.println("reporte");
+			String idt = request.getParameter("idtr");
+			System.out.println(idt);
+			List<Map<String, Object>> sd = vd.llenar_solicitud(idt);
+			model.addAttribute("format", format);
+			model.addAttribute("datasource", sd);
+			model.addAttribute("AUTOR", "Tutor de programacion");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error controller, reporte: " + e);
+		}
+		
 		// abrirReporte(getClass().getResource("/src/main/resources/request_report.jrxml").getPath());
 		return "request_report";
 	}
@@ -244,5 +261,11 @@ public class SolicitudController {
 		 return "redirect:/vacaciones/";// + url;
 		// return gson.toJson(archi);
 	}
+	
+	
+	
+
+	
+	
 
 }

@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -14,18 +15,29 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 
+
 import pe.edu.upeu.gth.properties.globalProperties;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages = "pe.edu.upeu.gth")
+@ComponentScan(basePackages = "pe.edu.upeu.gth"
+//, excludeFilters = { 
+//	    @Filter(type = FilterType.ANNOTATION, value = Configuration.class)
+//	    @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class) 
+//	  }
+)
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
@@ -63,6 +75,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
+
+	
+
+
 	@Bean
     public static DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -93,7 +109,29 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         
         return resolver;
     }*/
+    @Bean
+    public JavaMailSender getMailSender(){
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+         
+        //Using gmail
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("harolcotac@gmail.com");
+        mailSender.setPassword("gppcztdqrcanvpbg");
+         
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.smtp.starttls.enable", "true");
+        javaMailProperties.put("mail.smtp.auth", "true");
+        javaMailProperties.put("mail.transport.protocol", "smtp");
+        javaMailProperties.put("mail.debug", "true");//Prints out everything on screen
+         
+        mailSender.setJavaMailProperties(javaMailProperties);
+        return mailSender;
+    }
 	
-	
+//	@Bean
+//    public PedidoDAO getemailDao() {
+//        return new PedidoDaoImp(getDataSource());
+//    }
 	
 }
