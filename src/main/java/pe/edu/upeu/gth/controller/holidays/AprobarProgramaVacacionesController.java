@@ -28,14 +28,14 @@ public class AprobarProgramaVacacionesController {
 		Gson g = new Gson();
 		return g.toJson(t.listarSinAprobar(depa));
 	}
-	
+
 	@RequestMapping(path = "/getAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAprobados(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		Gson g = new Gson();
 		return g.toJson(t.listarAprobados(depa));
 	}
-	
+
 	@RequestMapping(path = "/getRechazados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getRechazados(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
@@ -50,5 +50,16 @@ public class AprobarProgramaVacacionesController {
 		String[] idarray = id_det.split(",");
 		Gson g = new Gson();
 		return g.toJson(t.apobarVac(usuario, idarray));
+	}
+
+	@RequestMapping(path = "/guardarObservar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String guardarObservar(HttpServletRequest request, Authentication authentication) {
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
+		String id_det = request.getParameter("id_det");
+		String text = request.getParameter("text");
+		String emisor = request.getParameter("emisor");
+		String receptor = request.getParameter("receptor");
+		Gson g = new Gson();
+		return g.toJson(t.observarVac(usuario, id_det, text, emisor, receptor));
 	}
 }

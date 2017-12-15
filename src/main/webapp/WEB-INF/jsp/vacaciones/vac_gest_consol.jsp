@@ -252,7 +252,7 @@
 							var con = new jsConnector();
 							con
 									.post(
-											"vacaciones/consolidado/guardarAprovarConsolidado?"
+											"vacaciones/consolidado/guardarAprovarConsolidado123?"
 													+ datos,
 											null,
 											function(data) {

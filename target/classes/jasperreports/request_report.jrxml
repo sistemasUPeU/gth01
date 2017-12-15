@@ -61,7 +61,7 @@ AND C.ESTADO = 1]]>
 		<band height="96" splitType="Stretch">
 			<image>
 				<reportElement x="50" y="-1" width="90" height="80" uuid="2e455fa6-3fe6-4663-be8f-bfb3b79abdcc"/>
-				<imageExpression><![CDATA["D:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
+				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="370" y="50" width="50" height="30" uuid="9c147d93-d797-437b-9ac9-967c70f53ffb"/>
