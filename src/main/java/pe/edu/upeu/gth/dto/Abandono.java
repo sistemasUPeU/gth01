@@ -1,7 +1,7 @@
 package pe.edu.upeu.gth.dto;
 
-public class Renuncia {
-	private String id_renuncia;
+public class Abandono {
+	private String idabandono;
 	private String id_contrato;
 	private String otros;
 	private String fecha;
@@ -12,39 +12,13 @@ public class Renuncia {
 	private String id_motivo;
 	private String id_usuario;
 	private String tipo;
-	
-	public String getTipo() {
-		return tipo;
+
+	public String getIdabandono() {
+		return idabandono;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getId_usuario() {
-		return id_usuario;
-	}
-
-	public void setId_usuario(String id_usuario) {
-		this.id_usuario = id_usuario;
-	}
-
-	public String getId_motivo() {
-		return id_motivo;
-	}
-
-	public void setId_motivo(String id_motivo) {
-		this.id_motivo = id_motivo;
-	}
-
-	private byte[] pixel;
-
-	public String getId_renuncia() {
-		return id_renuncia;
-	}
-
-	public void setId_renuncia(String id_renuncia) {
-		this.id_renuncia = id_renuncia;
+	public void setIdabandono(String idabandono) {
+		this.idabandono = idabandono;
 	}
 
 	public String getId_contrato() {
@@ -103,12 +77,28 @@ public class Renuncia {
 		this.tam_archivo = tam_archivo;
 	}
 
-	public byte[] getPixel() {
-		return pixel;
+	public String getId_motivo() {
+		return id_motivo;
 	}
 
-	public void setPixel(byte[] pixel) {
-		this.pixel = pixel;
+	public void setId_motivo(String id_motivo) {
+		this.id_motivo = id_motivo;
+	}
+
+	public String getId_usuario() {
+		return id_usuario;
+	}
+
+	public void setId_usuario(String id_usuario) {
+		this.id_usuario = id_usuario;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

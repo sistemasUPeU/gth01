@@ -123,6 +123,7 @@ public class RegistrarRenunciaController {
 					r.setTi_archivo(FilenameUtils.getExtension(path));
 					r.setId_contrato(idcon);
 					r.setId_usuario(idusuario);
+					r.setTipo("R");
 					rd.crearRenuncia(r);
 				}
 

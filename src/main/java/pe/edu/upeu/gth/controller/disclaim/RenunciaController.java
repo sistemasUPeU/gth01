@@ -54,6 +54,12 @@ public class RenunciaController {
 	public ModelAndView registrarRenuncia(ModelMap model) {
 		return new ModelAndView("renuncia/RegistrarRenuncia");
 	}
+	//NUEVO
+	@RequestMapping(value = "/registrationA", method = RequestMethod.GET)
+	public ModelAndView registrarAbandono(ModelMap model) {
+		return new ModelAndView("abandono/RegistrarAbandono");
+	}
+
 
 	@RequestMapping(value = "/authorizationR", method = RequestMethod.GET)
 	public ModelAndView autorizarRenuncia(ModelMap model) {

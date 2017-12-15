@@ -150,7 +150,7 @@ public class RenunciaDAO {
 
 	// Lista de motivos de renuncia
 	public List<Map<String, Object>> mostrarMotivo() {
-		sql = "SELECT* FROM REN_MOTIVO";
+		sql = "SELECT* FROM RA_MOTIVO";
 		return jt.queryForList(sql);
 	}
 
@@ -170,9 +170,9 @@ public class RenunciaDAO {
 	// falta
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO REN_RENUNCIA(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) VALUES(?,?,?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario() });
+			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario(),r.getTipo() });
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

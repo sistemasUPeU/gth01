@@ -10,10 +10,9 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import pe.edu.upeu.gth.config.AppConfig;
-import pe.edu.upeu.gth.dto.Detalle_motivo;
-import pe.edu.upeu.gth.dto.Renuncia;
+import pe.edu.upeu.gth.dto.Abandono;
 
-public class Detalle_motivoDAO {
+public class AbandonoDAO {
 
 	String sql;
 	PreparedStatement ps;
@@ -24,15 +23,15 @@ public class Detalle_motivoDAO {
 
 	private static JdbcTemplate jt;
 
-	public Detalle_motivoDAO(DataSource dataSource) {
+	public AbandonoDAO(DataSource dataSource) {
 		jt = new JdbcTemplate(dataSource);
 	}
-
-	public int insertarOtros(Detalle_motivo r) {
+	
+	public int insertarAbandono(Abandono r) {
 		int x = 0;
-		String sql = "UPDATE RA_DETALLE_MOTIVO SET OTROS=? WHERE ID_DETALLE_MOTIVO=(SELECT MAX(ID_DETALLE_MOTIVO) FROM RA_DETALLE_MOTIVO)";
+		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) VALUES(?,?,?,?,?,'A')";
 		try {
-			jt.update(sql, new Object[] { r.getOtros() });
+			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario() });
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

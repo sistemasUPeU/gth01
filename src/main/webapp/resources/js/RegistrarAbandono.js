@@ -45,7 +45,7 @@ $(document).ready(function(){
 		}
         
         
-        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la renuncia de este trabajador?', function(){
+        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar el abandono de este trabajador?', function(){
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
                     type: "POST",
@@ -162,7 +162,7 @@ $(document).ready(function(){
             	 
             });
         });
-// Mostrando los detalles del trabajador
+
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
@@ -202,81 +202,36 @@ function buscarDetalle(){
 
 }
 
-// function Pruebita() {
-// alert("Hola Pelon c:");
-// var x = $(".dropify-filename-inner").text();
-// alert(x);
-// var m = x.split(".");
-// var no_archivo = m[0];
-// alert(no_archivo);
-// var ti_archivo = m[1];
-// alert(ti_archivo);
-// $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
-// alert(status);
-// alert(data);
-// });
-  
-  
-  
-// var idtr = "TRB-003651";
-// var x = $("#file").val();
-// $.get("detalleR",{idtr:idtr,file:x,opc:3},function(data,status){
-// alert(data);
-// });
-// console.log(x);
-
-// }
-
-
-
-// function Prueba() {
-// var idtr = $("#idtr").val();
-// // var x = $("#file").val();
-// $.get("uploaded",{idtr:idtr},function(data,status){
-// alert(data);
-// $("#hola").data(data);
-// });
-// // console.log(x);
-// }
-
-
 function insertarMotivos(){
-// alert("Motivos: "+$("#array_motivos").val());
-	var array = $("#array_motivos").val();
-	$.ajax("detalleR",{
-		data:{
-			'opc' : 3,
-			'array':array
-		},
-		type:'GET',
-		success:function(data){
-			otros = $("#otros").val();
-			if (otros=="") {
-				// alert("NO VAS A INSERTAR OTROS XD");
-			} else {
-				insertarOtros(otros);
+	// alert("Motivos: "+$("#array_motivos").val());
+		var array = $("#array_motivos").val();
+		$.ajax("detalleR",{
+			data:{
+				'opc' : 3,
+				'array':array
+			},
+			type:'GET',
+			success:function(data){
+				otros = $("#otros").val();
+				if (otros=="") {
+					// alert("NO VAS A INSERTAR OTROS XD");
+				} else {
+					insertarOtros(otros);
+				}
+				window.location.href = "http://localhost:8081/gth/renuncias/";
+				
+	// alert(otros);
+				
+	// window.location.assign(data);
+	// alert();
+	// limpiar();
+		
 			}
-			window.location.href = "http://localhost:8080/gth/renuncias/";
-			
-// alert(otros);
-			
-// window.location.assign(data);
-// alert();
-// limpiar();
-	
-		}
-	});
-}
-
+		});
+	}
 
 function insertarOtros(otros){
 	$.get("detalleR",{otros:otros,opc:5},function(data,status){
 		// alert(data);
 	});
-}
-limpiar();
-
-function limpiar(){
-
-	
 }
