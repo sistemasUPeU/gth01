@@ -29,7 +29,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 
 	@Controller
 	@Scope("request")
-	@RequestMapping("/renuncias/")
+	@RequestMapping("/renaban/")
 	public class ProcesarRenunciaController {
 		private Gson gson = new Gson();
 		Renuncia r = new Renuncia();

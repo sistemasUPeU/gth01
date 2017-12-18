@@ -65,7 +65,7 @@ public class RenProcesarDAO implements CRUDOperations{
 	}
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 	public List<Map<String, Object>> Autorizado() {
-		sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Autorizado'";
+		sql = "SELECT * FROM RA_VIEW_RENABAN WHERE ESTADO='Notificado' OR ESTADO='Autorizado'";
 		return jt.queryForList(sql);
 	}
 	
@@ -84,7 +84,7 @@ public class RenProcesarDAO implements CRUDOperations{
 	
 	//AL SELECCIONAR DETALLE LISTA LOS DATOS DEL TRABAJADOR
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
-		sql = "select ID_RENUNCIA,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_RENUNCIA";
+		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,TIPO FROM RA_VIEW_RENABAN";
 
 		sql += " where ID_CONTRATO='" + idc + "' ";
 
@@ -95,7 +95,7 @@ public class RenProcesarDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO PROCESADO
 	public List<Map<String, Object>> Procesado() {
-		sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Procesado'";
+		sql = "SELECT * FROM RA_VIEW_RENABAN WHERE ESTADO='Procesado'";
 		return jt.queryForList(sql);
 	}
 	

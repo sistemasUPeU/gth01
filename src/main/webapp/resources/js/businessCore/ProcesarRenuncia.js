@@ -48,7 +48,7 @@ $(document)
 //	Listar todos los trabajadores autorizados
 function listarAutorizados() {
 	$.getJSON(
-			gth_context_path + "/renuncias/ProcesarR",
+			gth_context_path + "/renaban/ProcesarR",
 			"opc=1",
 			function(objJson) {
 				var s = "";
@@ -72,6 +72,12 @@ function listarAutorizados() {
 							 mfl="Sí"
 						}else{
 							 mfl="No";
+						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
 						}
 						var p = "";
 						var f = "";
@@ -113,9 +119,6 @@ function listarAutorizados() {
 						s += '<td>'
 								+ lista[i].TIPO_CONTRATO
 								+ '</td>';
-						s += '<td><a class="green-text accent-3" href="#">'
-								+ lista[i].DESCRIPCION
-								+ '</a></td>';
 						s += '<td>'
 								+lista[i].FECHA_RENUNCIA+
 								 '</td>';
@@ -128,6 +131,7 @@ function listarAutorizados() {
 						// s += '<td>' + p + '</td>';
 						s += '<td>' + lista[i].ESTADO
 								+ '</td>';
+						s +='<td>' +TIPO+'</td>';
 						s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
 						s += '</button>';
 						s += '</tr>';
@@ -176,11 +180,11 @@ function createTable(idDepartamento, idRol) {
 	s += '<th>Area</th>';
 	s += '<th>Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
-	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de renuncia</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
 	s += '<th>Estado</th>';
+	s += '<th>Tipo</th>';
 	s += '<th>Opcion</th>';
 	if (Departamento === "DPT-0019") {
 		s += '<th>¿Cumplió Plazos?</th>';
@@ -208,7 +212,7 @@ function createTable(idDepartamento, idRol) {
 //Listar todos los trabajadores procesados
 function listarProcesados() {
 	$.getJSON(
-			gth_context_path + "/renuncias/ProcesarR",
+			gth_context_path + "/renaban/ProcesarR",
 			"opc=5",
 			function(objJson) {
 				var s = "";
@@ -232,6 +236,12 @@ function listarProcesados() {
 							 mfl="Sí"
 						}else{
 							 mfl="No";
+						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
 						}
 						var p = "";
 						var f = "";
@@ -273,9 +283,6 @@ function listarProcesados() {
 						s += '<td>'
 								+ lista[i].TIPO_CONTRATO
 								+ '</td>';
-						s += '<td><a class="green-text accent-3" href="#">'
-								+ lista[i].DESCRIPCION
-								+ '</a></td>';
 						s += '<td>'
 								+lista[i].FECHA_RENUNCIA+
 								 '</td>';
@@ -288,6 +295,7 @@ function listarProcesados() {
 						// s += '<td>' + p + '</td>';
 						s += '<td>' + lista[i].ESTADO
 								+ '</td>';
+						s +='<td>' +TIPO+'</td>';
 						s += '</tr>';
 					}
 
@@ -341,11 +349,11 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>Area</th>';
 	s += '<th>Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
-	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de renuncia</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
 	s += '<th>Estado</th>';
+	s += '<th>Tipo</th>';
 //	s += '<th>Opcion</th>';
 	if (Departamento === "DPT-0019") {
 		s += '<th>¿Cumplió Plazos?</th>';

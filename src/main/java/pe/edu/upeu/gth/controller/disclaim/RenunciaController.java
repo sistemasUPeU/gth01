@@ -38,7 +38,7 @@ import pe.edu.upeu.gth.util.DateFormat;
 
 @Controller
 @Scope("request")
-@RequestMapping("/renuncias/")
+@RequestMapping("/renaban/")
 public class RenunciaController {
 	
 	private Gson gson = new Gson();

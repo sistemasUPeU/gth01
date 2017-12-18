@@ -28,7 +28,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 
 @Controller
 @Scope("request")
-@RequestMapping("/renuncias/")
+@RequestMapping("/renaban/")
 public class RegistrarAbandonoController {
 	
 //	Map<String, Object> mp = new HashMap<>();

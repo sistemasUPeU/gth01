@@ -40,7 +40,10 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<div id="table-datatables">
 			<div class="wrapper">
-				<section id="content" class="col m12 l12 s12"> </section>
+				<section id="content" class="col m12 l12 s12"> 
+					<h1>Thi</h1>
+				
+				</section>
 				<div class="row">
 					<div class="container">
 						<form class="col s12">
