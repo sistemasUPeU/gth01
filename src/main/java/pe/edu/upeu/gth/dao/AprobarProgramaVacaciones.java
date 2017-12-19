@@ -4,6 +4,7 @@ import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -113,5 +114,33 @@ public class AprobarProgramaVacaciones {
 			e.printStackTrace();
 		}
 		return i;
+	}
+
+	public List<Map<String, Object>> GetEmail(String depa, String traba) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "select DISTINCT men.TEXTO, vtc.DI_CORREO_PERSONAL, \r\n"
+					+ "(SELECT DISTINCT DI_CORREO_PERSONAL FROM RHVV_TRABAJADOR_CONTRATO\r\n" + "where NO_DEP ='" + depa
+					+ "'\r\n" + "and NO_ROL='Secretaria de Departamento'\r\n" + "and DI_CORREO_PERSONAL != '--'\r\n"
+					+ "and DI_CORREO_PERSONAL !='-'\r\n"
+					+ "AND DI_CORREO_PERSONAL IS NOT NULL) as DI_CORREO_SECRETARIA\r\n"
+					+ "from RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\r\n"
+					+ "RHMV_DET_VACACIONES dsv, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd,\r\n"
+					+ "RHMV_MENSAJE men, RHMV_NOTIFICACIONES noti\r\n" + "where sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n"
+					+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO <> 0\r\n"
+					+ "and hd.EVALUACION=4\r\n" + "and hd.ID_PASOS='PAS-000054'\r\n"
+					+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\r\n"
+					+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\r\n"
+					+ "and tf.ID_TRABAJADOR=vtc.ID_TRABAJADOR\r\n" + "and vtc.ES_CONTRATO=1\r\n" + "and tf.no_dep ='"
+					+ depa + "'\r\n" + "and men.ID_MENSAJE=noti.ID_MENSAJE\r\n"
+					+ "and vtc.ID_TRABAJADOR=noti.ID_TRABAJADOR_RECEPTOR\r\n" + "and vtc.ID_TRABAJADOR='" + traba
+					+ "'\r\n" + "and vtc.DI_CORREO_PERSONAL != '--'\r\n" + "and vtc.DI_CORREO_PERSONAL !='-'\r\n"
+					+ "AND vtc.DI_CORREO_PERSONAL IS NOT NULL";
+			LST = jt.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
 	}
 }
