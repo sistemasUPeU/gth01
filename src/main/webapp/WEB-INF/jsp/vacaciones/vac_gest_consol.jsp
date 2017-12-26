@@ -36,49 +36,75 @@
 				<!-- 						onkeyup="searchTrabajador()"> <label -->
 				<!-- 						for="searchTrabajador">Trabajador</label> -->
 				<!-- 				</div> -->
-				<div class="input-field col s6">
-					<a class="waves-effect waves-light btn-large"
-						onclick="window.print()"><i class="mdi-action-print right"></i>Imprimir</a>
-				</div>
-				<div id="cuerpo" class="container">
-					<div id="contTable" style="margin: 0 1% 0 1%;"></div>
-
-					<br> <a class="btn waves-effect waves-light right"
-						id="confirmar"><i class="mdi-navigation-check"></i> Confirmar</a>
-				</div>
-
-				<div id="modal" class="modal">
-					<div class="modal-content">
-						<h4>Control de firmas</h4>
-						<div class="row">
-							<div id="contenedor_fechas"></div>
-							<div class="col s4">
-								<br> <a id="guardar"
-									class="btn waves-effect waves-light light-green darken-3  modal-action modal-close"><i
-									class="mdi-content-save"></i>Guardar</a>
+				<div class="row">
+					<div class="col s12">
+						<ul class="tabs tab-demo z-depth-1" style="width: 100%;">
+							<li class="tab col s3"><a class="active" href="#test001">Test
+									1</a></li>
+							<li class="tab col s3"><a href="#test002" class="">Test
+									2</a></li>
+						</ul>
+					</div>
+					<div class="col s12">
+						<div id="test001" class="col s12" style="display: block;">
+							<div class="input-field col s6">
+								<a class="waves-effect waves-light btn-large"
+									onclick="window.print()"><i class="mdi-action-print right"></i>Imprimir</a>
 							</div>
-							<div class="col s6">
-								<div class="file-field input-field">
-									<div class="btn">
-										<span>Solicitud</span> <input type="file">
-									</div>
-									<div class="file-path-wrapper">
-										<input class="file-path validate" type="text">
-									</div>
+							<div id="cuerpo" class="container">
+								<div id="contTable" style=""></div>
+
+								<br> <a class="btn waves-effect waves-light right"
+									id="confirmar"><i class="mdi-navigation-check"></i>
+									Confirmar</a>
+
+								<div class="row">
+									<div id="table_contenido" class="col s12 m12 l12"></div>
 								</div>
 							</div>
-							<div class="col s6">
-								<div class="file-field input-field">
-									<div class="btn">
-										<span>Papeleta</span> <input type="file">
+						</div>
+						<div id="test002" class="col s12" style="display: none;">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="container">
+
+					<div id="modal" class="modal">
+						<div class="modal-content">
+							<h4>Control de firmas</h4>
+							<div class="row">
+								<div id="contenedor_fechas"></div>
+								<div class="col s4" style="text-align: center;">
+									<br> <br> <a id="guardar"
+										class="btn waves-effect waves-light modal-action modal-close"><i
+										class="mdi-content-save"></i> Guardar</a>
+								</div>
+								<div class="col s6">
+									<div class="file-field input-field">
+										<div class="btn">
+											<span>Papeleta</span> <input type="file">
+										</div>
+										<div class="file-path-wrapper">
+											<input class="file-path validate" type="text">
+										</div>
 									</div>
-									<div class="file-path-wrapper">
-										<input class="file-path validate" type="text">
+								</div>
+								<div class="col s6">
+									<div class="file-field input-field">
+										<div class="btn">
+											<span>Solicitud</span> <input type="file">
+										</div>
+										<div class="file-path-wrapper">
+											<input class="file-path validate" type="text">
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -109,6 +135,196 @@
 			return allVals;
 		}
 
+		var z;
+
+		$("#modal").on("click", ".check", function() {
+			if ($(this).attr("name") == 0) {
+				$(this).removeClass('pink lighten-2');
+				$(this).addClass('green accent-3');
+				$(this).attr("name", "1");
+				$(this).find("#i").removeClass('mdi-navigation-close');
+				$(this).find("#i").addClass('mdi-navigation-check');
+			} else if ($(this).attr("name") == 1) {
+				$(this).removeClass('green accent-3');
+				$(this).addClass('pink lighten-2');
+				$(this).attr("name", "0");
+				$(this).find("#i").removeClass('mdi-navigation-check');
+				$(this).find("#i").addClass('mdi-navigation-close');
+			}
+		});
+
+		$("#guardar")
+				.click(
+						function() {
+							var con = new jsConnector();
+							console.log(z);
+							if (z == 1) {
+								var a, p, q;
+								$(".det").each(function() {
+									if ($(this).val() == 1) {
+										a = $(this).attr("name");
+									}
+								});
+								$(".check").each(function() {
+									if ($(this).val() == 1) {
+										p = $(this).attr("name");
+									}
+									if ($(this).val() == 2) {
+										q = $(this).attr("name");
+									}
+								});
+								console.log("***");
+								console.log(a);
+								console.log(p);
+								console.log(q);
+								console.log("***");
+								con
+										.post(
+												'vacaciones/consolidado/updateFirma?'
+														+ "id=" + a
+														+ "&inicio=" + p
+														+ "&fin=" + q,
+												null,
+												function(data) {
+													console.log(data);
+													if (data == 1) {
+														if (p == 0 && q == 0) {
+															Materialize
+																	.toast(
+																			'Ninguna firma se ha actualizado!',
+																			3000,
+																			'rounded');
+														} else {
+															Materialize
+																	.toast(
+																			'Firma actualizada correctamente!',
+																			3000,
+																			'rounded');
+														}
+													} else {
+														Materialize
+																.toast(
+																		'No se actualizaron las firmas, consulte con su jefe!',
+																		3000,
+																		'rounded');
+													}
+												});
+							}
+							if (z == 2) {
+								var a, b, p, q, r, s;
+								$(".det").each(function() {
+									if ($(this).val() == 1) {
+										a = $(this).attr("name");
+									}
+									if ($(this).val() == 2) {
+										b = $(this).attr("name");
+									}
+								});
+								$(".check").each(function() {
+									if ($(this).val() == 1) {
+										p = $(this).attr("name");
+									}
+									if ($(this).val() == 2) {
+										q = $(this).attr("name");
+									}
+									if ($(this).val() == 3) {
+										r = $(this).attr("name");
+									}
+									if ($(this).val() == 4) {
+										s = $(this).attr("name");
+									}
+								});
+								console.log("***");
+								console.log(a);
+								console.log(b);
+								console.log(p);
+								console.log(q);
+								console.log(r);
+								console.log(s);
+								console.log("***");
+								$.get('updateFirma', {
+									id : a,
+									inicio : p,
+									fin : q
+								}, function(data) {
+									console.log(data);
+								});
+								$.get('updateFirma', {
+									id : b,
+									inicio : r,
+									fin : s
+								}, function(data) {
+									console.log(data);
+								});
+							}
+							if (z == 3) {
+								var a, b, c, p, q, r, s, t, u;
+								$(".det").each(function() {
+									if ($(this).val() == 1) {
+										a = $(this).attr("name");
+									}
+									if ($(this).val() == 2) {
+										b = $(this).attr("name");
+									}
+									if ($(this).val() == 3) {
+										c = $(this).attr("name");
+									}
+								});
+								$(".check").each(function() {
+									if ($(this).val() == 1) {
+										p = $(this).attr("name");
+									}
+									if ($(this).val() == 2) {
+										q = $(this).attr("name");
+									}
+									if ($(this).val() == 3) {
+										r = $(this).attr("name");
+									}
+									if ($(this).val() == 4) {
+										s = $(this).attr("name");
+									}
+									if ($(this).val() == 5) {
+										t = $(this).attr("name");
+									}
+									if ($(this).val() == 6) {
+										u = $(this).attr("name");
+									}
+								});
+								console.log("***");
+								console.log(a);
+								console.log(b);
+								console.log(c);
+								console.log(p);
+								console.log(q);
+								console.log(r);
+								console.log(s);
+								console.log(t);
+								console.log(u);
+								console.log("***");
+								$.get('updateFirma', {
+									id : a,
+									inicio : p,
+									fin : q
+								}, function(data) {
+									console.log(data);
+								});
+								$.get('updateFirma', {
+									id : b,
+									inicio : r,
+									fin : s
+								}, function(data) {
+									console.log(data);
+								});
+								$.get('updateFirma', {
+									id : c,
+									inicio : t,
+									fin : u
+								}, function(data) {
+									console.log(data);
+								});
+							}
+						});
+
 		$("#contTable")
 				.on(
 						"click",
@@ -127,20 +343,62 @@
 												console.log(obj);
 												$("#contenedor_fechas").empty();
 												var j = '';
+												var k = 0;
 												var fechas = document
 														.getElementById("contenedor_fechas");
+												var n_n = 0;
 												for (var i = 0; i < obj.length; i++) {
-													j += '<div class="col s4">';
+													k = k + 1;
+													j += '<div class="col s3">';
 													j += '<p>Fecha Inicio</p>';
 													j += '<input value="'+obj[i].FECHA_INICIO+'" disabled type="text">';
 													j += '</div>';
-													j += '<div class="col s4">';
-													j += '<p>Fecha Fin</p>';
-													j += '<input value="'+obj[i].FECHA_FIN+'" disabled type="text">';
+													j += '<div class="col s1">';
+													j += '<br> <br>';
+													n_n = n_n + 1;
+													if (obj[i].FIRMA_SALIDA == 0) {
+														j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
+														j += '<i class="mdi-navigation-close" id="i"></i>';
+														j += '</button>';
+														j += '</div>';
+														j += '<div class="col s3">';
+														j += '<p>Fecha Fin</p>';
+														j += '<input value="'+obj[i].FECHA_FIN+'" disabled type="text">';
+														j += '</div>';
+														j += '<div class="col s1">';
+														j += '<br> <br>';
+														n_n = n_n + 1;
+														j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" disabled value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+														j += '<i class="mdi-navigation-close" id="i"></i>';
+														j += '</button>';
+													} else if (obj[i].FIRMA_SALIDA == 1) {
+														j += '<button class="btn-floating waves-effect waves-light green accent-3 check" disabled value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
+														j += '<i class="mdi-navigation-check" id="i"></i>';
+														j += '</button>';
+														j += '</div>';
+														j += '<div class="col s3">';
+														j += '<p>Fecha Fin</p>';
+														j += '<input value="'+obj[i].FECHA_FIN+'" disabled type="text">';
+														j += '</div>';
+														j += '<div class="col s1">';
+														j += '<br> <br>';
+														n_n = n_n + 1;
+														if (obj[i].FIRMA_ENTRADA == 0) {
+															j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+															j += '<i class="mdi-navigation-close" id="i"></i>';
+															j += '</button>';
+														} else if (obj[i].FIRMA_ENTRADA == 1) {
+															j += '<button class="btn-floating waves-effect waves-light green accent-3 check" disabled value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+															j += '<i class="mdi-navigation-check" id="i"></i>';
+															j += '</button>';
+														}
+													}
 													j += '</div>';
-
+													j += '<button class="hide det" value="'+k+'" name="'+obj[i].ID_DET_VACACIONES+'"></button>';
 												}
+
 												fechas.innerHTML += j;
+												z = obj.length;
 											});
 							$("#modal").openModal();
 						});
@@ -167,7 +425,8 @@
 									s += "</td><td>";
 									s += obj[i].NU_VAC;
 									s += "</td>";
-									s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4 material-icons dp48" href="#modal" name="'+obj[i].ID_DET_VACACIONES+'">&#119946;</button></td>';
+									s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'+obj[i].ID_VACACIONES+'">';
+									s += '<i class="mdi-image-remove-red-eye"></i></button></td>';
 									s += "<td><p style='text-align: center;'>";
 									s += "<input type='checkbox' class='checkBoxClass' id='test"+i+"'>";
 									s += " <label for='test"+i+"'></label>\r\n";
@@ -252,7 +511,7 @@
 							var con = new jsConnector();
 							con
 									.post(
-											"vacaciones/consolidado/guardarAprovarConsolidado123?"
+											"vacaciones/consolidado/guardarAprovarConsolidado?"
 													+ datos,
 											null,
 											function(data) {

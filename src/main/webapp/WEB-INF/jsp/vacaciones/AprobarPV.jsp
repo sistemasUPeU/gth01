@@ -162,13 +162,13 @@
 									s += "<td>";
 									s += "<button id='"
 											+ obj[i].ID_DET_VACACIONES
-											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid' value='"
+											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
 											+ obj[i].AP_PATERNO
 											+ " "
 											+ obj[i].AP_MATERNO
 											+ ", "
 											+ obj[i].NO_TRABAJADOR
-											+ "'  onclick='preba(this.value, this.id);'>&#128065;</button>";
+											+ "'  onclick='preba(this.value, this.id);'></button>";
 									s += "</td>";
 									s += "</tr>";
 								}
@@ -288,9 +288,9 @@
 									d += "<td>";
 									d += "<button id='"
 											+ obj[i].ID_DET_VACACIONES
-											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid' value='"
+											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
 											+ obj[i].TEXTO
-											+ "'  onclick='openVerObsModal(this.value, this.id);'>&#128065;</button>";
+											+ "'  onclick='openVerObsModal(this.value, this.id);'></button>";
 									d += "</td>";
 									d += "</tr>";
 								}
@@ -364,8 +364,8 @@
 		function preba(nombre, idde) {
 			var idtr = $('#' + idde).parents("tr").find("td").eq(1).text();
 			$("#cuerpo").append(createModal(idde, nombre, idtr));
-
 			$("#modal" + idde).openModal();
+			$('textarea#textarea' + idde).characterCounter();
 
 		};
 
@@ -402,7 +402,6 @@
 					+ "' onclick='observar(this.id, this.value);' >OK!</button>\r\n";
 			s += "</div>\r\n" + "</div></td>";
 			return s;
-			$('textarea#textarea' + idde).characterCounter();
 		};
 
 		function createModalObs(idde, texto) {
@@ -461,7 +460,6 @@
 		function observar(idtr, id_det) {
 			var obs = $(".hiddendiv").text();
 			var idte = $("#trab").val();
-			//alert("Obsevación: " + obs + ",\r\nIdEmisor:" + idte + ",\r\nIdTraReceptor: " + idtr + ",\r\nIdDetalle: " + id_det);
 			var datos = "id_det=" + id_det;
 			datos += "&text=" + obs;
 			datos += "&emisor=" + idte;
@@ -476,8 +474,8 @@
 								if (data == 1) {
 									con.post(
 											"vacaciones/programa_vacaciones/enviarObservacion?"
-													+ "receptor=" + idtr, null,
-											function(receptor) {
+													+ datos, null, function(
+													receptor) {
 												console.log(receptor);
 											});
 									Materialize.toast('El trabajador '

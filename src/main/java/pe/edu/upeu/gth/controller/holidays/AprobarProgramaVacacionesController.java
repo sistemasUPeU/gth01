@@ -62,36 +62,28 @@ public class AprobarProgramaVacacionesController {
 
 	@RequestMapping(path = "/guardarObservar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String guardarObservar(HttpServletRequest request, Authentication authentication) {
-		// List<Map<String, Object>> lista = new ArrayList<>();
-		// String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id_det = request.getParameter("id_det");
 		String text = request.getParameter("text");
 		String emisor = request.getParameter("emisor");
-		String receptor = request.getParameter("receptor");
-		// lista = t.GetEmail(depa, receptor);
-		// String[] arrayEmail = new String[lista.size()];
-		// System.out.println(g.toJson(lista));
-		// arrayEmail[0] = lista.get(0).get("DI_CORREO_PERSONAL").toString();
-		// arrayEmail[1] = lista.get(0).get("DI_CORREO_SECRETARIA").toString();
-		// System.out.println(g.toJson(arrayEmail));
-		return g.toJson(t.observarVac(usuario, id_det, text, emisor, receptor));
+		return g.toJson(t.observarVac(usuario, id_det, text, emisor));
 	}
 
 	@RequestMapping(path = "/enviarObservacion", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String enviarObservacion(HttpServletRequest request, Authentication authentication) {
 		List<Map<String, Object>> lista = new ArrayList<>();
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		String id_det = request.getParameter("id_det");
 		String receptor = request.getParameter("receptor");
-		lista = t.GetEmail(depa, receptor);
-		String[] arrayEmail = new String[lista.size()];
-		System.out.println(g.toJson(lista));
-		// arrayEmail[0] = lista.get(0).get("DI_CORREO_PERSONAL").toString();
-		// arrayEmail[1] = lista.get(1).get("DI_CORREO_SECRETARIA").toString();
-		arrayEmail[0] = "haroldcotac@gmail.com";
-		arrayEmail[1] = "104granados@gmail.com";
-		System.out.println(g.toJson(arrayEmail));
-		// ms.sendEmail(getDummyOrder(), arrayEmail);
+		lista = t.GetEmail(depa, id_det, receptor);
+		String[] arrayEmail = new String[2];
+		// System.out.println(g.toJson(lista));
+		arrayEmail[0] = lista.get(0).get("DI_CORREO_PERSONAL").toString();
+		arrayEmail[1] = lista.get(0).get("DI_CORREO_SECRETARIA").toString();
+		String text = lista.get(0).get("TEXTO").toString();
+		// System.out.println(g.toJson(arrayEmail));
+		// System.out.println(g.toJson(text));
+		ms.sendEmail(getDummyOrder(), arrayEmail, text);
 		return g.toJson(arrayEmail);
 	}
 
