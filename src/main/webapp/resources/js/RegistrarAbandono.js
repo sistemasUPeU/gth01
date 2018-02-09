@@ -20,15 +20,15 @@ $(document).ready(function(){
 		        };
 		    },true,'alert');
 		}
-	$("#RegistrarR").click(function (event) {
+	$("#RegistrarA").click(function (event) {
 		event.preventDefault();
  
 
         // Get form
-        var form = $('#RenunciaForm')[0];
+        var reg_aban = $('#AbandonoForm')[0];
 
 		// Create an FormData object
-        var data = new FormData(form);
+        var data = new FormData(reg_aban);
 
 		// If you want to add an extra field for the FormData
 // data.append("CustomField", "This is some extra data, testing");
@@ -45,7 +45,7 @@ $(document).ready(function(){
 		}
         
         
-        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar el abandono de este trabajador?', function(){
+        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar el ABANDONO de este trabajador?', function(){
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
                     type: "POST",
@@ -62,11 +62,11 @@ $(document).ready(function(){
                     	insertarMotivos();
 // alert("BIEN JONÁS : ", data);
 // $('#modal3').modal('close');
-                        $("#RegistrarR").prop("disabled", false);
+                        $("#RegistrarA").prop("disabled", false);
                     },
                     error: function (e) {
                         alert("NADA JONÁS : ", e);
-                        $("#RegistrarR").prop("disabled", false);
+                        $("#RegistrarA").prop("disabled", false);
                     }
                 });
             }else{          	
@@ -108,7 +108,7 @@ $(document).ready(function(){
                 alert('Archivo eliminado');
             });
             
-            $("#detalleR").hide();
+            $("#detalleA").hide();
             
             $("#dni").keypress(function(e) {
     			if (e.which == 13) {
@@ -148,7 +148,7 @@ $(document).ready(function(){
 
             });
        
-            $.get("detalleR",{opc:2},function(data,status){
+            $.get("detalleA",{opc:2},function(data,status){
             	var mot = JSON.parse(data);
             	$('#motivo').html("");
             	$('#motivo').append("<option value='' disabled selected>Elija una o varias opciones</option>");
@@ -166,20 +166,20 @@ $(document).ready(function(){
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
-	$.get("detalleR",{dni:dni,opc:1},function(data,status){
-// alert(data);
+	$.get("detalleA",{dni:dni,opc:1},function(data,status){
+ alert(data);
 		var detalle = JSON.parse(data);
 		console.log(detalle);
 	
 			if(detalle.length==0){
 				// location.reload();
-							$("#detalleR").hide();
+							$("#detalleA").hide();
 							$("#fo").show();
-							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha renunciado");
+							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha Abandondado");
 							$("#dni").val("");
 						}else{
 							$("#fo").hide();
-							$("#detalleR").show();
+							$("#detalleA").show();
 							$("#nombres").text(detalle[0].NOMBRES);
 							$("#paternos").text(detalle[0].PATERNO);    
 							$("#maternos").text(detalle[0].MATERNO); 
@@ -205,7 +205,7 @@ function buscarDetalle(){
 function insertarMotivos(){
 	// alert("Motivos: "+$("#array_motivos").val());
 		var array = $("#array_motivos").val();
-		$.ajax("detalleR",{
+		$.ajax("detalleA",{
 			data:{
 				'opc' : 3,
 				'array':array
@@ -218,7 +218,7 @@ function insertarMotivos(){
 				} else {
 					insertarOtros(otros);
 				}
-				window.location.href = "http://localhost:8081/gth/renuncias/";
+				window.location.href = gth_context_path+"/renaban/";	
 				
 	// alert(otros);
 				
@@ -231,7 +231,7 @@ function insertarMotivos(){
 	}
 
 function insertarOtros(otros){
-	$.get("detalleR",{otros:otros,opc:5},function(data,status){
+	$.get("detalleA",{otros:otros,opc:5},function(data,status){
 		// alert(data);
 	});
 }

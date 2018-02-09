@@ -36,8 +36,9 @@
 										</h6>
 									</div>
 								</div>
+								</sup>
 						</div>
-						</sup>
+						
 					</div>
 					<div class="price-desc white-text">
 						<form class="col s12 ">
@@ -221,7 +222,7 @@
 						<div class="input-field col s7">
 							<h5>Descripción de rechazo:</h5>
 								<div class="input-field col s12">
-						<textarea id="observacion" class="materialize-textarea"></textarea>
+						<textarea id="observaciones" class="materialize-textarea"></textarea>
 					</div>
 					</div>
 					</div>
@@ -245,9 +246,9 @@
 		</div>
 	</div>
 
-	<script
-		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
+<!-- 	<script -->
+<%-- 		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>" --%>
+<!-- 		type="text/javascript"></script> -->
 </body>
 </body>
 </html>

@@ -31,7 +31,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 
 @Controller
 @Scope("request")
-@RequestMapping("/renuncias/")
+@RequestMapping("/renaban/")
 public class AutorizarRenunciaController {
 	private Gson gson = new Gson();
 	Renuncia r = new Renuncia();
@@ -66,10 +66,11 @@ public class AutorizarRenunciaController {
 				out.println(gson.toJson(ra.Autorizado()));
 				break;
 			case 6:
-				String id = request.getParameter("id");
-				String observacion = request.getParameter("observacion");				
-				re.setId_renuncia(id);
-				re.setObservaciones(observacion);
+				String id = request.getParameter("idr");
+				System.out.println(id);
+				String observaciones = request.getParameter("observaciones");				
+				re.setId_renaban(id);
+				re.setObservaciones(observaciones);
 				out.println(ra.RechazarRenuncia(re));
 				break;
 			}

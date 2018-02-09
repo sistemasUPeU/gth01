@@ -256,7 +256,7 @@ function insertarMotivos(){
 			} else {
 				insertarOtros(otros);
 			}
-			window.location.href = "http://localhost:8080/gth/renuncias/";
+			window.location.href = gth_context_path+"/renaban/";
 			
 // alert(otros);
 			

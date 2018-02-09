@@ -88,7 +88,7 @@
 				<!-- 				<a href="#" onclick="Prueba()">ver</a> -->
 			</div>
 			<div class="container" style="margin-bottom: 3em">
-				<div id="detalleR" style="display: none">
+				<div id="detalleA" style="display: none">
 					<section class="plans-container" id="plans"> <article
 						class="col s12 m6 l4 ">
 					<div class="card z-depth-2" style="width: 75%; margin-left: 5%">
@@ -217,7 +217,7 @@
 						<div class="card-content"></div>
 						<div class="card-action center-align">
 							<form method="post" action="reg_aban" enctype="multipart/form-data"
-								class="col s12 m8 l11" id="RenunciaForm">
+								class="col s12 m8 l11" id="AbandonoForm">
 								<input type="hidden" name="idcontrato" id="idcontrato" value="">
 								<div class="col s12 m8 l9" id="adjuntar">
 									<p class="center  m,">
@@ -295,7 +295,7 @@
 												<div class="col s4" style="margin-right: 2em;">
 													<button type="submit"
 														class="btn waves-effect waves-light green indigo"
-														id="RegistrarR">
+														id="RegistrarA">
 														Enviar <i class="mdi-content-send right"></i>
 													</button>
 

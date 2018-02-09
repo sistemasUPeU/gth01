@@ -102,7 +102,7 @@ public class RenProcesarDAO implements CRUDOperations{
 	// Procesar Renuncia
 	public int ProcesarRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "UPDATE REN_RENUNCIA SET ESTADO='Procesado' WHERE ID_RENUNCIA=? ";
+		String sql = "UPDATE RA_RENABAN SET ESTADO='Procesado' WHERE ID_RENABAN=? ";
 		try {
 			jt.update(sql, new Object[] { r.getId_renuncia()});
 			x = 1;
@@ -119,13 +119,15 @@ public class RenProcesarDAO implements CRUDOperations{
 		String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";
 //		String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
 		try {
-		 jt.update(sql,new Object[] {ob.getId_renuncia(),ob.getObservaciones()});
+		 jt.update(sql,new Object[] {ob.getId_renaban(),ob.getObservaciones()});
 		 x=1;
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error:" + e);
 		}
 		return x;
+		
+		
 		
 	}
 }

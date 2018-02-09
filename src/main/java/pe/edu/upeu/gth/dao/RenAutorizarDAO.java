@@ -70,7 +70,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 	}
 	
 	public List<Map<String, Object>> Pendiente() {
-		sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Pendiente'";
+		sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Pendiente'";
 		return jt.queryForList(sql);
 	}
 	
@@ -85,7 +85,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 //    }
 	
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
-		sql = "select ID_RENUNCIA,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM REN_VIEW_RENUNCIA";
+		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM RA_VIEW_RENABAN";
 
 		sql += " where ID_CONTRATO='" + idc + "' ";
 
@@ -94,14 +94,14 @@ public class RenAutorizarDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
-			sql = "select* from REN_VIEW_RENUNCIA WHERE ESTADO='Autorizado'";
+			sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Autorizado'";
 			return jt.queryForList(sql);
 		}
 	
 	// Autorizar Renuncia
 		public int AutorizarRenuncia(Renuncia r) {
 			int x = 0;
-			String sql = "UPDATE REN_RENUNCIA SET ESTADO='Autorizado' WHERE ID_RENUNCIA=? ";
+			String sql = "UPDATE RA_RENABAN SET ESTADO='Autorizado' WHERE ID_RENABAN=? ";
 			try {
 				jt.update(sql, new Object[] { r.getId_renuncia()});
 				x = 1;
@@ -117,7 +117,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 			String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";
 //			String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
 			try {
-			 jt.update(sql,new Object[] {ob.getId_renuncia(),ob.getObservaciones()});
+			 jt.update(sql,new Object[] {ob.getId_renaban(),ob.getObservaciones()});
 			 x=1;
 			} catch (Exception e) {
 				// TODO: handle exception

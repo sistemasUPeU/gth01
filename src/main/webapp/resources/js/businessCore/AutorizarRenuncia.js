@@ -26,21 +26,21 @@ $(document)
 							idc : idc,
 							opc : 4
 						}, function(data, status) {
-							 //alert(data);
+							 alert(data);
 							var detalle = JSON.parse(data);
 							
 							console.log(detalle);
 							if(data==1){
-								//alert("BUENA JONAS")
+								alert("BUENA JONAS")
 								
 							}else{
-								//alert("NADA JONAS");
+								alert("NADA JONAS");
 							}
 							});
 					});
 					
 					$("#RechazarR").click(function(){
-						//alert("rechaza");
+						alert("rechaza");
 					});
 						
 					
@@ -51,7 +51,7 @@ $(document)
 //	Listar todos los trabajadores autorizados
 function listarAutorizados() {
 	$.getJSON(
-			gth_context_path + "/renuncias/AutorizarR",
+			gth_context_path + "/renaban/AutorizarR",
 			"opc=3",
 			function(objJson) {
 				var s = "";
@@ -75,6 +75,12 @@ function listarAutorizados() {
 							 mfl="Sí"
 						}else{
 							 mfl="No";
+						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
 						}
 						var p = "";
 						var f = "";
@@ -131,6 +137,7 @@ function listarAutorizados() {
 						// s += '<td>' + p + '</td>';
 						s += '<td>' + lista[i].ESTADO
 								+ '</td>';
+						s +='<td>' +TIPO+'</td>';
 						s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
 						s += '</button>';
 						s += '</tr>';
@@ -182,8 +189,9 @@ function createTable(idDepartamento, idRol) {
 	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de renuncia</th>';
 	s += '<th>DNI</th>';
-	s += '<th>MFL</th>';
+	s += '<th>MFL</th>';	
 	s += '<th>Estado</th>';
+	s += '<th>Tipo</th>';
 	s += '<th>Opcion</th>';
 	if (Departamento === "DPT-0019") {
 		s += '<th>¿Cumplió Plazos?</th>';
@@ -208,10 +216,10 @@ function createTable(idDepartamento, idRol) {
 	return s;
 }
 
-//Listar todos los trabajadores procesados
+////Listar todos los trabajadores procesados
 function listarProcesados() {
 	$.getJSON(
-			gth_context_path + "/renuncias/AutorizarR",
+			gth_context_path + "/renaban/AutorizarR",
 			"opc=5",
 			function(objJson) {
 				var s = "";
@@ -235,6 +243,12 @@ function listarProcesados() {
 							 mfl="Sí"
 						}else{
 							 mfl="No";
+						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
 						}
 						var p = "";
 						var f = "";
@@ -291,6 +305,7 @@ function listarProcesados() {
 						// s += '<td>' + p + '</td>';
 						s += '<td>' + lista[i].ESTADO
 								+ '</td>';
+						s +='<td>' +TIPO+'</td>';
 						s += '</tr>';
 					}
 
@@ -349,6 +364,7 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
 	s += '<th>Estado</th>';
+	s += '<th>Tipo</th>';
 //	s += '<th>Opcion</th>';
 	if (Departamento === "DPT-0019") {
 		s += '<th>¿Cumplió Plazos?</th>';
@@ -388,12 +404,12 @@ function DetalleRenuncia(idc) {
 	}, function(data, status) {
 		//alert(data);		
 //		 alert("BIEN JONAS");
-		 $("#contenido").html("");
+//		 $("#contenido").html("");
 		 $("#contenido").html(data);
 		 $.get("AutorizarR",{opc:2,idc:idc},function(data,status){	
-			 //alert(data);
+//			 alert(data);
 			 var detalle = JSON.parse(data);
-			 $("#idr").val(detalle[0].ID_RENUNCIA);	
+			 $("#idr").val(detalle[0].ID_RENABAN);	
 			 $("#nombres").text(detalle[0].NOMBRES);	
 			 $("#paterno").text(detalle[0].PATERNO);
 				$("#materno").text(detalle[0].MATERNO);
@@ -424,10 +440,11 @@ function DetalleRenuncia(idc) {
 					//alert(idr);
 					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
-//							 alert("BIEN Nicole");	
-							 window.location.href = "http://localhost:8081/gth/renuncias/authorizationR";					 
+//							 alert("BIEN Nicole");
+//							 alert(idr);
+							 window.location.href = gth_context_path +"/renaban/authorizationR";					 
 							
-			        		 //alert(data);
+//			        		 alert(data);
 			        	});
 						 
 				     	} , function(){ 
@@ -436,13 +453,14 @@ function DetalleRenuncia(idc) {
 				});
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
-					var observacion = $("#observacion").val();					
-					//alert(id);
+					var observaciones = $("#observaciones").val();					
 					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
-						 $.get("AutorizarR",{opc:6,id:id,observacion:observacion},function(data){
-							 //alert("BIEN Nicole");
-			        		 //alert(data);
-			        		 
+						 $.get("AutorizarR",{opc:6,idr:id,observaciones:observaciones},function(data){
+							 alert("BIEN Nicole");
+			        		 alert(data);
+			        		 alert(id);
+			        		 alert(observaciones);
+			        		 window.location.href = gth_context_path +"/renaban/authorizationR";
 			        	});
 						 
 				     	} , function(){ 

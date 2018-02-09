@@ -15,6 +15,7 @@ import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 
+
 public class ConfigTest {
 
 	public static DataSource d = AppConfig.getDataSource();
@@ -26,7 +27,7 @@ public class ConfigTest {
 	public static void main(String[] args) {
 //		conect();
 //		checkSecurityDaoAuthentication();
-		//Autorizar();
+//		Autorizar();
 //		Procesar();
 //		Procesar1();
 		//Renuncia();
@@ -65,7 +66,17 @@ public class ConfigTest {
 	public static void Procesar() {
 		System.out.println(gs.toJson(pr.Procesar()));
 	}
-	
+//	  public static void update(){
+//		   RenAutorizarDAO p = new RenAutorizarDAO(dataSource);
+//	       p.setIdpersona(48);
+//	       p.setNombre("aceite2");
+//	       p.setCorreo("hgfhsdf");
+//	       if(per.edit(p)==1){
+//	           System.out.println("si");
+//	       }else{
+//	           System.out.println("no");
+//	       }
+//	   }
 
 
 }

@@ -387,17 +387,16 @@ function DetalleRenuncia(idc) {
 //	$.get("details",{},function(data){
 //		alert(data);
 //	});
-	$.get("processDetails", {
+	$.get("processDetails", {                          
 	}, function(data, status) {
 		//alert(data);		
 //		 alert("BIEN JONAS");
-		 $("#contenido").html("");
+//		 $("#contenido").html("");
 		 $("#contenido").html(data);
 		 $.get("ProcesarR",{opc:2,idc:idc},function(data,status){	
-			 //alert(data);
+//			 alert(data);
 			 var detalle = JSON.parse(data);
-			 $("#idr").val(detalle[0].ID_RENUNCIA);	
-			 //alert(detalle[0].ID_RENUNCIA);
+			 $("#idr").val(detalle[0].ID_RENABAN);	
 			 $("#nombres").text(detalle[0].NOMBRES);	
 			 $("#paterno").text(detalle[0].PATERNO);
 				$("#materno").text(detalle[0].MATERNO);
@@ -415,52 +414,67 @@ function DetalleRenuncia(idc) {
 				}else{	
 					$("#antecedentes_policiales").text("No");
 				}
-				var archi = detalle[0].ARCHIVO;
+//				var archi = detalle[0].ARCHIVO;
 				if(detalle[0].CERTI_SALUD!=0){
 					$("#certificado_salud").text("Si");
 				}else{
 					$("#certificado_salud").text("No");
 				}
-				
-				//funcion para cambiar el estado a procesado y  guardar el estado procesado en la base de datos
+//				var img = document.getElementById("carta")
+				$("#carta").text(detalle[0].ARCHIVO);
 				$("#procesarRen").click(function(){
 					var idr= $("#idr").val();
-					
-					 alertify.confirm('Confirmar proceso', 'Esta seguro(a) de procesar la renuncia de este trabajador?', function(){
+					//alert(idr);
+					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
 						 $.get("ProcesarR",{opc:4,idr:idr},function(data){
-							 window.location.href = "http://localhost:8081/gth/renuncias/processR";		
-							 //alert("BIEN ");
-			        		 //alert(data);
+//							 alert("BIEN Nicole");
+//							 alert(idr);
+							 window.location.href = gth_context_path +"/renaban/processR";					 
+							
+//			        		 alert(data);
 			        	});
 						 
 				     	} , function(){ 
-				        	
+				     		
 				        });
 				});
-				
-				
-				//funcion para rechazar la renuncia
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
-					var observacion = $("#observacion").val();					
-					//alert(id);
-					 alertify.confirm('Confirmar Rechazo de proceso', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
-						 $.get("ProcesarR",{opc:6,id:id,observacion:observacion},function(data){
-							 //alert("BIEN Nicole");
-			        		 //alert(data);
-			        		 
+					var observaciones = $("#observaciones").val();					
+					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
+						 $.get("ProcesarR",{opc:6,idr:id,observaciones:observaciones},function(data){
+			        		 alert(data);
+			        		 window.location.href = gth_context_path +"/renaban/processR";
 			        	});
 						 
 				     	} , function(){ 
 				        	
 				        });
 				});
-		 });		     
+		 });
+		     
+	
+//		if (data.length == 0) {
+//			// location.reload();
+//			alert("nada de datos");
+//		} else {
+//			
+//			$("#nomes").text(detalle[0].NOMBRES);
+//			
+//			$.get("/mostrardoc1",{
+//				archi: archi
+//			},function(data){
+//				alert(data);
+//			})
+////			
+//			
+//		
+//
+//		}
 
 	});
+
 }
-
-
 
 
 

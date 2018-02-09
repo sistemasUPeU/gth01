@@ -64,12 +64,14 @@ import pe.edu.upeu.gth.dto.Renuncia;
 					out.println(gson.toJson(ra.Procesado()));
 					break;
 				case 6:
-					String id = request.getParameter("id");
-					String observacion = request.getParameter("observacion");				
-					re.setId_renuncia(id);
-					re.setObservaciones(observacion);
+					String id = request.getParameter("idr");
+					System.out.println(id);
+					String observaciones = request.getParameter("observaciones");				
+					re.setId_renaban(id);
+					re.setObservaciones(observaciones);
 					out.println(ra.RechazarRenuncia(re));
 					break;
+
 				}
 
 			}
