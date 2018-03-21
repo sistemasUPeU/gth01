@@ -35,7 +35,7 @@ public class AbandonoDAO {
 		int x = 0;
 		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) VALUES(?,?,?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { a.getId_contrato(), a.getTi_archivo(), a.getNo_archivo(), a.getFecha(),a.getId_usuario(),a.getTipo() });
+			jt.update(sql, new Object[] { a.getId_contrato(), a.getTi_archivo(), a.getNo_archivo(), a.getFecha(),a.getId_usuario(),a.getTipo()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

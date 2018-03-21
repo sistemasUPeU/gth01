@@ -100,5 +100,6 @@ public class Abandono {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
 
 }

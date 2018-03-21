@@ -114,7 +114,7 @@
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>"
+		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>"
 		type="text/javascript"></script>
 	<!-- 		<script -->
 	<%-- 		src="<c:url value='/resources/js/businessCore/Procesado.js'></c:url>" --%>

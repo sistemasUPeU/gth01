@@ -45,12 +45,12 @@ $(document).ready(function(){
 		}
         
         
-        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar el ABANDONO de este trabajador?', function(){
+        alertify.confirm('Confirmar abandono', 'Esta seguro(a) de confirmar el ABANDONO de este trabajador?', function(){
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
-                    url: "form",
+                    url: "reg_aban",
                     data: data,
                     processData: false,
                     contentType: false,
