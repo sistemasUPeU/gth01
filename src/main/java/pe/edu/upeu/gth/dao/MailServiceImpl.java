@@ -29,7 +29,7 @@ public class MailServiceImpl implements MailService {
 	JavaMailSender mailSender;
 
 
-	public void sendEmail(Object object, String[] email) {
+	public void sendEmail(Object object, String[] email, String text) {
 
 		ProductOrder order = (ProductOrder) object;
 
@@ -78,7 +78,7 @@ public class MailServiceImpl implements MailService {
 				}
 				
 				
-				MimeMessagePreparator preparator = getMessagePreparator(order, lastarray);
+				MimeMessagePreparator preparator = getMessagePreparator(order, lastarray, text);
 				
 				try {
 					mailSender.send(preparator);
@@ -102,7 +102,7 @@ public class MailServiceImpl implements MailService {
 					 pos_start++;
 				}
 				
-				MimeMessagePreparator preparator = getMessagePreparator(order, array);
+				MimeMessagePreparator preparator = getMessagePreparator(order, array, text);
 				
 				try {
 					mailSender.send(preparator);
@@ -125,7 +125,7 @@ public class MailServiceImpl implements MailService {
 
 	
 	
-	private MimeMessagePreparator getMessagePreparator(final ProductOrder order, String[] to) {
+	private MimeMessagePreparator getMessagePreparator(final ProductOrder order, String[] to, String text) {
 
 //		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 //
@@ -146,10 +146,10 @@ public class MailServiceImpl implements MailService {
 			     message.setFrom("developeralpha@testing.com");
 			     message.setTo(to);
 			     message.setSubject("Flying aorund the world");
-			     message.setText("Hi, We are GracEnterprise, this is a masive test email, please do not answer it. Thanks", true);
+			     message.setText(text, true);
 			     
-			     FileSystemResource file = new FileSystemResource("E:\\EL GRAN CONFLICTO.docx");
-			     message.addAttachment(file.getFilename(), file);
+//			     FileSystemResource file = new FileSystemResource("E:\\EL GRAN CONFLICTO.docx");
+//			     message.addAttachment(file.getFilename(), file);
 //			     message.addInline("myLogoUpeu", new ClassPathResource("img/logo_upeu.png"));
 //			     message.addAttachment("myDocument.pdf", new ClassPathResource("doc/myDocument.pdf"));
 			   }

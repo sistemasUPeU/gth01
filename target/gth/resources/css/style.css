@@ -235,7 +235,7 @@ li.home:before {
   margin: -75px 0 0 -75px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #3498db;
+  border-top-color: #424242 ;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
   z-index: 1001;
@@ -250,7 +250,7 @@ li.home:before {
   bottom: 5px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #e74c3c;
+  border-top-color: #00e676;
   -webkit-animation: spin 3s linear infinite;
   animation: spin 3s linear infinite;
 }
@@ -264,7 +264,7 @@ li.home:before {
   bottom: 15px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #f9c922;
+  border-top-color: #757575 ;
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
 }

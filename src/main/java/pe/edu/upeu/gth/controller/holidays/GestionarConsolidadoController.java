@@ -27,6 +27,7 @@ public class GestionarConsolidadoController {
 	public @ResponseBody String getAllEmployee() {
 		return g.toJson(gc.listarConsolidado());
 	}
+
 	@RequestMapping(path = "/guardarAprovarConsolidado", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String guardarAprovar(HttpServletRequest request, Authentication authentication) {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
@@ -34,10 +35,18 @@ public class GestionarConsolidadoController {
 		String[] idarray = id_det.split(",");
 		return g.toJson(gc.apobarVacCon(usuario, idarray));
 	}
-	
+
 	@RequestMapping(path = "/readFechas", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getFirma(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		return g.toJson(gc.readFechas(id));
+	}
+
+	@RequestMapping(path = "/updateFirma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarFirma(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		int inicio = Integer.parseInt(request.getParameter("inicio"));
+		int fin = Integer.parseInt(request.getParameter("fin"));
+		return g.toJson(gc.updateFechas(id, inicio, fin));
 	}
 }

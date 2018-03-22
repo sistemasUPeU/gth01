@@ -124,7 +124,7 @@ public class PrincipalController {
 			System.out.println(lista.get(i).get("DI_CORREO_PERSONAL"));
 			arrayEmail[i] = lista.get(i).get("DI_CORREO_PERSONAL").toString();
 		}
-		 ms.sendEmail(getDummyOrder(), arrayEmail);
+//		 ms.sendEmail(getDummyOrder(), arrayEmail);
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
 
