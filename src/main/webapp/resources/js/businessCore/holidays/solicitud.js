@@ -2,6 +2,18 @@ function loadProfile() {
 	location.href = "<%=request.getContextPath()%>/trabajador/profile";
 }
 
+$(document).ready(function(){
+	
+	$("#otrosdiv").hide();
+	
+    $('#fecha').pickadate({
+    	selectMonths: true, // Creates a dropdown to control month
+    	selectYears: 15, // Creates a dropdown of 15 years to control
+    	format: 'dd/mm/yyyy',
+      });
+    
+});
+
 var divisiones = 0;
 $(document)
 		.ready(
@@ -198,7 +210,7 @@ $("#agregar")
 						s += '<div class="col s12 m12 l6" id="'+cont+'">';
 						s += '<div class="card-panel">';
 
-						s += '<div class="row">'
+						s += '<div class="row" style="    margin-bottom: 0px;">'
 						s += '<div class="col s3 m6">'
 						s += '<h4 class="header2">Vacaciones ' + cont + '</h4>';
 						s += '</div>'
@@ -207,7 +219,7 @@ $("#agregar")
 						s += '</div>'
 						s += '</div>'
 
-						s += '<div class="row">';
+						s += '<div class="row" style="    margin-bottom: 0px;">';
 						s += '<div class="input-field col s6">';
 						s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" onchange="setti(this.id)" id="fe_inicio_'
 								+ cont + '"> <label for="dob">Fecha Inicio</label>';
@@ -231,7 +243,7 @@ $("#agregar")
 					$('.datepicker').pickadate({
 						selectMonths : true, // Creates a dropdown to control
 						// month
-						selectYears : 15, // Creates a dropdown of 15 years to
+						selectYears : 5, // Creates a dropdown of 15 years to
 						// control year,
 						today : 'Today',
 						clear : 'Clear',
@@ -243,8 +255,16 @@ $("#agregar")
 
 
 function eliminarVacaciones(id){
-	$("#"+id).remove();
-	cont--;
+	if(id==2 && cont ==4){
+		
+		$("#3").remove();
+		cont--
+	}else{
+		
+		$("#"+id).remove();
+		cont--;
+	}
+
 }
 
 function setti(id) {
@@ -257,10 +277,10 @@ function setti(id) {
 	console.log(num);
 	var fecha_inicio3 = parseDate(fei);
 
-	$('#fe_final_' + num).pickadate('picker').set('select',
-			calcular_final(fecha_inicio3), {
-				format : 'dd/mm/yyyy'
-			}).trigger("change");
+//	$('#fe_final_' + num).pickadate('picker').set('select',
+//			calcular_final(fecha_inicio3), {
+//				format : 'dd/mm/yyyy'
+//			}).trigger("change");
 	Materialize.updateTextFields();
 }
 
@@ -396,14 +416,10 @@ $("#subir")
 														success : function(data) {
 															console.log(data);
 
-															// $("#subir")
-															// .prop(
-															// "disabled",
-															// false);
 														},
 														error : function(e) {
 															alert(
-																	"NADA JONÁS : ",
+																	"NADA pepe : ",
 																	e);
 															$("#subir").prop(
 																	"disabled",

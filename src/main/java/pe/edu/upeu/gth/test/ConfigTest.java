@@ -1,5 +1,10 @@
 package pe.edu.upeu.gth.test;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,6 +16,7 @@ import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.ConfiguracionDAO;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
@@ -23,28 +29,48 @@ public class ConfigTest {
 
 	public static DataSource d = AppConfig.getDataSource();
 	public static SolicitudVacacionesDAO SD = new SolicitudVacacionesDAO(AppConfig.getDataSource());
-
-	public static void main(String[] args) {
-		conect();
-		checkSecurityDaoAuthentication();
-		//listar();
-		//proc();
-//		TestJhorman();
-		//TestHarold();
-//		SD.sendEmail(getDummyOrder());
-
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-
-		MailService mailService = (MailService) context.getBean("mailService");
+	public static ConfiguracionDAO con = new ConfiguracionDAO(AppConfig.getDataSource());
+	static Gson gs =  new Gson();
+	public static void main(String[] args) throws ParseException {
+//		conect();
+//		checkSecurityDaoAuthentication();
+//		//listar();
+//		//proc();
+////		TestJhorman();
+//		//TestHarold();
+////		SD.sendEmail(getDummyOrder());
+//
+//		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+//
+//		MailService mailService = (MailService) context.getBean("mailService");
 //		MailService ma = (MailService)	 ApplicationContextProvider.getApplicationContext.getBean("mailService");
+//		
+//		
+////		mailService.sendEmail(getDummyOrder());
+//
+//		((AbstractApplicationContext) context).close();
+//		validarco();
+        String a[]={"7-Jun-2013","7-Jun-2013"};
+        String sql="{}";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        for (String string : a) {
+            Date d=(Date) formatter.parse(string);
+            System.out.println(d);
+        }
+        
+        
 		
-		
-//		mailService.sendEmail(getDummyOrder());
-
-		((AbstractApplicationContext) context).close();
-
-		
-		
+	}
+	
+	private static void validarco() {
+		int x=1;
+		String res = gs.toJson(con.consolidadoExists());
+		System.out.println(res);
+		if(res.equals("null")) {
+			System.out.println("entro");
+			x = 0;
+		}
+		System.out.println(x);
 	}
 
 	private static void TestJhorman() {

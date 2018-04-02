@@ -23,22 +23,15 @@ import pe.edu.upeu.gth.interfaz.MailService;
 
 @Service("mailService")
 
-//@Transactional(readOnly = true)
-//@Component
 public class MailServiceImpl implements MailService {
 
 	@Autowired
 	JavaMailSender mailSender;
-//	private JavaMailSender mailSender;  
-//	   
-//    public void setMailSender(JavaMailSender mailSender) {  
-//        this.mailSender = mailSender;  
-//    }  
+
 
 	public void sendEmail(Object object, String[] email, String text) {
 
 		ProductOrder order = (ProductOrder) object;
-//		String[] email = {"104granados@gmail.com","harolcotac@gmail.com"};
 
 		
 		int currentSize = email.length;

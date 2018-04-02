@@ -24,7 +24,7 @@ AND C.ESTADO = 1]]>
 	<field name="ID_TRABAJADOR" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ID_TRABAJADOR"/>
 	</field>
-	<field name="AP_PATERNO" class="java.lang.String">
+	<field name="AP_PATERNO" class="java.la/ng.String">
 		<property name="com.jaspersoft.studio.field.label" value="AP_PATERNO"/>
 	</field>
 	<field name="AP_MATERNO" class="java.lang.String">
@@ -77,11 +77,11 @@ AND C.ESTADO = 1]]>
 		<band height="111" splitType="Stretch">
 			<staticText>
 				<reportElement x="60" y="30" width="100" height="30" uuid="9536a74c-671b-4560-bc19-ddf1a0d80237"/>
-				<text><![CDATA[Señores,]]></text>
+				<text><![CDATA[Seï¿½ores,]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="60" y="80" width="162" height="30" uuid="c1f67049-a474-45ca-a816-8f15d86c0305"/>
-				<text><![CDATA[Universidad Peruana Unión]]></text>
+				<text><![CDATA[Universidad Peruana Uniï¿½n]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -93,11 +93,11 @@ AND C.ESTADO = 1]]>
 			</textField>
 			<staticText>
 				<reportElement x="60" y="110" width="440" height="30" uuid="b661ea1a-520d-492f-975a-4e3d998cf205"/>
-				<text><![CDATA[Por lo expuesto, pido estudie mi solicitud a fin de considerar su aprobación en las fechas antes comprendidas.]]></text>
+				<text><![CDATA[Por lo expuesto, pido estudie mi solicitud a fin de considerar su aprobaciï¿½n en las fechas antes comprendidas.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="60" y="150" width="284" height="30" uuid="dacfe4fa-e8c1-421b-a2ec-4617c602c9aa"/>
-				<text><![CDATA[Agradezco su atención y consideración hacia mi solicitud.]]></text>
+				<text><![CDATA[Agradezco su atenciï¿½n y consideraciï¿½n hacia mi solicitud.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="60" y="190" width="100" height="30" uuid="32458cf1-1426-415d-857f-532897dc6e02"/>
@@ -109,7 +109,7 @@ AND C.ESTADO = 1]]>
 			</textField>
 			<staticText>
 				<reportElement x="345" y="230" width="120" height="30" uuid="6771fe6e-4310-4140-abbc-88fb11e6043a"/>
-				<text><![CDATA[Lima, Ñaña, ]]></text>
+				<text><![CDATA[Lima, ï¿½aï¿½a, ]]></text>
 			</staticText>
 		</band>
 	</detail>

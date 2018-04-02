@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.context.annotation.FilterType;
@@ -32,12 +33,8 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages = "pe.edu.upeu.gth"
-//, excludeFilters = { 
-//	    @Filter(type = FilterType.ANNOTATION, value = Configuration.class)
-//	    @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class) 
-//	  }
-)
+@ComponentScan(basePackages = "pe.edu.upeu.gth")
+@EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Override

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 
 <%@include file="../../../jspf/general.jspf"%>
@@ -11,9 +11,6 @@
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-<!-- <link -->
-<%-- 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>" --%>
-<!-- 	rel="stylesheet" type="text/css" /> -->
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
@@ -46,7 +43,7 @@
 	<!-- 			<section id="content" style="margin-left: 10%; margin-right: 10%;"> -->
 
 	<!--start container-->
-	<div class="container">
+	<div class="container" style="width: 90%">
 
 		<!-- 					<div id="icon-prefixes" class="section"> -->
 		<h4 class="header">Datos Generales</h4>
@@ -99,7 +96,7 @@
 				<div class="card-panel">
 
 
-					<div class="row">
+					<div class="row" style="    margin-bottom: 0px;">
 						<div class="col s3 m12">
 							<h4 class="header2">Vacaciones 1</h4>
 						</div>
@@ -112,7 +109,10 @@
 							<i class="mdi-action-perm-contact-cal prefix"></i> <input
 								type="text" class="datepicker" id="fe_final_1" disabled>
 							<label for="dob">Fecha Fin</label>
+							<input type="text" name="fecha"
+															id="fecha" class="datepicker">
 						</div>
+						
 
 					</div>
 				</div>
@@ -152,7 +152,6 @@
 				<div class="row section" style="margin-left: 20%; margin-right: 20%">
 
 					<div class="col s12 m12 l12 center">
-						<p class="center">Maximum file upload size 2MB.</p>
 						<input type="file" name="file" id="file-input" class="dropify"
 							data-max-file-size="10M" /> <input type="text" id="idvac"
 							name="idvac" value="VAC-000004" class="hide" />
@@ -195,6 +194,7 @@
 				height="600"> </object>
 		</div>
 	</div>
+	<br>
 
 	<!-- 		</div> -->
 
