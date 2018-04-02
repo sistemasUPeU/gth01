@@ -78,17 +78,18 @@
 		var prev = null;
 		for (var i = 0; i < rad.length; i++) {
 			rad[i].onclick = function() {
-				// 		            (prev)? console.log(prev.value):null;
 				if (this.value == 1500) {
 					listar();
+					$("#confirmar").show();
 				}
 				if (this.value == 1600) {
 					listarAprobados();
+					$("#confirmar").hide();
 				}
 				if (this.value == 1700) {
 					listarRechazados();
+					$("#confirmar").hide();
 				}
-				console.log(this.value)
 			};
 		}
 
@@ -102,45 +103,36 @@
 			return allVals;
 		}
 
-		$("#confirmar").click(function() {
-			arrid = getSelected();
-			console.log(arrid);
-		});
-
 		function listar() {
 			$
 					.get(
 							"programa_vacaciones/get",
 							function(obj) {
 								var s = "";
-								var element = "";
 								var emp = obj[0];
-								var con = "";
-								var array = [];
-								for ( var c in obj) {
-									if (obj[c].LI_CONDICION == 1) {
+								for (var i = 0; i < obj.length; i++) {
+									var con = "";
+									if (obj[i].LI_CONDICION == 1) {
 										con = "CONTRATADO";
 									}
-									if (obj[c].LI_CONDICION == 2) {
+									if (obj[i].LI_CONDICION == 2) {
 										con = "EMPLEADO";
 									}
-									if (obj[c].LI_CONDICION == 3) {
+									if (obj[i].LI_CONDICION == 3) {
 										con = "MISIONERO";
 									}
-									if (obj[c].LI_CONDICION == 4) {
+									if (obj[i].LI_CONDICION == 4) {
 										con = "MFL, Practicas Pre -- Profesionales";
 									}
-									if (obj[c].LI_CONDICION == 5) {
+									if (obj[i].LI_CONDICION == 5) {
 										con = "MFL, Practicas Profesionales";
 									}
-									if (obj[c].LI_CONDICION == 6) {
+									if (obj[i].LI_CONDICION == 6) {
 										con = "MFL, CLJ, Convenio laboral Juvenil";
 									}
-									if (obj[c].LI_CONDICION == 7) {
+									if (obj[i].LI_CONDICION == 7) {
 										con = "MFL -- Contrato";
 									}
-								}
-								for (var i = 0; i < obj.length; i++) {
 									s += "<tr><td class='hide' id='id_det' >";
 									s += obj[i].ID_DET_VACACIONES;
 									s += "</td><td class='hide' >";
@@ -170,13 +162,13 @@
 									s += "<td>";
 									s += "<button id='"
 											+ obj[i].ID_DET_VACACIONES
-											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid' value='"
+											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
 											+ obj[i].AP_PATERNO
 											+ " "
 											+ obj[i].AP_MATERNO
 											+ ", "
 											+ obj[i].NO_TRABAJADOR
-											+ "'  onclick='preba(this.value, this.id)'>&#128065;</button>";
+											+ "'  onclick='preba(this.value, this.id);'></button>";
 									s += "</td>";
 									s += "</tr>";
 								}
@@ -193,34 +185,30 @@
 		function listarAprobados() {
 			$.get("programa_vacaciones/getAprobados", function(obj) {
 				var d = "";
-				var element = "";
 				var emp = obj[0];
-				var con = "";
-				var array = [];
-				for ( var c in obj) {
-					if (obj[c].LI_CONDICION == 1) {
+				for (var i = 0; i < obj.length; i++) {
+					var con = "";
+					if (obj[i].LI_CONDICION == 1) {
 						con = "CONTRATADO";
 					}
-					if (obj[c].LI_CONDICION == 2) {
+					if (obj[i].LI_CONDICION == 2) {
 						con = "EMPLEADO";
 					}
-					if (obj[c].LI_CONDICION == 3) {
+					if (obj[i].LI_CONDICION == 3) {
 						con = "MISIONERO";
 					}
-					if (obj[c].LI_CONDICION == 4) {
+					if (obj[i].LI_CONDICION == 4) {
 						con = "MFL, Practicas Pre -- Profesionales";
 					}
-					if (obj[c].LI_CONDICION == 5) {
+					if (obj[i].LI_CONDICION == 5) {
 						con = "MFL, Practicas Profesionales";
 					}
-					if (obj[c].LI_CONDICION == 6) {
+					if (obj[i].LI_CONDICION == 6) {
 						con = "MFL, CLJ, Convenio laboral Juvenil";
 					}
-					if (obj[c].LI_CONDICION == 7) {
+					if (obj[i].LI_CONDICION == 7) {
 						con = "MFL -- Contrato";
 					}
-				}
-				for (var i = 0; i < obj.length; i++) {
 					d += "<tr><td>";
 					d += obj[i].AP_PATERNO + " "
 					d += obj[i].AP_MATERNO;
@@ -250,67 +238,73 @@
 
 		};
 		function listarRechazados() {
-			$.get("programa_vacaciones/getRechazados", function(obj) {
-				var d = "";
-				var element = "";
-				var emp = obj[0];
-				var con = "";
-				var array = [];
-				for ( var c in obj) {
-					if (obj[c].LI_CONDICION == 1) {
-						con = "CONTRATADO";
-					}
-					if (obj[c].LI_CONDICION == 2) {
-						con = "EMPLEADO";
-					}
-					if (obj[c].LI_CONDICION == 3) {
-						con = "MISIONERO";
-					}
-					if (obj[c].LI_CONDICION == 4) {
-						con = "MFL, Practicas Pre -- Profesionales";
-					}
-					if (obj[c].LI_CONDICION == 5) {
-						con = "MFL, Practicas Profesionales";
-					}
-					if (obj[c].LI_CONDICION == 6) {
-						con = "MFL, CLJ, Convenio laboral Juvenil";
-					}
-					if (obj[c].LI_CONDICION == 7) {
-						con = "MFL -- Contrato";
-					}
-				}
-				for (var i = 0; i < obj.length; i++) {
-					d += "<tr><td>";
-					d += obj[i].AP_PATERNO + " "
-					d += obj[i].AP_MATERNO;
-					d += ", ";
-					d += obj[i].NO_TRABAJADOR;
-					d += "</td><td>";
-					d += obj[i].NO_SECCION;
-					d += "</td><td>";
-					d += obj[i].NU_VAC;
-					d += "</td><td>";
-					d += obj[i].NU_DOC;
-					d += "</td><td>";
-					d += obj[i].FECHA_INICIO;
-					d += "</td><td>";
-					d += obj[i].FECHA_FIN;
-					d += "</td><td>";
-					d += con;
-					d += "</td>";
-					d += "</tr>";
-				}
-				$("#contTable").empty();
-				$("#contTable").append(createTable3());
-				$("#data").empty();
-				$("#data").append(d);
-				$("#data-table-row-grouping1").dataTable();
-			});
+			$
+					.get(
+							"programa_vacaciones/getRechazados",
+							function(obj) {
+								var d = "";
+								var emp = obj[0];
+								for (var i = 0; i < obj.length; i++) {
+									var con = "";
+									if (obj[i].LI_CONDICION == 1) {
+										con = "CONTRATADO";
+									}
+									if (obj[i].LI_CONDICION == 2) {
+										con = "EMPLEADO";
+									}
+									if (obj[i].LI_CONDICION == 3) {
+										con = "MISIONERO";
+									}
+									if (obj[i].LI_CONDICION == 4) {
+										con = "MFL, Practicas Pre -- Profesionales";
+									}
+									if (obj[i].LI_CONDICION == 5) {
+										con = "MFL, Practicas Profesionales";
+									}
+									if (obj[i].LI_CONDICION == 6) {
+										con = "MFL, CLJ, Convenio laboral Juvenil";
+									}
+									if (obj[i].LI_CONDICION == 7) {
+										con = "MFL -- Contrato";
+									}
+									d += "<tr><td>";
+									d += obj[i].AP_PATERNO + " "
+											+ obj[i].AP_MATERNO;
+									d += ", ";
+									d += obj[i].NO_TRABAJADOR;
+									d += "</td><td>";
+									d += obj[i].NO_SECCION;
+									d += "</td><td>";
+									d += obj[i].NU_VAC;
+									d += "</td><td>";
+									d += obj[i].NU_DOC;
+									d += "</td><td>";
+									d += obj[i].FECHA_INICIO;
+									d += "</td><td>";
+									d += obj[i].FECHA_FIN;
+									d += "</td><td>";
+									d += con;
+									d += "</td>";
+									d += "<td>";
+									d += "<button id='"
+											+ obj[i].ID_DET_VACACIONES
+											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
+											+ obj[i].TEXTO
+											+ "'  onclick='openVerObsModal(this.value, this.id);'></button>";
+									d += "</td>";
+									d += "</tr>";
+								}
+								$("#contTable").empty();
+								$("#contTable").append(createTable3());
+								$("#data").empty();
+								$("#data").append(d);
+								$("#data-table-row-grouping1").dataTable();
+							});
 
 		};
 
 		function createTable1() {
-			var s = "<table id='data-table-row-grouping' class='bordered highlight centered' >";
+			var s = "<table id='data-table-row-grouping' class='display bordered highlight centered' >";
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th class='hide' >det_vac</th>";
@@ -332,7 +326,7 @@
 
 		};
 		function createTable2() {
-			var s = "<table id='data-table-row-grouping1' class='bordered highlight centered' >";
+			var s = "<table id='data-table-row-grouping1' class='display bordered highlight centered' >";
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th>Nombres</th>";
@@ -349,7 +343,7 @@
 			return s;
 		};
 		function createTable3() {
-			var s = "<table id='data-table-row-grouping1' class='bordered highlight centered' >";
+			var s = "<table id='data-table-row-grouping1' class='display bordered highlight centered' >";
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th>Nombres</th>";
@@ -359,43 +353,78 @@
 			s += "<th>FEC INI</th>";
 			s += "<th>FEC FIN</th>";
 			s += "<th>Condicion</th>";
+			s += "<th>Observación</th>";
 			s += " </tr>";
 			s += "</thead>";
 			s += "<tbody id='data'></tbody>";
 			s += "</table>";
 			return s;
 		};
-		function preba(nombre, id) {
-			var idt = $('#' + id).parents("tr").find("td").eq(0).text();
-			$("#cuerpo").append(createModal(idt, nombre));
-			$("#modal" + id).openModal();
+
+		function preba(nombre, idde) {
+			var idtr = $('#' + idde).parents("tr").find("td").eq(1).text();
+			$("#cuerpo").append(createModal(idde, nombre, idtr));
+			$("#modal" + idde).openModal();
+			$('textarea#textarea' + idde).characterCounter();
+
 		};
 
-		function createModal(id, nombre) {
-			var s = "<td><div id='modal"+id+"' class='modal'>\r\n";
+		function openVerObsModal(texto, idde) {
+			$("#cuerpo").append(createModalObs(idde, texto));
+			$("#modal" + idde).openModal();
+		};
+
+		function createModal(idde, nombre, idtr) {
+			var s = "<td><div id='modal"+idde+"' class='modal'>\r\n";
 			s += "<div class='modal-content'>\r\n";
-			s += "						<center>\r\n";
-			s += "	<h4>Observacion</h4>\r\n";
-			s += "						</center>\r\n";
-			s += "	<div class='row'>\r\n";
-			s += "	<form class='col s12'>\r\n";
-			s += "	<div class='row'>\r\n";
-			s += "	<div class='input-field col s12'>\r\n";
-			s += "<textarea id='textarea1' class='materialize-textarea'></textarea>\r\n";
-			s += "	<label for='textarea1'>Escriba Observacion para: ";
+			s += "<center>\r\n";
+			s += "<h4>Observacion</h4>\r\n";
+			s += "</center>\r\n";
+			s += "<div class='row'>\r\n";
+			s += "<form class='col s12'>\r\n";
+			s += "<div class='row'>\r\n";
+			s += "<div class='input-field col s12'>\r\n";
+			s += "<textarea id='textarea"+idde+"' class='materialize-textarea' length='150'></textarea>\r\n";
+			s += "<label for='textarea"+idde+"'>Escriba Observacion para: ";
 			s += nombre;
 			s += "</label>\r\n";
-			s += "	</div>\r\n";
-			s += "								</div>\r\n";
-			s += "</form>\r\n";
-			s += "						</div>\r\n";
 			s += "</div>\r\n";
-			s += "					<div class='modal-footer'>\r\n";
-			s += "	<a href='#!'";
-			s += "	class='modal-action modal-close waves-effect waves-green btn-flat' id='observarbtn' onclick='observar();' >OK!</a>\r\n";
+			s += "</div>\r\n";
+			s += "</form>\r\n";
+			s += "</div>\r\n";
+			s += "</div>\r\n";
+			s += "<div class='modal-footer'>\r\n";
+			s += "<button href='#!'";
+			s += " class='modal-action modal-close waves-effect waves-green btn-flat' value='"
+					+ idde
+					+ "' id='"
+					+ idtr
+					+ "' onclick='observar(this.id, this.value);' >OK!</button>\r\n";
 			s += "</div>\r\n" + "</div></td>";
 			return s;
+		};
 
+		function createModalObs(idde, texto) {
+			var s = "<td><div id='modal"+idde+"' class='modal'>\r\n";
+			s += "<div class='modal-content'>\r\n";
+			s += "<center>\r\n";
+			s += "<h4>Observacion</h4>\r\n";
+			s += "</center>\r\n";
+			s += "<div class='row'>\r\n";
+			s += "<form class='col s12'>\r\n";
+			s += "<div class='row'>\r\n";
+			s += "<div class='input-field col s12'>\r\n";
+			s += "<p>" + texto + "</p>";
+			s += "</div>\r\n";
+			s += "</div>\r\n";
+			s += "</form>\r\n";
+			s += "</div>\r\n";
+			s += "</div>\r\n";
+			s += "<div class='modal-footer'>\r\n";
+			s += "<button href='#!'";
+			s += " class='modal-action modal-close waves-effect waves-green btn-flat'>OK!</button>\r\n";
+			s += "</div>\r\n" + "</div></td>";
+			return s;
 		};
 
 		$("#confirmar")
@@ -404,7 +433,6 @@
 							arrid = getSelected();
 							var id_arr = arrid;
 							var id_det = id_arr.join(",");
-							console.log(id_det);
 							var datos = "id_det=" + id_det;
 							var con = new jsConnector();
 							con
@@ -429,12 +457,38 @@
 												}
 											});
 						});
-		function observar() {
+		function observar(idtr, id_det) {
 			var obs = $(".hiddendiv").text();
 			var idte = $("#trab").val();
-			// 			var idtr = $('#' + id).parents("tr").find("td").eq(1).text();
-			console.log(obs + " " + idte + " ");
-			$(".hiddendiv").text();
+			var datos = "id_det=" + id_det;
+			datos += "&text=" + obs;
+			datos += "&emisor=" + idte;
+			datos += "&receptor=" + idtr;
+			var con = new jsConnector();
+			con
+					.post(
+							"vacaciones/programa_vacaciones/guardarObservar?"
+									+ datos,
+							null,
+							function(data) {
+								if (data == 1) {
+									con.post(
+											"vacaciones/programa_vacaciones/enviarObservacion?"
+													+ datos, null, function(
+													receptor) {
+												console.log(receptor);
+											});
+									Materialize.toast('El trabajador '
+											+ 'Juanito' + ' ha sido Observado',
+											3000, 'rounded');
+									listar();
+								} else {
+									Materialize
+											.toast(
+													'UPS!!, No se ha registrado su observacion',
+													3000, 'rounded');
+								}
+							});
 		}
 	</script>
 
