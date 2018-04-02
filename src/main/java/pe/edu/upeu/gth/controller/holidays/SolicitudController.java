@@ -245,7 +245,7 @@ public class SolicitudController {
 
 
 	
-					res = vd.subirDocumento("", "", fi.getOriginalFilename(), idvac);
+					res = vd.subirDocumento("", "", url, idvac);
 				}
 
 			} catch (IOException | IllegalStateException ec) {

@@ -105,6 +105,9 @@ $("#confirmar_lista").click(function(){
 						if (obj[i].LI_CONDICION == 7) {
 							con = "CONTRATO";
 						}
+						if (obj[i].LI_CONDICION == 8) {
+							con = "OTRO";
+						}
 					s += '<tr>';
 		            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
 		            s += '<td>'+obj[i].NO_DEP+'</td>';

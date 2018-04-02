@@ -25,18 +25,15 @@
 	<div id="main">
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
-			<%@include file="../../../jspf/info_puesto.jspf"%>
-			<section id="desktop" class="col m12 l12 s12"  style="margin-left: 10%; margin-right: 10%;">
-				
-			</section>
+			<section id="content"></section>
 		</div>
-		
-<!-- 		<section > -->
-<!-- 			<div class="card-panel" > -->
-<!-- 			<h1>Hola</h1> -->
-<!-- 			</div> -->
+		<%@include file="../../../jspf/info_puesto.jspf"%>
+		<section id="content" class="col m12 l12 s12">
+			<div class="card-panel">
+			<h1>Hola</h1>
+			</div>
 
-<!-- 			</section> -->
+			</section>
 		
 	</div>
 	
@@ -45,6 +42,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		console.log("si");
-	});
+	})
 </script>
 </html>
