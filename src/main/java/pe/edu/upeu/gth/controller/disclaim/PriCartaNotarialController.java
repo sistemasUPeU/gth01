@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +27,7 @@ import pe.edu.upeu.gth.dao.PriCartaNotarialDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.Abandono;
 import pe.edu.upeu.gth.dto.Rechazo;
+import pe.edu.upeu.gth.dto.Renuncia;
 
 @Controller
 @Scope("request")
@@ -34,6 +37,7 @@ public class PriCartaNotarialController {
 	Abandono r = new Abandono();
 	Rechazo re = new Rechazo();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
+
 	PriCartaNotarialDAO ra = new PriCartaNotarialDAO(AppConfig.getDataSource()); 
 	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
@@ -47,15 +51,59 @@ public class PriCartaNotarialController {
 	@RequestMapping(value = "/primerEnvio", method = RequestMethod.GET)
 	protected void metodosEnviar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
+		
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
 		case 1:
-			out.println(gson.toJson(ra.Autorizar()));
+			out.println(gson.toJson(ra.Enviar()));
+			break;
+		case 2:
+			String ida = request.getParameter("ida");
+			out .println(gson.toJson(ra.Buscar_DetalleTrabajador(ida)));
 			break;
 		case 3:
 			out.println(gson.toJson(ra.Pendiente()));
 			break;
+		case 4:
+			String idr = request.getParameter("idr");
+			r.setIdabandono(idr);
+			out.println(ra.AutorizarRenuncia(r));
+			break;
+		case 5:
+			out.println(gson.toJson(ra.Autorizado()));
+			break;
+		case 6:
+			String id = request.getParameter("idr");
+			System.out.println(id);
+			String observaciones = request.getParameter("observaciones");				
+			re.setId_renaban(id);
+			re.setObservaciones(observaciones);
+			out.println(ra.RechazarRenuncia(re));
+			break;
+		case 7:
+			String de = request.getParameter("de");
+			String clave = request.getParameter("clave");
+			String para = request.getParameter("para");
+			String mensaje = request.getParameter("mensaje");
+			String asunto = request.getParameter("asunto");
+			// boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
+			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto));
+			break;
+		case 8:
+			Abandono r = new Abandono();
+			r.setIdabandono(request.getParameter("idr"));
+			r.setEstado("Notificado");
+			// l.setOtros(request.getParameter("otros"));
+			// l.setDetalle_otros(request.getParameter("detalle"));
+			out.println((ra.notificarAbandono(r)));
+			break;
+		case 9:
+			out.println(gson.toJson(ra.listarNotificados()));
+			break;
 		}
 	}
+	
+	@Autowired
+	ServletContext context;
 }

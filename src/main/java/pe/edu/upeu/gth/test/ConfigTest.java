@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.PriCartaNotarialDAO;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
@@ -23,6 +24,7 @@ public class ConfigTest {
 	public static RenAutorizarDAO au = new RenAutorizarDAO(d);
 	public static RenunciaDAO re = new RenunciaDAO(d);
 	public static RenProcesarDAO pr = new RenProcesarDAO(d);
+	public static PriCartaNotarialDAO pc = new PriCartaNotarialDAO(d);
 
 	public static void main(String[] args) {
 //		conect();
@@ -31,6 +33,7 @@ public class ConfigTest {
 //		Procesar();
 //		Procesar1();
 		//Renuncia();
+		Carta();
 	}
 
 	public static void conect() {	
@@ -65,6 +68,11 @@ public class ConfigTest {
 	
 	public static void Procesar() {
 		System.out.println(gs.toJson(pr.Procesar()));
+	}
+	
+	public static void Carta() {
+		
+		System.out.println(gs.toJson(pc.enviarCorreo("chiquitingop@gmail.com", "Dyper123", "estefannygarcia@upeu.edu.pe", "Hellow everybody", "Llegooooooooooo")));
 	}
 //	  public static void update(){
 //		   RenAutorizarDAO p = new RenAutorizarDAO(dataSource);

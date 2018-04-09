@@ -7,7 +7,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.Abandono;
 import pe.edu.upeu.gth.dto.Rechazo;
+import pe.edu.upeu.gth.dto.Renuncia;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
 
 public class PriCartaNotarialDAO implements CRUDOperations{
@@ -65,17 +72,19 @@ public class PriCartaNotarialDAO implements CRUDOperations{
 		return jt.queryForList(sql);
 	}
 	
-	public List<Map<String,Object>> Autorizar() {
+	public List<Map<String,Object>> Enviar() {
     	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
         return jt.queryForList(sql);
     }
-	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
-		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM RA_VIEW_RENABAN";
+	public List<Map<String, Object>> Buscar_DetalleTrabajador(String ida) {
+		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO,CORREO FROM RA_VIEW_RENABAN";
 
-		sql += " where ID_CONTRATO='" + idc + "' ";
+		sql += " where ID_CONTRATO='" + ida + "' ";
 
 		return jt.queryForList(sql);
 	}
+	
+	
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
@@ -109,5 +118,91 @@ public class PriCartaNotarialDAO implements CRUDOperations{
 			}
 			return x;
 			
+		}
+		//Enviar Primera Carta Notarial
+		public int enviarCorreo(String de, String clave, String para, String mensaje, String asunto) {
+//			de = "pruebagth@gmail.com";
+//			clave = "GTH123456";
+//			para = "estefannygarcia@upeu.edu.pe";
+//			mensaje = "que pasho!!!";
+//			asunto = "kha";
+			int enviado = 0;
+			try {
+				String host = "smtp.gmail.com";
+				int port = 587;
+
+				Properties prop = System.getProperties();
+				String[] parts = de.split("@");
+				String part1 = parts[0]; // 123
+				String tipo = parts[1]; // 654321
+				
+				if (tipo.equals("live.com")|| tipo.equals("hotmail.com")||tipo.equals("outlook.com")) {
+					host = "smtp.live.com";
+					port = 27;
+				}
+
+				prop.put("mail.smtp.starttls.enable", "true");
+				prop.put("mail.smtp.host", host);
+				prop.put("mail.smtp.user", de);
+				prop.put("mail.smtp.password", clave);
+				prop.put("mail.smtp.port", port);
+				prop.put("mail.smtp.auth", "true");
+
+				Session sesion = Session.getDefaultInstance(prop, null);
+
+				MimeMessage message = new MimeMessage(sesion);
+
+				message.setFrom(new InternetAddress(de));
+
+				/*
+				 * 
+				 * NOTA: para enviar correo electronico masivo
+				 * 
+				 * InternetAddress[] direcciones = new InternetAddress[para.length]; for(int
+				 * i=0;i<para.length;i++){ direcciones[i] = new InternetAddress(para[i]); }
+				 * 
+				 * for(int i=0;i<direcciones.length;i++){
+				 * message.addRecipient(Message.RecipientType.TO, direcciones[i]); }
+				 * 
+				 */
+
+				message.setRecipient(Message.RecipientType.TO, new InternetAddress(para));
+
+				message.setSubject(asunto);
+				message.setText(mensaje);
+
+				Transport transport = sesion.getTransport("smtp");
+
+				transport.connect(host, de, clave);
+
+				transport.sendMessage(message, message.getAllRecipients());
+
+				transport.close();
+
+				enviado = 1;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return enviado;
+		}
+		
+		public int notificarAbandono(Abandono a) {
+			int x = 0;
+			String sql = "UPDATE ABANDONO SET ESTADO=? WHERE IDABANDONO=?";
+			try {
+				jt.update(sql, new Object[] { a.getEstado(), a.getIdabandono()});
+				x = 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Error: " + e);
+			}
+			return x;
+		}
+		
+		public List<Map<String, Object>> listarNotificados() {
+			sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";
+			return jt.queryForList(sql);
 		}
 }
