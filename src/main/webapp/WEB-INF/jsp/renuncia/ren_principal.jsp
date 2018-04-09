@@ -5,17 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@include file="../../../jspf/general.jspf"%>
+<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
+<style>
+	.z:hover{
+		background-color:black;
+	}
+</style>
 </head>
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
+	<div id="loader-wrapper">
+		<div id="loader"></div>
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
 	<div id="main">
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<%@include file="../../../jspf/info_puesto.jspf"%>
-<!-- 			<label>RUTA:</label> <label id="ruta"></label><br> -->
-<!-- 			<div id="image" SRC="" WIDTH=140 HEIGHT=210 ALT="Producto1"></div> -->
-<%-- 			<a href="<c:url value="/renuncias/mostrardoc1"/>">ver</a> --%>
-
 
 			<div class="">
 				<center>
@@ -24,11 +31,22 @@
 						height="650"></object>
 				</center>
 			</div>
-			<section id="content" class="col m12 l12 s12">
-			<h1></h1>
+			<div id="content" class="col s12">
+			<div class="center">
+				<h1 style="font-family: 'Cormorant Garamond', serif;font-weight: bold">Gestión de Renuncias y Abandonos</h1>
+				<div class="row">
+					<div class="col l6">
+						<a class="btn btn-large waves-effect waves-light z" href="/gth/renaban/registrationR"><i class="large mdi-action-swap-vert-circle"></i> Registrar Renuncia</a>
+					</div>
+					<div class="col l6">
+						<a class="btn btn-large waves-effect waves-light z" href="/gth/renaban/registrationA"><i class="large mdi-action-swap-vert-circle"></i> Registrar Abandono</a>
+					</div>
+				</div>
+			</div>
+			
+				
 
-
-			</section>
+			</div>
 
 		</div>
 
