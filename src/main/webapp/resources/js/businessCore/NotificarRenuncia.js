@@ -171,7 +171,7 @@ function listarNotificados() {
 								s += '<tr>';
 								s += '<td>' + a
 										+ '<label  class="idr" hidden>'
-										+ lista[i].ID_RENUNCIA
+										+ lista[i].ID_RENABAN
 										+ '</label></td>';
 								s += '<td>' + mes + '</td>';
 								s += '<td class="">'
@@ -238,8 +238,8 @@ function listarNotificados() {
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display responsive nowrap" cellspacing="0" width="100%" ';
-//	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping" class="display " cellspacing="0" width="100%" ';
+	s += 'cellspacing="0">';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
@@ -447,7 +447,7 @@ function insertarLegajo() {
 
 function notificarRenuncia() {
 	var idr = $("#idr").text();
-	alert(idr);
+//	alert(idr);
 	$.get(gth_context_path+"/renuncias/listarxd", {
 		idr : idr,
 		opc : 6
@@ -456,6 +456,12 @@ function notificarRenuncia() {
 		
 		if (data == 1) {
 			$("#modalnotificar").closeModal();
+			$.toast({
+			    heading: 'Correcto!',
+			    text: 'Notificado correctamente',
+			    showHideTransition: 'fade',
+			    icon: 'success'
+			})
 			// alert("NOTIFICADO :v");
 			listarNotificados();
 			listarProcesados();
@@ -472,7 +478,7 @@ function Entregar(idc) {
 //	var idr = $("#idr").text();
 	
 
-	$.get("entregar", {
+	$.get(gth_context_path+"/renuncias/entregar", {
 		idr : idc,
 		opc : 1
 	}, function(data, status) {

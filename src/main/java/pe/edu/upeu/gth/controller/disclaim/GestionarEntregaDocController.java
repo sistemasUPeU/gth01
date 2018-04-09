@@ -175,6 +175,7 @@ public class GestionarEntregaDocController {
 					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
 					File destFile = new File(path);
 					fi.transferTo(destFile);
+					System.out.println(path);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
 					// FilenameUtils fich = new FilenameUtils();
