@@ -238,8 +238,8 @@ function listarNotificados() {
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping" class="display responsive nowrap" cellspacing="0" width="100%" ';
+//	s += 'cellspacing="0">';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
@@ -366,7 +366,7 @@ function verCorreo(idc) {
 	// alert(idc);
 	// dni = $("#dni").val();
 
-	$.get("listarxd", {
+	$.get(gth_context_path+"/renuncias/listarxd", {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
@@ -377,7 +377,7 @@ function verCorreo(idc) {
 		console.log(detalle);
 		$("#correo").text(detalle[0].CORREO);
 		$("#idtr").text(detalle[0].ID_TRABAJADOR);
-		$("#idr").text(detalle[0].ID_RENUNCIA);
+		$("#idr").text(detalle[0].ID_RENABAN);
 
 		$("#nombre").text(
 				detalle[0].NOMBRES + " " + detalle[0].PATERNO + " "
@@ -398,7 +398,7 @@ function enviarCorreo() {
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
 	// console.log(msjs);
-	$.get("listarxd", {
+	$.get(gth_context_path+"/renuncias/listarxd", {
 		de : de,
 		clave : clave,
 		para : para,
@@ -430,7 +430,7 @@ function insertarLegajo() {
 	var otros = de + " para: " + para;
 	var idtr = $("#idtr").text();
 	// console.log(msjs);
-	$.get("listarxd", {
+	$.get(gth_context_path+"/renuncias/listarxd", {
 		idtr : idtr,
 		otros : otros,
 		detalle : detalle,
@@ -450,13 +450,15 @@ function insertarLegajo() {
 //NOTIFICAR RENUNCIA
 function notificarRenuncia() {
 	var idr = $("#idr").text();
-	$.get("listarxd", {
+	alert(idr);
+	$.get(gth_context_path+"/renuncias/listarxd", {
 		idr : idr,
 		opc : 6
 	}, function(data, status) {
 		console.log(data);
-		$("#modalnotificar").closeModal();
+		
 		if (data == 1) {
+			$("#modalnotificar").closeModal();
 			// alert("NOTIFICADO :v");
 			listarNotificados();
 			listarProcesados();

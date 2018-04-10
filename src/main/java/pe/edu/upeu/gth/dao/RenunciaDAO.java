@@ -279,9 +279,9 @@ public class RenunciaDAO {
 	
 	public int notificarRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "UPDATE REN_RENUNCIA SET ESTADO=? WHERE ID_RENUNCIA=?";
+		String sql = "UPDATE RA_RENABAN SET ESTADO='Notificado' WHERE ID_RENABAN=?";
 		try {
-			jt.update(sql, new Object[] { r.getEstado(), r.getId_renuncia()});
+			jt.update(sql, new Object[] { r.getId_renuncia()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -51,6 +51,7 @@ public class RegistrarAbandonoController {
 	@RequestMapping(value = "/detalleA", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
@@ -122,6 +123,7 @@ public class RegistrarAbandonoController {
 //					System.out.println("asdasdasdasdasdas" +idusuario);
 					System.out.println(idcon);
 					a.setFecha(fecha);
+					System.out.println(fecha);
 					a.setNo_archivo(destFile.getName());
 					a.setTi_archivo(FilenameUtils.getExtension(path));
 					a.setId_contrato(idcon);
