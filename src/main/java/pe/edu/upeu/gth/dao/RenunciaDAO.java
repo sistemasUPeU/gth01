@@ -97,16 +97,18 @@ public class RenunciaDAO {
 		throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
 																		// Tools | Templates.
 	}
-
-	public ArrayList<Map<String, Object>> listarEmpleados() { // lista a todos los empleados por departamento.
+	
+	// LISTA A TODOS LOS EMPLEADOS POR DEPARTAMENTO
+	public ArrayList<Map<String, Object>> listarEmpleados() { 
 		sql = "select rt.ID_TRABAJADOR,rt.NO_TRABAJADOR,rt.AP_PATERNO,rt.AP_MATERNO, rt.NU_DOC  ,ra.NO_AREA,rs.NO_SECCION,rp.NO_PUESTO,rc.FE_DESDE,rc.FE_HASTA "
 				+ "from rhtr_puesto rp, rhtd_area ra, rhtr_seccion rs, rhtm_trabajador rt, rhtm_contrato rc,rhtx_departamento rd "
 				+ "where rp.ID_SECCION = rs.ID_SECCION and rs.ID_AREA = ra.ID_AREA and rc.ID_PUESTO = rp.ID_PUESTO  and rc.ID_TRABAJADOR = rt.ID_TRABAJADOR and rd.ID_DEPARTAMENTO = ra.ID_DEPARTAMENTO "
 				+ "       and rd.ID_DEPARTAMENTO='DPT-0017' " + "AND RC.FE_HASTA > SYSDATE " + "ORDER BY ( RA.NO_AREA)";
 		return (ArrayList<Map<String, Object>>) jt.queryForList(sql);
 	}
-
-	public ArrayList<Map<String, Object>> DetalleEmp(String idTR) { // Esto Lista el detalle del Trabajador.
+	
+	// LISTA DETALLE DEL TRABAJADOR
+	public ArrayList<Map<String, Object>> DetalleEmp(String idTR) { 
 		String sql = "select rc.ID_CONTRATO , rc.ID_DGP , rt.ID_TRABAJADOR,rt.NO_TRABAJADOR,rt.AP_PATERNO,rt.AP_MATERNO, rt.NU_DOC , rt.CL_TRA   ,ra.NO_AREA,rs.NO_SECCION,rp.NO_PUESTO,TO_CHAR(rc.FE_DESDE, 'Month DD, YYYY')AS FEC_INI ,TO_CHAR(rc.FE_HASTA, 'Month DD, YYYY')AS FEC_FIN \n"
 				+ "from rhtr_puesto rp, rhtd_area ra, rhtr_seccion rs, rhtm_trabajador rt, rhtm_contrato rc,rhtx_departamento rd\n"
 				+ "where rp.ID_SECCION = rs.ID_SECCION and rs.ID_AREA = ra.ID_AREA and rc.ID_PUESTO = rp.ID_PUESTO  and rc.ID_TRABAJADOR = rt.ID_TRABAJADOR and rd.ID_DEPARTAMENTO = ra.ID_DEPARTAMENTO\n"
@@ -128,8 +130,7 @@ public class RenunciaDAO {
 		jt.update(sql, idContr, idDgp, User_au, DirecADj, Nom_Adj, Desc, Size_Adj, Type_Adj, Opc);
 	}
 
-	// Esto Lista el detalle del Trabajador filtrado por DNI en la interfaz
-	// "Registrar Renuncia".
+	// ESTO LISTA EL DETALLE DEL TRABAJADOR FILTRADO POR DNI EN LA INTERFAZ "REGISTRAR RENUNCIA"
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni) {
 		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 
@@ -137,33 +138,36 @@ public class RenunciaDAO {
 
 		return jt.queryForList(sql);
 	}
-
+	
+    // LISTAR TODOS LOS TRABAJADORES CON ESTADO PROCESADO
 	public List<Map<String, Object>> gg() {
-		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Procesado'";
+		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Procesado'";
 		return jt.queryForList(sql);
 	}
 	
+    // LISTAR TODOS LOS TRABAJADORES CON ESTADO NOTIFICADO
 	public List<Map<String, Object>> listarNotificados() {
-		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Notificado'";
+		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";
 		return jt.queryForList(sql);
 	}
 
-	// Lista de motivos de renuncia
+	// LISTAR LOS MOTIVOS DE LA RENUNCIA
 	public List<Map<String, Object>> mostrarMotivo() {
 		sql = "SELECT* FROM RA_MOTIVO";
 		return jt.queryForList(sql);
 	}
-
+	
+   //  CARGAR MOTIVOS DE RENUNCIA
 	public List<Map<String, Object>> cargarMotivo(String idtr) {
-		sql = "SELECT * FROM REN_RENUNCIA r, RHTM_CONTRATO t WHERE r.ID_CONTRATO=t.ID_CONTRATO";
+		sql = "SELECT * FROM RA_RENABAN r, RHTM_CONTRATO t WHERE r.ID_CONTRATO=t.ID_CONTRATO";
 
 		sql += " and r.ID_CONTRATO='" + idtr + "' ";
 
 		return jt.queryForList(sql);
 	}
-
+   //
 	public List<Map<String, Object>> correo(String idcontrato) {
-		sql = "select * from REN_VIEW_RENUNCIA where ID_CONTRATO='" + idcontrato + "'";
+		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO='" + idcontrato + "'";
 		return jt.queryForList(sql);
 	}
 
@@ -181,13 +185,13 @@ public class RenunciaDAO {
 		return x;
 	}
 
-	// documentos
+	// DOCUMENTOS
 	public List<Map<String, Object>> mostrardocs(String id) {
 		sql = "SELECT * FROM DOC_ADJUNTO WHERE IDDOCUMENTO='" + id + "' ";
 		return jt.queryForList(sql);
 	}
 
-	// insertar motivos
+	// INSERTAR MOTIVOS
 	// @SuppressWarnings("deprecation")
 	public int insertarMotivos(String[] array) {
 		int x = 0;

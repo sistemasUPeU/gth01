@@ -38,7 +38,8 @@ import pe.edu.upeu.gth.dto.Renuncia;
 		RenProcesarDAO ra = new RenProcesarDAO(AppConfig.getDataSource()); 
 		Map<String, Object> mp = new HashMap<>();
 		public List<String> archi = new ArrayList<>();
-		// Procesar Renuncia
+		
+		// PROCESAR RENUNCIA
 			@RequestMapping(value = "/ProcesarR", method = RequestMethod.GET)
 			protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {

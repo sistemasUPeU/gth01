@@ -45,7 +45,7 @@ $(document)
 				});
 
 
-//	Listar todos los trabajadores autorizados
+//	LISTAR TODOS LOS TRABAJADORES AUTORIZADOS
 function listarAutorizados() {
 	$.getJSON(
 			gth_context_path + "/renaban/ProcesarR",
@@ -209,7 +209,7 @@ function createTable(idDepartamento, idRol) {
 	return s;
 }
 
-//Listar todos los trabajadores procesados
+// LISTAR TODOS LOS TRABAJADORES PROCESADOS
 function listarProcesados() {
 	$.getJSON(
 			gth_context_path + "/renaban/ProcesarR",
@@ -380,7 +380,7 @@ function createTable1(idDepartamento, idRol) {
 
 var depa="";
 
-//Detalle para Procesar Renuncia
+// DETALLE PARA PROCESAR RENUNCIA
 function DetalleRenuncia(idc) {
 	
 //	$("#modal2").openModal();	

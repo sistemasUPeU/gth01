@@ -52,6 +52,8 @@ public class RegistrarRenunciaController {
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
+		
+		// REGISTRAR RENUNCIA
 		case 1:
 			String dni = request.getParameter("dni");
 			out.println(gson.toJson(rd.Buscar_DetalleTrabajador(dni)));

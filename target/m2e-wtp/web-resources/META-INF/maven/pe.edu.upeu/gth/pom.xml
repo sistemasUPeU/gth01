@@ -69,6 +69,7 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.noraui/ojdbc7 -->
 		<dependency>
 			<groupId>com.github.noraui</groupId>
 			<artifactId>ojdbc7</artifactId>
@@ -134,7 +135,7 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>

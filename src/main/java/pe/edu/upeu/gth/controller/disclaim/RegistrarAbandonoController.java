@@ -54,6 +54,8 @@ public class RegistrarAbandonoController {
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
+		
+		// REGISTRAR ABANDONO
 		case 1:
 			String dni = request.getParameter("dni");
 			out.println(gson.toJson(ad.Buscar_DetalleTrabajador(dni)));

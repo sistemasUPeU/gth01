@@ -31,6 +31,7 @@ public class AbandonoDAO {
 		jt = new JdbcTemplate(dataSource);
 	}
 	
+	//INSERTAR UN NUEVO ABANDONO
 	public int insertarAbandono(Abandono a) {
 		int x = 0;
 		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) VALUES(?,?,?,?,?,?)";
@@ -43,6 +44,8 @@ public class AbandonoDAO {
 		}
 		return x;
 	}
+	
+	//LISTA LOS DETALLES DEL TRABAJADOR
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni) {
 		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 
@@ -50,12 +53,14 @@ public class AbandonoDAO {
 
 		return jt.queryForList(sql);
 	}
-	// Lista de motivos de abandono
+	
+	// LISTA DE MOTIVOS DE ABANDONO
 		public List<Map<String, Object>> mostrarMotivo() {
 			sql = "SELECT* FROM RA_MOTIVO";
 			return jt.queryForList(sql);
 		}
-		// insertar motivos
+		
+	// INSERTAR MOTIVOS
 		// @SuppressWarnings("deprecation")
 		public int insertarMotivos(String[] array) {
 			int x = 0;

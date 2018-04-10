@@ -163,6 +163,7 @@ $(document).ready(function(){
             });
         });
 
+// BUSCAR DETALLES DE TRABAJADOR
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
@@ -202,6 +203,7 @@ function buscarDetalle(){
 
 }
 
+//INSERTAR MOTIVOS
 function insertarMotivos(){
 	// alert("Motivos: "+$("#array_motivos").val());
 		var array = $("#array_motivos").val();
@@ -230,6 +232,8 @@ function insertarMotivos(){
 		});
 	}
 
+
+//INSERTAR OTROS
 function insertarOtros(otros){
 	$.get("detalleA",{otros:otros,opc:5},function(data,status){
 		// alert(data);
