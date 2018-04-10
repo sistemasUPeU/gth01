@@ -26,8 +26,22 @@ $(document).ready(function() {
     drEvent.on('dropify.afterClear', function(event, element){
         alert('Archivo eliminado');
     });
+    show_image('C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/29791352_2077305459260623_8230612622916918394_n.jpg',456,456,'Google Logo');
 
 });
+
+function show_image(src, width, height, alt) {
+//	alert();
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+}
+
 
 function listarProcesados() {
 	$

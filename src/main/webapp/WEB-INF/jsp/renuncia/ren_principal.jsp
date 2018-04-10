@@ -27,7 +27,7 @@
 			<div class="">
 				<center>
 					<object type="image/jpeg"
-						data="http://localhost:8081/gth/renuncias/mostrardoc1" width="500"
+						data="/renaban/mostrardoc1" width="500"
 						height="650"></object>
 				</center>
 			</div>

@@ -95,7 +95,7 @@ public class GestionarEntregaDocController {
 			String tipo = (String) result1.get(0).get("TI_ARCHIVO");
 			// String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim() + "." +
 			// tipo.trim());
-			String filename = "E:/TRABAJO/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/david/norm.jpg";
+			String filename = "C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/29791352_2077305459260623_8230612622916918394_n.jpg";
 
 			System.out.println(nom + "//" + tipo + "//" + filename);
 			out.println(filename);
