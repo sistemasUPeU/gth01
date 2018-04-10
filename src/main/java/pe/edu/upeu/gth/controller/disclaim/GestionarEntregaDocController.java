@@ -127,7 +127,7 @@ public class GestionarEntregaDocController {
 			Renuncia r1 = new Renuncia();
 			r1.setId_renuncia(request.getParameter("idr"));
 			System.out.println(r1.getId_renuncia());
-//			r.setEstado("Notificado");
+			// r.setEstado("Notificado");
 			// l.setOtros(request.getParameter("otros"));
 			// l.setDetalle_otros(request.getParameter("detalle"));
 			out.println(rd.notificarRenuncia(r1));
@@ -140,7 +140,7 @@ public class GestionarEntregaDocController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/entregar", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -150,7 +150,7 @@ public class GestionarEntregaDocController {
 		case 1:
 			Legajo l = new Legajo();
 			l.setIdrenuncia(request.getParameter("idr"));
-			
+
 			// String dni = request.getParameter("dni");
 			out.println(ldao.insertarMaxrRenuncia(l));
 			break;
@@ -159,9 +159,9 @@ public class GestionarEntregaDocController {
 	}
 
 	@RequestMapping(path = "/holamundo", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("archivo") List<MultipartFile> file, @RequestParam("not_idr") String idr)
-			throws IOException {
-		
+	public String handleFormUpload(@RequestParam("archivo") List<MultipartFile> file,
+			@RequestParam("not_idr") String idr) throws IOException {
+
 		Renuncia r = new Renuncia();
 		String url = "/renuncias/deliveryR";
 		int x = 0;
@@ -194,29 +194,27 @@ public class GestionarEntregaDocController {
 					Legajo l = new Legajo();
 					l.setNo_archivo(destFile.getName());
 					l.setTi_archivo(FilenameUtils.getExtension(path));
-					if (x==1) {
+					if (x == 1) {
 						l.setId_tipo_doc("DLE-000001");
 					}
-					if (x==2) {
+					if (x == 2) {
 						l.setId_tipo_doc("DLE-000003");
 					}
-					
-					if (x==3) {
+
+					if (x == 3) {
 						l.setId_tipo_doc("DLE-000002");
 					}
-					if (x==4) {
+					if (x == 4) {
 						l.setId_tipo_doc("DLE-000004");
 					}
 					System.out.println(l.getId_tipo_doc());
 					ldao.InsertarDocBenfSoc(l);
-			
-					
+
 				}
 				System.out.println(idr);
 				Renuncia r1 = new Renuncia();
 				r1.setId_renuncia(idr);
 				ldao.EntregarRenuncia(r1);
-				
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
@@ -226,5 +224,7 @@ public class GestionarEntregaDocController {
 		}
 		return "redirect:" + url;
 	}
+
+
 
 }
