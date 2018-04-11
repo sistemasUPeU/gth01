@@ -406,7 +406,8 @@ function enviarCorreo() {
 	// alert();
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
-	var para = $("#correo").text();
+//	var para = $("#correo").text();
+	var para = "neisserrey@upeu.edu.pe";
 	var clave = "GTH123456";
 	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
