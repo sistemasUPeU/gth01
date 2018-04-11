@@ -38,7 +38,11 @@
 		<!-- 				<div class="col s12 m8 l9 contT"></div> -->
 		<!-- 			</div> -->
 		<!-- 		</div> -->
-
+		<div class="">
+<!-- 			<object type="image/jpeg" -->
+<!-- 				data="/gth/renaban/mostrardoc1" width="400" -->
+<!-- 				height="500"></object> -->
+		</div>
 		<div class="col s12 m12" style="width: 100%; position: absolute;">
 			<ul class="collapsible popout" data-collapsible="accordion">
 				<li class="active">
@@ -121,7 +125,9 @@
 					Documentos</h4>
 			</div>
 		</div>
-		<form method="post" action="holamundo" enctype="multipart/form-data">
+		<form method="post"
+			action="<%=request.getContextPath()%>/renuncias/holamundo"
+			enctype="multipart/form-data">
 			<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
 				<div class="row section">
 					<div class="col s12">
@@ -157,7 +163,7 @@
 				style="z-index: 5; position: fixed">
 				<div class="row">
 					<div class="col s4" style="margin-right: 2em;">
-						<button onclick="enviarCorreo()"
+						<button type="submit"
 							class="btn waves-effect waves-light green modal-close"
 							id="NotificarR">
 							Enviar <i class="mdi-content-send right"></i>

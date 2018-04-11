@@ -19,9 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/resources/**").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll()/*.and().
-				authorizeRequests().antMatchers("/menu").permitAll().anyRequest().
-				anonymous()*/;
+				.loginPage("/login").permitAll().and().logout().permitAll().and().headers().frameOptions().sameOrigin();
 	}
 	
 	public CustomAuthenticationProvider authenticationProvider() {
