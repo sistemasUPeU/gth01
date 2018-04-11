@@ -162,7 +162,9 @@ $(document).ready(function(){
             	 
             });
         });
-// Mostrando los detalles del trabajador
+
+
+// MOSTRANDO LOS DETALLES DE TRABAJADOR
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
@@ -268,7 +270,7 @@ function insertarMotivos(){
 	});
 }
 
-
+// INSERTAR OTROS
 function insertarOtros(otros){
 	$.get("detalleR",{otros:otros,opc:5},function(data,status){
 		// alert(data);

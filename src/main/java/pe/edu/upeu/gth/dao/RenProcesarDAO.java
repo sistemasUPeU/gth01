@@ -99,7 +99,7 @@ public class RenProcesarDAO implements CRUDOperations{
 		return jt.queryForList(sql);
 	}
 	
-	// Procesar Renuncia
+	// PROCESAR RENUNCIA
 	public int ProcesarRenuncia(Renuncia r) {
 		int x = 0;
 		String sql = "UPDATE RA_RENABAN SET ESTADO='Procesado' WHERE ID_RENABAN=? ";
@@ -113,7 +113,7 @@ public class RenProcesarDAO implements CRUDOperations{
 		return x;
 	}
 	
-	//Rechazar Renuncia
+	// RECHAZAR RENUNCIA
 	public int RechazarRenuncia(Rechazo ob) {
 		int x = 0;
 		String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";

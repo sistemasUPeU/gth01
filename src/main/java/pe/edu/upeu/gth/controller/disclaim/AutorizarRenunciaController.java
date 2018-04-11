@@ -40,7 +40,8 @@ public class AutorizarRenunciaController {
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource()); 
 	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
-	// Autorizar Renuncia
+	
+	// AUTORIZAR RENUNCIA
 		@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
 		protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {

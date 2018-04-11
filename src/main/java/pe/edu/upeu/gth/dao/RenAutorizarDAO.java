@@ -68,12 +68,12 @@ public class RenAutorizarDAO implements CRUDOperations{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente() {
 		sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Pendiente'";
 		return jt.queryForList(sql);
 	}
-	
+	//LISTAR 
 	public List<Map<String,Object>> Autorizar() {
     	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
         return jt.queryForList(sql);
@@ -84,6 +84,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 //        return jt.queryForList(sql);
 //    }
 	
+	//AL SELECCIONAR DETALLE LISTA LOS DATOS DEL TRABAJADOR
 	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
 		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM RA_VIEW_RENABAN";
 
@@ -98,7 +99,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 			return jt.queryForList(sql);
 		}
 	
-	// Autorizar Renuncia
+	// AUTORIZAR RENUNCIA
 		public int AutorizarRenuncia(Renuncia r) {
 			int x = 0;
 			String sql = "UPDATE RA_RENABAN SET ESTADO='Autorizado' WHERE ID_RENABAN=? ";
@@ -112,6 +113,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 			return x;
 		}
 		
+	// RECHAZAR RENUNCIA
 		public int RechazarRenuncia(Rechazo ob) {
 			int x = 0;
 			String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";

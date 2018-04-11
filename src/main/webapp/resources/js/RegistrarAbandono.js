@@ -13,40 +13,29 @@ $(document).ready(function(){
 		    return{
 		            build:function(){
 		                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
-		                +    'style="vertical-align:middle;color:#e10000;">'
+		                + 'style="vertical-align:middle;color:#e10000;">'
 		                + '</span> Error al guardar los datos';
 		                this.setHeader(errorHeader);
 		            }
 		        };
 		    },true,'alert');
 		}
-	$("#RegistrarA").click(function (event) {
-		event.preventDefault();
- 
+	$(document).on('confirmation', '.remodal', function () {
+		var reg_aban = $('#AbandonoForm')[0];
+		//Obtener el formulario
+		console.log(reg_aban);
 
-        // Get form
-        var reg_aban = $('#AbandonoForm')[0];
-
-		// Create an FormData object
+		// Crear un objeto formData para capturar los valores indiviuales del formulario
         var data = new FormData(reg_aban);
-
+        console.log(data);
+      
 		// If you want to add an extra field for the FormData
 // data.append("CustomField", "This is some extra data, testing");
         var file=$("#pelon1").val();
         var fecha = $("#fecha").val();
         console.log(fecha);
-        var array = $("#array_motivos").val();
-
-        
-        if (!$("#otrosdiv").hasClass("hide")) {
-			//alert("visible");
-		} else {
-			//alert("invisible :'v");
-		}
-        
-        
         alertify.confirm('Confirmar abandono', 'Esta seguro(a) de confirmar el ABANDONO de este trabajador?', function(){
-        	if(file!=""&&fecha!=""&&array!=""){
+        	if(file!=""&&fecha!=""){
             	$.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
@@ -57,11 +46,6 @@ $(document).ready(function(){
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                    	
-                    	
-                    	insertarMotivos();
-// alert("BIEN JONÁS : ", data);
-// $('#modal3').modal('close');
                         $("#RegistrarA").prop("disabled", false);
                     },
                     error: function (e) {
@@ -78,10 +62,10 @@ $(document).ready(function(){
         	
         	}
         , function(){ 
-        	alertify
-            .errorAlert("Error al intentar guardar los datos<br/>");     	
+          	
         });
-    });
+		});
+	
 			
             $('.dropify').dropify(function(event, element){
                 return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
@@ -116,53 +100,11 @@ $(document).ready(function(){
     			}
     		});
             
-            $('#motivo').material_select();
-            $("#motivo option:selected").prop("selected",false);
-            $('#motivo').change(function(){
-            	// CON EL SIGUIENTE SCRIPT EVITAMOS QUE EL SELECT MULTIPLE
-				// MANTENGA VALORES DESELECCIONADOS
-                var newValuesArr = [],
-                    select = $(this),
-                    ul = select.prev();
-                ul.children('li').toArray().forEach(function (li, i) {
-                    if ($(li).hasClass('active')) {
-                    	var item = select.children('option').toArray()[i].value;                       
-                        newValuesArr.push(item);                     
-                        if(item=='MOT-000007'){
-                        
-                        	$("#otrosdiv").show();
-                        }else{
-// $("#otrosdiv").removeClass("show");
-                      		$("#otrosdiv").hide();
-                      	}                        
-                    }
-                    if(newValuesArr.length==0){
-                    	$("#otrosdiv").hide();
-                    	
-                    }
-                    $("#array_motivos").val(newValuesArr);
-                });
-                select.val(newValuesArr);
-                // ---------------------------------
-// alert($("#motivo").val());
-
-            });
-       
-            $.get("detalleA",{opc:2},function(data,status){
-            	var mot = JSON.parse(data);
-            	$('#motivo').html("");
-            	$('#motivo').append("<option value='' disabled selected>Elija una o varias opciones</option>");
-            	$.each(mot,function(key,val){
- 
-            		
-            		$('#motivo').append($("<option></option>")
-                               .attr("value",val.ID_MOTIVO)
-                               .text(val.NO_MOTIVO));  $('#motivo').material_select();
-            	});
-            	 
-            });
         });
 
+
+
+// BUSCAR DETALLES DE TRABAJADOR
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
@@ -200,38 +142,4 @@ function buscarDetalle(){
 		  
 	});
 
-}
-
-function insertarMotivos(){
-	// alert("Motivos: "+$("#array_motivos").val());
-		var array = $("#array_motivos").val();
-		$.ajax("detalleA",{
-			data:{
-				'opc' : 3,
-				'array':array
-			},
-			type:'GET',
-			success:function(data){
-				otros = $("#otros").val();
-				if (otros=="") {
-					// alert("NO VAS A INSERTAR OTROS XD");
-				} else {
-					insertarOtros(otros);
-				}
-				window.location.href = gth_context_path+"/renaban/";	
-				
-	// alert(otros);
-				
-	// window.location.assign(data);
-	// alert();
-	// limpiar();
-		
-			}
-		});
-	}
-
-function insertarOtros(otros){
-	$.get("detalleA",{otros:otros,opc:5},function(data,status){
-		// alert(data);
-	});
 }

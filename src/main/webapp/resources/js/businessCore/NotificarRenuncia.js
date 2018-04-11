@@ -375,7 +375,7 @@ function ParsearMes(mesint) {
 	return mes;
 }
 
-// Mostrando los detalles del trabajador
+// MOSTRANDO LOS DETALLES DE TRABAJADOR
 function verCorreo(idc) {
 	// alert(idc);
 	// dni = $("#dni").val();
@@ -401,6 +401,7 @@ function verCorreo(idc) {
 
 }
 
+//ENVIAR CORREO
 function enviarCorreo() {
 	// alert();
 	var msj = $("#mensaje1").text();
@@ -432,6 +433,7 @@ function enviarCorreo() {
 	});
 }
 
+//INSERTAR LEGAJO
 function insertarLegajo() {
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
@@ -459,6 +461,7 @@ function insertarLegajo() {
 	});
 }
 
+//NOTIFICAR RENUNCIA
 function notificarRenuncia() {
 	var idr = $("#idr").text();
 //	alert(idr);
