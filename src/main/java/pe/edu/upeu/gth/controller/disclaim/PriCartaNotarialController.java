@@ -26,6 +26,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.PriCartaNotarialDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.Abandono;
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -35,7 +36,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 public class PriCartaNotarialController {
 	private Gson gson = new Gson();
 	Abandono r = new Abandono();
-	Rechazo re = new Rechazo();
+	Justificacion re = new Justificacion();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 
 	PriCartaNotarialDAO ra = new PriCartaNotarialDAO(AppConfig.getDataSource()); 
@@ -79,7 +80,7 @@ public class PriCartaNotarialController {
 			String observaciones = request.getParameter("observaciones");				
 			re.setId_renaban(id);
 			re.setObservaciones(observaciones);
-			out.println(ra.RechazarRenuncia(re));
+			out.println(ra.JustificarAbandono(re));
 			break;
 		case 7:
 			String de = request.getParameter("de");
@@ -87,8 +88,9 @@ public class PriCartaNotarialController {
 			String para = request.getParameter("para");
 			String mensaje = request.getParameter("mensaje");
 			String asunto = request.getParameter("asunto");
+			String foto = request.getParameter("foto");
 			// boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
-			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto));
+			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto,foto));
 			break;
 		case 8:
 			Abandono r = new Abandono();

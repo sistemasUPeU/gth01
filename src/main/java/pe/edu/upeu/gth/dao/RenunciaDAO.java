@@ -139,12 +139,12 @@ public class RenunciaDAO {
 	}
 
 	public List<Map<String, Object>> gg() {
-		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Procesado'";
+		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Procesado'";
 		return jt.queryForList(sql);
 	}
 	
 	public List<Map<String, Object>> listarNotificados() {
-		sql = "select * from REN_VIEW_RENUNCIA WHERE ESTADO='Notificado'";
+		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";
 		return jt.queryForList(sql);
 	}
 
@@ -163,7 +163,7 @@ public class RenunciaDAO {
 	}
 
 	public List<Map<String, Object>> correo(String idcontrato) {
-		sql = "select * from REN_VIEW_RENUNCIA where ID_CONTRATO='" + idcontrato + "'";
+		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO='" + idcontrato + "'";
 		return jt.queryForList(sql);
 	}
 
@@ -275,9 +275,9 @@ public class RenunciaDAO {
 	
 	public int notificarRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "UPDATE REN_RENUNCIA SET ESTADO=? WHERE ID_RENUNCIA=?";
+		String sql = "UPDATE RA_RENABAN SET ESTADO='Notificado' WHERE ID_RENABAN=?";
 		try {
-			jt.update(sql, new Object[] { r.getEstado(), r.getId_renuncia()});
+			jt.update(sql, new Object[] { r.getId_renuncia()});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

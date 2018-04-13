@@ -124,12 +124,13 @@ public class GestionarEntregaDocController {
 			break;
 
 		case 6:
-			Renuncia r = new Renuncia();
-			r.setId_renuncia(request.getParameter("idr"));
-			r.setEstado("Notificado");
+			Renuncia r1 = new Renuncia();
+			r1.setId_renuncia(request.getParameter("idr"));
+			System.out.println(r1.getId_renuncia());
+//			r.setEstado("Notificado");
 			// l.setOtros(request.getParameter("otros"));
 			// l.setDetalle_otros(request.getParameter("detalle"));
-			out.println(rd.notificarRenuncia(r));
+			out.println(rd.notificarRenuncia(r1));
 			break;
 
 		case 7:
@@ -149,6 +150,7 @@ public class GestionarEntregaDocController {
 		case 1:
 			Legajo l = new Legajo();
 			l.setIdrenuncia(request.getParameter("idr"));
+			
 			// String dni = request.getParameter("dni");
 			out.println(ldao.insertarMaxrRenuncia(l));
 			break;

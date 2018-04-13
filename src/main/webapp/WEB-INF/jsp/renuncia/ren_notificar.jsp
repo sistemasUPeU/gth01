@@ -43,7 +43,7 @@
 			<ul class="collapsible popout" data-collapsible="accordion">
 				<li class="active">
 					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Renuncias por notificar
+						<i class="mdi-toggle-check-box"></i> Renuncias por entregar
 					</div>
 					<div id="data-table-row-grouping col s12 m8 l9"
 						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
@@ -53,7 +53,7 @@
 				</li>
 				<li>
 					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Renuncias por entregar
+						<i class="mdi-toggle-check-box"></i> Renuncias entregadas
 					</div>
 					<div id="tabla-notificada "
 						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
@@ -154,11 +154,12 @@
 				</div>
 			</div>
 			<div class="modal-footer   teal lighten-1   darken-2"
-			style="z-index: 5; position: fixed">
+				style="z-index: 5; position: fixed">
 				<div class="row">
 					<div class="col s4" style="margin-right: 2em;">
 						<button onclick="enviarCorreo()"
-							class="btn waves-effect waves-light green modal-close" id="NotificarR">
+							class="btn waves-effect waves-light green modal-close"
+							id="NotificarR">
 							Enviar <i class="mdi-content-send right"></i>
 						</button>
 					</div>

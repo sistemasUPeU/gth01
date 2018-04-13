@@ -49,6 +49,7 @@ public class RegistrarRenunciaController {
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {

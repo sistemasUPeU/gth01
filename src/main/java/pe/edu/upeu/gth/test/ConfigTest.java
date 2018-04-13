@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.access.method.P;
+
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
@@ -15,6 +17,7 @@ import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
+import pe.edu.upeu.gth.dto.Justificacion;
 
 
 public class ConfigTest {
@@ -33,7 +36,7 @@ public class ConfigTest {
 //		Procesar();
 //		Procesar1();
 		//Renuncia();
-		Carta();
+		justificacion();
 	}
 
 	public static void conect() {	
@@ -70,13 +73,9 @@ public class ConfigTest {
 		System.out.println(gs.toJson(pr.Procesar()));
 	}
 	
-	public static void Carta() {
-		
-		System.out.println(gs.toJson(pc.enviarCorreo("chiquitingop@gmail.com", "Dyper123", "estefannygarcia@upeu.edu.pe", "Hellow everybody", "Llegooooooooooo")));
-	}
 //	  public static void update(){
-//		   RenAutorizarDAO p = new RenAutorizarDAO(dataSource);
-//	       p.setIdpersona(48);
+//		   Justificacion j = new Justificacion();
+//	       j.set
 //	       p.setNombre("aceite2");
 //	       p.setCorreo("hgfhsdf");
 //	       if(per.edit(p)==1){
@@ -85,6 +84,17 @@ public class ConfigTest {
 //	           System.out.println("no");
 //	       }
 //	   }
+	
+	 public static void justificacion(){
+	        Justificacion a = new Justificacion();
+	        a.setObservaciones("saliooooooo");
+	        a.setId_renaban("MRA-000025");
+	        if(pc.JustificarAbandono(a)==1){
+	            System.out.println("si");
+	        }else{
+	            System.out.println("no");
+	        }
+	    }
 
 
 }

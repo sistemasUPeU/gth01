@@ -271,19 +271,17 @@
 						</div>
 
 					</div>
-					<p id="mensaje2">
-							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
-						</p>
 				</div>
 				<div class="col s12">
 					<div class="input-field col s5">
-						<label for=""></label> <input type="text" name="fecha" id="fecha"
+						<label for=""></label> <input type="date" name="fecha" id="fecha"
 							class="datepicker">
-						<!-- 														 <input type="text"  id="fechap"> -->
-
 					</div>
 					<br>
 					<div class="input-field col s7">
+<!-- 					<p id="cartaNotarial"> -->
+<!-- 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span> -->
+<!-- 						</p> -->
 
 						<input type="file" name="file" class="dropify" id="cartaNotarial"
 							data-height="300" />
@@ -309,8 +307,6 @@
 						Cancelar </a>
 
 				</div>
-				<div class="col s4"></div>
-				<input type="hidden" id="array_motivos" />
 			</div>
 		</div>
 
@@ -319,18 +315,18 @@
 		style="width: 60%; height: 80%; border: 5px solid black">
 		<div class="modal-content lead black-text ">
 			<p>
-			<h4>Motivos de Rechazo</h4>
+			<h4>JUSTIFICAR ABANDONO</h4>
 			</p>
 			<hr>
 			<form class="col s12">
 				<div class="row">
 					<div class="col s12">
 						<div class="input-field col s7">
-							<h5>Descripción de rechazo:</h5>
-							<div class="input-field col s12">
-								<textarea id="observaciones" class="materialize-textarea"></textarea>
-							</div>
-						</div>
+							<h5>Descripción de la justificacion:</h5>
+								<div class="input-field col s12">
+						<textarea id="observaciones" class="materialize-textarea"></textarea>
+					</div>
+					</div>
 					</div>
 				</div>
 			</form>
@@ -341,7 +337,7 @@
 				<div class="col s4">
 					<a href="#"
 						class="waves-effect waves-light btn modal-action  green modal-close "
-						id="RechazarPriCarta">Enviar</a>
+						id="RechazarRenuncia">Enviar</a>
 				</div>
 				<div class="col s4">
 					<a href="#"
