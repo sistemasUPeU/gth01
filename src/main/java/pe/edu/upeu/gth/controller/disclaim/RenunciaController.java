@@ -119,7 +119,7 @@ public class RenunciaController {
 //		String nom = (String) result1.get(0).get("NO_ARCHIVO");
 //		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
 //		String filename = cntx.getRealPath("/WEB-INF/" + nom.trim());
-		String filename = "C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/29791352_2077305459260623_8230612622916918394_n.jpg";
+		String filename = "C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/hola/30122019_130305407813962_2002991644_o.jpg";
 
 //		 String filenam1e ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\"+nom;
 

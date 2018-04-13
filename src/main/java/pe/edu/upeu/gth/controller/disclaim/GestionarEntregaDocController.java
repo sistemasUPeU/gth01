@@ -171,8 +171,9 @@ public class GestionarEntregaDocController {
 			try {
 				for (MultipartFile fi : file) {
 					x++;
+					System.out.println(x);
 					List<String> archi = new ArrayList<>();
-					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					String path = context.getRealPath("/WEB-INF/hola/") + File.separator + fi.getOriginalFilename();
 					File destFile = new File(path);
 					fi.transferTo(destFile);
 					System.out.println(path);
@@ -191,30 +192,30 @@ public class GestionarEntregaDocController {
 					// rd.crearRenuncia(r);
 					System.out.println(gson.toJson(archi));
 					System.out.println(idr);
-					Legajo l = new Legajo();
-					l.setNo_archivo(destFile.getName());
-					l.setTi_archivo(FilenameUtils.getExtension(path));
-					if (x == 1) {
-						l.setId_tipo_doc("DLE-000001");
-					}
-					if (x == 2) {
-						l.setId_tipo_doc("DLE-000003");
-					}
-
-					if (x == 3) {
-						l.setId_tipo_doc("DLE-000002");
-					}
-					if (x == 4) {
-						l.setId_tipo_doc("DLE-000004");
-					}
-					System.out.println(l.getId_tipo_doc());
-					ldao.InsertarDocBenfSoc(l);
+//					Legajo l = new Legajo();
+//					l.setNo_archivo(destFile.getName());
+//					l.setTi_archivo(FilenameUtils.getExtension(path));
+//					if (x == 1) {
+//						l.setId_tipo_doc("DLE-000001");
+//					}
+//					if (x == 2) {
+//						l.setId_tipo_doc("DLE-000003");
+//					}
+//
+//					if (x == 3) {
+//						l.setId_tipo_doc("DLE-000002");
+//					}
+//					if (x == 4) {
+//						l.setId_tipo_doc("DLE-000004");
+//					}
+//					System.out.println(l.getId_tipo_doc());
+//					ldao.InsertarDocBenfSoc(l);
 
 				}
-				System.out.println(idr);
-				Renuncia r1 = new Renuncia();
-				r1.setId_renuncia(idr);
-				ldao.EntregarRenuncia(r1);
+//				System.out.println(idr);
+//				Renuncia r1 = new Renuncia();
+//				r1.setId_renuncia(idr);
+//				ldao.EntregarRenuncia(r1);
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
