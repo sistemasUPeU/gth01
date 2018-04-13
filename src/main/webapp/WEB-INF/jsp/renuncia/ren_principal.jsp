@@ -27,12 +27,12 @@
 			<div class="">
 				<center>
 					<object type="image/jpeg"
-						data="http://localhost:8081/gth/renuncias/mostrardoc1" width="500"
+						data="/renaban/mostrardoc1" width="500"
 						height="650"></object>
 				</center>
 			</div>
 			<div id="content" class="col s12">
-			<div class="center">
+			<div class="center" id="renaban">
 				<h1 style="font-family: 'Cormorant Garamond', serif;font-weight: bold">Gestión de Renuncias y Abandonos</h1>
 				<div class="row">
 					<div class="col l6">
@@ -52,6 +52,19 @@
 
 
 	</div>
-	
+	<script>
+	$(document).ready(function(){
+		$.get(gth_context_path+"/components",{opc:'puesto'}, function(data){
+			if(data.info_puesto.idrol== "ROL-0002"){
+				$("#renaban").show();
+			}else{
+				$("#renaban").hide();
+			}
+			
+		});
+		
+	});
+		
+	</script>
 <body>
 </html>

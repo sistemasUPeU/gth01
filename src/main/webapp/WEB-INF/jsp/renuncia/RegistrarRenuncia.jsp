@@ -318,7 +318,7 @@
 									</div>
 									<br>
 									<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
-									<button data-remodal-action="confirm" class="remodal-confirm"
+									<button data-remodal-action="confirm" class="remodal-confirm" type="submit"
 										id="RegistrarR">Confirmar</button>
 								</div>
 							</form>

@@ -11,6 +11,7 @@ function list_info_puesto(){
 				s +='<li class="active">Area de '+objJSON.info_puesto.area+'</li>';
 				s +='<li class="active">Sección de '+objJSON.info_puesto.seccion+'</li>';
 				s +='<li>Puesto de '+objJSON.info_puesto.puesto+'</li>';
+				s +='<li style="display:none" id="idrol">'+objJSON.info_puesto.idrol+'</li>';
 				s +='</ol>';
 				s +='</div>';
 				$("#cont_info").empty();

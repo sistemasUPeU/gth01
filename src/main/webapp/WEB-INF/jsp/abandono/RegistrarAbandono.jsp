@@ -246,47 +246,50 @@
 							<br>
 						</div>
 					</div>
-
+					<p class="center">
+						<a
+							class="waves-effect btn btn-large z #0091ea light-blue accent-4 "
+							data-remodal-target="modal">Adjuntar Evidencia de Abandono</a>
+					</p>
 					<div class="card-action center-align">
-						<form method="post" action="reg_aban"
-							enctype="multipart/form-data" class="col s12 m8 l11"
-							id="AbandonoForm">
-							<input type="hidden" name="idcontrato" id="idcontrato" value="">
 
-							<p class="center">
-								<a
-									class="waves-effect btn btn-large z #0091ea light-blue accent-4 "
-									data-remodal-target="modal">Adjuntar Evidencia de Abandono</a>
-							</p>
+						<div id="first">
 							<div class="remodal" data-remodal-id="modal">
 								<button data-remodal-action="close" class="remodal-close"></button>
 								<h1>Registrar Abandono</h1>
-								<div class="row section">
-									<div class="col s12">
-										<div class="row">
-											<div class="input-field col s6">
-												
-													<label for="fecha">Fecha de registro de Abandono</label> <input type="text" name="fecha"
-												id="fecha" class="datepicker">
-											</div>
-											<div class="input-field col s6">
-												<h5>
-													
-													
-													<h6>Adjunte la evidencia del despido por abandono:</h6>
-													<input type="file" name="file" class="dropify" id="pelon1"
-												data-height="300" />
-												</h5>
+								<form method="post" action="reg_aban"
+									enctype="multipart/form-data" class="col s12 m8 l11"
+									id="AbandonoForm">
+									<input type="hidden" name="idcontrato" id="idcontrato" value="">
+									<div class="row section">
+										<div class="col s12">
+											<div class="row">
+												<div class="input-field col s6">
+
+													<label for="fecha">Fecha de registro de Abandono</label> <input
+														type="text" name="fecha" id="fecha" class="datepicker">
+												</div>
+												<div class="input-field col s6">
+													<h5>
+
+
+														<h6>Adjunte la evidencia del despido por abandono:</h6>
+														<input type="file" name="file" class="dropify" id="pelon1"
+															data-height="300" />
+													</h5>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<br>
-								<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
-								<button data-remodal-action="confirm" class="remodal-confirm"
-									id="RegistrarA">Confirmar</button>
+									<br>
+									<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
+									<button data-remodal-action="confirm" class="remodal-confirm"
+										id="RegistrarA" type="submit">Confirmar</button>
+								</form>
 							</div>
-						</form>
+						</div>
+
+
 					</div>
 
 				</div>
@@ -310,8 +313,11 @@
 	</div>
 	<!-- 		type="text/javascript"></script> -->
 
+
 	<script
 		src="<c:url  value='/resources/js/RegistrarAbandono.js'></c:url>"
+		type="text/javascript"></script>
+	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
@@ -320,8 +326,7 @@
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
 
-	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-		type="text/javascript"></script>
+
 
 	<%-- 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 </body>
