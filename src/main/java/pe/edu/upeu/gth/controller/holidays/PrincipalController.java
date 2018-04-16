@@ -55,10 +55,9 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/default");
 	}
 
-	@GetMapping("/GestionarProgramaVacaciones")
-	public ModelAndView GestionarProgramaVacaciones(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("vacaciones/GestionarProgramaVacaciones");
-
+	@GetMapping("/gestionar_programa")
+	public ModelAndView gestionar_programa(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/gestionar_programa");
 	}
 
 	@GetMapping("/control_firma_vacaciones")
