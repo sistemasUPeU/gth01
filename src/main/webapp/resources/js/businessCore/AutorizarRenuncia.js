@@ -1,6 +1,7 @@
 $(document)
 		.ready(
 				function() {
+				
 					if(!alertify.errorAlert){
 						  alertify.dialog('errorAlert',function factory(){
 						    return{
@@ -138,8 +139,8 @@ function listarAutorizados() {
 						s += '<td>' + lista[i].ESTADO
 								+ '</td>';
 						s +='<td>' +TIPO+'</td>';
-						s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
-						s += '</button>';
+						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3" style="z-index:1000">Detalle</a>';
+						s += '</td>';
 						s += '</tr>';
 					}
 
@@ -154,7 +155,9 @@ function listarAutorizados() {
 				$("#dataReq").empty();
 				$("#dataReq").append(s);
 				$("#data-table-row-grouping")
-						.DataTable();
+						.DataTable(
+						
+						);
 
 				$(".notificar").click(
 						function() {
@@ -175,16 +178,15 @@ function listarAutorizados() {
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping" class="display responsive nowrap" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
 	s += '<tr>';
-	s += '<th>N</th>';
-	s += '<th>Mes</th>';
-	s += '<th>Apellidos y Nombres</th>';
-	s += '<th>Puesto</th>';
-	s += '<th>Area</th>';
-	s += '<th>Departamento</th>';
+	s += '<th data-priority="1">N</th>';
+	s += '<th data-priority="2">Mes</th>';
+	s += '<th data-priority="3">Apellidos y Nombres</th>';
+	s += '<th data-priority="4">Puesto</th>';
+	s += '<th data-priority="5">Area</th>';
+	s += '<th data-priority="6">Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de renuncia</th>';
@@ -193,21 +195,6 @@ function createTable(idDepartamento, idRol) {
 	s += '<th>Estado</th>';
 	s += '<th>Tipo</th>';
 	s += '<th>Opcion</th>';
-	if (Departamento === "DPT-0019") {
-		s += '<th>¿Cumplió Plazos?</th>';
-		if (Rol === "ROL-0006") {
-			s += '<th>¿Contrato Elaborado?</th>';
-			s += '<th>¿Firmo Contrato?</th>';
-			s += '<th>Enviar a Rem.</th>';
-			s += '<th>¿Contrato Subido?<</th>';
-		}
-	}
-	if (Rol === "ROL-0009") {
-		s += '<th>Código APS</th>';
-	}
-	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-		s += '<th>Código Huella</th>';
-	}
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq">';
@@ -254,15 +241,6 @@ function listarProcesados() {
 						var f = "";
 						var t = "";
 						var ct = "";
-						(Motivo === 1) ? p = "Trabajador Nuevo"
-								: ((Motivo === 2) ? p = "Renovación"
-										: p = "No Registrado");
-						(MFL === 1) ? f = "Si"
-								: f = "No";
-						(plazo === 1) ? t = "Cumplió Plazo"
-								: t = "No Cumplió";
-						(plazo === 1) ? ct = "green accent-3"
-								: ct = "red darken-1";
 						s += '<tr>';
 						s += '<td>'
 								+ a
@@ -320,7 +298,9 @@ function listarProcesados() {
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
 				$("#data-table-row-grouping1")
-						.DataTable();
+						.DataTable(
+								
+						);
 
 				$(".notificar").click(
 						function() {
@@ -346,41 +326,22 @@ function listarProcesados() {
 
 
 function createTable1(idDepartamento, idRol) {
-	var Rol = idRol.toString();
-	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping1" class="display responsive nowrap" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
-	s += '<th>Mes</th>';
-	s += '<th>Apellidos y Nombres</th>';
-	s += '<th>Puesto</th>';
-	s += '<th>Area</th>';
-	s += '<th>Departamento</th>';
-	s += '<th>Tipo de Contrato</th>';
+	s += '<th data-priority="1">Mes</th>';
+	s += '<th data-priority="2">Apellidos y Nombres</th>';
+	s += '<th data-priority="3">Puesto</th>';
+	s += '<th data-priority="4">Area</th>';
+	s += '<th data-priority="5">Departamento</th>';
+	s += '<th data-priority="6">Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de renuncia</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
 	s += '<th>Estado</th>';
 	s += '<th>Tipo</th>';
-//	s += '<th>Opcion</th>';
-	if (Departamento === "DPT-0019") {
-		s += '<th>¿Cumplió Plazos?</th>';
-		if (Rol === "ROL-0006") {
-			s += '<th>¿Contrato Elaborado?</th>';
-			s += '<th>¿Firmo Contrato?</th>';
-			s += '<th>Enviar a Rem.</th>';
-			s += '<th>¿Contrato Subido?<</th>';
-		}
-	}
-	if (Rol === "ROL-0009") {
-		s += '<th>Código APS</th>';
-	}
-	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-		s += '<th>Código Huella</th>';
-	}
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq1">';

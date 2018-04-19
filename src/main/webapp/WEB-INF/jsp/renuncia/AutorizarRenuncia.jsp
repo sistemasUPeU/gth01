@@ -14,17 +14,12 @@
 <link href="<c:url value='/resources/css/materialize.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
-	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
+	href="<c:url value='/resources/css/dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/data-tables/css/dataTables.material.min.css'></c:url>"
+	<link
+	href="<c:url value='/resources/css/responsive.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
+
 <link href="<c:url value='/resources/css/rechazar.css'></c:url>" />
 <link href="<c:url value='/resources/css/alertify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
@@ -44,49 +39,33 @@
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<div id="contenido">
-			<div class="col s12 m12"
-				style="width: 100%; position: absolute; min-width: 1340px">
-				<ul class="collapsible popout" data-collapsible="accordion">
+			<div class="row"
+				style="width: 100%;  max-width:85%">
+				<ul class="collapsible popout">
 					<li class="active">
 						<div class="collapsible-header active">
 							<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
 						</div>
-						<div id="data-table-row-grouping col s12 m8 l9"
-							class="card-panel collapsible-body display #e3f2fd blue lighten-5"
-							style="display: none;">
-
-							<!-- <div id="data-table-row-grouping col s12 m8 l9" -->
-							<!-- class="card-panel display #e3f2fd blue lighten-5" -->
-							<!-- style="position: absolute"> -->
-
-							<!-- <div class="col s12 m8 l9 contT"></div> -->
-							<!-- </div> -->
-
-							<div class="col s12 m8 l9 contT"></div>
-
-
+						<div class="collapsible-body #e3f2fd blue lighten-5 "
+							style="display: none;">				
+								<div class="contT"></div>
 						</div>
 					</li>
-					<li class="active">
-						<div class="collapsible-header active" >
+					<li class="">
+						<div class="collapsible-header" >
 
 							<i class="mdi-toggle-check-box"></i> Renuncias Autorizadas
-						</div> <!-- 						<div class="collapsible-body" style="display: none;"> -->
-						<div id="table-datatables"
-							class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+						</div> 
+						<div class="collapsible-body #e3f2fd blue lighten-5 "
 							style="display: none;">
-							<!-- 							<div class="row"> -->
-							<!-- 								<div class="col s12 m8 l9"></div> -->
-							<!-- 							</div> -->
-							<div class="col s12 m8 l9 contP"></div>
-							<!-- 						</div> -->
-
-						</div>
+								<div class="contP"></div>
+							</div>
 
 					</li>
+					
 				</ul>
 			</div>
-
+			
 
 
 		</div>
@@ -101,11 +80,12 @@
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		src="<c:url value='/resources/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		<script
+		src="<c:url value='/resources/js/dataTables.responsive.min.js'></c:url>"
 		type="text/javascript"></script>
+	
 	<%-- 		<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
