@@ -26,8 +26,22 @@ $(document).ready(function() {
     drEvent.on('dropify.afterClear', function(event, element){
         alert('Archivo eliminado');
     });
+    show_image('C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/29791352_2077305459260623_8230612622916918394_n.jpg',456,456,'Google Logo');
 
 });
+
+function show_image(src, width, height, alt) {
+//	alert();
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+}
+
 
 function listarProcesados() {
 	$
@@ -171,7 +185,7 @@ function listarNotificados() {
 								s += '<tr>';
 								s += '<td>' + a
 										+ '<label  class="idr" hidden>'
-										+ lista[i].ID_RENUNCIA
+										+ lista[i].ID_RENABAN
 										+ '</label></td>';
 								s += '<td>' + mes + '</td>';
 								s += '<td class="">'
@@ -238,8 +252,8 @@ function listarNotificados() {
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display responsive nowrap" cellspacing="0" width="100%" ';
-//	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping" class="display " cellspacing="0" width="100%" ';
+	s += 'cellspacing="0">';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
@@ -392,7 +406,8 @@ function enviarCorreo() {
 	// alert();
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
-	var para = $("#correo").text();
+//	var para = $("#correo").text();
+	var para = "neisserrey@upeu.edu.pe";
 	var clave = "GTH123456";
 	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
@@ -450,7 +465,7 @@ function insertarLegajo() {
 //NOTIFICAR RENUNCIA
 function notificarRenuncia() {
 	var idr = $("#idr").text();
-	alert(idr);
+//	alert(idr);
 	$.get(gth_context_path+"/renuncias/listarxd", {
 		idr : idr,
 		opc : 6
@@ -459,6 +474,12 @@ function notificarRenuncia() {
 		
 		if (data == 1) {
 			$("#modalnotificar").closeModal();
+			$.toast({
+			    heading: 'Correcto!',
+			    text: 'Notificado correctamente',
+			    showHideTransition: 'fade',
+			    icon: 'success'
+			})
 			// alert("NOTIFICADO :v");
 			listarNotificados();
 			listarProcesados();
@@ -475,7 +496,7 @@ function Entregar(idc) {
 //	var idr = $("#idr").text();
 	
 
-	$.get("entregar", {
+	$.get(gth_context_path+"/renuncias/entregar", {
 		idr : idc,
 		opc : 1
 	}, function(data, status) {

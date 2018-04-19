@@ -45,6 +45,7 @@ public class AutorizarRenunciaController {
 		@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
 		protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
+			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			int op = Integer.parseInt(request.getParameter("opc"));
 			switch (op) {

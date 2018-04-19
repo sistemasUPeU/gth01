@@ -49,7 +49,7 @@
 				<ul class="collapsible popout" data-collapsible="accordion">
 					<li class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
+							<i class="mdi-toggle-check-box"></i> Carta Notarial
 						</div>
 						<div id="data-table-row-grouping col s12 m8 l9"
 							class="card-panel collapsible-body display #e3f2fd blue lighten-5"
@@ -70,7 +70,7 @@
 					<li class="active">
 						<div class="collapsible-header active" >
 
-							<i class="mdi-toggle-check-box"></i> Renuncias Autorizadas
+							<i class="mdi-toggle-check-box" id ="pricarta"></i> Primer envio
 						</div> <!-- 						<div class="collapsible-body" style="display: none;"> -->
 						<div id="table-datatables"
 							class="card-panel collapsible-body display #e3f2fd blue lighten-5"
