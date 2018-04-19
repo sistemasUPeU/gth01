@@ -153,8 +153,8 @@ function listarAutorizados() {
 				$(".contT").append(r);
 				$("#dataReq").empty();
 				$("#dataReq").append(s);
-				$("#data-table-row-grouping")
-						.DataTable();
+//				$("#data-table-row-grouping")
+//						.DataTable();
 
 				$(".notificar").click(
 						function() {
@@ -319,8 +319,8 @@ function listarProcesados() {
 				$(".contP").append(r);
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
-				$("#data-table-row-grouping1")
-						.DataTable();
+//				$("#data-table-row-grouping1")
+//						.DataTable();
 
 				$(".notificar").click(
 						function() {

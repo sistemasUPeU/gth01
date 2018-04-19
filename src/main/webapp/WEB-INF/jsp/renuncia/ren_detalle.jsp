@@ -2,20 +2,33 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../../../jspf/general.jspf"%>
-
-<link href="https://fonts.googleapis.com/css?family=Poiret+One"
-	rel="stylesheet">
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <style>
-.z {
-	background-color: black
+@media only screen and (min-width: 641px) {
+	.remodal {
+		max-width: 75%;
+	}
+	h6 {
+		font-size: 16px
+	}
 }
-/* 	.price-desc{text-shadow: 2px 0 0 black; } */
-.price-desc h6 {
-	font-size: 16px
+
+@media only screen and (max-width: 640px) {
+	.remodal {
+		min-width: 100%;
+	}
+	h5 {
+		font-size: 14px
+	}
+	h1 {
+		font-size: 16px
+	}
+	h6 {
+		font-size: 14px
+	}
 }
 </style>
 <html>
@@ -195,7 +208,7 @@
 			<div class="input-field col s6 center">
 				<a
 					class="waves-effect waves-light btn modal-trigger btn-large red darken-4 "
-					href="#modal3">Rechazar</a>
+					data-remodal-target="modal">Rechazar</a>
 			</div>
 		</div>
 	</form>
@@ -205,42 +218,44 @@
 	<br>
 	<br>
 	<br>
-	<div id="modal3" class="modal modal-fixed-footer"
-		style="width: 60%; height: 80%; border: 5px solid black">
-		<div class="modal-content lead black-text ">
-			<p>
-			<h4>Motivos de Rechazo</h4>
-<!-- 			</p> -->
+	
+	<div id="first">
+		<div class="remodal" data-remodal-id="modal">
+			<button data-remodal-action="close" class="remodal-close"></button>
+			<h4 class="light italic black-text">Motivos de Rechazo</h4>
+
 			<hr>
-			<form class="col s12">
+			
 				<div class="row">
 					<div class="col s12">
 						<div class="input-field col s7">
-							<h5>Descripción de rechazo:</h5>
+							<h5 class="light italic black-text">Descripción de rechazo:</h5>
 							<div class="input-field col s12">
 								<textarea id="observaciones" class="materialize-textarea"></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
-			</form>
-		</div>
-		<div class="modal-footer   teal lighten-1   darken-2"
-			style="z-index: 5; position: fixed">
-			<div class="row">
-				<div class="col s4">
-					<a href="#"
-						class="waves-effect waves-light btn modal-action  green modal-close "
-						id="RechazarRenuncia">Enviar</a>
-				</div>
-				<div class="col s4">
-					<a href="#"
-						class="waves-effect waves-light btn modal-action  red modal-close">Cancelar</a>
-				</div>
-				<div class="col s4"></div>
-			</div>
+	
+			<button data-remodal-action="cancel" class="remodal-cancel" >Cancelar</button>
+			<button data-remodal-action="confirm" class="remodal-confirm"
+				 id="RechazarRenuncia">Enviar</button>
 		</div>
 	</div>
+	
+	
+	
+	
+	
+	
+	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
+		<%@include file="../../../jspf/footer.jspf"%>
+	</div>
+	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>" --%>
