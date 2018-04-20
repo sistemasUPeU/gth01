@@ -90,7 +90,7 @@ public class PriCartaNotarialController {
 			String asunto = request.getParameter("asunto");
 			String foto = request.getParameter("foto");
 			// boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
-			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto,foto));
+			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto, foto));
 			break;
 		case 8:
 			Abandono r = new Abandono();

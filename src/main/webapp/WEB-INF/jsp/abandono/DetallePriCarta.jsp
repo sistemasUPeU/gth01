@@ -279,12 +279,13 @@
 					</div>
 					<br>
 					<div class="input-field col s7">
-<!-- 					<p id="cartaNotarial"> -->
+<!--                             <p id="mensaje2"> -->
 <!-- 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span> -->
 <!-- 						</p> -->
-
+                       
 						<input type="file" name="file" class="dropify" id="cartaNotarial"
 							data-height="300" />
+						
 					</div>
 				</div>
 			</div>
