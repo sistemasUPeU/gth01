@@ -70,7 +70,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 	}
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente() {
-		sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Pendiente'";
+		sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Pendiente' ORDER BY FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
@@ -95,7 +95,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
-			sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Autorizado'";
+			sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Autorizado' ORDER BY FECHA_RENABAN ASC";
 			return jt.queryForList(sql);
 		}
 	

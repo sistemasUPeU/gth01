@@ -9,21 +9,36 @@
 
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/js/materialize.min.js'/>"
-	type="text/javascript" media="screen,projection">
-<link href="<c:url value='/resources/css/materialize.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
 <link
-	href="<c:url value='/resources/css/dataTables.min.css'></c:url>"
+	href="<c:url value='/resources/css/dataTables.min.css'></c:url>" 
 	rel="stylesheet" type="text/css" />
 	<link
 	href="<c:url value='/resources/css/responsive.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
 
-<link href="<c:url value='/resources/css/rechazar.css'></c:url>" />
 <link href="<c:url value='/resources/css/alertify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<style>
+	div.dataTables_wrapper{
 
+		width:auto;
+        margin: 0 auto;
+    }
+    
+    .dataTables_scroll
+{
+    overflow:auto;
+}
+    
+    
+    .display{
+	width:100%;
+}
+table.dataTable tbody th,
+table.dataTable tbody td {
+    white-space: nowrap;
+}
+</style>
 </head>
 
 <body>
@@ -42,23 +57,27 @@
 			<div class="row"
 				style="width: 100%;  max-width:85%">
 				<ul class="collapsible popout">
-					<li class="active">
+					<li id="autorize" class="active">
 						<div class="collapsible-header active">
 							<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
 						</div>
 						<div class="collapsible-body #e3f2fd blue lighten-5 "
-							style="display: none;">				
+							style="display: none;">	
+							<div class="row" style="padding:1em">
 								<div class="contT"></div>
+							</div>			
 						</div>
 					</li>
-					<li class="">
+					<li id="autorized" class="">
 						<div class="collapsible-header" >
 
 							<i class="mdi-toggle-check-box"></i> Renuncias Autorizadas
 						</div> 
 						<div class="collapsible-body #e3f2fd blue lighten-5 "
 							style="display: none;">
+							<div class="row" style="padding:2em">
 								<div class="contP"></div>
+							</div>
 							</div>
 
 					</li>

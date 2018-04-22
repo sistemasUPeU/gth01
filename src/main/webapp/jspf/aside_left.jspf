@@ -48,11 +48,21 @@
 											s += '</li>';
 
 										} else {
-											s += '<li class="bold">';
+											if(lista[i].ID_PRIVILEGIO === "PRV-000023"){
+												s += '<li class="bold center">';
+												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" style="height:2%;line-height:2em"><i class="'+lista[i].IC_LINK+'" style="line-height:2em"></i>  '
+														+ lista[i].NO_LINK
+														+ '</a>';
+												s += '</li>';	
+
+											}else{
+												s += '<li class="bold">';
 												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
 														+ lista[i].NO_LINK
 														+ '</a>';
-											s += '</li>';
+												s += '</li>';
+											}
+											
 										}
 									}
 									$(".dataAside").empty();

@@ -15,11 +15,10 @@ $(document)
 						    },true,'alert');
 						}
 
-					// $('.modal-trigger').leanModal();
-					// alert();
-
+				
+					listarRegistrados();
 					listarAutorizados();
-					listarProcesados();
+					
 					
 					$("#ProcesarR").click(function(){						
 						var idc=$("#idc").val();
@@ -49,8 +48,8 @@ $(document)
 				});
 
 
-//	LISTAR TODOS LOS TRABAJADORES AUTORIZADOS
-function listarAutorizados() {
+//	LISTAR TODOS LOS TRABAJADORES REGISTRADOS QUE ESTAN EN PROCESO DE RENUNCIA O ABANDONO
+function listarRegistrados() {
 	$.getJSON(
 			gth_context_path + "/renaban/AutorizarR",
 			"opc=3",
@@ -67,7 +66,7 @@ function listarAutorizados() {
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
 						var plazo = parseInt(lista[i].VAL_PLAZO);
 						var fe_creacion = new Date(
-								lista[i].FECHA_RENUNCIA);
+								lista[i].FECHA_RENABAN);
 						var mesInt = parseInt(fe_creacion
 								.getMonth()) + 1;
 						var mes = ParsearMes(mesInt);
@@ -127,7 +126,7 @@ function listarAutorizados() {
 								+ lista[i].DESCRIPCION
 								+ '</a></td>';
 						s += '<td>'
-								+lista[i].FECHA_RENUNCIA+
+								+lista[i].FECHA_RENABAN+
 								 '</td>';
 						s += '<td>'
 							+lista[i].DNI+
@@ -136,10 +135,10 @@ function listarAutorizados() {
 							+mfl+
 							 '</td>';
 						// s += '<td>' + p + '</td>';
-						s += '<td>' + lista[i].ESTADO
-								+ '</td>';
-						s +='<td>' +TIPO+'</td>';
-						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3" style="z-index:1000">Detalle</a>';
+						s += '<td><a class="blue-text accent-4" href="#"><b>' + lista[i].ESTADO
+								+ '</b></a></td>';
+						s +='<td >' +TIPO+'</td>';
+						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Detalle</a>';
 						s += '</td>';
 						s += '</tr>';
 					}
@@ -156,9 +155,15 @@ function listarAutorizados() {
 				$("#dataReq").append(s);
 				$("#data-table-row-grouping")
 						.DataTable(
-						
+								{
+								    responsive: true,
+								    columnDefs: [
+								        { responsivePriority: 1, targets: 0 },
+								        { responsivePriority: 2, targets: -1 }
+								    ]
+								}
 						);
-
+				
 				$(".notificar").click(
 						function() {
 
@@ -178,23 +183,23 @@ function listarAutorizados() {
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display responsive nowrap" cellspacing="0" style="width:100%"> ';
+	var s = '<table id="data-table-row-grouping" class="display responsive" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
 	s += '<tr>';
-	s += '<th data-priority="1">N</th>';
-	s += '<th data-priority="2">Mes</th>';
-	s += '<th data-priority="3">Apellidos y Nombres</th>';
-	s += '<th data-priority="4">Puesto</th>';
-	s += '<th data-priority="5">Area</th>';
-	s += '<th data-priority="6">Departamento</th>';
+	s += '<th>N</th>';
+	s += '<th data-priority="3">Mes</th>';
+	s += '<th data-priority="4">Apellidos y Nombres</th>';
+	s += '<th data-priority="5">Puesto</th>';
+	s += '<th data-priority="6">Area</th>';
+	s += '<th data-priority="7">Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de renuncia</th>';
+	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';	
 	s += '<th>Estado</th>';
-	s += '<th>Tipo</th>';
-	s += '<th>Opcion</th>';
+	s += '<th data-priority="2">Tipo</th>';
+	s += '<th data-priority="1">Opcion</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq">';
@@ -204,7 +209,7 @@ function createTable(idDepartamento, idRol) {
 }
 
 // LISTAR TODOS LOS TRABAJADORES PROCESADOS
-function listarProcesados() {
+function listarAutorizados() {
 	$.getJSON(
 			gth_context_path + "/renaban/AutorizarR",
 			"opc=5",
@@ -221,7 +226,7 @@ function listarProcesados() {
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
 						var plazo = parseInt(lista[i].VAL_PLAZO);
 						var fe_creacion = new Date(
-								lista[i].FECHA_RENUNCIA);
+								lista[i].FECHA_RENABAN);
 						var mesInt = parseInt(fe_creacion
 								.getMonth()) + 1;
 						var mes = ParsearMes(mesInt);
@@ -272,7 +277,7 @@ function listarProcesados() {
 								+ lista[i].DESCRIPCION
 								+ '</a></td>';
 						s += '<td>'
-								+lista[i].FECHA_RENUNCIA+
+								+lista[i].FECHA_RENABAN+
 								 '</td>';
 						s += '<td>'
 							+lista[i].DNI+
@@ -298,10 +303,16 @@ function listarProcesados() {
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
 				$("#data-table-row-grouping1")
-						.DataTable(
-								
+						.DataTable({
+							
+							    }
 						);
+				
+				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
 
+//				$(".dataTables_scrollHeadInner").css({"width":"1358px;","padding-right": "0px;"});
+//				
+//				$(".table ").css({"width":"1358px","margin-left": "0px;"});
 				$(".notificar").click(
 						function() {
 
@@ -326,18 +337,18 @@ function listarProcesados() {
 
 
 function createTable1(idDepartamento, idRol) {
-	var s = '<table id="data-table-row-grouping1" class="display responsive nowrap" cellspacing="0" style="width:100%;" >';
+	var s = '<table id="data-table-row-grouping1" class="bordered highlight centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
-	s += '<th data-priority="1">Mes</th>';
-	s += '<th data-priority="2">Apellidos y Nombres</th>';
-	s += '<th data-priority="3">Puesto</th>';
-	s += '<th data-priority="4">Area</th>';
-	s += '<th data-priority="5">Departamento</th>';
-	s += '<th data-priority="6">Tipo de Contrato</th>';
+	s += '<th>Mes</th>';
+	s += '<th>Apellidos y Nombres</th>';
+	s += '<th>Puesto</th>';
+	s += '<th>Area</th>';
+	s += '<th>Departamento</th>';
+	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de renuncia</th>';
+	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
 	s += '<th>Estado</th>';
