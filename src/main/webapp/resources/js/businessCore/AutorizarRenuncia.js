@@ -153,6 +153,7 @@ function listarRegistrados() {
 				$(".contT").append(r);
 				$("#dataReq").empty();
 				$("#dataReq").append(s);
+<<<<<<< HEAD
 				$("#data-table-row-grouping")
 						.DataTable(
 								{
@@ -164,6 +165,11 @@ function listarRegistrados() {
 								}
 						);
 				
+=======
+//				$("#data-table-row-grouping")
+//						.DataTable();
+
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 				$(".notificar").click(
 						function() {
 
@@ -302,6 +308,7 @@ function listarAutorizados() {
 				$(".contP").append(r);
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
+<<<<<<< HEAD
 				$("#data-table-row-grouping1")
 						.DataTable({
 							
@@ -309,6 +316,10 @@ function listarAutorizados() {
 						);
 				
 				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+=======
+//				$("#data-table-row-grouping1")
+//						.DataTable();
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 
 //				$(".dataTables_scrollHeadInner").css({"width":"1358px;","padding-right": "0px;"});
 //				

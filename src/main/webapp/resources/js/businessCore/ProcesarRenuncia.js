@@ -14,6 +14,7 @@ $(document)
 						    },true,'alert');
 						}
 
+					
 					// $('.modal-trigger').leanModal();
 					// alert();
 
@@ -147,8 +148,8 @@ function listarAutorizados() {
 				$(".contT").append(r);
 				$("#dataReq").empty();
 				$("#dataReq").append(s);
-				$("#data-table-row-grouping")
-						.DataTable();
+//				$("#data-table-row-grouping")
+//						.DataTable();
 
 				$(".notificar").click(
 						function() {
@@ -309,8 +310,8 @@ function listarProcesados() {
 				$(".contP").append(r);
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
-				$("#data-table-row-grouping1")
-						.DataTable();
+//				$("#data-table-row-grouping1")
+//						.DataTable();
 
 				$(".notificar").click(
 						function() {
@@ -422,7 +423,7 @@ function DetalleRenuncia(idc) {
 				}
 //				var img = document.getElementById("carta")
 				$("#carta").text(detalle[0].ARCHIVO);
-				$("#procesarRen").click(function(){
+				$("#modalP").click(function(){
 					var idr= $("#idr").val();
 					//alert(idr);
 					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
@@ -438,7 +439,7 @@ function DetalleRenuncia(idc) {
 				     		
 				        });
 				});
-				$("#RechazarRenuncia").click(function(){
+				$("#modalR").click(function(){
 					var id= $("#idr").val();
 					var observaciones = $("#observaciones").val();					
 					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){

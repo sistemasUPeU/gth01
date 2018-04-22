@@ -260,18 +260,21 @@ function DetalleAbandono(ida) {
 }
 
 function enviarCorreo() {
-	alert();
-//	var msj = $("#mensaje1").text();
+//	alert(jfksdf);
+	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
-	var para = "estefannygarcia@upeu.edu.pe"
+//	var para = $("#correo").text();
+	var para = "estefannygarcia@upeu.edu.pe";
 	var clave = "GTH123456";
-	var foto =$("#cartaNotarial").val();
-	var mensaje = $("#mensaje1").val();
-	var msjs = $("#fecha").val() + mensaje;
+	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '')
+//	var foto = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
+//	if (foto.search (/ C: fakepath /)) {foto = foto.replace ('C: fakepath', ''); 
+//	$("#cartaNotarial").val (dominio + '/ pics /' + foto); } else {$("#cartaNotarial").val (dominio + '/ pics /' + foto); }
+	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
-	alert(foto);
+	alert(msjs);
 	 console.log(msjs);
-	$.get(gth_context_path+"/renaban/PrimerEnvio", {
+	$.get(gth_context_path+"/renaban/primerEnvio", {
 		de : de,
 		clave : clave,
 		para : para,
@@ -292,6 +295,12 @@ function enviarCorreo() {
 
 	});
 }
+
+//$(function() {
+//    $("input:file").change(function (){
+//      var foto = $(this).val().replace("C:\\fakepath\\", "");
+//    });
+// });
 
 function notificarAbandono() {
 	var idr = $("#idr").text();

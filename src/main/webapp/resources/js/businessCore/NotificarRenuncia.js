@@ -377,16 +377,16 @@ function ParsearMes(mesint) {
 
 // MOSTRANDO LOS DETALLES DE TRABAJADOR
 function verCorreo(idc) {
+	var inst = $('[data-remodal-id=modal]').remodal();
+
 	// alert(idc);
 	// dni = $("#dni").val();
-
 	$.get(gth_context_path+"/renuncias/listarxd", {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
 		// console.log(data);
-		$("#modalnotificar").openModal();
-
+		inst.open();
 		var detalle = JSON.parse(data);
 		console.log(detalle);
 		$("#correo").text(detalle[0].CORREO);
@@ -436,6 +436,7 @@ function enviarCorreo() {
 
 //INSERTAR LEGAJO
 function insertarLegajo() {
+	var inst = $('[data-remodal-id=modal]').remodal();
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
 	var para = "jonathanromero@upeu.edu.pe";
@@ -452,7 +453,7 @@ function insertarLegajo() {
 		opc : 4
 	}, function(data, status) {
 		console.log(data);
-		$("#modalnotificar").closeModal();
+		inst.close();
 		if (data == 1) {
 			// alert("SE MANDO");
 		} else {
@@ -464,6 +465,7 @@ function insertarLegajo() {
 
 //NOTIFICAR RENUNCIA
 function notificarRenuncia() {
+	var inst = $('[data-remodal-id=modal]').remodal();
 	var idr = $("#idr").text();
 //	alert(idr);
 	$.get(gth_context_path+"/renuncias/listarxd", {
@@ -473,7 +475,7 @@ function notificarRenuncia() {
 		console.log(data);
 		
 		if (data == 1) {
-			$("#modalnotificar").closeModal();
+			inst.close();
 			$.toast({
 			    heading: 'Correcto!',
 			    text: 'Notificado correctamente',
@@ -491,6 +493,9 @@ function notificarRenuncia() {
 }
 
 function Entregar(idc) {
+	
+	var inst = $('[data-remodal-id=modal1]').remodal();
+
 //	alert(idc);
 	$("#not_idr").val(idc);
 //	var idr = $("#idr").text();
@@ -503,7 +508,9 @@ function Entregar(idc) {
 		console.log(data);
 		
 		$("#not_idr").val(idc);
-		$("#modalentregar").openModal();
+		inst.open();
+
+//		$("#modalentregar").openModal();
 		
 	});
 }

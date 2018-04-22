@@ -143,6 +143,7 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 			texto.setContent(mensaje, "text/html");
 
 			BodyPart adjunto = new MimeBodyPart();
+//			((MimeBodyPart) adjunto).attachFile(foto);
 			adjunto.setDataHandler(
 			new DataHandler(new FileDataSource("C:/Users/AlphaTeam-02-NicoleG/Pictures/mem1.jpg")));
 			adjunto.setFileName("mem1.jpg");
