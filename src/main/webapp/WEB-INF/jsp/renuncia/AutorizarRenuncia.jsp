@@ -18,13 +18,14 @@
 
 <link href="<c:url value='/resources/css/alertify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-<<<<<<< HEAD
-<style>
-	div.dataTables_wrapper{
-=======
+
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond"
 	rel="stylesheet">
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
+<style>
+	div.dataTables_wrapper{
+
+
+
 
 		width:auto;
         margin: 0 auto;
@@ -46,7 +47,7 @@ table.dataTable tbody td {
 </style>
 </head>
 
-<body class="#e8f5e9 green lighten-5">
+<body class="">
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -58,27 +59,7 @@ table.dataTable tbody td {
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-<<<<<<< HEAD
-		<div id="contenido">
-			<div class="row"
-				style="width: 100%;  max-width:85%">
-				<ul class="collapsible popout">
-					<li id="autorize" class="active">
-						<div class="collapsible-header active">
-							<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
-						</div>
-						<div class="collapsible-body #e3f2fd blue lighten-5 "
-							style="display: none;">	
-							<div class="row" style="padding:1em">
-								<div class="contT"></div>
-							</div>			
-						</div>
-					</li>
-					<li id="autorized" class="">
-						<div class="collapsible-header" >
-=======
-		<div id="table-datatables">
-			<section id="content" class="col m12 l12 s12">
+		<section id="content" class="col m12 l12 s12">
 				<div class="center">
 					<h1
 						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Autorizar
@@ -87,76 +68,36 @@ table.dataTable tbody td {
 				<div class="divider"></div>
 
 			</section>
-			<div id="contenido">
-				<div class="col s12 m12"
-					style="width: 100%; position: absolute; min-width: 1340px">
-					<ul class="collapsible popout" data-collapsible="accordion">
-						<li class="active">
-							<div class="collapsible-header active">
-								<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
-							</div>
-							<div id="data-table-row-grouping col s12 m8 l9"
-								class="card-panel collapsible-body display #e3f2fd blue lighten-5"
-								style="display: none;">
-
-								<!-- <div id="data-table-row-grouping col s12 m8 l9" -->
-								<!-- class="card-panel display #e3f2fd blue lighten-5" -->
-								<!-- style="position: absolute"> -->
-
-								<!-- <div class="col s12 m8 l9 contT"></div> -->
-								<!-- </div> -->
-
-								<div class="col s12 m8 l9 contT"></div>
-
-
-							</div>
-						</li>
-						<li class="active">
-							<div class="collapsible-header active">
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
-
-<<<<<<< HEAD
+		<div id="contenido">
+			<div class="row"
+				style="width: 100%;  max-width:90%">
+				<ul class="collapsible popout">
+					<li id="autorize" class="active">
+						<div class="collapsible-header active">
+							<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
+						</div>
+						<div class="collapsible-body"
+							style="display: none;">	
+							<div class="row" style="padding:1em">
+								<div class="contT"></div>
+							</div>			
+						</div>
+					</li>
+					<li id="autorized" class="">
+						<div class="collapsible-header" >
 							<i class="mdi-toggle-check-box"></i> Renuncias Autorizadas
 						</div> 
-						<div class="collapsible-body #e3f2fd blue lighten-5 "
+						<div class="card-panel collapsible-body "
 							style="display: none;">
-							<div class="row" style="padding:2em">
+							<div class="row" style="padding:1em">
 								<div class="contP"></div>
 							</div>
-=======
-								<i class="mdi-toggle-check-box"></i> Renuncias Autorizadas
-							</div> <!-- 						<div class="collapsible-body" style="display: none;"> -->
-							<div id="table-datatables"
-								class="card-panel collapsible-body display #e3f2fd blue lighten-5"
-								style="display: none;">
-								<!-- 							<div class="row"> -->
-								<!-- 								<div class="col s12 m8 l9"></div> -->
-								<!-- 							</div> -->
-								<div class="col s12 m8 l9 contP"></div>
-								<!-- 						</div> -->
 
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 							</div>
 
-<<<<<<< HEAD
-					</li>
-					
-				</ul>
-=======
 						</li>
 					</ul>
 				</div>
-
-
-
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
-			</div>
-<<<<<<< HEAD
-			
-
-
-=======
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 		</div>
 	</div>
 

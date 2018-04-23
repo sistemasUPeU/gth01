@@ -161,7 +161,9 @@ function listarRegistrados() {
 								    columnDefs: [
 								        { responsivePriority: 1, targets: 0 },
 								        { responsivePriority: 2, targets: -1 }
-								    ]
+								    ],
+								"pageLength" : 3,
+								"bPaginate" : true,
 								}
 						);
 
@@ -306,7 +308,8 @@ function listarAutorizados() {
 
 				$("#data-table-row-grouping1")
 						.DataTable({
-							
+							"pageLength" : 10,
+							"bPaginate" : true
 							    }
 						);
 				
@@ -343,7 +346,7 @@ function listarAutorizados() {
 
 
 function createTable1(idDepartamento, idRol) {
-	var s = '<table id="data-table-row-grouping1" class="bordered highlight centered display" cellspacing="0" style="width:100%;" >';
+	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
@@ -368,7 +371,7 @@ function createTable1(idDepartamento, idRol) {
 }
 
 var depa="";
-
+var u = "";
 
 
 // DETALLE PARA AUTORIZAR RENUNCIA
@@ -418,8 +421,6 @@ function DetalleRenuncia(idc) {
 					//alert(idr);
 					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
-//							 alert("BIEN Nicole");
-//							 alert(idr);
 							 window.location.href = gth_context_path +"/renaban/authorizationR";					 
 							
 //			        		 alert(data);
@@ -445,6 +446,27 @@ function DetalleRenuncia(idc) {
 				        	
 				        });
 				});
+				
+				u = "";
+				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
+				u += ''
+				u += 'src="' + gth_context_path + '/resources/files/'
+						+ detalle[0].ARCHIVO + '" '
+				u += 'alt="sample"'
+				u += 'data-caption="Esc para volver" ></div>'
+
+					
+					var c = "";
+				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle[0].ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"
+
+				
+				var tipod = detalle[0].ARCHIVO.split(".")[1];
+				if (tipod=="pdf"){
+					$("#picture_del").html(c);
+				}else{
+					$("#picture_del").html(u);
+				}
+				$('.materialboxed').materialbox();
 		 });
 		     
 	
@@ -467,7 +489,8 @@ function DetalleRenuncia(idc) {
 //		}
 
 	});
-
+	
+	
 }
 
 $('.datepicker').pickadate({

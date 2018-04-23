@@ -1,7 +1,9 @@
 package pe.edu.upeu.gth.controller.disclaim;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +47,7 @@ public class RegistrarRenunciaController {
 	Detalle_motivoDAO det = new Detalle_motivoDAO(AppConfig.getDataSource());
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
-	
+	private static String UPLOADED_FOLDER = "C:\\Usuarios\\ASUS\\git\\gth01\\src\\main\\webapp\\resources\\files";
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
 	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -100,8 +102,8 @@ public class RegistrarRenunciaController {
 
 	@RequestMapping(path = "/form", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
-			@RequestParam("idcontrato") String idcon, Authentication authentication) throws IOException {
-
+			@RequestParam("idcontrato") String idcon, Authentication authentication, HttpServletRequest request) throws IOException {
+		ServletContext cntx = request.getServletContext();
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 		Renuncia r = new Renuncia();
@@ -111,14 +113,40 @@ public class RegistrarRenunciaController {
 			// ?, ?)";
 			try {
 				for (MultipartFile fi : file) {
-					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					String nome= fi.getOriginalFilename();
+					
+					nome="renaban"+idcon;
+					FilenameUtils fich = new FilenameUtils();
+					
+					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome+"."+FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
 					File destFile = new File(path);
+					
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
-					FilenameUtils fich = new FilenameUtils();
+//					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
+					
+					
 					archi.add(String.valueOf(destFile.length()));
+					
+					String nombre = destFile.getName();
+					String url2 = destFile.getPath();
+					System.out.println(nombre+""+url2);
+					
+					
+//					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+//					File destFile = new File(path);
+//					fi.transferTo(destFile);
+//					archi.add(destFile.getName());
+//					archi.add(destFile.getPath());
+//					FilenameUtils fich = new FilenameUtils();
+//					archi.add(FilenameUtils.getExtension(path));
+//					archi.add(String.valueOf(destFile.length()));
+					
+					
 //					System.out.println("asdasdasdasdasdas" +idusuario);
 					System.out.println(idcon);
 					r.setFecha(fecha);
@@ -147,5 +175,43 @@ public class RegistrarRenunciaController {
 			out.print(gson.toJson(rd.mostrardocs("DOC-000008")));
 			out.flush();
 		}
+	}
+	
+	@RequestMapping(value = "/viewdoc")
+	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ServletContext cntx = request.getServletContext();
+
+		System.out.println("controller cargar archivo");
+		String nombre = request.getParameter("nombre");
+		
+		String filename = cntx.getRealPath("/resources/files/" + nombre);
+//		String filename = UPLOADED_FOLDER+"\\" + nombre;
+//		 String filenam1e ="E:\\CONEIA\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\h\\"+nom;
+
+		System.out.println(nombre + "//" + "//" + filename);
+		
+		
+		String mime = cntx.getMimeType(filename);
+		if (mime == null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
+		}
+
+		response.setContentType(mime);
+		File file = new File(filename);
+		response.setContentLength((int) file.length());
+
+		FileInputStream in = new FileInputStream(file);
+		OutputStream out = response.getOutputStream();
+		System.out.println(out);
+		// Copy the contents of the file to the output stream
+		byte[] buf = new byte[1024];
+		int count = 0;
+		while ((count = in.read(buf)) >= 0) {
+			out.write(buf, 0, count);
+		}
+		out.close();
+		in.close();
+
 	}
 }

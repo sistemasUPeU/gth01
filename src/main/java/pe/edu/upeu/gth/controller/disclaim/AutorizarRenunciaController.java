@@ -61,6 +61,7 @@ public class AutorizarRenunciaController {
 				break;
 			case 4:
 				String idr = request.getParameter("idr");
+				System.out.println("Esta llegando un idr:" +idr);
 				r.setId_renuncia(idr);
 				out.println(ra.AutorizarRenuncia(r));
 				break;

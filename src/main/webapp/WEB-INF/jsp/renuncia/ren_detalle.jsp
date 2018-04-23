@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="../../../jspf/general.jspf"%>
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
@@ -57,6 +56,7 @@
 										</div>
 										<div class="col l3 m6 s6">
 											<input type="hidden" id="idt" />
+											<input id="idr"  type="hidden" />
 											<h6 class="light italic black-text">
 												<strong>Nombres :</strong><span id="nombres"></span><br>
 											</h6>
@@ -161,45 +161,6 @@
 										</h6>
 									</div>
 								</div>
-<<<<<<< HEAD
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6 ">
-									<h6>Puesto:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="puesto"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6">
-									<h6>Centro costo n°1:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="centro_costo"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6">
-									<h6>Tipo de contrato:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="tipo_contrato"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
 						<form class="col s12">
 							<div class="row">
 								<div class="input-field col s6">
@@ -226,62 +187,20 @@
 						</form>
 					</div>
 				</div>
-				<div class="card-content">
-					<form class="col s12">
+				<div class="">
 						<div class="row">
 							<div class="input-field col s6" style="text-align: center">
 								<h6>Carta de Renuncias:</h6>
 							</div>
 							<div class="input-field col s6">
-								<div class="material-placeholder">
-									<!-- 									<img materialboxed class="materialboxed" -->
-									<!-- 										data-caption="A picture of some deer and tons of trees" -->
-									<!-- 										width="250" " style="z-index: 4" -->
-									<%--
-									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%>
-									<object type="image/jpeg"
-											data="/gth/renaban/mostrardoc1" width="400" height="500"></object>
-									<span id="carta">
-<!-- 									<img materialboxed class="materialboxed" -->
-<!-- 										data-caption="A picture of some deer and tons of trees" -->
-<!-- 										width="250" " style="z-index: 4" -->
-<!-- 										 id="carta"/> --> 
-									</span>
 									
-								</div>
+									<div class="" id="picture_del">
+
+									</div>
+
 							</div>
-=======
-							</form>
-
->>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
 						</div>
-					</div>
-					<!-- 					<div class="card-content"> -->
-					<!-- 						<form class="col s12"> -->
-					<!-- 							<div class="row"> -->
-					<!-- 								<div class="input-field col s6" style="text-align: center"> -->
-					<!-- 									<h6>Carta de Renuncia:</h6> -->
-					<!-- 								</div> -->
-					<!-- 								<div class="input-field col s6"> -->
-					<!-- 									<div class="material-placeholder"> -->
-					<!-- 																			<img materialboxed class="materialboxed" -->
-					<!-- 																				data-caption="A picture of some deer and tons of trees" -->
-					<!-- 																				width="250" " style="z-index: 4" -->
-					<%-- 										
-<%-- 									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%>
-					
-					<!-- 										<span id="carta"> <img materialboxed -->
-					<!-- 											class="materialboxed" -->
-					<!-- 											data-caption="A picture of some deer and tons of trees" -->
-					<!-- 											width="250" " style="z-index: 4" id="carta" /> -->
-					<!-- 										</span> -->
-
-					<!-- 									</div> -->
-					<!-- 								</div> -->
-					<!-- 							</div> -->
-					<!-- 						</form> -->
-					<!-- 					</div> -->
-					<div class="card-content"></div>
+					</div>				
 				</div>
 			</section>
 		</div>
