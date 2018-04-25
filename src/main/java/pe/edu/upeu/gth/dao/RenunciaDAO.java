@@ -39,7 +39,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
  * @author Nicole
  */
 public class RenunciaDAO {
-
+	//comentando..
 	String sql;
 	PreparedStatement ps;
 	CallableStatement cs;
