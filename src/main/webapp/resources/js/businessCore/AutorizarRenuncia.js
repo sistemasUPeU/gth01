@@ -162,12 +162,12 @@ function listarRegistrados() {
 								        { responsivePriority: 1, targets: 0 },
 								        { responsivePriority: 2, targets: -1 }
 								    ],
-								"pageLength" : 3,
+								"pageLength" : 5,
 								"bPaginate" : true,
 								}
 						);
 
-				$(".notificar").click(
+				$("#data-table-row-grouping tbody").on('click','.notificar',
 						function() {
 
 							cantidad = $(this).parents(
