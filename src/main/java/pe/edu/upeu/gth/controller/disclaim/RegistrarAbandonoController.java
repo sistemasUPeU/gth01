@@ -45,6 +45,7 @@ public class RegistrarAbandonoController {
 	Abandono a = new Abandono();
 	AbandonoDAO ad = new AbandonoDAO(AppConfig.getDataSource());
 	Detalle_motivoDAO det = new Detalle_motivoDAO(AppConfig.getDataSource());
+	private static String UPLOADED_FOLDER = "C:\\Usuarios\\ASUS\\git\\gth01\\src\\main\\webapp\\resources\\files";
 	RenAutorizarDAO ra = new RenAutorizarDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
 	
@@ -112,13 +113,26 @@ public class RegistrarAbandonoController {
 			// ?, ?)";
 			try {
 				for (MultipartFile fi : file) {
-					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+//					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+//					File destFile = new File(path);
+					String nome= fi.getOriginalFilename();
+					
+					nome="abandono"+idcon;
+					FilenameUtils fich = new FilenameUtils();
+					
+					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome+"."+FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
 					File destFile = new File(path);
+					fi.transferTo(destFile);
+					
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
-					FilenameUtils fich = new FilenameUtils();
+//					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
+					
+					
 					archi.add(String.valueOf(destFile.length()));
 //					System.out.println("asdasdasdasdasdas" +idusuario);
 					System.out.println(idcon);

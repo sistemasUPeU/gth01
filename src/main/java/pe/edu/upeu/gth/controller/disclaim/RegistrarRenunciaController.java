@@ -115,7 +115,7 @@ public class RegistrarRenunciaController {
 				for (MultipartFile fi : file) {
 					String nome= fi.getOriginalFilename();
 					
-					nome="renaban"+idcon;
+					nome="renuncia"+idcon;
 					FilenameUtils fich = new FilenameUtils();
 					
 					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
