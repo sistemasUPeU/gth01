@@ -23,10 +23,6 @@
 	rel="stylesheet">
 <style>
 	div.dataTables_wrapper{
-
-
-
-
 		width:auto;
         margin: 0 auto;
     }
@@ -74,7 +70,7 @@ table.dataTable tbody td {
 				<ul class="collapsible popout">
 					<li id="autorize" class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-toggle-check-box"></i> Renuncias por Autorizar
+							<i class="mdi-social-notifications-on"></i> Renuncias o Abandonos Pendientes
 						</div>
 						<div class="collapsible-body"
 							style="display: none;">	
@@ -85,7 +81,7 @@ table.dataTable tbody td {
 					</li>
 					<li id="autorized" class="">
 						<div class="collapsible-header" >
-							<i class="mdi-toggle-check-box"></i> Renuncias Autorizadas
+							<i class="mdi-toggle-check-box"></i> Renuncias o Abandonos Autorizados
 						</div> 
 						<div class="card-panel collapsible-body "
 							style="display: none;">

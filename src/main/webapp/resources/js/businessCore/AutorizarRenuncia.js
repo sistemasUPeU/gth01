@@ -135,9 +135,11 @@ function listarRegistrados() {
 							+mfl+
 							 '</td>';
 						// s += '<td>' + p + '</td>';
-						s += '<td><a class="blue-text accent-4" href="#"><b>' + lista[i].ESTADO
-								+ '</b></a></td>';
-						s +='<td >' +TIPO+'</td>';
+//						s += '<td><a class="blue-text accent-4" href="#"><b>' + lista[i].ESTADO
+//								+ '</b></a></td>';
+						s +='<td >' +TIPO+ '<label class="tipon" hidden>'
+						+ TIPO
+						+ '</label></td>';
 						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Detalle</a>';
 						s += '</td>';
 						s += '</tr>';
@@ -176,10 +178,20 @@ function listarRegistrados() {
 									.find(".idc")
 									.text();
 							console.log(cantidad);
+							
+							
+							tipon = $(this).parents(
+							"tr").find("td")
+							.find(".tipon")
+							.eq(0)
+							.text();
+							console.log("esto es tipon"+tipon);
 
-							DetalleRenuncia(cantidad);
+							DetalleRenuncia(cantidad,tipon);
 
-							$("#otros").val(cantidad);					
+							$("#otros").val(cantidad);	
+							
+							$("#tipo").val(tipon);
 						});
 			});
 }
@@ -200,7 +212,6 @@ function createTable(idDepartamento, idRol) {
 	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';	
-	s += '<th>Estado</th>';
 	s += '<th data-priority="2">Tipo</th>';
 	s += '<th data-priority="1">Opcion</th>';
 	s += '</tr>';
@@ -289,9 +300,9 @@ function listarAutorizados() {
 							+mfl+
 							 '</td>';
 						// s += '<td>' + p + '</td>';
-						s += '<td>' + lista[i].ESTADO
-								+ '</td>';
-						s +='<td>' +TIPO+'</td>';
+//						s += '<td>' + lista[i].ESTADO
+//								+ '</td>';
+						s +='<td class="tipon">' +TIPO+'</td>';
 						s += '</tr>';
 					}
 
@@ -322,22 +333,24 @@ function listarAutorizados() {
 //				$(".dataTables_scrollHeadInner").css({"width":"1358px;","padding-right": "0px;"});
 //				
 //				$(".table ").css({"width":"1358px","margin-left": "0px;"});
-				$(".notificar").click(
-						function() {
-
-							cantidad = $(this).parents(
-									"tr").find("td")
-									.eq(0)
-									.find(".idc")
-									.text();
-							console.log(cantidad);
-
-							DetalleRenuncia(cantidad);
-
-							$("#otros").val(cantidad);
-
-						
-						});
+//				$(".notificar").click(
+//						function() {
+//
+//							cantidad = $(this).parents(
+//									"tr").find("td")
+//									.eq(0)
+//									.find(".idc")
+//									.text();
+//							console.log(cantidad);
+//							
+//							
+//
+//							DetalleRenuncia(cantidad,tipon);
+//
+//							$("#otros").val(cantidad);
+//
+//						
+//						});
 			
 
 			});
@@ -360,7 +373,6 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
-	s += '<th>Estado</th>';
 	s += '<th>Tipo</th>';
 	s += '</tr>';
 	s += '</thead>';
@@ -375,7 +387,7 @@ var u = "";
 
 
 // DETALLE PARA AUTORIZAR RENUNCIA
-function DetalleRenuncia(idc) {
+function DetalleRenuncia(idc,tipon) {
 	
 //	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
@@ -403,6 +415,12 @@ function DetalleRenuncia(idc) {
 				$("#puesto").text(detalle[0].NOM_PUESTO);
 //				$("#centro_costo").tex(detalle[0].CENTRO_COSTO);
 				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+				if(tipon=="RENUNCIA"){
+					$("#tipo_doc").text("Carta de Renuncia");
+				}else{
+					$("#tipo_doc").text("Evidencia de Abandono");
+				}
+				
 				if(detalle[0].ANTECEDENTES!=1){
 					$("#ante_poli").text("Si");
 				}else{	
@@ -418,22 +436,37 @@ function DetalleRenuncia(idc) {
 				$("#carta").text(detalle[0].ARCHIVO);
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
+					var tipo= $("#tipo").val();
 					//alert(idr);
-					 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
-						 $.get("AutorizarR",{opc:4,idr:idr},function(data){
-							 window.location.href = gth_context_path +"/renaban/authorizationR";					 
-							
-//			        		 alert(data);
-			        	});
-						 
-				     	} , function(){ 
-				     		
-				        });
+					if(tipo="RENUNCIA"){
+						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar la renuncia de este trabajador?', function(){
+							 $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
+								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
+								
+//				        		 alert(data);
+				        	});
+							 
+					     	} , function(){ 
+					     		
+					        });
+					}else{
+						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar el abandono de este trabajador?', function(){
+							 $.get("AutorizarR",{opc:4,tipo:'A',idr:idr},function(data){
+								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
+								
+//				        		 alert(data);
+				        	});
+							 
+					     	} , function(){ 
+					     		
+					        });
+					}
+					 
 				});
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
 					var observaciones = $("#observaciones").val();					
-					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
+					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
 						 $.get("AutorizarR",{opc:6,idr:id,observaciones:observaciones},function(data){
 							 alert("BIEN Nicole");
 			        		 alert(data);

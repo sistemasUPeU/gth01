@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -43,7 +45,7 @@ public class AutorizarRenunciaController {
 	
 	// AUTORIZAR RENUNCIA
 		@RequestMapping(value = "/AutorizarR", method = RequestMethod.GET)
-		protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response)
+		protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 				throws ServletException, IOException {
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
@@ -61,9 +63,11 @@ public class AutorizarRenunciaController {
 				break;
 			case 4:
 				String idr = request.getParameter("idr");
+				String tipo = request.getParameter("tipo");
 				System.out.println("Esta llegando un idr:" +idr);
 				r.setId_renuncia(idr);
-				out.println(ra.AutorizarRenuncia(r));
+				String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+				out.println(ra.AutorizarRenuncia(r,idusuario,tipo));
 				break;
 			case 5:
 				out.println(gson.toJson(ra.Autorizado()));

@@ -190,7 +190,7 @@
 				<div class="">
 						<div class="row">
 							<div class="input-field col s6" style="text-align: center">
-								<h6>Carta de Renuncias:</h6>
+								<h6 id="tipo_doc"></h6>
 							</div>
 							<div class="input-field col s6">
 									
@@ -214,6 +214,7 @@
 				<a
 					class="btn btn-large waves-effect waves-light light-green darken-4 "
 					id="autorizarRen">Autorizar</a>
+					<input type="hidden" id="tipo"/>
 			</div>
 			<div class="input-field col s6 center">
 				<a

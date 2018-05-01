@@ -3,9 +3,12 @@ package pe.edu.upeu.gth.dao;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +73,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 	}
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente() {
-		sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Pendiente' ORDER BY FECHA_RENABAN DESC";
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000430' AND ESTADO=0 ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
@@ -95,16 +98,31 @@ public class RenAutorizarDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
-			sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Autorizado' ORDER BY FECHA_RENABAN ASC";
+			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ID_PASOS='PAS-000429' OR rap.ID_PASOS='PAS-000431' AND ESTADO=0 ORDER BY ra.FECHA_RENABAN ASC";
 			return jt.queryForList(sql);
 		}
 	
 	// AUTORIZAR RENUNCIA
-		public int AutorizarRenuncia(Renuncia r) {
+		public int AutorizarRenuncia(Renuncia r, String idusuario,String tipo) {
 			int x = 0;
-			String sql = "UPDATE RA_RENABAN SET ESTADO='Autorizado' WHERE ID_RENABAN=? ";
+			String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+			String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000428' AND ID_RENABAN=?";
+			String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000430' AND ID_RENABAN=?";
+//			Date date = new Date();
+//			
+//			//obtenerhora y fecha y salida por pantalla con formato:
+//			DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+			Date fechon = new java.sql.Date(System.currentTimeMillis());
+			System.out.println(fechon);
 			try {
-				jt.update(sql, new Object[] { r.getId_renuncia()});
+				if(tipo=="R") {
+					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000431",idusuario,fechon});
+					jt.update(sql2,new Object[] { r.getId_renuncia()});
+				}else {
+					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000429",idusuario,fechon});
+					jt.update(sql3,new Object[] { r.getId_renuncia()});
+				}
+				
 				x = 1;
 			} catch (Exception e) {
 				// TODO: handle exception
