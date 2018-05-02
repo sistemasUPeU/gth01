@@ -73,9 +73,9 @@ public class RenAutorizarDAO implements CRUDOperations{
 	}
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente(String depa) {
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000430' ";
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000429'";
 		
-		sql +="and NOM_DEPA='"+depa+"' AND ESTADO=0 ORDER BY ra.FECHA_RENABAN DESC";
+		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
@@ -100,7 +100,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
-			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ID_PASOS='PAS-000429' OR rap.ID_PASOS='PAS-000431' AND ESTADO=0 ORDER BY ra.FECHA_RENABAN ASC";
+			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000430' OR rap.ID_PASOS='PAS-000431' ORDER BY ra.FECHA_RENABAN DESC";
 			return jt.queryForList(sql);
 		}
 	
@@ -109,7 +109,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 			int x = 0;
 			String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
 			String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000428' AND ID_RENABAN=?";
-			String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000430' AND ID_RENABAN=?";
+			String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000429' AND ID_RENABAN=?";
 //			Date date = new Date();
 //			
 //			//obtenerhora y fecha y salida por pantalla con formato:
@@ -117,11 +117,11 @@ public class RenAutorizarDAO implements CRUDOperations{
 			Date fechon = new java.sql.Date(System.currentTimeMillis());
 			System.out.println(fechon);
 			try {
-				if(tipo=="R") {
-					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000431",idusuario,fechon});
+				if(tipo.equals("R")) {
+					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000430",idusuario,fechon});
 					jt.update(sql2,new Object[] { r.getId_renuncia()});
 				}else {
-					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000429",idusuario,fechon});
+					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000431",idusuario,fechon});
 					jt.update(sql3,new Object[] { r.getId_renuncia()});
 				}
 				
