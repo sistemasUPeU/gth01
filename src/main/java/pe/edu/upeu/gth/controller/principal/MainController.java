@@ -75,6 +75,7 @@ public class MainController {
 				sr.put("seccion", ((CustomUser) authentication.getPrincipal()).getNO_SECCION());
 				sr.put("puesto", ((CustomUser) authentication.getPrincipal()).getNO_PUESTO());
 				sr.put("idrol", ((CustomUser) authentication.getPrincipal()).getID_ROL());
+				sr.put("iddepa", ((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO());
 				mp.put("info_puesto", sr);
 				break;
 			case "usuario":

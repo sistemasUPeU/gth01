@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.bouncycastle.jce.provider.JDKKeyFactory.RSA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -49,7 +50,7 @@ public class RegistrarRenunciaController {
 	private Gson gson = new Gson();
 	private static String UPLOADED_FOLDER = "C:\\Usuarios\\ASUS\\git\\gth01\\src\\main\\webapp\\resources\\files";
 	@RequestMapping(value = "/detalleR", method = RequestMethod.GET)
-	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
+	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response,Authentication authentication)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
@@ -58,27 +59,15 @@ public class RegistrarRenunciaController {
 		
 		// REGISTRAR RENUNCIA
 		case 1:
+			String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
 			String dni = request.getParameter("dni");
-			out.println(gson.toJson(rd.Buscar_DetalleTrabajador(dni)));
+			out.println(gson.toJson(rd.Buscar_DetalleTrabajador(dni,depa)));
 			break;
 
 		case 2:
 			out.println(gson.toJson(rd.mostrarMotivo()));
 			break;
 		case 3:
-			// System.out.println("Creando...");
-			// Renuncia r = new Renuncia();
-			// Object s = request.getParameter("file");
-			// MultipartFile file = (MultipartFile) s;
-			// r.setId_trabajador(request.getParameter("idtr"));
-			// // r.setNo_archivo(request.getParameter("no_arch"));
-			// // r.setTi_archivo(request.getParameter("ti_arch"));
-			// System.out.println(file.getOriginalFilename());
-			// System.out.println(file.getContentType());
-			// // r.setTam_archivo(file.getContentType());
-			// // r.setFecha(request.getParameter("fecha"));
-			// out.println(rd.crearRenuncia(r));
-
 			String array = request.getParameter("array");
 			String[] listaMotivos = array.split(",");
 			System.out.println("arreglo" + listaMotivos);
@@ -92,6 +81,20 @@ public class RegistrarRenunciaController {
 			Detalle_motivo d = new Detalle_motivo();
 			d.setOtros(request.getParameter("otros"));
 			out.println(gson.toJson(det.insertarOtros(d)));
+			break;
+		case 6:
+			//listar RENABAN
+			String depa2 = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
+			out.println(gson.toJson(rd.Renaban(depa2)));
+			System.out.println(gson.toJson(rd.Renaban(depa2)));
+			break;
+		case 7:
+			String id = request.getParameter("idr");
+			if(rd.eliminarRenaban(id)==1) {
+				out.println(1);
+			}else {
+				out.println(0);
+			}
 			break;
 		}
 
@@ -136,18 +139,6 @@ public class RegistrarRenunciaController {
 					String url2 = destFile.getPath();
 					System.out.println(nombre+""+url2);
 					
-					
-//					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
-//					File destFile = new File(path);
-//					fi.transferTo(destFile);
-//					archi.add(destFile.getName());
-//					archi.add(destFile.getPath());
-//					FilenameUtils fich = new FilenameUtils();
-//					archi.add(FilenameUtils.getExtension(path));
-//					archi.add(String.valueOf(destFile.length()));
-					
-					
-//					System.out.println("asdasdasdasdasdas" +idusuario);
 					System.out.println(idcon);
 					r.setFecha(fecha);
 					r.setNo_archivo(destFile.getName());
@@ -166,6 +157,67 @@ public class RegistrarRenunciaController {
 		}
 		return "redirect:" + url;
 	}
+	
+	@RequestMapping(path = "/updateR", method = RequestMethod.POST)
+	public void actualizarRenaban(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
+			@RequestParam("idcontrato") String idcon, Authentication authentication, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		ServletContext cntx = request.getServletContext();
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		Renuncia r = new Renuncia();
+		String url = "/";
+		if (!file.isEmpty()) {
+			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
+			// ?, ?)";
+			try {
+				for (MultipartFile fi : file) {
+					String nome= fi.getOriginalFilename();
+					
+					nome="renuncia"+idcon;
+					FilenameUtils fich = new FilenameUtils();
+					
+					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome+"."+FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
+					File destFile = new File(path);
+					
+					fi.transferTo(destFile);
+					archi.add(destFile.getName());
+					archi.add(destFile.getPath());
+//					FilenameUtils fich = new FilenameUtils();
+					archi.add(FilenameUtils.getExtension(path));
+					
+					
+					archi.add(String.valueOf(destFile.length()));
+					
+					String nombre = destFile.getName();
+					String url2 = destFile.getPath();
+					System.out.println(nombre+""+url2);
+					
+					System.out.println(idcon);
+					r.setFecha(fecha);
+					r.setNo_archivo(destFile.getName());
+					r.setTi_archivo(FilenameUtils.getExtension(path));
+					r.setId_contrato(idcon);
+					r.setUsu_mod(idusuario);
+					r.setTipo("R");
+					if(rd.actualizarRenuncia(r)==1) {
+						out.println(1);
+					}
+					
+				}
+
+			} catch (IOException | IllegalStateException ec) {
+				ec.getMessage();
+				ec.printStackTrace();
+			}
+			System.out.println(gson.toJson(archi));
+		}
+//		return "redirect:" + url;
+	}
+
 
 	@RequestMapping(value = "/mostrardoc")
 	public void jarchiv(HttpServletRequest request, HttpServletResponse response) throws IOException {

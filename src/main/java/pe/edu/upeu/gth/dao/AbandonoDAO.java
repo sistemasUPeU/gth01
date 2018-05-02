@@ -46,10 +46,10 @@ public class AbandonoDAO {
 	}
 	
 	//LISTA LOS DETALLES DEL TRABAJADOR
-	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni) {
+	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni,String depa) {
 		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 
-		sql += " where DNI='" + dni + "' ";
+		sql += " where DNI='" + dni + "' and NOM_DEPA='"+depa+"'";
 
 		return jt.queryForList(sql);
 	}

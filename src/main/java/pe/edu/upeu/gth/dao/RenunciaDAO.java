@@ -131,10 +131,10 @@ public class RenunciaDAO {
 	}
 
 	// ESTO LISTA EL DETALLE DEL TRABAJADOR FILTRADO POR DNI EN LA INTERFAZ "REGISTRAR RENUNCIA"
-	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni) {
+	public List<Map<String, Object>> Buscar_DetalleTrabajador(String dni, String depa) {
 		sql = "select ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD FROM REN_VIEW_TRABAJADOR";
 
-		sql += " where DNI='" + dni + "' ";
+		sql += " where DNI='" + dni + "' and NOM_DEPA='"+depa+"'";
 
 		return jt.queryForList(sql);
 	}
@@ -157,6 +157,37 @@ public class RenunciaDAO {
 		return jt.queryForList(sql);
 	}
 	
+	//LISTAR RENABAN - CRUD 
+	public List<Map<String, Object>> Renaban(String depa) {
+		sql = "select ra.ID_CONTRATO as ID_CONTRATO,ra.ID_RENABAN as ID_RENABAN,ra.ID_TRABAJADOR as ID_TRABAJADOR, ra.MES as MES,";
+	    sql +="ra.NOMBRES as NOMBRES,ra.PATERNO as PATERNO, ra.MATERNO as MATERNO, ra.FECHA_NAC as FECHA_NAC, ra.DOMICILIO as DOMICILIO,";
+	    sql += "ra.DNI as DNI, ra.FECHA_CONTRATO as FECHA_CONTRATO, ra.NOM_DEPA as NOM_DEPA, ra.NOM_AREA as NOM_AREA,ra.NOM_SECCION as NOM_SECCION,";
+	    sql += "ra.NOM_PUESTO as NOM_PUESTO, ra.CENTRO_COSTO as CENTRO_COSTO,ra.TIPO_CONTRATO as TIPO_CONTRATO,ra.DESCRIPCION as DESCRIPCION,";
+	    sql += "ra.ANTECEDENTES as ANTECEDENTES,ra.CERTI_SALUD as CERTI_SALUD,ra.MFL as MFL, ra.ARCHIVO as ARCHIVO,ra.FECHA_RENABAN as FECHA_RENABAN,";
+	    sql += "ra.CORREO as CORREO, ra.TIPO as TIPO,jus.OBSERVACIONES as JUSTIFICACION, re.OBSERVACIONES as RECHAZO";
+		sql += " from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN  ";
+		sql += " LEFT JOIN RA_JUSTIFICACION jus ON ra.ID_RENABAN=jus.ID_RENABAN ";
+		sql += " LEFT JOIN RA_RECHAZO re ON ra.ID_RENABAN=re.ID_RENABAN ";
+		sql += " WHERE rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000429' ";
+		sql +=" and NOM_DEPA='"+depa+"' ORDER BY ra.FECHA_RENABAN DESC";
+		return jt.queryForList(sql);
+	}
+	
+	//ELIMINAR RENABAN - CRUD
+	public int eliminarRenaban(String id) {
+		int x = 0;
+		String sql = "DELETE FROM RA_RENABAN WHERE ID_RENABAN=?";
+		try {
+			jt.update(sql, new Object[] { id});
+			
+			x= 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
+	
    //  CARGAR MOTIVOS DE RENUNCIA
 	public List<Map<String, Object>> cargarMotivo(String idtr) {
 		sql = "SELECT * FROM RA_RENABAN r, RHTM_CONTRATO t WHERE r.ID_CONTRATO=t.ID_CONTRATO";
@@ -171,12 +202,27 @@ public class RenunciaDAO {
 		return jt.queryForList(sql);
 	}
 
-	// falta
+	// INSERTAR RENUNCIA
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
 		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) VALUES(?,?,?,?,?,?)";
 		try {
 			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario(),r.getTipo() });
+			
+			x= 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
+	
+	//ACTUALIZAR RENUNCIA
+	public int actualizarRenuncia(Renuncia r) {
+		int x = 0;
+		String sql = "UPDATE RA_RENABAN SET TI_ARCHIVO=?,NO_ARCHIVO=?,FECHA_CARTA=?,USU_MOD=?,TIPO =? WHERE ID_RENABAN =?";
+		try {
+			jt.update(sql, new Object[] { r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getUsu_mod(),r.getTipo() });
 			
 			x= 1;
 		} catch (Exception e) {

@@ -72,8 +72,10 @@ public class RenAutorizarDAO implements CRUDOperations{
 		return false;
 	}
 	//Listar trabajadores en estado pendiende
-	public List<Map<String, Object>> Pendiente() {
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000430' AND ESTADO=0 ORDER BY ra.FECHA_RENABAN DESC";
+	public List<Map<String, Object>> Pendiente(String depa) {
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000430' ";
+		
+		sql +="and NOM_DEPA='"+depa+"' AND ESTADO=0 ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 

@@ -59,7 +59,8 @@ public class AutorizarRenunciaController {
 				out.println(gson.toJson(ra.Buscar_DetalleTrabajador(idc)));
 				break;
 			case 3:
-				out.println(gson.toJson(ra.Pendiente()));
+				String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
+				out.println(gson.toJson(ra.Pendiente(depa)));
 				break;
 			case 4:
 				String idr = request.getParameter("idr");

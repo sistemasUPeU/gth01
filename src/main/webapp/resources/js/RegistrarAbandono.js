@@ -109,7 +109,7 @@ function buscarDetalle(){
 	dni = $("#dni").val();
 	
 	$.get("detalleA",{dni:dni,opc:1},function(data,status){
- alert(data);
+// alert(data);
 		var detalle = JSON.parse(data);
 		console.log(detalle);
 	

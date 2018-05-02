@@ -50,7 +50,7 @@ public class RegistrarAbandonoController {
 	private Gson gson = new Gson();
 	
 	@RequestMapping(value = "/detalleA", method = RequestMethod.GET)
-	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response)
+	protected void metodosPedidos(HttpServletRequest request, HttpServletResponse response,Authentication authentication)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
@@ -59,8 +59,9 @@ public class RegistrarAbandonoController {
 		
 		// REGISTRAR ABANDONO
 		case 1:
+			String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
 			String dni = request.getParameter("dni");
-			out.println(gson.toJson(ad.Buscar_DetalleTrabajador(dni)));
+			out.println(gson.toJson(ad.Buscar_DetalleTrabajador(dni,depa)));
 			break;
 
 		case 2:

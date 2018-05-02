@@ -24,7 +24,7 @@
 								var user = objJson.datos.usuario;
 								var s = '';
 								if (lista.length > 0) {
-									s += '<li class="li-hover"><p class="ultra-small margin more-text">MENÚ</p></li>';
+									s += '<li class="li-hover"><p class="ultra-small margin more-text">MENÃš</p></li>';
 									for (var i = 0; i < lista.length; i++) {
 										if (lista[i].ID_PRIVILEGIO === "PRV-000012") {
 											s += '<li class="no-padding">';
@@ -56,11 +56,35 @@
 												s += '</li>';	
 
 											}else{
-												s += '<li class="bold">';
-												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
-														+ lista[i].NO_LINK
-														+ '</a>';
-												s += '</li>';
+												if(lista[i].ID_PRIVILEGIO === "PRV-000079"){
+														s += '<li class="no-padding" style="line-height:2em">';
+														s += '<ul class="collapsible collapsible-accordion">';
+
+														s += '<li class="bold center">';
+														s += '<a class="collapsible-header waves-effect waves-light active" ><i class="'+lista[i].IC_LINK+'"></i>'
+																+ lista[i].NO_LINK +'</a>';
+														s += '<div class="collapsible-body  style="padding: 0;">';
+														s += '<ul>';
+														s += '<li><a href="'+gth_context_path+ '/renaban/listaRA">* Reportes</a></li>';
+														s += '<li><a href="'+gth_context_path+ '/renaban/registrationR">* Registrar Renuncia</a></li>';
+														s += '<li><a href="'+gth_context_path+ '/renaban/registrationA">* Registrar Abandono</a></li>';
+														s += '</ul>';
+														s += '</div>';
+														s += '</li>';
+														s += '</ul>';
+														s += '</li>';
+
+												
+												}else{
+													s += '<li class="bold">';
+													s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+															+ lista[i].NO_LINK
+															+ '</a>';
+													s += '</li>';
+	
+
+												}
+												
 											}
 											
 										}

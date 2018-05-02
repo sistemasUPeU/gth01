@@ -177,9 +177,10 @@ function buscarDetalle(){
 				// location.reload();
 							$("#detalleR").hide();
 							$("#fo").show();
-							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha renunciado");
+							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o se encuentre en un proceso de renuncia o abandono de trabajo, es posible además que el usuario no pertenezca a vuestro departamento");
 							$("#dni").val("");
 						}else{
+						
 							$("#fo").hide();
 							$("#detalleR").show();
 							$("#nombres").text(detalle[0].NOMBRES);

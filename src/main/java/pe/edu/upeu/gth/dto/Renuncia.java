@@ -12,6 +12,7 @@ public class Renuncia {
 	private String id_motivo;
 	private String id_usuario;
 	private String tipo;
+	private String usu_mod;
 	
 	public String getTipo() {
 		return tipo;
@@ -110,5 +111,15 @@ public class Renuncia {
 	public void setPixel(byte[] pixel) {
 		this.pixel = pixel;
 	}
+
+	public String getUsu_mod() {
+		return usu_mod;
+	}
+
+	public void setUsu_mod(String usu_mod) {
+		this.usu_mod = usu_mod;
+	}
+	
+	
 
 }
