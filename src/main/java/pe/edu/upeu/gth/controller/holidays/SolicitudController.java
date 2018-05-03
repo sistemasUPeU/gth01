@@ -99,11 +99,13 @@ public class SolicitudController {
 		try {
 			System.out.println("reporte");
 			String idt = request.getParameter("idtr");
+			String fecha1 = request.getParameter("fecha1");
 			System.out.println(idt);
-			List<Map<String, Object>> sd = vd.llenar_solicitud(idt);
-			model.addAttribute("format", format);
-			model.addAttribute("datasource", sd);
-			model.addAttribute("AUTOR", "Tutor de programacion");
+//			List<Map<String, Object>> sd = 
+					vd.llenar_solicitud(idt,fecha1);
+//			model.addAttribute("format", format);
+//			model.addAttribute("datasource", sd);
+//			model.addAttribute("AUTOR", "Tutor de programacion");
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error controller, reporte: " + e);
