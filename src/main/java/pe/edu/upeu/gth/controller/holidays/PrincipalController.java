@@ -43,27 +43,25 @@ import pe.edu.upeu.gth.interfaz.MailService;
 public class PrincipalController {
 
 	Gson GSON = new Gson();
-//	@Autowired
-//	public MailServiceImpl emailService;
+	// @Autowired
+	// public MailServiceImpl emailService;
 
 	@Autowired
 	public MailService ms;
-	
 
 	@GetMapping("/")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/vac_gest_solic");
 	}
 
-	
 	@GetMapping("/solicitud")
 	public ModelAndView solicitud(HttpServletRequest request, HttpServletResponse response) {
-//		int op= Integer.parseInt(request.getParameter("op"));
+		// int op= Integer.parseInt(request.getParameter("op"));
 		System.out.println("estoy en solicitud");
-		
+
 		return new ModelAndView("vacaciones/vac_gest_solic");
 	}
-	
+
 	@GetMapping("/gestionar_programa")
 	public ModelAndView gestionar_programa(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/gestionar_programa");
@@ -88,7 +86,7 @@ public class PrincipalController {
 
 	@GetMapping("/programa_vacaciones")
 	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("vacaciones/AprobarPV");
+		return new ModelAndView("vacaciones/aprobar_pv");
 
 	}
 
@@ -112,18 +110,19 @@ public class PrincipalController {
 	public @ResponseBody String confirmarListaFiltrada() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
 
-//		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-//
-//		MailService mailService = (MailService) context.getBean("mailService");
-//		mailService.sendEmail(getDummyOrder());
-//
-//		((AbstractApplicationContext) context).close();
+		// AbstractApplicationContext context = new
+		// AnnotationConfigApplicationContext(AppConfig.class);
+		//
+		// MailService mailService = (MailService) context.getBean("mailService");
+		// mailService.sendEmail(getDummyOrder());
+		//
+		// ((AbstractApplicationContext) context).close();
 
 		// emailService.sendSimpleMessageUsingTemplate(mailObject.getTo(),
 		// mailObject.getSubject(),
 		// template,
 		// mailObject.getText());
-		
+
 		List<Map<String, Object>> lista = new ArrayList<>();
 		lista = DAO.GetEmail();
 		String[] arrayEmail = new String[lista.size()];
@@ -132,7 +131,7 @@ public class PrincipalController {
 			System.out.println(lista.get(i).get("DI_CORREO_PERSONAL"));
 			arrayEmail[i] = lista.get(i).get("DI_CORREO_PERSONAL").toString();
 		}
-//		 ms.sendEmail(getDummyOrder(), arrayEmail);
+		// ms.sendEmail(getDummyOrder(), arrayEmail);
 		return GSON.toJson(DAO.CONFIRMAR());
 	}
 
@@ -178,7 +177,9 @@ public class PrincipalController {
 		System.out.println(depa);
 		return GSON.toJson(DAO.READALL(depa));
 
-	}	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	}
+
+	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
 	// @RequestMapping(path = "/readallProgramaVacaciones", method =
 	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -190,6 +191,7 @@ public class PrincipalController {
 		return GSON.toJson(DAO.TrabajadoresConSoli(depa));
 
 	}
+
 	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
 	// @RequestMapping(path = "/readallProgramaVacaciones", method =
@@ -213,7 +215,6 @@ public class PrincipalController {
 		Gson g = new Gson();
 		return g.toJson(t.apobarVac(usuario, asdf));
 	}
-	
 
 	@GetMapping("/reporte")
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {
