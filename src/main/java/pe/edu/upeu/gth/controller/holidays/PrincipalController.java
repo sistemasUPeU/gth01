@@ -52,9 +52,18 @@ public class PrincipalController {
 
 	@GetMapping("/")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("vacaciones/default");
+		return new ModelAndView("vacaciones/vac_gest_solic");
 	}
 
+	
+	@GetMapping("/solicitud")
+	public ModelAndView solicitud(HttpServletRequest request, HttpServletResponse response) {
+//		int op= Integer.parseInt(request.getParameter("op"));
+		System.out.println("estoy en solicitud");
+		
+		return new ModelAndView("vacaciones/vac_gest_solic");
+	}
+	
 	@GetMapping("/gestionar_programa")
 	public ModelAndView gestionar_programa(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/gestionar_programa");

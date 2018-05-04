@@ -1,24 +1,119 @@
 function loadProfile() {
 	location.href = "<%=request.getContextPath()%>/trabajador/profile";
 }
+var divisiones = 0;
 
-$(document).ready(function(){
+
+$(window).load(function() {
+	console.log("window cargo");
+	var id = $("#trab").val();
+
+
+	var url ="/gth/solicitud/validar";
+	var data ="&id=" + id ;
+
 	
-	$("#otrosdiv").hide();
-	
-    $('#fecha').pickadate({
-    	selectMonths: true, // Creates a dropdown to control month
-    	selectYears: 15, // Creates a dropdown of 15 years to control
-    	format: 'dd/mm/yyyy',
-      });
-    
+	$.getJSON(url, data, function(res, status) {
+
+
+			console.log("devuelve controller: "+res);
+
+			switch (res) {
+			case 0:
+				$("#subir").attr("disabled", true);	
+				$("#subir").attr("enabled", false);
+				$("#print").attr("disabled", true);	
+				$("#print").attr("enabled", false);
+				$("#confirmar").attr("disabled", true);	
+				$("#confirmar").attr("enabled", false);
+//				$("#confirmar").off('click');
+//				$("#print").off('click');
+				Materialize.toast('Aun no ha llegado su tiempo para recibir vacaciones!', 3000, 'rounded', function(){
+
+				});
+
+				break;
+			case 1:
+
+//					window.location.href = gth_context_path +"/solicitud/registrar?op=1";
+				var datos = "op=1"
+//					$.post(gth_context_path+'/solicitud/registrar', datos, function(response) {
+//						console.log(response);
+//						$("#content").html(response);
+//					});
+					
+					
+				$("#tipo").val("Programación");
+				Materialize.updateTextFields();
+//				var con = new jsConnector();
+//				con.post(gth_context_path+'/solicitud/tipo?' + datos, null, function(
+//						response) {
+//					console.log("respuesta" + response);
+//					if (response != null) {
+//						console.log("jquery:" + response);
+//						Materialize.toast('Vacaciones registrada correctamente!', 3000,
+//								'rounded');
+//						$("#idvac").val($.trim(response));
+//						console.log($("#idvac").val());
+//						$('#confirmar').addClass('disabled');
+//					} else {
+//						Materialize.toast('UPS!!, No se ha registrado sus vacaciones!',
+//								3000, 'rounded');
+//					}
+//				});
+				break;
+			case 2:
+
+//				window.location.href = gth_context_path +"/";
+				Materialize
+				.toast(
+						'Usted tiene una solicitud en proceso!',
+						3000,
+						'rounded', function(){
+							var datos = "op=3"
+							$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
+								console.log(response);
+								$("#desktop").html(response);
+							});
+							
+						});
+				$("#subir").attr("disabled", true);	
+				$("#subir").attr("enabled", false);
+				$("#print").attr("disabled", true);	
+				$("#print").attr("enabled", false);
+				$("#confirmar").attr("disabled", true);	
+				$("#confirmar").attr("enabled", false);
+				
+				break;
+			case 3:
+//					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
+//					console.log("reprogramacion");
+				var datos = "op=2"
+					$("#tipo").val("Reprogramación");
+//					$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
+//						console.log(response);
+//						
+//						$("#dashboard").html(response);
+//					});
+				break;
+			}
+	});
 });
 
-var divisiones = 0;
 $(document)
 		.ready(
-
 				function() {
+
+					$("#otrosdiv").hide();
+
+					$('#fecha').pickadate({
+						selectMonths : true, // Creates a dropdown to control
+												// month
+						selectYears : 15, // Creates a dropdown of 15 years to
+											// control
+						format : 'dd/mm/yyyy',
+					});
+
 					// $('#confirmar').removeClass("waves-effect
 					// waves-light").addClass('disabled');
 
@@ -207,7 +302,7 @@ $("#agregar")
 					console.log(divisiones);
 					if (cont <= divisiones) {
 						var s = '';
-						s += '<div class="col s12 m12 l6" id="'+cont+'">';
+						s += '<div class="col s12 m12 l6" id="' + cont + '">';
 						s += '<div class="card-panel">';
 
 						s += '<div class="row" style="    margin-bottom: 0px;">'
@@ -215,14 +310,17 @@ $("#agregar")
 						s += '<h4 class="header2">Vacaciones ' + cont + '</h4>';
 						s += '</div>'
 						s += '<div class="col s3 m6">'
-						s += '<button onclick="eliminarVacaciones('+cont+');" class="btn-floating waves-effect waves-light  red darken-4 right"><i class="mdi-content-clear center"></i></button>'
+						s += '<button onclick="eliminarVacaciones('
+								+ cont
+								+ ');" class="btn-floating waves-effect waves-light  red darken-4 right"><i class="mdi-content-clear center"></i></button>'
 						s += '</div>'
 						s += '</div>'
 
 						s += '<div class="row" style="    margin-bottom: 0px;">';
 						s += '<div class="input-field col s6">';
 						s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" onchange="setti(this.id)" id="fe_inicio_'
-								+ cont + '"> <label for="dob">Fecha Inicio</label>';
+								+ cont
+								+ '"> <label for="dob">Fecha Inicio</label>';
 						s += '</div>'
 						s += '<div class="input-field col s6">';
 						s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" id="fe_final_'
@@ -253,15 +351,14 @@ $("#agregar")
 					});
 				});
 
+function eliminarVacaciones(id) {
+	if (id == 2 && cont == 4) {
 
-function eliminarVacaciones(id){
-	if(id==2 && cont ==4){
-		
 		$("#3").remove();
 		cont--
-	}else{
-		
-		$("#"+id).remove();
+	} else {
+
+		$("#" + id).remove();
 		cont--;
 	}
 
@@ -277,10 +374,10 @@ function setti(id) {
 	console.log(num);
 	var fecha_inicio3 = parseDate(fei);
 
-//	$('#fe_final_' + num).pickadate('picker').set('select',
-//			calcular_final(fecha_inicio3), {
-//				format : 'dd/mm/yyyy'
-//			}).trigger("change");
+	// $('#fe_final_' + num).pickadate('picker').set('select',
+	// calcular_final(fecha_inicio3), {
+	// format : 'dd/mm/yyyy'
+	// }).trigger("change");
 	Materialize.updateTextFields();
 }
 
@@ -358,7 +455,7 @@ function insertar() {
 	console.log("dat: " + datos);
 
 	var con = new jsConnector();
-	con.post(gth_context_path + '/solicitud/insertar?' + datos, null, function(
+	con.post('/solicitud/insertar?' + datos, null, function(
 			response) {
 		if (response != null) {
 			console.log("jquery:" + response);

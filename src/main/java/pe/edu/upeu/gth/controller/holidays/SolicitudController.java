@@ -58,7 +58,7 @@ public class SolicitudController {
 		return "vacaciones/default";
 	}
 
-	@RequestMapping(value = "/registrar")
+	@RequestMapping(value = "/tipo")
 	public ModelAndView principal(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("entro");
 		int opcion = Integer.parseInt(request.getParameter("op"));
@@ -99,11 +99,13 @@ public class SolicitudController {
 		try {
 			System.out.println("reporte");
 			String idt = request.getParameter("idtr");
+			String fecha1 = request.getParameter("fecha1");
 			System.out.println(idt);
-			List<Map<String, Object>> sd = vd.llenar_solicitud(idt);
-			model.addAttribute("format", format);
-			model.addAttribute("datasource", sd);
-			model.addAttribute("AUTOR", "Tutor de programacion");
+//			List<Map<String, Object>> sd = 
+					vd.llenar_solicitud(idt,fecha1);
+//			model.addAttribute("format", format);
+//			model.addAttribute("datasource", sd);
+//			model.addAttribute("AUTOR", "Tutor de programacion");
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error controller, reporte: " + e);
@@ -142,29 +144,6 @@ public class SolicitudController {
 
 	}
 
-	// public ActionResult submitForm(String json)
-	// {
-	// System.Diagnostics.Debug.WriteLine("made it here");
-	//
-	// var check = System.Web.Helpers.Json.Decode(json);
-	//
-	// System.Diagnostics.Debug.WriteLine(check);
-	// System.Diagnostics.Debug.WriteLine(check.glbBlue);
-	//
-	// return View();
-	// }
-	// @RequestMapping(path ="/insertarABC", method = RequestMethod.GET)
-	// public String validarTipoSolicitud(@ModelAttribute(value="myData") ArrayList
-	// myData) throws ParseException{
-	// Gson gs = new Gson();
-	// System.out.println(myData);
-	//
-	//
-	// return gs.toJson(myData);
-	//
-	// }
-	//
-	// HttpServletRequest request,HttpServletResponse object
 
 	@RequestMapping(value = "/insertar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String validarTipoSolicitudAAA(HttpServletRequest request) {

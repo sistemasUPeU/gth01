@@ -1,11 +1,16 @@
 package pe.edu.upeu.gth.dao;
 
+import java.io.File;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +29,11 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import com.google.gson.Gson;
 
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import oracle.jdbc.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.ProductOrder;
@@ -42,24 +52,88 @@ public class SolicitudVacacionesDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-	public List<Map<String, Object>> llenar_solicitud(String idt) {
-		List<Map<String, Object>> lista = new ArrayList<>();
-		try {
-			String sql = "SELECT a.ID_TRABAJADOR_FILTRADO, a.ID_CONSOLIDADO, b.ID_TRABAJADOR, b.AP_PATERNO, b.AP_MATERNO, b.NO_TRABAJADOR,b.NU_DOC , c.ID_VACACIONES, c.TIPO, c.ESTADO,\r\n"
-					+ "d.ID_DET_VACACIONES, d.FECHA_INICIO, d.FECHA_FIN, D.ESTADO\r\n"
-					+ "FROM RHMV_TRABAJADOR_FILTRADO A\r\n"
-					+ "JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR\r\n"
-					+ "JOIN RHMV_VACACIONES C  ON C.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO\r\n"
-					+ "JOIN RHMV_DET_VACACIONES D ON C.ID_VACACIONES = D.ID_VACACIONES\r\n" + "AND C.ESTADO = 1\r\n"
-					+ "AND B.ID_TRABAJADOR = '" + idt + "'";
-
-			lista = jt.queryForList(sql);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error - dao:" + e);
-		}
-
-		return lista;
+	public Map<String, Object> llenar_solicitud(String idt, String fecha1) {
+		
+		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
+		Map<String, Object> OutValues = new HashMap<>();
+		 String outfilePDF ="";
+		 String outFoler ="";
+		 
+	    try {
+	    	// Cargamos el driver JDBC
+	    	 Class.forName("oracle.jdbc.OracleDriver");
+	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
+	    	 cn.setAutoCommit(false);
+		      
+	    	//llenamos variables creamos la fecha actual
+            Date ahora = new Date();
+            SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+		    String fecha = formateador.format(ahora);
+	    	
+	    	Map<String,Object> Inparamets = new HashMap<String,Object>();
+			Inparamets.put("Fecha", fecha);
+			Inparamets.put("txtIdtrab", idt);
+			Inparamets.put("txtfecha1", fecha1);
+//			Inparamets.put("txtIdVacante", idvacante);
+			System.out.println(Inparamets);
+	      
+			JasperReport report = JasperCompileManager.compileReport(jasperFile);
+			JasperPrint print = JasperFillManager.fillReport(report, Inparamets, cn);
+			   
+			//generar Carpeta 
+			
+//			   outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
+			   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays" + idt;
+		       File outDir = new File(outFoler);
+		       System.out.println("existe o no "+outDir.exists());
+		       if (outDir.exists() == false) { 
+	    	       outDir.mkdirs();
+		    	}
+		       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays" + idt+"\\SoliVac-"+idt+".pdf";
+//		       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
+		       System.out.println("existe ?¡:"+outDir.exists());
+		       
+			 // Exporta el informe a PDF
+			 JasperExportManager.exportReportToPdfFile(print,outfilePDF);
+	     
+	    }
+	    catch (Exception e) {
+	      e.printStackTrace();
+	    }finally {
+	      try {
+	        if (cn != null) {
+	        	cn.rollback();
+	          System.out.println("ROLLBACK EJECUTADO");
+	          cn.close();
+	        }
+	      }catch (Exception e) {
+	        e.printStackTrace();
+	      }
+	    }
+	    OutValues.put("folder", outFoler);
+		OutValues.put("pdf", outfilePDF);
+		System.out.println("outvalues: " + OutValues);
+		return OutValues;
+		
+		
+		
+//		List<Map<String, Object>> lista = new ArrayList<>();
+//		try {
+//			String sql = "SELECT a.ID_TRABAJADOR_FILTRADO, a.ID_CONSOLIDADO, b.ID_TRABAJADOR, b.AP_PATERNO, b.AP_MATERNO, b.NO_TRABAJADOR,b.NU_DOC , c.ID_VACACIONES, c.TIPO, c.ESTADO,\r\n"
+//					+ "d.ID_DET_VACACIONES, d.FECHA_INICIO, d.FECHA_FIN, D.ESTADO\r\n"
+//					+ "FROM RHMV_TRABAJADOR_FILTRADO A\r\n"
+//					+ "JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR\r\n"
+//					+ "JOIN RHMV_VACACIONES C  ON C.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO\r\n"
+//					+ "JOIN RHMV_DET_VACACIONES D ON C.ID_VACACIONES = D.ID_VACACIONES\r\n" + "AND C.ESTADO = 1\r\n"
+//					+ "AND B.ID_TRABAJADOR = '" + idt + "'";
+//
+//			lista = jt.queryForList(sql);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.out.println("Error - dao:" + e);
+//		}
+//
+//		return lista;
 	}
 
 	public int trabajador_filtrado(String id) {
