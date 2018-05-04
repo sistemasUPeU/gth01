@@ -114,15 +114,11 @@ public class AprobarProgramaVacaciones {
 		return i;
 	}
 
-	public List<Map<String, Object>> GetEmail(String depa, String id_det, String traba) {
+	public List<Map<String, Object>> GetEmailEmployee(String depa, String id_det, String traba) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
 			String SQL = "select DISTINCT men.TEXTO, vtc.DI_CORREO_PERSONAL, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO,"
-					+ "to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, \r\n"
-					+ "(SELECT DISTINCT DI_CORREO_PERSONAL FROM RHVV_TRABAJADOR_CONTRATO\r\n" + "where NO_DEP ='" + depa
-					+ "'\r\n" + "and NO_ROL='Secretaria de Departamento'\r\n" + "and DI_CORREO_PERSONAL != '--'\r\n"
-					+ "and DI_CORREO_PERSONAL !='-'\r\n"
-					+ "AND DI_CORREO_PERSONAL IS NOT NULL) as DI_CORREO_SECRETARIA\r\n"
+					+ "to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN\r\n"
 					+ "from RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\r\n"
 					+ "RHMV_DET_VACACIONES dsv, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd,\r\n"
 					+ "RHMV_MENSAJE men, RHMV_NOTIFICACIONES noti\r\n" + "where sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n"
@@ -136,6 +132,21 @@ public class AprobarProgramaVacaciones {
 					+ "and dsv.ID_DET_VACACIONES=noti.ID_DET_VACACIONES\r\n" + "and vtc.ID_TRABAJADOR='" + traba
 					+ "'\r\n" + "and vtc.DI_CORREO_PERSONAL != '--'\r\n" + "and vtc.DI_CORREO_PERSONAL !='-'\r\n"
 					+ "AND vtc.DI_CORREO_PERSONAL IS NOT NULL";
+			LST = jt.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
+	}
+
+	public List<Map<String, Object>> GetEmailSecre(String depa) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "SELECT DISTINCT DI_CORREO_PERSONAL FROM RHVV_TRABAJADOR_CONTRATO\r\n" + "where NO_DEP ='"
+					+ depa + "'\r\n" + "and NO_ROL='Secretaria de Departamento'\r\n"
+					+ "and DI_CORREO_PERSONAL != '--'\r\n" + "and DI_CORREO_PERSONAL !='-'\r\n"
+					+ "AND DI_CORREO_PERSONAL IS NOT NULL";
 			LST = jt.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {

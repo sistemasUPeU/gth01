@@ -316,9 +316,9 @@
 			s += "<th>DNI</th>";
 			s += "<th>FEC INI</th>";
 			s += "<th>FEC FIN</th>";
-			s += "<th>Condicion</th>";
+			s += "<th>Condición</th>";
 			s += "<th>Aprobar</th>";
-			s += "<th>Observacion</th>";
+			s += "<th>Observación</th>";
 			s += "</tr>";
 			s += "</thead>";
 			s += "<tbody id='data'></tbody>";
@@ -336,7 +336,7 @@
 			s += "<th>DNI</th>";
 			s += "<th>FEC INI</th>";
 			s += "<th>FEC FIN</th>";
-			s += "<th>Condicion</th>";
+			s += "<th>Condición</th>";
 			s += " </tr>";
 			s += "</thead>";
 			s += "<tbody id='data'></tbody>";
@@ -353,7 +353,7 @@
 			s += "<th>DNI</th>";
 			s += "<th>FEC INI</th>";
 			s += "<th>FEC FIN</th>";
-			s += "<th>Condicion</th>";
+			s += "<th>Condición</th>";
 			s += "<th>Observación</th>";
 			s += " </tr>";
 			s += "</thead>";
@@ -450,7 +450,7 @@
 												} else {
 													Materialize
 															.toast(
-																	'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
+																	'UPS!!, No se ha registrado su aprobación, verifique si chequeó los datos!',
 																	3000,
 																	'rounded');
 												}
@@ -459,43 +459,35 @@
 		function observar(idtr, id_det) {
 			var obs = $(".hiddendiv").text();
 			var extra = obs.length - 150;
-			var idte = $("#trab").val();
-			var datos = "id_det=" + id_det;
-			datos += "&text=" + obs.trim();
-			datos += "&emisor=" + idte;
-			datos += "&receptor=" + idtr;
-			var con = new jsConnector();
-			con
-					.post(
-							"vacaciones/programa_vacaciones/guardarObservar?"
-									+ datos,
-							null,
-							function(data) {
-								if (data == 1 && obs.length <= 150) {
-									con.post(
-											"vacaciones/programa_vacaciones/enviarObservacion?"
-													+ datos, null, function(
-													receptor) {
-												console.log(receptor);
-											});
-									Materialize.toast(
-											'El trabajador ' + nom_tra
-													+ ' ha sido observado(a)',
-											3000, 'rounded');
-									listar();
-								} else if (obs.length > 150) {
-									Materialize.toast(
-											'Observación no enviada, ha escrito '
-													+ extra
-													+ ' carácter(es) extra',
-											3000, 'rounded');
-								} else {
-									Materialize
-											.toast(
-													'UPS!!, No se ha registrado su observacion',
-													3000, 'rounded');
-								}
-							});
+			if (obs.length > 150) {
+				obs = "";
+				Materialize.toast('Observación no enviada, ha escrito ' + extra
+						+ ' carácter(es) extra', 3000, 'rounded');
+			} else {
+				var idte = $("#trab").val();
+				var datos = "id_det=" + id_det;
+				datos += "&text=" + obs.trim();
+				datos += "&emisor=" + idte;
+				datos += "&receptor=" + idtr;
+				var con = new jsConnector();
+				con.post("vacaciones/programa_vacaciones/guardarObservar?"
+						+ datos, null, function(data) {
+					if (data == 1 && obs.length <= 150) {
+						con.post(
+								"vacaciones/programa_vacaciones/enviarObservacion?"
+										+ datos, null, function(receptor) {
+									console.log(receptor);
+								});
+						Materialize.toast('El trabajador ' + nom_tra
+								+ ' ha sido observado(a)', 3000, 'rounded');
+						listar();
+					} else {
+						Materialize.toast(
+								'UPS!!, No se ha registrado su observación',
+								3000, 'rounded');
+					}
+				});
+			}
 		}
 	</script>
 

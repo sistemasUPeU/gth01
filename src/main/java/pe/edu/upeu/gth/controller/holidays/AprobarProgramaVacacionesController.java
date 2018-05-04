@@ -71,23 +71,31 @@ public class AprobarProgramaVacacionesController {
 
 	@RequestMapping(path = "/enviarObservacion", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String enviarObservacion(HttpServletRequest request, Authentication authentication) {
-		List<Map<String, Object>> lista = new ArrayList<>();
+		List<Map<String, Object>> lista_e = new ArrayList<>();
+		List<Map<String, Object>> lista_s = new ArrayList<>();
+		int c = 0;
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		String id_det = request.getParameter("id_det");
 		String receptor = request.getParameter("receptor");
-		lista = t.GetEmail(depa, id_det, receptor);
-		String fecha_ini = lista.get(0).get("FECHA_INICIO").toString();
-		String fecha_fin = lista.get(0).get("FECHA_FIN").toString();
-		String[] arrayEmail = new String[2];
-		// System.out.println(g.toJson(lista));
-		arrayEmail[0] = lista.get(0).get("DI_CORREO_PERSONAL").toString();
-		arrayEmail[1] = lista.get(0).get("DI_CORREO_SECRETARIA").toString();
-		String text = lista.get(0).get("TEXTO").toString();
+		lista_e = t.GetEmailEmployee(depa, id_det, receptor);
+		lista_s = t.GetEmailSecre(depa);
+		String fecha_ini = lista_e.get(0).get("FECHA_INICIO").toString();
+		String fecha_fin = lista_e.get(0).get("FECHA_FIN").toString();
+		String[] arrayEmail = new String[lista_s.size() + 1];
+		System.out.println(g.toJson(lista_s));
+		for (int i = 0; i < lista_s.size(); i++) {
+			System.out.println(lista_s.get(i).get("DI_CORREO_PERSONAL"));
+			arrayEmail[i] = lista_s.get(i).get("DI_CORREO_PERSONAL").toString();
+			c = i;
+		}
+		arrayEmail[c + 1] = lista_e.get(0).get("DI_CORREO_PERSONAL").toString();
+		String text = lista_e.get(0).get("TEXTO").toString();
 		String format = "Su Jefe de departamento ha observado su programa de vacaciones:\r\n" + text + "\r\n"
 				+ "El programa de vacaciones observado es del " + fecha_ini + " al " + fecha_fin;
 		String[] tempArray = new String[1];
 		tempArray[0] = "104granados@gmail.com";
 		ms.sendEmail(getDummyOrder(), tempArray, format);
+		System.out.println(g.toJson(arrayEmail));
 		return g.toJson(arrayEmail);
 	}
 
