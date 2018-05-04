@@ -217,6 +217,12 @@ public class RenunciaDAO {
 		return x;
 	}
 	
+	//BUSCAR RENABAN
+	public List<Map<String, Object>> buscarRenaban(String idrenaban) {
+		sql = "select * from RA_VIEW_RENABAN where ID_RENABAN='" + idrenaban + "'";
+		return jt.queryForList(sql);
+	}
+	
 	//ACTUALIZAR RENUNCIA
 	public int actualizarRenuncia(Renuncia r) {
 		int x = 0;
