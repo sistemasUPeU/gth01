@@ -46,37 +46,30 @@ div.dataTables_length {
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="container">
+			<h4 class="header">Gestionar Programa de Vacaciones</h4>
+			<form action="#" name="myForm">
+				<p>
+					<input name="group1" type="radio" id="test1500" value="1500" /> <label
+						for="test1500">Sin solicitud</label> <input name="group1"
+						type="radio" id="test1600" value="1600" /> <label for="test1600">Con
+						solicitud</label> <input name="group1" type="radio" id="test1700"
+						value="1700" /> <label for="test1700">Lista de Aprobados</label>
+				</p>
+			</form>
 			<div class="row">
-				<!-- <div class="input-field col s6">
-					<i class="mdi-action-search prefix"></i> <input
-						id="searchTrabajador" type="text" class="validate"
-						onkeyup="searchTrabajador()"> <label
-						for="searchTrabajador">Trabajador</label>
-				</div>
-				<div class="input-field col s6">
-					<i class="mdi-action-search prefix"></i> <input
-						id="searchDepartamento" type="text" class="validate"
-						onkeyup="searchDepartamento()"> <label
-						for="searchDepartamento">Departamento</label>
-				</div>
-				<table id="table_trabajador-filtrado"
-					class="bordered highlight centered">
-					<thead>
-						<tr>
-							<th>Apellidos y Nombres</th>
-							<th>Departamento</th>
-							<th>Área</th>
-							<th>Sección</th>
-							<th>Condición</th>
-						</tr>
-					</thead>
-				</table> -->
+
 				<div id="table_contenido" class="col s12 m12 l12"></div>
-				<br> <div id="nocargando" class="center-btn row"><a id="confirmar_lista"
-					class="btn waves-effect waves-light"><i
-					class="mdi-navigation-check"></i> Confirmar</a>
-					</div>
-					<div id="cargando" class="center-btn">
+				<br>
+				<div id="nocargando" class="center-btn row">
+					<a id="confirmar_lista" class="btn waves-effect waves-light"><i
+						class="mdi-navigation-check"></i> Confirmar</a>
+<!-- 						<p> -->
+<!-- 						<a -->
+<!-- 							class="btn btn-large waves-effect waves-light light-green darken-4" -->
+<!-- 							id="confirmar-aprob" type="submit">Cuaderno de vacaciones</a> -->
+<!-- 					</p> -->
+				</div>
+				<div id="cargando" class="center-btn">
 					<div class="preloader-wrapper small active">
 						<div class="spinner-layer spinner-green-only">
 							<div class="circle-clipper left">
@@ -90,11 +83,10 @@ div.dataTables_length {
 							</div>
 						</div>
 					</div>
-					<br>
-					<label>CONFIRMANDO LISTA</label>
+					<br> <label>CONFIRMANDO LISTA</label>
 				</div>
 			</div>
-			<div id="modal2" class="modal" style="width:850px; height: 2000px;">
+			<div id="modal2" class="modal" style="width: 850px; height: 2000px;">
 				<div class="modal-content">
 					<h4>Modificar fecha de inicio y fecha fin</h4>
 					<p>Seleccione fecha:</p>
@@ -215,7 +207,8 @@ div.dataTables_length {
 
 							</div>
 						</div>
-						<div id="modal1" class="modal" style="width: 850px; height: 2000px;">
+						<div id="modal1" class="modal"
+							style="width: 850px; height: 2000px;">
 							<div class="modal-content">
 
 								<!-- 				D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jasper -->
@@ -236,11 +229,20 @@ div.dataTables_length {
 	</div>
 	<script
 		src="<c:url value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
-		type="text/javascript"></script>
+		type="text/javascript">
+		$(document).ready(function() {
+			//listar();
+			READALL();
+			listarTrabajadoresConSoli()
+
+		});
+
+		</script>
 
 	<script type="text/javascript">
 	function loadProfile(){
-		location.href="<%=request.getContextPath()%>/trabajador/profile";
+		//location.href="<%=request.getContextPath()%>
+		/trabajador/profile";
 		}
 		var divisiones = 0;
 		$(document)
@@ -301,17 +303,19 @@ div.dataTables_length {
 
 							$('.dropify').dropify();
 
-// 							Translated
-							            $('.dropify-fr').dropify({
-							                messages: {
-							                   // default: 'Glissez-déposez un fichier ici ou cliquez',
-							                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-							                    remove:  'Supprimer',
-							                    error:   'Désolé, le fichier trop volumineux'
-							                }
-							            });
+							// 							Translated
+							$('.dropify-fr')
+									.dropify(
+											{
+												messages : {
+													// default: 'Glissez-déposez un fichier ici ou cliquez',
+													replace : 'Glissez-déposez un fichier ou cliquez pour remplacer',
+													remove : 'Supprimer',
+													error : 'Désolé, le fichier trop volumineux'
+												}
+											});
 
-// 							Used events
+							// 							Used events
 							var drEvent = $('.dropify-event').dropify();
 
 							drEvent
@@ -520,33 +524,6 @@ div.dataTables_length {
 			var inicio = fechas_0.join("-");
 			var fin = fechas_1.join("-");
 			console.log("ini: " + inicio);
-
-			// 		var array = JSON.stringify(locations);
-
-			/* $.ajax({
-				    type : "GET",
-				    url : "insertar",
-				    data : { "json":JSON.stringify(locations)          */
-			//         	        myData: {
-			//         	           "array": array,
-			//         	           "fechas1": fechas_1
-			//         	        },
-			/*},
-			dataType: "json",
-			contentType:"application/json",
-			success : function(response) {
-				Materialize.toast('Solicitud registrada exitosamente', 3000, 'rounded');
-			},
-			error : function(e) {
-			   console.log('Error: ' + e);
-			}
-			}); */
-			// var harold={
-			//         			array1:fechas_0,
-			//         			array2:fechas_1
-			//         	};
-			//      var datos = {"myArray":array};
-			//      {"inicio": fechas_0,"final": fechas_1}
 			var idt = $("#idtrb").val();
 			var tipo = $("#tipo").val();
 			var user = $("#user").val();
@@ -576,26 +553,39 @@ div.dataTables_length {
 		function aaa() {
 			$("#aa").submit();
 		}
-		$("#modal2").click(
-				function() {
-					arrid = getSelected();
-					var username = $("#username").val();
-					var id_arr = arrid;
-					var id_det = id_arr.join(",");
-					console.log(username);
-					console.log(id_det);
-					var datos = "username=" + username;
-					datos += "&id_det=" + id_det;
-					var con = new jsConnector();
-					con.post("vacaciones/programa_vacaciones/guardarAprovar?" + datos,
-							null, function(data) {
-								if (data == 1) {
-									Materialize.toast('Felicidades!!, ha aprobado a sus trabajadores', 3000, 'rounded');
-								} else {
-									Materialize.toast('UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!', 3000, 'rounded');
-								}
-							});
-				});
+		$("#modal2")
+				.click(
+						function() {
+							arrid = getSelected();
+							var username = $("#username").val();
+							var id_arr = arrid;
+							var id_det = id_arr.join(",");
+							console.log(username);
+							console.log(id_det);
+							var datos = "username=" + username;
+							datos += "&id_det=" + id_det;
+							var con = new jsConnector();
+							con
+									.post(
+											"vacaciones/gestionar_programa/insertProgramaVacaciones?"
+													+ datos,
+											null,
+											function(data) {
+												if (data == 1) {
+													Materialize
+															.toast(
+																	'Felicidades!!, ha aprobado a sus trabajadores',
+																	3000,
+																	'rounded');
+												} else {
+													Materialize
+															.toast(
+																	'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
+																	3000,
+																	'rounded');
+												}
+											});
+						});
 	</script>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
@@ -610,15 +600,34 @@ div.dataTables_length {
 	<script type="text/javascript">
 		$(document).ready(function() {
 			listarTrabajadorFiltrado();
+			listarTrabajadoresConSoli();
+			listarTrabajadoresAprobados();
 			$("#cargando").hide();
 		})
-
+		var rad = document.myForm.group1;
+		var prev = null;
+		for (var i = 0; i < rad.length; i++) {
+			rad[i].onclick = function() {
+				if (this.value == 1500) {
+					listarTrabajadorFiltrado();
+					$("#confirmar").show();
+				}
+				if (this.value == 1600) {
+					listarTrabajadoresConSoli();
+					$("#confirmar").hide();
+				}
+				if (this.value == 1700) {
+					listarTrabajadoresAprobados();
+					$("#confirmar").hide();
+				}
+			};
+		}
 		function getSelected() {
 			var allVals = [];
 			$('#data :checked').each(
 					function() {
 						allVals.push($(this).parents("#data tr").find(
-								".sorting_1").text());
+								"#soli").text());
 					});
 			return allVals;
 		}
@@ -653,12 +662,15 @@ div.dataTables_length {
 											+ obj[i].AP_MATERNO + '</td>';
 									s += '<td>' + obj[i].NO_AREA + '</td>';
 									s += '<td>' + obj[i].NO_SECCION + '</td>';
-									if (obj[i].FECHA_INICIO == null && obj[i].FECHA_FIN == null) {
+									if (obj[i].FECHA_INICIO == null
+											&& obj[i].FECHA_FIN == null) {
 										s += '<td>--</td>';
 										s += '<td>--</td>';
 									} else {
-										s += '<td>' + obj[i].FECHA_INICIO + '</td>';
-										s += '<td>' + obj[i].FECHA_FIN + '</td>';
+										s += '<td>' + obj[i].FECHA_INICIO
+												+ '</td>';
+										s += '<td>' + obj[i].FECHA_FIN
+												+ '</td>';
 									}
 									s += '<td><p style="text-align: center;">';
 									s += '<input type="checkbox" id="test'+i+'">';
@@ -698,7 +710,131 @@ div.dataTables_length {
 
 							});
 		};
+		function listarTrabajadoresConSoli() {
+			$
+					.get(
+							'GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones',
+							function(obj) {
+								var s = '';
+								var emp = obj[0];
+								for (var i = 0; i < obj.length; i++) {
+									s += '<tr>';
+									s += '<td id="soli" class="hide">'
+											+ obj[i].ID_DET_VACACIONES
+											+ '</td>';
+									s += '<td>' + obj[i].NO_TRABAJADOR + ' '
+											+ obj[i].AP_PATERNO + ' '
+											+ obj[i].AP_MATERNO + '</td>';
+									s += '<td>' + obj[i].NO_AREA + '</td>';
+									s += '<td>' + obj[i].NO_SECCION + '</td>';
+									if (obj[i].FECHA_INICIO == null
+											&& obj[i].FECHA_FIN == null) {
+										s += '<td>--</td>';
+										s += '<td>--</td>';
+									} else {
+										s += '<td>' + obj[i].FECHA_INICIO
+												+ '</td>';
+										s += '<td>' + obj[i].FECHA_FIN
+												+ '</td>';
+									}
+									s += '<td><p style="text-align: center;">';
+									s += '<input type="checkbox" id="test'+i+'">';
+									s += '<label for="test'+i+'"></label>';
+									s += '</p></td>';
+									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
+									s += '</tr>';
 
+								}
+								$
+										.getJSON(
+												gth_context_path
+														+ '/components',
+												"opc=usuario",
+												function(objJSON) {
+													if (objJSON !== null) {
+														var q = '';
+														q = objJSON.username;
+														$("#username").val('');
+														$("#username").val(q);
+													} else {
+														console
+																.error("No se esta cargando la información");
+													}
+												});
+								$("#table_contenido").empty();
+								$("#table_contenido").append(createTable1());
+								$("#data").empty();
+								$("#data").append(s);
+								$('#data-table-row-grouping').dataTable();
+								$("#ckbCheckAll").click(
+										function() {
+											$(".checkBoxClass").prop('checked',
+													$(this).prop('checked'));
+										});
+
+							});
+		};
+
+		function listarTrabajadoresAprobados() {
+			$
+					.get(
+							'GestionarProgramaVacaciones/TrabajadoresAprobados',
+							function(obj) {
+								var s = '';
+								var emp = obj[0];
+								for (var i = 0; i < obj.length; i++) {
+									s += '<tr>';
+									s += '<td class="hide">'
+											+ obj[i].ID_DET_VACACIONES
+											+ '</td>';
+									s += '<td>' + obj[i].NO_TRABAJADOR + ' '
+											+ obj[i].AP_PATERNO + ' '
+											+ obj[i].AP_MATERNO + '</td>';
+									s += '<td>' + obj[i].NO_AREA + '</td>';
+									s += '<td>' + obj[i].NO_SECCION + '</td>';
+									if (obj[i].FECHA_INICIO == null
+											&& obj[i].FECHA_FIN == null) {
+										s += '<td>--</td>';
+										s += '<td>--</td>';
+									} else {
+										s += '<td>' + obj[i].FECHA_INICIO
+												+ '</td>';
+										s += '<td>' + obj[i].FECHA_FIN
+												+ '</td>';
+									}
+
+									s += '</tr>';
+
+								}
+								$
+										.getJSON(
+												gth_context_path
+														+ '/components',
+												"opc=usuario",
+												function(objJSON) {
+													if (objJSON !== null) {
+														var q = '';
+														q = objJSON.username;
+														$("#username").val('');
+														$("#username").val(q);
+													} else {
+														console
+																.error("No se esta cargando la información");
+													}
+												});
+								$("#table_contenido").empty();
+								$("#table_contenido").append(createTable2());
+								$("#data").empty();
+								$("#data").append(s);
+								$('#data-table-row-grouping').dataTable();
+								$("#ckbCheckAll").click(
+										function() {
+											$(".checkBoxClass").prop('checked',
+													$(this).prop('checked'));
+										});
+
+							});
+		};
 		function createTable() {
 			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
 			s += '<thead>';
@@ -719,6 +855,42 @@ div.dataTables_length {
 			return s;
 
 		};
+		function createTable1() {
+			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+			s += '<thead>';
+			s += '<tr>';
+			s += '<th class="hide">id</th>';
+			s += '<th>Apellidos y Nombres</th>';
+			s += '<th>Área</th>';
+			s += '<th>Sección</th>';
+			s += '<th>Fecha Inicio</th>';
+			s += '<th>Fecha Fin</th>';
+			s += '<th>Aprobar</th>';
+			s += '<th>Modificar</th>';
+			s += ' </tr>';
+			s += '</thead>';
+			s += '<tbody id="data"></tbody>';
+			s += '</table>';
+			return s;
+
+		};
+		function createTable2() {
+			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+			s += '<thead>';
+			s += '<tr>';
+			s += '<th class="hide">id</th>';
+			s += '<th>Apellidos y Nombres</th>';
+			s += '<th>Área</th>';
+			s += '<th>Sección</th>';
+			s += '<th>Fecha Inicio</th>';
+			s += '<th>Fecha Fin</th>';
+			s += ' </tr>';
+			s += '</thead>';
+			s += '<tbody id="data"></tbody>';
+			s += '</table>';
+			return s;
+
+		};
 		$("#confirmar_lista")
 				.click(
 						function() {
@@ -727,10 +899,13 @@ div.dataTables_length {
 							arrid = getSelected();
 							var id_arr = arrid;
 							var id_det = id_arr.join(",");
+							console.log(username);
 							console.log(id_det);
-							var datos = "id_det=" + id_det;
+							var datos = "&id_det=" + id_det;
+							datos += "&id_det=" + id_det;
 							var con = new jsConnector();
 							con
+									
 									.post(
 											"vacaciones/GestionarProgramaVacaciones/insertProgramaVacaciones?"
 													+ datos,
@@ -742,7 +917,7 @@ div.dataTables_length {
 																	'Felicidades!!, ha aprobado a sus trabajadores',
 																	3000,
 																	'rounded');
-													listarTrabajadorFiltrado();
+													listarTrabajadoresConSoli();
 												} else {
 													Materialize
 															.toast(
@@ -753,7 +928,10 @@ div.dataTables_length {
 												$("#nocargando").show();
 												$("#cargando").hide();
 											});
+							
+										
 						});
 	</script>
+
 </body>
 </html>

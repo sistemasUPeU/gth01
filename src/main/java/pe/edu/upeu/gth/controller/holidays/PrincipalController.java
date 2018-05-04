@@ -169,6 +169,29 @@ public class PrincipalController {
 		System.out.println(depa);
 		return GSON.toJson(DAO.READALL(depa));
 
+	}	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	// @RequestMapping(path = "/readallProgramaVacaciones", method =
+	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public @ResponseBody String getAllTrabajadoresConSoli(Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		System.out.println(depa);
+		return GSON.toJson(DAO.TrabajadoresConSoli(depa));
+
+	}
+	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	// @RequestMapping(path = "/readallProgramaVacaciones", method =
+	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public @ResponseBody String getAllTrabajadoresAprobados(Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		System.out.println(depa);
+		return GSON.toJson(DAO.TrabajadoresAprobados(depa));
+
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/insertProgramaVacaciones", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -181,6 +204,7 @@ public class PrincipalController {
 		Gson g = new Gson();
 		return g.toJson(t.apobarVac(usuario, asdf));
 	}
+	
 
 	@GetMapping("/reporte")
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {

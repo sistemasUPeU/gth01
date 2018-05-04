@@ -29,13 +29,62 @@ public class GestionarPrograVacacDAO {
 	public List<Map<String, Object>> READALL(String depa) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
+			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, \r\n" + 
+					"tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, \r\n" + 
+					"to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
+					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
+					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO \r\n" + 
+					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
+					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones \r\n" + 
+					"where tf.no_dep ='Servicios'\r\n" + 
+					"and tf.estado=1\r\n" + 
+					"and detva.FECHA_INICIO is null and detva.FECHA_FIN is null";
+			LST = JDBC.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
+	}
+	public List<Map<String, Object>> TrabajadoresConSoli(String depa) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,detva.ID_DET_VACACIONES, tf.ap_paterno, \r\n" + 
+					"tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as \r\n" + 
+					"FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
 					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
 					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
 					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
-					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones \r\n" + 
-					"where tf.no_dep ='"+depa+"' \r\n" + 
-					"and tf.estado=1";
+					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
+					"where tf.no_dep ='"+depa+"'  \r\n" + 
+					"and tf.estado=1\r\n" + 
+					"and hisde.EVALUACION=1\r\n" + 
+					"and hisde.ESTADO=1\r\n" + 
+					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
+					"and detva.ESTADO <> 0";
+			LST = JDBC.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
+	}
+	public List<Map<String, Object>> TrabajadoresAprobados(String depa) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,  detva.ID_DET_VACACIONES,tf.ap_paterno, \r\n" + 
+					"tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as \r\n" + 
+					"FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
+					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
+					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
+					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
+					"where tf.no_dep ='"+depa+"'  \r\n" + 
+					"and tf.estado=1\r\n" + 
+					"and hisde.EVALUACION=2\r\n" + 
+					"and hisde.ESTADO=1\r\n" + 
+					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
+					"and detva.ESTADO <> 0";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
@@ -44,12 +93,12 @@ public class GestionarPrograVacacDAO {
 		}
 	}
 
+
 	public int apobarVac(String usuario, String[] id_det) {
 		int i = 0;
 		try {
 			cn = d.getConnection();
 			Array idarr = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_DET_VAC", id_det);
-
 			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_APR_ENV (?,?)}");
 			cst.setString(1, usuario);
 			cst.setArray(2, idarr);
@@ -61,5 +110,12 @@ public class GestionarPrograVacacDAO {
 		}
 		return i;
 	}
-
+	
+//	public void UPDATE_FECHAS(String ID_PASOS, String ID_PROCESO, String DE_PASOS, 
+//            String NU_PASOS, String CO_PASOS, String ES_PASO) {
+//        JDBC.update("CALL RHSP_UPDATE_FECHAS_VACACIONES(?, ?, ?, ?, ? ,?)",ID_PASOS,ID_PROCESO,
+//                DE_PASOS,NU_PASOS,CO_PASOS, ES_PASO);
+//    }
+	
+    
 }
