@@ -96,6 +96,10 @@ public class RegistrarRenunciaController {
 				out.println(0);
 			}
 			break;
+		case 8:
+			String idrenaban = request.getParameter("idrenaban");
+			out.println(gson.toJson(rd.buscarRenaban(idrenaban)));
+			break;
 		}
 
 	}
@@ -129,10 +133,7 @@ public class RegistrarRenunciaController {
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
-//					FilenameUtils fich = new FilenameUtils();
-					archi.add(FilenameUtils.getExtension(path));
-					
-					
+					archi.add(FilenameUtils.getExtension(path));				
 					archi.add(String.valueOf(destFile.length()));
 					
 					String nombre = destFile.getName();
@@ -169,8 +170,6 @@ public class RegistrarRenunciaController {
 		Renuncia r = new Renuncia();
 		String url = "/";
 		if (!file.isEmpty()) {
-			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
-			// ?, ?)";
 			try {
 				for (MultipartFile fi : file) {
 					String nome= fi.getOriginalFilename();
@@ -186,10 +185,7 @@ public class RegistrarRenunciaController {
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
-//					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
-					
-					
 					archi.add(String.valueOf(destFile.length()));
 					
 					String nombre = destFile.getName();

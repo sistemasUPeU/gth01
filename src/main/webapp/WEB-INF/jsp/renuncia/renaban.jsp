@@ -105,69 +105,33 @@
 				</div>
 				<div class="remodal" data-remodal-id="modal">
 									<button data-remodal-action="close" class="remodal-close"></button>
-
-									<!-- 								<div class="remodal" data-remodal-id="modal" style="width: 75%"> -->
-									<!-- 									<button data-remodal-action="close" class="remodal-close" -->
-									<!-- 										data-remodal-options="modifier:'width:75%'"></button> -->
-
-									<h1>Registrar Renuncia</h1>
+									<h1>Actualizar Renuncia o Abandono</h1>
 									<form method="post" action="reg_aban"
 										enctype="multipart/form-data" class="col s12 m8 l11"
 										id="RenunciaForm">
-										<input type="hidden" name="idcontrato" id="idcontrato" value="">
+										
 										<div class="row section">
 											<div class="col s12">
 												<div class="row">
-													<div class="input-field col s5">
-														<h6>Ingrese el motivo de la renuncia:</h6>
-													</div>
-													<div class="input-field col s2">
+													<div class="input-field col s6">
 														<h6>
-															Fecha de entrega <br>de carta de renuncia:
+															Fecha de entrega de documento:<br>
 														</h6>
 													</div>
-													<div class="input-field col s5">
-														<h6>Adjunte la carta de renuncia:</h6>
+													<div class="input-field col s6">
+														<h6>Documento:</h6>
 													</div>
 
 												</div>
 											</div>
-											<div class="col s12">
-												<div id="mot" class="input-field col s5">
-													<select id="motivo" multiple>
-
-													</select>
-												</div>
-												<div class="input-field col s2">
-													<label for=""></label> <input type="text" name="fecha"
-														id="fecha" class="datepicker">
-													<!-- 														 <input type="text"  id="fechap"> -->
-
-												</div>
-												<div class="input-field col s5">
-
-													<input type="file" name="file" class="dropify" id="pelon1"
-														data-height="300" />
-												</div>
-												<div class="row" id="otrosdiv">
-													<div class="col s12">
-														<div class="row">
-															<div class="input-field col s6">
-																<textarea id="otros" class="materialize-textarea"></textarea>
-																<label for="otros">Ingrese el motivo en
-																	particular</label>
-															</div>
-														</div>
-													</div>
-												</div>
-												<input type="hidden" id="array_motivos" />
+											<div class="col s12" id="modalon">
+												
 											</div>
 										</div>
 										<br>
 										<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 										<button data-remodal-action="confirm" class="remodal-confirm"
-											type="submit" id="RegistrarR">Confirmar</button>
-								
+											type="submit" id="ActualizarR">Confirmar</button>
 								</form>
 							</div>
 			</div>
