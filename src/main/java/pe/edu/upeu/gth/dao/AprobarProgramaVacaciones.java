@@ -117,7 +117,8 @@ public class AprobarProgramaVacaciones {
 	public List<Map<String, Object>> GetEmail(String depa, String id_det, String traba) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "select DISTINCT men.TEXTO, vtc.DI_CORREO_PERSONAL, \r\n"
+			String SQL = "select DISTINCT men.TEXTO, vtc.DI_CORREO_PERSONAL, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO,"
+					+ "to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, \r\n"
 					+ "(SELECT DISTINCT DI_CORREO_PERSONAL FROM RHVV_TRABAJADOR_CONTRATO\r\n" + "where NO_DEP ='" + depa
 					+ "'\r\n" + "and NO_ROL='Secretaria de Departamento'\r\n" + "and DI_CORREO_PERSONAL != '--'\r\n"
 					+ "and DI_CORREO_PERSONAL !='-'\r\n"

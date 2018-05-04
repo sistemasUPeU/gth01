@@ -76,14 +76,18 @@ public class AprobarProgramaVacacionesController {
 		String id_det = request.getParameter("id_det");
 		String receptor = request.getParameter("receptor");
 		lista = t.GetEmail(depa, id_det, receptor);
+		String fecha_ini = lista.get(0).get("FECHA_INICIO").toString();
+		String fecha_fin = lista.get(0).get("FECHA_FIN").toString();
 		String[] arrayEmail = new String[2];
 		// System.out.println(g.toJson(lista));
 		arrayEmail[0] = lista.get(0).get("DI_CORREO_PERSONAL").toString();
 		arrayEmail[1] = lista.get(0).get("DI_CORREO_SECRETARIA").toString();
 		String text = lista.get(0).get("TEXTO").toString();
-		// System.out.println(g.toJson(arrayEmail));
-		// System.out.println(g.toJson(text));
-		ms.sendEmail(getDummyOrder(), arrayEmail, text);
+		String format = "Su Jefe de departamento ha observado su programa de vacaciones:\r\n" + text + "\r\n"
+				+ "El programa de vacaciones observado es del " + fecha_ini + " al " + fecha_fin;
+		String[] tempArray = new String[1];
+		tempArray[0] = "104granados@gmail.com";
+		ms.sendEmail(getDummyOrder(), tempArray, format);
 		return g.toJson(arrayEmail);
 	}
 

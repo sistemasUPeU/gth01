@@ -246,7 +246,7 @@ public class ListaDAO {
         return jt.queryForList(sql);
     }
 
-    public List<String> lista_años() {
+    public List<String> lista_aÃ±os() {
         List<String> list = new ArrayList<String>();
         for (int i = 0; i < 50; i++) {
             sql = "select  to_number(to_char(sysdate,'yyyy')) - ? from dual";

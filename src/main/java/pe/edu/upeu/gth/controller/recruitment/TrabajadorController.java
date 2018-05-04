@@ -95,7 +95,7 @@ public class TrabajadorController {
 		sr.put("Listar_via", dir.Listar_via());
 		sr.put("Listar_zona", dir.Listar_zona());
 		sr.put("Listar_tipo_doc", tdoc.Listar_tipo_doc());
-		sr.put("list_año", li.lista_años());
+		sr.put("list_aï¿½o", li.lista_aÃ±os());
 		mp.put("Reg_Trabajador", sr);
         return mp;
     }
@@ -500,7 +500,7 @@ public class TrabajadorController {
             edit = "ok";
         }
         mp.put("List_tipo_institucion", cu.List_Tipo_Ins());
-        mp.put("list_año", li.lista_años());
+        mp.put("list_aï¿½o", li.lista_aÃ±os());
         mp.put("List_Universidad", li.List_Universidad());
         mp.put("List_Carrera", li.List_Carrera());
         mp.put("List_Situacion_Educativa", li.List_Situacion_Educativa());
@@ -717,7 +717,7 @@ public class TrabajadorController {
         String html = "";
         html += "             <label  id='titu'>    Descuento de Diezmo: </label>    ";
         html += "   <div class='input-group'> "
-                + "          <span class='form-control' style='padding: 5px;padding-left: 10px'> ¿Autorizar descuento?</span>     "
+                + "          <span class='form-control' style='padding: 5px;padding-left: 10px'> ï¿½Autorizar descuento?</span>     "
                 + "          <span class='input-group-addon'>";
         html += "                              <span class='onoffswitch'>";
         if (i == 1) {
@@ -747,7 +747,7 @@ public class TrabajadorController {
         int i = tr.ShowEsDiezmoTrabajador(idtr);
         String html = "";
         html += "   <div class='input-group'> "
-                + "          <span class='form-control' style='padding: 5px;padding-left: 10px'> ¿Autorizar descuento?</span>     "
+                + "          <span class='form-control' style='padding: 5px;padding-left: 10px'> ï¿½Autorizar descuento?</span>     "
                 + "          <span class='input-group-addon'>";
         html += "                              <span class='onoffswitch'>";
         if (i == 1) {
@@ -816,7 +816,7 @@ public class TrabajadorController {
                 + "            <div class='pre-avatar col-md-offset-1 center-block'>"
                 + "                <img class='pre_foto thumbnail center-block' style='max-height: 300px; max-width: 500px; min-height:200px; min-width:400px;' />"
                 + "            </div>"
-                + "            <p>Si la imagen está <b>borrosa</b> es porque el tamaño es muy pequeño, no se preocupe, se verá mejor en el menú</p>"
+                + "            <p>Si la imagen estï¿½ <b>borrosa</b> es porque el tamaï¿½o es muy pequeï¿½o, no se preocupe, se verï¿½ mejor en el menï¿½</p>"
                 + "            <div class='hr hr-12 hr-double'></div>"
                 + "                 <div class='avatar-user center-block'>"
                 + "                     <a href='javascript:void(0)' id='show-shortcut' >"

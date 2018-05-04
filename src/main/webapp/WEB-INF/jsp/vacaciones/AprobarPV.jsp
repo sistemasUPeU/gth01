@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -162,7 +162,8 @@
 									s += "<td>";
 									s += "<button id='"
 											+ obj[i].ID_DET_VACACIONES
-											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
+											+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' "
+											+ "value='"
 											+ obj[i].AP_PATERNO
 											+ " "
 											+ obj[i].AP_MATERNO
@@ -308,9 +309,9 @@
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th class='hide' >det_vac</th>";
-			s += "<th class='hide' >N∞</th>";
+			s += "<th class='hide' >N¬∞</th>";
 			s += "<th>Nombres</th>";
-			s += "<th>SecciÛn</th>";
+			s += "<th>Secci√≥n</th>";
 			s += "<th>Dias Totales</th>";
 			s += "<th>DNI</th>";
 			s += "<th>FEC INI</th>";
@@ -330,7 +331,7 @@
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th>Nombres</th>";
-			s += "<th>SecciÛn</th>";
+			s += "<th>Secci√≥n</th>";
 			s += "<th>Dias Totales</th>";
 			s += "<th>DNI</th>";
 			s += "<th>FEC INI</th>";
@@ -347,13 +348,13 @@
 			s += "<thead>";
 			s += "<tr>";
 			s += "<th>Nombres</th>";
-			s += "<th>SecciÛn</th>";
+			s += "<th>Secci√≥n</th>";
 			s += "<th>Dias Totales</th>";
 			s += "<th>DNI</th>";
 			s += "<th>FEC INI</th>";
 			s += "<th>FEC FIN</th>";
 			s += "<th>Condicion</th>";
-			s += "<th>ObservaciÛn</th>";
+			s += "<th>Observaci√≥n</th>";
 			s += " </tr>";
 			s += "</thead>";
 			s += "<tbody id='data'></tbody>";
@@ -361,45 +362,47 @@
 			return s;
 		};
 
+		var nom_tra = "";
 		function preba(nombre, idde) {
 			var idtr = $('#' + idde).parents("tr").find("td").eq(1).text();
-			$("#cuerpo").append(createModal(idde, nombre, idtr));
+			nom_tra = nombre;
+			$("#modal" + idde).remove();
+			$("#cuerpo").append(createModal(idde, idtr));
 			$("#modal" + idde).openModal();
-			$('textarea#textarea' + idde).characterCounter();
+			$('#textarea' + idde).characterCounter();
 
 		};
 
 		function openVerObsModal(texto, idde) {
+			$("#modal" + idde).remove();
 			$("#cuerpo").append(createModalObs(idde, texto));
 			$("#modal" + idde).openModal();
 		};
 
-		function createModal(idde, nombre, idtr) {
+		function createModal(idde, idtr) {
 			var s = "<td><div id='modal"+idde+"' class='modal'>\r\n";
+
 			s += "<div class='modal-content'>\r\n";
 			s += "<center>\r\n";
-			s += "<h4>Observacion</h4>\r\n";
+			s += "<h4>Observaci√≥n</h4>\r\n";
 			s += "</center>\r\n";
 			s += "<div class='row'>\r\n";
 			s += "<form class='col s12'>\r\n";
 			s += "<div class='row'>\r\n";
 			s += "<div class='input-field col s12'>\r\n";
 			s += "<textarea id='textarea"+idde+"' class='materialize-textarea' length='150'></textarea>\r\n";
-			s += "<label for='textarea"+idde+"'>Escriba Observacion para: ";
-			s += nombre;
-			s += "</label>\r\n";
-			s += "</div>\r\n";
-			s += "</div>\r\n";
-			s += "</form>\r\n";
-			s += "</div>\r\n";
-			s += "</div>\r\n";
+			s += "<label for='textarea"+idde+"'>Escriba Observaci√≥n para: ";
+			s += nom_tra;
+			s += "</label></div></div></form></div></div>\r\n";
 			s += "<div class='modal-footer'>\r\n";
 			s += "<button href='#!'";
-			s += " class='modal-action modal-close waves-effect waves-green btn-flat' value='"
+			s += " class='modal-action modal-close btn waves-effect waves-light' value='"
 					+ idde
 					+ "' id='"
 					+ idtr
-					+ "' onclick='observar(this.id, this.value);' >OK!</button>\r\n";
+					+ "' onclick='observar(this.id, this.value);' >ENVIAR!</button>\r\n";
+			s += '<button class="modal-action modal-close waves-effect waves-green btn-flat" data-dismiss="alert" aria-label="Close">'
+					+ '<span aria-hidden="true">CANCELAR</span></button>'
 			s += "</div>\r\n" + "</div></td>";
 			return s;
 		};
@@ -408,18 +411,14 @@
 			var s = "<td><div id='modal"+idde+"' class='modal'>\r\n";
 			s += "<div class='modal-content'>\r\n";
 			s += "<center>\r\n";
-			s += "<h4>Observacion</h4>\r\n";
+			s += "<h4>Observaci√≥n</h4>\r\n";
 			s += "</center>\r\n";
 			s += "<div class='row'>\r\n";
 			s += "<form class='col s12'>\r\n";
 			s += "<div class='row'>\r\n";
 			s += "<div class='input-field col s12'>\r\n";
 			s += "<p>" + texto + "</p>";
-			s += "</div>\r\n";
-			s += "</div>\r\n";
-			s += "</form>\r\n";
-			s += "</div>\r\n";
-			s += "</div>\r\n";
+			s += "</div></div></form></div></div>\r\n";
 			s += "<div class='modal-footer'>\r\n";
 			s += "<button href='#!'";
 			s += " class='modal-action modal-close waves-effect waves-green btn-flat'>OK!</button>\r\n";
@@ -451,7 +450,7 @@
 												} else {
 													Materialize
 															.toast(
-																	'UPS!!, No se ha registrado su aprobacion, verifique si chequeÛ los datos!',
+																	'UPS!!, No se ha registrado su aprobacion, verifique si cheque√≥ los datos!',
 																	3000,
 																	'rounded');
 												}
@@ -459,9 +458,10 @@
 						});
 		function observar(idtr, id_det) {
 			var obs = $(".hiddendiv").text();
+			var extra = obs.length - 150;
 			var idte = $("#trab").val();
 			var datos = "id_det=" + id_det;
-			datos += "&text=" + obs;
+			datos += "&text=" + obs.trim();
 			datos += "&emisor=" + idte;
 			datos += "&receptor=" + idtr;
 			var con = new jsConnector();
@@ -471,17 +471,24 @@
 									+ datos,
 							null,
 							function(data) {
-								if (data == 1) {
+								if (data == 1 && obs.length <= 150) {
 									con.post(
 											"vacaciones/programa_vacaciones/enviarObservacion?"
 													+ datos, null, function(
 													receptor) {
 												console.log(receptor);
 											});
-									Materialize.toast('El trabajador '
-											+ 'Juanito' + ' ha sido Observado',
+									Materialize.toast(
+											'El trabajador ' + nom_tra
+													+ ' ha sido observado(a)',
 											3000, 'rounded');
 									listar();
+								} else if (obs.length > 150) {
+									Materialize.toast(
+											'Observaci√≥n no enviada, ha escrito '
+													+ extra
+													+ ' car√°cter(es) extra',
+											3000, 'rounded');
 								} else {
 									Materialize
 											.toast(

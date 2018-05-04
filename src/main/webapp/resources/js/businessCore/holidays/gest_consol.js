@@ -6,7 +6,7 @@ $(document).ready(function() {
 function getSelected() {
 	var allVals = [];
 	$('#data :checked').each(function() {
-		allVals.push($(this).parents("#data tr").find(".sorting_1").text());
+		allVals.push($(this).parents("#data tr").find("#id_det").text());
 	});
 	return allVals;
 }
@@ -103,19 +103,25 @@ $("#contTable")
 										console.log(obj);
 										var btnSolicitud = '';
 										var traba = '';
+										var id_det = '';
 										for (var i = 0; i < obj.length; i++) {
 											traba = obj[i].ID_TRABAJADOR;
+											id_det = obj[i].ID_DET_VACACIONES;
 											btnSolicitud += '<div class="col s12"><center><div class="row"><a class="waves-effect waves-light btn-large" id="verSolicitud" href="'
 													+ gth_context_path
 													+ '/vacaciones/consolidado/mostrardoc?traba='
 													+ obj[i].ID_TRABAJADOR
+													+ '&id_det='
+													+ obj[i].ID_DET_VACACIONES
 													+ '&op=1" target="_blank" >Ver Solicitud</a></div></center></div>';
 										}
+										$("#btnsubirsolicitud").hide();
 										$
 												.get(
 														"consolidado/getUrl",
 														{
-															traba : traba
+															traba : traba,
+															id_det : id_det
 														},
 														function(data) {
 															console.log(data);
@@ -134,7 +140,7 @@ $("#contTable")
 																$(
 																		"#verbtnSolicitudsinAprobar")
 																		.append(
-																				'<div class="col s12" id="file-input-field" ><div class="file-field input-field"><div class="btn"><span>Solicitud</span> <input type="file" name="file" id="file-input"></div><div class="file-path-wrapper"><input class="file-path validate" type="text"></div></div>'
+																				'<div class="col s12" id="file-input-field" ><div class="file-field input-field"><div class="btn"><span>Solicitud</span> <input type="file" name="file" id="file-input-s"></div><div class="file-path-wrapper"><input class="file-path validate" type="text"></div></div>'
 																						+ '</div><br> '
 																						+ '<input type="text" id="idvac" name="idvac" value="'
 																						+ data[0].ID_VACACIONES
@@ -143,7 +149,8 @@ $("#contTable")
 																						+ data[0].ID_DET_VACACIONES
 																						+ '" class="hide" />'
 																						+ '<input type="text" id="value" name="value" value="0" class="hide" />');
-																$("#file-input")
+																$(
+																		"#file-input-s")
 																		.change(
 																				function() {
 																					console
@@ -285,15 +292,20 @@ $("#contTableAprobado")
 													+ obj[i].ID_VACACIONES
 													+ '"></button>';
 											traba = obj[i].ID_TRABAJADOR;
+											id_det = obj[i].ID_DET_VACACIONES;
 											btnSolicitud += '<div class="col s6"><center><div class="row"><a class="waves-effect waves-light btn-large" id="verSolicitud" href="'
 													+ gth_context_path
 													+ '/vacaciones/consolidado/mostrardoc?traba='
 													+ obj[i].ID_TRABAJADOR
+													+ '&id_det='
+													+ obj[i].ID_DET_VACACIONES
 													+ '&op=1" target="_blank" >Ver Solicitud</a></div></center></div>';
 											btnPapeleta += '<div class="col s6"><br><center><div class="row"><a class="waves-effect waves-light btn-large" href="'
 													+ gth_context_path
 													+ '/vacaciones/consolidado/mostrardoc?traba='
 													+ obj[i].ID_TRABAJADOR
+													+ '&id_det='
+													+ obj[i].ID_DET_VACACIONES
 													+ '&op=2" target="_blank" >Ver Papeleta</a></div></center></div>';
 										}
 										fechas.innerHTML += j;
@@ -305,7 +317,8 @@ $("#contTableAprobado")
 												.get(
 														"consolidado/getUrl",
 														{
-															traba : traba
+															traba : traba,
+															id_det : id_det
 														},
 														function(data) {
 															console.log(data);
@@ -324,7 +337,7 @@ $("#contTableAprobado")
 																$(
 																		"#verbtnPapeleta")
 																		.append(
-																				'<div class="col s6"><div class="file-field input-field" id="file-input-field" ><div class="btn" ><span>Papeleta</span> <input type="file" name="file" id="file-input" /></div><div class="file-path-wrapper"><input type="text" class="file-path validate" />'
+																				'<div class="col s6"><div class="file-field input-field" id="file-input-field-p" ><div class="btn" ><span>Papeleta</span> <input type="file" name="file" id="file-input-p" /></div><div class="file-path-wrapper"><input type="text" class="file-path validate" />'
 																						+ '</div></div></div>'
 																						+ '<input type="text" id="idvac" name="idvac" value="'
 																						+ data[0].ID_VACACIONES
@@ -333,13 +346,14 @@ $("#contTableAprobado")
 																						+ data[0].ID_DET_VACACIONES
 																						+ '" class="hide" />'
 																						+ '<input type="text" id="value" name="value" value="1" class="hide" />');
-																$("#file-input")
+																$(
+																		"#file-input-p")
 																		.change(
 																				function() {
 																					console
 																							.log("está vacío");
 																					$(
-																							"#file-input-field")
+																							"#file-input-field-p")
 																							.show(
 																									0)
 																							.delay(
@@ -369,6 +383,28 @@ function listarSinAprobar() {
 						var s = "";
 						var emp = obj[0];
 						for (var i = 0; i < obj.length; i++) {
+							var con = "";
+							if (obj[i].LI_CONDICION == 1) {
+								con = "CONTRATADO";
+							}
+							if (obj[i].LI_CONDICION == 2) {
+								con = "EMPLEADO";
+							}
+							if (obj[i].LI_CONDICION == 3) {
+								con = "MISIONERO";
+							}
+							if (obj[i].LI_CONDICION == 4) {
+								con = "MFL, Practicas Pre -- Profesionales";
+							}
+							if (obj[i].LI_CONDICION == 5) {
+								con = "MFL, Practicas Profesionales";
+							}
+							if (obj[i].LI_CONDICION == 6) {
+								con = "MFL, CLJ, Convenio laboral Juvenil";
+							}
+							if (obj[i].LI_CONDICION == 7) {
+								con = "MFL -- Contrato";
+							}
 							s += "<tr><td class='hide' id='id_det' >";
 							s += obj[i].ID_DET_VACACIONES;
 							s += "</td><td>";
@@ -376,20 +412,34 @@ function listarSinAprobar() {
 							s += ", ";
 							s += obj[i].NO_TRABAJADOR;
 							s += "</td><td>";
+							s += obj[i].NU_DOC;
+							s += "</td><td>";
+							s += obj[i].NO_DEP;
+							s += "</td><td>";
 							s += obj[i].FECHA_INICIO;
 							s += "</td><td>";
 							s += obj[i].FECHA_FIN;
 							s += "</td><td>";
 							s += obj[i].NU_VAC;
+							s += "</td><td>";
+							s += con;
 							s += "</td>";
 							s += '<td><button id="openModal" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'
 									+ obj[i].ID_DET_VACACIONES + '">';
 							s += '<i class="mdi-image-remove-red-eye"></i></button></td>';
-							s += "<td><p style='text-align: center;'>";
-							s += "<input type='checkbox' class='checkBoxClass' id='test"
-									+ i + "'>";
-							s += " <label for='test" + i + "'></label>\r\n";
-							s += "</p></td>\r\n";
+							if (obj[i].URL != null) {
+								s += "<td><p style='text-align: center;'>";
+								s += "<input type='checkbox' class='checkBoxClass' id='test"
+										+ i + "'>";
+								s += " <label for='test" + i + "'></label>\r\n";
+								s += "</p></td>\r\n";
+							} else if (obj[i].URL == null) {
+								s += "<td><p style='text-align: center;'>";
+								s += "<input type='checkbox' id='indeterminate test"
+										+ i + "' disabled>";
+								s += " <label for='test" + i + "'></label>\r\n";
+								s += "</p></td>\r\n";
+							}
 							s += "</tr>";
 
 						}
@@ -399,11 +449,15 @@ function listarSinAprobar() {
 						$("#data").append(s);
 						$("#data-table-row-grouping").dataTable();
 
-						$("#ckbCheckAll").click(
-								function() {
-									$(".checkBoxClass").prop('checked',
-											$(this).prop('checked'));
-								});
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].URL != null) {
+								$("#ckbCheckAll").click(
+										function() {
+											$(".checkBoxClass").prop('checked',
+													$(this).prop('checked'));
+										});
+							}
+						}
 					});
 
 };
@@ -416,6 +470,28 @@ function listarAprobado() {
 						var s = "";
 						var emp = obj[0];
 						for (var i = 0; i < obj.length; i++) {
+							var con = "";
+							if (obj[i].LI_CONDICION == 1) {
+								con = "CONTRATADO";
+							}
+							if (obj[i].LI_CONDICION == 2) {
+								con = "EMPLEADO";
+							}
+							if (obj[i].LI_CONDICION == 3) {
+								con = "MISIONERO";
+							}
+							if (obj[i].LI_CONDICION == 4) {
+								con = "MFL, Practicas Pre -- Profesionales";
+							}
+							if (obj[i].LI_CONDICION == 5) {
+								con = "MFL, Practicas Profesionales";
+							}
+							if (obj[i].LI_CONDICION == 6) {
+								con = "MFL, CLJ, Convenio laboral Juvenil";
+							}
+							if (obj[i].LI_CONDICION == 7) {
+								con = "MFL -- Contrato";
+							}
 							s += "<tr><td class='hide' id='id_det' >";
 							s += obj[i].ID_DET_VACACIONES;
 							s += "</td><td>";
@@ -423,11 +499,17 @@ function listarAprobado() {
 							s += ", ";
 							s += obj[i].NO_TRABAJADOR;
 							s += "</td><td>";
+							s += obj[i].NU_DOC;
+							s += "</td><td>";
+							s += obj[i].NO_DEP;
+							s += "</td><td>";
 							s += obj[i].FECHA_INICIO;
 							s += "</td><td>";
 							s += obj[i].FECHA_FIN;
 							s += "</td><td>";
 							s += obj[i].NU_VAC;
+							s += "</td><td>";
+							s += con;
 							s += "</td>";
 							s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'
 									+ obj[i].ID_DET_VACACIONES + '">';
@@ -449,9 +531,12 @@ function createTable1() {
 	s += "<tr>";
 	s += "<th class='hide' >det_vac</th>";
 	s += "<th>Nombres</th>";
+	s += "<th>DNI</th>";
+	s += "<th>Departamento</th>";
 	s += "<th>Fecha-Entrada</th>";
 	s += "<th>Fecha-Salida</th>";
 	s += "<th>Dias Totales</th>";
+	s += "<th>Condición</th>";
 	s += "<th>Ver Detalle</th>";
 	s += "<th>";
 	s += "<p style='text-align: center;'>";
@@ -472,9 +557,12 @@ function createTableAprobado() {
 	s += "<tr>";
 	s += "<th class='hide' >det_vac</th>";
 	s += "<th>Nombres</th>";
+	s += "<th>DNI</th>";
+	s += "<th>Departamento</th>";
 	s += "<th>Fecha-Entrada</th>";
 	s += "<th>Fecha-Salida</th>";
 	s += "<th>Dias Totales</th>";
+	s += "<th>Condición</th>";
 	s += "<th>Ver Detalle</th>";
 	s += " </tr>";
 	s += "</thead>";
@@ -495,11 +583,17 @@ $("#confirmar")
 					var con = new jsConnector();
 					con
 							.post(
-									"vacaciones/consolidado/guardarAprovarConsolidado?"
+									"vacaciones/consolidado/guardarAprobarConsolidado?"
 											+ datos,
 									null,
 									function(data) {
 										if (data == 1) {
+											con.post(
+													"vacaciones/consolidado/enviarCorreoAprobarConsolidado?"
+															+ datos, null,
+													function(receptor) {
+														console.log(receptor);
+													});
 											Materialize
 													.toast(
 															'Felicidades!!, ha aprobado a sus trabajadores',
@@ -513,28 +607,12 @@ $("#confirmar")
 															3000, 'rounded');
 										}
 									});
+
 				});
 
-// $(document).ready(function() {
-
-// $("#imprimir").click(function() {
-// var pdf = new jsPDF('portrait', 'pt', 'a3');
-
-// var options = {
-// pagesplit : true
-// };
-// // var width = 400;
-// pdf.addHTML($("#Hola"), options, function() {
-// pdf.save('HOLA.pdf');
-// });
-// });
-// });
-
-$("#imprimirCartas").click(
+$("#print").click(
 		function() {
-
-			$("#requestjs").attr("data",
+			$('#modal1').openModal();
+			$("#request").attr("data",
 					gth_context_path + "/vacaciones/consolidado/reporte?");
-			$("#modal1").openModal();
-
 		});

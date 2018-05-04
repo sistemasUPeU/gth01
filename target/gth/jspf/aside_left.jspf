@@ -84,11 +84,20 @@
 
 											} else {
 
-												s += '<li class="bold">';
-												s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '"class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
-														+ lista[i].NO_LINK
-														+ '</a>';
-												s += '</li>';
+												if (lista[i].DI_URL == 'configuraciones/') {
+													s += '<li class="bold">';
+													s += '<a id = "config" href="#" onclick= "configurar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+															+ lista[i].NO_LINK
+															+ '</a>';
+													s += '</li>';
+												} else {
+													s += '<li class="bold">';
+													s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '"class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+															+ lista[i].NO_LINK
+															+ '</a>';
+													s += '</li>';
+												}
+
 											}
 
 										}
@@ -110,54 +119,8 @@
 			console.error(e);
 		}
 	};
-
-	function validar() {
-		var id = $("#trab").val();
-
-
-		var url ="/gth/solicitud/validar";
-		var data ="&id=" + id ;
-
-		
-		$.getJSON(url, data, function(res, status) {
-
-
-				console.log("devuelve controller: "+res);
-
-				switch (res) {
-				case 0:
-
-					Materialize.toast('Aun no ha llegado su tiempo para recibir vacaciones!', 3000, 'rounded');
-
-					break;
-				case 1:
-
-// 					var url ="solicitud/registrar";
-// 					 var datos ="&op=1";
-// 					 datos += "&idrol=" +idrol;
-
-// 					$.post(url,{op:1,rol:idrol},function(){
-// 						//console.log(objJson);
-// 						//window.location.href = "http://localhost:8097/gth/solicitud/open";
-// 					});
-
-					window.location.href = gth_context_path +"/solicitud/registrar?op=1";
-					
-					
-					break;
-				case 2:
-					console.log("es dos");
-					Materialize
-					.toast(
-							'Usted tiene una solicitud en proceso!',
-							3000,
-							'rounded');
-					break;
-				case 3:
-					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
-					console.log("reprogramacion");
-					break;
-				}
-		});
-	};
 </script>
+
+<script
+	src="<c:url value='/resources/js/businessCore/holidays/configurar.js'></c:url>"
+	type="text/javascript"></script>
