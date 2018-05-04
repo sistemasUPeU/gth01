@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,23 +39,26 @@ import pe.edu.upeu.gth.dto.Renuncia;
 @Scope("request")
 @RequestMapping("/renuncias/")
 public class GestionarEntregaDocController {
-
+	Renuncia r = new Renuncia();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 	LegajoDAO ldao = new LegajoDAO(AppConfig.getDataSource());
 	private Gson gson = new Gson();
+	Map<String, Object> mp = new HashMap<>();
+	public List<String> archi = new ArrayList<>();
 
 	@Autowired
 	ServletContext context;
 
 	@RequestMapping(value = "/listarxd", method = RequestMethod.GET)
-	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
+	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
 		case 1:
 			// String dni = request.getParameter("dni");
-			out.println(gson.toJson(rd.gg()));
+			String depa = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+			out.println(gson.toJson(rd.gg(depa)));
 			break;
 
 		case 2:
@@ -124,13 +128,19 @@ public class GestionarEntregaDocController {
 			break;
 
 		case 6:
-			Renuncia r1 = new Renuncia();
-			r1.setId_renuncia(request.getParameter("idr"));
-			System.out.println(r1.getId_renuncia());
-			// r.setEstado("Notificado");
-			// l.setOtros(request.getParameter("otros"));
-			// l.setDetalle_otros(request.getParameter("detalle"));
-			out.println(rd.notificarRenuncia(r1));
+			String idr = request.getParameter("idr");
+			String tipo1 = request.getParameter("tipo1");
+			System.out.println("Esta llegando un idr:" +idr);
+			r.setId_renuncia(idr);
+			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+			out.println(rd.notificarRenuncia(r,idusuario,tipo1));
+//			Renuncia r1 = new Renuncia();
+//			r1.setId_renuncia(request.getParameter("idr"));
+//			System.out.println(r1.getId_renuncia());
+//			// r.setEstado("Notificado");
+//			// l.setOtros(request.getParameter("otros"));
+//			// l.setDetalle_otros(request.getParameter("detalle"));
+//			out.println(rd.notificarRenuncia(r1));
 			break;
 
 		case 7:

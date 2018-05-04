@@ -60,9 +60,10 @@ $(document).ready(function(){
                     	
                     	
                     	insertarMotivos();
-// alert("BIEN JONÁS : ", data);
+ alert("BIEN JONÁS : ", data);
 // $('#modal3').modal('close');
                         $("#RegistrarR").prop("disabled", false);
+                        
                     },
                     error: function (e) {
                         alert("NADA JONÁS : ", e);

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.PriCartaNotarialDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.Abandono;
+import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
@@ -50,7 +52,7 @@ public class PriCartaNotarialController {
 	}
 	
 	@RequestMapping(value = "/primerEnvio", method = RequestMethod.GET)
-	protected void metodosEnviar(HttpServletRequest request, HttpServletResponse response)
+	protected void metodosEnviar(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws ServletException, IOException{
 		
 		PrintWriter out = response.getWriter();
@@ -64,7 +66,8 @@ public class PriCartaNotarialController {
 			out .println(gson.toJson(ra.Buscar_DetalleTrabajador(ida)));
 			break;
 		case 3:
-			out.println(gson.toJson(ra.Pendiente()));
+			String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
+			out.println(gson.toJson(ra.Pendiente(depa)));
 			break;
 		case 4:
 			String idr = request.getParameter("idr");

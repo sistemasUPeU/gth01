@@ -6,13 +6,15 @@
 
 <head>
 <%@include file="../../../jspf/general.jspf"%>
-
+<link href="https://fonts.googleapis.com/css?family=Dosis"
+	rel="stylesheet">
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/js/materialize.min.js'/>"
 	type="text/javascript" media="screen,projection">
 <link href="<c:url value='/resources/css/materialize.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	
 <link
 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />

@@ -58,7 +58,7 @@ table.dataTable tbody td {
 		<section id="content" class="col m12 l12 s12">
 				<div class="center">
 					<h1
-						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Procesar
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Verificar
 						Renuncias y Abandonos</h1>
 				</div>
 				<div class="divider"></div>
@@ -119,7 +119,7 @@ table.dataTable tbody td {
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url value='/resources/js/businessCore/ProcesarRenuncia.js'></c:url>"
+		src="<c:url value='/resources/js/businessCore/VerificarRen.js'></c:url>"
 		type="text/javascript"></script>
 	<!-- 		<script -->
 	<%-- 		src="<c:url value='/resources/js/businessCore/Procesado.js'></c:url>" --%>

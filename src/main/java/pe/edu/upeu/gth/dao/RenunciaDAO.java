@@ -8,6 +8,7 @@ package pe.edu.upeu.gth.dao;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -140,9 +141,10 @@ public class RenunciaDAO {
 	}
 	
     // LISTAR TODOS LOS TRABAJADORES CON ESTADO PROCESADO
-	public List<Map<String, Object>> gg() {
-		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Procesado'";
-		return jt.queryForList(sql);
+	public List<Map<String, Object>> gg(String depa)  {
+	     sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000438' OR rap.ID_PASOS='PAS-000439'";	
+	sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
+	return jt.queryForList(sql);
 	}
 	
     // LISTAR TODOS LOS TRABAJADORES CON ESTADO NOTIFICADO
@@ -324,11 +326,26 @@ public class RenunciaDAO {
 		return enviado;
 	}
 	
-	public int notificarRenuncia(Renuncia r) {
+	public int notificarRenuncia(Renuncia r, String idusuario,String tipo1) {
 		int x = 0;
-		String sql = "UPDATE RA_RENABAN SET ESTADO='Notificado' WHERE ID_RENABAN=?";
+//		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000438' AND ID_RENABAN=?";
+		String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000439' AND ID_RENABAN=?";
+//		Date date = new Date();
+//		
+//		//obtenerhora y fecha y salida por pantalla con formato:
+//		DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+		Date fechon = new java.sql.Date(System.currentTimeMillis());
+		System.out.println(fechon);
 		try {
-			jt.update(sql, new Object[] { r.getId_renuncia()});
+			if(tipo1.equals("R")) {
+				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000432",idusuario,fechon});
+				jt.update(sql2,new Object[] { r.getId_renuncia()});
+			}else {
+				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000433",idusuario,fechon});
+				jt.update(sql3,new Object[] { r.getId_renuncia()});
+			}
+			
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -34,42 +34,45 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<!-- 		<div class="col s12 m8 l9"> -->
-		<!-- 			<div id="data-table-row-grouping col s12 m8 l9" -->
-		<!-- 				class="card-panel display #e3f2fd blue lighten-5" -->
-		<!-- 				style="position: absolute"> -->
+		<section id="content" class="col m12 l12 s12">
+				<div class="center">
+					<h1
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Autorizar
+						Renuncias y Abandonos</h1>
+				</div>
+				<div class="divider"></div>
 
-		<!-- 				<div class="col s12 m8 l9 contT"></div> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
-		<div class="">
-			<!-- 			<object type="image/jpeg" -->
-			<!-- 				data="/gth/renaban/mostrardoc1" width="400" -->
-			<!-- 				height="500"></object> -->
-		</div>
-		<div class="col s12 m12" style="width: 100%; position: absolute;">
-			<ul class="collapsible popout" data-collapsible="accordion">
-				<li class="active">
-					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Renuncias por entregar
-					</div>
-					<div id="data-table-row-grouping col s12 m8 l9"
-						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
-						style="display: none;">
-						<div class="col s12 m8 l9 contT"></div>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Renuncias entregadas
-					</div>
-					<div id="tabla-notificada "
-						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
-						style="display: none;">
-						<div class="col s12 m8 l9 conN"></div>
-					</div>
-				</li>
-			</ul>
+			</section>
+		<div id="contenido">
+			<div class="row"
+				style="width: 100%;  max-width:90%">
+				<ul class="collapsible popout">
+					<li id="autorize" class="active">
+						<div class="collapsible-header active">
+							<i class="mdi-social-notifications-on"></i> Renuncias o Abandonos Pendientes
+						</div>
+						<div class="collapsible-body"
+							style="display: none;">	
+							<div class="row" style="padding:1em">
+								<div class="contT"></div>
+							</div>			
+						</div>
+					</li>
+					<li id="autorized" class="">
+						<div class="collapsible-header" >
+							<i class="mdi-toggle-check-box"></i> Renuncias o Abandonos Autorizados
+						</div> 
+						<div class="card-panel collapsible-body "
+							style="display: none;">
+							<div class="row" style="padding:1em">
+								<div class="contP"></div>
+							</div>
+
+							</div>
+
+						</li>
+					</ul>
+				</div>
 		</div>
 	</div>
 

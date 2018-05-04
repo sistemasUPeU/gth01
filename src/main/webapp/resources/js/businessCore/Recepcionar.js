@@ -1,6 +1,7 @@
 $(document)
 		.ready(
 				function() {
+				
 					if(!alertify.errorAlert){
 						  alertify.dialog('errorAlert',function factory(){
 						    return{
@@ -14,12 +15,10 @@ $(document)
 						    },true,'alert');
 						}
 
-					
-					// $('.modal-trigger').leanModal();
-					// alert();
-
+				
+					listarRegistrados();
 					listarAutorizados();
-					listarProcesados();
+					
 					
 					$("#ProcesarR").click(function(){						
 						var idc=$("#idc").val();
@@ -27,30 +26,33 @@ $(document)
 							idc : idc,
 							opc : 4
 						}, function(data, status) {
-							 //alert(data);
+							 alert(data);
 							var detalle = JSON.parse(data);
 							
 							console.log(detalle);
 							if(data==1){
 								alert("BUENA JONAS")
+								
 							}else{
 								alert("NADA JONAS");
 							}
-							
-							});						
-					});					
-					$("#RechazarR").click(function(){
-						//alert("rechaza");
-						
+							});
 					});
+					
+					$("#RechazarR").click(function(){
+						alert("rechaza");
+					});
+						
+					
+
 				});
 
 
-//	LISTAR TODOS LOS TRABAJADORES AUTORIZADOS
-function listarAutorizados() {
+//	LISTAR TODOS LOS TRABAJADORES REGISTRADOS QUE ESTAN EN PROCESO DE RENUNCIA O ABANDONO
+function listarRegistrados() {
 	$.getJSON(
-			gth_context_path + "/renaban/ProcesarR",
-			"opc=1",
+			gth_context_path + "/renaban/Recepcionar",
+			"opc=3",
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
@@ -64,7 +66,7 @@ function listarAutorizados() {
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
 						var plazo = parseInt(lista[i].VAL_PLAZO);
 						var fe_creacion = new Date(
-								lista[i].FECHA_RENUNCIA);
+								lista[i].FECHA_RENABAN);
 						var mesInt = parseInt(fe_creacion
 								.getMonth()) + 1;
 						var mes = ParsearMes(mesInt);
@@ -120,8 +122,11 @@ function listarAutorizados() {
 						s += '<td>'
 								+ lista[i].TIPO_CONTRATO
 								+ '</td>';
+						s += '<td><a class="green-text accent-3" href="#">'
+								+ lista[i].DESCRIPCION
+								+ '</a></td>';
 						s += '<td>'
-								+lista[i].FECHA_RENUNCIA+
+								+lista[i].FECHA_RENABAN+
 								 '</td>';
 						s += '<td>'
 							+lista[i].DNI+
@@ -130,9 +135,13 @@ function listarAutorizados() {
 							+mfl+
 							 '</td>';
 						// s += '<td>' + p + '</td>';
-						s +='<td>' +TIPO+'</td>';
-						s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
-						s += '</button>';
+//						s += '<td><a class="blue-text accent-4" href="#"><b>' + lista[i].ESTADO
+//								+ '</b></a></td>';
+						s +='<td >' +TIPO+ '<label class="tipon" hidden>'
+						+ TIPO
+						+ '</label></td>';
+						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Detalle</a>';
+						s += '</td>';
 						s += '</tr>';
 					}
 
@@ -146,10 +155,21 @@ function listarAutorizados() {
 				$(".contT").append(r);
 				$("#dataReq").empty();
 				$("#dataReq").append(s);
-//				$("#data-table-row-grouping")
-//						.DataTable();
 
-				$(".notificar").click(
+				$("#data-table-row-grouping")
+						.DataTable(
+								{
+								    responsive: true,
+								    columnDefs: [
+								        { responsivePriority: 1, targets: 0 },
+								        { responsivePriority: 2, targets: -1 }
+								    ],
+								"pageLength" : 5,
+								"bPaginate" : true,
+								}
+						);
+
+				$("#data-table-row-grouping tbody").on('click','.notificar',
 						function() {
 
 							cantidad = $(this).parents(
@@ -158,47 +178,42 @@ function listarAutorizados() {
 									.find(".idc")
 									.text();
 							console.log(cantidad);
+							
+							
+							tipon = $(this).parents(
+							"tr").find("td")
+							.find(".tipon")
+							.eq(0)
+							.text();
+							console.log("esto es tipon"+tipon);
 
-							DetalleRenuncia(cantidad);
+							DetalleRenuncia(cantidad,tipon);
 
-							$("#otros").val(cantidad);					
+							$("#otros").val(cantidad);	
+							
+							$("#tipo").val(tipon);
 						});
 			});
 }
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping" class="display responsive" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
-	s += '<th>Mes</th>';
-	s += '<th>Apellidos y Nombres</th>';
-	s += '<th>Puesto</th>';
-	s += '<th>Area</th>';
-	s += '<th>Departamento</th>';
+	s += '<th data-priority="3">Mes</th>';
+	s += '<th data-priority="4">Apellidos y Nombres</th>';
+	s += '<th data-priority="5">Puesto</th>';
+	s += '<th data-priority="6">Area</th>';
+	s += '<th data-priority="7">Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
-	s += '<th>Fecha de renuncia</th>';
+	s += '<th>Descripcion</th>';
+	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
-	s += '<th>MFL</th>';
-	s += '<th>Tipo</th>';
-	s += '<th>Opcion</th>';
-	if (Departamento === "DPT-0019") {
-		s += '<th>¿Cumplió Plazos?</th>';
-		if (Rol === "ROL-0006") {
-			s += '<th>¿Contrato Elaborado?</th>';
-			s += '<th>¿Firmo Contrato?</th>';
-			s += '<th>Enviar a Rem.</th>';
-			s += '<th>¿Contrato Subido?<</th>';
-		}
-	}
-	if (Rol === "ROL-0009") {
-		s += '<th>Código APS</th>';
-	}
-	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-		s += '<th>Código Huella</th>';
-	}
+	s += '<th>MFL</th>';	
+	s += '<th data-priority="2">Tipo</th>';
+	s += '<th data-priority="1">Opcion</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq">';
@@ -208,9 +223,9 @@ function createTable(idDepartamento, idRol) {
 }
 
 // LISTAR TODOS LOS TRABAJADORES PROCESADOS
-function listarProcesados() {
+function listarAutorizados() {
 	$.getJSON(
-			gth_context_path + "/renaban/ProcesarR",
+			gth_context_path + "/renaban/Recepcionar",
 			"opc=5",
 			function(objJson) {
 				var s = "";
@@ -225,7 +240,7 @@ function listarProcesados() {
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
 						var plazo = parseInt(lista[i].VAL_PLAZO);
 						var fe_creacion = new Date(
-								lista[i].FECHA_RENUNCIA);
+								lista[i].FECHA_RENABAN);
 						var mesInt = parseInt(fe_creacion
 								.getMonth()) + 1;
 						var mes = ParsearMes(mesInt);
@@ -245,15 +260,6 @@ function listarProcesados() {
 						var f = "";
 						var t = "";
 						var ct = "";
-						(Motivo === 1) ? p = "Trabajador Nuevo"
-								: ((Motivo === 2) ? p = "Renovación"
-										: p = "No Registrado");
-						(MFL === 1) ? f = "Si"
-								: f = "No";
-						(plazo === 1) ? t = "Cumplió Plazo"
-								: t = "No Cumplió";
-						(plazo === 1) ? ct = "green accent-3"
-								: ct = "red darken-1";
 						s += '<tr>';
 						s += '<td>'
 								+ a
@@ -281,8 +287,11 @@ function listarProcesados() {
 						s += '<td>'
 								+ lista[i].TIPO_CONTRATO
 								+ '</td>';
+						s += '<td><a class="green-text accent-3" href="#">'
+								+ lista[i].DESCRIPCION
+								+ '</a></td>';
 						s += '<td>'
-								+lista[i].FECHA_RENUNCIA+
+								+lista[i].FECHA_RENABAN+
 								 '</td>';
 						s += '<td>'
 							+lista[i].DNI+
@@ -291,9 +300,9 @@ function listarProcesados() {
 							+mfl+
 							 '</td>';
 						// s += '<td>' + p + '</td>';
-						s += '<td>' + lista[i].ESTADO
-								+ '</td>';
-						s +='<td>' +TIPO+'</td>';
+//						s += '<td>' + lista[i].ESTADO
+//								+ '</td>';
+						s +='<td class="tipon">' +TIPO+'</td>';
 						s += '</tr>';
 					}
 
@@ -307,25 +316,41 @@ function listarProcesados() {
 				$(".contP").append(r);
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
+
+				$("#data-table-row-grouping1")
+						.DataTable({
+							"pageLength" : 10,
+							"bPaginate" : true
+							    }
+						);
+				
+				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+
 //				$("#data-table-row-grouping1")
 //						.DataTable();
 
-				$(".notificar").click(
-						function() {
 
-							cantidad = $(this).parents(
-									"tr").find("td")
-									.eq(0)
-									.find(".idc")
-									.text();
-							console.log(cantidad);
-
-							DetalleRenuncia(cantidad);
-
-							$("#otros").val(cantidad);
-
-						
-						});
+//				$(".dataTables_scrollHeadInner").css({"width":"1358px;","padding-right": "0px;"});
+//				
+//				$(".table ").css({"width":"1358px","margin-left": "0px;"});
+//				$(".notificar").click(
+//						function() {
+//
+//							cantidad = $(this).parents(
+//									"tr").find("td")
+//									.eq(0)
+//									.find(".idc")
+//									.text();
+//							console.log(cantidad);
+//							
+//							
+//
+//							DetalleRenuncia(cantidad,tipon);
+//
+//							$("#otros").val(cantidad);
+//
+//						
+//						});
 			
 
 			});
@@ -334,10 +359,7 @@ function listarProcesados() {
 
 
 function createTable1(idDepartamento, idRol) {
-	var Rol = idRol.toString();
-	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
@@ -347,27 +369,11 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>Area</th>';
 	s += '<th>Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
-	s += '<th>Fecha de renuncia</th>';
+	s += '<th>Descripcion</th>';
+	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
-	s += '<th>Estado</th>';
 	s += '<th>Tipo</th>';
-//	s += '<th>Opcion</th>';
-	if (Departamento === "DPT-0019") {
-		s += '<th>¿Cumplió Plazos?</th>';
-		if (Rol === "ROL-0006") {
-			s += '<th>¿Contrato Elaborado?</th>';
-			s += '<th>¿Firmo Contrato?</th>';
-			s += '<th>Enviar a Rem.</th>';
-			s += '<th>¿Contrato Subido?<</th>';
-		}
-	}
-	if (Rol === "ROL-0009") {
-		s += '<th>Código APS</th>';
-	}
-	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-		s += '<th>Código Huella</th>';
-	}
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq1">';
@@ -377,21 +383,23 @@ function createTable1(idDepartamento, idRol) {
 }
 
 var depa="";
+var u = "";
 
-// DETALLE PARA PROCESAR RENUNCIA
+
+// DETALLE PARA AUTORIZAR RENUNCIA
 function DetalleRenuncia(idc,tipon) {
 	
 //	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
 //		alert(data);
 //	});
-	$.get("processDetails", {                          
+	$.get("recepcionargth", {                          
 	}, function(data, status) {
 		//alert(data);		
 //		 alert("BIEN JONAS");
 //		 $("#contenido").html("");
 		 $("#contenido").html(data);
-		 $.get("ProcesarR",{opc:2,idc:idc},function(data,status){	
+		 $.get("Recepcionar",{opc:2,idc:idc},function(data,status){	
 //			 alert(data);
 			 var detalle = JSON.parse(data);
 			 $("#idr").val(detalle[0].ID_RENABAN);	
@@ -414,40 +422,37 @@ function DetalleRenuncia(idc,tipon) {
 				}
 				
 				if(detalle[0].ANTECEDENTES!=1){
-					$("#antecedentes_policiales").text("Si");
+					$("#ante_poli").text("Si");
 				}else{	
-					$("#antecedentes_policiales").text("No");
+					$("#ante_poli").text("No");
 				}
 //				var archi = detalle[0].ARCHIVO;
 				if(detalle[0].CERTI_SALUD!=0){
-					$("#certificado_salud").text("Si");
+					$("#certi_salud").text("Si");
 				}else{
-					$("#certificado_salud").text("No");
+					$("#certi_salud").text("No");
 				}
 //				var img = document.getElementById("carta")
 				$("#carta").text(detalle[0].ARCHIVO);
-				$("#modalP").click(function(){
+				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
-					var tipo = $("#tipo").val();
+					var tipo= $("#tipo").val();
+					//alert(idr);
 					if(tipo="RENUNCIA"){
-						 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar la renuncia de este trabajador?', function(){
-							 $.get("ProcesarR",{opc:4,tipo:'R',idr:idr},function(data){
-								 alert("BIEN Nicole");
-								 alert(idr);
-								 window.location.href = gth_context_path +"/renaban/processR";					 
+						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar la renuncia de este trabajador?', function(){
+							 $.get("Recepcionar",{opc:4,tipo:'R',idr:idr},function(data){
+								 window.location.href = gth_context_path +"/renaban/recepcionar";					 
 								
 //				        		 alert(data);
 				        	});
 							 
 					     	} , function(){ 
-					     		alert("fallo");
+					     		
 					        });
 					}else{
-						 alertify.confirm('Confirmar autorización', 'Esta seguro(a) de autorizar el abandono de este trabajador?', function(){
-							 $.get("ProcesarR",{opc:4,tipo:'A',idr:idr},function(data){
-//								 alert("BIEN Nicole");
-//								 alert(idr);
-								 window.location.href = gth_context_path +"/renaban/processR";					 
+						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar el abandono de este trabajador?', function(){
+							 $.get("Recepcionar",{opc:4,tipo:'A',idr:idr},function(data){
+								 window.location.href = gth_context_path +"/renaban/recepcionar";					 
 								
 //				        		 alert(data);
 				        	});
@@ -456,22 +461,45 @@ function DetalleRenuncia(idc,tipon) {
 					     		
 					        });
 					}
-					//alert(idr);
-					
+					 
 				});
-				$("#modalR").click(function(){
+				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
 					var observaciones = $("#observaciones").val();					
-					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
-						 $.get("ProcesarR",{opc:6,idr:id,observaciones:observaciones},function(data){
+					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
+						 $.get("Recepcionar",{opc:6,idr:id,observaciones:observaciones},function(data){
+							 alert("BIEN Nicole");
 			        		 alert(data);
-			        		 window.location.href = gth_context_path +"/renaban/processR";
+			        		 alert(id);
+			        		 alert(observaciones);
+			        		 window.location.href = gth_context_path +"/renaban/recepcionar";
 			        	});
 						 
 				     	} , function(){ 
 				        	
 				        });
 				});
+				
+				u = "";
+				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
+				u += ''
+				u += 'src="' + gth_context_path + '/resources/files/'
+						+ detalle[0].ARCHIVO + '" '
+				u += 'alt="sample"'
+				u += 'data-caption="Esc para volver" ></div>'
+
+					
+					var c = "";
+				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle[0].ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"
+
+				
+				var tipod = detalle[0].ARCHIVO.split(".")[1];
+				if (tipod=="pdf"){
+					$("#picture_del").html(c);
+				}else{
+					$("#picture_del").html(u);
+				}
+				$('.materialboxed').materialbox();
 		 });
 		     
 	
@@ -494,12 +522,14 @@ function DetalleRenuncia(idc,tipon) {
 //		}
 
 	});
-
+	
+	
 }
 
-
-
-
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year 
+  });
 
 window.picker = $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
@@ -517,40 +547,40 @@ function ParsearMes(mesint) {
 	console.log(mesint);
 	switch (mesint) {
 	case 01:
-		mes = "Enero";
+		mes = "ENE";
 		break;
 	case 02:
-		mes = "Febrero";
+		mes = "FEB";
 		break;
 	case 03:
-		mes = "Marzo";
+		mes = "MAR";
 		break;
 	case 04:
-		mes = "Abril";
+		mes = "ABR";
 		break;
 	case 05:
-		mes = "Mayo";
+		mes = "MAY";
 		break;
 	case 06:
-		mes = "Junio";
+		mes = "JUN";
 		break;
 	case 07:
-		mes = "Julio";
+		mes = "JUL";
 		break;
 	case 08:
-		mes = "Agosto";
+		mes = "AGO";
 		break;
 	case 09:
-		mes = "Septiembre";
+		mes = "SET";
 		break;
 	case 10:
-		mes = "Octubre";
+		mes = "OCT";
 		break;
 	case 11:
-		mes = "Noviembre";
+		mes = "NOV";
 		break;
 	case 12:
-		mes = "Diciembre";
+		mes = "DIC";
 		break;
 	}
 	return mes;
