@@ -174,11 +174,11 @@ public class RegistrarRenunciaController {
 	
 	@RequestMapping(path = "/updateR", method = RequestMethod.POST)
 	public String actualizarRenaban(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
-			@RequestParam("idcontrato") String idcon, Authentication authentication, HttpServletRequest request,HttpServletResponse response) throws IOException {
+			@RequestParam("idrenaban") String idcon, Authentication authentication, HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-		response.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf8");
 		PrintWriter out = response.getWriter();
 		Renuncia r = new Renuncia();
 		String url = "/";

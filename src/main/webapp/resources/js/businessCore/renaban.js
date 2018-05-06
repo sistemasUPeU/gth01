@@ -140,6 +140,7 @@ function listarRegistrados() {
 function modalon (){
 	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
 	s+= ' <div class="input-field col s6">';
+	s+= ' <input id="renabancito" value="" type="hidden"/>';
 	s+= ' <label for=""></label> <input type="text" name="fecha"';
 	s+=		' id="fecha" class="datepicker">';
 	s+= '</div>'
@@ -167,6 +168,7 @@ function crearModal(id) {
 	$.getJSON(gth_context_path + "/renaban/detalleR",
 			{opc:8,idrenaban:id},
 			function(data){
+				$("#renabancito").val(id);
 			    $('#fecha').pickadate({
 					selectMonths : true, // Creates a dropdown to control month
 					selectYears : 15, // Creates a dropdown of 15 years to control
@@ -190,10 +192,13 @@ function crearModal(id) {
 		          
 				});
 	});
-	
-	
+		
 	
 }
+
+$("#ActualizarR").click(function(){
+	alert($("#renabancito").val());
+});
 
 function eliminar(id,archivo) {
 	// alert(id);
