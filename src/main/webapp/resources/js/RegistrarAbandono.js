@@ -34,7 +34,8 @@ $(document).ready(function(){
         var file=$("#pelon1").val();
         var fecha = $("#fecha").val();
         console.log(fecha);
-        alertify.confirm('Confirmar abandono', 'Esta seguro(a) de confirmar el ABANDONO de este trabajador?', function(){
+        open();
+        alertify.confirm('Confirmar abandono', '¿Esta seguro(a) de confirmar el ABANDONO de este trabajador?', function(){
         	if(file!=""&&fecha!=""){
             	$.ajax({
                     type: "POST",
@@ -46,20 +47,23 @@ $(document).ready(function(){
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                        $("#RegistrarA").prop("disabled", false);
+                    	$("#RegistrarA").prop("disabled", false);
+                        alertify.notify('Se ha registrado el abandono satisfactoriamente. Redireccionando a reportes...', 'custom', 2,
+								function() {
+                        			window.location.href = gth_context_path+ '/renaban/listaRA';
+								});
                     },
                     error: function (e) {
-                        alert("NADA JONÁS : ", e);
-                        $("#RegistrarA").prop("disabled", false);
+                        alertify
+                        .errorAlert("Error al intentar guardar los datos. Consulte con el administrador del sistema.<br/>");
+                        
                     }
                 });
             }else{          	
             	alertify
                 .errorAlert("Rellene todos los campos<br/>");
             }
-        	
-        	
-        	
+        	        	
         	}
         , function(){ 
           	
@@ -103,7 +107,17 @@ $(document).ready(function(){
         });
 
 
-
+function open(){
+	$(".ajs-header").addClass("#82b1ff  blue accent-1");
+	var isOpen = alertify.confirm().isOpen(); 
+	 if(isOpen=true){
+		 $(".ajs-ok").attr("id","alertyboton");
+		 $(".ajs-cancel").attr("id","alertyboton2");
+		 $(".alertify .ajs-modal").css("z-index","999999");
+	 }
+	 $("#alertyboton").addClass("btn waves-effect waves-light #2962ff blue accent-4");
+		$("#alertyboton2").addClass("btn waves-effect waves-light #bdbdbd grey lighten-1");
+}
 // BUSCAR DETALLES DE TRABAJADOR
 function buscarDetalle(){	
 	dni = $("#dni").val();

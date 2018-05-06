@@ -36,6 +36,12 @@
 .price-desc h6 {
 	font-size: 16px
 }
+.ajs-message.ajs-custom {
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #31708f;
+	z-index: 999999
+}
 </style>
 </head>
 <body class="#e8f5e9 green lighten-5">

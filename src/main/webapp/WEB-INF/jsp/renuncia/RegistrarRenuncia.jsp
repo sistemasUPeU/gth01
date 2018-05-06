@@ -54,6 +54,12 @@
 		font-size: 14px
 	}
 }
+.ajs-message.ajs-custom {
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #31708f;
+	z-index: 999999
+}
 </style>
 </head>
 <body class="#e8f5e9 green lighten-5">
@@ -278,8 +284,8 @@
 									<!-- 									<button data-remodal-action="close" class="remodal-close" -->
 									<!-- 										data-remodal-options="modifier:'width:75%'"></button> -->
 
-									<h1>Registrar Renuncia</h1>
-									<form method="post" action="reg_aban"
+									<h1> Registrar Renuncia </h1>
+									<form method="POST"
 										enctype="multipart/form-data" class="col s12 m8 l11"
 										id="RenunciaForm">
 										<input type="hidden" name="idcontrato" id="idcontrato" value="">
@@ -297,7 +303,6 @@
 													<div class="input-field col s5">
 														<h6>Adjunte la carta de renuncia:</h6>
 													</div>
-
 												</div>
 											</div>
 											<div class="col s12">

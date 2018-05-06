@@ -5,6 +5,7 @@
  */
 package pe.edu.upeu.gth.dao;
 
+import java.io.File;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -179,7 +180,6 @@ public class RenunciaDAO {
 		String sql = "DELETE FROM RA_RENABAN WHERE ID_RENABAN=?";
 		try {
 			jt.update(sql, new Object[] { id});
-			
 			x= 1;
 		} catch (Exception e) {
 			// TODO: handle exception

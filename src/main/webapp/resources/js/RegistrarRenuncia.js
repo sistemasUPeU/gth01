@@ -44,29 +44,32 @@ $(document).ready(function(){
 			//alert("invisible :'v");
 		}
         
-        
+        open();
         alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la renuncia de este trabajador?', function(){
+        	
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
-                    url: "form",
+                    url: "reg_ren",
                     data: data,
                     processData: false,
                     contentType: false,
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                    	
-                    	
-                    	insertarMotivos();
-// alert("BIEN JONÁS : ", data);
-// $('#modal3').modal('close');
-                        $("#RegistrarR").prop("disabled", false);
+                    		$("#RegistrarR").prop("disabled", false);
+                            insertarMotivos();
+          
+                        	alertify.notify('Se ha registrado la renuncia satisfactoriamente. Redireccionando a reportes...', 'custom', 2,
+    								function() {
+                        				window.location.href = gth_context_path+ '/renaban/listaRA';
+    								});
+
                     },
                     error: function (e) {
-                        alert("NADA JONÁS : ", e);
-                        $("#RegistrarR").prop("disabled", false);
+                    	alertify
+                        .errorAlert("Ha ocurrido un problema, comuníquese con el administradord el sistema.<br/>");
                     }
                 });
             }else{          	
@@ -78,8 +81,7 @@ $(document).ready(function(){
         	
         	}
         , function(){ 
-        	alertify
-            .errorAlert("Error al intentar guardar los datos<br/>");     	
+        	     	
         });
     });
 			
@@ -162,7 +164,17 @@ $(document).ready(function(){
             	 
             });
         });
-
+function open(){
+	$(".ajs-header").addClass("#82b1ff  blue accent-1");
+	var isOpen = alertify.confirm().isOpen(); 
+	 if(isOpen=true){
+		 $(".ajs-ok").attr("id","alertyboton");
+		 $(".ajs-cancel").attr("id","alertyboton2");
+		 $(".alertify .ajs-modal").css("z-index","999999");
+	 }
+	 $("#alertyboton").addClass("btn waves-effect waves-light #2962ff blue accent-4");
+		$("#alertyboton2").addClass("btn waves-effect waves-light #bdbdbd grey lighten-1");
+}
 
 // MOSTRANDO LOS DETALLES DE TRABAJADOR
 function buscarDetalle(){	
@@ -259,13 +271,6 @@ function insertarMotivos(){
 			} else {
 				insertarOtros(otros);
 			}
-			window.location.href = gth_context_path+"/renaban/";
-			
-// alert(otros);
-			
-// window.location.assign(data);
-// alert();
-// limpiar();
 	
 		}
 	});

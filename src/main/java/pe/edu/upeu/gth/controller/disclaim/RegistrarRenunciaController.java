@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -90,7 +93,10 @@ public class RegistrarRenunciaController {
 			break;
 		case 7:
 			String id = request.getParameter("idr");
+			String archivo = request.getParameter("archivo");
 			if(rd.eliminarRenaban(id)==1) {
+				//ESTO ELIMINARÁ EL ARCHIVO EN EL SERVIDOR
+				eliminarArchivo(archivo);
 				out.println(1);
 			}else {
 				out.println(0);
@@ -107,7 +113,8 @@ public class RegistrarRenunciaController {
 	@Autowired
 	ServletContext context;
 
-	@RequestMapping(path = "/form", method = RequestMethod.POST)
+	
+	@RequestMapping(path = "/reg_ren", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
 			@RequestParam("idcontrato") String idcon, Authentication authentication, HttpServletRequest request) throws IOException {
 		ServletContext cntx = request.getServletContext();
@@ -115,14 +122,17 @@ public class RegistrarRenunciaController {
 		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 		Renuncia r = new Renuncia();
 		String url = "/";
+		int exito = 0;
 		if (!file.isEmpty()) {
 			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
 			// ?, ?)";
 			try {
 				for (MultipartFile fi : file) {
 					String nome= fi.getOriginalFilename();
-					
-					nome="renuncia"+idcon;
+					SimpleDateFormat simpleDateFormat =
+				    new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome="renuncia"+idcon+dateAsString;
 					FilenameUtils fich = new FilenameUtils();
 					
 					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
@@ -147,7 +157,8 @@ public class RegistrarRenunciaController {
 					r.setId_contrato(idcon);
 					r.setId_usuario(idusuario);
 					r.setTipo("R");
-					rd.crearRenuncia(r);
+					exito=rd.crearRenuncia(r);
+					
 				}
 
 			} catch (IOException | IllegalStateException ec) {
@@ -155,12 +166,14 @@ public class RegistrarRenunciaController {
 				ec.printStackTrace();
 			}
 			System.out.println(gson.toJson(archi));
+			System.out.println("respuesta>> " + exito);
 		}
+		
 		return "redirect:" + url;
 	}
 	
 	@RequestMapping(path = "/updateR", method = RequestMethod.POST)
-	public void actualizarRenaban(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
+	public String actualizarRenaban(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
 			@RequestParam("idcontrato") String idcon, Authentication authentication, HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -211,7 +224,7 @@ public class RegistrarRenunciaController {
 			}
 			System.out.println(gson.toJson(archi));
 		}
-//		return "redirect:" + url;
+		return "redirect:" + url;
 	}
 
 
@@ -233,8 +246,7 @@ public class RegistrarRenunciaController {
 		String nombre = request.getParameter("nombre");
 		
 		String filename = cntx.getRealPath("/resources/files/" + nombre);
-//		String filename = UPLOADED_FOLDER+"\\" + nombre;
-//		 String filenam1e ="E:\\CONEIA\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\h\\"+nom;
+
 
 		System.out.println(nombre + "//" + "//" + filename);
 		
@@ -260,6 +272,34 @@ public class RegistrarRenunciaController {
 		}
 		out.close();
 		in.close();
+
+	}
+	
+	
+	public void eliminarArchivo(String nombre){
+
+		try {
+			String filename = context.getRealPath("/resources/files/" + nombre);
+			File archivo = new File(filename);
+
+            boolean estatus = archivo.delete();;
+
+            if (!estatus) {
+
+                System.out.println("Error no se ha podido eliminar el  archivo");
+
+           }else{
+
+                System.out.println("Se ha eliminado el archivo exitosamente");
+
+           }
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+
+
+		
 
 	}
 }

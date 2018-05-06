@@ -72,16 +72,21 @@ function listarRegistrados() {
 								s += '<td >' + TIPO
 										+ '<label class="tipon" hidden>' + TIPO
 										+ '</label></td>';
-								s += '<td style="width:22%">'
-								s += '	<div class ="row"><div class="col s6"><a onclick="crearModal(\''
+								s += '<td style="width:25%">'
+								s += '	<div class ="row"><div class="col s4"><a onclick="crearModal(\''
 										+ lista[i].ID_RENABAN
 										+ '\') " data-remodal-target="modal" '
 								s += '	class="btn-floating btn waves-effect waves-light accent-3 orange modal-trigger"'
 								s += '	>'
 								s += '	<i class="mdi-content-create"></i>'
-								s += '</a></div><div class="col s6"><a class="btn-floating waves-effect waves-light #ff9100 red accent-3" onclick="eliminar(\''
+								s += '</a></div>'
+								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #ff9100 red accent-3" onclick="eliminar(\''
+										+ lista[i].ID_RENABAN + '\',\''
+										+ lista[i].ARCHIVO+'\')">'
+								s += '<i class="mdi-action-delete"></i></a></div>'
+								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #64dd17 light-green accent-4" onclick="aceptarRenaban(\''
 										+ lista[i].ID_RENABAN + '\')">'
-								s += '<i class="mdi-action-delete"></i></a></div></div></td>';
+								s += '<i class="mdi-navigation-check"></i></a></div></div></td>';
 								s += '</tr>';
 							}
 
@@ -107,6 +112,7 @@ function listarRegistrados() {
 							} ],
 							"pageLength" : 5,
 							"bPaginate" : true,
+							"ordering": false
 						});
 
 						$("#data-table-row-grouping tbody").on(
@@ -144,6 +150,10 @@ function modalon (){
 		
 		return s;
 	
+}
+
+function aceptarRenaban(){
+	alert("Continúen chicas");
 }
 
 function crearModal(id) {
@@ -185,13 +195,14 @@ function crearModal(id) {
 	
 }
 
-function eliminar(id) {
+function eliminar(id,archivo) {
 	// alert(id);
 	alertify.confirm('Confirmación de acción',
 			'¿Está seguro(a) que desea eliminar este registro?', function() {
 				$.get(gth_context_path + "/renaban/detalleR", {
 					opc : 7,
-					idr : id
+					idr : id,
+					archivo:archivo
 				}, function(data) {
 					if (data == 1) {
 
@@ -209,7 +220,7 @@ function eliminar(id) {
 }
 
 function createTable() {
-	var s = '<table id="data-table-row-grouping" class="display responsive" cellspacing="0" style="width:100%"> ';
+	var s = '<table id="data-table-row-grouping" class="display centered responsive" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
@@ -226,7 +237,7 @@ function createTable() {
 	s += '<th>JUSTIFICACION</th>';
 	s += '<th>RECHAZO</th>';
 	s += '<th data-priority="2">Tipo</th>';
-	s += '<th data-priority="1">Opcion</th>';
+	s += '<th data-priority="1">Opciones</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq">';

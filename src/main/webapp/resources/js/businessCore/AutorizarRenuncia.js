@@ -166,6 +166,7 @@ function listarRegistrados() {
 								    ],
 								"pageLength" : 5,
 								"bPaginate" : true,
+								"ordering": false
 								}
 						);
 
@@ -320,7 +321,8 @@ function listarAutorizados() {
 				$("#data-table-row-grouping1")
 						.DataTable({
 							"pageLength" : 10,
-							"bPaginate" : true
+							"bPaginate" : true,
+							"ordering": false
 							    }
 						);
 				

@@ -3,7 +3,9 @@ package pe.edu.upeu.gth.controller.disclaim;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,8 +119,9 @@ public class RegistrarAbandonoController {
 //					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
 //					File destFile = new File(path);
 					String nome= fi.getOriginalFilename();
-					
-					nome="abandono"+idcon;
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome="abandono"+idcon+dateAsString;
 					FilenameUtils fich = new FilenameUtils();
 					
 					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
@@ -126,8 +129,7 @@ public class RegistrarAbandonoController {
 					System.out.println("ruta del archivo " + path);
 					File destFile = new File(path);
 					fi.transferTo(destFile);
-					
-					fi.transferTo(destFile);
+
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
 //					FilenameUtils fich = new FilenameUtils();
@@ -144,6 +146,7 @@ public class RegistrarAbandonoController {
 					a.setId_contrato(idcon);
 					a.setId_usuario(idusuario);
 					a.setTipo("A");
+//					System.out.println(gson.toJson(a));
 					ad.insertarAbandono(a);
 				}
 
