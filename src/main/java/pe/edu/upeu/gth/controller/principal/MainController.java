@@ -42,6 +42,7 @@ public class MainController {
 	@RequestMapping(value = "/components")
 	public void Logueo(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException {
+		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(true);

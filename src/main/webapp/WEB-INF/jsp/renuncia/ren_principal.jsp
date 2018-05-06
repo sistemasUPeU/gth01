@@ -25,11 +25,11 @@
 			<%@include file="../../../jspf/info_puesto.jspf"%>
 
 			<div class="">
-				<center>
-					<object type="image/jpeg"
-						data="/renaban/mostrardoc1" width="500"
-						height="650"></object>
-				</center>
+<!-- 				<center> -->
+<!-- 					<object type="image/jpeg" -->
+<!-- 						data="/renaban/mostrardoc1" width="500" -->
+<!-- 						height="650"></object> -->
+<!-- 				</center> -->
 			</div>
 			<div id="content" class="col s12">
 			<div class="center" id="renaban">

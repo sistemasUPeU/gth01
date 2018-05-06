@@ -37,7 +37,7 @@
 		<section id="content" class="col m12 l12 s12">
 				<div class="center">
 					<h1
-						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Autorizar
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Notificar
 						Renuncias y Abandonos</h1>
 				</div>
 				<div class="divider"></div>

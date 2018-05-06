@@ -407,7 +407,7 @@ function enviarCorreo() {
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
 //	var para = $("#correo").text();
-	var para = "estefannygarcia@upeu.edu.pe";
+	var para = "yanetpalacios@upeu.edu.pe";
 	var clave = "GTH123456";
 	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
@@ -439,7 +439,7 @@ function insertarLegajo() {
 	var inst = $('[data-remodal-id=modal]').remodal();
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
-	var para = "estefannygarcia@upeu.edu.pe";
+	var para = "jonathanromero@upeu.edu.pe";
 	var mensaje = $("#mensaje2").text();
 	var detalle = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
