@@ -98,6 +98,16 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/ren_emitir");
 	}
 
+	@RequestMapping(value = "/recepcionargth", method = RequestMethod.GET)
+	public ModelAndView recepcionarenuncia(ModelMap model) {
+		return new ModelAndView("renuncia/RecepcionarDetalle");
+	}
+	
+	@RequestMapping(value = "/VerificarGTH", method = RequestMethod.GET)
+	public ModelAndView Verificarenuncia(ModelMap model) {
+		return new ModelAndView("renuncia/VerificarDet");
+	}
+	
 //	@RequestMapping(path = "/crearR", method = RequestMethod.GET)
 //	public String insertarRenuncias(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		String url = "/";
@@ -222,29 +232,29 @@ public class RenunciaController {
 
 	// <<<<<<< HEAD
 
-	@RequestMapping(value = "/gg", method = RequestMethod.GET)
-	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		int op = Integer.parseInt(request.getParameter("opc"));
-		switch (op) {
-		case 1:
-			// String dni = request.getParameter("dni");
-			out.println(gson.toJson(rd.gg()));
-			break;
-
-		case 2:/*
-				 * Pedido d = new Pedido();
-				 * d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
-				 * d.setHora(request.getParameter("hora"));
-				 * d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
-				 * d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
-				 * out.println((hs.create(d)));
-				 */
-			break;
-		}
-
-	}
+//	@RequestMapping(value = "/gg", method = RequestMethod.GET)
+//	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		PrintWriter out = response.getWriter();
+//		int op = Integer.parseInt(request.getParameter("opc"));
+//		switch (op) {
+//		case 1:
+//			// String dni = request.getParameter("dni");
+//			out.println(gson.toJson(rd.gg()));
+//			break;
+//
+//		case 2:/*
+//				 * Pedido d = new Pedido();
+//				 * d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
+//				 * d.setHora(request.getParameter("hora"));
+//				 * d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
+//				 * d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
+//				 * out.println((hs.create(d)));
+//				 */
+//			break;
+//		}
+//
+//	}
 
 
 }
