@@ -171,7 +171,7 @@ public class RenunciaDAO {
 		sql += " from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN  ";
 		sql += " LEFT JOIN RA_JUSTIFICACION jus ON ra.ID_RENABAN=jus.ID_RENABAN ";
 		sql += " LEFT JOIN RA_RECHAZO re ON ra.ID_RENABAN=re.ID_RENABAN ";
-		sql += " WHERE rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000429' ";
+		sql += " WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000429'  ";
 		sql +=" and NOM_DEPA='"+depa+"' ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
@@ -189,6 +189,8 @@ public class RenunciaDAO {
 		}
 		return x;
 	}
+	
+	//
 	
    //  CARGAR MOTIVOS DE RENUNCIA
 	public List<Map<String, Object>> cargarMotivo(String idtr) {
@@ -212,6 +214,35 @@ public class RenunciaDAO {
 			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario(),r.getTipo() });
 			
 			x= 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
+	
+	//DERIVAR RENUNCIA Y ABANDONO
+	public int DerivarRenuncia(Renuncia r,String idra, String idusuario,String tipo) {
+		int x = 0;
+		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000428' AND ID_RENABAN=?";
+		String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000429' AND ID_RENABAN=?";
+//		Date date = new Date();
+//		
+//		//obtenerhora y fecha y salida por pantalla con formato:
+//		DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+		Date fechon = new java.sql.Date(System.currentTimeMillis());
+		System.out.println(fechon);
+		try {
+			if(tipo.equals("R")) {
+				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000430",idusuario,fechon});
+				jt.update(sql2,new Object[] { r.getId_renuncia()});
+			}else {
+				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000431",idusuario,fechon});
+				jt.update(sql3,new Object[] { r.getId_renuncia()});
+			}
+			
+			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error: " + e);

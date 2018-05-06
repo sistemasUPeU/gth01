@@ -85,7 +85,8 @@ function listarRegistrados() {
 										+ lista[i].ARCHIVO+'\')">'
 								s += '<i class="mdi-action-delete"></i></a></div>'
 								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #64dd17 light-green accent-4" onclick="aceptarRenaban(\''
-										+ lista[i].ID_RENABAN + '\')">'
+										+ lista[i].ID_RENABAN + '\', \''
+										+TIPO+'\')">'
 								s += '<i class="mdi-navigation-check"></i></a></div></div></td>';
 								s += '</tr>';
 							}
@@ -152,9 +153,9 @@ function modalon (){
 	
 }
 
-function aceptarRenaban(){
-	alert("Continúen chicas");
-}
+//function aceptarRenaban(){
+//	alert("Continúen chicas");
+//}
 
 function crearModal(id) {
 	$(document).on('opening', '.remodal', function() {
@@ -217,6 +218,35 @@ function eliminar(id,archivo) {
 				});
 			}, function() {
 			});
+}
+function aceptarRenaban(idrab,tipo){
+	var idra= idrab;
+	var tipo= tipo;
+	alert(idrab);
+	alert(tipo);
+	if(tipo="RENUNCIA"){
+		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
+			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){
+				 window.location.href = gth_context_path +"/renaban/listaRA";					 
+				
+//        		 alert(data);
+        	});
+			 
+	     	} , function(){ 
+	     		
+	        });
+	}else{
+		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar el abandono de este trabajador?', function(){
+			 $.get("detalleR",{opc:9,tipo:'A',idr:idr},function(data){
+				 window.location.href = gth_context_path +"/renaban/listaRA";					 
+				
+//        		 alert(data);
+        	});
+			 
+	     	} , function(){ 
+	     		
+	        });
+	}
 }
 
 function createTable() {
