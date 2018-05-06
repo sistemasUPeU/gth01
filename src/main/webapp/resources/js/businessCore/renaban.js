@@ -1,5 +1,17 @@
 $(document).ready(function() {
-	listarRegistrados()
+	listarRegistrados();
+	if(!alertify.errorAlert){
+		  alertify.dialog('errorAlert',function factory(){
+		    return{
+		            build:function(){
+		                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
+		                + 'style="vertical-align:middle;color:#e10000;">'
+		                + '</span> Error al guardar los datos';
+		                this.setHeader(errorHeader);
+		            }
+		        };
+		    },true,'alert');
+		}
 });
 
 // function listarRenaban(){
@@ -137,10 +149,24 @@ function listarRegistrados() {
 					});
 }
 
+function open(){
+	$(".ajs-header").addClass("#82b1ff  blue accent-1");
+	var isOpen = alertify.confirm().isOpen(); 
+	 if(isOpen=true){
+		 $(".ajs-ok").attr("id","alertyboton");
+		 $(".ajs-cancel").attr("id","alertyboton2");
+		 $(".alertify .ajs-modal").css("z-index","999999");
+	 }
+	 $("#alertyboton").addClass("btn waves-effect waves-light #2962ff blue accent-4");
+		$("#alertyboton2").addClass("btn waves-effect waves-light #bdbdbd grey lighten-1");
+}
+
 function modalon (){
 	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
 	s+= ' <div class="input-field col s6">';
-	s+= ' <input id="renabancito" value="" type="hidden"/>';
+	s+= ' <input name="renabancito" id="renabancito" value="" type="hidden"/>';
+	s+= ' <input name ="tipo" id="tipo" value="" type="hidden"/>';
+	s+= ' <input name="nom_file" id="nom_file" value="" type="hidden"/>';
 	s+= ' <label for=""></label> <input type="text" name="fecha"';
 	s+=		' id="fecha" class="datepicker">';
 	s+= '</div>'
@@ -169,6 +195,9 @@ function crearModal(id) {
 			{opc:8,idrenaban:id},
 			function(data){
 				$("#renabancito").val(id);
+				$("#idcontrato").val(data[0].ID_CONTRATO);
+				$("#tipo").val(data[0].TIPO);
+				$("#nom_file").val(data[0].ARCHIVO);
 			    $('#fecha').pickadate({
 					selectMonths : true, // Creates a dropdown to control month
 					selectYears : 15, // Creates a dropdown of 15 years to control
@@ -196,8 +225,50 @@ function crearModal(id) {
 	
 }
 
-$("#ActualizarR").click(function(){
-	alert($("#renabancito").val());
+$(document).on('confirmation', '.remodal', function () {
+//	alert($("#tipo").val());
+	var file=$("#pelon1").val();
+	var renaban = $('#UpdatingR')[0];
+	//Obtener el formulario
+	console.log(renaban);
+
+	// Crear un objeto formData para capturar los valores indiviuales del formulario
+    var data = new FormData(renaban);
+    console.log(data);
+	open();
+    alertify.confirm('Actualizar renuncia o abandono', '¿Desea actualizar este registro?', function(){
+    	if(file!=""&&fecha!=""){
+        	$.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "updateR",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                	$("#RegistrarA").prop("disabled", false);
+                    alertify.notify('Actualizando...', 'custom', 1,
+							function() {
+                    			listarRegistrados();
+							});
+                },
+                error: function (e) {
+                    alertify
+                    .errorAlert("Error al intentar guardar los datos. Consulte con el administrador del sistema.<br/>");
+                    
+                }
+            });
+        }else{          	
+        	alertify
+            .errorAlert("Rellene todos los campos<br/>");
+        }
+    	        	
+    	}
+    , function(){ 
+      	
+    });
 });
 
 function eliminar(id,archivo) {

@@ -173,8 +173,8 @@ public class RegistrarRenunciaController {
 	}
 	
 	@RequestMapping(path = "/updateR", method = RequestMethod.POST)
-	public String actualizarRenaban(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
-			@RequestParam("idrenaban") String idcon, Authentication authentication, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public String actualizarRenaban(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha, @RequestParam("tipo") String tipo, @RequestParam("nom_file") String archivon,
+			@RequestParam("idcontrato") String idcon,@RequestParam("renabancito") String idrenaban, Authentication authentication, HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
@@ -186,8 +186,15 @@ public class RegistrarRenunciaController {
 			try {
 				for (MultipartFile fi : file) {
 					String nome= fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat =
+						    new SimpleDateFormat("MMddhhmmss");
+							String dateAsString = simpleDateFormat.format(new Date());
+							if(tipo=="R") {
+								nome="renuncia"+idcon+dateAsString;
+							}else {
+								nome="abandono"+idcon+dateAsString;
+							}
 					
-					nome="renuncia"+idcon;
 					FilenameUtils fich = new FilenameUtils();
 					
 					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
@@ -211,8 +218,9 @@ public class RegistrarRenunciaController {
 					r.setTi_archivo(FilenameUtils.getExtension(path));
 					r.setId_contrato(idcon);
 					r.setUsu_mod(idusuario);
-					r.setTipo("R");
+					r.setId_renuncia(idrenaban);
 					if(rd.actualizarRenuncia(r)==1) {
+						eliminarArchivo(archivon);
 						out.println(1);
 					}
 					

@@ -230,7 +230,7 @@ public class RenunciaDAO {
 		int x = 0;
 		String sql = "UPDATE RA_RENABAN SET TI_ARCHIVO=?,NO_ARCHIVO=?,FECHA_CARTA=?,USU_MOD=?,TIPO =? WHERE ID_RENABAN =?";
 		try {
-			jt.update(sql, new Object[] { r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getUsu_mod(),r.getTipo() });
+			jt.update(sql, new Object[] { r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getUsu_mod(),r.getTipo(),r.getId_renuncia()});
 			
 			x= 1;
 		} catch (Exception e) {
