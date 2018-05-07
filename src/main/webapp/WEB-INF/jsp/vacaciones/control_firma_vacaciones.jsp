@@ -13,6 +13,19 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<style type="text/css">
+.center-btn {
+	text-align: center
+}
+
+div.dataTables_length {
+	display: none !important;
+}
+
+#confirmar_lista {
+	margin-top: 25px;
+}
+</style>
 </head>
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
@@ -77,19 +90,50 @@
 	var z;
 
 	$("#modal").on("click", ".check", function() {
-		if ($(this).attr("name") == 0) {
+		if ($(this).attr("name") == 0 && $(this).attr("id") == "nolisto1") {
 			$(this).removeClass('pink lighten-2');
 			$(this).addClass('green accent-3');
 			$(this).attr("name","1");
 			$(this).find("#i").removeClass('mdi-navigation-close');
 			$(this).find("#i").addClass('mdi-navigation-check');
 		} else
-		if ($(this).attr("name") == 1) {
+		if ($(this).attr("name") == 1 && $(this).attr("id") == "nolisto1") {
 			$(this).removeClass('green accent-3');
 			$(this).addClass('pink lighten-2');
 			$(this).attr("name","0");
 			$(this).find("#i").removeClass('mdi-navigation-check');
 			$(this).find("#i").addClass('mdi-navigation-close');
+		}
+		if ($(this).attr("name") == 0 && $(this).attr("id") == "nolisto2") {
+			if ($("#nolisto1").attr("name") == "1" || $("#listo1").attr("name") == "1") {
+				$(this).removeClass('pink lighten-2');
+				$(this).addClass('green accent-3');
+				$(this).attr("name","1");
+				$(this).find("#i").removeClass('mdi-navigation-close');
+				$(this).find("#i").addClass('mdi-navigation-check');	
+			} else
+			if ($("#nolisto1").attr("name") == "0") {
+				console.log("maincraaa");
+				Materialize
+				.toast(
+						'Cambio no valido, debes confirmar la fecha inicial!',
+						3000,
+						'rounded');
+			}
+		} else
+		if ($(this).attr("name") == 1 && $(this).attr("id") == "nolisto2") {
+			$(this).removeClass('green accent-3');
+			$(this).addClass('pink lighten-2');
+			$(this).attr("name","0");
+			$(this).find("#i").removeClass('mdi-navigation-check');
+			$(this).find("#i").addClass('mdi-navigation-close');
+		}
+		if ($(this).attr("name") == 1 && $(this).attr("id") == "listo1" || $(this).attr("id") == "listo2") {
+			Materialize
+			.toast(
+					'No puedes modificar esta fecha, porque ya fue confirmada!',
+					3000,
+					'rounded');
 		}
 	});
 	
@@ -247,12 +291,12 @@
 				j += '<br> <br>';
 				n_n = n_n + 1;
 				if (obj[i].FIRMA_SALIDA == 0) {
-	            	j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
+	            	j += '<button id="nolisto1" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
 	            	j += '<i class="mdi-navigation-close" id="i"></i>';
 		            j += '</button>';
 				} else
 				if (obj[i].FIRMA_SALIDA == 1) {
-		            j += '<button class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
+		            j += '<button id="listo1" class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
 		            j += '<i class="mdi-navigation-check" id="i"></i>';
 		            j += '</button>';
 				}
@@ -265,12 +309,12 @@
 				j += '<br> <br>';
 				n_n = n_n + 1;
 				if (obj[i].FIRMA_ENTRADA == 0) {
-	            	j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+	            	j += '<button id="nolisto2" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
 	            	j += '<i class="mdi-navigation-close" id="i"></i>';
 	            	j += '</button>';
 				} else
 				if (obj[i].FIRMA_ENTRADA == 1) {
-		            j += '<button class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+		            j += '<button id="listo2" class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
 		            j += '<i class="mdi-navigation-check" id="i"></i>';
 		            j += '</button>';
 				}
