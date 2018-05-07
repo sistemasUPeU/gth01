@@ -106,9 +106,9 @@
 				<div class="remodal" data-remodal-id="modal">
 									<button data-remodal-action="close" class="remodal-close"></button>
 									<h1>Actualizar Renuncia o Abandono</h1>
-									<form method="post" action="reg_aban"
+									<form method="post" 
 										enctype="multipart/form-data" class="col s12 m8 l11"
-										id="RenunciaForm">
+										id="UpdatingR">
 										
 										<div class="row section">
 											<div class="col s12">
