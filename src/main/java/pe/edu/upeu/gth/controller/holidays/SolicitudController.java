@@ -241,10 +241,35 @@ public class SolicitudController {
 		// return gson.toJson(archi);
 	}
 	
-	
-	
 
-	
-	
-
+	@RequestMapping(path = "/papeleta", method = RequestMethod.POST)
+	public String SubirPapeleta(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac, HttpServletResponse response,  Authentication authentication) throws IOException {
+		int res = 0;
+		if (!file.isEmpty()) {
+			try {
+				for (MultipartFile fi : file) {
+					System.out.println(file);
+					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					archi.add(destFile.getName());
+					archi.add(destFile.getPath());
+					FilenameUtils fich = new FilenameUtils();
+					archi.add(FilenameUtils.getExtension(path));
+					archi.add(String.valueOf(destFile.length()));
+					System.out.println("controller: " +idvac);
+					String nombre = destFile.getName();
+					String url = destFile.getPath();
+					System.out.println(nombre);
+					res = vd.subirPapeleta("", "", url, idvac);
+				}
+			} catch (IOException | IllegalStateException ec) {
+				ec.getMessage();
+				ec.printStackTrace();
+			}
+			System.out.println(gson.toJson(archi));
+			System.out.println(res);
+		}
+		 return "redirect:/vacaciones/";
+	}
 }

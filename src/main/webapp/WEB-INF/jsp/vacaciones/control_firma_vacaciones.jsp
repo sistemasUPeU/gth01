@@ -57,14 +57,19 @@ div.dataTables_length {
 								class="mdi-content-save"></i> Guardar</a>
 						</div>
 						<div class="col s8">
-							<div class="file-field input-field">
-								<div class="btn">
-									<span>File</span> <input type="file">
+			<!-- ------------------------------------------------------------------------------------- -->
+							<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">
+								<div class="file-field input-field">
+									<div id="lobo" class="btn">
+										<span>File</span> <input id="file-input" type="file" name="file">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+										<input type="text" id="idvac" name="idvac" value="" class="hide" />
+									</div>
 								</div>
-								<div class="file-path-wrapper">
-									<input class="file-path validate" type="text">
-								</div>
-							</div>
+							</form>
+			<!-- ------------------------------------------------------------------------------------- -->
 						</div>
 					</div>
 				</div>
@@ -135,6 +140,10 @@ div.dataTables_length {
 					3000,
 					'rounded');
 		}
+	});
+
+	$("#lobo").click(function() {
+        $("#idvac").val($("#iddet").attr("name"));
 	});
 	
 	$("#guardar").click(function() {
@@ -319,7 +328,7 @@ div.dataTables_length {
 		            j += '</button>';
 				}
 	            j += '</div>';
-	            j += '<button class="hide det" value="'+k+'" name="'+obj[i].ID_DET_VACACIONES+'"></button>';
+	            j += '<button id="iddet" class="hide det" value="'+k+'" name="'+obj[i].ID_DET_VACACIONES+'"></button>';
 			}
 	        fechas.innerHTML += j;
 			z = obj.length;
@@ -362,5 +371,40 @@ div.dataTables_length {
 		s += '</table>';
 		return s;
 	};
+
+	$("#guardar").click(function(event) {
+		console.log("SALE PUES");
+		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+		var csrfToken = $("meta[name='_csrf']").attr("content");
+		console.log(csrfToken + " / " + csrfHeader);
+		var file = $("#file-input").val();
+		var form = $('#documentoForm')[0];
+		var data = new FormData(form);
+		console.log(csrfHeader + "  " + csrfToken);
+		console.log(file + "  " + form + "  " + data);
+		if (file != "") {
+			$.ajax({
+				type : "POST",
+				enctype : 'multipart/form-data',
+				url : gth_context_path + "/solicitud/papeleta",
+				data : data,
+				processData : false,
+				contentType : false,
+				cache : false,
+				timeout : 600000,
+				beforeSend : 
+					function(xhr) {
+						xhr.setRequestHeader(csrfHeader, csrfToken);
+					}, success : function(data) {
+						console.log(data);
+					},
+				error : function(e) {
+					alert("NADA pepe : ", e);
+				}
+			});
+		} else {
+			Materialize.toast('Falta subir papeleta!', 3000, 'rounded');
+		}
+	});
 </script>
 </html>

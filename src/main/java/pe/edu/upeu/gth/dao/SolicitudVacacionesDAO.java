@@ -91,7 +91,7 @@ public class SolicitudVacacionesDAO {
 		    	}
 		       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays" + idt+"\\SoliVac-"+idt+".pdf";
 //		       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
-		       System.out.println("existe ?¡:"+outDir.exists());
+		       System.out.println("existe ?ï¿½:"+outDir.exists());
 		       
 			 // Exporta el informe a PDF
 			 JasperExportManager.exportReportToPdfFile(print,outfilePDF);
@@ -209,6 +209,17 @@ public class SolicitudVacacionesDAO {
 			System.out.println("Error: " + e);
 		}
 		return x;
+	}
+	
+	public int subirPapeleta(String nombre, String tipo, String url, String idvac) {
+		String sql = "UPDATE RHMV_DET_VACACIONES SET URL= ? WHERE ID_DET_VACACIONES = ?";
+		try {
+			jt.update(sql, url, idvac);
+			return 1;
+		} catch (Exception e) {
+			System.out.println("Error: " + e);
+			return 0;
+		}
 	}
 
 	public List<Map<String, Object>> reportePorDepartamento(String fecha1, String fecha2) {
