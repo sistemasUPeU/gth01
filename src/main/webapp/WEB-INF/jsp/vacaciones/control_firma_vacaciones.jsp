@@ -379,8 +379,7 @@ div.dataTables_length {
 		console.log(csrfToken + " / " + csrfHeader);
 		var file = $("#file-input").val();
 		var form = $('#documentoForm')[0];
-		var data = new FormData(form);
-		console.log(csrfHeader + "  " + csrfToken);
+		var data;
 		console.log(file + "  " + form + "  " + data);
 		if (file != "") {
 			$.ajax({
@@ -392,18 +391,20 @@ div.dataTables_length {
 				contentType : false,
 				cache : false,
 				timeout : 600000,
-				beforeSend : 
-					function(xhr) {
-						xhr.setRequestHeader(csrfHeader, csrfToken);
-					}, success : function(data) {
-						console.log(data);
-					},
-				error : function(e) {
-					alert("NADA pepe : ", e);
+				beforeSend : function(xhr, data) {
+					xhr.setRequestHeader(csrfHeader, csrfToken);
+					console.log("data: "+data);
+					if (data == "1") {
+						console.log("success: " + data);
+						Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
+					} else if (data == "0") {
+						console.log("error: " + data);
+						Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+					}
 				}
 			});
 		} else {
-			Materialize.toast('Falta subir papeleta!', 3000, 'rounded');
+			Materialize.toast('No hay papeleta', 3000, 'rounded');
 		}
 	});
 </script>
