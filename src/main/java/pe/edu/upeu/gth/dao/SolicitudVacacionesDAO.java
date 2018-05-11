@@ -85,13 +85,13 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 				//generar Carpeta 
 				
 //				   outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
-				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays\\" + idtrabajador;
+				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador;
 			       File outDir = new File(outFoler);
 			       System.out.println("existe o no "+outDir.exists());
 			       if (outDir.exists() == false) { 
 		    	       outDir.mkdirs();
 			    	}
-			       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays\\" + idtrabajador+"\\SoliVac-"+idtrabajador+".pdf";
+			       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador+"\\SVP_"+idtrabajador+".pdf";
 //			       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
 			       System.out.println("existe ?¡:"+outDir.exists());
 			       
