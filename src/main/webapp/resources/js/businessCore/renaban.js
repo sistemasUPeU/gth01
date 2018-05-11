@@ -300,7 +300,7 @@ function aceptarRenaban(idrab,tipo){
 	var tipo= tipo;
 	alert(idrab);
 	alert(tipo);
-	if(tipo="RENUNCIA"){
+	if(tipo=="RENUNCIA"){
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
 			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){
 				 window.location.href = gth_context_path +"/renaban/listaRA";					 
@@ -313,10 +313,10 @@ function aceptarRenaban(idrab,tipo){
 	        });
 	}else{
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar el abandono de este trabajador?', function(){
-			 $.get("detalleR",{opc:9,tipo:'A',idr:idr},function(data){
+			 $.get("detalleR",{opc:9,tipo:'A',idra:idra},function(data){
 				 window.location.href = gth_context_path +"/renaban/listaRA";					 
 				
-//        		 alert(data);
+        		 alert(data);
         	});
 			 
 	     	} , function(){ 

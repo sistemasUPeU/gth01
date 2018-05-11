@@ -407,7 +407,7 @@ function enviarCorreo() {
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
 //	var para = $("#correo").text();
-	var para = "yanetpalacios@upeu.edu.pe";
+	var para = "estefannygarcia@upeu.edu.pe";
 	var clave = "GTH123456";
 	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
@@ -467,9 +467,11 @@ function insertarLegajo() {
 function notificarRenuncia() {
 	var inst = $('[data-remodal-id=modal]').remodal();
 	var idr = $("#idr").text();
-//	alert(idr);
+	var tipo1 = $("#tipo1").text();
+	alert(idr);
 	$.get(gth_context_path+"/renuncias/listarxd", {
 		idr : idr,
+		tipo1:tipo1,
 		opc : 6
 	}, function(data, status) {
 		console.log(data);
@@ -482,11 +484,11 @@ function notificarRenuncia() {
 			    showHideTransition: 'fade',
 			    icon: 'success'
 			})
-			// alert("NOTIFICADO :v");
+			 alert("NOTIFICADO :v");
 			listarNotificados();
 			listarProcesados();
 		} else {
-			// alert(" NOOOOOOOOOOOOO SE MANDO");
+			 alert(" NOOOOOOOOOOOOO SE MANDO");
 		}
 
 	});

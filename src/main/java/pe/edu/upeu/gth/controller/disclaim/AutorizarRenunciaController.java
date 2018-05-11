@@ -65,7 +65,7 @@ public class AutorizarRenunciaController {
 			case 4:
 				String idr = request.getParameter("idr");
 				String tipo = request.getParameter("tipo");
-				System.out.println("Esta llegando un idr:" +idr);
+				System.out.println("Esta llegando un idr:" +tipo);
 				r.setId_renuncia(idr);
 				String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 				out.println(ra.AutorizarRenuncia(r,idusuario,tipo));

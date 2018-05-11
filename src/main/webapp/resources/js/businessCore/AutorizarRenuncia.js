@@ -439,7 +439,7 @@ function DetalleRenuncia(idc,tipon) {
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
 					var tipo= $("#tipo").val();
-					//alert(idr);
+					alert(tipo);
 					if(tipo="RENUNCIA"){
 						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar la renuncia de este trabajador?', function(){
 							 $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
