@@ -394,12 +394,12 @@ div.dataTables_length {
 				beforeSend : function(xhr, data) {
 					xhr.setRequestHeader(csrfHeader, csrfToken);
 					console.log("data: "+data);
-					if (data == "1") {
-						console.log("success: " + data);
-						Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
-					} else if (data == "0") {
+					if (data == "0") {
 						console.log("error: " + data);
 						Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+					} else {
+						console.log("success: " + data);
+						Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
 					}
 				}
 			});

@@ -267,7 +267,7 @@ public class SolicitudController {
 					System.out.println("controller: " +idvac);
 					System.out.println(nombre);
 					res = vd.subirPapeleta("", "", nome, idvac);
-					result = "1";
+					result = "redirect:/vacaciones/";
 				}
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
