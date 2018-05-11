@@ -209,10 +209,14 @@ $("#print").click(
 
 			$('.modal').openModal();
 			var idt = $("#idtrb").val();
-			console.log(idt);
+			parseDate($("#fe_inicio_1").val().trim());
+			var feinicio1 = fecha_extra;
+			var fefin2 = $("#fe_final_1").val().trim();
+			
+			console.log(idt +", " + feinicio1);
 
 			$("#request").attr("data",
-					gth_context_path + "/solicitud/reporte?idtr=" + idt);
+					gth_context_path + "/solicitud/reporte?idtr=" + idt+"&feinicio1="+feinicio1);
 
 		});
 
