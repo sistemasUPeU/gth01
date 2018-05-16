@@ -209,10 +209,16 @@ $("#print").click(
 
 			$('.modal').openModal();
 			var idt = $("#idtrb").val();
-			console.log(idt);
-
-			$("#request").attr("data",
-					gth_context_path + "/solicitud/reporte?idtr=" + idt);
+			parseDate($("#fe_inicio_1").val().trim());
+			var feinicio1 = fecha_extra;
+			var fefin2 = $("#fe_final_1").val().trim();
+			
+			console.log(idt +", " + feinicio1);
+			var b="";
+			b="<embed src='" + gth_context_path + '/solicitud/reporte?idtr=' + idt+"&feinicio1="+feinicio1+"' style='width: 100%; height: 330px; ' type='application/pdf'>"
+//			$("#request").attr("data",
+//					gth_context_path + "/solicitud/reporte?idtr=" + idt+"&feinicio1="+feinicio1);
+			$("#show_request").html(b);
 
 		});
 

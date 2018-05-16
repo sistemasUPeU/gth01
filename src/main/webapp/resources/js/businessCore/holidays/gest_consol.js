@@ -1,4 +1,4 @@
-$(document).ready(function() {
+﻿$(document).ready(function() {
 	listarSinAprobar();
 	listarAprobado();
 });
@@ -13,21 +13,68 @@ function getSelected() {
 
 var z;
 
-$("#modalAprobado").on("click", ".check", function() {
-	if ($(this).attr("name") == 0) {
-		$(this).removeClass('pink lighten-2');
-		$(this).addClass('green accent-3');
-		$(this).attr("name", "1");
-		$(this).find("#i").removeClass('mdi-navigation-close');
-		$(this).find("#i").addClass('mdi-navigation-check');
-	} else if ($(this).attr("name") == 1) {
-		$(this).removeClass('green accent-3');
-		$(this).addClass('pink lighten-2');
-		$(this).attr("name", "0");
-		$(this).find("#i").removeClass('mdi-navigation-check');
-		$(this).find("#i").addClass('mdi-navigation-close');
-	}
-});
+$("#modalAprobado")
+		.on(
+				"click",
+				".check",
+				function() {
+					if ($(this).attr("name") == 0
+							&& $(this).attr("id") == "nolisto1") {
+						$(this).removeClass('pink lighten-2');
+						$(this).addClass('green accent-3');
+						$(this).attr("name", "1");
+						$(this).find("#i").removeClass('mdi-navigation-close');
+						$(this).find("#i").addClass('mdi-navigation-check');
+					} else if ($(this).attr("name") == 1
+							&& $(this).attr("id") == "nolisto1") {
+						if ($("#nolisto2").attr("name") == "1") {
+							Materialize
+									.toast(
+											'Cambio no valido, debes desconfirmar la fecha final!',
+											3000, 'rounded');
+						} else {
+							$(this).removeClass('green accent-3');
+							$(this).addClass('pink lighten-2');
+							$(this).attr("name", "0");
+							$(this).find("#i").removeClass(
+									'mdi-navigation-check');
+							$(this).find("#i").addClass('mdi-navigation-close');
+						}
+					}
+					if ($(this).attr("name") == 0
+							&& $(this).attr("id") == "nolisto2") {
+						if ($("#nolisto1").attr("name") == "1"
+								|| $("#listo1").attr("name") == "1") {
+							$(this).removeClass('pink lighten-2');
+							$(this).addClass('green accent-3');
+							$(this).attr("name", "1");
+							$(this).find("#i").removeClass(
+									'mdi-navigation-close');
+							$(this).find("#i").addClass('mdi-navigation-check');
+						} else if ($("#nolisto1").attr("name") == "0") {
+							console.log("maincraaa");
+							Materialize
+									.toast(
+											'Cambio no valido, debes confirmar la fecha inicial!',
+											3000, 'rounded');
+						}
+					} else if ($(this).attr("name") == 1
+							&& $(this).attr("id") == "nolisto2") {
+						$(this).removeClass('green accent-3');
+						$(this).addClass('pink lighten-2');
+						$(this).attr("name", "0");
+						$(this).find("#i").removeClass('mdi-navigation-check');
+						$(this).find("#i").addClass('mdi-navigation-close');
+					}
+					if ($(this).attr("name") == 1
+							&& $(this).attr("id") == "listo1"
+							|| $(this).attr("id") == "listo2") {
+						Materialize
+								.toast(
+										'No puedes modificar esta fecha, porque ya fue confirmada!',
+										3000, 'rounded');
+					}
+				});
 
 $("#guardar").click(
 		function() {
@@ -140,7 +187,9 @@ $("#contTable")
 																$(
 																		"#verbtnSolicitudsinAprobar")
 																		.append(
-																				'<div class="col s12" id="file-input-field" ><div class="file-field input-field"><div class="btn"><span>Solicitud</span> <input type="file" name="file" id="file-input-s"></div><div class="file-path-wrapper"><input class="file-path validate" type="text"></div></div>'
+																				'<div class="col s12" id="file-input-field" ><div class="file-field input-field">'
+																						+ '<div class="btn"><span>Solicitud</span> <input type="file" name="file" id="file-input-s"></div>'
+																						+ '<div class="file-path-wrapper"><input class="file-path validate" type="text"></div></div>'
 																						+ '</div><br> '
 																						+ '<input type="text" id="idvac" name="idvac" value="'
 																						+ data[0].ID_VACACIONES
@@ -215,7 +264,7 @@ $("#contTableAprobado")
 											j += '<br> <br>';
 											n_n = n_n + 1;
 											if (obj[i].FIRMA_SALIDA == 0) {
-												j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'
+												j += '<button id="nolisto1" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'
 														+ n_n
 														+ '" name="'
 														+ obj[i].FIRMA_SALIDA
@@ -232,7 +281,7 @@ $("#contTableAprobado")
 												j += '<div class="col s1">';
 												j += '<br> <br>';
 												n_n = n_n + 1;
-												j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" disabled value="'
+												j += '<button id="nolisto2" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'
 														+ n_n
 														+ '"  name="'
 														+ obj[i].FIRMA_ENTRADA
@@ -240,7 +289,7 @@ $("#contTableAprobado")
 												j += '<i class="mdi-navigation-close" id="i"></i>';
 												j += '</button>';
 											} else if (obj[i].FIRMA_SALIDA == 1) {
-												j += '<button class="btn-floating waves-effect waves-light green accent-3 check" disabled value="'
+												j += '<button id="listo1" class="btn-floating waves-effect waves-light green accent-3 check" value="'
 														+ n_n
 														+ '" name="'
 														+ obj[i].FIRMA_SALIDA
@@ -258,7 +307,7 @@ $("#contTableAprobado")
 												j += '<br> <br>';
 												n_n = n_n + 1;
 												if (obj[i].FIRMA_ENTRADA == 0) {
-													j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'
+													j += '<button id="nolisto2" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'
 															+ n_n
 															+ '"  name="'
 															+ obj[i].FIRMA_ENTRADA
@@ -266,7 +315,7 @@ $("#contTableAprobado")
 													j += '<i class="mdi-navigation-close" id="i"></i>';
 													j += '</object>';
 												} else if (obj[i].FIRMA_ENTRADA == 1) {
-													j += '<button class="btn-floating waves-effect waves-light green accent-3 check" disabled value="'
+													j += '<button id="listo2" class="btn-floating waves-effect waves-light green accent-3 check" value="'
 															+ n_n
 															+ '"  name="'
 															+ obj[i].FIRMA_ENTRADA
@@ -337,7 +386,9 @@ $("#contTableAprobado")
 																$(
 																		"#verbtnPapeleta")
 																		.append(
-																				'<div class="col s6"><div class="file-field input-field" id="file-input-field-p" ><div class="btn" ><span>Papeleta</span> <input type="file" name="file" id="file-input-p" /></div><div class="file-path-wrapper"><input type="text" class="file-path validate" />'
+																				'<div class="col s6"><div class="file-field input-field" id="file-input-field-p" >'
+																						+ '<div class="btn" ><span>Papeleta</span> <input type="file" name="file" id="file-input-p" /></div>'
+																						+ '<div class="file-path-wrapper"><input type="text" class="file-path validate" />'
 																						+ '</div></div></div>'
 																						+ '<input type="text" id="idvac" name="idvac" value="'
 																						+ data[0].ID_VACACIONES
