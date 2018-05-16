@@ -204,11 +204,11 @@
 		<!-- 			</section> -->
 		<!-- 		</div> -->
 		<div id="modal1" class="modal" style="width: 850px; height: 2000px;">
-			<div class="modal-content">
+			<div class="modal-content" id="show_request">
 
 				<!-- 				D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jasper -->
-				<object id="request" data="" type="application/pdf" width="800"
-					height="600"> </object>
+<!-- 				<object id="request" data="" type="application/pdf" width="800" -->
+<!-- 					height="600"> </object> -->
 			</div>
 		</div>
 		<br>

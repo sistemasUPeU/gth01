@@ -1,7 +1,10 @@
 package pe.edu.upeu.gth.controller.holidays;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,16 +96,20 @@ public class SolicitudController {
 	// }
 
 	@RequestMapping(path="/reporte", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String verReporte(Model model, HttpServletRequest request,
-			@RequestParam(name = "format", defaultValue = "pdf", required = false) String format) throws JRException {
+	public void verReporte(Model model, HttpServletRequest request,HttpServletResponse response,
+			@RequestParam(name = "format", defaultValue = "pdf", required = false) String format) throws JRException, IOException {
 		// JasperCompileManager.compileReport("D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml");
+		ServletContext cntx = request.getServletContext();
+		String idt = "";
 		try {
 			System.out.println("reporte");
-			String idt = request.getParameter("idtr");
-			String fecha1 = request.getParameter("fecha1");
+			idt = request.getParameter("idtr");
+			String fechainicio1 = request.getParameter("feinicio1");
+			System.out.println("--------------reporte controller pdf---------------");
 			System.out.println(idt);
+			System.out.println(fechainicio1);
 //			List<Map<String, Object>> sd = 
-					vd.llenar_solicitud(idt,fecha1);
+					vd.llenar_solicitud(idt,fechainicio1);
 //			model.addAttribute("format", format);
 //			model.addAttribute("datasource", sd);
 //			model.addAttribute("AUTOR", "Tutor de programacion");
@@ -111,17 +118,43 @@ public class SolicitudController {
 			System.out.println("error controller, reporte: " + e);
 		}
 		
-		// abrirReporte(getClass().getResource("/src/main/resources/request_report.jrxml").getPath());
-		return "request_report";
+		
+		
+		//mostrar archivos
+		System.out.println("controller cargar archivo");
+
+		
+		String filename = cntx.getRealPath("/resources/files/solicitud/" + idt + "/SVP_"+idt+".pdf");
+//		String filename = UPLOADED_FOLDER+"\\" + nombre;
+//		 String filenam1e ="E:\\CONEIA\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\h\\"+nom;
+
+		System.out.println( "//" + "//" + filename);
+		
+		
+		String mime = cntx.getMimeType(filename);
+		if (mime == null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+
+		response.setContentType(mime);
+		File file = new File(filename);
+		response.setContentLength((int) file.length());
+
+		FileInputStream in = new FileInputStream(file);
+		OutputStream out = response.getOutputStream();
+		System.out.println(out);
+		// Copy the contents of the file to the output stream
+		byte[] buf = new byte[1024];
+		int count = 0;
+		while ((count = in.read(buf)) >= 0) {
+			out.write(buf, 0, count);
+		}
+		out.close();
+		in.close();
+		
 	}
 
-	// @RequestMapping(value="/probar", method = RequestMethod.GET)
-	// public @ResponseBody String hola (HttpServletRequest request) {
-	// System.out.println("entro");
-	// String pr= "llego data";
-	// System.out.println(pr);
-	// return pr;
-	// }
+
 
 	@RequestMapping(path = "/validar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String validarTipoSolicitud(HttpServletRequest request, Model model) {

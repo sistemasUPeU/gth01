@@ -29,6 +29,8 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import com.google.gson.Gson;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -52,49 +54,49 @@ public class SolicitudVacacionesDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-	public Map<String, Object> llenar_solicitud(String idt, String fecha1) {
+public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1) {
 		
 		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
 		Map<String, Object> OutValues = new HashMap<>();
 		 String outfilePDF ="";
 		 String outFoler ="";
 		 
+		 
 	    try {
 	    	// Cargamos el driver JDBC
+	    		JRDataSource datasource = new JREmptyDataSource();
+	    	
+//	    	cn=(Connection) jt.getDataSource();
 	    	 Class.forName("oracle.jdbc.OracleDriver");
 	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
 	    	 cn.setAutoCommit(false);
+		       	
+		    	Map<String,Object> Inparamets = new HashMap<String,Object>();
+				
+				Inparamets.put("txtidtrab", idtrabajador);
+				Inparamets.put("txtfecha1", fechainicio1);
+//				Inparamets.put("txtIdVacante", idvacante);
+				System.out.println(Inparamets);
 		      
-	    	//llenamos variables creamos la fecha actual
-            Date ahora = new Date();
-            SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-		    String fecha = formateador.format(ahora);
-	    	
-	    	Map<String,Object> Inparamets = new HashMap<String,Object>();
-			Inparamets.put("Fecha", fecha);
-			Inparamets.put("txtIdtrab", idt);
-			Inparamets.put("txtfecha1", fecha1);
-//			Inparamets.put("txtIdVacante", idvacante);
-			System.out.println(Inparamets);
-	      
-			JasperReport report = JasperCompileManager.compileReport(jasperFile);
-			JasperPrint print = JasperFillManager.fillReport(report, Inparamets, cn);
-			   
-			//generar Carpeta 
-			
-//			   outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
-			   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays" + idt;
-		       File outDir = new File(outFoler);
-		       System.out.println("existe o no "+outDir.exists());
-		       if (outDir.exists() == false) { 
-	    	       outDir.mkdirs();
-		    	}
-		       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\docholidays" + idt+"\\SoliVac-"+idt+".pdf";
-//		       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
-		       System.out.println("existe ?�:"+outDir.exists());
-		       
-			 // Exporta el informe a PDF
-			 JasperExportManager.exportReportToPdfFile(print,outfilePDF);
+				JasperReport report = JasperCompileManager.compileReport(jasperFile);
+				JasperPrint print = JasperFillManager.fillReport(report, Inparamets, cn);
+				System.out.println(report);
+				System.out.println(print);
+				//generar Carpeta 
+				
+//				   outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
+				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador;
+			       File outDir = new File(outFoler);
+			       System.out.println("existe o no "+outDir.exists());
+			       if (outDir.exists() == false) { 
+		    	       outDir.mkdirs();
+			    	}
+			       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador+"\\SVP_"+idtrabajador+".pdf";
+//			       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
+			       System.out.println("existe ?¡:"+outDir.exists());
+			       
+				 // Exporta el informe a PDF
+				 JasperExportManager.exportReportToPdfFile(print,outfilePDF);
 	     
 	    }
 	    catch (Exception e) {
