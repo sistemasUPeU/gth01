@@ -215,7 +215,7 @@ $("#print").click(
 			
 			console.log(idt +", " + feinicio1);
 			var b="";
-			b="<embed src='" + gth_context_path + '/solicitud/reporte?idtr=' + idt+"&feinicio1="+feinicio1+"' style='width: 100%; height: 330px; ' type='application/pdf'>"
+			b="<embed src='" + gth_context_path + '/solicitud/reporte?idtr=' + idt+"&feinicio1="+feinicio1+"' style='width: 100%; height: 600px; ' type='application/pdf'>"
 //			$("#request").attr("data",
 //					gth_context_path + "/solicitud/reporte?idtr=" + idt+"&feinicio1="+feinicio1);
 			$("#show_request").html(b);

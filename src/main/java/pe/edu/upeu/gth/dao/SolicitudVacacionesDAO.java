@@ -18,6 +18,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class SolicitudVacacionesDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1) {
+public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, ServletContext cntx) {
 		
 		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
 		Map<String, Object> OutValues = new HashMap<>();
@@ -84,14 +85,16 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 				System.out.println(print);
 				//generar Carpeta 
 				
-//				   outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
+//				    outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
 				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador;
+				   outFoler = cntx.getRealPath("/resources/files/solicitud/" + idtrabajador );
 			       File outDir = new File(outFoler);
 			       System.out.println("existe o no "+outDir.exists());
 			       if (outDir.exists() == false) { 
 		    	       outDir.mkdirs();
 			    	}
-			       outfilePDF ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador+"\\SVP_"+idtrabajador+".pdf";
+			       outfilePDF = cntx.getRealPath("/resources/files/solicitud/" + idtrabajador+"/SVP_"+idtrabajador+".pdf" );
+//			        ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador+"\\SVP_"+idtrabajador+".pdf";
 //			       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
 			       System.out.println("existe ?¡:"+outDir.exists());
 			       

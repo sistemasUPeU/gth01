@@ -109,7 +109,7 @@ public class SolicitudController {
 			System.out.println(idt);
 			System.out.println(fechainicio1);
 //			List<Map<String, Object>> sd = 
-					vd.llenar_solicitud(idt,fechainicio1);
+					vd.llenar_solicitud(idt,fechainicio1, cntx);
 //			model.addAttribute("format", format);
 //			model.addAttribute("datasource", sd);
 //			model.addAttribute("AUTOR", "Tutor de programacion");
@@ -233,8 +233,9 @@ public class SolicitudController {
 	ServletContext context;
 	@RequestMapping(path = "/archivos", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac,
-			HttpServletResponse response,  Authentication authentication) throws IOException {
-
+			HttpServletResponse response,  HttpServletRequest request, Authentication authentication) throws IOException {
+		ServletContext cntx = request.getServletContext();
+		String result = null;
 
 		int res = 0;
 		if (!file.isEmpty()) {
@@ -243,20 +244,24 @@ public class SolicitudController {
 				for (MultipartFile fi : file) {
 					System.out.println(file);
 					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					String nome= fi.getOriginalFilename();
+					nome="SOL_"+idvac.replace(" ","");
+					FilenameUtils fich = new FilenameUtils();
+					path = cntx.getRealPath("/resources/files/solicitud/" + nome+"."+FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo: " + path);
 					File destFile = new File(path);
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
-					FilenameUtils fich = new FilenameUtils();
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
-					System.out.println("controller: " +idvac);
 					String nombre = destFile.getName();
 					String url = destFile.getPath();
+					System.out.println("controller: " +idvac);
 					System.out.println(nombre);
-
-	
-					res = vd.subirDocumento("", "", url, idvac);
+					res = vd.subirDocumento("", "", nombre, idvac);
+					System.out.println("respuesta de update" + res);
+					result = "redirect:/vacaciones/";
 				}
 
 			} catch (IOException | IllegalStateException ec) {
@@ -269,8 +274,8 @@ public class SolicitudController {
 
 		}
 
-		 return "redirect:/vacaciones/";// + url;
-		// return gson.toJson(archi);
+		System.out.println(result);
+		return result;
 	}
 	
 

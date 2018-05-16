@@ -169,7 +169,7 @@
 						<div class="col s12 m12 l12 center">
 							<input type="file" name="file" id="file-input" class="dropify"
 								data-max-file-size="10M" data-errors-position="outside" /> <input
-								type="text" id="idvac" name="idvac" value="VAC-000004"
+								type="text" id="idvac" name="idvac" value=""
 								class="hide" />
 						</div>
 
