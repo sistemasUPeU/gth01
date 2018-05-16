@@ -111,11 +111,27 @@ public class GestionarPrograVacacDAO {
 		return i;
 	}
 	
-//	public void UPDATE_FECHAS(String ID_PASOS, String ID_PROCESO, String DE_PASOS, 
-//            String NU_PASOS, String CO_PASOS, String ES_PASO) {
-//        JDBC.update("CALL RHSP_UPDATE_FECHAS_VACACIONES(?, ?, ?, ?, ? ,?)",ID_PASOS,ID_PROCESO,
-//                DE_PASOS,NU_PASOS,CO_PASOS, ES_PASO);
-//    }
+	public List<Map<String, Object>> READFECHA(String id) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "SELECT RD.ID_DET_VACACIONES ,TO_CHAR(RD.FECHA_INICIO, 'DD/MM/YYYY') AS FECHA_INICIO, TO_CHAR(RD.FECHA_FIN, 'DD/MM/YYYY') AS FECHA_FIN FROM RHMV_DET_VACACIONES RD WHERE RD.ID_DET_VACACIONES = ?";
+			LST = JDBC.queryForList(SQL, id);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
+	}
 	
-    
+	public int UPDATEFECHA(String id, String inicio, String fin) {
+
+		String SQL = "UPDATE RHMV_DET_VACACIONES SET FECHA_INICIO = ?, FECHA_FIN = ? WHERE ID_DET_VACACIONES = ?";
+		try {
+			JDBC.update(SQL, new Object[] { inicio, fin, id });
+			return 1;
+		} catch (Exception E) {
+			System.out.println("ERROR: " + E);
+			return 0;
+		}
+	}
 }

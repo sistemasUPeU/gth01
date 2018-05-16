@@ -220,5 +220,20 @@ public class PrincipalController {
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/vac_reportes");
 	}
-
+	
+	@RequestMapping(path = "/readFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String leerFechaMod(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READFECHA(id));
+	}
+	
+	@RequestMapping(path = "/updateFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarFechaMod(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		String inicio = RQ.getParameter("inicio");
+		String fin = RQ.getParameter("fin");
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
+	}
 }

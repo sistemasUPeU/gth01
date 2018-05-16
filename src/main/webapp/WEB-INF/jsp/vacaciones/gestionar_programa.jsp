@@ -88,22 +88,21 @@ div.dataTables_length {
 			</div>
 			<div id="modal2" class="modal" style="width: 850px; height: 2000px;">
 				<div class="modal-content">
-					<h4>Modificar fecha de inicio y fecha fin</h4>
-					<p>Seleccione fecha:</p>
+					<h3>Modificar fecha de inicio y fecha fin</h3>
+					<button id="iddet" class="hide" value=""></button>
 					<div class="row">
 						<div class="col s8 m6 l6">
-
 							<p>Seleccione fecha de inicio:</p>
-							<input type="text" class="datepicker">
+							<input id="fec_in" type="text" class="datepicker">
 						</div>
 						<div class="col s8 m6 l6">
 							<p>Seleccione fecha de fin:</p>
-							<input type="text" class="datepicker">
+							<input id="fec_fi" type="text" class="datepicker" disabled>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<a href="#!"
+					<a id="fec_up" href="#!"
 						class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>
 				</div>
 			</div>
@@ -241,8 +240,7 @@ div.dataTables_length {
 
 	<script type="text/javascript">
 	function loadProfile(){
-		//location.href="<%=request.getContextPath()%>
-		/trabajador/profile";
+		//location.href="<%=request.getContextPath()%>/trabajador/profile";
 		}
 		var divisiones = 0;
 		$(document)
@@ -404,26 +402,6 @@ div.dataTables_length {
 			return inicio;
 		};
 
-		function calcular_final(begin) {
-
-			console.log("fecha enviada " + begin);
-			console.log("fecha enviada " + begin.getFullYear);
-			var calculado = new Date();
-
-			begin.setDate(begin.getDate() + 29);
-
-			var anno = begin.getFullYear();
-			var mes = begin.getMonth() + 1;
-			var dia = begin.getDate();
-			mes = (mes < 10) ? ("0" + mes) : mes;
-			dia = (dia < 10) ? ("0" + dia) : dia;
-			var fechaFinal = dia + "/" + mes + "/" + anno;
-
-			console.log("fecha calculada: " + fechaFinal);
-
-			return fechaFinal;
-		}
-
 		var cont = 2;
 		$("#agregar")
 				.click(
@@ -549,43 +527,6 @@ div.dataTables_length {
 			});
 
 		};
-
-		function aaa() {
-			$("#aa").submit();
-		}
-		$("#modal2")
-				.click(
-						function() {
-							arrid = getSelected();
-							var username = $("#username").val();
-							var id_arr = arrid;
-							var id_det = id_arr.join(",");
-							console.log(username);
-							console.log(id_det);
-							var datos = "username=" + username;
-							datos += "&id_det=" + id_det;
-							var con = new jsConnector();
-							con
-									.post(
-											"vacaciones/gestionar_programa/insertProgramaVacaciones?"
-													+ datos,
-											null,
-											function(data) {
-												if (data == 1) {
-													Materialize
-															.toast(
-																	'Felicidades!!, ha aprobado a sus trabajadores',
-																	3000,
-																	'rounded');
-												} else {
-													Materialize
-															.toast(
-																	'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
-																	3000,
-																	'rounded');
-												}
-											});
-						});
 	</script>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
@@ -632,6 +573,15 @@ div.dataTables_length {
 			return allVals;
 		}
 		$("#table_contenido").on("click", "#abrir-modal2", function() {
+			var id_det_vac = $(this).attr("name");
+			console.log(id_det_vac);
+			$("#iddet").val(id_det_vac);
+			$.get('readFechaMod', {id : id_det_vac}, function (data) {
+				console.log("fechas: " + data[0].FECHA_INICIO + " y " + data[0].FECHA_FIN);
+				$('#fec_in').pickadate('picker').set('select', data[0].FECHA_INICIO, {format : 'dd/mm/yyyy'}).trigger("change");
+				$('#fec_fi').pickadate('picker').set('select', data[0].FECHA_FIN, {format : 'dd/mm/yyyy'}).trigger("change");
+				console.log(data);
+		    });
 			$("#modal2").openModal();
 		});
 		$("#table_contenido").on("click", "#abrir-modal1", function() {
@@ -741,7 +691,7 @@ div.dataTables_length {
 									s += '<input type="checkbox" id="test'+i+'">';
 									s += '<label for="test'+i+'"></label>';
 									s += '</p></td>';
-									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
+									s += '<td><button id="abrir-modal2" name="' + obj[i].ID_DET_VACACIONES + '" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
 									s += '</tr>';
 
 								}
@@ -931,6 +881,50 @@ div.dataTables_length {
 							
 										
 						});
+
+		$("#fec_up").click(function() {
+			var f = new Date();
+			parseDate($("#fec_in").val());
+			var fec_in = fecha_extra;
+			var fec_ac = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+			parseDate($("#fec_fi").val());
+			var fec_fi = fecha_extra;
+			var id = $("#iddet").val();
+			console.log(fec_in + " y " + fec_fi + " y " + id + " fea " + fec_ac);
+			if (fec_in > fec_ac) {
+				$.get('updateFechaMod', {id : id, inicio : fec_in, fin : fec_fi}, function (data) {
+					console.log(data);
+					listarTrabajadoresConSoli();
+			    });
+				Materialize.toast('Fecha modificada correctamente', 3000, 'rounded');
+			} else {
+				Materialize.toast('Escoge una fecha correcta!', 3000, 'rounded');
+			}
+		});
+
+		$("#fec_in").change(function() {
+			var fe_i = $("#fec_in").val();
+			console.log(fe_i);
+			var fecha_inicio = parseDate(fe_i);
+			console.log("fecha_inicio_return: " + fecha_inicio);
+			$('#fec_fi').pickadate('picker').set('select', calcular_final(fecha_inicio), {format : 'dd/mm/yyyy'}).trigger("change");
+			Materialize.updateTextFields();
+		});
+
+		function calcular_final(begin) {
+			console.log("fecha enviada " + begin);
+			console.log("fecha enviada " + begin.getFullYear);
+			var calculado = new Date();
+			begin.setDate(begin.getDate() + 29);
+			var anno = begin.getFullYear();
+			var mes = begin.getMonth() + 1;
+			var dia = begin.getDate();
+			mes = (mes < 10) ? ("0" + mes) : mes;
+			dia = (dia < 10) ? ("0" + dia) : dia;
+			var fechaFinal = dia + "/" + mes + "/" + anno;
+			console.log("fecha calculada: " + fechaFinal);
+			return fechaFinal;
+		}
 	</script>
 
 </body>
