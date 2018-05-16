@@ -97,75 +97,94 @@
 								</div>
 							</form>
 						</div>
-					</div>
-				</div>
-
-				<div id="modalAprobado" class="modal">
-					<div class="modal-content">
-						<h4>Control de firmas</h4>
-
-						<div class="row">
-							<div id="contenedor_fechas"></div>
-
-							<div class="col s4" style="text-align: center;">
-								<br> <br>
-								<button id="guardar" type="submit"
-									class="btn waves-effect waves-light modal-action modal-close">
-									<i class="mdi-content-save"></i>Guardar
-								</button>
-							</div>
+						<div class='modal-footer'>
+							<button
+								class="modal-action modal-close waves-effect waves-green btn-flat"
+								data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">CANCELAR</span>
+							</button>
 						</div>
-						<div class="row">
-							<form method="post"
-								action="/gth/vacaciones/consolidado/subirArchivo?${_csrf.parameterName}=${_csrf.token}"
-								enctype="multipart/form-data" class="" id="documentoForm">
-								<div id="verbtnPapeleta">
-									<div class="col s6">
-										<div class="file-field input-field">
-											<div class="btn">
-												<span>Papeleta</span> <input type="file">
-											</div>
-											<div class="file-path-wrapper">
-												<input class="file-path validate" type="text">
+					</div>
+
+					<div id="modalAprobado" class="modal">
+						<div class="modal-content">
+							<h4>Control de firmas</h4>
+
+							<div class="row">
+								<div id="contenedor_fechas"></div>
+
+								<div class="col s4" style="text-align: center;">
+									<br> <br>
+									<button id="guardar" type="submit"
+										class="btn waves-effect waves-light modal-action modal-close">
+										<i class="mdi-content-save"></i>Guardar
+									</button>
+								</div>
+							</div>
+							<div class="row">
+								<form method="post"
+									action="/gth/vacaciones/consolidado/subirArchivo?${_csrf.parameterName}=${_csrf.token}"
+									enctype="multipart/form-data" class="" id="documentoForm">
+									<div id="verbtnPapeleta">
+										<div class="col s6">
+											<div class="file-field input-field">
+												<div class="btn">
+													<span>Papeleta</span> <input type="file">
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text">
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="col s6">
-									<br>
-									<button class="btn waves-effect waves-light"
-										style="display: none;" id="btnsubirpapeleta">Subir
-										Papeleta</button>
-								</div>
-							</form>
+									<div class="col s6">
+										<br>
+										<button class="btn waves-effect waves-light"
+											style="display: none;" id="btnsubirpapeleta">Subir
+											Papeleta</button>
+									</div>
+								</form>
 
-							<div id="verbtnSolicitud"></div>
+								<div id="verbtnSolicitud"></div>
 
+							</div>
+						</div>
+						<div class='modal-footer'>
+							<button
+								class="modal-action modal-close waves-effect waves-green btn-flat"
+								data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">CANCELAR</span>
+							</button>
 						</div>
 					</div>
-				</div>
 
-				<div id="modal1" class="modal" style="width: 850px; height: 2000px;">
-					<div class="modal-content">
-						<object id="request" type="application/pdf" data="" width="800"
-							height="415"></object>
+					<div id="modal1" class="modal"
+						style="width: 850px; height: 2000px;">
+						<div class="modal-content">
+							<object id="request" type="application/pdf" data="" width="800"
+								height="380"></object>
+						</div>
+						<button
+							class="modal-action modal-close waves-effect waves-green btn-flat"
+							aria-label="Close">
+							<span aria-hidden="true">CANCELAR</span>
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<script
-		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/businessCore/holidays/gest_consol.js'></c:url>"
-		type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
+			type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+			type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+			type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/businessCore/holidays/gest_consol.js'></c:url>"
+			type="text/javascript"></script>
 </body>
 </html>
