@@ -378,10 +378,16 @@ div.dataTables_length {
 		var csrfToken = $("meta[name='_csrf']").attr("content");
 		console.log(csrfToken + " / " + csrfHeader);
 		var file = $("#file-input").val();
+// 		var form = $('#documentoForm')[0];
+// 		var data;
+				
 		var form = $('#documentoForm')[0];
-		var data;
-		console.log(file + "  " + form + "  " + data);
+	    var data = new FormData(form);
+		
+	    console.log(file + "  " + form + "  " + data);
+	    
 		if (file != "") {
+			
 			$.ajax({
 				type : "POST",
 				enctype : 'multipart/form-data',
@@ -394,14 +400,23 @@ div.dataTables_length {
 				beforeSend : function(xhr, data) {
 					xhr.setRequestHeader(csrfHeader, csrfToken);
 					console.log("data: "+data);
-					if (data == "0") {
-						console.log("error: " + data);
+					
+				},
+				success: function(data){
+					console.log("success data: "+data);
+				      
+				      if (data == "0") {
+							console.log("error: " + data);
+							Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+						} else {
+							console.log("success: " + data);
+							Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
+						}
+				    },
+				    error : function(e) {
+						console.log("error ajx "+e.responseText);
 						Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
-					} else {
-						console.log("success: " + data);
-						Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
 					}
-				}
 			});
 		} else {
 			Materialize.toast('No hay papeleta', 3000, 'rounded');

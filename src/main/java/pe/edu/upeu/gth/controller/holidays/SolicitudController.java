@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,7 +110,7 @@ public class SolicitudController {
 			System.out.println(idt);
 			System.out.println(fechainicio1);
 //			List<Map<String, Object>> sd = 
-					vd.llenar_solicitud(idt,fechainicio1, cntx);
+					vd.llenar_solicitud(idt,fechainicio1, cntx , response);
 //			model.addAttribute("format", format);
 //			model.addAttribute("datasource", sd);
 //			model.addAttribute("AUTOR", "Tutor de programacion");
@@ -280,10 +281,12 @@ public class SolicitudController {
 	
 
 	@RequestMapping(path = "/papeleta", method = RequestMethod.POST)
-	public String SubirPapeleta(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac, HttpServletResponse response, HttpServletRequest request,  Authentication authentication) throws IOException {
+	public @ResponseBody void SubirPapeleta(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac, HttpServletResponse response, HttpServletRequest request,  Authentication authentication) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		int res = 0;
 		String result = null;
+		
+		PrintWriter out = response.getWriter();
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
@@ -292,7 +295,7 @@ public class SolicitudController {
 					String nome= fi.getOriginalFilename();
 					nome="PAP_"+idvac.replace(" ","");
 					FilenameUtils fich = new FilenameUtils();
-					path = cntx.getRealPath("/resources/files/papeletas/" + nome+"."+FilenameUtils.getExtension(path));
+					path = cntx.getRealPath("/resources/files/papeleta/" + nome+"."+FilenameUtils.getExtension(path));
 					System.out.println("ruta del archivo: " + path);
 					File destFile = new File(path);
 					fi.transferTo(destFile);
@@ -304,7 +307,7 @@ public class SolicitudController {
 					String url = destFile.getPath();
 					System.out.println("controller: " +idvac);
 					System.out.println(nombre);
-					res = vd.subirPapeleta("", "", nome, idvac);
+					res = vd.subirPapeleta("", "", nombre, idvac);
 					result = "redirect:/vacaciones/";
 				}
 			} catch (IOException | IllegalStateException ec) {
@@ -314,8 +317,10 @@ public class SolicitudController {
 			}
 			System.out.println(gson.toJson(archi));
 			System.out.println(res);
+			
 		}
 		System.out.println(result);
-		return result;
+		out.println(result);
+	
 	}
 }
