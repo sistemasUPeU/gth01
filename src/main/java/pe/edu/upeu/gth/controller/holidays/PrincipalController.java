@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -28,7 +26,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
-import pe.edu.upeu.gth.dao.MailServiceImpl;
+import pe.edu.upeu.gth.dao.HistorialVacacionesDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -106,7 +104,13 @@ public class PrincipalController {
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
-
+	
+	@RequestMapping(path = "/readHistorial", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getHistorial() {
+		HistorialVacacionesDAO DAO = new HistorialVacacionesDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READHISTORIAL(""));
+	}
+	
 	@Autowired
 	ServletContext context;
 
