@@ -89,8 +89,12 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/aprobar_pv");
 
 	}
-
-	//
+	
+	@GetMapping("/historial")
+	public ModelAndView historial_tramite(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/historial_tramite");
+	}
+	
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
