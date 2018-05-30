@@ -304,7 +304,7 @@ public class SolicitudController {
 					String url = destFile.getPath();
 					System.out.println("controller: " +idvac);
 					System.out.println(nombre);
-					res = vd.subirPapeleta("", "", nome, idvac);
+					res = vd.subirPapeleta("", "", nombre, idvac);
 					result = "redirect:/vacaciones/";
 				}
 			} catch (IOException | IllegalStateException ec) {
