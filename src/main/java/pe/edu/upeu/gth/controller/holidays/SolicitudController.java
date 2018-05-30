@@ -109,7 +109,7 @@ public class SolicitudController {
 			System.out.println(idt);
 			System.out.println(fechainicio1);
 //			List<Map<String, Object>> sd = 
-					vd.llenar_solicitud(idt,fechainicio1, cntx);
+			vd.llenar_solicitud(idt,fechainicio1, cntx , response);
 //			model.addAttribute("format", format);
 //			model.addAttribute("datasource", sd);
 //			model.addAttribute("AUTOR", "Tutor de programacion");
@@ -316,6 +316,7 @@ public class SolicitudController {
 			System.out.println(res);
 		}
 		System.out.println(result);
+		
 		return result;
 	}
 }
