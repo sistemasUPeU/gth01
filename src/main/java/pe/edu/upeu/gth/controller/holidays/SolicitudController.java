@@ -167,7 +167,7 @@ public class SolicitudController {
 
 		int sd = vd.validarTipoSolicitud(trab);
 		// String res = sd+"/"+rol;
-		System.out.println(gs.toJson(sd));
+		System.out.println("validación de tipo solicitud" + gs.toJson(sd));
 
 		//// model.setViewName("home");
 		// model.addObject("nro",0);
