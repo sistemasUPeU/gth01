@@ -141,9 +141,28 @@ public class RenProcesarDAO implements CRUDOperations{
 			// TODO: handle exception
 			System.out.println("Error:" + e);
 		}
-		return x;
-		
-		
-		
+		return x;	
 	}
+	public int BuscarRol(String idrol,String tipo) {
+		int seracierto = 0;			
+		try {
+			if(idrol=="ROL-0009"||idrol=="ROL-0001"||idrol=="ROL-0006") {
+				if(tipo=="ABANDONO") {
+					seracierto = 1;
+				}else {
+					seracierto = 0;
+				}
+			}else {
+				seracierto = 1;
+			}
+			
+			 
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR EN BUSCAR ROL:" + e);
+		}
+		return seracierto;
+	}
+	
 }
+

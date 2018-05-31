@@ -161,6 +161,7 @@
 										</h6>
 									</div>
 								</div>
+								</form>
 						<form class="col s12">
 							<div class="row">
 								<div class="input-field col s6">

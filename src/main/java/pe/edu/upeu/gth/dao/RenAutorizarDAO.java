@@ -74,8 +74,8 @@ public class RenAutorizarDAO implements CRUDOperations{
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente(String depa) {
 		System.out.println(depa);
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' and ra.NOM_DEPA='"+depa+"' AND rap.ID_PASOS='PAS-000430'";
-		sql +=" OR rap.ID_PASOS='PAS-000431' ORDER BY ra.FECHA_RENABAN DESC";
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' and ra.NOM_DEPA='"+depa+"' AND rap.ID_PASOS IN ('PAS-000430','PAS-000431')";
+		sql +=" ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
@@ -148,6 +148,28 @@ public class RenAutorizarDAO implements CRUDOperations{
 			return x;
 			
 		}
+		public int BuscarRol(String idrol,String tipo) {
+			int seracierto = 0;			
+			try {
+				if(idrol=="ROL-0009"||idrol=="ROL-0001"||idrol=="ROL-0006") {
+					if(tipo=="ABANDONO") {
+						seracierto = 1;
+					}else {
+						seracierto = 0;
+					}
+				}else {
+					seracierto = 1;
+				}
+				
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR EN BUSCAR ROL:" + e);
+			}
+			return seracierto;
+		}
+		
+		
 		
 //		public int insertarRechazo(Rechazo ob) {
 //			int x = 0;

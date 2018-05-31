@@ -264,7 +264,7 @@ function enviarCorreo() {
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
 //	var para = $("#correo").text();
-	var para = "estefannygarcia@upeu.edu.pe";
+	var para = "yanetpalacios@upeu.edu.pe";
 	var clave = "GTH123456";
 	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '')
 //	var foto = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');

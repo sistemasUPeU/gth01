@@ -427,6 +427,7 @@ function enviarCorreo() {
 			// alert("SE MANDO");
 			notificarRenuncia();
 			// insertarLegajo();
+			
 		} else {
 			// alert(" NOOOOOOOOOOOOO SE MANDO");
 		}

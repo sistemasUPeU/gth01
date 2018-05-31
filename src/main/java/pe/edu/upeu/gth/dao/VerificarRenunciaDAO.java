@@ -140,6 +140,28 @@ public class VerificarRenunciaDAO implements CRUDOperations{
 			
 		}
 		
+		public int BuscarRol(String idrol,String tipo) {
+			int seracierto = 0;			
+			try {
+				if(idrol=="ROL-0009"||idrol=="ROL-0001"||idrol=="ROL-0021") {
+					if(tipo=="ABANDONO") {
+						seracierto = 1;
+					}else {
+						seracierto = 0;
+					}
+				}else {
+					seracierto = 1;
+				}
+				
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR EN BUSCAR ROL:" + e);
+			}
+			return seracierto;
+		}
+		
+		
 //		public int insertarRechazo(Rechazo ob) {
 //			int x = 0;
 //			try {

@@ -463,6 +463,19 @@ function DetalleRenuncia(idc,tipon) {
 					}
 					 
 				});
+				var idr = detalle[0].ID_RENABAN;
+				var tipo= $("#tipo").val();
+				$.get("ProcesarR",{idr:idr,opc:7,tipo:tipo},function(data){
+					if(data==1){
+						
+							$("#RECHAZAR").css("display","none");
+						
+						
+						
+					}else{
+						$("#RECHAZAR").css("display","block");
+					}
+				});
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
 					var observaciones = $("#observaciones").val();					
@@ -479,7 +492,7 @@ function DetalleRenuncia(idc,tipon) {
 				        	
 				        });
 				});
-				
+//				
 				u = "";
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
 				u += ''

@@ -144,6 +144,9 @@ public class RecepcionarDAO implements CRUDOperations{
 			
 		}
 		
+		
+		
+		
 //		public int insertarRechazo(Rechazo ob) {
 //			int x = 0;
 //			try {

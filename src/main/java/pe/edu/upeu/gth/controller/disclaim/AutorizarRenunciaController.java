@@ -81,6 +81,16 @@ public class AutorizarRenunciaController {
 				re.setObservaciones(observaciones);
 				out.println(ra.RechazarRenuncia(re));
 				break;
+			case 7: 
+				String idrol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
+				String tipon = request.getParameter("tipo");
+				if(ra.BuscarRol(idrol,tipon)==1)
+				{
+					out.println(1);
+				}else {
+					out.println(0);
+				}
+				break;
 			}
 
 		}
