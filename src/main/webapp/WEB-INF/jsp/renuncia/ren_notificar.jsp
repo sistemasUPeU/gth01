@@ -1,26 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="../../../jspf/general.jspf"%>
+<link href="https://fonts.googleapis.com/css?family=Dosis"
+	rel="stylesheet">
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet">
+
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<link
+	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="<c:url value='/resources/css/alertify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
+<link href="https://fonts.googleapis.com/css?family=Poiret+One"
+	rel="stylesheet">
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	
+<style>
+@media only screen and (min-width: 641px) {
+	.remodal {
+		max-width: 75%;
+	}
+	h6 {
+		font-size: 16px
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.remodal {
+		min-width: 100%;
+	}
+	h5 {
+		font-size: 14px
+	}
+	h1 {
+		font-size: 16px
+	}
+	h6 {
+		font-size: 14px
+	}
+}
+.ajs-message.ajs-custom {
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #31708f;
+	z-index: 999999
+}
+</style>
 </head>
 
 <body>
@@ -128,7 +171,7 @@
 					<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
 				</p>
 			</div>
-			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label>
+			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label><label id="tipo" hidden=""></label>
 			<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 			<button data-remodal-action="confirm" class="remodal-confirm" id=""
 				onclick="enviarCorreo()">Enviar</button>
@@ -202,6 +245,9 @@
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
+		<script
+		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
@@ -211,8 +257,11 @@
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
+		<script
+				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+				type="text/javascript"></script>
+		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+				type="text/javascript"></script>		
+	
 </body>
 </html>

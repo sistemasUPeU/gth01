@@ -26,21 +26,21 @@ $(document)
 							idc : idc,
 							opc : 4
 						}, function(data, status) {
-							 alert(data);
+//							 alert(data);
 							var detalle = JSON.parse(data);
 							
-							console.log(detalle);
+//							console.log(detalle);
 							if(data==1){
-								alert("BUENA JONAS")
+//								alert("BUENA JONAS")
 								
 							}else{
-								alert("NADA JONAS");
+//								alert("NADA JONAS");
 							}
 							});
 					});
 					
 					$("#RechazarR").click(function(){
-						alert("rechaza");
+//						alert("rechaza");
 					});
 						
 					
@@ -56,10 +56,9 @@ function listarRegistrados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(objJson);
+//				console.log(objJson);
 				if (lista.length > 0) {
-					// alert("si hay datos causita c:");
-
+					// alert("si hay datos causita c:");	
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;
 						var MFL = parseInt(lista[i].ES_MFL);
@@ -82,6 +81,16 @@ function listarRegistrados() {
 						}else{
 							 TIPO="ABANDONO";
 						}
+						s += '<tr>';
+						s += '<td>'
+								+ a
+								+ '<label  class="idc" hidden>'
+								+ lista[i].ID_CONTRATO
+								+ '</label></td>';
+						s += '<td>'
+								+ mes;
+								+ '</td>';
+						s += '<td class="">'
 						var p = "";
 						var f = "";
 						var t = "";
@@ -95,16 +104,7 @@ function listarRegistrados() {
 								: t = "No Cumplió";
 						(plazo === 1) ? ct = "green accent-3"
 								: ct = "red darken-1";
-						s += '<tr>';
-						s += '<td>'
-								+ a
-								+ '<label  class="idc" hidden>'
-								+ lista[i].ID_CONTRATO
-								+ '</label></td>';
-						s += '<td>'
-								+ mes;
-								+ '</td>';
-						s += '<td class="">'
+						
 
 								+ lista[i].PATERNO
 								+ ' '
@@ -178,7 +178,7 @@ function listarRegistrados() {
 									.eq(0)
 									.find(".idc")
 									.text();
-							console.log(cantidad);
+//							console.log(cantidad);
 							
 							
 							tipon = $(this).parents(
@@ -186,13 +186,13 @@ function listarRegistrados() {
 							.find(".tipon")
 							.eq(0)
 							.text();
-							console.log("esto es tipon"+tipon);
+//							console.log("esto es tipon"+tipon);
 
 							DetalleRenuncia(cantidad,tipon);
 
 							$("#otros").val(cantidad);	
-							
-							$("#tipo").val(tipon);
+					
+						
 						});
 			});
 }
@@ -222,6 +222,23 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
+function modalon (){
+	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
+	s+= ' <div class="input-field col s6">';
+	s+= ' <input name="renabancito" id="renabancito" value="" type="hidden"/>';
+	s+= ' <input name ="tipo" id="tipo" value="" type="hidden"/>';
+	s+= ' <input name="nom_file" id="nom_file" value="" type="hidden"/>';
+	s+= ' <label for=""></label> <input type="text" name="fecha"';
+	s+=		' id="fecha" class="datepicker">';
+	s+= '</div>'
+	s+= '<div class="input-field col s6">'
+	s+= '<input type="file" name="file" class="dropify" id="pelon1"'
+	s+= 'data-height="300" />'
+	s+= '</div>'
+		
+		return s;
+	
+}
 
 // LISTAR TODOS LOS TRABAJADORES PROCESADOS
 function listarAutorizados() {
@@ -231,7 +248,7 @@ function listarAutorizados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(objJson);
+//				console.log(objJson);
 				if (lista.length > 0) {
 					// alert("si hay datos causita c:");
 
@@ -389,8 +406,8 @@ var u = "";
 
 
 // DETALLE PARA AUTORIZAR RENUNCIA
-function DetalleRenuncia(idc,tipon) {
-	
+function DetalleRenuncia(idc,tipo) {
+//	console.log("LLLEGOoooooo"+ tipo);
 //	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
 //		alert(data);
@@ -438,14 +455,18 @@ function DetalleRenuncia(idc,tipon) {
 				$("#carta").text(detalle[0].ARCHIVO);
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
-					var tipo= $("#tipo").val();
-					alert(tipo);
-					if(tipo="RENUNCIA"){
+	
+//					console.log("Esto es despues del click: "+tipo);
+//					console.log("Esto es despues del click IDR: "+idr);
+//					alert(idc);
+//					alert(tipon);
+					if(tipo=="RENUNCIA"){
 						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar la renuncia de este trabajador?', function(){
 							 $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
 								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
 								
 //				        		 alert(data);
+//								 alert("Renuncia")
 				        	});
 							 
 					     	} , function(){ 
@@ -457,6 +478,7 @@ function DetalleRenuncia(idc,tipon) {
 								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
 								
 //				        		 alert(data);
+//				        		 alert("Abandono")
 				        	});
 							 
 					     	} , function(){ 
@@ -467,20 +489,44 @@ function DetalleRenuncia(idc,tipon) {
 				});
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
-					var observaciones = $("#observaciones").val();					
-					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-						 $.get("AutorizarR",{opc:6,idr:id,observaciones:observaciones},function(data){
-							 alert("BIEN Nicole");
-			        		 alert(data);
-			        		 alert(id);
-			        		 alert(observaciones);
-			        		 window.location.href = gth_context_path +"/renaban/authorizationR";
-			        	});
-						 
-				     	} , function(){ 
-				        	
-				        });
+					var idra = $("#idr").val();
+					var observaciones = $("#observaciones").val();
+					var observacion = $("#observaciones").val();
+					 alert(tipon);
+					if(tipo=="RENUNCIA"){
+						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
+							 $.get("AutorizarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
+								 alert("Rechazo Renuncia");
+//								 alert("BIEN Nicole");
+//				        		 alert(data);
+//				        		 alert(id);
+//				        		 alert(observaciones);				        	
+				        		 window.location.href = gth_context_path +"/renaban/authorizationR";
+				        	});
+							 
+					     	} , function(){ 
+					        	
+					        });
+					}else{
+						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
+							 $.get("AutorizarR",{opc:7,tipo:'A',sidr:idra,observaciones:observacion},function(data){
+								 alert("Rechazo Abandono")
+//								 alert("BIEN Nicole");
+//				        		 alert(data);
+								
+				        		 alert(idra);
+				        		 alert(observacion);
+				        		 window.location.href = gth_context_path +"/renaban/authorizationR";
+				        	});
+							 
+					     	} , function(){ 
+					        	
+					        });
+					}
+					 
 				});
+				
+				
 				
 				u = "";
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
@@ -541,12 +587,12 @@ window.picker = $('.datepicker').pickadate({
 $("#Date").val('SYSDATE');
 
 function id(idc) {
-	alert(idc);
+//	alert(idc);
 }
 
 function ParsearMes(mesint) {
 	var mes;
-	console.log(mesint);
+//	console.log(mesint);
 	switch (mesint) {
 	case 01:
 		mes = "ENE";

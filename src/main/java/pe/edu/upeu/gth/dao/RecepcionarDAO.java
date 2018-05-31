@@ -64,9 +64,8 @@ public class RecepcionarDAO implements CRUDOperations{
 	}
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente(String depa) {
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000432' OR rap.ID_PASOS='PAS-000433'";
-		
-		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
+		System.out.println(depa);
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 and NOM_DEPA='"+depa+"' AND rap.ID_PASOS IN ('PAS-000432','PAS-000433') ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
