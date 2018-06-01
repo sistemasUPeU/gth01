@@ -1,6 +1,10 @@
 package pe.edu.upeu.gth.controller.recruitment;
 
+import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -871,16 +875,34 @@ public class TrabajadorController {
 	
 	@RequestMapping(value = "/print")
 	// public @ResponseBody
-	String verReporte(Model model, Authentication authentication) {
-
+	String verReporte(Model model, Authentication authentication) throws ParseException {
+		
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idtr = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		String iddepa = ((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO();
 		System.out.println(idtr);
 
 		System.out.println("asdasdasdasdasd");
 		model.addAttribute("format", "pdf");
-		model.addAttribute("datasource", (tr.DATOS_TRABAJADOR(idtr)));
-		model.addAttribute("AUTOR", "Tutor de programacion");
+		model.addAttribute("datasource", (tr.DATOS_TRABAJADOR(idtr,iddepa)));
+		List<Map<String,Object>> carta = tr.DATOS_TRABAJADOR(idtr,iddepa);
+		System.out.println("");
+		System.out.println(" Esto es del controller: "+carta);
+//		System.out.println(carta.get(7).toString());
+
+		
+        String oldstring = carta.get(0).get("FECHA_CONTRATO").toString();
+        LocalDateTime datetime = LocalDateTime.parse(oldstring, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+        String newstring = datetime.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"));
+        System.out.println(newstring);
+        model.addAttribute("FECHA_CONTRATO", newstring);
+		model.addAttribute("NO_TRABAJADOR", carta.get(0).get("NO_TRABAJADOR"));
+		model.addAttribute("AP_PATERNO", carta.get(0).get("AP_PATERNO"));
+		model.addAttribute("AP_MATERNO", carta.get(0).get("AP_MATERNO"));
+		model.addAttribute("NO_PUESTO", carta.get(0).get("NO_PUESTO"));
+		model.addAttribute("NOM",carta.get(0).get("NOM"));
+		model.addAttribute("PAT", carta.get(0).get("PAT"));
+		model.addAttribute("MAT", carta.get(0).get("MAT"));
 		return "renuncia2_report";
 	}
 

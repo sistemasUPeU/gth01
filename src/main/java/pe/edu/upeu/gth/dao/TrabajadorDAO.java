@@ -4,7 +4,11 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +17,14 @@ import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.google.gson.Gson;
+
 import pe.edu.upeu.gth.util.DateFormat;
 
 public class TrabajadorDAO {
 
 	private JdbcTemplate jt;
+	private Gson gson = new Gson();
     private String sql="";
     public TrabajadorDAO(DataSource datasource){
         jt=new JdbcTemplate(datasource);
@@ -307,22 +314,65 @@ public class TrabajadorDAO {
     	return jt.queryForMap(sql,idtr);
     }
     
-    public List<Map<String,Object>> DATOS_TRABAJADOR(String idtr) {
-    	sql = "SELECT *FROM\r\n" + 
-    			"(SELECT con.ID_TRABAJADOR, MIN(con.FE_DESDE) AS FECHA_CONTRATO,pues.NO_PUESTO, CAST(SYSDATE AS varchar(12)) AS FECHA_RENUNCIA, tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION\r\n" + 
-    			"FROM RHTM_CONTRATO con\r\n" + 
-    			"LEFT JOIN  RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO \r\n" + 
-    			"LEFT JOIN   RHTM_DGP dgp ON con.ID_DGP=dgp.ID_DGP \r\n" + 
-    			"LEFT JOIN RHTM_TRABAJADOR tra ON  con.ID_TRABAJADOR=tra.ID_TRABAJADOR\r\n" + 
-    			"LEFT JOIN  RHTX_REGIMEN_LABORAL reg ON con.ID_REGIMEN_LABORAL=reg.ID_REGIMEN_LABORAL\r\n" + 
-    			"LEFT JOIN RHTX_SUB_MODALIDAD sub ON con.ID_SUB_MODALIDAD=sub.ID_SUB_MODALIDAD\r\n" + 
-    			"LEFT JOIN RHTX_GRUPO_OCUPACION gr ON con.ID_GRUPO_OCUPACION=gr.ID_GRUPO_OCUPACION \r\n" + 
-    			"LEFT JOIN RHTR_TIPO_PLANILLA tipopla ON con.ID_TIPO_PLANILLA=tipopla.ID_TIPO_PLANILLA\r\n" + 
-    			"LEFT JOIN RHTD_DETALLE_HORARIO dethor ON con.ID_DETALLE_HORARIO=dethor.ID_DETALLE_HORARIO\r\n" + 
-    			"LEFT JOIN RHTC_PLANTILLA_CONTRACTUAL placon ON con.ID_PLANTILLA_CONTRACTUAL=placon.ID_PLANTILLA_CONTRACTUAL\r\n" + 
-    			"LEFT JOIN RHTR_SITUACION_ESPECIAL sitesp ON con.ID_SITUACION_ESPECIAL=sitesp.ID_SITUACION_ESPECIAL \r\n" + 
-    			"WHERE con.ID_TRABAJADOR=? GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION) WHERE ROWNUM<2";
-    	return jt.queryForList(sql,idtr);
+
+	public List<Map<String,Object>> DATOS_TRABAJADOR(String idtr,String iddepa) {
+		System.out.println("Este es idtrabajador: " +idtr +" Este otro iddepa "+iddepa);
+    	Map<String,Object> liston = null;
+    	List<Map<String,Object>> listonazo = new ArrayList<>();
+    	Map<String,Object> mapita = null;
+    	Map<String,Object> map =  null;
+    	String sql2="";
+//    	 = "SELECT *FROM\r\n" + 
+//    			"(SELECT con.ID_TRABAJADOR, MIN(con.FE_DESDE) AS FECHA_CONTRATO,pues.NO_PUESTO, CAST(SYSDATE AS varchar(12)) AS FECHA_RENUNCIA, tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION\r\n" + 
+//    			"FROM RHTM_CONTRATO con\r\n" + 
+//    			"LEFT JOIN  RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO \r\n" + 
+//    			"LEFT JOIN   RHTM_DGP dgp ON con.ID_DGP=dgp.ID_DGP \r\n" + 
+//    			"LEFT JOIN RHTM_TRABAJADOR tra ON  con.ID_TRABAJADOR=tra.ID_TRABAJADOR\r\n" + 
+//    			"LEFT JOIN  RHTX_REGIMEN_LABORAL reg ON con.ID_REGIMEN_LABORAL=reg.ID_REGIMEN_LABORAL\r\n" + 
+//    			"LEFT JOIN RHTX_SUB_MODALIDAD sub ON con.ID_SUB_MODALIDAD=sub.ID_SUB_MODALIDAD\r\n" + 
+//    			"LEFT JOIN RHTX_GRUPO_OCUPACION gr ON con.ID_GRUPO_OCUPACION=gr.ID_GRUPO_OCUPACION \r\n" + 
+//    			"LEFT JOIN RHTR_TIPO_PLANILLA tipopla ON con.ID_TIPO_PLANILLA=tipopla.ID_TIPO_PLANILLA\r\n" + 
+//    			"LEFT JOIN RHTD_DETALLE_HORARIO dethor ON con.ID_DETALLE_HORARIO=dethor.ID_DETALLE_HORARIO\r\n" + 
+//    			"LEFT JOIN RHTC_PLANTILLA_CONTRACTUAL placon ON con.ID_PLANTILLA_CONTRACTUAL=placon.ID_PLANTILLA_CONTRACTUAL\r\n" + 
+//    			"LEFT JOIN RHTR_SITUACION_ESPECIAL sitesp ON con.ID_SITUACION_ESPECIAL=sitesp.ID_SITUACION_ESPECIAL \r\n" + 
+//    			"WHERE con.ID_TRABAJADOR=? GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION) WHERE ROWNUM<2";
+    	sql = "SELECT * FROM (SELECT FECHA_CONTRATO,NOMBRES,PATERNO,MATERNO,NOM_PUESTO FROM REN_VIEW_TRABAJADOR WHERE ID_TRABAJADOR=?) WHERE ROWNUM<2 ";
+    	sql2="SELECT*FROM(SELECT trab.NO_TRABAJADOR AS NOM, trab.AP_PATERNO AS PAT,trab.AP_MATERNO AS MAT FROM RHTM_TRABAJADOR trab\r\n" + 
+    			"LEFT JOIN RHTM_CONTRATO con ON con.ID_TRABAJADOR= trab.ID_TRABAJADOR\r\n" + 
+    			"LEFT JOIN RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO\r\n" + 
+    			"LEFT JOIN RHTR_SECCION sec ON pues.ID_SECCION=sec.ID_SECCION\r\n" + 
+    			"LEFT JOIN RHTD_AREA area ON sec.ID_AREA=area.ID_AREA\r\n" + 
+    			"LEFT JOIN RHTX_DEPARTAMENTO dep ON area.ID_DEPARTAMENTO=dep.ID_DEPARTAMENTO\r\n" + 
+    			"LEFT JOIN RHTD_EMPLEADO emp ON emp.ID_TRABAJADOR = trab.ID_TRABAJADOR\r\n" + 
+    			"LEFT JOIN RHTC_USUARIO usu ON emp.ID_EMPLEADO = usu.ID_EMPLEADO WHERE usu.ID_ROL= 'ROL-0003' AND dep.ID_DEPARTAMENTO=? ORDER BY con.FE_DESDE DESC) WHERE ROWNUM<2";
+    	
+    	
+    	try {   
+    		liston = jt.queryForMap(sql,idtr);
+        	System.out.println("Mapenado trabajador"+gson.toJson(liston));
+        	mapita = jt.queryForMap(sql2,iddepa);
+        	System.out.println("Mapeando al depa" + mapita);
+    			map = new HashMap<>();
+    			System.out.println("llegado indice 2: "+liston.get("NOMBRES").toString());
+    			SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+//    			String fecha_contrato = formatter.format(liston.get("FECHA_CONTRATO").toString());
+    			map.put("FECHA_CONTRATO",liston.get("FECHA_CONTRATO").toString());
+    			map.put("NO_TRABAJADOR", liston.get("NOMBRES"));
+    			map.put("AP_PATERNO", liston.get("PATERNO"));
+    			map.put("AP_MATERNO", liston.get("MATERNO"));
+    			map.put("NO_PUESTO", liston.get("NOM_PUESTO"));
+    			map.put("NOM", mapita.get("NOM"));
+    			map.put("PAT", mapita.get("PAT"));
+    			map.put("MAT", mapita.get("MAT"));
+    			listonazo.add(map);
+			
+		} catch (Exception e) {
+			System.out.println(gson.toJson("ESto sale del map"+map));
+			System.out.println("Error en datos_trabajador " +e);
+		}
+    		
+//    	return jt.queryForList(sql,idtr);
+    	return listonazo;
     }
 	
 }

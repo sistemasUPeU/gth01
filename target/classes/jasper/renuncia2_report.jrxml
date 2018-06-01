@@ -1,47 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="renuncia2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="182b4db9-3c5e-4b6d-81b5-0a55d72b9065">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gth"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT *FROM
-(SELECT con.ID_TRABAJADOR, MIN(con.FE_DESDE) AS FECHA_CONTRATO,pues.NO_PUESTO, CAST(SYSDATE AS varchar(12)) AS FECHA_RENUNCIA, tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION
-FROM RHTM_CONTRATO con
-LEFT JOIN  RHTR_PUESTO pues ON con.ID_PUESTO=pues.ID_PUESTO 
-LEFT JOIN   RHTM_DGP dgp ON con.ID_DGP=dgp.ID_DGP 
-LEFT JOIN RHTM_TRABAJADOR tra ON  con.ID_TRABAJADOR=tra.ID_TRABAJADOR
-LEFT JOIN  RHTX_REGIMEN_LABORAL reg ON con.ID_REGIMEN_LABORAL=reg.ID_REGIMEN_LABORAL
-LEFT JOIN RHTX_SUB_MODALIDAD sub ON con.ID_SUB_MODALIDAD=sub.ID_SUB_MODALIDAD
-LEFT JOIN RHTX_GRUPO_OCUPACION gr ON con.ID_GRUPO_OCUPACION=gr.ID_GRUPO_OCUPACION 
-LEFT JOIN RHTR_TIPO_PLANILLA tipopla ON con.ID_TIPO_PLANILLA=tipopla.ID_TIPO_PLANILLA
-LEFT JOIN RHTD_DETALLE_HORARIO dethor ON con.ID_DETALLE_HORARIO=dethor.ID_DETALLE_HORARIO
-LEFT JOIN RHTC_PLANTILLA_CONTRACTUAL placon ON con.ID_PLANTILLA_CONTRACTUAL=placon.ID_PLANTILLA_CONTRACTUAL
-LEFT JOIN RHTR_SITUACION_ESPECIAL sitesp ON con.ID_SITUACION_ESPECIAL=sitesp.ID_SITUACION_ESPECIAL 
-WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,tra.NO_TRABAJADOR,tra.AP_PATERNO, tra.AP_MATERNO, con.DE_OBSERVACION) WHERE ROWNUM<2]]>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="NO_TRABAJADOR" class="java.lang.String">
+		<parameterDescription><![CDATA[Nombre del trabajador]]></parameterDescription>
+	</parameter>
+	<parameter name="AP_PATERNO" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido paterno]]></parameterDescription>
+	</parameter>
+	<parameter name="AP_MATERNO" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido materno]]></parameterDescription>
+	</parameter>
+	<parameter name="FECHA_CONTRATO" class="java.lang.String">
+		<parameterDescription><![CDATA[fecha contrato]]></parameterDescription>
+	</parameter>
+	<parameter name="NO_PUESTO" class="java.lang.String">
+		<parameterDescription><![CDATA[nombre del puesto]]></parameterDescription>
+	</parameter>
+	<parameter name="NOM" class="java.lang.String">
+		<parameterDescription><![CDATA[Nombre del jefe]]></parameterDescription>
+	</parameter>
+	<parameter name="PAT" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido pat del jefe]]></parameterDescription>
+	</parameter>
+	<parameter name="MAT" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido mat del jefe]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
 	</queryString>
-	<field name="ID_TRABAJADOR" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ID_TRABAJADOR"/>
-	</field>
-	<field name="FECHA_CONTRATO" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="FECHA_CONTRATO"/>
-	</field>
-	<field name="NO_PUESTO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="NO_PUESTO"/>
-	</field>
-	<field name="FECHA_RENUNCIA" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="FECHA_RENUNCIA"/>
-	</field>
 	<field name="NO_TRABAJADOR" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="NO_TRABAJADOR"/>
-	</field>
-	<field name="AP_PATERNO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="AP_PATERNO"/>
-	</field>
-	<field name="AP_MATERNO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="AP_MATERNO"/>
-	</field>
-	<field name="DE_OBSERVACION" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DE_OBSERVACION"/>
+		<fieldDescription><![CDATA[nombre]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -57,7 +47,7 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 			</staticText>
 			<image>
 				<reportElement x="400" y="30" width="104" height="64" uuid="5d55ec74-142a-44d8-bb6c-895668dc4c15"/>
-				<imageExpression><![CDATA["http://admision.upeu.pe/static/custom/img/logo-upeu.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://image.ibb.co/gxwcYy/logo_universidad_peruana_union.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -70,13 +60,13 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 				</textElement>
 				<text><![CDATA[PRESENTE. -]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="30" y="60" width="210" height="20" uuid="7ed59667-27a0-48f8-aa3a-47d1f935598a"/>
+			<textField>
+				<reportElement x="30" y="60" width="240" height="20" uuid="e30c6015-4e15-481c-9de9-74ee7d6258ba"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Jhon Kennedy Valerio Tamara]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{NOM} + " " + $P{PAT} +" "+ $P{MAT}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="30" y="40" width="100" height="20" uuid="67f2db2e-d2c8-4712-b776-a39cbf94648b"/>
 				<textElement>
@@ -107,24 +97,24 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Es grato dirigirme a usted a fin de comunicarle al amparo de lo establecido en el articulo 18°                         TUO del D. Leg. N° 728 aprobado por D.  S. N° 003-97-TR formulo mi renuncia al cargo de (2)              			  Que he venido desempeñando en esta empresa desde (3)]]></text>
+				<text><![CDATA[Es  grato dirigirme  a  usted  a  fin de comunicarle  al  amparo  de  lo  establecido en el articulo  18                        del  D. Leg. N° 728  aprobado por D.  S. N°003-97-TR formulo mi renuncia al cargo de              			  que he venido desempeñando en esta empresa desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="100" width="515" height="30" uuid="4579d2d1-0f62-47a6-8cc7-67a83d2352f3"/>
+				<reportElement x="30" y="70" width="515" height="50" uuid="4579d2d1-0f62-47a6-8cc7-67a83d2352f3"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Por motivos de indole personal que motivan esta decisión y que espero tenga a bien comprender, solicito me dispense del plazo de 30 días de anticipación que exige la Ley en caso de renuncia.]]></text>
+				<text><![CDATA[Por motivos de indole personal que motivan esta decisión y que espero tenga a bien comprender, solicito me dispense del plazo de 30  días de anticipación que exige la Ley en caso de renuncia.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="138" width="514" height="30" uuid="a5831566-3e47-4b33-9973-ce9cc72e6816"/>
+				<reportElement x="30" y="130" width="515" height="52" uuid="a5831566-3e47-4b33-9973-ce9cc72e6816"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Asimismo agredeceré mucho que me facilite con prontitud los beneficios sociales que me corresponden, así como la entrega de mi certificado de trabajo y la carta de cese para de esta forma solicitar al Banco la Compensacion por Tiempo de Servicios depositados.]]></text>
+				<text><![CDATA[Asimismo agredeceré mucho que me facilite con prontitud los beneficios sociales que me corresponden, así como la entrega de mi certificado de trabajo y la carta de cese para de esta forma solicitar al banco la compensación por tiempo de servicios depositados.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="180" width="514" height="30" uuid="c252e113-ea41-42f7-a3ca-7b56eb97404f"/>
+				<reportElement x="30" y="200" width="514" height="30" uuid="c252e113-ea41-42f7-a3ca-7b56eb97404f"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
@@ -142,7 +132,7 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NO_TRABAJADOR} + " " + $F{AP_PATERNO} +" "+ $F{AP_MATERNO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NO_TRABAJADOR} + " " + $P{AP_PATERNO} +" "+ $P{AP_MATERNO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="30" y="28" width="160" height="20" uuid="eaf6b09c-1fff-42d1-80d2-6cbe5e1a4637">
@@ -152,26 +142,26 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NO_PUESTO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NO_PUESTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="28" width="50" height="15" uuid="5a58a2cd-03fc-4f0f-9b7a-07f3f4e32a74">
+				<reportElement x="460" y="28" width="80" height="15" uuid="5a58a2cd-03fc-4f0f-9b7a-07f3f4e32a74">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FECHA_CONTRATO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{FECHA_CONTRATO}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="30" y="43" width="100" height="20" uuid="83df46dd-0e9d-4bab-8a3a-66009893cb80"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[hasta (4)]]></text>
+				<text><![CDATA[hasta ]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="80" y="43" width="100" height="20" uuid="a435ac1e-b7ca-4d3e-928b-7ecc5b21836e">
+				<reportElement x="70" y="43" width="110" height="20" uuid="a435ac1e-b7ca-4d3e-928b-7ecc5b21836e">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement>
@@ -185,7 +175,7 @@ WHERE con.ID_TRABAJADOR='TRB-002758' GROUP BY con.ID_TRABAJADOR,pues.NO_PUESTO,t
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="56" splitType="Stretch"/>
+		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
