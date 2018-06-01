@@ -381,7 +381,7 @@ function createTable1(idDepartamento, idRol) {
 	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
 	s += '<tr>';
-	s += '<th>N</th>';
+	s += '<th>N</th>';     
 	s += '<th>Mes</th>';
 	s += '<th>Apellidos y Nombres</th>';
 	s += '<th>Puesto</th>';
