@@ -3,22 +3,22 @@ package pe.edu.upeu.gth.dto;
 public class Justificacion {
 	private String id_justificacion;
 	private String id_renaban;	
-	private String observaciones;
+	private String observacion;
 	private String fecha_justificacion;
 	public Justificacion() {
 		super();
 	}
-	public Justificacion(String id_justificacion, String id_renaban, String observaciones, String fecha_justificacion) {
+	public Justificacion(String id_justificacion, String id_renaban, String observacion, String fecha_justificacion) {
 		super();
 		this.id_justificacion = id_justificacion;
 		this.id_renaban = id_renaban;
-		this.observaciones = observaciones;
+		this.observacion = observacion;
 		this.fecha_justificacion = fecha_justificacion;
 	}
-	public Justificacion(String id_renaban, String observaciones, String fecha_justificacion) {
+	public Justificacion(String id_renaban, String observacion, String fecha_justificacion) {
 		super();
 		this.id_renaban = id_renaban;
-		this.observaciones = observaciones;
+		this.observacion = observacion;
 		this.fecha_justificacion = fecha_justificacion;
 	}
 	public String getId_justificacion() {
@@ -33,11 +33,11 @@ public class Justificacion {
 	public void setId_renaban(String id_renaban) {
 		this.id_renaban = id_renaban;
 	}
-	public String getObservaciones() {
-		return observaciones;
+	public String getObservacion() {
+		return observacion;
 	}
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 	public String getFecha_justificacion() {
 		return fecha_justificacion;
@@ -45,6 +45,7 @@ public class Justificacion {
 	public void setFecha_justificacion(String fecha_justificacion) {
 		this.fecha_justificacion = fecha_justificacion;
 	}
+	
 	
 	
 }

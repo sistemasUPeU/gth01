@@ -168,31 +168,30 @@
 
 						</div>
 					</div>
-					<!-- 					<div class="card-content"> -->
-					<!-- 						<form class="col s12"> -->
-					<!-- 							<div class="row"> -->
-					<!-- 								<div class="input-field col s6" style="text-align: center"> -->
-					<!-- 									<h6>Carta de Renuncia:</h6> -->
-					<!-- 								</div> -->
-					<!-- 								<div class="input-field col s6"> -->
-					<!-- 									<div class="material-placeholder"> -->
-					<!-- 																			<img materialboxed class="materialboxed" -->
-					<!-- 																				data-caption="A picture of some deer and tons of trees" -->
-					<!-- 																				width="250" " style="z-index: 4" -->
-					<%-- 										
-<%-- 									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%>
+<!-- 										<div class="card-content"> -->
+<!-- 											<form class="col s12"> -->
+<!-- 												<div class="row"> -->
+<!-- 													<div class="input-field col s6" style="text-align: center"> -->
+<!-- 														<h6>Carta de Renuncia:</h6> -->
+<!-- 													</div> -->
+<!-- 													<div class="input-field col s6"> -->
+<!-- 														<div class="material-placeholder"> -->
+<!-- 																								<img materialboxed class="materialboxed" -->
+<!-- 																									data-caption="A picture of some deer and tons of trees" -->
+<!-- 																									width="250" " style="z-index: 4" -->
+															
+<%-- 									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%> 
+<!-- 															<span id="carta"> <img materialboxed -->
+<!-- 																class="materialboxed" -->
+<!-- 																data-caption="A picture of some deer and tons of trees" -->
+<!-- 																width="250" " style="z-index: 4" id="carta" /> -->
+<!-- 															</span> -->
 
-					<!-- 										<span id="carta"> <img materialboxed -->
-					<!-- 											class="materialboxed" -->
-					<!-- 											data-caption="A picture of some deer and tons of trees" -->
-					<!-- 											width="250" " style="z-index: 4" id="carta" /> -->
-					<!-- 										</span> -->
-
-					<!-- 									</div> -->
-					<!-- 								</div> -->
-					<!-- 							</div> -->
-					<!-- 						</form> -->
-					<!-- 					</div> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</form> -->
+<!-- 										</div> -->
 					<div class="card-content"></div>
 				</div>
 			</section>
@@ -212,7 +211,7 @@
 			<div class="input-field col s6 center">
 				<a
 					class="waves-effect waves-light btn modal-trigger btn-large red darken-4 "
-					id="modalR">Rechazar</a>
+					id="RECHAZAR">Rechazar</a>
 			</div>
 		</div>
 	</form>

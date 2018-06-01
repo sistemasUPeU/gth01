@@ -37,7 +37,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 
 @Controller
 @Scope("request")
-@RequestMapping("/renuncias/")
+@RequestMapping("/renaban/")
 public class GestionarEntregaDocController {
 	Renuncia r = new Renuncia();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
@@ -128,10 +128,10 @@ public class GestionarEntregaDocController {
 			break;
 
 		case 6:
-			String idr = request.getParameter("idr");
+			String idra = request.getParameter("idra");
 			String tipo1 = request.getParameter("tipo1");
-			System.out.println("Esta llegando un idr:" +idr);
-			r.setId_renuncia(idr);
+			System.out.println("Esta llegando un idr:" +idra);
+			r.setId_renuncia(idra);
 			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 			out.println(rd.notificarRenuncia(r,idusuario,tipo1));
 //			Renuncia r1 = new Renuncia();

@@ -64,7 +64,7 @@ function listarAutorizados() {
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
 						var plazo = parseInt(lista[i].VAL_PLAZO);
 						var fe_creacion = new Date(
-								lista[i].FECHA_RENUNCIA);
+								lista[i].FECHA_RENABAN);
 						var mesInt = parseInt(fe_creacion
 								.getMonth()) + 1;
 						var mes = ParsearMes(mesInt);
@@ -120,9 +120,9 @@ function listarAutorizados() {
 						s += '<td>'
 								+ lista[i].TIPO_CONTRATO
 								+ '</td>';
-						s += '<td>'
-								+lista[i].FECHA_RENUNCIA+
-								 '</td>';
+						s += '<td>' + fe_creacion.getDate() + "/"
+						+ mesInt + "/"
+						+ fe_creacion.getFullYear() + '</td>';
 						s += '<td>'
 							+lista[i].DNI+
 							 '</td>';
@@ -225,7 +225,7 @@ function listarProcesados() {
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
 						var plazo = parseInt(lista[i].VAL_PLAZO);
 						var fe_creacion = new Date(
-								lista[i].FECHA_RENUNCIA);
+								lista[i].FECHA_RENABAN);
 						var mesInt = parseInt(fe_creacion
 								.getMonth()) + 1;
 						var mes = ParsearMes(mesInt);
@@ -281,9 +281,9 @@ function listarProcesados() {
 						s += '<td>'
 								+ lista[i].TIPO_CONTRATO
 								+ '</td>';
-						s += '<td>'
-								+lista[i].FECHA_RENUNCIA+
-								 '</td>';
+						s += '<td>' + fe_creacion.getDate() + "/"
+						+ mesInt + "/"
+						+ fe_creacion.getFullYear() + '</td>';
 						s += '<td>'
 							+lista[i].DNI+
 							 '</td>';
@@ -459,6 +459,20 @@ function DetalleRenuncia(idc,tipon) {
 					//alert(idr);
 					
 				});
+				var idr = detalle[0].ID_RENABAN;
+				var tipo= $("#tipo").val();
+				$.get("ProcesarR",{idr:idr,opc:7,tipo:tipo},function(data){
+					if(data==1){
+						
+							$("#RECHAZAR").css("display","none");
+						
+						
+						
+					}else{
+						$("#RECHAZAR").css("display","block");
+					}
+				});
+
 				$("#modalR").click(function(){
 					var id= $("#idr").val();
 					var observaciones = $("#observaciones").val();					

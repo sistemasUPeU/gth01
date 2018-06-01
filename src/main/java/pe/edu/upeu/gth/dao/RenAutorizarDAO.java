@@ -22,6 +22,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import oracle.jdbc.OracleConnection;
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 //import pe.edu.upeu.gth.config.AppConfig;
@@ -73,9 +74,8 @@ public class RenAutorizarDAO implements CRUDOperations{
 	}
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente(String depa) {
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000430' OR rap.ID_PASOS='PAS-000431'";
-		
-		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
+		System.out.println(depa);
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 and NOM_DEPA='"+depa+"' AND rap.ID_PASOS IN ('PAS-000430','PAS-000431') ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
@@ -105,7 +105,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 		}
 	
 	// AUTORIZAR RENUNCIA
-		public int AutorizarRenuncia(Renuncia r, String idusuario,String tipo) {
+		public int AutorizarRenuncia(Renuncia r,String idr,String idusuario,String tipo) {
 			int x = 0;
 			String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
 			String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000430' AND ID_RENABAN=?";
@@ -116,6 +116,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 //			DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 			Date fechon = new java.sql.Date(System.currentTimeMillis());
 			System.out.println(fechon);
+			System.out.println("llegooooooooooooooooo"+ tipo);
 			try {
 				if(tipo.equals("R")) {
 					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000432",idusuario,fechon});
@@ -134,7 +135,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 		}
 		
 	// RECHAZAR RENUNCIA
-		public int RechazarRenuncia(Rechazo ob) {
+		public int RechazarRenuncia(Rechazo ob, String tipo1) {
 			int x = 0;
 			String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";
 //			String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
@@ -147,6 +148,43 @@ public class RenAutorizarDAO implements CRUDOperations{
 			}
 			return x;
 			
+		}
+		//BUSCAR ROL
+		public int BuscarRol(String idrol,String tipo) {
+			int seracierto = 0;			
+			try {
+				if(idrol=="ROL-0009"||idrol=="ROL-0001"||idrol=="ROL-0006") {
+					if(tipo=="ABANDONO") {
+						seracierto = 1;
+					}else {
+						seracierto = 0;
+					}
+				}else {
+					seracierto = 1;
+				}
+				
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR EN BUSCAR ROL:" + e);
+			}
+			return seracierto;
+		}
+		
+		public int JustificarAbandono(Justificacion ju, String tipo2) {
+			int x = 0;
+			String sql = "call REN_UPDATE_ABANDONO( ? , ?)";
+			// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
+			// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+			try {
+				jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
+				x = 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Error:" + e);
+			}
+			return x;
+
 		}
 		
 //		public int insertarRechazo(Rechazo ob) {

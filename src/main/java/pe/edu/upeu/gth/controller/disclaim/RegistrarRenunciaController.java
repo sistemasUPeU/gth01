@@ -106,6 +106,14 @@ public class RegistrarRenunciaController {
 			String idrenaban = request.getParameter("idrenaban");
 			out.println(gson.toJson(rd.buscarRenaban(idrenaban)));
 			break;
+		case 9:
+			String idra = request.getParameter("idra");
+			String tipo = request.getParameter("tipo");
+			System.out.println("Esta llegando un idr:" +tipo);
+			r.setId_renuncia(idra);
+			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+			out.println(rd.DerivarRenuncia(r,idra,idusuario,tipo));
+			break;
 		}
 
 	}

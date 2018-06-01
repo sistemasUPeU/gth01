@@ -125,9 +125,9 @@ function listarRegistrados() {
 						s += '<td><a class="green-text accent-3" href="#">'
 								+ lista[i].DESCRIPCION
 								+ '</a></td>';
-						s += '<td>'
-								+lista[i].FECHA_RENABAN+
-								 '</td>';
+						s += '<td>' + fe_creacion.getDate() + "/"
+						+ mesInt + "/"
+						+ fe_creacion.getFullYear() + '</td>';
 						s += '<td>'
 							+lista[i].DNI+
 							 '</td>';
@@ -146,7 +146,7 @@ function listarRegistrados() {
 					}
 
 				} else {
-					//alert("no hay datos");
+					alert("no hay datos");
 					s += "";
 				}
 
@@ -290,9 +290,9 @@ function listarAutorizados() {
 						s += '<td><a class="green-text accent-3" href="#">'
 								+ lista[i].DESCRIPCION
 								+ '</a></td>';
-						s += '<td>'
-								+lista[i].FECHA_RENABAN+
-								 '</td>';
+						s += '<td>' + fe_creacion.getDate() + "/"
+						+ mesInt + "/"
+						+ fe_creacion.getFullYear() + '</td>';
 						s += '<td>'
 							+lista[i].DNI+
 							 '</td>';

@@ -1,26 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="../../../jspf/general.jspf"%>
+<link href="https://fonts.googleapis.com/css?family=Dosis"
+	rel="stylesheet">
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet">
+
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<link
+	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="<c:url value='/resources/css/alertify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
+<link href="https://fonts.googleapis.com/css?family=Poiret+One"
+	rel="stylesheet">
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	
+<style>
+@media only screen and (min-width: 641px) {
+	.remodal {
+		max-width: 75%;
+	}
+	h6 {
+		font-size: 16px
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.remodal {
+		min-width: 100%;
+	}
+	h5 {
+		font-size: 14px
+	}
+	h1 {
+		font-size: 16px
+	}
+	h6 {
+		font-size: 14px
+	}
+}
+.ajs-message.ajs-custom {
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #31708f;
+	z-index: 999999
+}
+</style>
 </head>
 
 <body>
@@ -34,45 +77,42 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-		<section id="content" class="col m12 l12 s12">
-				<div class="center">
-					<h1
-						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Autorizar
-						Renuncias y Abandonos</h1>
-				</div>
-				<div class="divider"></div>
+		<!-- 		<div class="col s12 m8 l9"> -->
+		<!-- 			<div id="data-table-row-grouping col s12 m8 l9" -->
+		<!-- 				class="card-panel display #e3f2fd blue lighten-5" -->
+		<!-- 				style="position: absolute"> -->
 
-			</section>
-		<div id="contenido">
-			<div class="row"
-				style="width: 100%;  max-width:90%">
-				<ul class="collapsible popout">
-					<li id="autorize" class="active">
-						<div class="collapsible-header active">
-							<i class="mdi-social-notifications-on"></i> Renuncias o Abandonos Pendientes
-						</div>
-						<div class="collapsible-body"
-							style="display: none;">	
-							<div class="row" style="padding:1em">
-								<div class="contT"></div>
-							</div>			
-						</div>
-					</li>
-					<li id="autorized" class="">
-						<div class="collapsible-header" >
-							<i class="mdi-toggle-check-box"></i> Renuncias o Abandonos Autorizados
-						</div> 
-						<div class="card-panel collapsible-body "
-							style="display: none;">
-							<div class="row" style="padding:1em">
-								<div class="contP"></div>
-							</div>
-
-							</div>
-
-						</li>
-					</ul>
-				</div>
+		<!-- 				<div class="col s12 m8 l9 contT"></div> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
+		<div class="">
+			<!-- 			<object type="image/jpeg" -->
+			<!-- 				data="/gth/renaban/mostrardoc1" width="400" -->
+			<!-- 				height="500"></object> -->
+		</div>
+		<div class="col s12 m12" style="width: 100%; position: absolute;">
+			<ul class="collapsible popout" data-collapsible="accordion">
+				<li class="active">
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Renuncias por entregar
+					</div>
+					<div id="data-table-row-grouping col s12 m8 l9"
+						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+						style="display: none;">
+						<div class="col s12 m8 l9 contT"></div>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header active">
+						<i class="mdi-toggle-check-box"></i> Renuncias entregadas
+					</div>
+					<div id="tabla-notificada "
+						class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+						style="display: none;">
+						<div class="col s12 m8 l9 conN"></div>
+					</div>
+				</li>
+			</ul>
 		</div>
 	</div>
 
@@ -131,7 +171,7 @@
 					<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
 				</p>
 			</div>
-			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label>
+			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label><label id="tipo" hidden=""></label>
 			<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 			<button data-remodal-action="confirm" class="remodal-confirm" id=""
 				onclick="enviarCorreo()">Enviar</button>
@@ -205,6 +245,9 @@
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
+		<script
+		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
@@ -214,8 +257,11 @@
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
+		<script
+				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+				type="text/javascript"></script>
+		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+				type="text/javascript"></script>		
+	
 </body>
 </html>
