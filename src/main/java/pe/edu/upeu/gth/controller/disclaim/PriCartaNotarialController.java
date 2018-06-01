@@ -78,13 +78,13 @@ public class PriCartaNotarialController {
 			out.println(gson.toJson(ra.Autorizado()));
 			break;
 		case 6:
-			String id = request.getParameter("idr");
-			System.out.println(id);
-			String observaciones = request.getParameter("observaciones");				
-			re.setId_renaban(id);
-			re.setObservaciones(observaciones);
-			out.println(ra.JustificarAbandono(re));
-			break;
+//			String id = request.getParameter("idr");
+//			System.out.println(id);
+//			String observaciones = request.getParameter("observaciones");				
+//			re.setId_renaban(id);
+//			re.setObservaciones(observaciones);
+//			out.println(ra.JustificarAbandono(re));
+//			break;
 		case 7:
 			String de = request.getParameter("de");
 			String clave = request.getParameter("clave");

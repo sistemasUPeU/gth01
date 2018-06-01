@@ -28,7 +28,7 @@ function listarRegistrados() {
 					function(objJson) {
 						var s = "";
 						var lista = objJson;
-						console.log(objJson);
+//						console.log(objJson);
 						if (lista.length > 0) {
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
@@ -135,11 +135,11 @@ function listarRegistrados() {
 
 									cantidad = $(this).parents("tr").find("td")
 											.eq(0).find(".idc").text();
-									console.log(cantidad);
+//									console.log(cantidad);
 
 									tipon = $(this).parents("tr").find("td")
 											.find(".tipon").eq(0).text();
-									console.log("esto es tipon" + tipon);
+//									console.log("esto es tipon" + tipon);
 
 									DetalleRenuncia(cantidad, tipon);
 
@@ -186,7 +186,7 @@ function modalon (){
 
 function crearModal(id) {
 	$(document).on('opening', '.remodal', function() {
-		console.log('Modal is opening');
+//		console.log('Modal is opening');
 		var m = modalon();
 		$("#modalon").empty();
 		$("#modalon").html(m);
@@ -209,7 +209,7 @@ function crearModal(id) {
 				});
 			   var archivo = gth_context_path + '/resources/files/'
 				+ data[0].ARCHIVO
-				console.log(archivo);
+//				console.log(archivo);
 			   
 			   $('.dropify').dropify( {
 				   "defaultFile": archivo,
@@ -231,11 +231,11 @@ $(document).on('confirmation', '.remodal', function () {
 	var file=$("#pelon1").val();
 	var renaban = $('#UpdatingR')[0];
 	//Obtener el formulario
-	console.log(renaban);
+//	console.log(renaban);
 
 	// Crear un objeto formData para capturar los valores indiviuales del formulario
     var data = new FormData(renaban);
-    console.log(data);
+//    console.log(data);
 	open();
     alertify.confirm('Actualizar renuncia o abandono', '¿Desea actualizar este registro?', function(){
     	if(file!=""&&fecha!=""){
@@ -298,14 +298,15 @@ function eliminar(id,archivo) {
 function aceptarRenaban(idrab,tipo){
 	var idra= idrab;
 	var tipo= tipo;
-	alert(idrab);
-	alert(tipo);
-	if(tipo="RENUNCIA"){
+//	alert(idrab);
+//	alert(tipo);
+	if(tipo=="RENUNCIA"){
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
 			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){
 				 window.location.href = gth_context_path +"/renaban/listaRA";					 
 				
 //        		 alert(data);
+//				 alert("Reeeeenuncia")
         	});
 			 
 	     	} , function(){ 
@@ -313,10 +314,11 @@ function aceptarRenaban(idrab,tipo){
 	        });
 	}else{
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar el abandono de este trabajador?', function(){
-			 $.get("detalleR",{opc:9,tipo:'A',idr:idr},function(data){
+			 $.get("detalleR",{opc:9,tipo:'A',idra:idra},function(data){
 				 window.location.href = gth_context_path +"/renaban/listaRA";					 
 				
 //        		 alert(data);
+//				 alert("Abaaaaaandono")
         	});
 			 
 	     	} , function(){ 
@@ -354,7 +356,7 @@ function createTable() {
 
 function ParsearMes(mesint) {
 	var mes;
-	console.log(mesint);
+//	console.log(mesint);
 	switch (mesint) {
 	case 01:
 		mes = "ENE";

@@ -146,7 +146,7 @@ function listarRegistrados() {
 					}
 
 				} else {
-					//alert("no hay datos");
+					alert("no hay datos");
 					s += "";
 				}
 

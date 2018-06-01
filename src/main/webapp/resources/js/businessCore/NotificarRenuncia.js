@@ -46,7 +46,7 @@ function show_image(src, width, height, alt) {
 function listarProcesados() {
 	$
 			.getJSON(
-					gth_context_path + "/renuncias/listarxd",
+					gth_context_path + "/renaban/listarxd",
 					"opc=1",
 					function(objJson) {
 						var s = "";
@@ -67,6 +67,18 @@ function listarProcesados() {
 
 								// console.log(ddd(mesint));
 								var mes = ParsearMes(mesint);
+								var mfl="";
+								if(lista[i].VAL_PLAZO=='1'){
+									 mfl="Sí"
+								}else{
+									 mfl="No";
+								}
+								var TIPO="";
+								if(lista[i].TIPO=='R'){
+									 TIPO="RENUNCIA"
+								}else{
+									 TIPO="ABANDONO";
+								}
 								var p = "";
 								var f = "";
 								var t = "";
@@ -83,22 +95,42 @@ function listarProcesados() {
 								s += '<td>' + a
 										+ '<label  class="idtr" hidden>'
 										+ lista[i].ID_CONTRATO
+										+ '</label><label class="idrenaban" hidden>'
+										+ lista[i].ID_RENABAN
 										+ '</label></td>';
 								s += '<td>' + mes + '</td>';
 								s += '<td class="">'
 
-								+ lista[i].MATERNO + ' ' + lista[i].MATERNO
-										+ ' ' + lista[i].NOMBRES + '</td>';
-								s += '<td>' + lista[i].NOM_PUESTO + '</td>';
-								s += '<td>' + lista[i].NOM_AREA + '</td>';
-								s += '<td>' + lista[i].NOM_DEPA + '</td>';
-								s += '<td>' + lista[i].TIPO_CONTRATO + '</td>';
+									+ lista[i].PATERNO
+									+ ' '
+									+ lista[i].MATERNO
+									+ ' '
+									+ lista[i].NOMBRES
+									+ '</td>';
+							s += '<td>'
+									+ lista[i].NOM_PUESTO
+									+ '</td>';
+							s += '<td>' + lista[i].NOM_AREA
+									+ '</td>';
+							s += '<td>' + lista[i].NOM_DEPA
+									+ '</td>';
+							s += '<td>'
+									+ lista[i].TIPO_CONTRATO
+									+ '</td>';
 								s += '<td><a class="green-text accent-3" href="#">'
 										+ lista[i].DESCRIPCION + '</a></td>';
-								s += '<td>' + fe_creacion.getDate() + "/"
-										+ mesint + "/"
-										+ fe_creacion.getFullYear() + '</td>';
-								s += '<td>' + 'Procesado' + '</td>';
+								s += '<td>'
+									+lista[i].FECHA_RENABAN+
+									 '</td>';
+								s += '<td>'
+									+lista[i].DNI+
+									 '</td>';
+								s += '<td>'
+									+mfl+
+									 '</td>';
+								s +='<td >' +TIPO+ '<label class="tipon" hidden>'
+								+ TIPO
+								+ '</label></td>';
 								s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Notificar</button>';
 
 								s += '</button>';
@@ -116,7 +148,20 @@ function listarProcesados() {
 						$(".contT").append(r);
 						$("#dataReq").empty();
 						$("#dataReq").append(s);
-						$("#data-table-row-grouping").DataTable();
+//						$("#data-table-row-grouping").DataTable();
+						$("#data-table-row-grouping")
+						.DataTable(
+								{
+								    responsive: true,
+								    columnDefs: [
+								        { responsivePriority: 1, targets: 0 },
+								        { responsivePriority: 2, targets: -1 }
+								    ],
+								"pageLength" : 5,
+								"bPaginate" : true,
+								"ordering": false
+								}
+						);
 
 						$(".notificar").click(
 								function() {
@@ -124,6 +169,23 @@ function listarProcesados() {
 									idc = $(this).parents("tr").find("td")
 											.eq(0).find(".idtr").text();
 									console.log(idc);
+									
+									tipon = $(this).parents(
+									"tr").find("td")
+									.find(".tipon")
+									.eq(0)
+									.text();
+									console.log("esto es tipon"+tipon);
+									
+									idr = $(this).parents(
+									"tr").find("td")
+									.find(".idrenaban")
+									.eq(0)
+									.text();
+									console.log("esto es idrenaban"+idr);
+									
+									$("#tipo").text(tipon);
+									$("#idr").text(idr);
 									verCorreo(idc);
 
 									// $("#otros").val(cantidad);
@@ -149,7 +211,7 @@ function listarProcesados() {
 function listarNotificados() {
 	$
 			.getJSON(
-					gth_context_path + "/renuncias/listarxd",
+					gth_context_path + "/renaban/listarxd",
 					"opc=7",
 					function(objJson) {
 						var s = "";
@@ -252,36 +314,23 @@ function listarNotificados() {
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display " cellspacing="0" width="100%" ';
+	var s = '<table id="data-table-row-grouping" class="display responsive" cellspacing="0" style="width:100%"> ';
 	s += 'cellspacing="0">';
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>N</th>';
-	s += '<th>Mes</th>';
-	s += '<th>Apellidos y Nombres</th>';
-	s += '<th>Puesto</th>';
-	s += '<th>Area</th>';
-	s += '<th>Departamento</th>';
+	s += '<th data-priority="3">Mes</th>';
+	s += '<th data-priority="4">Apellidos y Nombres</th>';
+	s += '<th data-priority="5">Puesto</th>';
+	s += '<th data-priority="6">Area</th>';
+	s += '<th data-priority="7">Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de Renuncia</th>';
-	s += '<th>Estado</th>';
-	s += '<th>Opcion</th>';
-	if (Departamento === "DPT-0019") {
-		s += '<th>¿Cumplió Plazos?</th>';
-		if (Rol === "ROL-0006") {
-			s += '<th>¿Contrato Elaborado?</th>';
-			s += '<th>¿Firmo Contrato?</th>';
-			s += '<th>Enviar a Rem.</th>';
-			s += '<th>¿Contrato Subido?<</th>';
-		}
-	}
-	if (Rol === "ROL-0009") {
-		s += '<th>Código APS</th>';
-	}
-	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-		s += '<th>Código Huella</th>';
-	}
+	s += '<th>Fecha de registro</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';	
+	s += '<th data-priority="2">Tipo</th>';
+	s += '<th data-priority="1">Opcion</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq">';
@@ -381,7 +430,7 @@ function verCorreo(idc) {
 
 	// alert(idc);
 	// dni = $("#dni").val();
-	$.get(gth_context_path+"/renuncias/listarxd", {
+	$.get(gth_context_path+"/renaban/listarxd", {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
@@ -407,13 +456,15 @@ function enviarCorreo() {
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
 //	var para = $("#correo").text();
-	var para = "yanetpalacios@upeu.edu.pe";
+	var para = "estefannygarcia@upeu.edu.pe";
 	var clave = "GTH123456";
 	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
+	var idrenaban =$("#idr").text();
+	var tipo =$("#tipo").text();
 	// console.log(msjs);
-	$.get(gth_context_path+"/renuncias/listarxd", {
+	$.get(gth_context_path+"/renaban/listarxd", {
 		de : de,
 		clave : clave,
 		para : para,
@@ -425,7 +476,7 @@ function enviarCorreo() {
 		// $("#modalnotificar").closeModal();
 		if (data == 1) {
 			// alert("SE MANDO");
-			notificarRenuncia();
+			notificar(idrenaban,tipo);
 			// insertarLegajo();
 			
 		} else {
@@ -447,7 +498,7 @@ function insertarLegajo() {
 	var otros = de + " para: " + para;
 	var idtr = $("#idtr").text();
 	// console.log(msjs);
-	$.get(gth_context_path+"/renuncias/listarxd", {
+	$.get(gth_context_path+"/renaban/listarxd", {
 		idtr : idtr,
 		otros : otros,
 		detalle : detalle,
@@ -465,32 +516,58 @@ function insertarLegajo() {
 }
 
 //NOTIFICAR RENUNCIA
-function notificarRenuncia() {
-	var inst = $('[data-remodal-id=modal]').remodal();
-	var idr = $("#idr").text();
-//	alert(idr);
-	$.get(gth_context_path+"/renuncias/listarxd", {
-		idr : idr,
-		opc : 6
-	}, function(data, status) {
-		console.log(data);
-		
-		if (data == 1) {
-			inst.close();
-			$.toast({
-			    heading: 'Correcto!',
-			    text: 'Notificado correctamente',
-			    showHideTransition: 'fade',
-			    icon: 'success'
-			})
-			// alert("NOTIFICADO :v");
-			listarNotificados();
-			listarProcesados();
-		} else {
-			// alert(" NOOOOOOOOOOOOO SE MANDO");
-		}
-
-	});
+function notificar(idrab,tipo1) {
+//	var inst = $('[data-remodal-id=modal]').remodal();
+	var idra = idrab;
+	var tipo1 = tipo1;
+	alert(idrab);
+	alert(tipo1);
+	if(tipo1=="RENUNCIA"){
+		alertify.confirm('Confirmar Notificación', 'Está seguro(a) de notificar la renuncia de este trabajador?', function(){
+			 $.get("listarxd",{opc:6,tipo1:'R',idra:idra},function(data){
+				 window.location.href = gth_context_path +"/renaban/deliveryR";					 
+				
+        		 alert(data);
+        	});
+			 
+	     	} , function(){ 
+	     		
+	        });
+	}else{
+		alertify.confirm('Confirmar Notificación', 'Está seguro(a) de notificar el abandono de este trabajador?', function(){
+			 $.get("listarxd",{opc:6,tipo1:'A',idra:idra},function(data){
+				 window.location.href = gth_context_path +"/renaban/deliveryR";					 
+				
+        		 alert(data);
+        	});
+			 
+	     	} , function(){ 
+	     		
+	        });
+	}
+//	$.get(gth_context_path+"/renuncias/listarxd", {
+//		idr : idr,
+//		tipo1:tipo1,
+//		opc : 6
+//	}, function(data, status) {
+//		console.log(data);
+//		
+//		if (data == 1) {
+//			inst.close();
+//			$.toast({
+//			    heading: 'Correcto!',
+//			    text: 'Notificado correctamente',
+//			    showHideTransition: 'fade',
+//			    icon: 'success'
+//			})
+//			 alert("NOTIFICADO :v");
+//			listarNotificados();
+//			listarProcesados();
+//		} else {
+//			 alert(" NOOOOOOOOOOOOO SE MANDO");
+//		}
+//
+//	});
 }
 
 function Entregar(idc) {
@@ -502,7 +579,7 @@ function Entregar(idc) {
 //	var idr = $("#idr").text();
 	
 
-	$.get(gth_context_path+"/renuncias/entregar", {
+	$.get(gth_context_path+"/renaban/entregar", {
 		idr : idc,
 		opc : 1
 	}, function(data, status) {

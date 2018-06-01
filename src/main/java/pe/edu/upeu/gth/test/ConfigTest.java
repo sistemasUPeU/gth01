@@ -28,6 +28,7 @@ public class ConfigTest {
 	public static RenunciaDAO re = new RenunciaDAO(d);
 	public static RenProcesarDAO pr = new RenProcesarDAO(d);
 	public static PriCartaNotarialDAO pc = new PriCartaNotarialDAO(d);
+	public static RenAutorizarDAO ra = new RenAutorizarDAO(d);
 
 	public static void main(String[] args) {
 //		conect();
@@ -36,7 +37,7 @@ public class ConfigTest {
 //		Procesar();
 //		Procesar1();
 		//Renuncia();
-		justificacion();
+//		justificacion();
 	}
 
 	public static void conect() {	
@@ -85,16 +86,16 @@ public class ConfigTest {
 //	       }
 //	   }
 	
-	 public static void justificacion(){
-	        Justificacion a = new Justificacion();
-	        a.setObservaciones("saliooooooo");
-	        a.setId_renaban("MRA-000025");
-	        if(pc.JustificarAbandono(a)==1){
-	            System.out.println("si");
-	        }else{
-	            System.out.println("no");
-	        }
-	    }
+//	 public static void justificacion(){
+//	        Justificacion a = new Justificacion();
+//	        a.setObservaciones("saliooooooo");
+//	        a.setId_renaban("MRA-000025");
+//	        if(pc.JustificarAbandono(a)==1){
+//	            System.out.println("si");
+//	        }else{
+//	            System.out.println("no");
+//	        }
+//	    }
 
 
 }

@@ -150,7 +150,7 @@ public class RenunciaDAO {
 	
     // LISTAR TODOS LOS TRABAJADORES CON ESTADO NOTIFICADO
 	public List<Map<String, Object>> listarNotificados() {
-		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";
+		sql = "select * from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS='PAS-000438' OR rap.ID_PASOS='PAS-000439'";
 		return jt.queryForList(sql);
 	}
 
@@ -167,12 +167,13 @@ public class RenunciaDAO {
 	    sql += "ra.DNI as DNI, ra.FECHA_CONTRATO as FECHA_CONTRATO, ra.NOM_DEPA as NOM_DEPA, ra.NOM_AREA as NOM_AREA,ra.NOM_SECCION as NOM_SECCION,";
 	    sql += "ra.NOM_PUESTO as NOM_PUESTO, ra.CENTRO_COSTO as CENTRO_COSTO,ra.TIPO_CONTRATO as TIPO_CONTRATO,ra.DESCRIPCION as DESCRIPCION,";
 	    sql += "ra.ANTECEDENTES as ANTECEDENTES,ra.CERTI_SALUD as CERTI_SALUD,ra.MFL as MFL, ra.ARCHIVO as ARCHIVO,ra.FECHA_RENABAN as FECHA_RENABAN,";
-	    sql += "ra.CORREO as CORREO, ra.TIPO as TIPO,jus.OBSERVACIONES as JUSTIFICACION, re.OBSERVACIONES as RECHAZO";
+	    sql += "ra.CORREO as CORREO, ra.TIPO as TIPO,jus.OBSERVACION as JUSTIFICACION, re.OBSERVACIONES as RECHAZO";
 		sql += " from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN  ";
 		sql += " LEFT JOIN RA_JUSTIFICACION jus ON ra.ID_RENABAN=jus.ID_RENABAN ";
 		sql += " LEFT JOIN RA_RECHAZO re ON ra.ID_RENABAN=re.ID_RENABAN ";
-		sql += " WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000428' OR rap.ID_PASOS='PAS-000429'  ";
-		sql +=" and NOM_DEPA='"+depa+"' ORDER BY ra.FECHA_RENABAN DESC";
+		sql += " WHERE rap.ESTADO=0 and ra.NOM_DEPA='"+depa+"'";
+		sql +=" AND rap.ID_PASOS IN ('PAS-000428','PAS-000429') ORDER BY ra.FECHA_RENABAN DESC";
+		System.out.println("esto es depa" + depa);
 		return jt.queryForList(sql);
 	}
 	
@@ -233,6 +234,7 @@ public class RenunciaDAO {
 //		DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 		Date fechon = new java.sql.Date(System.currentTimeMillis());
 		System.out.println(fechon);
+		System.out.println("legooooooooo" + tipo);
 		try {
 			if(tipo.equals("R")) {
 				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000430",idusuario,fechon});
@@ -240,6 +242,7 @@ public class RenunciaDAO {
 			}else {
 				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000431",idusuario,fechon});
 				jt.update(sql3,new Object[] { r.getId_renuncia()});
+				
 			}
 			
 			x = 1;
@@ -365,7 +368,7 @@ public class RenunciaDAO {
 	
 	public int notificarRenuncia(Renuncia r, String idusuario,String tipo1) {
 		int x = 0;
-//		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
 		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000438' AND ID_RENABAN=?";
 		String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000439' AND ID_RENABAN=?";
 //		Date date = new Date();
@@ -374,12 +377,13 @@ public class RenunciaDAO {
 //		DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 		Date fechon = new java.sql.Date(System.currentTimeMillis());
 		System.out.println(fechon);
+		System.out.println("legooooooooo" + tipo1);
 		try {
 			if(tipo1.equals("R")) {
-				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000432",idusuario,fechon});
+				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000440",idusuario,fechon});
 				jt.update(sql2,new Object[] { r.getId_renuncia()});
 			}else {
-				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000433",idusuario,fechon});
+				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000441",idusuario,fechon});
 				jt.update(sql3,new Object[] { r.getId_renuncia()});
 			}
 			

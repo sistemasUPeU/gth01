@@ -115,21 +115,21 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		return x;
 	}
 
-	public int JustificarAbandono(Justificacion ob) {
-		int x = 0;
-		String sql = "call REN_UPDATE_ABANDONO( ? , ?)";
-		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
-		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
-		try {
-			jt.update(sql, new Object[] { ob.getId_renaban(), ob.getObservaciones() });
-			x = 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error:" + e);
-		}
-		return x;
-
-	}
+//	public int JustificarAbandono(Justificacion ob) {
+//		int x = 0;
+//		String sql = "call REN_UPDATE_ABANDONO( ? , ?)";
+//		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
+//		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+//		try {
+//			jt.update(sql, new Object[] { ob.getId_renaban(), ob.getObservaciones() });
+//			x = 1;
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.out.println("Error:" + e);
+//		}
+//		return x;
+//
+//	}
 
 	// Enviar Primera Carta Notarial
 	public int enviarCorreo(String de, String clave, String para, String mensaje, String asunto,String foto) {
