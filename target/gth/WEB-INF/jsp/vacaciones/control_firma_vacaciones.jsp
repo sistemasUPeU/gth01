@@ -13,6 +13,19 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<style type="text/css">
+.center-btn {
+	text-align: center
+}
+
+div.dataTables_length {
+	display: none !important;
+}
+
+#confirmar_lista {
+	margin-top: 25px;
+}
+</style>
 </head>
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
@@ -44,14 +57,19 @@
 								class="mdi-content-save"></i> Guardar</a>
 						</div>
 						<div class="col s8">
-							<div class="file-field input-field">
-								<div class="btn">
-									<span>File</span> <input type="file">
+			<!-- ------------------------------------------------------------------------------------- -->
+							<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">
+								<div class="file-field input-field">
+									<div id="lobo" class="btn">
+										<span>File</span> <input id="file-input" type="file" name="file">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+										<input type="text" id="idvac" name="idvac" value="" class="hide" />
+									</div>
 								</div>
-								<div class="file-path-wrapper">
-									<input class="file-path validate" type="text">
-								</div>
-							</div>
+							</form>
+			<!-- ------------------------------------------------------------------------------------- -->
 						</div>
 					</div>
 				</div>
@@ -77,20 +95,55 @@
 	var z;
 
 	$("#modal").on("click", ".check", function() {
-		if ($(this).attr("name") == 0) {
+		if ($(this).attr("name") == 0 && $(this).attr("id") == "nolisto1") {
 			$(this).removeClass('pink lighten-2');
 			$(this).addClass('green accent-3');
 			$(this).attr("name","1");
 			$(this).find("#i").removeClass('mdi-navigation-close');
 			$(this).find("#i").addClass('mdi-navigation-check');
 		} else
-		if ($(this).attr("name") == 1) {
+		if ($(this).attr("name") == 1 && $(this).attr("id") == "nolisto1") {
 			$(this).removeClass('green accent-3');
 			$(this).addClass('pink lighten-2');
 			$(this).attr("name","0");
 			$(this).find("#i").removeClass('mdi-navigation-check');
 			$(this).find("#i").addClass('mdi-navigation-close');
 		}
+		if ($(this).attr("name") == 0 && $(this).attr("id") == "nolisto2") {
+			if ($("#nolisto1").attr("name") == "1" || $("#listo1").attr("name") == "1") {
+				$(this).removeClass('pink lighten-2');
+				$(this).addClass('green accent-3');
+				$(this).attr("name","1");
+				$(this).find("#i").removeClass('mdi-navigation-close');
+				$(this).find("#i").addClass('mdi-navigation-check');	
+			} else
+			if ($("#nolisto1").attr("name") == "0") {
+				console.log("maincraaa");
+				Materialize
+				.toast(
+						'Cambio no valido, debes confirmar la fecha inicial!',
+						3000,
+						'rounded');
+			}
+		} else
+		if ($(this).attr("name") == 1 && $(this).attr("id") == "nolisto2") {
+			$(this).removeClass('green accent-3');
+			$(this).addClass('pink lighten-2');
+			$(this).attr("name","0");
+			$(this).find("#i").removeClass('mdi-navigation-check');
+			$(this).find("#i").addClass('mdi-navigation-close');
+		}
+		if ($(this).attr("name") == 1 && $(this).attr("id") == "listo1" || $(this).attr("id") == "listo2") {
+			Materialize
+			.toast(
+					'No puedes modificar esta fecha, porque ya fue confirmada!',
+					3000,
+					'rounded');
+		}
+	});
+
+	$("#lobo").click(function() {
+        $("#idvac").val($("#iddet").attr("name"));
 	});
 	
 	$("#guardar").click(function() {
@@ -247,12 +300,12 @@
 				j += '<br> <br>';
 				n_n = n_n + 1;
 				if (obj[i].FIRMA_SALIDA == 0) {
-	            	j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
+	            	j += '<button id="nolisto1" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
 	            	j += '<i class="mdi-navigation-close" id="i"></i>';
 		            j += '</button>';
 				} else
 				if (obj[i].FIRMA_SALIDA == 1) {
-		            j += '<button class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
+		            j += '<button id="listo1" class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'" name="'+obj[i].FIRMA_SALIDA+'">';
 		            j += '<i class="mdi-navigation-check" id="i"></i>';
 		            j += '</button>';
 				}
@@ -265,20 +318,25 @@
 				j += '<br> <br>';
 				n_n = n_n + 1;
 				if (obj[i].FIRMA_ENTRADA == 0) {
-	            	j += '<button class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+	            	j += '<button id="nolisto2" class="btn-floating waves-effect waves-light pink lighten-2 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
 	            	j += '<i class="mdi-navigation-close" id="i"></i>';
 	            	j += '</button>';
 				} else
 				if (obj[i].FIRMA_ENTRADA == 1) {
-		            j += '<button class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
+		            j += '<button id="listo2" class="btn-floating waves-effect waves-light green accent-3 check" value="'+n_n+'"  name="'+obj[i].FIRMA_ENTRADA+'">';
 		            j += '<i class="mdi-navigation-check" id="i"></i>';
 		            j += '</button>';
 				}
 	            j += '</div>';
-	            j += '<button class="hide det" value="'+k+'" name="'+obj[i].ID_DET_VACACIONES+'"></button>';
+	            j += '<button id="iddet" class="hide det" value="'+k+'" name="'+obj[i].ID_DET_VACACIONES+'"></button>';
 			}
 	        fechas.innerHTML += j;
 			z = obj.length;
+			if (obj[i].URL != null) {
+			//blublublublublu
+				//blublublublublu
+					//blublublublublu	
+			}
 	    });
 		$("#modal").openModal();
 	});
@@ -318,5 +376,48 @@
 		s += '</table>';
 		return s;
 	};
+
+	$("#guardar").click(function(event) {
+		console.log("SALE PUES");
+		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+		var csrfToken = $("meta[name='_csrf']").attr("content");
+		console.log(csrfToken + " / " + csrfHeader);
+		var file = $("#file-input").val();
+		var form = $('#documentoForm')[0];
+		var data = new FormData(form);
+		console.log(file + "  " + form + "  " + data);
+		if (file != "") {
+			$.ajax({
+				type : "POST",
+				enctype : 'multipart/form-data',
+				url : gth_context_path + "/solicitud/papeleta",
+				data : data,
+				processData : false,
+				contentType : false,
+				cache : false,
+				timeout : 600000,
+				beforeSend : function(xhr, data) {
+					xhr.setRequestHeader(csrfHeader, csrfToken);
+					console.log("data: "+data);
+				},
+				success: function(data){
+					console.log("success data: "+data);			      
+				      if (data == "0") {
+							console.log("error: " + data);
+							Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+						} else {
+							console.log("success: " + data);
+							Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
+						}
+				    },
+				    error : function(e) {
+						console.log("error ajx "+e.responseText);
+						Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+					}			
+			});
+		} else {
+			Materialize.toast('No hay papeleta', 3000, 'rounded');
+		}
+	});
 </script>
 </html>
