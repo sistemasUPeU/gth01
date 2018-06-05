@@ -211,11 +211,12 @@ $("#print").click(
 			var idt = $("#idtrb").val();
 			parseDate($("#fe_inicio_1").val().trim());
 			var feinicio1 = fecha_extra;
-			var fefin2 = $("#fe_final_1").val().trim();
+			parseDate($("#fe_final_1").val().trim());
+			var fefin2 = fecha_extra;
 			
-			console.log(idt +", " + feinicio1);
+			console.log(idt +", " + feinicio1+", " +fefin2);
 			var b="";
-			b="<embed src='" + gth_context_path + '/solicitud/reporte?idtr=' + idt+"&feinicio1="+feinicio1+"' style='width: 100%; height: 600px; ' type='application/pdf'>"
+			b="<embed src='" + gth_context_path + '/solicitud/reporte?idtr=' + idt+"&feinicio1="+feinicio1+"&fefin1="+fefin2+"' style='width: 100%; height: 600px; ' type='application/pdf'>"
 //			$("#request").attr("data",
 //					gth_context_path + "/solicitud/reporte?idtr=" + idt+"&feinicio1="+feinicio1);
 			$("#show_request").html(b);
@@ -380,10 +381,10 @@ function setti(id) {
 	console.log(num);
 	var fecha_inicio3 = parseDate(fei);
 
-	// $('#fe_final_' + num).pickadate('picker').set('select',
-	// calcular_final(fecha_inicio3), {
-	// format : 'dd/mm/yyyy'
-	// }).trigger("change");
+	 $('#fe_final_' + num).pickadate('picker').set('select',
+	 calcular_final(fecha_inicio3), {
+	 format : 'dd/mm/yyyy'
+	 }).trigger("change");
 	Materialize.updateTextFields();
 }
 
@@ -443,6 +444,7 @@ function insertar() {
 	var fechas_0 = getArray_fechas(1); // fecha inicio
 	var fechas_1 = getArray_fechas(2); // fecha fin
 
+	console.log(fechas_0 + " , " + fechas_1);
 	var tamaño = fechas_0.length;
 
 	var inicio = fechas_0.join("-");

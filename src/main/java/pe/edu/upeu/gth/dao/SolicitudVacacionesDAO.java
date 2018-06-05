@@ -56,7 +56,7 @@ public class SolicitudVacacionesDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, ServletContext cntx, HttpServletResponse response) {
+public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, String fechafin1, ServletContext cntx, HttpServletResponse response) {
 		
 //		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
 		String jasperFile = cntx.getRealPath("/jasperreports/request_report.jrxml" );
@@ -81,6 +81,7 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 				
 				Inparamets.put("txtidtrab", idtrabajador);
 				Inparamets.put("txtfecha1", fechainicio1);
+				Inparamets.put("txtfecha11", fechafin1);
 //				Inparamets.put("txtIdVacante", idvacante);
 				Inparamets.put("realPath", realPath);
 				System.out.println(Inparamets);
