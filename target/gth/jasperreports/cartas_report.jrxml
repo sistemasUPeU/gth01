@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cartas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="759c7fd3-83c7-41e9-8d2c-21c5172db5ff">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[IlJITVZfVFJBQkFKQURPUl9GSUxUUkFETyIgLDQ4NSw4OTQsOGZhYzhiNjAtMmI0Ny00MDk4LWE5
+YzAtZDE1ZmVjMGM4M2IyOw==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString language="SQL">
+		<![CDATA[select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.AP_MATERNO, tf.NO_SECCION, vtc.NO_AREA,
+		trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))-trunc(to_date(dsv.FECHA_INICIO,'DD/MM/YYYY hh24:mi:ss'))+1 as NU_VAC, 
+		t.NU_DOC, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, tf.LI_CONDICION,
+		vtc.NO_USUARIO, trim(dsv.ID_DET_VACACIONES) as ID_DET_VACACIONES, sv.ID_VACACIONES, dsv.FIRMA_ENTRADA, dsv.FIRMA_SALIDA
+		from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,
+		RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd
+		where sv.ID_VACACIONES=dsv.ID_VACACIONES and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR
+		and sv.ESTADO=1 and tf.ESTADO=1 and dsv.ESTADO<>0 and hd.ESTADO=1
+		and hd.EVALUACION=3 and hd.ID_PASOS='PAS-000052'
+		and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES
+		and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO
+		and tf.ID_TRABAJADOR=t.ID_TRABAJADOR
+		and t.ID_TRABAJADOR=co.ID_TRABAJADOR
+		and co.ES_CONTRATO=1]]>
+	</queryString>
+	<field name="ID_TRABAJADOR_FILTRADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ID_TRABAJADOR_FILTRADO"/>
+	</field>
+	<field name="ID_CONSOLIDADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ID_CONSOLIDADO"/>
+	</field>
+	<field name="ID_TRABAJADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ID_TRABAJADOR"/>
+	</field>
+	<field name="AP_PATERNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_PATERNO"/>
+	</field>
+	<field name="AP_MATERNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_MATERNO"/>
+	</field>
+	<field name="NO_TRABAJADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NO_TRABAJADOR"/>
+	</field>
+	<field name="NU_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NU_DOC"/>
+	</field>
+	<field name="NO_AREA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NO_AREA"/>
+	</field>
+	<field name="NO_PUESTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NO_PUESTO"/>
+	</field>
+	<field name="FECHA_INICIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_INICIO"/>
+	</field>
+	<field name="FECHA_FIN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_FIN"/>
+	</field>
+	<field name="NU_VAC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NU_VAC"/>
+	</field>
+	<field name="ID_SOLICITUD_VACACIONES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ID_SOLICITUD_VACACIONES"/>
+	</field>
+	<field name="TIPO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO"/>
+	</field>
+	<field name="ESTADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTADO"/>
+	</field>
+	<field name="FEC_INI_MON" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FEC_INI_MON"/>
+	</field>
+	<field name="FEC_FIN_MON" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FEC_FIN_MON"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="140" splitType="Stretch">
+			<staticText>
+				<reportElement x="212" y="48" width="137" height="30" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
+				<text><![CDATA[PAPELETA DE VACACIONES]]></text>
+			</staticText>
+			<image>
+				<reportElement x="60" y="29" width="71" height="69" uuid="6dc7fa46-4723-47da-a8ea-4ecd898e677c"/>
+				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="661" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="10" width="440" height="100" uuid="6fa4c7d5-d065-442c-82e7-a1696edcc598"/>
+				<textFieldExpression><![CDATA["Nombre y apellidos del servidor: " + $F{AP_PATERNO} +" " + $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR}
+				+ "\nFacultad/Área: " + $F{NO_AREA} + "\nCargo: " + $F{NO_PUESTO}
+				+ "\nMes Programado: " + $F{FEC_INI_MON} + " - " + $F{FEC_FIN_MON}
+				+ "\nDuración: " + $F{FECHA_INICIO} + " - " + $F{FECHA_FIN}
+				+ "\nTotal de días: " +$F{NU_VAC} + " días"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="150" width="440" height="30" uuid="b661ea1a-520d-492f-975a-4e3d998cf205"/>
+				<text><![CDATA[Observación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="260" width="100" height="30" uuid="32458cf1-1426-415d-857f-532897dc6e02"/>
+				<text><![CDATA[AUTORIZACIÓN]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="410" y="260" width="90" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="351" y="260" width="59" height="20" uuid="6771fe6e-4310-4140-abbc-88fb11e6043a"/>
+				<text><![CDATA[Lima, Ñaña, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="380" width="111" height="21" uuid="b8bbb51a-bc59-461d-80d6-1e0e4cf23801"/>
+				<text><![CDATA[______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="390" width="65" height="18" uuid="f41e607d-c226-4afb-82bc-40b543760ae5"/>
+				<text><![CDATA[Trabajador(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="541" width="155" height="21" uuid="d1e762c7-d6d6-4815-8ff2-16eef4c1f96a"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="550" width="150" height="18" uuid="ecb0b101-02ed-4987-a633-063d9e2cb67e"/>
+				<text><![CDATA[Gerente del Recursos Humanos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="540" width="111" height="21" uuid="465d6bd2-824d-4c88-925c-b90afd95e60a"/>
+				<text><![CDATA[______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="550" width="111" height="18" uuid="36c6e6eb-8d49-4f8d-9515-5c2281217f32"/>
+				<text><![CDATA[V° B° de Jefe Inmediato]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -63,11 +63,11 @@ div.dataTables_length {
 				<div id="nocargando" class="center-btn row">
 					<a id="confirmar_lista" class="btn waves-effect waves-light"><i
 						class="mdi-navigation-check"></i> Confirmar</a>
-<!-- 						<p> -->
-<!-- 						<a -->
-<!-- 							class="btn btn-large waves-effect waves-light light-green darken-4" -->
-<!-- 							id="confirmar-aprob" type="submit">Cuaderno de vacaciones</a> -->
-<!-- 					</p> -->
+					<!-- 						<p> -->
+					<!-- 						<a -->
+					<!-- 							class="btn btn-large waves-effect waves-light light-green darken-4" -->
+					<!-- 							id="confirmar-aprob" type="submit">Cuaderno de vacaciones</a> -->
+					<!-- 					</p> -->
 				</div>
 				<div id="cargando" class="center-btn">
 					<div class="preloader-wrapper small active">
@@ -88,22 +88,21 @@ div.dataTables_length {
 			</div>
 			<div id="modal2" class="modal" style="width: 850px; height: 2000px;">
 				<div class="modal-content">
-					<h4>Modificar fecha de inicio y fecha fin</h4>
-					<p>Seleccione fecha:</p>
+					<h3>Modificar fecha de inicio y fecha fin</h3>
+					<button id="iddet" class="hide" value=""></button>
 					<div class="row">
 						<div class="col s8 m6 l6">
-
 							<p>Seleccione fecha de inicio:</p>
-							<input type="text" class="datepicker">
+							<input id="fec_in" type="text" class="datepicker">
 						</div>
 						<div class="col s8 m6 l6">
 							<p>Seleccione fecha de fin:</p>
-							<input type="text" class="datepicker">
+							<input id="fec_fi" type="text" class="datepicker" disabled>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<a href="#!"
+					<a id="fec_up" href="#!"
 						class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>
 				</div>
 			</div>
@@ -124,6 +123,9 @@ div.dataTables_length {
 								</p>
 
 							</div>
+
+							<input id="idtrb" class="hide"> <input id="tiposolicitud"
+								class="hide"> <input id="idvacaciones" class="hide">
 
 						</div>
 						<br>
@@ -167,7 +169,7 @@ div.dataTables_length {
 						<div class="row">
 
 							<div class="col s7 m8 l5">
-								<a class="waves-effect waves-light btn right" id="print"><i
+								<a class="waves-effect waves-light btn right" id="printRequest"><i
 									class="mdi-action-print right"></i>Imprimir</a>
 								<!-- 								<a -->
 								<!-- 								class="waves-effect waves-light btn modal-trigger" -->
@@ -175,7 +177,7 @@ div.dataTables_length {
 							</div>
 							<div class="col s5 m4 l5">
 								<a class="btn waves-effect waves-light  cyan darken-2 right"
-									onclick="insertar()" id="confirmar" disabled>Confirmar<i
+									onclick="insertar()" id="confirmarSolicitud" disabled>Confirmar<i
 									class="mdi-navigation-check right"></i></a>
 
 							</div>
@@ -183,40 +185,41 @@ div.dataTables_length {
 
 						</div>
 
+						<form method="post"
+							action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}"
+							enctype="multipart/form-data" class="col s12 m8 l11"
+							id="uploadForm">
 
-						<div id="file-upload" class="section">
+							<div id="file-upload" class="section center">
 
-							<div class="row section"
-								style="margin-left: 20%; margin-right: 20%">
+								<div class="row section"
+									style="margin-left: 20%; margin-right: 20%">
 
-								<div class="col s12 m12 l12 center">
-									<p>Maximum file upload size 2MB.</p>
-									<input type="file" id="input-file-max-fs" class="dropify"
-										data-max-file-size="2M" />
+									<div class="col s12 m12 l12 center">
+										<input type="file" name="file" id="file-input" class="dropify"
+											data-max-file-size="10M" data-errors-position="outside" /> <input
+											type="text" id="idvac" name="idvac" value="" class="hide" />
+									</div>
+
+
 								</div>
+							</div>
 
+
+
+							<div class="col s6 center" style="margin-right: 2em;">
+								<button type="submit"
+									class="btn waves-effect waves-light center" id="saveFile">
+									Enviar <i class="mdi-content-send right"></i>
+								</button>
+								<%-- 							<input type="hidden" name="${_csrf.parameterName}" --%>
+								<%-- 							value="${_csrf.token}" /> --%>
 
 							</div>
-						</div>
+						</form>
 
-						<div class="row">
 
-							<div class="col s7 m8 l12 center">
-								<a class="waves-effect waves-light btn center"><i
-									class="mdi-file-file-upload right"></i>Guardar documento</a>
 
-							</div>
-						</div>
-						<div id="modal1" class="modal"
-							style="width: 850px; height: 2000px;">
-							<div class="modal-content">
-
-								<!-- 				D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jasper -->
-								<object data="" type="application/pdf" width="800" height="600">
-
-								</object>
-							</div>
-						</div>
 					</div>
 
 				</div>
@@ -233,7 +236,7 @@ div.dataTables_length {
 		$(document).ready(function() {
 			//listar();
 			READALL();
-			listarTrabajadoresConSoli()
+			listarTrabajadoresConSoli();
 
 		});
 
@@ -241,9 +244,9 @@ div.dataTables_length {
 
 	<script type="text/javascript">
 	function loadProfile(){
-		//location.href="<%=request.getContextPath()%>
-		/trabajador/profile";
+		//location.href="<%=request.getContextPath()%>/trabajador/profile";
 		}
+
 		var divisiones = 0;
 		$(document)
 				.ready(
@@ -269,7 +272,7 @@ div.dataTables_length {
 														$("#dni").val(d);
 														$("#idtrb").val(t);
 														$("#idrol").val(r);
-														$("#user").val(u);
+														$("#username").val(u);
 
 														Materialize
 																.updateTextFields();
@@ -404,26 +407,6 @@ div.dataTables_length {
 			return inicio;
 		};
 
-		function calcular_final(begin) {
-
-			console.log("fecha enviada " + begin);
-			console.log("fecha enviada " + begin.getFullYear);
-			var calculado = new Date();
-
-			begin.setDate(begin.getDate() + 29);
-
-			var anno = begin.getFullYear();
-			var mes = begin.getMonth() + 1;
-			var dia = begin.getDate();
-			mes = (mes < 10) ? ("0" + mes) : mes;
-			dia = (dia < 10) ? ("0" + dia) : dia;
-			var fechaFinal = dia + "/" + mes + "/" + anno;
-
-			console.log("fecha calculada: " + fechaFinal);
-
-			return fechaFinal;
-		}
-
 		var cont = 2;
 		$("#agregar")
 				.click(
@@ -525,8 +508,8 @@ div.dataTables_length {
 			var fin = fechas_1.join("-");
 			console.log("ini: " + inicio);
 			var idt = $("#idtrb").val();
-			var tipo = $("#tipo").val();
-			var user = $("#user").val();
+			var tipo = $("#tiposolicitud").val();
+			var user = $("#username").val();
 
 			var datos = "inicio=" + inicio;
 			datos += "&final=" + fin;
@@ -537,9 +520,13 @@ div.dataTables_length {
 
 			var con = new jsConnector();
 			con.post('solicitud/insertar?' + datos, null, function(response) {
-				if (response == 1) {
+				console.log("jquery:" + response);
+				if (response != null) {
+					console.log("jquery:" + response);
 					Materialize.toast('Vacaciones registrada correctamente!',
 							3000, 'rounded');
+					$("#idvacaciones").val($.trim(response));
+					console.log($("#idvacaciones").val());
 					$('#confirmar').addClass('disabled');
 				} else {
 					Materialize.toast(
@@ -549,43 +536,6 @@ div.dataTables_length {
 			});
 
 		};
-
-		function aaa() {
-			$("#aa").submit();
-		}
-		$("#modal2")
-				.click(
-						function() {
-							arrid = getSelected();
-							var username = $("#username").val();
-							var id_arr = arrid;
-							var id_det = id_arr.join(",");
-							console.log(username);
-							console.log(id_det);
-							var datos = "username=" + username;
-							datos += "&id_det=" + id_det;
-							var con = new jsConnector();
-							con
-									.post(
-											"vacaciones/gestionar_programa/insertProgramaVacaciones?"
-													+ datos,
-											null,
-											function(data) {
-												if (data == 1) {
-													Materialize
-															.toast(
-																	'Felicidades!!, ha aprobado a sus trabajadores',
-																	3000,
-																	'rounded');
-												} else {
-													Materialize
-															.toast(
-																	'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
-																	3000,
-																	'rounded');
-												}
-											});
-						});
 	</script>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
@@ -624,20 +574,125 @@ div.dataTables_length {
 		}
 		function getSelected() {
 			var allVals = [];
-			$('#data :checked').each(
-					function() {
-						allVals.push($(this).parents("#data tr").find(
-								"#soli").text());
-					});
+			$('#data :checked').each(function() {
+				allVals.push($(this).parents("#data tr").find("#soli").text());
+			});
 			return allVals;
 		}
-		$("#table_contenido").on("click", "#abrir-modal2", function() {
-			$("#modal2").openModal();
-		});
-		$("#table_contenido").on("click", "#abrir-modal1", function() {
+		$("#table_contenido").on(
+				"click",
+				"#abrir-modal2",
+				function() {
+					var id_det_vac = $(this).attr("name");
+					console.log(id_det_vac);
+					$("#iddet").val(id_det_vac);
+					$.get('readFechaMod', {
+						id : id_det_vac
+					}, function(data) {
+						console.log("fechas: " + data[0].FECHA_INICIO + " y "
+								+ data[0].FECHA_FIN);
+						$('#fec_in').pickadate('picker').set('select',
+								data[0].FECHA_INICIO, {
+									format : 'dd/mm/yyyy'
+								}).trigger("change");
+						$('#fec_fi').pickadate('picker').set('select',
+								data[0].FECHA_FIN, {
+									format : 'dd/mm/yyyy'
+								}).trigger("change");
+						console.log(data);
+					});
+					$("#modal2").openModal();
+				});
+		// 		$("#table_contenido").on("click", "#abrir-modal1", function() {
+		// 			$("#modal1").openModal();
+		// 			console.log("abriendo modal 1");
+		// 			//$.get.('getAllFechas');
+		// 		});
+		function abrirModalSolicitud(value) {
+			console.log("abriendo modal s " + value);
 			$("#modal1").openModal();
-			//$.get.('getAllFechas');
-		});
+			$("#idtrb").val(value);
+
+			var idtrbselected = value;
+
+			$.getJSON(gth_context_path + "/solicitud/validar", {
+				id : idtrbselected
+			}, function(res, status) {
+
+				console.log("devuelve controller: " + res);
+
+				switch (res) {
+
+				case 1:
+
+					//						window.location.href = gth_context_path +"/solicitud/registrar?op=1";
+					var datos = "op=1"
+					//						$.post(gth_context_path+'/solicitud/registrar', datos, function(response) {
+					//							console.log(response);
+					//							$("#content").html(response);
+					//						});
+					console.log("Programacion");
+					$("#tiposolicitud").val("Programacion");
+					$("#tipo").val("Programación");
+					Materialize.updateTextFields();
+					//					var con = new jsConnector();
+					//					con.post(gth_context_path+'/solicitud/tipo?' + datos, null, function(
+					//							response) {
+					//						console.log("respuesta" + response);
+					//						if (response != null) {
+					//							console.log("jquery:" + response);
+					//							Materialize.toast('Vacaciones registrada correctamente!', 3000,
+					//									'rounded');
+					//							$("#idvac").val($.trim(response));
+					//							console.log($("#idvac").val());
+					//							$('#confirmar').addClass('disabled');
+					//						} else {
+					//							Materialize.toast('UPS!!, No se ha registrado sus vacaciones!',
+					//									3000, 'rounded');
+					//						}
+					//					});
+					break;
+				case 2:
+
+					//					window.location.href = gth_context_path +"/";
+					Materialize.toast('Usted tiene una solicitud en proceso!',
+							3000, 'rounded', function() {
+								var datos = "op=3"
+								$.get(
+										gth_context_path
+												+ '/solicitud/registrar',
+										datos, function(response) {
+											console.log(response);
+											$("#desktop").html(response);
+										});
+
+							});
+					$("#subir").attr("disabled", true);
+					$("#subir").attr("enabled", false);
+					$("#print").attr("disabled", true);
+					$("#print").attr("enabled", false);
+					$("#confirmar").attr("disabled", true);
+					$("#confirmar").attr("enabled", false);
+
+					break;
+				case 3:
+					//						window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
+					//						console.log("reprogramacion");
+					var datos = "op=2"
+					console.log("Reprogramacion");
+					$("#tiposolicitud").val("Reprogramación");
+					$("#tipo").val("Reprogramación");
+					//						$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
+					//							console.log(response);
+					//							
+					//							$("#dashboard").html(response);
+					//						});
+					break;
+				}
+			});
+
+		}
+
 		$("#confirmar_lista").click(function() {
 			arrid = getSelected();
 			console.log(arrid);
@@ -676,7 +731,9 @@ div.dataTables_length {
 									s += '<input type="checkbox" id="test'+i+'">';
 									s += '<label for="test'+i+'"></label>';
 									s += '</p></td>';
-									s += '<td><button id="abrir-modal1" class="waves-effect waves-light btn modal-trigger red" href="#modal1">&#128197;</button></td>';
+									s += '<td><button id="abrir-modal1" value="'
+											+ obj[i].ID_TRABAJADOR
+											+ '" class="waves-effect waves-light btn red" onclick=abrirModalSolicitud(this.value)>&#128197;</button></td>';
 									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
 									s += '</tr>';
 
@@ -741,7 +798,7 @@ div.dataTables_length {
 									s += '<input type="checkbox" id="test'+i+'">';
 									s += '<label for="test'+i+'"></label>';
 									s += '</p></td>';
-									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
+									s += '<td><button id="abrir-modal2" name="' + obj[i].ID_DET_VACACIONES + '" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
 									s += '</tr>';
 
 								}
@@ -905,7 +962,7 @@ div.dataTables_length {
 							datos += "&id_det=" + id_det;
 							var con = new jsConnector();
 							con
-									
+
 									.post(
 											"vacaciones/GestionarProgramaVacaciones/insertProgramaVacaciones?"
 													+ datos,
@@ -928,9 +985,65 @@ div.dataTables_length {
 												$("#nocargando").show();
 												$("#cargando").hide();
 											});
-							
-										
+
 						});
+
+		$("#fec_up").click(
+				function() {
+					var f = new Date();
+					parseDate($("#fec_in").val());
+					var fec_in = fecha_extra;
+					var fec_ac = f.getDate() + "/" + (f.getMonth() + 1) + "/"
+							+ f.getFullYear();
+					parseDate($("#fec_fi").val());
+					var fec_fi = fecha_extra;
+					var id = $("#iddet").val();
+					console.log(fec_in + " y " + fec_fi + " y " + id + " fea "
+							+ fec_ac);
+					if (fec_in > fec_ac) {
+						$.get('updateFechaMod', {
+							id : id,
+							inicio : fec_in,
+							fin : fec_fi
+						}, function(data) {
+							console.log(data);
+							listarTrabajadoresConSoli();
+						});
+						Materialize.toast('Fecha modificada correctamente',
+								3000, 'rounded');
+					} else {
+						Materialize.toast('Escoge una fecha correcta!', 3000,
+								'rounded');
+					}
+				});
+
+		$("#fec_in").change(
+				function() {
+					var fe_i = $("#fec_in").val();
+					console.log(fe_i);
+					var fecha_inicio = parseDate(fe_i);
+					console.log("fecha_inicio_return: " + fecha_inicio);
+					$('#fec_fi').pickadate('picker').set('select',
+							calcular_final(fecha_inicio), {
+								format : 'dd/mm/yyyy'
+							}).trigger("change");
+					Materialize.updateTextFields();
+				});
+
+		function calcular_final(begin) {
+			console.log("fecha enviada " + begin);
+			console.log("fecha enviada " + begin.getFullYear);
+			var calculado = new Date();
+			begin.setDate(begin.getDate() + 29);
+			var anno = begin.getFullYear();
+			var mes = begin.getMonth() + 1;
+			var dia = begin.getDate();
+			mes = (mes < 10) ? ("0" + mes) : mes;
+			dia = (dia < 10) ? ("0" + dia) : dia;
+			var fechaFinal = dia + "/" + mes + "/" + anno;
+			console.log("fecha calculada: " + fechaFinal);
+			return fechaFinal;
+		}
 	</script>
 
 </body>
