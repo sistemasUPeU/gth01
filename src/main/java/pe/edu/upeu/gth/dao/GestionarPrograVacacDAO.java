@@ -29,7 +29,7 @@ public class GestionarPrograVacacDAO {
 	public List<Map<String, Object>> READALL(String depa) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, \r\n" + 
+			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.ID_TRABAJADOR , tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, \r\n" + 
 					"tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, \r\n" + 
 					"to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
 					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 

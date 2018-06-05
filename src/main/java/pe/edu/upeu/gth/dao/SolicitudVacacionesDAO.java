@@ -19,6 +19,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +56,10 @@ public class SolicitudVacacionesDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, ServletContext cntx) {
+public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, String fechafin1, ServletContext cntx, HttpServletResponse response) {
 		
-		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
+//		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
+		String jasperFile = cntx.getRealPath("/jasperreports/request_report.jrxml" );
 		Map<String, Object> OutValues = new HashMap<>();
 		 String outfilePDF ="";
 		 String outFoler ="";
@@ -69,14 +71,19 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 	    	
 //	    	cn=(Connection) jt.getDataSource();
 	    	 Class.forName("oracle.jdbc.OracleDriver");
-	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
+//	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
+	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth", "123");
 	    	 cn.setAutoCommit(false);
+	    	 
+	    	 String realPath = cntx.getRealPath("/resources/img/");
 		       	
 		    	Map<String,Object> Inparamets = new HashMap<String,Object>();
 				
 				Inparamets.put("txtidtrab", idtrabajador);
 				Inparamets.put("txtfecha1", fechainicio1);
+				Inparamets.put("txtfecha11", fechafin1);
 //				Inparamets.put("txtIdVacante", idvacante);
+				Inparamets.put("realPath", realPath);
 				System.out.println(Inparamets);
 		      
 				JasperReport report = JasperCompileManager.compileReport(jasperFile);
@@ -86,7 +93,7 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 				//generar Carpeta 
 				
 //				    outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
-				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador;
+//				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador;
 				   outFoler = cntx.getRealPath("/resources/files/solicitud/" + idtrabajador );
 			       File outDir = new File(outFoler);
 			       System.out.println("existe o no "+outDir.exists());
@@ -100,7 +107,7 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 			       
 				 // Exporta el informe a PDF
 				 JasperExportManager.exportReportToPdfFile(print,outfilePDF);
-	     
+				 System.out.println("respesta dao 1: " + response.getOutputStream());
 	    }
 	    catch (Exception e) {
 	      e.printStackTrace();

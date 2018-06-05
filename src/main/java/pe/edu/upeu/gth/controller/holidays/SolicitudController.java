@@ -105,11 +105,13 @@ public class SolicitudController {
 			System.out.println("reporte");
 			idt = request.getParameter("idtr");
 			String fechainicio1 = request.getParameter("feinicio1");
+			String fechafin1 = request.getParameter("fefin1");
 			System.out.println("--------------reporte controller pdf---------------");
 			System.out.println(idt);
-			System.out.println(fechainicio1);
+			System.out.println(fechainicio1+", " + fechafin1);
+			
 //			List<Map<String, Object>> sd = 
-					vd.llenar_solicitud(idt,fechainicio1, cntx);
+			vd.llenar_solicitud(idt,fechainicio1,fechafin1, cntx , response);
 //			model.addAttribute("format", format);
 //			model.addAttribute("datasource", sd);
 //			model.addAttribute("AUTOR", "Tutor de programacion");
@@ -167,7 +169,7 @@ public class SolicitudController {
 
 		int sd = vd.validarTipoSolicitud(trab);
 		// String res = sd+"/"+rol;
-		System.out.println(gs.toJson(sd));
+		System.out.println("validación de tipo solicitud" + gs.toJson(sd));
 
 		//// model.setViewName("home");
 		// model.addObject("nro",0);
@@ -316,6 +318,7 @@ public class SolicitudController {
 			System.out.println(res);
 		}
 		System.out.println(result);
+		
 		return result;
 	}
 }
