@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
@@ -160,8 +161,7 @@ public class VerificarRenunciaDAO implements CRUDOperations{
 			}
 			return seracierto;
 		}
-		
-		
+
 //		public int insertarRechazo(Rechazo ob) {
 //			int x = 0;
 //			try {

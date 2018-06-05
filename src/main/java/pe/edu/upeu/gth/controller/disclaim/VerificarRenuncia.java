@@ -24,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dao.VerificarRenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -37,9 +39,11 @@ public class VerificarRenuncia {
 	private Gson gson = new Gson();
 	Renuncia r = new Renuncia();
 	Rechazo re = new Rechazo();
+	Justificacion ju = new Justificacion();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 	VerificarRenunciaDAO ra = new VerificarRenunciaDAO(AppConfig.getDataSource()); 
-	Map<String, Object> mp = new HashMap<>();
+	RenAutorizarDAO rea = new RenAutorizarDAO(AppConfig.getDataSource())
+;	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
 	
 	@RequestMapping(value = "/verificarRenuncia", method = RequestMethod.GET)
@@ -78,13 +82,13 @@ public class VerificarRenuncia {
 			out.println(gson.toJson(ra.Autorizado()));
 			break;
 		case 6:
-			String id = request.getParameter("idr");
-			System.out.println(id);
-			String observaciones = request.getParameter("observaciones");				
-			re.setId_renaban(id);
-			re.setObservaciones(observaciones);
-			out.println(ra.RechazarRenuncia(re));
-			break;
+//			String id = request.getParameter("idr");
+//			System.out.println(id);
+//			String observaciones = request.getParameter("observaciones");				
+//			re.setId_renaban(id);
+//			re.setObservaciones(observaciones);
+//			out.println(ra.RechazarRenuncia(re));
+//			break;
 		case 7: 
 			String idrol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
 			String tipon = request.getParameter("tipo");

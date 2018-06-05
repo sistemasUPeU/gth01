@@ -214,7 +214,7 @@
 			<div class="input-field col s6 center">
 				<a
 					class="btn btn-large waves-effect waves-light light-green darken-4 "
-					id="autorizarRen">Autorizar</a>
+					id="RecepcionarRen">Autorizar</a>
 					<input type="hidden" id="tipo"/>
 			</div>
 			<div class="input-field col s6 center">

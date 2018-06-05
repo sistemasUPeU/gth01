@@ -91,7 +91,6 @@
 																+ '</a>';
 														s += '<div class="collapsible-body  style="padding: 0;">';
 														s += '<ul>';
-														s += '<li><a href="'+gth_context_path+ '/renaban/listaRA">* Reportes</a></li>';
 														s += '<li><a href="'+gth_context_path+ '/renaban/PrimerEnvio">*Carta Notarial</a></li>';
 														s += '<li><a href="'+gth_context_path+ '/renaban/SegundoEnvio">*Segunda Carta</a></li>';
 														s += '</ul>';
@@ -111,7 +110,6 @@
 																	+ '</a>';
 															s += '<div class="collapsible-body  style="padding: 0;">';
 															s += '<ul>';
-															s += '<li><a href="'+gth_context_path+ '/renaban/listaRA">* Reportes</a></li>';
 															s += '<li><a href="'+gth_context_path+ '/renaban/verificarRenuncia">*Verificar Renuncia</a></li>';
 															//			 											s += '<li><a href="'+gth_context_path+ '/renaban/SegundoEnvio">*Segunda Carta</a></li>';
 															s += '</ul>';
@@ -121,11 +119,36 @@
 															s += '</li>';
 
 														} else {
-															s += '<li class="bold">';
-															s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
-																	+ lista[i].NO_LINK
-																	+ '</a>';
-															s += '</li>';
+															if (lista[i].ID_PRIVILEGIO === "PRV-000078") {
+																s += '<li class="no-padding" style="line-height:2em">';
+																s += '<ul class="collapsible collapsible-accordion">';
+
+																s += '<li class="bold center">';
+																s += '<a class="collapsible-header waves-effect waves-light active" ><i class="'+lista[i].IC_LINK+'"></i>'
+																		+ lista[i].NO_LINK
+																		+ '</a>';
+																s += '<div class="collapsible-body  style="padding: 0;">';																
+																s += '<ul>';																
+																s += '<li><a href="'+gth_context_path+ '/renaban/listaRA">* Reportes</a></li>';
+																s += '<li><a href="'+gth_context_path+ '/renaban/registrationR">* Registrar Renuncia</a></li>';
+																s += '<li><a href="'+gth_context_path+ '/renaban/registrationA">* Registrar Abandono</a></li>';	
+																s += '<li><a href="'+gth_context_path+ '/renaban/recepcionar">* Recepcionar Renuncia y Abandono</a></li>';
+																//			 											s += '<li><a href="'+gth_context_path+ '/renaban/SegundoEnvio">*Segunda Carta</a></li>';
+																s += '</ul>';
+																s += '</div>';
+																s += '</li>';
+																s += '</ul>';
+																s += '</li>';
+
+															}else{
+																s += '<li class="bold">';
+																s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+																		+ lista[i].NO_LINK
+																		+ '</a>';
+																s += '</li>';	
+															}
+															
+															
 														}
 
 													}

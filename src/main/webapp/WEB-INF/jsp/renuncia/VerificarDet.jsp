@@ -180,7 +180,7 @@
 			<div class="input-field col s6 center">
 				<a
 					class="btn btn-large waves-effect waves-light light-green darken-4 "
-					id="autorizarRen">Autorizar</a>
+					id="verificarRen">Autorizar</a>
 			</div>
 			<div class="input-field col s6 center">
 				<a
