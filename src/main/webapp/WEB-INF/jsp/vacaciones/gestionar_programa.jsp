@@ -333,6 +333,7 @@ div.dataTables_length {
 						});
 
 		var fecha_extra = "";
+		var fecha_recontraextra = "";
 		$("#print").click(function() {
 			$('.modal').openModal();
 			var idt = $("#idtrb").val();
@@ -390,6 +391,7 @@ div.dataTables_length {
 					+ '/' + day;
 
 			fecha_extra = day + '/' + month + '/' + input[2];
+			fecha_recontraextra = day + ',' + month + ',' + input[2];
 			var inicio = new Date(newDate);
 			console.log("fecha_extra: " + fecha_extra);
 			//console.log(inicio);
@@ -891,12 +893,17 @@ div.dataTables_length {
 			var fec_fi = fecha_extra;
 			var id = $("#iddet").val();
 			console.log(fec_in + " y " + fec_fi + " y " + id + " fea " + fec_ac);
+			parseDate(fec_in);
+			var fechai=new Date(fecha_recontraextra);
+			parseDate(fec_ac);
+			var fechaa=new Date(fecha_recontraextra);
+			console.log(fechai + fechaa);
 			if (fec_in > fec_ac) {
 				$.get('updateFechaMod', {id : id, inicio : fec_in, fin : fec_fi}, function (data) {
 					console.log(data);
 					listarTrabajadoresConSoli();
+					Materialize.toast('Fecha modificada correctamente', 3000, 'rounded');
 			    });
-				Materialize.toast('Fecha modificada correctamente', 3000, 'rounded');
 			} else {
 				Materialize.toast('Escoge una fecha correcta!', 3000, 'rounded');
 			}

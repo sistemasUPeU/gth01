@@ -56,7 +56,7 @@ div.dataTables_length {
 								class="btn waves-effect waves-light modal-action modal-close"><i
 								class="mdi-content-save"></i> Guardar</a>
 						</div>
-						<div class="col s8">
+						<div id="zorro" class="col s8">
 			<!-- ------------------------------------------------------------------------------------- -->
 							<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">
 								<div class="file-field input-field">
@@ -279,9 +279,10 @@ div.dataTables_length {
 		    });
 		}
 	});
-	
+	var idtrab;
 	$("#table_contenido").on("click", "#open", function() {
 		var id = $(this).attr("name");
+		idtrab = id;
 		console.log(id);
 		$.get('readFirma', {id : id}, function (obj) {
 			console.log(obj);
@@ -332,10 +333,19 @@ div.dataTables_length {
 			}
 	        fechas.innerHTML += j;
 			z = obj.length;
-			if (obj[i].URL != null) {
-			//blublublublublu
-				//blublublublublu
-					//blublublublublu	
+			var btnPapeleta = '';
+			if (obj[0].URL != null) {
+				console.log(idtrab);
+				$("#zorro").empty();
+				btnPapeleta += '<br><a class="waves-effect waves-light btn" id="verPapeleta" href="'
+					+ gth_context_path
+					+ '/vacaciones/consolidado/mostrardoc?traba='
+					+ idtrab
+					+ '&id_det='
+					+ obj[0].ID_DET_VACACIONES
+					+ '&op=2" target="_blank" >Ver Papeleta</a></div></center></div>';
+				$("#zorro").append(
+						btnPapeleta);
 			}
 	    });
 		$("#modal").openModal();
