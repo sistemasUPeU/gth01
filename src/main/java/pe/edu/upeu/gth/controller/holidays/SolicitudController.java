@@ -178,6 +178,28 @@ public class SolicitudController {
 		return gs.toJson(sd);
 
 	}
+	
+	@RequestMapping(path = "/existenciasolicitud", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String validarSolicitudSubida(HttpServletRequest request, Model model) {
+		Gson gs = new Gson();
+
+		String idtrab = request.getParameter("id");
+		System.out.println(idtrab);
+		// String rol = request.getParameter("idrol");
+		// System.out.println(trab + "/" + rol);
+
+		Map<String, Object> sd = vd.validarSolicitudSubida(idtrab);
+		
+		
+		// String res = sd+"/"+rol;
+		System.out.println("respuesta existencia solicitud" + gs.toJson(sd));
+
+		return gs.toJson(sd);
+
+	}
+	
+	
+	
 
 
 	@RequestMapping(value = "/insertar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
