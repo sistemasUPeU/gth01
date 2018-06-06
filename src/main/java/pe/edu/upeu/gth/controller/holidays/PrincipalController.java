@@ -27,7 +27,6 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.HistorialTramiteDAO;
-import pe.edu.upeu.gth.dao.HistorialVacacionesDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -112,10 +111,12 @@ public class PrincipalController {
 		return GSON.toJson(DAO.READALL());
 	}
 	
-	@RequestMapping(path = "/readHistorial", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getHistorial() {
-		HistorialVacacionesDAO DAO = new HistorialVacacionesDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READHISTORIAL(""));
+	@RequestMapping(path = "/readHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getHistorial(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		System.out.println(id);
+		HistorialTramiteDAO DAO = new HistorialTramiteDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READ(id));
 	}
 	
 	@Autowired
