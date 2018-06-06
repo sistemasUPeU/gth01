@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
+import pe.edu.upeu.gth.dao.HistorialTramiteDAO;
 import pe.edu.upeu.gth.dao.MailServiceImpl;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
@@ -108,7 +109,21 @@ public class PrincipalController {
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
-
+	
+	@RequestMapping(path = "/readallHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllHistorialTramite() {
+		HistorialTramiteDAO DAO = new HistorialTramiteDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READALL());
+	}
+	
+	@RequestMapping(path = "/readHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getHistorial(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		System.out.println(id);
+		HistorialTramiteDAO DAO = new HistorialTramiteDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READ(id));
+	}
+	
 	@Autowired
 	ServletContext context;
 
@@ -226,5 +241,25 @@ public class PrincipalController {
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/vac_reportes");
 	}
-
+	
+	@GetMapping("/historial")
+	public ModelAndView historial_tramite(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/historial_tramite");
+	}
+	
+	@RequestMapping(path = "/readFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String leerFechaMod(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READFECHA(id));
+	}
+	
+	@RequestMapping(path = "/updateFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarFechaMod(HttpServletRequest RQ) {
+		String id = RQ.getParameter("id");
+		String inicio = RQ.getParameter("inicio");
+		String fin = RQ.getParameter("fin");
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
+	}
 }

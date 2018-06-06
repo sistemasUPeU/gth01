@@ -11,13 +11,13 @@ $(window).load(function() {
 
 	var url ="/gth/solicitud/validar";
 	var data ="&id=" + id ;
-
+	var solicitud = 0;
 	
 	$.getJSON(url, data, function(res, status) {
 
 
 			console.log("devuelve controller: "+res);
-
+			
 			switch (res) {
 			case 0:
 				$("#subir").attr("disabled", true);	
@@ -77,12 +77,25 @@ $(window).load(function() {
 							});
 							
 						});
-				$("#subir").attr("disabled", true);	
-				$("#subir").attr("enabled", false);
+				
 				$("#print").attr("disabled", true);	
 				$("#print").attr("enabled", false);
 				$("#confirmar").attr("disabled", true);	
 				$("#confirmar").attr("enabled", false);
+				
+				$.getJSON(gth_context_path+"/solicitud/existenciasolicitud", data, function(response){
+					console.log("existencia solicitud " + response + " :: " + response.response);
+					$("#idvac").val(response.idvac);
+					if(response.response==1){
+						console.log("deshabilitando el boton print");
+						$("#subir").attr("disabled", true);	
+						$("#subir").attr("enabled", false);
+					}else{
+						Materialize.toast('Por favor suba su solicitud firmada.', 3000, 'rounded', function(){
+
+						});
+					}
+				});
 				
 				break;
 			case 3:
