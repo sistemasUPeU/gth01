@@ -153,24 +153,4 @@ public class GestionarConsolidadoDAO {
 		}
 		return x;
 	}
-
-	public List<Map<String, Object>> llenar_solicitud(String idt) {
-		List<Map<String, Object>> lista = new ArrayList<>();
-		try {
-			String sql = "SELECT a.ID_TRABAJADOR_FILTRADO, a.ID_CONSOLIDADO, b.ID_TRABAJADOR, b.AP_PATERNO, b.AP_MATERNO, b.NO_TRABAJADOR,b.NU_DOC , c.ID_VACACIONES, c.TIPO, c.ESTADO,\r\n"
-					+ "d.ID_DET_VACACIONES, d.FECHA_INICIO, d.FECHA_FIN, D.ESTADO\r\n"
-					+ "FROM RHMV_TRABAJADOR_FILTRADO A\r\n"
-					+ "JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR\r\n"
-					+ "JOIN RHMV_VACACIONES C  ON C.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO\r\n"
-					+ "JOIN RHMV_DET_VACACIONES D ON C.ID_VACACIONES = D.ID_VACACIONES\r\n" + "AND C.ESTADO = 1\r\n"
-					+ "AND B.ID_TRABAJADOR='" + idt + "'";
-
-			lista = jt.queryForList(sql);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error - dao:" + e);
-		}
-
-		return lista;
-	}
 }

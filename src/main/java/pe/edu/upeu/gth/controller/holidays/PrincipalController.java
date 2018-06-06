@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.HistorialTramiteDAO;
+import pe.edu.upeu.gth.dao.MailServiceImpl;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -87,12 +90,14 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/aprobar_pv");
 
 	}
-	
-	@GetMapping("/historial")
-	public ModelAndView historial_tramite(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("vacaciones/historial_tramite");
+
+	@GetMapping("/generar_papeleta")
+	public ModelAndView generar_papeleta(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/generar_papeleta");
+
 	}
-	
+
+	//
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
@@ -236,20 +241,5 @@ public class PrincipalController {
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/vac_reportes");
 	}
-	
-	@RequestMapping(path = "/readFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String leerFechaMod(HttpServletRequest RQ) {
-		String id = RQ.getParameter("id");
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READFECHA(id));
-	}
-	
-	@RequestMapping(path = "/updateFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarFechaMod(HttpServletRequest RQ) {
-		String id = RQ.getParameter("id");
-		String inicio = RQ.getParameter("inicio");
-		String fin = RQ.getParameter("fin");
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
-	}
+
 }

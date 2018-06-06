@@ -71,8 +71,8 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 	    	
 //	    	cn=(Connection) jt.getDataSource();
 	    	 Class.forName("oracle.jdbc.OracleDriver");
-//	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
-	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth", "123");
+	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
+//	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth", "123");
 	    	 cn.setAutoCommit(false);
 	    	 
 	    	 String realPath = cntx.getRealPath("/resources/img/");
@@ -86,8 +86,11 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 				Inparamets.put("realPath", realPath);
 				System.out.println(Inparamets);
 		      
+				DataSource ds = (DataSource) AppConfig.getDataSource();
+Connection c = ds.getConnection();
+				
 				JasperReport report = JasperCompileManager.compileReport(jasperFile);
-				JasperPrint print = JasperFillManager.fillReport(report, Inparamets, cn);
+				JasperPrint print = JasperFillManager.fillReport(report, Inparamets,c);
 				System.out.println(report);
 				System.out.println(print);
 				//generar Carpeta 
@@ -223,6 +226,33 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 		return x;
 	}
 	
+	public Map<String, Object> validarSolicitudSubida(String idtrab) {
+		List<Map<String, Object>> listmap = new ArrayList<>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int x = 0;
+
+		String sql = "SELECT A.ID_VACACIONES, A.URL FROM RHMV_VACACIONES A, RHMV_TRABAJADOR_FILTRADO B WHERE A.ID_TRABAJADOR_FILTRADO=B.ID_TRABAJADOR_FILTRADO AND A.ESTADO=1 AND B.ID_TRABAJADOR= ?";
+		try {
+			listmap = jt.queryForList(sql, idtrab);
+			System.out.println("solicitud subida> " + map + " URL " + listmap.get(0).get("URL"));
+			if(listmap.get(0).get("URL")==null){
+				x=0;
+				map.put("idvac", listmap.get(0).get("ID_VACACIONES"));
+				map.put("response", x);
+			}else {
+				x = 1;
+				map.put("idvac", listmap.get(0).get("ID_VACACIONES"));
+				map.put("response", x);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return map;
+	}
+	
 	public int subirPapeleta(String nombre, String tipo, String url, String idvac) {
 		String sql = "UPDATE RHMV_DET_VACACIONES SET URL= ? WHERE ID_DET_VACACIONES = ?";
 		try {
@@ -234,6 +264,8 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 		}
 	}
 
+	
+	
 	public List<Map<String, Object>> reportePorDepartamento(String fecha1, String fecha2) {
 
 		String sql = "SELECT COUNT(C.NO_DEP)AS NRO, D.NO_DEP  FROM (\r\n" + 
