@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -179,12 +180,15 @@ public class PrincipalController {
 	}
 
 	@RequestMapping(path = "/updateFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarFirma(HttpServletRequest RQ) {
+	public @ResponseBody String actualizarFirma(HttpServletRequest RQ, Authentication authentication) {
+    	authentication=SecurityContextHolder.getContext().getAuthentication();
+		String idtrab = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
 		String id = RQ.getParameter("id");
 		int inicio = Integer.parseInt(RQ.getParameter("inicio"));
 		int fin = Integer.parseInt(RQ.getParameter("fin"));
+		System.out.println(idtrab + " SIIII");
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
+		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin, idtrab));
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
