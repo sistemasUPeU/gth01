@@ -237,18 +237,21 @@ div.dataTables_length {
 			//listar();
 			READALL();
 			listarTrabajadoresConSoli();
+
 		});
+
 		</script>
 
 	<script type="text/javascript">
 	function loadProfile(){
-		//location.href="<%=request.getContextPath()%>
-		/trabajador/profile";
+		//location.href="<%=request.getContextPath()%>/trabajador/profile";
 		}
+
 		var divisiones = 0;
 		$(document)
 				.ready(
 						function() {
+
 							try {
 								$
 										.getJSON(
@@ -257,6 +260,7 @@ div.dataTables_length {
 												"opc=usuario",
 												function(objJSON) {
 													if (objJSON !== null) {
+
 														var s = objJSON.datos_usuario;
 														var d = objJSON.dni;
 														var t = objJSON.idtrb;
@@ -269,16 +273,19 @@ div.dataTables_length {
 														$("#idtrb").val(t);
 														$("#idrol").val(r);
 														$("#username").val(u);
+
 														Materialize
 																.updateTextFields();
 													} else {
 														console
 																.error("No se esta cargando la información");
 													}
+
 													var rol = $("#idrol").val();
 													console.log(rol);
 													if (rol == "ROL-0003") {
 														divisones = 2;
+
 													} else {
 														if (rol == "ROL-0008") {
 															divisones = 3;
@@ -289,12 +296,16 @@ div.dataTables_length {
 															$("#btn-agregar")
 																	.hide();
 														}
+
 													}
+
 												});
 							} catch (e) {
 								console.error("error al listar info : " + e);
 							}
+
 							$('.dropify').dropify();
+
 							// 							Translated
 							$('.dropify-fr')
 									.dropify(
@@ -306,8 +317,10 @@ div.dataTables_length {
 													error : 'Désolé, le fichier trop volumineux'
 												}
 											});
+
 							// 							Used events
 							var drEvent = $('.dropify-event').dropify();
+
 							drEvent
 									.on(
 											'dropify.beforeClear',
@@ -316,30 +329,41 @@ div.dataTables_length {
 														+ element.filename
 														+ "\" ?");
 											});
+
 							drEvent.on('dropify.afterClear', function(event,
 									element) {
 								alert('File deleted');
 							});
+
 						});
+
 		var fecha_extra = "";
+		var fecha_recontraextra = "";
 		$("#print").click(function() {
 			$('.modal').openModal();
 			var idt = $("#idtrb").val();
 			console.log(idt);
+
 			$("object").attr("data", "reporte?idtr=" + idt);
+
 		});
+
 		$("#fe_inicio_1").change(
 				function() {
 					var fei = $("#fe_inicio_1").val();
+
 					console.log(fei);
 					var fecha_inicio = parseDate(fei);
 					console.log("fecha_inicio_return: " + fecha_inicio);
+
 					$('#fe_final_1').pickadate('picker').set('select',
 							calcular_final(fecha_inicio), {
 								format : 'dd/mm/yyyy'
 							}).trigger("change");
 					Materialize.updateTextFields();
+
 				});
+
 		// var fecha_fin = new Date();
 		function parseDate(input) {
 			var map = {
@@ -363,21 +387,28 @@ div.dataTables_length {
 			console.log(mes0);
 			var mes1 = mes0.join("");
 			console.log(mes1);
+
 			mes = map[mes1.toLowerCase()];
 			console.log("mes:" + mes);
+
 			month = mes < 10 ? '0' + mes : mes, day = input[0] < 10 ? '0'
 					+ input[0] : input[0], newDate = input[2] + '/' + month
 					+ '/' + day;
+
 			fecha_extra = day + '/' + month + '/' + input[2];
+			fecha_recontraextra = day + ',' + month + ',' + input[2];
 			var inicio = new Date(newDate);
 			console.log("fecha_extra: " + fecha_extra);
 			//console.log(inicio);
+
 			// 		inicio.getDate() + '/' +
 			//             	    (inicio.getMonth() + 1) + '/' + inicio.getFullYear();
 			//          fecha_fin = calcular_final(inicio);
 			//         	console.log("fecha_fin_return: "+fecha_fin);
+
 			return inicio;
 		};
+
 		var cont = 2;
 		$("#agregar")
 				.click(
@@ -405,6 +436,7 @@ div.dataTables_length {
 								s += '<div class="col s3 m2">	<a	class="btn-floating waves-effect waves-light  yellow darken-4 right"><i	class="mdi-editor-mode-edit center"></i></a></div>';
 								s += '<div class="col s3 m2"> <a class="btn-floating waves-effect waves-light  red darken-4 right"><i class="mdi-action-delete center"></i></a> </div>';
 								s += '</div></form> </div></div>	</div>';
+
 								$("#space").append(s);
 								cont++;
 							} else {
@@ -413,6 +445,7 @@ div.dataTables_length {
 												'Ya no puede particionar más sus vacaciones!',
 												3000, 'rounded');
 							}
+
 							$('.datepicker').pickadate({
 								selectMonths : true, // Creates a dropdown to control month
 								selectYears : 15, // Creates a dropdown of 15 years to control year,
@@ -423,6 +456,7 @@ div.dataTables_length {
 							// Close upon selecting a date,
 							});
 						});
+
 		function setti(id) {
 			console.log(id);
 			console.log("hi everyone");
@@ -432,15 +466,19 @@ div.dataTables_length {
 			var num = array[2];
 			console.log(num);
 			var fecha_inicio3 = parseDate(fei);
+
 			$('#fe_final_' + num).pickadate('picker').set('select',
 					calcular_final(fecha_inicio3), {
 						format : 'dd/mm/yyyy'
 					}).trigger("change");
 			Materialize.updateTextFields();
 		}
+
 		function getArray_fechas(op) {
+
 			var fechas = [];
 			//         $('#data :checked').each(function () {
+
 			if (op == 1) {
 				for (var i = 1; i < cont; i++) {
 					parseDate($("#fe_inicio_" + i).val());
@@ -455,27 +493,33 @@ div.dataTables_length {
 					console.log(fecha_extra);
 					fechas.push(fecha_extra);
 				}
+
 			}
+
 			return fechas;
 		}
+
 		function insertar() {
 			var fechas_0 = getArray_fechas(1); //fecha inicio
 			var fechas_1 = getArray_fechas(2); //fecha fin
 			fechas_1.push("05/05/17");
 			fechas_0.push("12/12/17");
 			var tamaño = fechas_0.length;
+
 			var inicio = fechas_0.join("-");
 			var fin = fechas_1.join("-");
 			console.log("ini: " + inicio);
 			var idt = $("#idtrb").val();
 			var tipo = $("#tiposolicitud").val();
 			var user = $("#username").val();
+
 			var datos = "inicio=" + inicio;
 			datos += "&final=" + fin;
 			datos += "&idt=" + idt;
 			datos += "&tipo=" + tipo;
 			datos += "&user=" + user;
 			console.log("dat: " + datos);
+
 			var con = new jsConnector();
 			con.post('solicitud/insertar?' + datos, null, function(response) {
 				console.log("jquery:" + response);
@@ -492,6 +536,7 @@ div.dataTables_length {
 							'rounded');
 				}
 			});
+
 		};
 	</script>
 	<script
@@ -569,13 +614,19 @@ div.dataTables_length {
 			console.log("abriendo modal s " + value);
 			$("#modal1").openModal();
 			$("#idtrb").val(value);
+
 			var idtrbselected = value;
+
 			$.getJSON(gth_context_path + "/solicitud/validar", {
 				id : idtrbselected
 			}, function(res, status) {
+
 				console.log("devuelve controller: " + res);
+
 				switch (res) {
+
 				case 1:
+
 					//						window.location.href = gth_context_path +"/solicitud/registrar?op=1";
 					var datos = "op=1"
 					//						$.post(gth_context_path+'/solicitud/registrar', datos, function(response) {
@@ -604,6 +655,7 @@ div.dataTables_length {
 					//					});
 					break;
 				case 2:
+
 					//					window.location.href = gth_context_path +"/";
 					Materialize.toast('Usted tiene una solicitud en proceso!',
 							3000, 'rounded', function() {
@@ -615,6 +667,7 @@ div.dataTables_length {
 											console.log(response);
 											$("#desktop").html(response);
 										});
+
 							});
 					$("#subir").attr("disabled", true);
 					$("#subir").attr("enabled", false);
@@ -622,6 +675,7 @@ div.dataTables_length {
 					$("#print").attr("enabled", false);
 					$("#confirmar").attr("disabled", true);
 					$("#confirmar").attr("enabled", false);
+
 					break;
 				case 3:
 					//						window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
@@ -638,13 +692,16 @@ div.dataTables_length {
 					break;
 				}
 			});
+
 		}
+
 		$("#confirmar_lista").click(function() {
 			arrid = getSelected();
 			console.log(arrid);
 			// 				for (var i = 0; i < arrid.length; i++) {
 			// 				}
 		});
+
 		function listarTrabajadorFiltrado() {
 			$
 					.get(
@@ -681,6 +738,7 @@ div.dataTables_length {
 											+ '" class="waves-effect waves-light btn red" onclick=abrirModalSolicitud(this.value)>&#128197;</button></td>';
 									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
 									s += '</tr>';
+
 								}
 								$
 										.getJSON(
@@ -708,6 +766,7 @@ div.dataTables_length {
 											$(".checkBoxClass").prop('checked',
 													$(this).prop('checked'));
 										});
+
 							});
 		};
 		function listarTrabajadoresConSoli() {
@@ -743,6 +802,7 @@ div.dataTables_length {
 									s += '</p></td>';
 									s += '<td><button id="abrir-modal2" name="' + obj[i].ID_DET_VACACIONES + '" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
 									s += '</tr>';
+
 								}
 								$
 										.getJSON(
@@ -770,8 +830,10 @@ div.dataTables_length {
 											$(".checkBoxClass").prop('checked',
 													$(this).prop('checked'));
 										});
+
 							});
 		};
+
 		function listarTrabajadoresAprobados() {
 			$
 					.get(
@@ -799,7 +861,9 @@ div.dataTables_length {
 										s += '<td>' + obj[i].FECHA_FIN
 												+ '</td>';
 									}
+
 									s += '</tr>';
+
 								}
 								$
 										.getJSON(
@@ -827,6 +891,7 @@ div.dataTables_length {
 											$(".checkBoxClass").prop('checked',
 													$(this).prop('checked'));
 										});
+
 							});
 		};
 		function createTable() {
@@ -847,6 +912,7 @@ div.dataTables_length {
 			s += '<tbody id="data"></tbody>';
 			s += '</table>';
 			return s;
+
 		};
 		function createTable1() {
 			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
@@ -865,6 +931,7 @@ div.dataTables_length {
 			s += '<tbody id="data"></tbody>';
 			s += '</table>';
 			return s;
+
 		};
 		function createTable2() {
 			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
@@ -881,6 +948,7 @@ div.dataTables_length {
 			s += '<tbody id="data"></tbody>';
 			s += '</table>';
 			return s;
+
 		};
 		$("#confirmar_lista")
 				.click(
@@ -896,6 +964,7 @@ div.dataTables_length {
 							datos += "&id_det=" + id_det;
 							var con = new jsConnector();
 							con
+
 									.post(
 											"vacaciones/GestionarProgramaVacaciones/insertProgramaVacaciones?"
 													+ datos,
@@ -918,7 +987,35 @@ div.dataTables_length {
 												$("#nocargando").show();
 												$("#cargando").hide();
 											});
+
 						});
+
+<<<<<<< HEAD
+		$("#fec_up").click(function() {
+			var f = new Date();
+			parseDate($("#fec_in").val());
+			var fec_in = fecha_extra;
+			var fec_ac = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+			parseDate($("#fec_fi").val());
+			var fec_fi = fecha_extra;
+			var id = $("#iddet").val();
+			console.log(fec_in + " y " + fec_fi + " y " + id + " fea " + fec_ac);
+			parseDate(fec_in);
+			var fechai=new Date(fecha_recontraextra);
+			parseDate(fec_ac);
+			var fechaa=new Date(fecha_recontraextra);
+			console.log(fechai + fechaa);
+			if (fec_in > fec_ac) {
+				$.get('updateFechaMod', {id : id, inicio : fec_in, fin : fec_fi}, function (data) {
+					console.log(data);
+					listarTrabajadoresConSoli();
+					Materialize.toast('Fecha modificada correctamente', 3000, 'rounded');
+			    });
+			} else {
+				Materialize.toast('Escoge una fecha correcta!', 3000, 'rounded');
+			}
+		});
+=======
 		$("#fec_up").click(
 				function() {
 					var f = new Date();
@@ -947,6 +1044,8 @@ div.dataTables_length {
 								'rounded');
 					}
 				});
+>>>>>>> 22942ec83d72b395ac785385f7326cbbc19a8109
+
 		$("#fec_in").change(
 				function() {
 					var fe_i = $("#fec_in").val();
@@ -959,6 +1058,7 @@ div.dataTables_length {
 							}).trigger("change");
 					Materialize.updateTextFields();
 				});
+
 		function calcular_final(begin) {
 			console.log("fecha enviada " + begin);
 			console.log("fecha enviada " + begin.getFullYear);
