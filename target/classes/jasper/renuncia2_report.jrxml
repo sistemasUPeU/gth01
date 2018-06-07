@@ -27,147 +27,87 @@
 	<parameter name="MAT" class="java.lang.String">
 		<parameterDescription><![CDATA[apellido mat del jefe]]></parameterDescription>
 	</parameter>
+	<parameter name="FECHA_CUSTOM" class="java.lang.String">
+		<parameterDescription><![CDATA[fecha limite]]></parameterDescription>
+	</parameter>
+	<parameter name="ARGUMENTO" class="java.lang.String">
+		<parameterDescription><![CDATA[argumento]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="NO_TRABAJADOR" class="java.lang.String">
-		<fieldDescription><![CDATA[nombre]]></fieldDescription>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="94" splitType="Stretch">
+		<band height="114" splitType="Stretch">
 			<staticText>
-				<reportElement x="162" y="30" width="230" height="30" uuid="dfc97d2a-5333-4d96-8b14-1ffb7113327f"/>
+				<reportElement x="184" y="30" width="208" height="30" uuid="dfc97d2a-5333-4d96-8b14-1ffb7113327f"/>
 				<textElement>
 					<font fontName="Times New Roman" size="18"/>
 				</textElement>
 				<text><![CDATA[CARTA DE RENUNCIA]]></text>
 			</staticText>
 			<image>
-				<reportElement x="400" y="30" width="104" height="64" uuid="5d55ec74-142a-44d8-bb6c-895668dc4c15"/>
+				<reportElement x="431" y="10" width="114" height="90" uuid="5d55ec74-142a-44d8-bb6c-895668dc4c15"/>
 				<imageExpression><![CDATA["https://image.ibb.co/gxwcYy/logo_universidad_peruana_union.png"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="31" y="84" width="39" height="30" uuid="1931a6cd-4b1b-4101-a938-d28893ba748f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lima,]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement stretchType="ElementGroupHeight" x="70" y="84" width="160" height="30" uuid="e7dfc66c-944d-40c1-b35e-a4c23e590de2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="145" splitType="Stretch">
+		<band height="122" splitType="Stretch">
 			<staticText>
-				<reportElement x="30" y="80" width="130" height="20" uuid="97b21675-17ce-4928-a277-53282d13f0d7"/>
+				<reportElement x="30" y="70" width="130" height="20" uuid="97b21675-17ce-4928-a277-53282d13f0d7"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRESENTE. -]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="30" y="60" width="240" height="20" uuid="e30c6015-4e15-481c-9de9-74ee7d6258ba"/>
+				<reportElement x="30" y="40" width="240" height="20" uuid="e30c6015-4e15-481c-9de9-74ee7d6258ba"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NOM} + " " + $P{PAT} +" "+ $P{MAT}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="30" y="40" width="100" height="20" uuid="67f2db2e-d2c8-4712-b776-a39cbf94648b"/>
+				<reportElement x="30" y="10" width="100" height="20" uuid="67f2db2e-d2c8-4712-b776-a39cbf94648b"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SEÑOR:]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement stretchType="ElementGroupHeight" x="70" y="10" width="160" height="30" uuid="e7dfc66c-944d-40c1-b35e-a4c23e590de2"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement stretchType="ElementGroupHeight" x="30" y="10" width="30" height="30" uuid="1931a6cd-4b1b-4101-a938-d28893ba748f"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Lima,]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="282" splitType="Stretch">
-			<staticText>
-				<reportElement key="" mode="Opaque" x="30" y="0" width="514" height="50" uuid="157e822a-5ca0-48d8-bcc5-24066b407f10"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Es  grato dirigirme  a  usted  a  fin de comunicarle  al  amparo  de  lo  establecido en el articulo  18                        del  D. Leg. N° 728  aprobado por D.  S. N°003-97-TR formulo mi renuncia al cargo de              			  que he venido desempeñando en esta empresa desde]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="30" y="70" width="515" height="50" uuid="4579d2d1-0f62-47a6-8cc7-67a83d2352f3"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Por motivos de indole personal que motivan esta decisión y que espero tenga a bien comprender, solicito me dispense del plazo de 30  días de anticipación que exige la Ley en caso de renuncia.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="30" y="130" width="515" height="52" uuid="a5831566-3e47-4b33-9973-ce9cc72e6816"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Asimismo agredeceré mucho que me facilite con prontitud los beneficios sociales que me corresponden, así como la entrega de mi certificado de trabajo y la carta de cese para de esta forma solicitar al banco la compensación por tiempo de servicios depositados.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="30" y="200" width="514" height="30" uuid="c252e113-ea41-42f7-a3ca-7b56eb97404f"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Agradezco también la confianza y la oportunidad que se me ha dado de trabajar en esta empresa.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="30" y="240" width="210" height="30" uuid="89dfba33-594e-49b3-b9ca-d84e30837888"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Atentamente,]]></text>
-			</staticText>
+		<band height="410" splitType="Stretch">
 			<textField>
-				<reportElement x="110" y="240" width="420" height="30" uuid="e30c6015-4e15-481c-9de9-74ee7d6258ba"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{NO_TRABAJADOR} + " " + $P{AP_PATERNO} +" "+ $P{AP_MATERNO}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="30" y="28" width="160" height="20" uuid="eaf6b09c-1fff-42d1-80d2-6cbe5e1a4637">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<reportElement key="" mode="Opaque" x="31" y="-10" width="499" height="400" uuid="157e822a-5ca0-48d8-bcc5-24066b407f10">
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Justified"/>
 				</reportElement>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{NO_PUESTO}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="460" y="28" width="80" height="15" uuid="5a58a2cd-03fc-4f0f-9b7a-07f3f4e32a74">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{FECHA_CONTRATO}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="30" y="43" width="100" height="20" uuid="83df46dd-0e9d-4bab-8a3a-66009893cb80"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[hasta ]]></text>
-			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="70" y="43" width="110" height="20" uuid="a435ac1e-b7ca-4d3e-928b-7ecc5b21836e">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Es grato dirigirme a usted a fin de comunicarle al amparo de lo establecido en el articulo 18 del D.Leg. N°728 aprobado por D.S. N°003-97-TR formulo mi renuncia al cargo de "+ $P{NO_PUESTO} + " que he venido desempeñando en esta empresa desde " +
+				 $P{FECHA_CONTRATO} + " hasta " + $P{FECHA_CUSTOM} + ". \n \n" + $P{ARGUMENTO} + " \n \n" +
+				 "Asimismo agredeceré mucho que me facilite con prontitud los beneficios sociales que me corresponden, así como la entrega de mi certificado de trabajo y la carta de cese para de esta forma solicitar al banco la compensación por tiempo de servicios depositados."+" \n \n" +
+				 "Agradezco también la confianza y la oportunidad que se me ha dado de trabajar en esta empresa."+" \n \n \n" +
+				 "Atentamente, "+ $P{NO_TRABAJADOR} + " " + $P{AP_PATERNO} +" "+ $P{AP_MATERNO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

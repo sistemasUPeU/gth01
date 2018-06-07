@@ -375,4 +375,17 @@ public class TrabajadorDAO {
     	return listonazo;
     }
 	
+	public int limite_renuncia() {
+		int x =0;
+		try {
+			sql = "SELECT VALOR FROM RA_CONFIGURACIONES WHERE ID_CONFIGURACIONES ='RAC-000001'";
+			System.out.println(jt.queryForObject(sql, Integer.class));
+			x = jt.queryForObject(sql, Integer.class);
+		} catch (Exception e) {
+			System.out.println("Error: "+e);
+		}
+		
+		return x;
+	}
+	
 }
