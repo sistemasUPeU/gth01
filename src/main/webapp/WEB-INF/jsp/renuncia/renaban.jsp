@@ -88,6 +88,21 @@
 
 			</section>
 			<div id="contenido">
+				<div id="card-alert" class="card green" style="display:none; ">
+                      <div class="card-content white-text">
+                        <p><i class="mdi-navigation-check"></i> Se ha derivado la renuncia o abandono a Recursos Humanos.</p>
+                      </div>
+                    </div>
+                    <div id="card-alert2" class="card orange" style="display:none; ">
+                      <div class="card-content white-text">
+                        <p><i class="mdi-alert-warning"></i> Se ha actualizado el registro.</p>
+                      </div>
+                    </div>
+                    <div id="card-alert3" class="card red" style="display:none; ">
+                      <div class="card-content white-text">
+                        <p><i class="mdi-alert-error"></i> Se ha eliminado el registro.</p>
+                      </div>
+                    </div>
 				<div class="row" style="width: 100%; max-width: 90%">
 					<ul class="collapsible popout">
 						<li id="autorize" class="active">

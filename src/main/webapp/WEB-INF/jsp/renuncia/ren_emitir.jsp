@@ -180,7 +180,7 @@
 					//alert(prod[0].idproducto);
 				});
 			}else{
-				$( "#card-alert" ).fadeTo(0, 500).show( "slow", function() {
+				$( "#card-alert" ).fadeIn(1000, function() {
 				    // Animation complete.
 					window.setTimeout(function() {
 						

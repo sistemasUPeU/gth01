@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	$('.tooltipped span').css("z-index","9999999");
+	$('.tooltipped').tooltip({delay: 50});
+	 
+	
 	listarRegistrados();
 	if(!alertify.errorAlert){
 		  alertify.dialog('errorAlert',function factory(){
@@ -88,15 +92,15 @@ function listarRegistrados() {
 								s += '	<div class ="row"><div class="col s4"><a onclick="crearModal(\''
 										+ lista[i].ID_RENABAN
 										+ '\') " data-remodal-target="modal" '
-								s += '	class="btn-floating btn waves-effect waves-light accent-3 orange modal-trigger"'
+								s += '	class="btn-floating btn waves-effect waves-light accent-3 orange modal-trigger tooltipped " data-position="bottom" data-delay="50" data-tooltip="I am tooltip"'
 								s += '	>'
 								s += '	<i class="mdi-content-create"></i>'
 								s += '</a></div>'
-								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #ff9100 red accent-3" onclick="eliminar(\''
+								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #ff9100 red accent-3 btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip" onclick="eliminar(\''
 										+ lista[i].ID_RENABAN + '\',\''
 										+ lista[i].ARCHIVO+'\')">'
 								s += '<i class="mdi-action-delete"></i></a></div>'
-								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #64dd17 light-green accent-4" onclick="aceptarRenaban(\''
+								s+= '<div class="col s4"><a class="btn-floating waves-effect waves-light #64dd17 light-green accent-4 btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip" onclick="aceptarRenaban(\''
 										+ lista[i].ID_RENABAN + '\', \''
 										+TIPO+'\')">'
 								s += '<i class="mdi-navigation-check"></i></a></div></div></td>';
@@ -253,6 +257,15 @@ $(document).on('confirmation', '.remodal', function () {
                     alertify.notify('Actualizando...', 'custom', 1,
 							function() {
                     			listarRegistrados();
+                    			$( "#card-alert2" ).fadeIn( 1200, function() {
+                    			    // Animation complete.
+                    				window.setTimeout(function() {
+                    					
+                    				    $("#card-alert2").fadeTo(1000, 0).slideUp(800, function(){
+                    				        $(this).hide(); 
+                    				    });
+                    				}, 2000);
+                    			  });
 							});
                 },
                 error: function (e) {
@@ -285,7 +298,16 @@ function eliminar(id,archivo) {
 
 						alertify.notify('Eliminando...', 'custom', 1,
 								function() {
-									listarRegistrados()
+									listarRegistrados();
+									$( "#card-alert3" ).fadeIn( 1200, function() {
+									    // Animation complete.
+										window.setTimeout(function() {
+											
+										    $("#card-alert3").fadeTo(1000, 0).slideUp(800, function(){
+										        $(this).hide(); 
+										    });
+										}, 2000);
+									  });
 								});
 					} else {
 
@@ -303,10 +325,19 @@ function aceptarRenaban(idrab,tipo){
 	if(tipo=="RENUNCIA"){
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
 			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){
-				 window.location.href = gth_context_path +"/renaban/listaRA";					 
-				
+//				 window.location.href = gth_context_path +"/renaban/listaRA";					 
+				 $("#data-table-row-grouping").dataTable().fnDestroy();
 //        		 alert(data);
 //				 alert("Reeeeenuncia")
+					$( "#card-alert" ).fadeIn(1200, function() {
+					    // Animation complete.
+						window.setTimeout(function() {
+							
+						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
+						        $(this).hide(); 
+						    });
+						}, 2000);
+					  });
         	});
 			 
 	     	} , function(){ 
@@ -315,10 +346,20 @@ function aceptarRenaban(idrab,tipo){
 	}else{
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar el abandono de este trabajador?', function(){
 			 $.get("detalleR",{opc:9,tipo:'A',idra:idra},function(data){
-				 window.location.href = gth_context_path +"/renaban/listaRA";					 
+//				 window.location.href = gth_context_path +"/renaban/listaRA";					 
 				
+//        		 	 $("#data-table-row-grouping").dataTable().fnDestroy();
 //        		 alert(data);
-//				 alert("Abaaaaaandono")
+//				 alert("Reeeeenuncia")
+				 $( "#card-alert" ).fadeIn( 1200, function() {
+					    // Animation complete.
+						window.setTimeout(function() {
+							
+						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
+						        $(this).hide(); 
+						    });
+						}, 2000);
+					  });
         	});
 			 
 	     	} , function(){ 

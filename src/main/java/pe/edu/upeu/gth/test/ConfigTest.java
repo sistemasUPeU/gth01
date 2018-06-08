@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
 import pe.edu.upeu.gth.dao.PriCartaNotarialDAO;
+import pe.edu.upeu.gth.dao.RecepcionarDAO;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
 import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
@@ -29,6 +30,7 @@ public class ConfigTest {
 	public static RenProcesarDAO pr = new RenProcesarDAO(d);
 	public static PriCartaNotarialDAO pc = new PriCartaNotarialDAO(d);
 	public static RenAutorizarDAO ra = new RenAutorizarDAO(d);
+	public static RecepcionarDAO rep = new RecepcionarDAO(d);
 
 	public static void main(String[] args) {
 //		conect();
@@ -38,6 +40,7 @@ public class ConfigTest {
 //		Procesar1();
 		//Renuncia();
 //		justificacion();
+		Recepcionar();
 	}
 
 	public static void conect() {	
@@ -88,14 +91,16 @@ public class ConfigTest {
 	
 //	 public static void justificacion(){
 //	        Justificacion a = new Justificacion();
-//	        a.setObservaciones("saliooooooo");
+//	        a.setObservacion("saliooooooo");
 //	        a.setId_renaban("MRA-000025");
-//	        if(pc.JustificarAbandono(a)==1){
+//	        if(ra.JustificarAbandono(a)==1){
 //	            System.out.println("si");
 //	        }else{
 //	            System.out.println("no");
 //	        }
 //	    }
-
+public static void Recepcionar() {
+	System.out.println(gs.toJson(rep.Pendiente("Productos Union")));
+}
 
 }

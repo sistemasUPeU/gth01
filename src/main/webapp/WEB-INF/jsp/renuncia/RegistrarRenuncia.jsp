@@ -352,8 +352,8 @@
 				</div>
 			</div>
 			<hr />
-
-
+			</div>
+			</div>
 			<!-- 	<script -->
 			<%-- 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>" --%>
 			<!-- 		type="text/javascript"></script> -->

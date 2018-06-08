@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 import pe.edu.upeu.gth.interfaz.CRUDOperations;
@@ -63,11 +64,17 @@ public class RecepcionarDAO implements CRUDOperations{
 		return false;
 	}
 	//Listar trabajadores en estado pendiende
-	public List<Map<String, Object>> Pendiente(String depa) {
-		System.out.println(depa);
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 and NOM_DEPA='"+depa+"' AND rap.ID_PASOS IN ('PAS-000432','PAS-000433') ORDER BY ra.FECHA_RENABAN DESC";
+//	public List<Map<String, Object>> Pendiente(String depa) {
+//		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000432' OR rap.ID_PASOS='PAS-000433'";		
+//		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
+//		return jt.queryForList(sql);
+//	}
+	public List<Map<String, Object>> Pendiente(String depa){
+		System.out.println("Esto es nom depa: "+depa);
+		sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 AND rap.ID_PASOS IN ('PAS-000432','PAS-000433') ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
+	
 	//LISTAR 
 	public List<Map<String,Object>> Autorizar() {
     	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
@@ -95,7 +102,7 @@ public class RecepcionarDAO implements CRUDOperations{
 		}
 	
 	// AUTORIZAR RENUNCIA
-		public int AutorizarRenuncia(Renuncia r, String idusuario,String tipo) {
+		public int AutorizarRenuncia(Renuncia r, String idr, String idusuario,String tipo) {
 			int x = 0;
 			String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
 			String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000432' AND ID_RENABAN=?";
@@ -128,9 +135,9 @@ public class RecepcionarDAO implements CRUDOperations{
 		}
 		
 	// RECHAZAR RENUNCIA
-		public int RechazarRenuncia(Rechazo ob) {
+		public int RechazarRenuncia(Rechazo ob, String tipo1) {
 			int x = 0;
-			String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";
+			String sql = "call REN_RECEP_RENUNCIA( ? , ?)";
 //			String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
 			try {
 			 jt.update(sql,new Object[] {ob.getId_renaban(),ob.getObservaciones()});
@@ -142,26 +149,38 @@ public class RecepcionarDAO implements CRUDOperations{
 			return x;
 			
 		}
+	
+		//JUSTIFICAR RENUNCIA
+		public int JustificarAbandono(Justificacion ju, String tipo2) {
+			int x = 0;
+			String sql = "call REN_RECEP_ABANDONO( ? , ?)";
+			// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
+			// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+			try {
+				jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
+				x = 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Error:" + e);
+			}
+			return x;
+
+		}
 		
-		
-		
-		
-//		public int insertarRechazo(Rechazo ob) {
-//			int x = 0;
-//			try {
-//				cn = d.getConnection();
-////				 jt.update(sql,new Object[] {ob.getObservaciones(),ob.getId_renuncia()});
-//				Array arreglo = ((OracleConnection) cn).createOracleArray(ob.getId_renuncia(),ob.getObservaciones());
-//				cs = cn.prepareCall("call REN_UPDATE_RENUNCIA( ? , ?)");
-//				cs.setArray(1, arreglo);
-//				cs.setArray(2, arreglo);
-//				x = 1;
-//				cs.execute();
-//				cn.commit();
-//				cn.close();
-//			} catch (Exception e) {
-//				System.out.println("Error al insertar rechazo " + e);
-//			}
-//			return x;
-//		}
+		//LISTAR RENABAN - CRUD
+		public List<Map<String, Object>> Renaban(String depa) {
+			sql = "select ra.ID_CONTRATO as ID_CONTRATO,ra.ID_RENABAN as ID_RENABAN,ra.ID_TRABAJADOR as ID_TRABAJADOR, ra.MES as MES,";
+		    sql +="ra.NOMBRES as NOMBRES,ra.PATERNO as PATERNO, ra.MATERNO as MATERNO, ra.FECHA_NAC as FECHA_NAC, ra.DOMICILIO as DOMICILIO,";
+		    sql += "ra.DNI as DNI, ra.FECHA_CONTRATO as FECHA_CONTRATO, ra.NOM_DEPA as NOM_DEPA, ra.NOM_AREA as NOM_AREA,ra.NOM_SECCION as NOM_SECCION,";
+		    sql += "ra.NOM_PUESTO as NOM_PUESTO, ra.CENTRO_COSTO as CENTRO_COSTO,ra.TIPO_CONTRATO as TIPO_CONTRATO,ra.DESCRIPCION as DESCRIPCION,";
+		    sql += "ra.ANTECEDENTES as ANTECEDENTES,ra.CERTI_SALUD as CERTI_SALUD,ra.MFL as MFL, ra.ARCHIVO as ARCHIVO,ra.FECHA_RENABAN as FECHA_RENABAN,";
+		    sql += "ra.CORREO as CORREO, ra.TIPO as TIPO,jus.OBSERVACION as JUSTIFICACION, re.OBSERVACIONES as RECHAZO";
+			sql += " from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN  ";
+			sql += " LEFT JOIN RA_JUSTIFICACION jus ON ra.ID_RENABAN=jus.ID_RENABAN ";
+			sql += " LEFT JOIN RA_RECHAZO re ON ra.ID_RENABAN=re.ID_RENABAN ";
+			sql += " WHERE rap.ESTADO=0 and ra.NOM_DEPA='"+depa+"'";
+			sql +=" AND rap.ID_PASOS IN ('PAS-000428','PAS-000429') ORDER BY ra.FECHA_RENABAN DESC";
+			System.out.println("esto es depa" + depa);
+			return jt.queryForList(sql);
+		}
 }

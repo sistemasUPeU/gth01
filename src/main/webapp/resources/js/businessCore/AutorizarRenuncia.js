@@ -497,7 +497,7 @@ function DetalleRenuncia(idc,tipo) {
 					if(tipo=="RENUNCIA"){
 						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
 							 $.get("AutorizarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
-								 alert("Rechazo Renuncia");
+//								 alert("Rechazo Renuncia");
 //								 alert("BIEN Nicole");
 //				        		 alert(data);
 //				        		 alert(id);
@@ -510,13 +510,13 @@ function DetalleRenuncia(idc,tipo) {
 					        });
 					}else{
 						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-							 $.get("AutorizarR",{opc:7,tipo:'A',sidr:idra,observaciones:observacion},function(data){
-								 alert("Rechazo Abandono")
+							 $.get("AutorizarR",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
+//								 alert("Rechazo Abandono")
 //								 alert("BIEN Nicole");
 //				        		 alert(data);
 								
-				        		 alert(idra);
-				        		 alert(observacion);
+//				        		 alert(idra);
+//				        		 alert(observacion);
 				        		 window.location.href = gth_context_path +"/renaban/authorizationR";
 				        	});
 							 

@@ -436,12 +436,13 @@ function DetalleRenuncia(idc,tipon) {
 				$("#carta").text(detalle[0].ARCHIVO);
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
-					var tipo= $("#tipo").val();
+//					var tipo= $("#tipo").val();
 					//alert(idr);
-					if(tipo="RENUNCIA"){
+					if(tipo=="RENUNCIA"){
 						alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar la renuncia de este trabajador?', function(){
 							 $.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";					 
+								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";	
+								 alert("Renuncia");
 								
 //				        		 alert(data);
 				        	});
@@ -454,7 +455,7 @@ function DetalleRenuncia(idc,tipon) {
 							 $.get("Verificar",{opc:4,tipo:'A',idr:idr},function(data){
 								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";					 
 								
-//				        		 alert(data);
+				        		 alert("Abandono");
 				        	});
 							 
 					     	} , function(){ 
