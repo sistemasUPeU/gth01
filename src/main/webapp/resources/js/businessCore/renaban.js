@@ -130,6 +130,7 @@ function listarRegistrados() {
 							"pageLength" : 5,
 							"bPaginate" : true,
 							"ordering": false
+							 
 						});
 
 						$("#data-table-row-grouping tbody").on(

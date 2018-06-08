@@ -97,7 +97,7 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 
 	// LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 	public List<Map<String, Object>> Autorizado() {
-		sql = "select* from RA_VIEW_RENABAN WHERE ESTADO='Autorizado'";
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000442' ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 

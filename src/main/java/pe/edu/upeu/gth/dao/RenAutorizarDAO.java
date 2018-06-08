@@ -100,7 +100,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
-			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS='PAS-000430' OR rap.ID_PASOS='PAS-000431' ORDER BY ra.FECHA_RENABAN DESC";
+			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS IN('PAS-000430','PAS-000431') ORDER BY ra.FECHA_RENABAN DESC";
 			return jt.queryForList(sql);
 		}
 	

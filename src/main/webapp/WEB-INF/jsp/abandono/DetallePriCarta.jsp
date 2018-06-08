@@ -1,31 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
+	rel="stylesheet" media="screen,projection">
+<link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+<style>
+@media only screen and (min-width: 641px) {
+	.remodal {
+		max-width: 75%;
+	}
+	h6 {
+		font-size: 16px
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.remodal {
+		min-width: 100%;
+	}
+	h5 {
+		font-size: 14px
+	}
+	h1 {
+		font-size: 16px
+	}
+	h6 {
+		font-size: 14px
+	}
+}
+</style>
 <html>
 <head>
-<%@include file="../../../jspf/general.jspf"%>
-<link href="https://fonts.googleapis.com/css?family=Dosis"
-	rel="stylesheet">
-<link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
-	rel="stylesheet" type="text/css" />
-
-<link
-	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-
-<link href="<c:url value='/resources/css/alertify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-
-<link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
-
 </head>
-<body>
+<body class="#e8f5e9 green lighten-5">
+	<div div class="row">
+		<div class="col s2">
+			<br>
+		</div>
+		<div class="col s8">
+		
+		</div>
+	</div>
 	<div class="card " style="width: 100%; margin-left: 5%">
 		<section class="plans-container" id="plans">
 			<div class="card " style="width: 85%; margin-left: 5%">
@@ -183,30 +199,20 @@
 						</form>
 					</div>
 				</div>
-				<div class="card-content">
-					<form class="col s12">
+				<div class="">
 						<div class="row">
 							<div class="input-field col s6" style="text-align: center">
-								<h6>Carta de Abandono:</h6>
+								<h6 id="tipo_doc"></h6>
 							</div>
 							<div class="input-field col s6">
-								<div class="material-placeholder">
-									<!-- 									<img materialboxed class="materialboxed" -->
-									<!-- 										data-caption="A picture of some deer and tons of trees" -->
-									<!-- 										width="250" " style="z-index: 4" -->
-									<%--
-									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%>
-									<span id="carta"> <img materialboxed
-										class="materialboxed"
-										data-caption="A picture of some deer and tons of trees"
-										width="250" " style="z-index: 4" id="carta" />
-									</span>
+									
+									<div class="" id="picture_del">
 
-								</div>
+									</div>
+
 							</div>
 						</div>
-					</form>
-				</div>
+					</div>
 			</div>
 		</section>
 		<form action="col s12">
@@ -349,18 +355,14 @@
 		</div>
 	</div>
 
+
 	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
-
-	<script
-		src="<c:url  value='/resources/js/RegistrarAbandono.js'></c:url>"
+	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>"
 		type="text/javascript"></script>
 
 
