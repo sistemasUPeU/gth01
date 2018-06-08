@@ -354,6 +354,7 @@ function aceptarRenaban(idrab,tipo){
 //				 alert("Reeeeenuncia")
 				 $( "#card-alert" ).fadeIn( 1200, function() {
 					    // Animation complete.
+					 	listarRegistrados();
 						window.setTimeout(function() {
 							
 						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
