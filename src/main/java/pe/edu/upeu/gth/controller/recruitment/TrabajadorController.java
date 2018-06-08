@@ -1,5 +1,7 @@
 package pe.edu.upeu.gth.controller.recruitment;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -873,15 +878,14 @@ public class TrabajadorController {
 	
 	//REPORTES
 	
-	@RequestMapping(value = "/print")
+	@RequestMapping(value = "/carta_de_renuncia")
 	// public @ResponseBody
-	String verReporte(Model model, Authentication authentication) throws ParseException {
+	String verReporte(Model model, Authentication authentication,HttpServletRequest request) throws ParseException {
 		
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idtr = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
 		String iddepa = ((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO();
 		System.out.println(idtr);
-
 		System.out.println("asdasdasdasdasd");
 		model.addAttribute("format", "pdf");
 		model.addAttribute("datasource", (tr.DATOS_TRABAJADOR(idtr,iddepa)));
@@ -890,11 +894,14 @@ public class TrabajadorController {
 		System.out.println(" Esto es del controller: "+carta);
 //		System.out.println(carta.get(7).toString());
 
+		String fecha = request.getParameter("fecha");
+		String argumento =request.getParameter("argumento");
+		System.out.println("Fecha: "+fecha + "Argumento: "+argumento);
 		
         String oldstring = carta.get(0).get("FECHA_CONTRATO").toString();
         LocalDateTime datetime = LocalDateTime.parse(oldstring, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
         String newstring = datetime.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"));
-        System.out.println(newstring);
+        System.out.println(newstring);                                     
         model.addAttribute("FECHA_CONTRATO", newstring);
 		model.addAttribute("NO_TRABAJADOR", carta.get(0).get("NO_TRABAJADOR"));
 		model.addAttribute("AP_PATERNO", carta.get(0).get("AP_PATERNO"));
@@ -903,7 +910,19 @@ public class TrabajadorController {
 		model.addAttribute("NOM",carta.get(0).get("NOM"));
 		model.addAttribute("PAT", carta.get(0).get("PAT"));
 		model.addAttribute("MAT", carta.get(0).get("MAT"));
+		model.addAttribute("FECHA_CUSTOM", fecha);
+		model.addAttribute("ARGUMENTO", argumento);
 		return "renuncia2_report";
+	}
+	
+
+
+	
+	@RequestMapping("limiteR")
+	public void limit(HttpServletResponse response) throws IOException {
+		int x = tr.limite_renuncia();
+		PrintWriter out = response.getWriter();
+		out.println(x);
 	}
 
 }

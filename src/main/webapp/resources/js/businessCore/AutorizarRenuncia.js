@@ -106,12 +106,8 @@ function listarRegistrados() {
 								: ct = "red darken-1";
 						
 
-								+ lista[i].PATERNO
-								+ ' '
-								+ lista[i].MATERNO
-								+ ' '
-								+ lista[i].NOMBRES
-								+ '</td>';
+						+ lista[i].PATERNO + ' ' + lista[i].MATERNO
+						+ ' ' + lista[i].NOMBRES + '</td>';
 						s += '<td>'
 								+ lista[i].NOM_PUESTO
 								+ '</td>';

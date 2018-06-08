@@ -1,6 +1,5 @@
 $(document).ready(function(){
-	
-	$("#otrosdiv").hide();
+		$("#otrosdiv").hide();
 	
     $('#fecha').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
