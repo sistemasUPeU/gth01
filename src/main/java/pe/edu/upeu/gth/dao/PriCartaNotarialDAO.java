@@ -77,9 +77,8 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 	}
 
 	public List<Map<String, Object>> Pendiente(String depa) {
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000434' OR rap.ID_PASOS='PAS-000435'";
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000435' ORDER BY ra.FECHA_RENABAN DESC";
 		
-		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 

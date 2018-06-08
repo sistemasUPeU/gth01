@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
 
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 //import pe.edu.upeu.gth.config.AppConfig;
@@ -66,8 +67,8 @@ public class RenProcesarDAO implements CRUDOperations{
 	}
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 	public List<Map<String, Object>> Autorizado(String depa)  {
-      sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000436' OR rap.ID_PASOS='PAS-000437'";		
-		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
+		System.out.println("esto es depa"+depa);
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0  AND rap.ID_PASOS IN ('PAS-000436','PAS-000437') ORDER BY ra.FECHA_RENABAN DESC"; 
 		return jt.queryForList(sql);
 	}
 		
@@ -130,7 +131,7 @@ public class RenProcesarDAO implements CRUDOperations{
 	}
 	
 	// RECHAZAR RENUNCIA
-	public int RechazarRenuncia(Rechazo ob) {
+	public int RechazarRenuncia(Rechazo ob, String tipo1) {
 		int x = 0;
 		String sql = "call REN_UPDATE_RENUNCIA( ? , ?)";
 //		String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
@@ -141,12 +142,14 @@ public class RenProcesarDAO implements CRUDOperations{
 			// TODO: handle exception
 			System.out.println("Error:" + e);
 		}
-		return x;	
+		return x;
+		
 	}
+	//BUSCAR ROL
 	public int BuscarRol(String idrol,String tipo) {
 		int seracierto = 0;			
 		try {
-			if(idrol=="ROL-0009"||idrol=="ROL-0001"||idrol=="ROL-0006") {
+			if(idrol=="ROL-0009"||idrol=="ROL-0001"||idrol=="ROL-0021") {
 				if(tipo=="ABANDONO") {
 					seracierto = 1;
 				}else {
@@ -164,5 +167,22 @@ public class RenProcesarDAO implements CRUDOperations{
 		return seracierto;
 	}
 	
-}
+	//JUSTIFICAR 
+	public int JustificarAbandono(Justificacion ju, String tipo2) {
+		int x = 0;
+		String sql = "call REN_UPDATE_ABANDONO( ? , ?)";
+		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
+		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+		try {
+			jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
+			x = 1;
+		} catch (Exception e) {
+		// TODO: handle exception
+			System.out.println("Error:" + e);
+		}
+		return x;
 
+		}
+	
+	
+}

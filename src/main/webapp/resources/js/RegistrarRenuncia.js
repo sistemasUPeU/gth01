@@ -22,31 +22,18 @@ $(document).ready(function(){
 		}
 	$("#RegistrarR").click(function (event) {
 		event.preventDefault();
- 
-
-        // Get form
         var form = $('#RenunciaForm')[0];
-
-		// Create an FormData object
         var data = new FormData(form);
-
-		// If you want to add an extra field for the FormData
-// data.append("CustomField", "This is some extra data, testing");
         var file=$("#pelon1").val();
         var fecha = $("#fecha").val();
         console.log(fecha);
-        var array = $("#array_motivos").val();
-
-        
+        var array = $("#array_motivos").val();       
         if (!$("#otrosdiv").hasClass("hide")) {
-			//alert("visible");
 		} else {
-			//alert("invisible :'v");
-		}
-        
+		}      
         open();
-        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la renuncia de este trabajador?', function(){
-        	
+        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la'+ 
+        		'renuncia de este trabajador?', function(){    	
         	if(file!=""&&fecha!=""&&array!=""){
             	$.ajax({
                     type: "POST",
@@ -58,30 +45,26 @@ $(document).ready(function(){
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                    		$("#RegistrarR").prop("disabled", false);
-                            insertarMotivos();
-          
-                        	alertify.notify('Se ha registrado la renuncia satisfactoriamente. Redireccionando a reportes...', 'custom', 2,
-    								function() {
-                        				window.location.href = gth_context_path+ '/renaban/listaRA';
-    								});
-
+           $("#RegistrarR").prop("disabled", false);
+           insertarMotivos();
+           alertify.notify('Se ha registrado la renuncia satisfactoriamente.'+ 
+        		   'Redireccionando a reportes...', 'custom', 2,
+    					function() {
+                      	window.location.href = gth_context_path+ '/renaban/listaRA';
+    					});
                     },
                     error: function (e) {
                     	alertify
-                        .errorAlert("Ha ocurrido un problema, comuníquese con el administradord el sistema.<br/>");
+                   .errorAlert("Ha ocurrido un problema, comuníquese con el administradord" +
+                   		" el sistema.<br/>");
                     }
                 });
             }else{          	
             	alertify
                 .errorAlert("Rellene todos los campos<br/>");
-            }
-        	
-        	
-        	
+            }      	
         	}
-        , function(){ 
-        	     	
+        , function(){        	     	
         });
     });
 			

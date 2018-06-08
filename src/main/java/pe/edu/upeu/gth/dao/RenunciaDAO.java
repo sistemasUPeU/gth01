@@ -210,9 +210,11 @@ public class RenunciaDAO {
 	// INSERTAR RENUNCIA
 	public int crearRenuncia(Renuncia r) {
 		int x = 0;
-		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO RA_RENABAN(ID_CONTRATO,TI_ARCHIVO,NO_ARCHIVO,FECHA_CARTA,ID_USUARIO,TIPO) "
+				+ "VALUES(?,?,?,?,?,?)";
 		try {
-			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(), r.getNo_archivo(), r.getFecha(),r.getId_usuario(),r.getTipo() });
+			jt.update(sql, new Object[] { r.getId_contrato(), r.getTi_archivo(),
+					r.getNo_archivo(), r.getFecha(),r.getId_usuario(),r.getTipo() });
 			
 			x= 1;
 		} catch (Exception e) {

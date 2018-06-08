@@ -14,6 +14,11 @@ public class Renuncia {
 	private String tipo;
 	private String usu_mod;
 	
+	
+	public Renuncia() {
+		super();
+	}
+
 	public String getTipo() {
 		return tipo;
 	}

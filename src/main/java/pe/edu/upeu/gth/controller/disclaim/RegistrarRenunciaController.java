@@ -123,8 +123,9 @@ public class RegistrarRenunciaController {
 
 	
 	@RequestMapping(path = "/reg_ren", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,
-			@RequestParam("idcontrato") String idcon, Authentication authentication, HttpServletRequest request) throws IOException {
+	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, 
+		@RequestParam("fecha") String fecha, @RequestParam("idcontrato") String idcon,
+		Authentication authentication, HttpServletRequest request) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
@@ -132,8 +133,6 @@ public class RegistrarRenunciaController {
 		String url = "/";
 		int exito = 0;
 		if (!file.isEmpty()) {
-			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
-			// ?, ?)";
 			try {
 				for (MultipartFile fi : file) {
 					String nome= fi.getOriginalFilename();
@@ -142,22 +141,19 @@ public class RegistrarRenunciaController {
 					String dateAsString = simpleDateFormat.format(new Date());
 					nome="renuncia"+idcon+dateAsString;
 					FilenameUtils fich = new FilenameUtils();
-					
 					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
-					path = context.getRealPath("/resources/files/" + nome+"."+FilenameUtils.getExtension(path));
+					path = context.getRealPath("/resources/files/" + nome+"."+
+					FilenameUtils.getExtension(path));
 					System.out.println("ruta del archivo " + path);
 					File destFile = new File(path);
-					
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
 					archi.add(destFile.getPath());
 					archi.add(FilenameUtils.getExtension(path));				
 					archi.add(String.valueOf(destFile.length()));
-					
 					String nombre = destFile.getName();
 					String url2 = destFile.getPath();
 					System.out.println(nombre+""+url2);
-					
 					System.out.println(idcon);
 					r.setFecha(fecha);
 					r.setNo_archivo(destFile.getName());
@@ -166,9 +162,7 @@ public class RegistrarRenunciaController {
 					r.setId_usuario(idusuario);
 					r.setTipo("R");
 					exito=rd.crearRenuncia(r);
-					
 				}
-
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
 				ec.printStackTrace();
@@ -176,7 +170,6 @@ public class RegistrarRenunciaController {
 			System.out.println(gson.toJson(archi));
 			System.out.println("respuesta>> " + exito);
 		}
-		
 		return "redirect:" + url;
 	}
 	

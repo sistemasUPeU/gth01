@@ -121,8 +121,6 @@ public class RecepcionarDAO implements CRUDOperations{
 					jt.update(sql2,new Object[] { r.getId_renuncia()});
 				}else {
 					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000435",idusuario,fechon});
-					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000437",idusuario,fechon});
-					jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000439",idusuario,fechon});
 					jt.update(sql3,new Object[] { r.getId_renuncia()});
 				}
 				

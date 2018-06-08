@@ -48,103 +48,152 @@ $(document)
 
 				});
 
-function listarAutorizados() {
-	$
-			.getJSON(
-					gth_context_path + "/renaban/primerEnvio",
-					"opc=3",
-					function(objJson) {
-						// alert(objJson);
-						var s = "";
-						var lista = objJson;
-						console.log(objJson);
-						if (lista.length > 0) {
-							// alert("si hay datos causita c:");
-
-							for (var i = 0; i < lista.length; i++) {
-								var a = parseInt(i) + 1;
-								var MFL = parseInt(lista[i].ES_MFL);
-								var Motivo = parseInt(lista[i].LI_MOTIVO);
-								var plazo = parseInt(lista[i].VAL_PLAZO);
-								var fe_creacion = new Date(
-										lista[i].FECHA_RENUNCIA);
-								var mesInt = parseInt(fe_creacion.getMonth()) + 1;
-								var mes = ParsearMes(mesInt);
-								var mfl = "";
-								if (lista[i].VAL_PLAZO == '1') {
-									mfl = "Sí"
-								} else {
-									mfl = "No";
-								}
-								var TIPO = "";
-								if (lista[i].TIPO == 'A') {
-									TIPO = "RENUNCIA"
-								} else {
-									TIPO = "ABANDONO";
-								}
-								var p = "";
-								var f = "";
-								var t = "";
-								var ct = "";
-								(Motivo === 1) ? p = "Trabajador Nuevo"
-										: ((Motivo === 2) ? p = "Renovación"
-												: p = "No Registrado");
-								(MFL === 1) ? f = "Si" : f = "No";
-								(plazo === 1) ? t = "Cumplió Plazo"
-										: t = "No Cumplió";
-								(plazo === 1) ? ct = "green accent-3"
-										: ct = "red darken-1";
-								s += '<tr>';
-								s += '<td>' + a + '<label  class="ida" hidden>'
-										+ lista[i].ID_CONTRATO
-										+ '</label></td>';
-								s += '<td>' + mes;
-								+'</td>';
-								s += '<td class="">'
-
-								+ lista[i].PATERNO + ' ' + lista[i].MATERNO
-										+ ' ' + lista[i].NOMBRES + '</td>';
-								s += '<td>' + lista[i].NOM_PUESTO + '</td>';
-								s += '<td>' + lista[i].NOM_AREA + '</td>';
-								s += '<td>' + lista[i].NOM_DEPA + '</td>';
-								s += '<td>' + lista[i].TIPO_CONTRATO + '</td>';
-								s += '<td><a class="green-text accent-3" href="#">'
-										+ lista[i].DESCRIPCION + '</a></td>';
-								s += '<td>' + lista[i].FECHA_RENUNCIA + '</td>';
-								s += '<td>' + lista[i].DNI + '</td>';
-								s += '<td>' + mfl + '</td>';
-								// s += '<td>' + p + '</td>';
-								s += '<td>' + lista[i].ESTADO + '</td>';
-								s += '<td>' + TIPO + '</td>';
-								s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3" >Detalle</button>';
-								s += '</button>';
-								s += '</tr>';
-							}
-
-						} else {
-							// alert("no hay datos");
-							s += "";
+function listarRegistrados() {
+	$.getJSON(
+			gth_context_path + "/renaban/primerEnvio",
+			"opc=3",
+			function(objJson) {
+				var s = "";
+				var lista = objJson;
+//				console.log(objJson);
+				if (lista.length > 0) {
+					// alert("si hay datos causita c:");	
+					for (var i = 0; i < lista.length; i++) {
+						var a = parseInt(i) + 1;
+						var MFL = parseInt(lista[i].ES_MFL);
+						var Motivo = parseInt(lista[i].LI_MOTIVO);
+						var plazo = parseInt(lista[i].VAL_PLAZO);
+						var fe_creacion = new Date(
+								lista[i].FECHA_RENABAN);
+						var mesInt = parseInt(fe_creacion
+								.getMonth()) + 1;
+						var mes = ParsearMes(mesInt);
+						var mfl="";
+						if(lista[i].VAL_PLAZO=='1'){
+							 mfl="Sí"
+						}else{
+							 mfl="No";
 						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
+						}
+						s += '<tr>';
+						s += '<td>'
+								+ a
+								+ '<label  class="idc" hidden>'
+								+ lista[i].ID_CONTRATO
+								+ '</label></td>';
+						s += '<td>'
+								+ mes;
+								+ '</td>';
+						s += '<td class="">'
+						var p = "";
+						var f = "";
+						var t = "";
+						var ct = "";
+						(Motivo === 1) ? p = "Trabajador Nuevo"
+								: ((Motivo === 2) ? p = "Renovación"
+										: p = "No Registrado");
+						(MFL === 1) ? f = "Si"
+								: f = "No";
+						(plazo === 1) ? t = "Cumplió Plazo"
+								: t = "No Cumplió";
+						(plazo === 1) ? ct = "green accent-3"
+								: ct = "red darken-1";
+						
 
-						var r = createTable("s", "d");
-						$(".contT").empty();
-						$(".contT").append(r);
-						$("#dataReq").empty();
-						$("#dataReq").append(s);
-						$("#data-table-row-grouping").DataTable();
+								+ lista[i].PATERNO
+								+ ' '
+								+ lista[i].MATERNO
+								+ ' '
+								+ lista[i].NOMBRES
+								+ '</td>';
+						s += '<td>'
+								+ lista[i].NOM_PUESTO
+								+ '</td>';
+						s += '<td>' + lista[i].NOM_AREA
+								+ '</td>';
+						s += '<td>' + lista[i].NOM_DEPA
+								+ '</td>';
+						s += '<td>'
+								+ lista[i].TIPO_CONTRATO
+								+ '</td>';
+						s += '<td><a class="green-text accent-3" href="#">'
+								+ lista[i].DESCRIPCION
+								+ '</a></td>';
+						s += '<td>'
+								+lista[i].FECHA_RENABAN+
+								 '</td>';
+						s += '<td>'
+							+lista[i].DNI+
+							 '</td>';
+						s += '<td>'
+							+mfl+
+							 '</td>';
+						// s += '<td>' + p + '</td>';
+//						s += '<td><a class="blue-text accent-4" href="#"><b>' + lista[i].ESTADO
+//								+ '</b></a></td>';
+						s +='<td >' +TIPO+ '<label class="tipon" hidden>'
+						+ TIPO
+						+ '</label></td>';
+						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Detalle</a>';
+						s += '</td>';
+						s += '</tr>';
+					}
 
-						$(".notificar").click(
-								function() {
+				} else {
+					//alert("no hay datos");
+					s += "";
+				}
 
-									cantidad = $(this).parents("tr").find("td")
-											.eq(0).find(".ida").text();
-									console.log(cantidad);
+				var r = createTable("s", "d");
+				$(".contT").empty();
+				$(".contT").append(r);
+				$("#dataReq").empty();
+				$("#dataReq").append(s);
 
-									DetalleAbandono(cantidad);
+				$("#data-table-row-grouping")
+						.DataTable(
+								{
+								    responsive: true,
+								    columnDefs: [
+								        { responsivePriority: 1, targets: 0 },
+								        { responsivePriority: 2, targets: -1 }
+								    ],
+								"pageLength" : 5,
+								"bPaginate" : true,
+								"ordering": false
+								}
+						);
 
-									$("#otros").val(cantidad);
-								});
-					});
+				$("#data-table-row-grouping tbody").on('click','.notificar',
+						function() {
+
+							cantidad = $(this).parents(
+									"tr").find("td")
+									.eq(0)
+									.find(".idc")
+									.text();
+//							console.log(cantidad);
+							
+							
+							tipon = $(this).parents(
+							"tr").find("td")
+							.find(".tipon")
+							.eq(0)
+							.text();
+							console.log("esto es tipon"+tipon);
+
+							DetalleRenuncia(cantidad,tipon);
+
+							$("#otros").val(cantidad);	
+					
+						
+						});
+			});
 }
 // Detalle de Carta Notarial
 function DetalleAbandono(ida) {

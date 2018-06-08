@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -6,34 +6,44 @@
 
 <head>
 <%@include file="../../../jspf/general.jspf"%>
-<link href="https://fonts.googleapis.com/css?family=Dosis"
-	rel="stylesheet">
+
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/js/materialize.min.js'/>"
-	type="text/javascript" media="screen,projection">
-<link href="<c:url value='/resources/css/materialize.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-	
 <link
-	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
+	href="<c:url value='/resources/css/dataTables.min.css'></c:url>" 
 	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/data-tables/css/dataTables.material.min.css'></c:url>"
+	<link
+	href="<c:url value='/resources/css/responsive.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/css/rechazar.css'></c:url>" />
+
 <link href="<c:url value='/resources/css/alertify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 
+<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond"
+	rel="stylesheet">
+<style>
+	div.dataTables_wrapper{
+		width:auto;
+        margin: 0 auto;
+    }
+    
+    .dataTables_scroll
+{
+    overflow:auto;
+}
+    
+    
+    .display{
+	width:100%;
+}
+table.dataTable tbody th,
+table.dataTable tbody td {
+    white-space: nowrap;
+}
+</style>
 </head>
 
-<body>
+<body class="">
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -45,54 +55,46 @@
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
+		<section id="content" class="col m12 l12 s12">
+				<div class="center">
+					<h1
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Verificar
+						 Abandonos</h1>
+				</div>
+				<div class="divider"></div>
+
+			</section>
 		<div id="contenido">
-			<div class="col s12 m12"
-				style="width: 100%; position: absolute; min-width: 1340px">
-				<ul class="collapsible popout" data-collapsible="accordion">
-					<li class="active">
+			<div class="row"
+				style="width: 100%;  max-width:90%">
+				<ul class="collapsible popout">
+					<li id="autorize" class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-toggle-check-box"></i> Carta Notarial
+							<i class="mdi-social-notifications-on"></i> Abandonos Pendientes
 						</div>
-						<div id="data-table-row-grouping col s12 m8 l9"
-							class="card-panel collapsible-body display #e3f2fd blue lighten-5"
-							style="display: none;">
-
-							<!-- <div id="data-table-row-grouping col s12 m8 l9" -->
-							<!-- class="card-panel display #e3f2fd blue lighten-5" -->
-							<!-- style="position: absolute"> -->
-
-							<!-- <div class="col s12 m8 l9 contT"></div> -->
-							<!-- </div> -->
-
-							<div class="col s12 m8 l9 contT"></div>
-
-
+						<div class="collapsible-body"
+							style="display: none;">	
+							<div class="row" style="padding:1em">
+								<div class="contT"></div>
+							</div>			
 						</div>
 					</li>
-					<li class="active">
-						<div class="collapsible-header active" >
-
-							<i class="mdi-toggle-check-box" id ="pricarta"></i> Primer envio
-						</div> <!-- 						<div class="collapsible-body" style="display: none;"> -->
-						<div id="table-datatables"
-							class="card-panel collapsible-body display #e3f2fd blue lighten-5"
+					<li id="autorized" class="">
+						<div class="collapsible-header" >
+							<i class="mdi-toggle-check-box"></i> Abandonos Verificados
+						</div> 
+						<div class="card-panel collapsible-body "
 							style="display: none;">
-							<!-- 							<div class="row"> -->
-							<!-- 								<div class="col s12 m8 l9"></div> -->
-							<!-- 							</div> -->
-							<div class="col s12 m8 l9 contP"></div>
-							<!-- 						</div> -->
+							<div class="row" style="padding:1em">
+								<div class="contP"></div>
+							</div>
 
-						</div>
+							</div>
 
-					</li>
-				</ul>
-			</div>
-
-
-
+						</li>
+					</ul>
+				</div>
 		</div>
-
 	</div>
 
 	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
@@ -103,11 +105,12 @@
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		src="<c:url value='/resources/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		<script
+		src="<c:url value='/resources/js/dataTables.responsive.min.js'></c:url>"
 		type="text/javascript"></script>
+	
 	<%-- 		<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
@@ -116,7 +119,7 @@
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>"
+		src="<c:url value='/resources/js/businessCore/VerificarRen.js'></c:url>"
 		type="text/javascript"></script>
 	<!-- 		<script -->
 	<%-- 		src="<c:url value='/resources/js/businessCore/Procesado.js'></c:url>" --%>

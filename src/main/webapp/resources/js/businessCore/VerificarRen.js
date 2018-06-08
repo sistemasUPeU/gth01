@@ -56,10 +56,9 @@ function listarRegistrados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(objJson);
+//				console.log(objJson);
 				if (lista.length > 0) {
-					// alert("si hay datos causita c:");
-
+					// alert("si hay datos causita c:");	
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;
 						var MFL = parseInt(lista[i].ES_MFL);
@@ -82,6 +81,16 @@ function listarRegistrados() {
 						}else{
 							 TIPO="ABANDONO";
 						}
+						s += '<tr>';
+						s += '<td>'
+								+ a
+								+ '<label  class="idc" hidden>'
+								+ lista[i].ID_CONTRATO
+								+ '</label></td>';
+						s += '<td>'
+								+ mes;
+								+ '</td>';
+						s += '<td class="">'
 						var p = "";
 						var f = "";
 						var t = "";
@@ -95,16 +104,7 @@ function listarRegistrados() {
 								: t = "No Cumplió";
 						(plazo === 1) ? ct = "green accent-3"
 								: ct = "red darken-1";
-						s += '<tr>';
-						s += '<td>'
-								+ a
-								+ '<label  class="idc" hidden>'
-								+ lista[i].ID_CONTRATO
-								+ '</label></td>';
-						s += '<td>'
-								+ mes;
-								+ '</td>';
-						s += '<td class="">'
+						
 
 								+ lista[i].PATERNO
 								+ ' '
@@ -166,6 +166,7 @@ function listarRegistrados() {
 								    ],
 								"pageLength" : 5,
 								"bPaginate" : true,
+								"ordering": false
 								}
 						);
 
@@ -177,7 +178,7 @@ function listarRegistrados() {
 									.eq(0)
 									.find(".idc")
 									.text();
-							console.log(cantidad);
+//							console.log(cantidad);
 							
 							
 							tipon = $(this).parents(
@@ -190,8 +191,8 @@ function listarRegistrados() {
 							DetalleRenuncia(cantidad,tipon);
 
 							$("#otros").val(cantidad);	
-							
-							$("#tipo").val(tipon);
+					
+						
 						});
 			});
 }
@@ -387,7 +388,7 @@ var u = "";
 
 
 // DETALLE PARA AUTORIZAR RENUNCIA
-function DetalleRenuncia(idc,tipon) {
+function DetalleRenuncia(idc,tipo) {
 	
 //	$("#modal2").openModal();	
 //	$.get("details",{},function(data){
@@ -434,34 +435,46 @@ function DetalleRenuncia(idc,tipon) {
 				}
 //				var img = document.getElementById("carta")
 				$("#carta").text(detalle[0].ARCHIVO);
-				$("#autorizarRen").click(function(){
+				$("#verificarRen").click(function(){
 					var idr= $("#idr").val();
 //					var tipo= $("#tipo").val();
 					//alert(idr);
-					if(tipo=="RENUNCIA"){
-						alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar la renuncia de este trabajador?', function(){
-							 $.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";	
-								 alert("Renuncia");
-								
-//				        		 alert(data);
-				        	});
-							 
-					     	} , function(){ 
-					     		
-					        });
-					}else{
-						alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar el abandono de este trabajador?', function(){
-							 $.get("Verificar",{opc:4,tipo:'A',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";					 
-								
-				        		 alert("Abandono");
-				        	});
-							 
-					     	} , function(){ 
-					     		
-					        });
-					}
+					
+					alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar la renuncia de este trabajador?', function(){
+						 $.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
+							 window.location.href = gth_context_path +"/renaban/verificarRenuncia";	
+							 alert("Renuncia");
+							
+//			        		 alert(data);
+			        	});
+						 
+				     	} , function(){ 
+				     		
+				        });
+//					if(tipo=="RENUNCIA"){
+//						alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar la renuncia de este trabajador?', function(){
+//							 $.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
+//								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";	
+//								 alert("Renuncia");
+//								
+////				        		 alert(data);
+//				        	});
+//							 
+//					     	} , function(){ 
+//					     		
+//					        });
+//					}else{
+//						alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar el abandono de este trabajador?', function(){
+//							 $.get("Verificar",{opc:4,tipo:'A',idr:idr},function(data){
+//								 window.location.href = gth_context_path +"/renaban/verificarRenuncia";					 
+//								
+//				        		 alert("Abandono");
+//				        	});
+//							 
+//					     	} , function(){ 
+//					     		
+//					        });
+//					}
 					 
 				});
 				var idr = detalle[0].ID_RENABAN;

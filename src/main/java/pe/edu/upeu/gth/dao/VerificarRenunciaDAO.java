@@ -65,9 +65,7 @@ public class VerificarRenunciaDAO implements CRUDOperations{
 	}
 	//Listar trabajadores en estado pendiende
 	public List<Map<String, Object>> Pendiente(String depa) {
-		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000434' OR rap.ID_PASOS='PAS-000435'";
-		
-		sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
+		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000434' ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 	//LISTAR 
@@ -92,7 +90,7 @@ public class VerificarRenunciaDAO implements CRUDOperations{
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {
-			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS='PAS-000434' OR rap.ID_PASOS='PAS-000435' ORDER BY ra.FECHA_RENABAN DESC";
+			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS='PAS-000434' ORDER BY ra.FECHA_RENABAN DESC";
 			return jt.queryForList(sql);
 		}
 	

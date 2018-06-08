@@ -25,6 +25,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.RenProcesarDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
+import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -36,6 +37,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 		private Gson gson = new Gson();
 		Renuncia r = new Renuncia();
 		Rechazo re = new Rechazo();
+		Justificacion ju = new Justificacion();
 		RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 		RenProcesarDAO ra = new RenProcesarDAO(AppConfig.getDataSource()); 
 		Map<String, Object> mp = new HashMap<>();
@@ -49,17 +51,16 @@ import pe.edu.upeu.gth.dto.Renuncia;
 				int op = Integer.parseInt(request.getParameter("opc"));
 				switch (op) {
 				case 1:
-					String depa = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-					out.println(gson.toJson(ra.Autorizado(depa)));
-//					out.println(gson.toJson(ra.Autorizado()));
+					out.println(gson.toJson(ra.Procesar()));
 					break;
 				case 2:
 					String idc = request.getParameter("idc");
 					out.println(gson.toJson(ra.Buscar_DetalleTrabajador(idc)));
 					break;
 				case 3:
-					out.println(gson.toJson(ra.Procesar()));
-					break;
+					String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
+					out.println(gson.toJson(ra.Autorizado(depa)));
+					break;		
 				case 4:
 					String idr = request.getParameter("idr");
 					String tipo = request.getParameter("tipo");
@@ -76,14 +77,24 @@ import pe.edu.upeu.gth.dto.Renuncia;
 					out.println(gson.toJson(ra.Procesado()));
 					break;
 				case 6:
+					String tipo1 = request.getParameter("tipo");
 					String id = request.getParameter("idr");
 					System.out.println(id);
 					String observaciones = request.getParameter("observaciones");				
 					re.setId_renaban(id);
 					re.setObservaciones(observaciones);
-					out.println(ra.RechazarRenuncia(re));
+					out.println(ra.RechazarRenuncia(re, tipo1));
 					break;
 				case 7: 
+					String tipo2 = request.getParameter("tipo");
+					String idra = request.getParameter("idr");
+					System.out.println(idra);
+					String observacion = request.getParameter("observacion");				
+					ju.setId_renaban(idra);
+					ju.setObservacion(observacion);
+					out.println(ra.JustificarAbandono(ju, tipo2));
+					break;
+				case 8:
 					String idrol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
 					String tipon = request.getParameter("tipo");
 					if(ra.BuscarRol(idrol,tipon)==1)
@@ -93,9 +104,12 @@ import pe.edu.upeu.gth.dto.Renuncia;
 						out.println(0);
 					}
 					break;
+						
 				}
+				
 
 			}
+			
 			
 			@Autowired
 			ServletContext context;

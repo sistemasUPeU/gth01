@@ -59,7 +59,7 @@ table.dataTable tbody td {
 				<div class="center">
 					<h1
 						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Verificar
-						Renuncias y Abandonos</h1>
+						Renuncias</h1>
 				</div>
 				<div class="divider"></div>
 
@@ -70,7 +70,7 @@ table.dataTable tbody td {
 				<ul class="collapsible popout">
 					<li id="autorize" class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-social-notifications-on"></i> Renuncias o Abandonos Pendientes
+							<i class="mdi-social-notifications-on"></i> Renuncias Pendientes
 						</div>
 						<div class="collapsible-body"
 							style="display: none;">	
@@ -81,7 +81,7 @@ table.dataTable tbody td {
 					</li>
 					<li id="autorized" class="">
 						<div class="collapsible-header" >
-							<i class="mdi-toggle-check-box"></i> Renuncias o Abandonos Autorizados
+							<i class="mdi-toggle-check-box"></i> Renuncias Autorizados
 						</div> 
 						<div class="card-panel collapsible-body "
 							style="display: none;">
