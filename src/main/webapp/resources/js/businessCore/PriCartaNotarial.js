@@ -16,13 +16,9 @@ $(document)
 											};
 										}, true, 'alert');
 					}
-
-					// $('.modal-trigger').leanModal();
-					// alert();
-
+					
 					listarRegistrados();
 					listarNotificados();
-					// listarProcesados();
 
 					$("#ProcesarR").click(function() {
 						var idc = $("#idc").val();
