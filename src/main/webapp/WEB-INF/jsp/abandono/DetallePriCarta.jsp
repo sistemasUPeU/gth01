@@ -34,33 +34,36 @@
 <head>
 </head>
 <body class="#e8f5e9 green lighten-5">
-	<div div class="row">
+	<div class="row">
 		<div class="col s2">
 			<br>
 		</div>
 		<div class="col s8">
 		
 		</div>
-	</div>
-	<div class="card " style="width: 100%; margin-left: 5%">
+	
 		<section class="plans-container" id="plans">
-			<div class="card " style="width: 85%; margin-left: 5%">
-				<div class="card-image #424242 grey darken-3 waves-effect ">
+			<div class="card " style="box-shadow: 0px 0px 20px 20px #888888">
+				<div class="card-image #607d8b blue-grey waves-effect ">
 					<div class="card-title">
 						<h5>DETALLES DEL TRABAJADOR</h5>
 					</div>
 					<hr />
 					<div class="price flow-text ">
 						<div class="col m12 l12 s12">
-							<sup id="profile-page-content" class="row">
-								<div class="row card-panel" style="text-align: center">
-									<div class="col l6 m6 s6">
+							<div id="profile-page-content" class="row">
+								<div class="row card-panel white">
+								<div class="col l2 m2 s6">
+											<img src="<c:url value="/resources/img/user.png"/>" alt=""
+												class="circle responsive-img valign profile-image">
+										</div>
+									<div class="col l3 m6 s6">
 										<input type="hidden" id="idt" />
+										<input id="idr"  type="hidden" />
 										<h6 class="light italic black-text">
 											<strong><h6>Nombres :</strong><span id="nombres"></span><br>
 											<strong>
 										</h6>
-										<input type="hidden" id="idr" />
 										<h6>
 											Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
 										</h6>
@@ -73,7 +76,7 @@
 									</div>
 								</div>
 						</div>
-						</sup>
+					</div>
 					</div>
 					<div class="price-desc white-text">
 						<form class="col s12 ">
@@ -152,18 +155,6 @@
 						<form class="col s12">
 							<div class="row">
 								<div class="input-field col s6">
-									<h6>Centro costo n°1:</h6>
-								</div>
-								<div class="input-field col s4 ">
-									<h6>
-										<span id="centro_costo"></span><br>
-									</h6>
-								</div>
-							</div>
-						</form>
-						<form class="col s12">
-							<div class="row">
-								<div class="input-field col s6">
 									<h6>Tipo de contrato:</h6>
 								</div>
 								<div class="input-field col s4 ">
@@ -215,6 +206,10 @@
 					</div>
 			</div>
 		</section>
+		<div class="col s2">
+			<br>
+		</div>
+		</div>
 		<form action="col s12">
 			<div class="row">
 				<!-- 				<div class="input-field col s6 center"> -->
@@ -234,7 +229,6 @@
 				</div>
 			</div>
 		</form>
-	</div>
 	<br>
 	<br>
 	<br>
