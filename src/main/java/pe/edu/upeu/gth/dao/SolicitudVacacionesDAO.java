@@ -66,14 +66,14 @@ public Map<String, Object> llenar_solicitud(String idtrabajador, String fechaini
 		 
 		 
 	    try {
-	    	// Cargamos el driver JDBC
-	    		JRDataSource datasource = new JREmptyDataSource();
-	    	
-//	    	cn=(Connection) jt.getDataSource();
-	    	 Class.forName("oracle.jdbc.OracleDriver");
-	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
-//	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth", "123");
-	    	 cn.setAutoCommit(false);
+//	    	// Cargamos el driver JDBC
+//	    		JRDataSource datasource = new JREmptyDataSource();
+//	    	
+////	    	cn=(Connection) jt.getDataSource();
+//	    	 Class.forName("oracle.jdbc.OracleDriver");
+//	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
+////	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth", "123");
+//	    	 cn.setAutoCommit(false);
 	    	 
 	    	 String realPath = cntx.getRealPath("/resources/img/");
 		       	
