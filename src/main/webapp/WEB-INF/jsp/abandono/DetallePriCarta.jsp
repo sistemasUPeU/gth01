@@ -1,10 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@include file="../../../jspf/general.jspf"%>
+<link href="https://fonts.googleapis.com/css?family=Dosis"
+	rel="stylesheet">
+<link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+<link
+	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
+	rel="stylesheet" type="text/css" />
+
+<link
+	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+<link
+	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="<c:url value='/resources/css/alertify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
+<link href="https://fonts.googleapis.com/css?family=Poiret+One"
+	rel="stylesheet">
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	
 <style>
 @media only screen and (min-width: 641px) {
 	.remodal {
@@ -29,41 +57,34 @@
 		font-size: 14px
 	}
 }
+.ajs-message.ajs-custom {
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #31708f;
+	z-index: 999999
+}
 </style>
-<html>
-<head>
 </head>
-<body class="#e8f5e9 green lighten-5">
-	<div class="row">
-		<div class="col s2">
-			<br>
-		</div>
-		<div class="col s8">
-		
-		</div>
-	
+<body>
+	<div class="card " style="width: 100%; margin-left: 5%">
 		<section class="plans-container" id="plans">
-			<div class="card " style="box-shadow: 0px 0px 20px 20px #888888">
-				<div class="card-image #607d8b blue-grey waves-effect ">
+			<div class="card " style="width: 85%; margin-left: 5%">
+				<div class="card-image #424242 grey darken-3 waves-effect ">
 					<div class="card-title">
 						<h5>DETALLES DEL TRABAJADOR</h5>
 					</div>
 					<hr />
 					<div class="price flow-text ">
 						<div class="col m12 l12 s12">
-							<div id="profile-page-content" class="row">
-								<div class="row card-panel white">
-								<div class="col l2 m2 s6">
-											<img src="<c:url value="/resources/img/user.png"/>" alt=""
-												class="circle responsive-img valign profile-image">
-										</div>
-									<div class="col l3 m6 s6">
+							<sup id="profile-page-content" class="row">
+								<div class="row card-panel" style="text-align: center">
+									<div class="col l6 m6 s6">
 										<input type="hidden" id="idt" />
-										<input id="idr"  type="hidden" />
 										<h6 class="light italic black-text">
 											<strong><h6>Nombres :</strong><span id="nombres"></span><br>
 											<strong>
 										</h6>
+										<input type="hidden" id="idr" />
 										<h6>
 											Apellido Paterno : </strong><span id="paterno"></span><br> <strong>
 										</h6>
@@ -76,7 +97,7 @@
 									</div>
 								</div>
 						</div>
-					</div>
+						</sup>
 					</div>
 					<div class="price-desc white-text">
 						<form class="col s12 ">
@@ -94,7 +115,7 @@
 						<form class="col s12">
 							<div class="row">
 								<div class="input-field col s6 ">
-									<h6>Dirección:</h6>
+									<h6>DirecciÃ³n:</h6>
 								</div>
 								<div class="input-field col s4 ">
 									<h6>
@@ -131,7 +152,7 @@
 						<form class="col s12">
 							<div class="row">
 								<div class="input-field col s6">
-									<h6>Sección:</h6>
+									<h6>SecciÃ³n:</h6>
 								</div>
 								<div class="input-field col s4 ">
 									<h6>
@@ -148,6 +169,18 @@
 								<div class="input-field col s4 ">
 									<h6>
 										<span id="puesto"></span><br>
+									</h6>
+								</div>
+							</div>
+						</form>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6">
+									<h6>Centro costo nÂ°1:</h6>
+								</div>
+								<div class="input-field col s4 ">
+									<h6>
+										<span id="centro_costo"></span><br>
 									</h6>
 								</div>
 							</div>
@@ -190,26 +223,32 @@
 						</form>
 					</div>
 				</div>
-				<div class="">
+				<div class="card-content">
+					<form class="col s12">
 						<div class="row">
 							<div class="input-field col s6" style="text-align: center">
-								<h6 id="tipo_doc"></h6>
+								<h6>Carta de Abandono:</h6>
 							</div>
 							<div class="input-field col s6">
-									
-									<div class="" id="picture_del">
+								<div class="material-placeholder">
+									<!-- 									<img materialboxed class="materialboxed" -->
+									<!-- 										data-caption="A picture of some deer and tons of trees" -->
+									<!-- 										width="250" " style="z-index: 4" -->
+									<%--
+									 										src="<c:url value="/resources/img/carta de renuncia.png"/>" /> --%>
+									<span id="carta"> <img materialboxed
+										class="materialboxed"
+										data-caption="A picture of some deer and tons of trees"
+										width="250" " style="z-index: 4" id="carta" />
+									</span>
 
-									</div>
-
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
+				</div>
 			</div>
 		</section>
-		<div class="col s2">
-			<br>
-		</div>
-		</div>
 		<form action="col s12">
 			<div class="row">
 				<!-- 				<div class="input-field col s6 center"> -->
@@ -229,6 +268,7 @@
 				</div>
 			</div>
 		</form>
+	</div>
 	<br>
 	<br>
 	<br>
@@ -323,7 +363,7 @@
 				<div class="row">
 					<div class="col s12">
 						<div class="input-field col s7">
-							<h5>Descripción de la justificacion:</h5>
+							<h5>DescripciÃ³n de la justificacion:</h5>
 								<div class="input-field col s12">
 						<textarea id="observaciones" class="materialize-textarea"></textarea>
 					</div>
@@ -349,20 +389,33 @@
 		</div>
 	</div>
 
-
-	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
+	<div style="position: fixed; width: 100%; bottom: 0;">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
 	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-		type="text/javascript"></script>
+		type="text/javascript">
+		
+	</script>
 	<script
+		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
+		type="text/javascript"></script>
+		<script
 		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>"
 		type="text/javascript"></script>
-
-
-	<!-- 	<script -->
-	<%-- 		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>" --%>
-	<!-- 		type="text/javascript"></script> -->
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+		type="text/javascript"></script>
+		<script
+				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+				type="text/javascript"></script>
+		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+				type="text/javascript"></script>
 </body>
 </body>
 </html>

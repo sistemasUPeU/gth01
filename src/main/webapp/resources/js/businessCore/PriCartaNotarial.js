@@ -1,47 +1,49 @@
 $(document)
 		.ready(
 				function() {
-					if (!alertify.errorAlert) {
-						alertify
-								.dialog(
-										'errorAlert',
-										function factory() {
-											return {
-												build : function() {
-													var errorHeader = '<span class="fa fa-times-circle fa-2x" '
-															+ 'style="vertical-align:middle;color:#e10000;">'
-															+ '</span> Error al guardar los datos';
-													this.setHeader(errorHeader);
-												}
-											};
-										}, true, 'alert');
-					}
-					
-					listarRegistrados();
-					listarNotificados();
+				
+					if(!alertify.errorAlert){
+						  alertify.dialog('errorAlert',function factory(){
+						    return{
+						            build:function(){
+						                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
+						                +    'style="vertical-align:middle;color:#e10000;">'
+						                + '</span> Error al guardar los datos';
+						                this.setHeader(errorHeader);
+						            }
+						        };
+						    },true,'alert');
+						}
 
-					$("#ProcesarR").click(function() {
-						var idc = $("#idc").val();
+				
+					listarRegistrados();
+					listarAutorizados();
+					
+					
+					$("#ProcesarR").click(function(){						
+						var idc=$("#idc").val();
 						$.get("ProcesarR", {
 							idc : idc,
 							opc : 4
 						}, function(data, status) {
-							alert(data);
+//							 alert(data);
 							var detalle = JSON.parse(data);
-
-							console.log(detalle);
-							if (data == 1) {
-								alert("BUENA JONAS")
-
-							} else {
-								alert("NADA JONAS");
+							
+//							console.log(detalle);
+							if(data==1){
+//								alert("BUENA JONAS")
+								
+							}else{
+//								alert("NADA JONAS");
 							}
-						});
+							});
 					});
-
-					$("#RechazarR").click(function() {
-						alert("rechaza");
+					
+					$("#RechazarR").click(function(){
+//						alert("rechaza");
 					});
+						
+					
 
 				});
 
@@ -52,8 +54,9 @@ function listarRegistrados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(objJson);
+				console.log(lista[0].PATERNO);
 				if (lista.length > 0) {
+					
 					// alert("si hay datos causita c:");	
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;
@@ -82,32 +85,17 @@ function listarRegistrados() {
 								+ a
 								+ '<label  class="idc" hidden>'
 								+ lista[i].ID_CONTRATO
+								+ '</label><label class="idrenaban" hidden>'
+								+ lista[i].ID_RENABAN
 								+ '</label></td>';
 						s += '<td>'
 								+ mes;
 								+ '</td>';
 						s += '<td class="">'
-//						var p = "";
-//						var f = "";
-//						var t = "";
-//						var ct = "";
-//						(Motivo === 1) ? p = "Trabajador Nuevo"
-//								: ((Motivo === 2) ? p = "Renovación"
-//										: p = "No Registrado");
-//						(MFL === 1) ? f = "Si"
-//								: f = "No";
-//						(plazo === 1) ? t = "Cumplió Plazo"
-//								: t = "No Cumplió";
-//						(plazo === 1) ? ct = "green accent-3"
-//								: ct = "red darken-1";
 						
 
-								+ lista[i].PATERNO
-								+ ' '
-								+ lista[i].MATERNO
-								+ ' '
-								+ lista[i].NOMBRES
-								+ '</td>';
+						+ lista[i].PATERNO + ' ' + lista[i].MATERNO
+						+ ' ' + lista[i].NOMBRES + '</td>';
 						s += '<td>'
 								+ lista[i].NOM_PUESTO
 								+ '</td>';
@@ -137,6 +125,7 @@ function listarRegistrados() {
 						+ TIPO
 						+ '</label></td>';
 						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Detalle</a>';
+						
 						s += '</td>';
 						s += '</tr>';
 					}
@@ -153,30 +142,26 @@ function listarRegistrados() {
 				$("#dataReq").append(s);
 
 				$("#data-table-row-grouping")
-				.DataTable(
-						{
-						    responsive: true,
-						    columnDefs: [
-						        { responsivePriority: 1, targets: 0 },
-						        { responsivePriority: 2, targets: -1 }
-						    ],
-						"pageLength" : 5,
-						"bPaginate" : true,
-						"ordering": false,
-						
-						}
-				);
-
-				$("#data-table-row-grouping tbody").on('click','.notificar',
+						.DataTable(
+								{
+								    responsive: true,
+								    columnDefs: [
+								        { responsivePriority: 1, targets: 0 },
+								        { responsivePriority: 2, targets: -1 }
+								    ],
+								"pageLength" : 5,
+								"bPaginate" : true,
+								"ordering": false,
+								
+								}
+						);
+				
+				$(".notificar").click(
 						function() {
 
-							cantidad = $(this).parents(
-									"tr").find("td")
-									.eq(0)
-									.find(".idc")
-									.text();
-//							console.log(cantidad);
-							
+//							idc = $(this).parents("tr").find("td")
+//									.eq(0).find(".idtr").text();
+//							console.log(idc);
 							
 							tipon = $(this).parents(
 							"tr").find("td")
@@ -184,16 +169,63 @@ function listarRegistrados() {
 							.eq(0)
 							.text();
 							console.log("esto es tipon"+tipon);
-
+							
+							idr = $(this).parents(
+							"tr").find("td")
+							.find(".idrenaban")
+							.eq(0)
+							.text();
+							console.log("esto es idrenaban"+idr);
+							
+							cantidad = $(this).parents(
+									"tr").find("td")
+									.eq(0)
+									.find(".idc")
+									.text();
+							console.log(cantidad);
+							
+//							tipon = $(this).parents(
+//									"tr").find("td")
+//									.find(".tipon")
+//									.eq(0)
+//									.text();
+							
+							$("#tipo").text(tipon);
+							$("#idr").text(idr);
 							DetalleAbandono(cantidad,tipon);
+//							verCorreo(idc);
 
-							$("#otros").val(cantidad);	
-					
-						
+							// $("#otros").val(cantidad);
+
+							// otros
 						});
+
+//				$("#data-table-row-grouping tbody").on('click','.notificar',
+//						function() {
+//
+//							cantidad = $(this).parents(
+//									"tr").find("td")
+//									.eq(0)
+//									.find(".idc")
+//									.text();
+////							console.log(cantidad);
+//							
+//							
+//							tipon = $(this).parents(
+//							"tr").find("td")
+//							.find(".tipon")
+//							.eq(0)
+//							.text();
+////							console.log("esto es tipon"+tipon);
+//
+//							DetalleAbandono(cantidad,tipon);
+//
+//							$("#otros").val(cantidad);	
+//					
+//						
+//						});
 			});
 }
-
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
@@ -220,7 +252,6 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-
 function modalon (){
 	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
 	s+= ' <div class="input-field col s6">';
@@ -264,39 +295,52 @@ function DetalleAbandono(ida) {
 										function(data, status) {
 											// alert(data);
 											var detalle = JSON.parse(data);
-											 $("#idr").val(detalle[0].ID_RENABAN);	
-											 $("#nombres").text(detalle[0].NOMBRES);	
-											 $("#paterno").text(detalle[0].PATERNO);
-												$("#materno").text(detalle[0].MATERNO);
-												$("#fecha_nac").text(detalle[0].FECHA_NAC);
-												$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-												$("#direccion").text(detalle[0].DOMICILIO);
-												$("#departamento").text(detalle[0].NOM_DEPA);
-												$("#area").text(detalle[0].NOM_AREA);
-												$("#seccion").text(detalle[0].NOM_SECCION);
-												$("#puesto").text(detalle[0].NOM_PUESTO);
-												$("#correo").text(detalle[0].CORREO);
-//												$("#centro_costo").tex(detalle[0].CENTRO_COSTO);
-												$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
-												if(tipon=="RENUNCIA"){
-													$("#tipo_doc").text("Carta de Renuncia");
-												}else{
-													$("#tipo_doc").text("Evidencia de Abandono");
-												}
-												
-												if(detalle[0].ANTECEDENTES!=1){
-													$("#ante_poli").text("Si");
-												}else{	
-													$("#ante_poli").text("No");
-												}
-//												var archi = detalle[0].ARCHIVO;
-												if(detalle[0].CERTI_SALUD!=0){
-													$("#certi_salud").text("Si");
-												}else{
-													$("#certi_salud").text("No");
-												}
-//												var img = document.getElementById("carta")
-												$("#carta").text(detalle[0].ARCHIVO);
+											$("#idr")
+													.val(detalle[0].ID_RENABAN);
+											$("#nombres").text(
+													detalle[0].NOMBRES);
+											$("#paterno").text(
+													detalle[0].PATERNO);
+											$("#materno").text(
+													detalle[0].MATERNO);
+											$("#fecha_nac").text(
+													detalle[0].FECHA_NAC);
+											$("#fecha_inicio").text(
+													detalle[0].FECHA_CONTRATO);
+											$("#direccion").text(
+													detalle[0].DOMICILIO);
+											$("#departamento").text(
+													detalle[0].NOM_DEPA);
+											$("#area")
+													.text(detalle[0].NOM_AREA);
+											$("#seccion").text(
+													detalle[0].NOM_SECCION);
+											$("#puesto").text(
+													detalle[0].NOM_PUESTO);
+											// $("#centro_costo").tex(detalle[0].CENTRO_COSTO);
+											$("#tipo_contrato").text(
+													detalle[0].TIPO_CONTRATO);
+											$("#correo")
+													.text(detalle[0].CORREO);
+											if (detalle[0].ANTECEDENTES != 1) {
+												$("#antecedentes_policiales")
+														.text("Si");
+											} else {
+												$("#antecedentes_policiales")
+														.text("No");
+											}
+											// var archi = detalle[0].ARCHIVO;
+											if (detalle[0].CERTI_SALUD != 0) {
+												$("#certificado_salud").text(
+														"Si");
+											} else {
+												$("#certificado_salud").text(
+														"No");
+											}
+											// var img =
+											// document.getElementById("carta")
+											$("#carta")
+													.text(detalle[0].ARCHIVO);
 											$("#pricarta")
 											$("#RechazarRenuncia").click(function(){
 												var id= $("#idr").val();
@@ -343,15 +387,15 @@ function enviarCorreo() {
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
 //	var para = $("#correo").text();
-	var para = "yanetpalacios@upeu.edu.pe";
+	var para = "estefannygarcia@upeu.edu.pe";
 	var clave = "GTH123456";
-	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '')
-//	var foto = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
-//	if (foto.search (/ C: fakepath /)) {foto = foto.replace ('C: fakepath', ''); 
-//	$("#cartaNotarial").val (dominio + '/ pics /' + foto); } else {$("#cartaNotarial").val (dominio + '/ pics /' + foto); }
+//	var mensaje = $("#cartaNotarial").val();
+	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
-	alert(msjs);
+	var idrenaban =$("#idr").text();
+	var tipo =$("#tipo").text();
+	alert(mensaje);
 	 console.log(msjs);
 	$.get(gth_context_path+"/renaban/primerEnvio", {
 		de : de,
@@ -366,7 +410,8 @@ function enviarCorreo() {
 		// $("#modalnotificar").closeModal();
 		if (data == 1) {
 			alert("SE MANDO");
-			listarAutorizados();
+			notificar(idr,tipon);
+//			listarAutorizados();
 			// insertarLegajo();
 		} else {
 			alert(" NOOOOOOOOOOOOO SE MANDO");
@@ -381,26 +426,26 @@ function enviarCorreo() {
 //    });
 // });
 
-function notificarAbandono() {
-	var idr = $("#idr").text();
-	$.get("primerEnvio", {
-		idr : idr,
-		opc : 8
-	}, function(data, status) {
-		console.log(data);
-		$("#modalnotificar").closeModal();
-		if (data == 1) {
-			alert("NOTIFICADO :v");
-			listarNotificados();
-			listarAutorizados();
-		} else {
-			alert(" NOOOOOOOOOOOOO SE MANDO");
-		}
-
-	});
+function notificar(idrab,tipo1) {
+	var idra = idrab;
+	var tipo1 = tipo1;
+	alert("Entro a notificar");
+	alert(idra);
+	alert(tipo1);
+	alertify.confirm('Confirmar Notificación', 'Está seguro(a) de notificar la renuncia de este trabajador?', function(){
+		 $.get("primerEnvio",{opc:8,tipo1:'A',idra:idra},function(data){
+			 window.location.href = gth_context_path +"/renaban/PrimerEnvio";					 
+			
+   		 alert(data);
+   	});
+		 
+    	} , function(){ 
+    		
+       });
 }
 
-function listarNotificados() {
+//LISTAR TODOS LOS TRABAJADORES PROCESADOS
+function listarAutorizados() {
 	$.getJSON(
 			gth_context_path + "/renaban/primerEnvio",
 			"opc=5",
@@ -443,6 +488,9 @@ function listarNotificados() {
 								+ '<label  class="idc" hidden>'
 								+ lista[i].ID_CONTRATO
 								+ '</label></td>';
+						+ '<label  class="idr" hidden>'
+						+ lista[i].ID_RENABAN
+						+ '</label></td>';
 						s += '<td>'
 								+ mes;
 								+ '</td>';
@@ -533,6 +581,8 @@ function listarNotificados() {
 
 			});
 }
+
+
 function createTable1(idDepartamento, idRol) {
 	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';

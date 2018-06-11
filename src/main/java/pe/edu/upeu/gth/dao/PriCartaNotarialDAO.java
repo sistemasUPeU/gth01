@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -215,17 +216,27 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		return enviado;
 	}
 
-	public int notificarAbandono(Abandono a) {
+	public int notificarAbandono(Abandono a, String idusuario, String tipo1 ) {
 		int x = 0;
-		String sql = "UPDATE ABANDONO SET ESTADO=? WHERE IDABANDONO=?";
+		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000435' AND ID_RENABAN=?";
+		
+		Date fechon = new java.sql.Date(System.currentTimeMillis());
+		System.out.println(fechon);
+		System.out.println("legooooooooo" + tipo1);
 		try {
-			jt.update(sql, new Object[] { a.getEstado(), a.getIdabandono() });
-			x = 1;
+			jt.update(sql, new Object[] { a.getIdabandono(),"PAS-000442",idusuario,fechon});
+			jt.update(sql2,new Object[] { a.getIdabandono()});
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error: " + e);
 		}
 		return x;
+	}
+	
+	public List<Map<String, Object>> correo(String idcontrato) {
+		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO='" + idcontrato + "'";
+		return jt.queryForList(sql);
 	}
 
 	public List<Map<String, Object>> listarNotificados() {

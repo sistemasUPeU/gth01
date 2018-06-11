@@ -294,6 +294,7 @@ public class RenunciaDAO {
 			x = 1;
 
 			cs.execute();
+			
 			cn.commit();
 			cn.close();
 		} catch (Exception e) {

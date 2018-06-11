@@ -58,7 +58,8 @@ table.dataTable tbody td {
 		<section id="content" class="col m12 l12 s12">
 				<div class="center">
 					<h1
-						style="font-family: 'Cormorant Garamond', serif; font-weight: bold"> Verificar Abandonos</h1>
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Verificar
+						 Abandonos</h1>
 				</div>
 				<div class="divider"></div>
 
@@ -69,7 +70,7 @@ table.dataTable tbody td {
 				<ul class="collapsible popout">
 					<li id="autorize" class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-social-notifications-on"></i>  Abandonos Pendientes
+							<i class="mdi-social-notifications-on"></i> Verificar Abandonos Pendientes
 						</div>
 						<div class="collapsible-body"
 							style="display: none;">	
@@ -80,7 +81,7 @@ table.dataTable tbody td {
 					</li>
 					<li id="autorized" class="">
 						<div class="collapsible-header" >
-							<i class="mdi-toggle-check-box"></i> Abandonos Notificados
+							<i class="mdi-toggle-check-box"></i> Verificar Abandonos Autorizados
 						</div> 
 						<div class="card-panel collapsible-body "
 							style="display: none;">

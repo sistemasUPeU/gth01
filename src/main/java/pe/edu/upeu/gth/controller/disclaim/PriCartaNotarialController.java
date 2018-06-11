@@ -78,13 +78,8 @@ public class PriCartaNotarialController {
 			out.println(gson.toJson(ra.Autorizado()));
 			break;
 		case 6:
-//			String id = request.getParameter("idr");
-//			System.out.println(id);
-//			String observaciones = request.getParameter("observaciones");				
-//			re.setId_renaban(id);
-//			re.setObservaciones(observaciones);
-//			out.println(ra.JustificarAbandono(re));
-//			break;
+			out.println(gson.toJson(ra.correo(request.getParameter("idc"))));
+			break;
 		case 7:
 			String de = request.getParameter("de");
 			String clave = request.getParameter("clave");
@@ -96,12 +91,19 @@ public class PriCartaNotarialController {
 			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto, foto));
 			break;
 		case 8:
-			Abandono r = new Abandono();
-			r.setIdabandono(request.getParameter("idr"));
-			r.setEstado("Notificado");
-			// l.setOtros(request.getParameter("otros"));
-			// l.setDetalle_otros(request.getParameter("detalle"));
-			out.println((ra.notificarAbandono(r)));
+			String idan = request.getParameter("idra");
+			String tipo1 = request.getParameter("tipo1");
+			System.out.println("Esta llegando un idan:" + idan);
+			r.setIdabandono(idan);
+			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+			out.println(ra.notificarAbandono(r,idusuario,tipo1));
+//			Renuncia r1 = new Renuncia();
+//			r1.setId_renuncia(request.getParameter("idr"));
+//			System.out.println(r1.getId_renuncia());
+//			// r.setEstado("Notificado");
+//			// l.setOtros(request.getParameter("otros"));
+//			// l.setDetalle_otros(request.getParameter("detalle"));
+//			out.println(rd.notificarRenuncia(r1));
 			break;
 		case 9:
 			out.println(gson.toJson(ra.listarNotificados()));
