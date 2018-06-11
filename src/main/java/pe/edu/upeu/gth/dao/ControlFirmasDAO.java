@@ -1,5 +1,8 @@
 package pe.edu.upeu.gth.dao;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,8 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import pe.edu.upeu.gth.config.AppConfig;
 
 @Repository
 public class ControlFirmasDAO {
@@ -41,11 +46,18 @@ public class ControlFirmasDAO {
 		}
 	}
 	
-	public int UPDATEFECHA(String id, int inicio, int fin) {
+	public int UPDATEFECHA(String id, int inicio, int fin, String idtrab) {
 
 		String SQL = "UPDATE RHMV_DET_VACACIONES SET FIRMA_SALIDA = ?, FIRMA_ENTRADA = ? WHERE ID_DET_VACACIONES = ?";
 		try {
 			JDBC.update(SQL, new Object[] { inicio, fin, id });
+			
+			DataSource DS = AppConfig.getDataSource();
+			CallableStatement CST = DS.getConnection().prepareCall("{call RHSP_INSERT_GEST_FIRMAS (?, ?)}");
+			CST.setString(1, idtrab);
+			CST.setString(2, id);
+			CST.execute();
+			
 			return 1;
 		} catch (Exception E) {
 			System.out.println("ERROR: " + E);

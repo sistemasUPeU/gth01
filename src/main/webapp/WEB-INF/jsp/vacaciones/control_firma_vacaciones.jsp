@@ -56,21 +56,7 @@ div.dataTables_length {
 								class="btn waves-effect waves-light modal-action modal-close"><i
 								class="mdi-content-save"></i> Guardar</a>
 						</div>
-						<div id="zorro" class="col s8">
-			<!-- ------------------------------------------------------------------------------------- -->
-							<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">
-								<div class="file-field input-field">
-									<div id="lobo" class="btn">
-										<span>File</span> <input id="file-input" type="file" name="file">
-									</div>
-									<div class="file-path-wrapper">
-										<input class="file-path validate" type="text">
-										<input type="text" id="idvac" name="idvac" value="" class="hide" />
-									</div>
-								</div>
-							</form>
-			<!-- ------------------------------------------------------------------------------------- -->
-						</div>
+						<div id="zorro" class="col s8"></div>
 					</div>
 				</div>
 			</div>
@@ -142,7 +128,8 @@ div.dataTables_length {
 		}
 	});
 
-	$("#lobo").click(function() {
+	$("#zorro").on("click", "#lobo", function() {
+		console.log("hiyaaa");
         $("#idvac").val($("#iddet").attr("name"));
 	});
 	
@@ -282,8 +269,8 @@ div.dataTables_length {
 	var idtrab;
 	$("#table_contenido").on("click", "#open", function() {
 		var id = $(this).attr("name");
-		idtrab = id;
-		console.log(id);
+		idtrab = $(this).attr("title");
+		console.log(id, idtrab);
 		$.get('readFirma', {id : id}, function (obj) {
 			console.log(obj);
 			$("#contenedor_fechas").empty();
@@ -344,8 +331,19 @@ div.dataTables_length {
 					+ '&id_det='
 					+ obj[0].ID_DET_VACACIONES
 					+ '&op=2" target="_blank" >Ver Papeleta</a></div></center></div>';
-				$("#zorro").append(
-						btnPapeleta);
+				$("#zorro").append(btnPapeleta);
+			} else {
+				$("#zorro").empty();
+				btnPapeleta += '<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">'
+					+ '<div class="file-field input-field">'
+					+ '<div id="lobo" class="btn">'
+					+ '<span>File</span> <input id="file-input" type="file" name="file">'
+					+ '</div>'
+					+ '<div class="file-path-wrapper">'
+					+ '<input class="file-path validate" type="text">'
+					+ '<input type="text" id="idvac" name="idvac" value="" class="hide" />'
+					+ '</div></div></form>';
+				$("#zorro").append(btnPapeleta);
 			}
 	    });
 		$("#modal").openModal();
@@ -353,6 +351,7 @@ div.dataTables_length {
 	
 	function listarControlFirmas(){
 		$.get('readallControlFirma', function (obj) {
+			console.log(obj);
 	        var s='';
 	        var emp = obj[0];
 	        for (var i = 0; i < obj.length; i++) {
@@ -360,7 +359,7 @@ div.dataTables_length {
 	            s += '<td>'+obj[i].AP_PATERNO+' '+obj[i].AP_MATERNO+' '+obj[i].NO_TRABAJADOR+'</td>';
 	            s += '<td>'+obj[i].FECHA_INICIO+'</td>';
 	            s += '<td>'+obj[i].FECHA_FIN+'</td>';
-		        s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'+obj[i].ID_VACACIONES+'">';
+		        s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" title="'+obj[i].ID_TRABAJADOR+'" name="'+obj[i].ID_VACACIONES+'">';
 				s += '<i class="mdi-image-remove-red-eye"></i></button>';
 	            s += '</tr>';
 			}
