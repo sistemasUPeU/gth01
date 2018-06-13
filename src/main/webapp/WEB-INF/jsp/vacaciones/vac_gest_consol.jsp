@@ -158,12 +158,9 @@
 						</div>
 					</div>
 
-					<div id="modal1" class="modal"
-						style="width: 850px; height: 2000px;">
-						<div class="modal-content">
-							<object id="request" type="application/pdf" data="" width="800"
-								height="380"></object>
-						</div>
+					<div id="modal1" class="modal" style="width: 850px; height: 100%;">
+						<object id="request" type="application/pdf" data="" width="100%"
+							height="100%"></object>
 					</div>
 				</div>
 			</div>

@@ -79,64 +79,41 @@ YzAtZDE1ZmVjMGM4M2IyOw==]]>
 	<pageHeader>
 		<band height="140" splitType="Stretch">
 			<staticText>
-				<reportElement x="212" y="48" width="137" height="30" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
-				<text><![CDATA[PAPELETA DE VACACIONES]]></text>
+				<reportElement x="60" y="90" width="137" height="30" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
+				<text><![CDATA[Villa Unión,]]></text>
 			</staticText>
 			<image>
-				<reportElement x="60" y="29" width="71" height="69" uuid="6dc7fa46-4723-47da-a8ea-4ecd898e677c"/>
+				<reportElement x="370" y="60" width="71" height="69" uuid="6dc7fa46-4723-47da-a8ea-4ecd898e677c"/>
 				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
 			</image>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="113" y="90" width="90" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="661" splitType="Stretch">
 			<textField>
-				<reportElement x="60" y="10" width="440" height="100" uuid="6fa4c7d5-d065-442c-82e7-a1696edcc598"/>
-				<textFieldExpression><![CDATA["Nombre y apellidos del servidor: " + $F{AP_PATERNO} +" " + $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR}
-				+ "\nFacultad/Área: " + $F{NO_AREA} + "\nCargo: " + $F{NO_PUESTO}
-				+ "\nMes Programado: " + $F{FEC_INI_MON} + " - " + $F{FEC_FIN_MON}
-				+ "\nDuración: " + $F{FECHA_INICIO} + " - " + $F{FECHA_FIN}
-				+ "\nTotal de días: " +$F{NU_VAC} + " días"]]></textFieldExpression>
+				<reportElement x="57" y="0" width="383" height="510" uuid="6fa4c7d5-d065-442c-82e7-a1696edcc598"/>
+				<textFieldExpression><![CDATA[$F{NO_AREA} + "\n"+
+ $F{AP_PATERNO} +" " + $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR} + "\n"+
+"\nEstimado colaborador (a):\n" + "\nUn cordial saludo para usted\n" +
+"\nSe le comunica que según Acuerdo del Consejo Universitario de enero 2013, variación de vacaciones o solicitud de programación de vacaciones, se aprobó su descanso vacacional en la siguiente fecha:\n" +
+"\nPeriodo Vacacional: " + $F{FECHA_INICIO} +
+"\nTotal de días: " +$F{NU_VAC} +
+"\nFecha de retorno: " + $F{FECHA_FIN} + "\n"+
+"\nRazón por la que le recordamos que  antes de iniciar sus vacaciones y a su retorno, debe acercarse al Departamento de Recursos Humanos para el registro de firma correspondiente a fin de evitar una amonestación.\n" +
+"\nEstamos a sus órdenes para cualquier consulta y/o coordinación.\n" +
+"\nCordialmente,\n"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="60" y="150" width="440" height="30" uuid="b661ea1a-520d-492f-975a-4e3d998cf205"/>
-				<text><![CDATA[Observación:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="61" y="260" width="100" height="30" uuid="32458cf1-1426-415d-857f-532897dc6e02"/>
-				<text><![CDATA[AUTORIZACIÓN]]></text>
-			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="410" y="260" width="90" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="351" y="260" width="59" height="20" uuid="6771fe6e-4310-4140-abbc-88fb11e6043a"/>
-				<text><![CDATA[Lima, Ñaña, ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="222" y="380" width="111" height="21" uuid="b8bbb51a-bc59-461d-80d6-1e0e4cf23801"/>
-				<text><![CDATA[______________________]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="245" y="390" width="65" height="18" uuid="f41e607d-c226-4afb-82bc-40b543760ae5"/>
-				<text><![CDATA[Trabajador(a)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="58" y="541" width="155" height="21" uuid="d1e762c7-d6d6-4815-8ff2-16eef4c1f96a"/>
-				<text><![CDATA[____________________________]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="58" y="550" width="150" height="18" uuid="ecb0b101-02ed-4987-a633-063d9e2cb67e"/>
+				<reportElement x="60" y="550" width="150" height="18" uuid="ecb0b101-02ed-4987-a633-063d9e2cb67e"/>
 				<text><![CDATA[Gerente del Recursos Humanos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="389" y="540" width="111" height="21" uuid="465d6bd2-824d-4c88-925c-b90afd95e60a"/>
-				<text><![CDATA[______________________]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="389" y="550" width="111" height="18" uuid="36c6e6eb-8d49-4f8d-9515-5c2281217f32"/>
-				<text><![CDATA[V° B° de Jefe Inmediato]]></text>
+				<reportElement x="80" y="540" width="110" height="18" uuid="6b49902f-fdce-4870-b522-fb35783b0f74"/>
+				<text><![CDATA[Mg. Julio Rengifo Peña.]]></text>
 			</staticText>
 		</band>
 	</detail>
