@@ -61,12 +61,12 @@ div.dataTables_length {
 								</thead>
 								<thead><tr>
 									<td>
-										<a id="b_programacion" class="btn-floating disabled"><i class=""></i></a>
+										<a id="b_programacion" class="btn-floating disabled"></i></a>
 									</td>
 									<td id="t_programacion"> </td>
 									<td id="s_programacion"> </td>
 									<td id="f_programacion"> </td>
-									<td><a id="d_programacion" class="waves-effect waves-light btn"><i class="mdi-content-content-paste"></i></a></td>
+									<td><a id="d_programacion" class="waves-effect waves-light btn disabled"><i class="mdi-content-content-paste"></i></a></td>
 								</tr></thead>
 								<thead><tr>
 									<td rowspan=2>
@@ -187,11 +187,265 @@ div.dataTables_length {
 	});
 
 	$("#table_contenido").on("click", "#open", function() {
-		var id = "DEV-00003";
-		$.get('readHistorialTramite', {id:id}, function (obj) {
-			console.log(obj);
-			console.log("si");
-		});
+		$("#b_programacion").empty();
+		$("#t_programacion").empty();
+		$("#s_programacion").empty();
+		$("#f_programacion").empty();
+		$("#b_aprobacion").empty();
+		$("#s1_aprobacion").empty();
+		$("#s2_aprobacion").empty();
+		$("#f_aprobacion").empty();
+		$("#b_consolidar").empty();
+		$("#s_consolidar").empty();
+		$("#f_consolidar").empty();
+		$("#b_papeleta").empty();
+		$("#s_papeleta").empty();
+		$("#f_papeleta").empty();
+		$("#b_control").empty();
+		$("#s1_control").empty();
+		$("#s2_control").empty();
+		$("#f_control").empty();
+		var id = $(this).attr("name");
+		console.log(id);
+		var j = "";
+		var aa = '<i class="mdi-action-label-outline">';
+		var bb = '<i class="mdi-content-clear">';
+		var cc = '<i class="mdi-action-done">';
+		var dd = 'Sin Solicitud';
+		var ee = 'Solicitud Hecha';
+		var ff = 'SECRETARIA: Sin Aprobar';
+		var gg = 'SECRETARIA: Aprobado';
+		var hh = 'JEFE: Sin Aprobar';
+		var ii = 'JEFE: Aprobado';
+		var jj = 'En Proceso (0/2)';
+		var kk = 'En Proceso (1/2)';
+		var ll = 'En Proceso (2/2)';
+		var mm = 'Hecho';
+		var nn = 'Sin Entregar';
+		var oo = 'Entregado';
+		var pp = 'FECHA SALIDA: No Hecho';
+		var qq = 'FECHA SALIDA: Hecho';
+		var rr = 'FECHA ENTRADA: No Hecho';
+		var ss = 'FECHA ENTRADA: Hecho';
+		var tt = '';
+		var uu = '';
+		var vv = '';
+		var ww = '';
+		var xx = '';
+		var yy = '';
+		var zz = '';
+		if (id == 'undefined') {
+			$("#b_programacion").removeClass("disabled").addClass("pink lighten-2");
+			$("#b_aprobacion").addClass("disabled");
+			$("#b_consolidar").addClass("disabled");
+			$("#b_papeleta").addClass("disabled");
+			$("#b_control").addClass("disabled");
+			$("#b_programacion").append(aa);
+			$("#b_aprobacion").append(bb);
+			$("#b_consolidar").append(bb);
+			$("#b_papeleta").append(bb);
+			$("#b_control").append(bb);
+			$("#t_programacion").append("PROGRAMACIÓN:");
+			$("#s_programacion").append(dd);
+		} else {
+			$.get('readHistorialTramite', {id:id}, function (obj) {
+				console.log(obj);
+				for (var i = 0; i < obj.length; i++) {
+					if (obj[i].ESTADO == 1) {
+						var ID_PASOS = $.trim(obj[i].ID_PASOS);
+						if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD == null) {
+							$("#b_programacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(aa);
+							$("#b_aprobacion").append(bb);
+							$("#b_consolidar").append(bb);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(dd);
+							$("#f_programacion").append(obj[i].FECHA_CREACION);
+							console.log("PROGRAMACION SS");
+						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD != null) {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(aa);
+							$("#b_consolidar").append(bb);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(ff);
+							$("#s2_aprobacion").append(hh);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							console.log("PROGRAMACION CS");
+						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD == null) {
+							$("#b_programacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(aa);
+							$("#b_aprobacion").append(bb);
+							$("#b_consolidar").append(bb);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(dd);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+							console.log("REPROGRAMACION SS");
+						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD != null) {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(aa);
+							$("#b_consolidar").append(bb);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(ff);
+							$("#s2_aprobacion").append(hh);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							console.log("REPROGRAMACION CS");
+						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "2") {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(aa);
+							$("#b_consolidar").append(bb);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(hh);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							console.log("APROBADO SECRETARIA");
+						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "3") {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_consolidar").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(aa);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(jj);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							console.log("APROBADO JEFE");
+						} else if (ID_PASOS == "PAS-000054") {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_consolidar").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(aa);
+							$("#b_papeleta").append(bb);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(kk);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
+							console.log("EN PROCESO 1/2");
+						} else if (ID_PASOS == "PAS-000052") {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
+							$("#b_papeleta").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(cc);
+							$("#b_papeleta").append(aa);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(mm);
+							$("#s_papeleta").append(nn);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
+							console.log("EN PROCESO 2/2");
+						} else if (ID_PASOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
+							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#b_control").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(cc);
+							$("#b_papeleta").append(cc);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(mm);
+							$("#s_papeleta").append(oo);
+							$("#s1_control").append(pp);
+							$("#s2_control").append(rr);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
+// 							$("#f_papeleta").append(obj[i].FECHA_CREACION);
+							console.log("PAPELETA ENTREGADA");
+						} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 1 && obj[i].FIRMA_ENTRADA == 0) {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
+							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#b_control").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(cc);
+							$("#b_papeleta").append(cc);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(mm);
+							$("#s_papeleta").append(oo);
+							$("#s1_control").append(qq);
+							$("#s2_control").append(rr);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
+// 							$("#f_papeleta").append(obj[i].FECHA_CREACION);
+// 							$("#f_control").append(obj[i].FECHA_CREACION);
+							console.log("FIRMA SALIDA");
+						} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_ENTRADA == 1) {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
+							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#b_control").removeClass("disabled").addClass("green accent-3");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(cc);
+							$("#b_papeleta").append(cc);
+							$("#b_control").append(cc);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(mm);
+							$("#s_papeleta").append(oo);
+							$("#s1_control").append(qq);
+							$("#s2_control").append(ss);
+// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
+// 							$("#f_papeleta").append(obj[i].FECHA_CREACION);
+// 							$("#f_control").append(obj[i].FECHA_CREACION);
+							console.log("FIRMA SALIDA Y ENTRADA");
+						} else {
+							console.log("PROGRAMACION SS ELSE");
+						} 
+						$("#t_programacion").append(obj[i].TIPO + ":");
+					}
+				}
+			});
+		}
 		$("#modal").openModal();
 	});
 
@@ -261,6 +515,13 @@ div.dataTables_length {
 					s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">5</a></td>';
 					console.log("EN PROCESO 2/2");
 				} else if (ID_PASOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="Solicitud Hecha">1</a></td>';
+					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="SECRETARIA: Aprobado | JEFE: Aprobado">2</a></td>';
+					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="EN PROCESO (2/2)">3</a></td>';
+					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="ENTREGADO">4</a></td>';
+					s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="FIRMA SALIDA: No Hecho | FIRMA ENTRADA: No Hecho">5</a></td>';
+					console.log("PAPELETA ENTREGADA");
+				} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
 					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="Solicitud Hecha">1</a></td>';
 					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="SECRETARIA: Aprobado | JEFE: Aprobado">2</a></td>';
 					s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="EN PROCESO (2/2)">3</a></td>';

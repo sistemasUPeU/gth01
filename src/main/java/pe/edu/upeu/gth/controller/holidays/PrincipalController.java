@@ -182,7 +182,7 @@ public class PrincipalController {
 	@RequestMapping(path = "/updateFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String actualizarFirma(HttpServletRequest RQ, Authentication authentication) {
     	authentication=SecurityContextHolder.getContext().getAuthentication();
-		String idtrab = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id = RQ.getParameter("id");
 		int inicio = Integer.parseInt(RQ.getParameter("inicio"));
 		int fin = Integer.parseInt(RQ.getParameter("fin"));
@@ -265,5 +265,15 @@ public class PrincipalController {
 		String fin = RQ.getParameter("fin");
 		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
+	}
+	
+	@RequestMapping(path = "/updatePapeletaFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarPapeletaFirma(HttpServletRequest RQ, Authentication authentication) {
+    	authentication=SecurityContextHolder.getContext().getAuthentication();
+		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
+		String id = RQ.getParameter("id");
+		System.out.println(idtrab + " " + id);
+		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.UPDATEPAPELETA(id, idtrab));
 	}
 }

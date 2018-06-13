@@ -82,11 +82,17 @@ div.dataTables_length {
 
 	$("#modal").on("click", ".check", function() {
 		if ($(this).attr("name") == 0 && $(this).attr("id") == "nolisto1") {
-			$(this).removeClass('pink lighten-2');
-			$(this).addClass('green accent-3');
-			$(this).attr("name","1");
-			$(this).find("#i").removeClass('mdi-navigation-close');
-			$(this).find("#i").addClass('mdi-navigation-check');
+			var file = $("#file-input").val();
+			console.log(file);
+			if (file != "") {
+				$(this).removeClass('pink lighten-2');
+				$(this).addClass('green accent-3');
+				$(this).attr("name","1");
+				$(this).find("#i").removeClass('mdi-navigation-close');
+				$(this).find("#i").addClass('mdi-navigation-check');
+			} else {
+				Materialize.toast('Es necesario la papeleta para continuar', 3000, 'rounded');
+			}
 		} else
 		if ($(this).attr("name") == 1 && $(this).attr("id") == "nolisto1") {
 			$(this).removeClass('green accent-3');
@@ -134,137 +140,81 @@ div.dataTables_length {
 	});
 	
 	$("#guardar").click(function() {
-		console.log(z);
-		if (z == 1) {
-			var a, p,q;
-			$(".det").each(function(){
-				if ($(this).val() == 1) {
-	            	a = $(this).attr("name");
-				}
-	        });
-			$(".check").each(function(){
-	            if ($(this).val() == 1) {
-	            	p = $(this).attr("name");
-		        }
-	            if ($(this).val() == 2) {
-	            	q = $(this).attr("name");
-		        }
-	        });
-	        console.log("***");
-	        console.log(a);
-	        console.log(p);
-	        console.log(q);
-	        console.log("***");
-	        $.get('updateFirma', {id : a, inicio : p, fin : q}, function (data) {
-				console.log(data);
-				if(data==1){
-					Materialize
-					.toast(
-							'Firma actualizada correctamente!',
-							3000,
-							'rounded');
-					}else {
-						Materialize
-						.toast(
-								'No se actualizaron las firmas, consulte con su jefe!',
-								3000,
-								'rounded');
+		var a, p,q;
+		$(".det").each(function(){
+			if ($(this).val() == 1) {
+	           	a = $(this).attr("name");
+			}
+	    });
+		$(".check").each(function(){
+	        if ($(this).val() == 1) {
+	           	p = $(this).attr("name");
+		    }
+	        if ($(this).val() == 2) {
+	           	q = $(this).attr("name");
+		    }
+	    });
+		
+		console.log("SALE PUES");
+		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+		var csrfToken = $("meta[name='_csrf']").attr("content");
+		console.log(csrfToken + " / " + csrfHeader);
+		var file = $("#file-input").val();
+		var form = $('#documentoForm')[0];
+		var data = new FormData(form);
+		console.log(file + "  " + form + "  " + data);		
+		if (z == 6) {
+			if (file != "") {
+				$.ajax({
+					type : "POST",
+					enctype : 'multipart/form-data',
+					url : gth_context_path + "/solicitud/papeleta",
+					data : data,
+					processData : false,
+					contentType : false,
+					cache : false,
+					timeout : 600000,
+					beforeSend : function(xhr, data) {
+						xhr.setRequestHeader(csrfHeader, csrfToken);
+						console.log("data: "+data);
+					},
+					success: function(data){
+						console.log("success data: "+data);			      
+				      	if (data == "0") {
+							console.log("error: " + data);
+							Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+						} else {
+							console.log("success: " + data);
+							Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
 						}
-		    });
+				    },
+				   	error : function(e) {
+							console.log("error ajx "+e.responseText);
+							Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
+					}			
+				});
+			} else {
+				Materialize.toast('No hay papeleta', 3000, 'rounded');
+			}
+
+			$.get('updatePapeletaFirma', {id : a}, function (data) {
+				console.log(data + "MAINCRAAAAAA");
+			});
 		}
-		if (z == 2) {
-			var a,b, p,q,r,s;
-			$(".det").each(function(){
-				if ($(this).val() == 1) {
-	            	a = $(this).attr("name");
-				}
-				if ($(this).val() == 2) {
-		            b = $(this).attr("name");
-				}
-	        });
-			$(".check").each(function(){
-				if ($(this).val() == 1) {
-	            	p = $(this).attr("name");
-		        }
-	            if ($(this).val() == 2) {
-	            	q = $(this).attr("name");
-		        }
-	            if ($(this).val() == 3) {
-	            	r = $(this).attr("name");
-		        }
-	            if ($(this).val() == 4) {
-	            	s = $(this).attr("name");
-		        }
-	        });
-			console.log("***");
-	        console.log(a);
-	        console.log(b);
-	        console.log(p);
-	        console.log(q);
-	        console.log(r);
-	        console.log(s);
-	        console.log("***");
-	        $.get('updateFirma', {id : a, inicio : p, fin : q}, function (data) {
-				console.log(data);
-		    });
-	        $.get('updateFirma', {id : b, inicio : r, fin : s}, function (data) {
-				console.log(data);
-		    });
-		}
-		if (z == 3) {
-			var a,b,c, p,q,r,s,t,u;
-			$(".det").each(function(){
-				if ($(this).val() == 1) {
-	            	a = $(this).attr("name");
-				}
-				if ($(this).val() == 2) {
-		            b = $(this).attr("name");
-				}
-				if ($(this).val() == 3) {
-		            c = $(this).attr("name");
-				}
-	        });
-			$(".check").each(function(){
-				if ($(this).val() == 1) {
-	            	p = $(this).attr("name");
-		        }
-	            if ($(this).val() == 2) {
-	            	q = $(this).attr("name");
-		        }
-	            if ($(this).val() == 3) {
-	            	r = $(this).attr("name");
-		        }
-	            if ($(this).val() == 4) {
-	            	s = $(this).attr("name");
-		        }
-	            if ($(this).val() == 5) {
-	            	t = $(this).attr("name");
-		        }
-	            if ($(this).val() == 6) {
-	            	u = $(this).attr("name");
-		        }
-	        });
-			console.log("***");
-	        console.log(a);
-	        console.log(b);
-	        console.log(c);
-	        console.log(p);
-	        console.log(q);
-	        console.log(r);
-	        console.log(s);
-	        console.log(t);
-	        console.log(u);
-	        console.log("***");
-	        $.get('updateFirma', {id : a, inicio : p, fin : q}, function (data) {
-				console.log(data);
-		    });
-	        $.get('updateFirma', {id : b, inicio : r, fin : s}, function (data) {
-				console.log(data);
-		    });
-	        $.get('updateFirma', {id : c, inicio : t, fin : u}, function (data) {
-				console.log(data);
-		    });
-		}
+
+	    console.log("***");
+	    console.log(a);
+	    console.log(p);
+	    console.log(q);
+	    console.log("***");
+	    $.get('updateFirma', {id : a, inicio : p, fin : q}, function (data) {
+			console.log(data);
+			if(data==1){
+				Materialize.toast('Firma actualizada correctamente!',3000,'rounded');
+			}else {
+				Materialize.toast('No se actualizaron las firmas, consulte con su jefe!',3000,'rounded');
+			}
+		});
 	});
 	var idtrab;
 	$("#table_contenido").on("click", "#open", function() {
@@ -322,6 +272,7 @@ div.dataTables_length {
 			z = obj.length;
 			var btnPapeleta = '';
 			if (obj[0].URL != null) {
+				z = 7;
 				console.log(idtrab);
 				$("#zorro").empty();
 				btnPapeleta += '<br><a class="waves-effect waves-light btn" id="verPapeleta" href="'
@@ -333,6 +284,7 @@ div.dataTables_length {
 					+ '&op=2" target="_blank" >Ver Papeleta</a></div></center></div>';
 				$("#zorro").append(btnPapeleta);
 			} else {
+				z = 6;
 				$("#zorro").empty();
 				btnPapeleta += '<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">'
 					+ '<div class="file-field input-field">'
@@ -385,48 +337,5 @@ div.dataTables_length {
 		s += '</table>';
 		return s;
 	};
-
-	$("#guardar").click(function(event) {
-		console.log("SALE PUES");
-		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-		var csrfToken = $("meta[name='_csrf']").attr("content");
-		console.log(csrfToken + " / " + csrfHeader);
-		var file = $("#file-input").val();
-		var form = $('#documentoForm')[0];
-		var data = new FormData(form);
-		console.log(file + "  " + form + "  " + data);
-		if (file != "") {
-			$.ajax({
-				type : "POST",
-				enctype : 'multipart/form-data',
-				url : gth_context_path + "/solicitud/papeleta",
-				data : data,
-				processData : false,
-				contentType : false,
-				cache : false,
-				timeout : 600000,
-				beforeSend : function(xhr, data) {
-					xhr.setRequestHeader(csrfHeader, csrfToken);
-					console.log("data: "+data);
-				},
-				success: function(data){
-					console.log("success data: "+data);			      
-				      if (data == "0") {
-							console.log("error: " + data);
-							Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
-						} else {
-							console.log("success: " + data);
-							Materialize.toast('Papeleta subida correctamente', 3000, 'rounded');
-						}
-				    },
-				    error : function(e) {
-						console.log("error ajx "+e.responseText);
-						Materialize.toast('Se excedió el tamaño máximo de papeleta permitido', 3000, 'rounded');
-					}			
-			});
-		} else {
-			Materialize.toast('No hay papeleta', 3000, 'rounded');
-		}
-	});
 </script>
 </html>
