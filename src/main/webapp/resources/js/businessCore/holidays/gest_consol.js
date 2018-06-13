@@ -76,61 +76,79 @@ $("#modalAprobado")
 					}
 				});
 
-$("#guardar").click(
-		function() {
-			var con = new jsConnector();
-			console.log(z);
-			if (z == 1) {
-				var a, p, q, idtra, idvac;
-				$(".idtra").each(function() {
-					if ($(this).val() == 1) {
-						idtra = $(this).attr("name");
+$("#guardar")
+		.click(
+				function() {
+					var con = new jsConnector();
+					console.log(z);
+					if (z == 1) {
+						var a, p, q, idtra, idvac;
+						var fsm = 0;
+						$(".idtra").each(function() {
+							if ($(this).val() == 1) {
+								idtra = $(this).attr("name");
+							}
+						});
+						$(".idvac").each(function() {
+							if ($(this).val() == 1) {
+								idvac = $(this).attr("name");
+							}
+						});
+						$(".det").each(function() {
+							if ($(this).val() == 1) {
+								a = $(this).attr("name");
+							}
+						});
+						$(".check").each(function() {
+							if ($(this).val() == 1) {
+								p = $(this).attr("name");
+							}
+							if ($(this).val() == 2) {
+								q = $(this).attr("name");
+							}
+							if ($(this).attr('id') == 'nolisto1') {
+								fsm = 1;
+							}
+							if ($(this).attr('id') == 'nolisto2') {
+								fsm += 1;
+							}
+						});
+						console.log("***");
+						console.log(a);
+						console.log(p);
+						console.log(q);
+						console.log("***");
+						con
+								.post(
+										'vacaciones/consolidado/updateFirma?'
+												+ "id=" + a + "&inicio=" + p
+												+ "&fin=" + q + "&fsm=" + fsm,
+										null,
+										function(data) {
+											console.log(data);
+											if (data == 1) {
+												if (p == 0 && q == 0) {
+													Materialize
+															.toast(
+																	'Ninguna firma se ha actualizado!',
+																	3000,
+																	'rounded');
+												} else {
+													Materialize
+															.toast(
+																	'Firma actualizada correctamente!',
+																	3000,
+																	'rounded');
+												}
+											} else {
+												Materialize
+														.toast(
+																'No se obtuvieron datos, consulte con su jefe',
+																3000, 'rounded');
+											}
+										});
 					}
 				});
-				$(".idvac").each(function() {
-					if ($(this).val() == 1) {
-						idvac = $(this).attr("name");
-					}
-				});
-				$(".det").each(function() {
-					if ($(this).val() == 1) {
-						a = $(this).attr("name");
-					}
-				});
-				$(".check").each(function() {
-					if ($(this).val() == 1) {
-						p = $(this).attr("name");
-					}
-					if ($(this).val() == 2) {
-						q = $(this).attr("name");
-					}
-				});
-				console.log("***");
-				console.log(a);
-				console.log(p);
-				console.log(q);
-				console.log("***");
-				con.post('vacaciones/consolidado/updateFirma?' + "id=" + a
-						+ "&inicio=" + p + "&fin=" + q, null, function(data) {
-					console.log(data);
-					if (data == 1) {
-						if (p == 0 && q == 0) {
-							Materialize.toast(
-									'Ninguna firma se ha actualizado!', 3000,
-									'rounded');
-						} else {
-							Materialize.toast(
-									'Firma actualizada correctamente!', 3000,
-									'rounded');
-						}
-					} else {
-						Materialize.toast(
-								'No se obtuvieron datos, consulte con su jefe',
-								3000, 'rounded');
-					}
-				});
-			}
-		});
 
 $("#contTable")
 		.on(
@@ -379,7 +397,22 @@ $("#contTableAprobado")
 																		"#verbtnPapeleta")
 																		.append(
 																				btnPapeleta);
+																$("#guardar")
+																		.removeAttr(
+																				'disabled');
 															} else if (data[0].URL_PAPELETA == null) {
+																$("#nolisto1")
+																		.attr(
+																				'disabled',
+																				'disabled');
+																$("#nolisto2")
+																		.attr(
+																				'disabled',
+																				'disabled');
+																$("#guardar")
+																		.attr(
+																				'disabled',
+																				'disabled');
 																$(
 																		"#verbtnPapeleta")
 																		.empty();

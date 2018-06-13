@@ -1,68 +1,11 @@
 $(document).ready(function() {
 
-
+	configurar();
+	
 	});
 
 
 
-function validar() {
-		var id = $("#trab").val();
-
-
-		var url ="/gth/solicitud/validar";
-		var data ="&id=" + id ;
-
-		
-		$.getJSON(url, data, function(res, status) {
-
-
-				console.log("devuelve controller: "+res);
-
-				switch (res) {
-				case 0:
-
-					Materialize.toast('Aun no ha llegado su tiempo para recibir vacaciones!', 3000, 'rounded');
-
-					break;
-				case 1:
-
-// 					window.location.href = gth_context_path +"/solicitud/registrar?op=1";
-					var datos = "op=1"
-						$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
-							console.log(response);
-							$("#desktop").html(response);
-						});
-					
-					
-					break;
-				case 2:
-// 					console.log("es dos");
-					Materialize
-					.toast(
-							'Usted tiene una solicitud en proceso!',
-							3000,
-							'rounded', function(){
-								var datos = "op=3"
-								$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
-									console.log(response);
-									$("#desktop").html(response);
-								});
-								
-							});
-					
-					break;
-				case 3:
-// 					window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
-// 					console.log("reprogramacion");
-					var datos = "op=2"
-						$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
-							console.log(response);
-							$("#desktop").html(response);
-						});
-					break;
-				}
-		});
-	};
 	
 	function configurar() {
 // 		var id = $("#trab").val();
@@ -81,23 +24,23 @@ function validar() {
 				case 0:
 
 					Materialize.toast('Debe configurar las proximas vacaciones!', 3000, 'rounded', function(){
-						$.get(gth_context_path+'/configuraciones/', null, function(response) {
-							console.log(response);
-							$("#desktop").html(response);
-							$("#programa_vacaciones input").attr('disabled','disabled');
-							$("#solicitud_vacaciones input").attr('disabled','disabled');
-							$("#modificar input").attr('disabled','disabled');
-						});
+//						$.get(gth_context_path+'/configuraciones/', null, function(response) {
+//							console.log(response);
+//							$("#desktop").html(response);
+//							$("#programa_vacaciones input").attr('disabled','disabled');
+//							$("#solicitud_vacaciones input").attr('disabled','disabled');
+//							$("#modificar input").attr('disabled','disabled');
+//						});
 					});
 
 					break;
 				case 1:
 
 					Materialize.toast('Ya configuro las vacaciones!', 3000, 'rounded', function(){
-						$.get(gth_context_path+'/configuraciones/', null, function(response) {
-							console.log(response);
-							$("#desktop").html(response);
-						});
+//						$.get(gth_context_path+'/configuraciones/', null, function(response) {
+//							console.log(response);
+//							$("#desktop").html(response);
+//						});
 					});
 					
 					

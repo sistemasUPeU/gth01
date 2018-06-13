@@ -75,30 +75,30 @@
 
 										} else {
 
-											if (lista[i].DI_URL == 'solicitud/registrar') {
-												s += '<li class="bold">';
-												s += '<a id = "solicitud" href="#" onclick= "validar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
-														+ lista[i].NO_LINK
-														+ '</a>';
-												s += '</li>';
+// 											if (lista[i].DI_URL == 'solicitud/registrar') {
+// 												s += '<li class="bold">';
+// 												s += '<a id = "solicitud" href="#" onclick= "validar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+// 														+ lista[i].NO_LINK
+// 														+ '</a>';
+// 												s += '</li>';
 
-											} else {
+// 											} else {
 
-												if (lista[i].DI_URL == 'configuraciones/') {
-													s += '<li class="bold">';
-													s += '<a id = "config" href="#" onclick= "configurar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
-															+ lista[i].NO_LINK
-															+ '</a>';
-													s += '</li>';
-												} else {
+// 												if (lista[i].DI_URL == 'configuraciones/') {
+// 													s += '<li class="bold">';
+// 													s += '<a id = "config" href="#" onclick= "configurar()" class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
+// 															+ lista[i].NO_LINK
+// 															+ '</a>';
+// 													s += '</li>';
+// 												} else {
 													s += '<li class="bold">';
 													s += '<a href="' +gth_context_path+ "/" +lista[i].DI_URL + '"class="waves-effect waves-light" ><i class="'+lista[i].IC_LINK+'"></i>  '
 															+ lista[i].NO_LINK
 															+ '</a>';
 													s += '</li>';
-												}
+// 												}
 
-											}
+										
 
 										}
 									}
@@ -121,6 +121,6 @@
 	};
 </script>
 
-<script
-	src="<c:url value='/resources/js/businessCore/holidays/configurar.js'></c:url>"
-	type="text/javascript"></script>
+<!-- <script -->
+<%-- 	src="<c:url value='/resources/js/businessCore/holidays/configurar.js'></c:url>" --%>
+<!-- 	type="text/javascript"></script> -->
