@@ -143,14 +143,14 @@ public class RenunciaDAO {
 	
     // LISTAR TODOS LOS TRABAJADORES CON ESTADO PROCESADO
 	public List<Map<String, Object>> gg(String depa)  {
-	     sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000438' OR rap.ID_PASOS='PAS-000439'";	
-	sql +="and NOM_DEPA='"+depa+"' AND ESTADO='0' ORDER BY ra.FECHA_RENABAN DESC";
-	return jt.queryForList(sql);
+		System.out.println("Esto es nom depa: "+depa);
+		sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 AND rap.ID_PASOS IN ('PAS-000438','PAS-000439') ORDER BY ra.FECHA_RENABAN DESC";
+		return jt.queryForList(sql);
 	}
 	
     // LISTAR TODOS LOS TRABAJADORES CON ESTADO NOTIFICADO
 	public List<Map<String, Object>> listarNotificados() {
-		sql = "select * from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS='PAS-000438' OR rap.ID_PASOS='PAS-000439'";
+		sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=1 AND rap.ID_PASOS IN ('PAS-000438','PAS-000439') ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
 

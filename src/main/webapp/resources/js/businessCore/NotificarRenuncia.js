@@ -26,7 +26,7 @@ $(document).ready(function() {
     drEvent.on('dropify.afterClear', function(event, element){
         alert('Archivo eliminado');
     });
-    show_image('C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/29791352_2077305459260623_8230612622916918394_n.jpg',456,456,'Google Logo');
+//    show_image('C:/Users/Deyvis Garcia/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/gth/WEB-INF/29791352_2077305459260623_8230612622916918394_n.jpg',456,456,'Google Logo');
 
 });
 
@@ -63,9 +63,6 @@ function listarProcesados() {
 								var fe_creacion = new Date(
 										lista[i].FECHA_RENABAN);
 								var mesint = parseInt(fe_creacion.getMonth()) + 1;
-								// console.log(mesint);
-
-								// console.log(ddd(mesint));
 								var mes = ParsearMes(mesint);
 								var mfl="";
 								if(lista[i].VAL_PLAZO=='1'){
@@ -79,18 +76,18 @@ function listarProcesados() {
 								}else{
 									 TIPO="ABANDONO";
 								}
-								var p = "";
-								var f = "";
-								var t = "";
-								var ct = "";
-								(Motivo === 1) ? p = "Trabajador Nuevo"
-										: ((Motivo === 2) ? p = "Renovación"
-												: p = "No Registrado");
-								(MFL === 1) ? f = "Si" : f = "No";
-								(plazo === 1) ? t = "Cumplió Plazo"
-										: t = "No Cumplió";
-								(plazo === 1) ? ct = "green accent-3"
-										: ct = "red darken-1";
+//								var p = "";
+//								var f = "";
+//								var t = "";
+//								var ct = "";
+//								(Motivo === 1) ? p = "Trabajador Nuevo"
+//										: ((Motivo === 2) ? p = "Renovación"
+//												: p = "No Registrado");
+//								(MFL === 1) ? f = "Si" : f = "No";
+//								(plazo === 1) ? t = "Cumplió Plazo"
+//										: t = "No Cumplió";
+//								(plazo === 1) ? ct = "green accent-3"
+//										: ct = "red darken-1";
 								s += '<tr>';
 								s += '<td>' + a
 										+ '<label  class="idtr" hidden>'
@@ -139,7 +136,7 @@ function listarProcesados() {
 							}
 
 						} else {
-							console.log("no hay datos");
+//							console.log("no hay datos");
 							s += "";
 						}
 
@@ -148,18 +145,18 @@ function listarProcesados() {
 						$(".contT").append(r);
 						$("#dataReq").empty();
 						$("#dataReq").append(s);
-//						$("#data-table-row-grouping").DataTable();
+						
 						$("#data-table-row-grouping")
-						.DataTable(
+						         .DataTable(
 								{
-								    responsive: true,
+									responsive: true,
 								    columnDefs: [
 								        { responsivePriority: 1, targets: 0 },
 								        { responsivePriority: 2, targets: -1 }
 								    ],
 								"pageLength" : 5,
 								"bPaginate" : true,
-								"ordering": false
+								"ordering": false,
 								}
 						);
 
@@ -207,7 +204,49 @@ function listarProcesados() {
 
 					});
 }
-
+function createTable(idDepartamento, idRol) {
+	var Rol = idRol.toString();
+	var Departamento = idDepartamento.toString();
+	var s = '<table id="data-table-row-grouping" class="display responsive" cellspacing="0" style="width:100%"> ';
+	s += '<thead>';
+	s += '<tr>';
+	s += '<th>N</th>';
+	s += '<th data-priority="3">Mes</th>';
+	s += '<th data-priority="4">Apellidos y Nombres</th>';
+	s += '<th data-priority="5">Puesto</th>';
+	s += '<th data-priority="6">Area</th>';
+	s += '<th data-priority="7">Departamento</th>';
+	s += '<th>Tipo de Contrato</th>';
+	s += '<th>Descripcion</th>';
+	s += '<th>Fecha de registro</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';	
+	s += '<th data-priority="2">Tipo</th>';
+	s += '<th data-priority="1">Opcion</th>';
+	s += '</tr>';
+	s += '</thead>';
+	s += '<tbody id="dataReq">';
+	s += '</tbody>';
+	s += '</table>';
+	return s;
+}
+function modalon (){
+	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
+	s+= ' <div class="input-field col s6">';
+	s+= ' <input name="renabancito" id="renabancito" value="" type="hidden"/>';
+	s+= ' <input name ="tipo" id="tipo" value="" type="hidden"/>';
+	s+= ' <input name="nom_file" id="nom_file" value="" type="hidden"/>';
+	s+= ' <label for=""></label> <input type="text" name="fecha"';
+	s+=		' id="fecha" class="datepicker">';
+	s+= '</div>'
+	s+= '<div class="input-field col s6">'
+	s+= '<input type="file" name="file" class="dropify" id="pelon1"'
+	s+= 'data-height="300" />'
+	s+= '</div>'
+		
+		return s;
+	
+}
 function listarNotificados() {
 	$
 			.getJSON(
@@ -276,7 +315,7 @@ function listarNotificados() {
 							s += "";
 						}
 
-						var r = createTable2("s", "d");
+						var r = createTable1("s", "d");
 						$(".conN").empty();
 						$(".conN").append(r);
 						$("#dataNot").empty();
@@ -311,42 +350,14 @@ function listarNotificados() {
 					});
 }
 
-function createTable(idDepartamento, idRol) {
-	var Rol = idRol.toString();
-	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping" class="display responsive" cellspacing="0" style="width:100%"> ';
-	s += 'cellspacing="0">';
-	s += '<thead>';
-	s += '<tr>';
-	s += '<th>N</th>';
-	s += '<th data-priority="3">Mes</th>';
-	s += '<th data-priority="4">Apellidos y Nombres</th>';
-	s += '<th data-priority="5">Puesto</th>';
-	s += '<th data-priority="6">Area</th>';
-	s += '<th data-priority="7">Departamento</th>';
-	s += '<th>Tipo de Contrato</th>';
-	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de registro</th>';
-	s += '<th>DNI</th>';
-	s += '<th>MFL</th>';	
-	s += '<th data-priority="2">Tipo</th>';
-	s += '<th data-priority="1">Opcion</th>';
-	s += '</tr>';
-	s += '</thead>';
-	s += '<tbody id="dataReq">';
-	s += '</tbody>';
-	s += '</table>';
-	return s;
-}
 
-function createTable2(idDepartamento, idRol) {
+function createTable1(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
-	var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-	s += 'cellspacing="0">';
+	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
 	s += '<tr>';
-	s += '<th>N</th>';
+	s += '<th>N</th>';     
 	s += '<th>Mes</th>';
 	s += '<th>Apellidos y Nombres</th>';
 	s += '<th>Puesto</th>';
@@ -354,31 +365,62 @@ function createTable2(idDepartamento, idRol) {
 	s += '<th>Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
-	s += '<th>Fecha de Inicio</th>';
-	s += '<th>Estado</th>';
+	s += '<th>Fecha de registro</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';
+	s += '<th>Tipo</th>';
 	s += '<th>Opcion</th>';
-	if (Departamento === "DPT-0019") {
-		s += '<th>¿Cumplió Plazos?</th>';
-		if (Rol === "ROL-0006") {
-			s += '<th>¿Contrato Elaborado?</th>';
-			s += '<th>¿Firmo Contrato?</th>';
-			s += '<th>Enviar a Rem.</th>';
-			s += '<th>¿Contrato Subido?<</th>';
-		}
-	}
-	if (Rol === "ROL-0009") {
-		s += '<th>Código APS</th>';
-	}
-	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-		s += '<th>Código Huella</th>';
-	}
 	s += '</tr>';
 	s += '</thead>';
+//	s += '<tbody id="dataReq1">';
 	s += '<tbody id="dataNot">';
 	s += '</tbody>';
 	s += '</table>';
 	return s;
 }
+//function createTable2(idDepartamento, idRol) {
+//	var Rol = idRol.toString();
+//	var Departamento = idDepartamento.toString();
+//	var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
+//	s += 'cellspacing="0">';
+//	s += '<thead>';
+//	s += '<tr>';
+//	s += '<th>N</th>';
+//	s += '<th>Mes</th>';
+//	s += '<th>Apellidos y Nombres</th>';
+//	s += '<th>Puesto</th>';
+//	s += '<th>Area</th>';
+//	s += '<th>Departamento</th>';
+//	s += '<th>Tipo de Contrato</th>';
+//	s += '<th>Descripcion</th>';
+//	s += '<th>Fecha de Inicio</th>';
+//	s += '<th>Estado</th>';
+//	s += '<th>Opcion</th>';
+//	if (Departamento === "DPT-0019") {
+//		s += '<th>¿Cumplió Plazos?</th>';
+//		if (Rol === "ROL-0006") {
+//			s += '<th>¿Contrato Elaborado?</th>';
+//			s += '<th>¿Firmo Contrato?</th>';
+//			s += '<th>Enviar a Rem.</th>';
+//			s += '<th>¿Contrato Subido?<</th>';
+//		}
+//	}
+//	if (Rol === "ROL-0009") {
+//		s += '<th>Código APS</th>';
+//	}
+//	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
+//		s += '<th>Código Huella</th>';
+//	}
+//	s += '</tr>';
+//	s += '</thead>';
+//	s += '<tbody id="dataNot">';
+//	s += '</tbody>';
+//	s += '</table>';
+//	return s;
+//}
+
+var depa="";
+var u = "";
 
 function ParsearMes(mesint) {
 	var mes;
@@ -599,3 +641,14 @@ $('.datepicker').pickadate({
 	selectYears : 15, // Creates a dropdown of 15 years to control
 	format : 'dd/mm/yyyy'
 });
+
+window.picker = $('.datepicker').pickadate({
+	selectMonths : true, // Creates a dropdown to control month
+	selectYears : 100, // Creates a dropdown of 15 years to control year
+	format : 'dd/mm/yyyy'
+});
+$("#Date").val('SYSDATE');
+
+function id(ida) {
+	alert(ida);
+}

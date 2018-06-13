@@ -71,7 +71,7 @@
 			<div class="card " style="width: 85%; margin-left: 5%">
 				<div class="card-image #424242 grey darken-3 waves-effect ">
 					<div class="card-title">
-						<h5>DETALLES DEL TRABAJADOR</h5>
+						<h5>DETALLES DEL TRABAJADOR SEGUNDA CARTA</h5>
 					</div>
 					<hr />
 					<div class="price flow-text ">
@@ -338,8 +338,8 @@
 				<div class="col s4" style="margin-right: 2em;">
 					<button type="submit"
 						class="btn waves-effect waves-light green indigo" id=""
-						onclick="enviarCorreo()">
-						Registrar primer envio<i class="mdi-content-send right"></i>
+						onclick="enviarCorreo1()">
+						Registrar segundo envio<i class="mdi-content-send right"></i>
 					</button>
 
 				</div>
@@ -378,7 +378,7 @@
 				<div class="col s4">
 					<a href="#"
 						class="waves-effect waves-light btn modal-action  green modal-close "
-						id="RechazarPrimeraCarta">Enviar</a>
+						id="RechazarCarta">Enviar</a>
 				</div>
 				<div class="col s4">
 					<a href="#"

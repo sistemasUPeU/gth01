@@ -38,7 +38,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 public class PriCartaNotarialController {
 	private Gson gson = new Gson();
 	Abandono r = new Abandono();
-	Justificacion re = new Justificacion();
+	Justificacion ju = new Justificacion();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 
 	PriCartaNotarialDAO ra = new PriCartaNotarialDAO(AppConfig.getDataSource()); 
@@ -78,7 +78,13 @@ public class PriCartaNotarialController {
 			out.println(gson.toJson(ra.Autorizado()));
 			break;
 		case 6:
-			out.println(gson.toJson(ra.correo(request.getParameter("idc"))));
+			String tipo2 = request.getParameter("tipo");
+			String idra = request.getParameter("idr");
+			System.out.println(idra);
+			String observacion = request.getParameter("observacion");				
+			ju.setId_renaban(idra);
+			ju.setObservacion(observacion);
+			out.println(ra.JustificarAbandono(ju, tipo2));
 			break;
 		case 7:
 			String de = request.getParameter("de");
@@ -105,8 +111,35 @@ public class PriCartaNotarialController {
 //			// l.setDetalle_otros(request.getParameter("detalle"));
 //			out.println(rd.notificarRenuncia(r1));
 			break;
-		case 9:
-			out.println(gson.toJson(ra.listarNotificados()));
+		}
+	}
+	//Segunda carta Notarial
+	@RequestMapping(value = "/SegundoEnvio", method = RequestMethod.GET)
+	protected void SegundaCarta(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws ServletException, IOException{		
+		PrintWriter out = response.getWriter();
+		int op = Integer.parseInt(request.getParameter("opc"));
+		switch (op) {
+		case 1:
+			String idar = request.getParameter("idra");
+			String tipo2 = request.getParameter("tipo1");
+			System.out.println("Esta llegando un idan:" + idar);
+			r.setIdabandono(idar);
+			String idusuario1 = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+			out.println(ra.SegundaCarta(r,idusuario1,tipo2));
+			break;
+		case 2:
+			String ids = request.getParameter("ids");
+			out .println(gson.toJson(ra.Buscar_Detalle(ids)));
+			break;
+		case 3:
+			String tipo = request.getParameter("tipo");
+			String idra = request.getParameter("idr");
+			System.out.println(idra);
+			String observacion = request.getParameter("observacion");				
+			ju.setId_renaban(idra);
+			ju.setObservacion(observacion);
+			out.println(ra.JustificarSegundaCarta(ju, tipo));
 			break;
 		}
 	}

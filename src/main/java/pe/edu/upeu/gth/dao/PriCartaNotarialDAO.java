@@ -215,7 +215,7 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 
 		return enviado;
 	}
-
+//PRIMERA CARTA NOTARIAL
 	public int notificarAbandono(Abandono a, String idusuario, String tipo1 ) {
 		int x = 0;
 		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
@@ -233,14 +233,71 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		}
 		return x;
 	}
+
+//SEGUNDA CARTA NOTARIAL
+	public int SegundaCarta(Abandono a, String idusuario1, String tipo2 ) {
+		int x = 0;
+		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000442' AND ID_RENABAN=?";
+		
+		Date fechon = new java.sql.Date(System.currentTimeMillis());
+		System.out.println(fechon);
+		System.out.println("legooooooooo" + tipo2);
+		try {
+			jt.update(sql, new Object[] { a.getIdabandono(),"PAS-000437",idusuario1,fechon});
+			jt.update(sql, new Object[] { a.getIdabandono(),"PAS-000439",idusuario1,fechon});
+			jt.update(sql2,new Object[] { a.getIdabandono()});
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
 	
-	public List<Map<String, Object>> correo(String idcontrato) {
-		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO='" + idcontrato + "'";
+	//SEGUNDA CARTA NOTARIAL
+	public List<Map<String, Object>> Buscar_Detalle(String ids) {
+		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO,CORREO FROM RA_VIEW_RENABAN";
+
+		sql += " where ID_CONTRATO='" + ids + "' ";
+
 		return jt.queryForList(sql);
+	}
+	
+	public int JustificarAbandono(Justificacion ju, String tipo2) {
+		int x = 0;
+		String sql = "call REN_PRI_CARTA( ? , ?)";
+		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
+		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+		try {
+			jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
+			x = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error:" + e);
+		}
+		return x;
+
+	}
+	
+	//SEGUNDA CARTA NOTARIAL
+	public int JustificarSegundaCarta(Justificacion ju, String tipo) {
+		int x = 0;
+		String sql = "call REN_SEG_CARTA( ? , ?)";
+		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
+		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+		try {
+			jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
+			x = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error:" + e);
+		}
+		return x;
+
 	}
 
-	public List<Map<String, Object>> listarNotificados() {
-		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";
-		return jt.queryForList(sql);
-	}
+//	public List<Map<String, Object>> listarNotificados() {
+//		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";
+//		return jt.queryForList(sql);
+//	}
 }

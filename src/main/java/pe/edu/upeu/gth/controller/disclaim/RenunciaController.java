@@ -108,6 +108,11 @@ public class RenunciaController {
 		return new ModelAndView("renuncia/VerificarDet");
 	}
 	
+	@RequestMapping(value = "/segundoEnvio", method = RequestMethod.GET)
+	public ModelAndView SegundaCarta(ModelMap model) {
+		return new ModelAndView("abandono/SegundaCarta");
+	}
+	
 //	@RequestMapping(path = "/crearR", method = RequestMethod.GET)
 //	public String insertarRenuncias(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		String url = "/";

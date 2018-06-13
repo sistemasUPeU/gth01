@@ -54,7 +54,7 @@ function listarRegistrados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(lista[0].PATERNO);
+//				console.log(lista[0].PATERNO);
 				if (lista.length > 0) {
 					
 					// alert("si hay datos causita c:");	
@@ -158,10 +158,6 @@ function listarRegistrados() {
 				
 				$(".notificar").click(
 						function() {
-
-//							idc = $(this).parents("tr").find("td")
-//									.eq(0).find(".idtr").text();
-//							console.log(idc);
 							
 							tipon = $(this).parents(
 							"tr").find("td")
@@ -184,46 +180,10 @@ function listarRegistrados() {
 									.text();
 							console.log(cantidad);
 							
-//							tipon = $(this).parents(
-//									"tr").find("td")
-//									.find(".tipon")
-//									.eq(0)
-//									.text();
-							
 							$("#tipo").text(tipon);
 							$("#idr").text(idr);
 							DetalleAbandono(cantidad,tipon);
-//							verCorreo(idc);
-
-							// $("#otros").val(cantidad);
-
-							// otros
 						});
-
-//				$("#data-table-row-grouping tbody").on('click','.notificar',
-//						function() {
-//
-//							cantidad = $(this).parents(
-//									"tr").find("td")
-//									.eq(0)
-//									.find(".idc")
-//									.text();
-////							console.log(cantidad);
-//							
-//							
-//							tipon = $(this).parents(
-//							"tr").find("td")
-//							.find(".tipon")
-//							.eq(0)
-//							.text();
-////							console.log("esto es tipon"+tipon);
-//
-//							DetalleAbandono(cantidad,tipon);
-//
-//							$("#otros").val(cantidad);	
-//					
-//						
-//						});
 			});
 }
 function createTable(idDepartamento, idRol) {
@@ -271,11 +231,6 @@ function modalon (){
 }
 // Detalle de Carta Notarial
 function DetalleAbandono(ida) {
-
-	// $("#modal2").openModal();
-	// $.get("details",{},function(data){
-	// alert(data);
-	// });
 	$
 			.get(
 					"firstLetter",
@@ -342,15 +297,16 @@ function DetalleAbandono(ida) {
 											$("#carta")
 													.text(detalle[0].ARCHIVO);
 											$("#pricarta")
-											$("#RechazarRenuncia").click(function(){
-												var id= $("#idr").val();
-												var observaciones = $("#observaciones").val();					
+											$("#RechazarPrimeraCarta").click(function(){
+												var idra= $("#idr").val();
+												var observacion = $("#observaciones").val();	
+												alert(tipon);
 												 alertify.confirm('Confirmar Justificacion ', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
-													 $.get("primerEnvio",{opc:6,idr:id,observaciones:observaciones},function(data){
-//														 alert("BIEN Nicole");
+													 $.get("primerEnvio",{opc:6,tipo:'A',idr:idra,observacion:observacion},function(data){
+														 alert("BIEN Nicole");
 //										        		 alert(data);
 //										        		 alert(id);
-//										        		 alert(observaciones);
+										        		 alert(observacion);
 										        		 window.location.href = gth_context_path +"/renaban/PrimerEnvio";
 										        	});
 													 
@@ -382,6 +338,7 @@ function DetalleAbandono(ida) {
 
 }
 
+//PRIMERA CARTA NOTARIAL
 function enviarCorreo() {
 //	alert(jfksdf);
 	var msj = $("#mensaje1").text();
@@ -419,12 +376,6 @@ function enviarCorreo() {
 
 	});
 }
-
-//$(function() {
-//    $("input:file").change(function (){
-//      var foto = $(this).val().replace("C:\\fakepath\\", "");
-//    });
-// });
 
 function notificar(idrab,tipo1) {
 	var idra = idrab;
@@ -487,8 +438,7 @@ function listarAutorizados() {
 								+ a
 								+ '<label  class="idc" hidden>'
 								+ lista[i].ID_CONTRATO
-								+ '</label></td>';
-						+ '<label  class="idr" hidden>'
+								+ '</label><label class="idrenaban" hidden>'
 						+ lista[i].ID_RENABAN
 						+ '</label></td>';
 						s += '<td>'
@@ -524,10 +474,12 @@ function listarAutorizados() {
 						s += '<td>'
 							+mfl+
 							 '</td>';
-						// s += '<td>' + p + '</td>';
-//						s += '<td>' + lista[i].ESTADO
-//								+ '</td>';
-						s +='<td class="tipon">' +TIPO+'</td>';
+						s +='<td>' +TIPO+'<label class= "tipon" hidden>'
+						+ TIPO
+						+ '</label></td>';
+						s += '<td><a class="notificar1 waves-effect waves-light btn #00e676 green accent-3">Segunda Carta Notarial</a>';
+						
+						s += '</td>';
 						s += '</tr>';
 					}
 
@@ -550,33 +502,36 @@ function listarAutorizados() {
 							    }
 						);
 				
+				$(".notificar1").click(
+						function() {
+							
+							tipon = $(this).parents(
+							"tr").find("td")
+							.find(".tipon")
+							.eq(0)
+							.text();
+							console.log("esto es tipon"+tipon);
+							
+							idr = $(this).parents(
+							"tr").find("td")
+							.find(".idrenaban")
+							.eq(0)
+							.text();
+							console.log("esto es idrenaban"+idr);
+							
+							cantidad = $(this).parents(
+									"tr").find("td")
+									.eq(0)
+									.find(".idc")
+									.text();
+							console.log(cantidad);
+							
+							$("#tipo").text(tipon);
+							$("#idr").text(idr);
+							SegundaCarta(cantidad,tipon);
+						});
+				
 				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
-
-//				$("#data-table-row-grouping1")
-//						.DataTable();
-
-
-//				$(".dataTables_scrollHeadInner").css({"width":"1358px;","padding-right": "0px;"});
-//				
-//				$(".table ").css({"width":"1358px","margin-left": "0px;"});
-//				$(".notificar").click(
-//						function() {
-//
-//							cantidad = $(this).parents(
-//									"tr").find("td")
-//									.eq(0)
-//									.find(".idc")
-//									.text();
-//							console.log(cantidad);
-//							
-//							
-//
-//							DetalleRenuncia(cantidad,tipon);
-//
-//							$("#otros").val(cantidad);
-//
-//						
-//						});
 			
 
 			});
@@ -599,6 +554,7 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';
 	s += '<th>Tipo</th>';
+	s += '<th>Opcion</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq1">';
@@ -609,6 +565,171 @@ function createTable1(idDepartamento, idRol) {
 
 var depa="";
 var u = "";
+//SEGUNDA CARTA NOTARIAL
+function SegundaCarta(ids) {
+	$
+			.get(
+					"segundoEnvio",
+					{},
+					function(data, status) {
+						// alert(data);
+						// alert("BIEN JONAS");
+						// $("#contenido").html("");
+						$("#contenido").html(data);
+						$
+								.get(
+										"SegundoEnvio",
+										{
+											opc : 2,
+											ids : ids
+										},
+										function(data, status) {
+											// alert(data);
+											var detalle = JSON.parse(data);
+											$("#idr")
+													.val(detalle[0].ID_RENABAN);
+											$("#nombres").text(
+													detalle[0].NOMBRES);
+											$("#paterno").text(
+													detalle[0].PATERNO);
+											$("#materno").text(
+													detalle[0].MATERNO);
+											$("#fecha_nac").text(
+													detalle[0].FECHA_NAC);
+											$("#fecha_inicio").text(
+													detalle[0].FECHA_CONTRATO);
+											$("#direccion").text(
+													detalle[0].DOMICILIO);
+											$("#departamento").text(
+													detalle[0].NOM_DEPA);
+											$("#area")
+													.text(detalle[0].NOM_AREA);
+											$("#seccion").text(
+													detalle[0].NOM_SECCION);
+											$("#puesto").text(
+													detalle[0].NOM_PUESTO);
+											// $("#centro_costo").tex(detalle[0].CENTRO_COSTO);
+											$("#tipo_contrato").text(
+													detalle[0].TIPO_CONTRATO);
+											$("#correo")
+													.text(detalle[0].CORREO);
+											if (detalle[0].ANTECEDENTES != 1) {
+												$("#antecedentes_policiales")
+														.text("Si");
+											} else {
+												$("#antecedentes_policiales")
+														.text("No");
+											}
+											// var archi = detalle[0].ARCHIVO;
+											if (detalle[0].CERTI_SALUD != 0) {
+												$("#certificado_salud").text(
+														"Si");
+											} else {
+												$("#certificado_salud").text(
+														"No");
+											}
+											// var img =
+											// document.getElementById("carta")
+											$("#carta")
+													.text(detalle[0].ARCHIVO);
+											$("#pricarta")
+											$("#RechazarCarta").click(function(){
+												var idra= $("#idr").val();
+												var observacion = $("#observaciones").val();
+												alert(tipon);
+												 alertify.confirm('Confirmar Justificacion ', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
+													 $.get("SegundoEnvio",{opc:3,tipo:'A',idr:idra,observacion:observacion},function(data){
+														 alert("BIEN Nicole Segunda carta ");
+//										        		 alert(data);
+//										        		 alert(id);
+										        		 alert(observacion);
+										        		 window.location.href = gth_context_path +"/renaban/PrimerEnvio";
+										        	});
+													 
+											     	} , function(){ 
+											        	
+											        });
+											});
+										});
+
+						// if (data.length == 0) {
+						// // location.reload();
+						// alert("nada de datos");
+						// } else {
+						//			
+						// $("#nomes").text(detalle[0].NOMBRES);
+						//			
+						// $.get("/mostrardoc1",{
+						// archi: archi
+						// },function(data){
+						// alert(data);
+						// })
+						// //
+						//			
+						//		
+						//
+						// }
+
+					});
+
+}
+
+//SEGUNDA CARTA NOTARIAL
+function enviarCorreo1() {
+//	alert(jfksdf);
+	var msj = $("#mensaje1").text();
+	var de = "pruebagth@gmail.com";
+//	var para = $("#correo").text();
+	var para = "estefannygarcia@upeu.edu.pe";
+	var clave = "GTH123456";
+//	var mensaje = $("#cartaNotarial").val();
+	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
+	var msjs = msj + $("#fecha").val() + mensaje + ".";
+	var asunto = "GTH";
+	var idrenaban =$("#idr").text();
+	var tipo =$("#tipo").text();
+	alert(mensaje);
+	 console.log(msjs);
+	$.get(gth_context_path+"/renaban/primerEnvio", {
+		de : de,
+		clave : clave,
+		para : para,
+		mensaje : msjs,
+		asunto : asunto,
+//		foto:foto,
+		opc : 7
+	}, function(data, status) {
+		console.log(data);
+		// $("#modalnotificar").closeModal();
+		if (data == 1) {
+			alert("SE MANDO");
+			notificar1(idr,tipon);
+//			listarAutorizados();
+			// insertarLegajo();
+		} else {
+			alert(" NOOOOOOOOOOOOO SE MANDO");
+		}
+
+	});
+}
+//SEGUNDA CARTA NOTARIAL
+function notificar1(idrab,tipo2) {
+	var idra = idrab;
+	var tipo2 = tipo2;
+	alert("Entro a a la segunda carta notarial");
+	alert(idra);
+	alert(tipo2);
+	alertify.confirm('Confirmar Notificación', 'Está seguro(a) de enviar la segunda carta notarial al trabajador?', function(){
+		 $.get("SegundoEnvio",{opc:1,tipo2:'A',idra:idra},function(data){
+			 window.location.href = gth_context_path +"/renaban/PrimerEnvio";					 
+			
+   		 alert(data);
+   	});
+		 
+    	} , function(){ 
+    		
+       });
+}
 
 $('.datepicker').pickadate({
 	selectMonths : true, // Creates a dropdown to control month
