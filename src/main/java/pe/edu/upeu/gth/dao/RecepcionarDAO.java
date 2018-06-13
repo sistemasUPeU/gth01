@@ -157,7 +157,7 @@ public class RecepcionarDAO implements CRUDOperations{
 			try {
 				jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
 				x = 1;
-			} catch (Exception e) {
+			} catch (Exception e) {   
 				// TODO: handle exception
 				System.out.println("Error:" + e);
 			}
