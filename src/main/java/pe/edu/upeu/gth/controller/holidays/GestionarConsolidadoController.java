@@ -132,6 +132,7 @@ public class GestionarConsolidadoController {
 		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
 		// PrintWriter out = response.getWriter();
 		String url = "";
+		String filename = "";
 		String traba = request.getParameter("traba");
 		String id_det = request.getParameter("id_det");
 		int op = Integer.parseInt(request.getParameter("op"));
@@ -142,13 +143,13 @@ public class GestionarConsolidadoController {
 		switch (op) {
 		case 1:
 			url = (String) result1.get(0).get("URL_SOLICITUD");
-
+			filename = cntx.getRealPath("/resources/files/solicitud/" + url.trim());
 			break;
 		case 2:
 			url = (String) result1.get(0).get("URL_PAPELETA");
+			filename = cntx.getRealPath("/resources/files/papeleta/" + url.trim());
 			break;
 		}
-		String filename = cntx.getRealPath("/WEB-INF/" + url.trim());
 		// String filename = url;
 		// String filenam1e
 		// ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\"+nom;
@@ -194,13 +195,20 @@ public class GestionarConsolidadoController {
 			MultipartHttpServletRequest request, Authentication authentication) throws IOException {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		List<String> archi = new ArrayList<>();
+		String path = "";
 		System.out.println(file + "!!!!!!!!!!!!" + idvac + "!!!!!!!!!!!!" + id_det + "!!!!!!!!!!!!" + value);
 		int res = 0;
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
 					System.out.println(file);
-					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					if (value == 0) {
+						path = context.getRealPath("/resources/files/solicitud/") + File.separator
+								+ fi.getOriginalFilename();
+					} else if (value == 1) {
+						path = context.getRealPath("/resources/files/papeleta/") + File.separator
+								+ fi.getOriginalFilename();
+					}
 					File destFile = new File(path);
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
