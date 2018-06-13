@@ -53,7 +53,8 @@ public class GestionarConsolidadoDAO {
 				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\r\n"
 				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n"
 				+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO<>0\r\n" + "and hd.ESTADO=1\r\n"
-				+ "and hd.EVALUACION=3\r\n" + "and hd.ID_PASOS='PAS-000052'\r\n"
+				+ "and (hd.EVALUACION=3 " + "or hd.EVALUACION=2)\r\n" + "and (hd.ID_PASOS='PAS-000052' "
+				+ "or hd.ID_PASOS='PAS-000090' " + "or hd.ID_PASOS='PAS-000092')\r\n"
 				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\r\n"
 				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\r\n"
 				+ "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n" + "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\r\n"
@@ -75,15 +76,19 @@ public class GestionarConsolidadoDAO {
 		return jt.queryForList(sql);
 	}
 
-	public int apobarVacCon(String usuario, String[] id_det) {
+	public int insertHistorial(String usuario, String[] id_det, String paso_ant, int eva_ant, String paso, int eva) {
 		int i = 0;
 		try {
 			cn = d.getConnection();
 			Array idarr = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_DET_VAC", id_det);
 
-			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_APRO_CONSOLIDADO (?,?)}");
+			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_HISTORIAL (?,?,?,?,?,?)}");
 			cst.setString(1, usuario);
 			cst.setArray(2, idarr);
+			cst.setString(3, paso_ant);
+			cst.setInt(4, eva_ant);
+			cst.setString(5, paso);
+			cst.setInt(6, eva);
 			cst.execute();
 			cn.close();
 			i = 1;
@@ -100,7 +105,8 @@ public class GestionarConsolidadoDAO {
 				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd \r\n"
 				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n"
 				+ "and sv.ESTADO=1 \r\n" + "and tf.ESTADO=1 \r\n" + "and dsv.ESTADO<>0 \r\n" + "and hd.ESTADO=1\r\n"
-				+ "and hd.EVALUACION=3\r\n" + "and (hd.ID_PASOS='PAS-000054' or hd.ID_PASOS='PAS-000052')\r\n"
+				+ "and (hd.EVALUACION=3 " + "or hd.EVALUACION=2)\r\n" + "and (hd.ID_PASOS='PAS-000054' "
+				+ "or hd.ID_PASOS='PAS-000052' " + "or hd.ID_PASOS='PAS-000090' " + "or hd.ID_PASOS='PAS-000092')\r\n"
 				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES \r\n"
 				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO \r\n"
 				+ "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n" + "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\r\n"
@@ -122,15 +128,16 @@ public class GestionarConsolidadoDAO {
 
 	public List<Map<String, Object>> readFile(String traba, String id_det) {
 		sql = "select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.AP_MATERNO, tf.NO_SECCION,\r\n"
-				+ "dsv.URL as URL_PAPELETA, sv.URL as URL_SOLICITUD, dsv.ID_DET_VACACIONES, sv.ID_VACACIONES \r\n"
+				+ "dsv.URL as URL_PAPELETA, sv.URL as URL_SOLICITUD, dsv.ID_DET_VACACIONES, sv.ID_VACACIONES\r\n"
 				+ "from RHMV_TRABAJADOR_FILTRADO tf, RHMV_VACACIONES sv,\r\n"
 				+ "RHMV_DET_VACACIONES dsv, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\r\n"
 				+ "where tf.ID_TRABAJADOR=vtc.ID_TRABAJADOR\r\n"
 				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\r\n"
 				+ "and sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n" + "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\r\n"
-				+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO <> 0\r\n" + "and hd.EVALUACION=3\r\n"
-				+ "and (hd.ID_PASOS='PAS-000054' or hd.ID_PASOS='PAS-000052')\r\n" + "and hd.ESTADO = 1\r\n"
-				+ "and vtc.ID_TRABAJADOR='" + traba + "'" + "and dsv.ID_DET_VACACIONES='" + id_det + "'";
+				+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO <> 0\r\n" + "and (hd.EVALUACION=3 "
+				+ "or hd.EVALUACION=2)\r\n" + "and (hd.ID_PASOS='PAS-000054' " + "or hd.ID_PASOS='PAS-000052' "
+				+ "or hd.ID_PASOS='PAS-000090' " + "or hd.ID_PASOS='PAS-000092')\r\n" + "and hd.ESTADO = 1\r\n"
+				+ "and vtc.ID_TRABAJADOR='" + traba + "'\r\n" + "and dsv.ID_DET_VACACIONES='" + id_det + "'";
 
 		return jt.queryForList(sql);
 	}

@@ -117,7 +117,7 @@
 									<br> <br>
 									<button id="guardar" type="submit"
 										class="btn waves-effect waves-light modal-action modal-close">
-										<i class="mdi-content-save"></i>Guardar
+										<i class="mdi-content-save"></i>Confirmar
 									</button>
 								</div>
 							</div>

@@ -338,6 +338,7 @@ div.dataTables_length {
 						});
 
 		var fecha_extra = "";
+		var fecha_recontraextra = "";
 		$("#print").click(function() {
 			$('.modal').openModal();
 			var idt = $("#idtrb").val();
@@ -395,6 +396,7 @@ div.dataTables_length {
 					+ '/' + day;
 
 			fecha_extra = day + '/' + month + '/' + input[2];
+			fecha_recontraextra = day + ',' + month + ',' + input[2];
 			var inicio = new Date(newDate);
 			console.log("fecha_extra: " + fecha_extra);
 			//console.log(inicio);
@@ -988,6 +990,32 @@ div.dataTables_length {
 
 						});
 
+<<<<<<< HEAD
+		$("#fec_up").click(function() {
+			var f = new Date();
+			parseDate($("#fec_in").val());
+			var fec_in = fecha_extra;
+			var fec_ac = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+			parseDate($("#fec_fi").val());
+			var fec_fi = fecha_extra;
+			var id = $("#iddet").val();
+			console.log(fec_in + " y " + fec_fi + " y " + id + " fea " + fec_ac);
+			parseDate(fec_in);
+			var fechai=new Date(fecha_recontraextra);
+			parseDate(fec_ac);
+			var fechaa=new Date(fecha_recontraextra);
+			console.log(fechai + fechaa);
+			if (fec_in > fec_ac) {
+				$.get('updateFechaMod', {id : id, inicio : fec_in, fin : fec_fi}, function (data) {
+					console.log(data);
+					listarTrabajadoresConSoli();
+					Materialize.toast('Fecha modificada correctamente', 3000, 'rounded');
+			    });
+			} else {
+				Materialize.toast('Escoge una fecha correcta!', 3000, 'rounded');
+			}
+		});
+=======
 		$("#fec_up").click(
 				function() {
 					var f = new Date();
@@ -1016,6 +1044,7 @@ div.dataTables_length {
 								'rounded');
 					}
 				});
+>>>>>>> 22942ec83d72b395ac785385f7326cbbc19a8109
 
 		$("#fec_in").change(
 				function() {

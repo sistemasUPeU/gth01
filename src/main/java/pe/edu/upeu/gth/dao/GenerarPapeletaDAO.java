@@ -22,20 +22,30 @@ public class GenerarPapeletaDAO {
 	}
 
 	public List<Map<String, Object>> generarPapaleta(String idtra) {
-		sql = "select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.AP_MATERNO, tf.NO_DEP ,tf.NO_SECCION, tf.NO_AREA, vtc.NO_PUESTO,\r\n"
-				+ "to_char(trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))-trunc(to_date(dsv.FECHA_INICIO,'DD/MM/YYYY hh24:mi:ss'))+1) as NU_VAC,\r\n"
-				+ "t.NU_DOC, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, tf.LI_CONDICION,\r\n"
-				+ "vtc.NO_USUARIO, trim(dsv.ID_DET_VACACIONES) as ID_DET_VACACIONES, sv.ID_VACACIONES, dsv.FIRMA_ENTRADA, dsv.FIRMA_SALIDA,\r\n"
-				+ "TRIM(to_char(dsv.FECHA_INICIO, 'Month')) as FEC_INI_MON, TRIM(to_char(dsv.FECHA_FIN, 'Month')) as FEC_FIN_MON\r\n"
-				+ "from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\r\n"
-				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\r\n"
-				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\r\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n"
-				+ "and sv.ESTADO=1\r\n" + "and tf.ESTADO=1\r\n" + "and dsv.ESTADO<>0\r\n" + "and hd.ESTADO=1\r\n"
-				+ "and hd.EVALUACION=3\r\n" + "and hd.ID_PASOS='PAS-000052'\r\n"
-				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\r\n"
-				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\r\n"
-				+ "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\r\n" + "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\r\n"
-				+ "and co.ES_CONTRATO=1 and tf.ID_TRABAJADOR='" + idtra + "'";
+		sql = "select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.AP_MATERNO, tf.NO_DEP ,tf.NO_SECCION, tf.NO_AREA, vtc.NO_PUESTO,\n"
+				+ "to_char(trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))-trunc(to_date(dsv.FECHA_INICIO,'DD/MM/YYYY hh24:mi:ss'))+1) as NU_VAC,\n"
+				+ "t.NU_DOC, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, tf.LI_CONDICION,\n"
+				+ "vtc.NO_USUARIO, trim(dsv.ID_DET_VACACIONES) as ID_DET_VACACIONES, sv.ID_VACACIONES, dsv.FIRMA_ENTRADA, dsv.FIRMA_SALIDA,\n"
+				+ "TRIM(to_char(dsv.FECHA_INICIO, 'Month')) as FEC_INI_MON, TRIM(to_char(dsv.FECHA_FIN, 'Month')) as FEC_FIN_MON\n"
+				+ "from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\n"
+				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\n"
+				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
+				+ "and sv.ESTADO=1\n" + "and tf.ESTADO=1\n" + "and dsv.ESTADO<>0\n" + "and hd.ESTADO=1\n"
+				+ "and hd.EVALUACION=3\n" + "and hd.ID_PASOS='PAS-000052'\n"
+				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\n"
+				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\n" + "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
+				+ "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\n" + "and co.ES_CONTRATO=1 and tf.ID_TRABAJADOR='" + idtra
+				+ "'\n" + "and trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))=\n"
+				+ "(SELECT MIN(trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss')))\n"
+				+ "from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\n"
+				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\n"
+				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
+				+ "and sv.ESTADO=1\n" + "and tf.ESTADO=1\n" + "and dsv.ESTADO<>0\n" + "and hd.ESTADO=1\n"
+				+ "and hd.EVALUACION=3\n" + "and hd.ID_PASOS='PAS-000052'\n"
+				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\n"
+				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\n" + "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
+				+ "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\n" + "and co.ES_CONTRATO=1 and tf.ID_TRABAJADOR='" + idtra
+				+ "')";
 		return jt.queryForList(sql);
 	}
 }

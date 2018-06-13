@@ -63,7 +63,7 @@ public class GestionarConsolidadoController {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id_det = request.getParameter("id_det");
 		String[] idarray = id_det.split(",");
-		return g.toJson(gc.apobarVacCon(usuario, idarray));
+		return g.toJson(gc.insertHistorial(usuario, idarray, "PAS-000054", 3, "PAS-000052", 3));
 	}
 
 	@RequestMapping(path = "/enviarCorreoAprobarConsolidado", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -107,10 +107,21 @@ public class GestionarConsolidadoController {
 	}
 
 	@RequestMapping(path = "/updateFirma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarFirma(HttpServletRequest request) {
+	public @ResponseBody String actualizarFirma(HttpServletRequest request, Authentication authentication) {
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id = request.getParameter("id");
 		int inicio = Integer.parseInt(request.getParameter("inicio"));
 		int fin = Integer.parseInt(request.getParameter("fin"));
+		int fsm = Integer.parseInt(request.getParameter("fsm"));
+		String[] id_det_arr = new String[1];
+		id_det_arr[0] = id;
+		if (inicio == 1 && fin == 1 && fsm == 2) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 3, "PAS-000092", 3);
+		} else if (fin == 1) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 2, "PAS-000092", 3);
+		} else {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 3, "PAS-000092", 2);
+		}
 		return g.toJson(gc.updateFechas(id, inicio, fin));
 	}
 
@@ -180,7 +191,8 @@ public class GestionarConsolidadoController {
 	@RequestMapping(path = "/subirArchivo", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac,
 			@RequestParam("id_det") String id_det, @RequestParam("value") int value,
-			MultipartHttpServletRequest request) throws IOException {
+			MultipartHttpServletRequest request, Authentication authentication) throws IOException {
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		List<String> archi = new ArrayList<>();
 		System.out.println(file + "!!!!!!!!!!!!" + idvac + "!!!!!!!!!!!!" + id_det + "!!!!!!!!!!!!" + value);
 		int res = 0;
@@ -201,6 +213,11 @@ public class GestionarConsolidadoController {
 					System.out.println(nombre);
 
 					res = gc.subirDocumento(fi.getOriginalFilename(), idvac, id_det, value);
+					if (value == 1) {
+						String[] id_det_arr = new String[1];
+						id_det_arr[0] = id_det;
+						gc.insertHistorial(usuario, id_det_arr, "PAS-000052", 3, "PAS-000090", 3);
+					}
 				}
 
 			} catch (IOException | IllegalStateException ec) {
