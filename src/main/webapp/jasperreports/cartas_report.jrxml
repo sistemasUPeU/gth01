@@ -79,15 +79,11 @@ YzAtZDE1ZmVjMGM4M2IyOw==]]>
 	<pageHeader>
 		<band height="140" splitType="Stretch">
 			<staticText>
-				<reportElement x="60" y="90" width="137" height="30" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
+				<reportElement x="90" y="80" width="137" height="30" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
 				<text><![CDATA[Villa Unión,]]></text>
 			</staticText>
-			<image>
-				<reportElement x="370" y="60" width="71" height="69" uuid="6dc7fa46-4723-47da-a8ea-4ecd898e677c"/>
-				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
-			</image>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="113" y="90" width="90" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
+				<reportElement x="143" y="80" width="90" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -95,7 +91,10 @@ YzAtZDE1ZmVjMGM4M2IyOw==]]>
 	<detail>
 		<band height="661" splitType="Stretch">
 			<textField>
-				<reportElement x="57" y="0" width="383" height="510" uuid="6fa4c7d5-d065-442c-82e7-a1696edcc598"/>
+				<reportElement positionType="FixRelativeToBottom" x="90" y="0" width="380" height="400" uuid="6fa4c7d5-d065-442c-82e7-a1696edcc598"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NO_AREA} + "\n"+
  $F{AP_PATERNO} +" " + $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR} + "\n"+
 "\nEstimado colaborador (a):\n" + "\nUn cordial saludo para usted\n" +
@@ -108,11 +107,11 @@ YzAtZDE1ZmVjMGM4M2IyOw==]]>
 "\nCordialmente,\n"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="60" y="550" width="150" height="18" uuid="ecb0b101-02ed-4987-a633-063d9e2cb67e"/>
+				<reportElement x="90" y="430" width="150" height="18" uuid="ecb0b101-02ed-4987-a633-063d9e2cb67e"/>
 				<text><![CDATA[Gerente del Recursos Humanos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="540" width="110" height="18" uuid="6b49902f-fdce-4870-b522-fb35783b0f74"/>
+				<reportElement x="110" y="420" width="110" height="18" uuid="6b49902f-fdce-4870-b522-fb35783b0f74"/>
 				<text><![CDATA[Mg. Julio Rengifo Peña.]]></text>
 			</staticText>
 		</band>
