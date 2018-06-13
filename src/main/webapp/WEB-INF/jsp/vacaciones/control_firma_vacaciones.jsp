@@ -140,7 +140,9 @@ div.dataTables_length {
 	});
 	
 	$("#guardar").click(function() {
+		var con = new jsConnector();
 		var a, p,q;
+		var fsm = 0;
 		$(".det").each(function(){
 			if ($(this).val() == 1) {
 	           	a = $(this).attr("name");
@@ -153,6 +155,12 @@ div.dataTables_length {
 	        if ($(this).val() == 2) {
 	           	q = $(this).attr("name");
 		    }
+	        if ($(this).attr('id') == 'nolisto1') {
+				fsm = 1;
+			}
+			if ($(this).attr('id') == 'nolisto2') {
+				fsm += 1;
+			}
 	    });
 		
 		console.log("SALE PUES");
@@ -201,18 +209,21 @@ div.dataTables_length {
 				console.log(data + "MAINCRAAAAAA");
 			});
 		}
-
 	    console.log("***");
 	    console.log(a);
 	    console.log(p);
 	    console.log(q);
 	    console.log("***");
-	    $.get('updateFirma', {id : a, inicio : p, fin : q}, function (data) {
+	    con.post('vacaciones/consolidado/updateFirma?'+"id="+a+"&inicio="+p+"&fin="+q+"&fsm="+fsm,null,function(data) {
 			console.log(data);
-			if(data==1){
-				Materialize.toast('Firma actualizada correctamente!',3000,'rounded');
-			}else {
-				Materialize.toast('No se actualizaron las firmas, consulte con su jefe!',3000,'rounded');
+			if (data == 1) {
+				if (p == 0 && q == 0) {
+					Materialize.toast('Ninguna firma se ha actualizado!',3000,'rounded');
+				} else {
+					Materialize.toast('Firma actualizada correctamente!',3000,'rounded');
+				}
+			} else {
+				Materialize.toast('No se obtuvieron datos, consulte con su jefe',3000,'rounded');
 			}
 		});
 	});

@@ -316,7 +316,7 @@ public class SolicitudController {
 					String nome= fi.getOriginalFilename();
 					nome="PAP_"+idvac.replace(" ","");
 					FilenameUtils fich = new FilenameUtils();
-					path = cntx.getRealPath("/resources/files/papeletas/" + nome+"."+FilenameUtils.getExtension(path));
+					path = cntx.getRealPath("/resources/files/papeleta/" + nome+"."+FilenameUtils.getExtension(path));
 					System.out.println("ruta del archivo: " + path);
 					File destFile = new File(path);
 					fi.transferTo(destFile);
