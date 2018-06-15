@@ -74,11 +74,12 @@ div.dataTables_length {
 									</td>
 									<td rowspan=2>APROBACIÓN:</td>
 									<td id="s1_aprobacion"> </td>
-									<td id="f_aprobacion" rowspan=2> </td>
+									<td id="f1_aprobacion"> </td>
 									<td rowspan=2> </td>
 								</tr>
 								<tr>
 									<td id="s2_aprobacion"> </td>
+									<td id="f2_aprobacion"> </td>
 								</tr></thead>
 								<thead><tr>
 									<td>
@@ -104,61 +105,13 @@ div.dataTables_length {
 									</td>
 									<td rowspan=2>CONTROL FIRMA:</td>
 									<td id="s1_control"> </td>
-									<td id="f_control" rowspan=2> </td>
+									<td id="f1_control"> </td>
 									<td rowspan=2> </td>
 								</tr>
-								<tr><td id="s2_control"> </td></tr></thead>
-<!-- 								<thead><tr> -->
-<!-- 									<td> -->
-<!-- 										<a id="" class="btn-floating green accent-3"><i class="mdi-action-done"></i></a> -->
-<!-- 									</td> -->
-<!-- 									<td>PROGRAMACIÓN:</td> -->
-<!-- 									<td>Solicitud Hecha</td> -->
-<!-- 									<td>04/06/2018</td> -->
-<!-- 									<td><a class="waves-effect waves-light btn"><i class="mdi-content-content-paste"></i></a></td> -->
-<!-- 									<td> </td> -->
-<!-- 								</tr></thead> -->
-<!-- 								<thead><tr> -->
-<!-- 									<td rowspan=2> -->
-<!-- 										<a id="" class="btn-floating green accent-3"><i class="mdi-action-done"></i></a> -->
-<!-- 									</td> -->
-<!-- 									<td rowspan=2>APROBACIÓN:</td> -->
-<!-- 									<td>SECRETARIA: Aprobado</td> -->
-<!-- 									<td rowspan=2>04/06/2018</td> -->
-<!-- 									<td rowspan=2> </td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>JEFE: Aprobado</td> -->
-<!-- 								</tr></thead> -->
-<!-- 								<thead><tr> -->
-<!-- 									<td> -->
-<!-- 										<a id="" class="btn-floating pink lighten-2"><i class="mdi-action-label-outline"></i></a> -->
-<!-- 									</td> -->
-<!-- 									<td>CONSOLIDAR:</td> -->
-<!-- 									<td>EN PROCESO (1/2)</td> -->
-<!-- 									<td>04/06/2018</td> -->
-<!-- 									<td> </td> -->
-<!-- 								</tr></thead> -->
-<!-- 								<thead><tr> -->
-<!-- 									<td> -->
-<!-- 										<a id="" class="btn-floating pink lighten-2 disabled"><i class="mdi-content-clear"></i></a> -->
-<!-- 									</td> -->
-<!-- 									<td>PAPELETA:</td> -->
-<!-- 									<td>SIN ENTREGAR</td> -->
-<!-- 									<td>04/06/2018</td> -->
-<!-- 									<td><a class="waves-effect waves-light btn disabled"><i class="mdi-content-content-paste"></i></a></td> -->
-<!-- 									<td> </td> -->
-<!-- 								</tr></thead> -->
-<!-- 								<thead><tr> -->
-<!-- 									<td rowspan=2> -->
-<!-- 										<a id="" class="btn-floating pink lighten-2 disabled"><i class="mdi-content-clear"></i></a> -->
-<!-- 									</td> -->
-<!-- 									<td rowspan=2>CONTROL FIRMA:</td> -->
-<!-- 									<td>FECHA SALIDA: No Hecho</td> -->
-<!-- 									<td rowspan=2>04/06/2018</td> -->
-<!-- 									<td rowspan=2> </td> -->
-<!-- 								</tr> -->
-<!-- 								<tr><td>FECHA ENTRADA: No Hecho</td></tr></thead> -->
+								<tr>
+								<td id="s2_control"> </td>
+								<td id="f2_control"> </td>
+								</tr></thead>
 							</table>
 						</div>
 					</div>
@@ -191,20 +144,32 @@ div.dataTables_length {
 		$("#t_programacion").empty();
 		$("#s_programacion").empty();
 		$("#f_programacion").empty();
+		$("#d_programacion").removeAttr("href").addClass("disabled");
 		$("#b_aprobacion").empty();
 		$("#s1_aprobacion").empty();
 		$("#s2_aprobacion").empty();
-		$("#f_aprobacion").empty();
+		$("#f1_aprobacion").empty();
+		$("#f2_aprobacion").empty();
 		$("#b_consolidar").empty();
 		$("#s_consolidar").empty();
 		$("#f_consolidar").empty();
 		$("#b_papeleta").empty();
 		$("#s_papeleta").empty();
 		$("#f_papeleta").empty();
+		$("#d_papeleta").removeAttr("href").addClass("disabled");
 		$("#b_control").empty();
 		$("#s1_control").empty();
 		$("#s2_control").empty();
-		$("#f_control").empty();
+		$("#f1_control").empty();
+		$("#f2_control").empty();
+		var fecha;
+		var FECHA_MOD_CS = "";
+		var FECHA_MOD_AP1 = "";
+		var FECHA_MOD_AP2 = "";
+		var FECHA_MOD_CO = "";
+		var FECHA_MOD_PA = "";
+		var FECHA_MOD_FI1 = "";
+		var FECHA_MOD_FI2 = "";
 		var id = $(this).attr("name");
 		console.log(id);
 		var j = "";
@@ -227,7 +192,7 @@ div.dataTables_length {
 		var qq = 'FECHA SALIDA: Hecho';
 		var rr = 'FECHA ENTRADA: No Hecho';
 		var ss = 'FECHA ENTRADA: Hecho';
-		var tt = '';
+		var tt = { year: 'numeric', month: 'numeric', day: 'numeric' };
 		var uu = '';
 		var vv = '';
 		var ww = '';
@@ -251,6 +216,37 @@ div.dataTables_length {
 			$.get('readHistorialTramite', {id:id}, function (obj) {
 				console.log(obj);
 				for (var i = 0; i < obj.length; i++) {
+					var ID_PASOSOS = $.trim(obj[i].ID_PASOS);
+					console.log(ID_PASOSOS + "sisisi");
+					if (ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD != null || ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD != null) {
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_CS = fecha.toLocaleDateString("es-ES", tt);
+					}
+					if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "2") {
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_AP1 = fecha.toLocaleDateString("es-ES", tt);
+						console.log(FECHA_MOD_AP1 + "nonono")
+					}
+					if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "3") {
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_AP2 = fecha.toLocaleDateString("es-ES", tt);
+					}
+					if (ID_PASOS == "PAS-000054" || ID_PASOS == "PAS-000052") { 
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_CO = fecha.toLocaleDateString("es-ES", tt);
+					}
+					if (ID_PASOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_PA = fecha.toLocaleDateString("es-ES", tt);
+					}
+					if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 1 && obj[i].FIRMA_ENTRADA == 0) { 
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_FI1 = fecha.toLocaleDateString("es-ES", tt);
+					}
+					if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_ENTRADA == 1) { 
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_FI2 = fecha.toLocaleDateString("es-ES", tt);
+					}
 					if (obj[i].ESTADO == 1) {
 						var ID_PASOS = $.trim(obj[i].ID_PASOS);
 						if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD == null) {
@@ -266,6 +262,8 @@ div.dataTables_length {
 						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD != null) {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(aa);
 							$("#b_consolidar").append(bb);
@@ -274,8 +272,7 @@ div.dataTables_length {
 							$("#s_programacion").append(ee);
 							$("#s1_aprobacion").append(ff);
 							$("#s2_aprobacion").append(hh);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
 							console.log("PROGRAMACION CS");
 						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD == null) {
 							$("#b_programacion").removeClass("disabled").addClass("pink lighten-2");
@@ -285,11 +282,12 @@ div.dataTables_length {
 							$("#b_papeleta").append(bb);
 							$("#b_control").append(bb);
 							$("#s_programacion").append(dd);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
 							console.log("REPROGRAMACION SS");
 						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD != null) {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(aa);
 							$("#b_consolidar").append(bb);
@@ -298,12 +296,13 @@ div.dataTables_length {
 							$("#s_programacion").append(ee);
 							$("#s1_aprobacion").append(ff);
 							$("#s2_aprobacion").append(hh);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
 							console.log("REPROGRAMACION CS");
 						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "2") {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(aa);
 							$("#b_consolidar").append(bb);
@@ -312,12 +311,14 @@ div.dataTables_length {
 							$("#s_programacion").append(ee);
 							$("#s1_aprobacion").append(gg);
 							$("#s2_aprobacion").append(hh);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
 							console.log("APROBADO SECRETARIA");
 						} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "3") {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_consolidar").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -328,12 +329,15 @@ div.dataTables_length {
 							$("#s1_aprobacion").append(gg);
 							$("#s2_aprobacion").append(ii);
 							$("#s_consolidar").append(jj);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
 							console.log("APROBADO JEFE");
 						} else if (ID_PASOS == "PAS-000054") {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_consolidar").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -344,13 +348,16 @@ div.dataTables_length {
 							$("#s1_aprobacion").append(gg);
 							$("#s2_aprobacion").append(ii);
 							$("#s_consolidar").append(kk);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
+							$("#f_consolidar").append(FECHA_MOD_CO);
 							console.log("EN PROCESO 1/2");
 						} else if (ID_PASOS == "PAS-000052") {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
@@ -363,15 +370,22 @@ div.dataTables_length {
 							$("#s2_aprobacion").append(ii);
 							$("#s_consolidar").append(mm);
 							$("#s_papeleta").append(nn);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
-							console.log("EN PROCESO 2/2");
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
+							$("#f_consolidar").append(FECHA_MOD_CO);
+							console.log(FECHA_MOD_AP1, FECHA_MOD_AP2, FECHA_MOD_CO);
+							console.log("EN PROCESO 2/2 xd");
 						} else if (ID_PASOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=2');
+							$("#d_papeleta").attr("target", "_blank");
 							$("#b_control").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -385,16 +399,21 @@ div.dataTables_length {
 							$("#s_papeleta").append(oo);
 							$("#s1_control").append(pp);
 							$("#s2_control").append(rr);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
-// 							$("#f_papeleta").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
+							$("#f_consolidar").append(FECHA_MOD_CO);
+							$("#f_papeleta").append(FECHA_MOD_PA);
 							console.log("PAPELETA ENTREGADA");
 						} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 1 && obj[i].FIRMA_ENTRADA == 0) {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=2');
 							$("#b_control").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -408,17 +427,22 @@ div.dataTables_length {
 							$("#s_papeleta").append(oo);
 							$("#s1_control").append(qq);
 							$("#s2_control").append(rr);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
-// 							$("#f_papeleta").append(obj[i].FECHA_CREACION);
-// 							$("#f_control").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
+							$("#f_consolidar").append(FECHA_MOD_CO);
+							$("#f_papeleta").append(FECHA_MOD_PA);
+							$("#f1_control").append(FECHA_MOD_FI1);
 							console.log("FIRMA SALIDA");
 						} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_ENTRADA == 1) {
 							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=2');
 							$("#b_control").removeClass("disabled").addClass("green accent-3");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -432,11 +456,13 @@ div.dataTables_length {
 							$("#s_papeleta").append(oo);
 							$("#s1_control").append(qq);
 							$("#s2_control").append(ss);
-// 							$("#f_programacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_aprobacion").append(obj[i].FECHA_CREACION);
-// 							$("#f_consolidar").append(obj[i].FECHA_CREACION);
-// 							$("#f_papeleta").append(obj[i].FECHA_CREACION);
-// 							$("#f_control").append(obj[i].FECHA_CREACION);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
+							$("#f_consolidar").append(FECHA_MOD_CO);
+							$("#f_papeleta").append(FECHA_MOD_PA);
+							$("#f1_control").append(FECHA_MOD_FI1);
+							$("#f2_control").append(FECHA_MOD_FI2);
 							console.log("FIRMA SALIDA Y ENTRADA");
 						} else {
 							console.log("PROGRAMACION SS ELSE");
