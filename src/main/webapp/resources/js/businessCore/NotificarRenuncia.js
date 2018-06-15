@@ -51,10 +51,10 @@ function listarProcesados() {
 					function(objJson) {
 						var s = "";
 						var lista = objJson;
-						console.log(objJson);
+//						console.log(objJson);
 						if (lista.length > 0) {
-							// alert("si hay datos causita c:");
-
+							
+							// alert("si hay datos causita c:");	
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
 								var MFL = parseInt(lista[i].ES_MFL);
@@ -62,8 +62,9 @@ function listarProcesados() {
 								var plazo = parseInt(lista[i].VAL_PLAZO);
 								var fe_creacion = new Date(
 										lista[i].FECHA_RENABAN);
-								var mesint = parseInt(fe_creacion.getMonth()) + 1;
-								var mes = ParsearMes(mesint);
+								var mesInt = parseInt(fe_creacion
+										.getMonth()) + 1;
+								var mes = ParsearMes(mesInt);
 								var mfl="";
 								if(lista[i].VAL_PLAZO=='1'){
 									 mfl="Sí"
@@ -76,67 +77,58 @@ function listarProcesados() {
 								}else{
 									 TIPO="ABANDONO";
 								}
-//								var p = "";
-//								var f = "";
-//								var t = "";
-//								var ct = "";
-//								(Motivo === 1) ? p = "Trabajador Nuevo"
-//										: ((Motivo === 2) ? p = "Renovación"
-//												: p = "No Registrado");
-//								(MFL === 1) ? f = "Si" : f = "No";
-//								(plazo === 1) ? t = "Cumplió Plazo"
-//										: t = "No Cumplió";
-//								(plazo === 1) ? ct = "green accent-3"
-//										: ct = "red darken-1";
 								s += '<tr>';
-								s += '<td>' + a
-										+ '<label  class="idtr" hidden>'
+								s += '<td>'
+										+ a
+										+ '<label  class="idc" hidden>'
 										+ lista[i].ID_CONTRATO
 										+ '</label><label class="idrenaban" hidden>'
 										+ lista[i].ID_RENABAN
 										+ '</label></td>';
-								s += '<td>' + mes + '</td>';
-								s += '<td class="">'
-
-									+ lista[i].PATERNO
-									+ ' '
-									+ lista[i].MATERNO
-									+ ' '
-									+ lista[i].NOMBRES
-									+ '</td>';
-							s += '<td>'
-									+ lista[i].NOM_PUESTO
-									+ '</td>';
-							s += '<td>' + lista[i].NOM_AREA
-									+ '</td>';
-							s += '<td>' + lista[i].NOM_DEPA
-									+ '</td>';
-							s += '<td>'
-									+ lista[i].TIPO_CONTRATO
-									+ '</td>';
-								s += '<td><a class="green-text accent-3" href="#">'
-										+ lista[i].DESCRIPCION + '</a></td>';
 								s += '<td>'
-									+lista[i].FECHA_RENABAN+
-									 '</td>';
+										+ mes;
+										+ '</td>';
+								s += '<td class="">'
+								
+
+								+ lista[i].PATERNO + ' ' + lista[i].MATERNO
+								+ ' ' + lista[i].NOMBRES + '</td>';
+								s += '<td>'
+										+ lista[i].NOM_PUESTO
+										+ '</td>';
+								s += '<td>' + lista[i].NOM_AREA
+										+ '</td>';
+								s += '<td>' + lista[i].NOM_DEPA
+										+ '</td>';
+								s += '<td>'
+										+ lista[i].TIPO_CONTRATO
+										+ '</td>';
+								s += '<td><a class="green-text accent-3" href="#">'
+										+ lista[i].DESCRIPCION
+										+ '</a></td>';
+								s += '<td>'
+										+lista[i].FECHA_RENABAN+
+										 '</td>';
 								s += '<td>'
 									+lista[i].DNI+
 									 '</td>';
 								s += '<td>'
 									+mfl+
 									 '</td>';
+								// s += '<td>' + p + '</td>';
+//								s += '<td><a class="blue-text accent-4" href="#"><b>' + lista[i].ESTADO
+//										+ '</b></a></td>';
 								s +='<td >' +TIPO+ '<label class="tipon" hidden>'
 								+ TIPO
 								+ '</label></td>';
-								s += '<td><button class="notificar waves-effect waves-light btn modal-trigger #00e676 green accent-3">Notificar</button>';
-
-								s += '</button>';
-
+								s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Notificar</a>';
+								
+								s += '</td>';
 								s += '</tr>';
 							}
 
 						} else {
-//							console.log("no hay datos");
+							//alert("no hay datos");
 							s += "";
 						}
 
@@ -147,9 +139,9 @@ function listarProcesados() {
 						$("#dataReq").append(s);
 						
 						$("#data-table-row-grouping")
-						         .DataTable(
+						.DataTable(
 								{
-									responsive: true,
+								    responsive: true,
 								    columnDefs: [
 								        { responsivePriority: 1, targets: 0 },
 								        { responsivePriority: 2, targets: -1 }
@@ -157,6 +149,7 @@ function listarProcesados() {
 								"pageLength" : 5,
 								"bPaginate" : true,
 								"ordering": false,
+								
 								}
 						);
 
@@ -257,7 +250,7 @@ function listarNotificados() {
 						var lista = objJson;
 						console.log(objJson);
 						if (lista.length > 0) {
-							// alert("si hay datos NOTIFICADOS causita c:");
+							// alert("si hay datos causita c:");
 
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
@@ -266,61 +259,93 @@ function listarNotificados() {
 								var plazo = parseInt(lista[i].VAL_PLAZO);
 								var fe_creacion = new Date(
 										lista[i].FECHA_RENABAN);
-								var mesint = parseInt(fe_creacion.getMonth()) + 1;
-								console.log(mesint);
-
-								// console.log(ddd(mesint));
-								var mes = ParsearMes(mesint);
+								var mesInt = parseInt(fe_creacion
+										.getMonth()) + 1;
+								var mes = ParsearMes(mesInt);
+								var mfl="";
+								if(lista[i].VAL_PLAZO=='1'){
+									 mfl="Sí"
+								}else{
+									 mfl="No";
+								}
+								var TIPO="";
+								if(lista[i].TIPO=='R'){
+									 TIPO="RENUNCIA"
+								}else{
+									 TIPO="ABANDONO";
+								}
 								var p = "";
 								var f = "";
 								var t = "";
 								var ct = "";
-								(Motivo === 1) ? p = "Trabajador Nuevo"
-										: ((Motivo === 2) ? p = "Renovación"
-												: p = "No Registrado");
-								(MFL === 1) ? f = "Si" : f = "No";
-								(plazo === 1) ? t = "Cumplió Plazo"
-										: t = "No Cumplió";
-								(plazo === 1) ? ct = "green accent-3"
-										: ct = "red darken-1";
 								s += '<tr>';
-								s += '<td>' + a
-										+ '<label  class="idr" hidden>'
-										+ lista[i].ID_RENABAN
-										+ '</label></td>';
-								s += '<td>' + mes + '</td>';
+								s += '<td>'
+										+ a
+										+ '<label  class="idc" hidden>'
+										+ lista[i].ID_CONTRATO
+										+ '</label><label class="idrenaban" hidden>'
+								+ lista[i].ID_RENABAN
+								+ '</label></td>';
+								s += '<td>'
+										+ mes;
+										+ '</td>';
 								s += '<td class="">'
 
-								+ lista[i].MATERNO + ' ' + lista[i].MATERNO
-										+ ' ' + lista[i].NOMBRES + '</td>';
-								s += '<td>' + lista[i].NOM_PUESTO + '</td>';
-								s += '<td>' + lista[i].NOM_AREA + '</td>';
-								s += '<td>' + lista[i].NOM_DEPA + '</td>';
-								s += '<td>' + lista[i].TIPO_CONTRATO + '</td>';
+										+ lista[i].PATERNO
+										+ ' '
+										+ lista[i].MATERNO
+										+ ' '
+										+ lista[i].NOMBRES
+										+ '</td>';
+								s += '<td>'
+										+ lista[i].NOM_PUESTO
+										+ '</td>';
+								s += '<td>' + lista[i].NOM_AREA
+										+ '</td>';
+								s += '<td>' + lista[i].NOM_DEPA
+										+ '</td>';
+								s += '<td>'
+										+ lista[i].TIPO_CONTRATO
+										+ '</td>';
 								s += '<td><a class="green-text accent-3" href="#">'
-										+ lista[i].DESCRIPCION + '</a></td>';
-								s += '<td>' + fe_creacion.getDate() + "/"
-										+ mesint + "/"
-										+ fe_creacion.getFullYear() + '</td>';
-								s += '<td>' + lista[i].ESTADO + '</td>';
-								s += '<td><button class="entregar waves-effect waves-light btn modal-trigger #00e676 green accent-3">ENTREGAR</button>';
-
-								s += '</button>';
-
+										+ lista[i].DESCRIPCION
+										+ '</a></td>';
+								s += '<td>'
+										+lista[i].FECHA_RENABAN+
+										 '</td>';
+								s += '<td>'
+									+lista[i].DNI+
+									 '</td>';
+								s += '<td>'
+									+mfl+
+									 '</td>';
+								s +='<td>' +TIPO+'<label class= "tipon" hidden>'
+								+ TIPO
+								+ '</label></td>';
+								s += '<td><a class="InsertarLegajo waves-effect waves-light btn #00e676 green accent-3">ENTREGAR</a>';
+								
+								s += '</td>';
 								s += '</tr>';
 							}
 
 						} else {
-							console.log("no hay datos");
+							//alert("no hay datos");
 							s += "";
 						}
 
-						var r = createTable1("s", "d");
-						$(".conN").empty();
-						$(".conN").append(r);
-						$("#dataNot").empty();
-						$("#dataNot").append(s);
-						$("#data-table-row-grouping1").DataTable();
+						var r = createTable1("", "");
+						$(".contP").empty();
+						$(".contP").append(r);
+						$("#dataReq1").empty();
+						$("#dataReq1").append(s);
+						
+						$("#data-table-row-grouping1")
+						.DataTable({
+							"pageLength" : 10,
+							"bPaginate" : true,
+							"ordering": false
+							    }
+						);
 		
 						$(".entregar").click(
 								function() {
@@ -346,6 +371,7 @@ function listarNotificados() {
 						// alignment : 'left',
 						// stopPropagation : false
 						// });
+						jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
 
 					});
 }
@@ -372,52 +398,12 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>Opcion</th>';
 	s += '</tr>';
 	s += '</thead>';
-//	s += '<tbody id="dataReq1">';
-	s += '<tbody id="dataNot">';
+	s += '<tbody id="dataReq1">';
+//	s += '<tbody id="dataNot">';
 	s += '</tbody>';
 	s += '</table>';
 	return s;
 }
-//function createTable2(idDepartamento, idRol) {
-//	var Rol = idRol.toString();
-//	var Departamento = idDepartamento.toString();
-//	var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" width="100%" style="position:relative;font-size:14px"';
-//	s += 'cellspacing="0">';
-//	s += '<thead>';
-//	s += '<tr>';
-//	s += '<th>N</th>';
-//	s += '<th>Mes</th>';
-//	s += '<th>Apellidos y Nombres</th>';
-//	s += '<th>Puesto</th>';
-//	s += '<th>Area</th>';
-//	s += '<th>Departamento</th>';
-//	s += '<th>Tipo de Contrato</th>';
-//	s += '<th>Descripcion</th>';
-//	s += '<th>Fecha de Inicio</th>';
-//	s += '<th>Estado</th>';
-//	s += '<th>Opcion</th>';
-//	if (Departamento === "DPT-0019") {
-//		s += '<th>¿Cumplió Plazos?</th>';
-//		if (Rol === "ROL-0006") {
-//			s += '<th>¿Contrato Elaborado?</th>';
-//			s += '<th>¿Firmo Contrato?</th>';
-//			s += '<th>Enviar a Rem.</th>';
-//			s += '<th>¿Contrato Subido?<</th>';
-//		}
-//	}
-//	if (Rol === "ROL-0009") {
-//		s += '<th>Código APS</th>';
-//	}
-//	if (Rol === "ROL-0007" || Rol === "ROL-0001") {
-//		s += '<th>Código Huella</th>';
-//	}
-//	s += '</tr>';
-//	s += '</thead>';
-//	s += '<tbody id="dataNot">';
-//	s += '</tbody>';
-//	s += '</table>';
-//	return s;
-//}
 
 var depa="";
 var u = "";
@@ -529,32 +515,61 @@ function enviarCorreo() {
 }
 
 //INSERTAR LEGAJO
-function insertarLegajo() {
-	var inst = $('[data-remodal-id=modal]').remodal();
+function NotificarR() {
+//	alert(jfksdf);
 	var msj = $("#mensaje1").text();
 	var de = "pruebagth@gmail.com";
-	var para = "jonathanromero@upeu.edu.pe";
-	var mensaje = $("#mensaje2").text();
-	var detalle = msj + $("#fecha").val() + mensaje + ".";
+//	var para = $("#correo").text();
+	var para = "estefannygarcia@upeu.edu.pe";
+	var clave = "GTH123456";
+//	var mensaje = $("#cartaNotarial").val();
+	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
+	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
-	var otros = de + " para: " + para;
-	var idtr = $("#idtr").text();
-	// console.log(msjs);
-	$.get(gth_context_path+"/renaban/listarxd", {
-		idtr : idtr,
-		otros : otros,
-		detalle : detalle,
-		opc : 4
+	var idrenaban =$("#idr").text();
+	var tipo =$("#tipo").text();
+	alert(mensaje);
+	 console.log(msjs);
+	$.get(gth_context_path+"/renaban/entregar", {
+		de : de,
+		clave : clave,
+		para : para,
+		mensaje : msjs,
+		asunto : asunto,
+//		foto:foto,
+		opc : 2
 	}, function(data, status) {
 		console.log(data);
-		inst.close();
+		// $("#modalnotificar").closeModal();
 		if (data == 1) {
-			// alert("SE MANDO");
+			alert("SE MANDO");
+			InsertarLegajo(idle);
+//			listarAutorizados();
+			// insertarLegajo();
 		} else {
-			// alert(" NOOOOOOOOOOOOO SE MANDO");
+			alert(" NOOOOOOOOOOOOO SE MANDO");
 		}
 
 	});
+}
+
+//ENTREGAR DOCUMENTOS
+function InsertarLegajo(idle) {
+	var idle = idle;
+//	var tipo1 = tipo1;
+	alert("Insertar legajo entrooooooooo");
+	alert(idle);
+//	alert(tipo1);
+	alertify.confirm('Confirmar Notificación', 'Está seguro(a) de entregar los documentos?', function(){
+		 $.get("entregar",{opc:3,idle:idle},function(data){
+			 window.location.href = gth_context_path +"/renaban/deliveryR";					 
+			
+   		 alert(data);
+   	});
+		 
+    	} , function(){ 
+    		
+       });
 }
 
 //NOTIFICAR RENUNCIA

@@ -1,24 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	%>
+	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="../../../jspf/general.jspf"%>
 <link href="https://fonts.googleapis.com/css?family=Dosis"
-	rel="stylesheet">
+	rel="stylesheet">	
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
 	href="<c:url value='/resources/js/plugins/data-tables/css/jquery.dataTables.min.css'></c:url>"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value='/resources/css/dataTables.min.css'></c:url>" 
-	rel="stylesheet" type="text/css" />
-	<link
-	href="<c:url value='/resources/css/responsive.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
@@ -26,19 +20,54 @@
 <link
 	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-
-<link href="<c:url value='/resources/css/alertify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-
 <link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
-<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond"
+<link href="https://fonts.googleapis.com/css?family=Poiret+One"
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-	
+<link
+	href="<c:url value='/resources/css/dataTables.min.css'></c:url>" 
+	rel="stylesheet" type="text/css" />
+	<link
+	href="<c:url value='/resources/css/responsive.dataTables.min.css'></c:url>"
+	rel="stylesheet" type="text/css" />
+
+<link href="<c:url value='/resources/css/alertify.min.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
+
+<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond"
+	rel="stylesheet">
 <style>
+@media only screen and (min-width: 641px) {
+	.remodal {
+		max-width: 75%;
+	}
+	h6 {
+		font-size: 16px
+	}
+}
+@media only screen and (max-width: 640px) {
+	.remodal {
+		min-width: 100%;
+	}
+	h5 {
+		font-size: 14px
+	}
+	h1 {
+		font-size: 16px
+	}
+	h6 {
+		font-size: 14px
+	}
+}
+.ajs-message.ajs-custom {
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #31708f;
+	z-index: 999999
+}
 	div.dataTables_wrapper{
 		width:auto;
         margin: 0 auto;
@@ -59,11 +88,11 @@ table.dataTable tbody td {
 }
 </style>
 </head>
-
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
+
 	</div>
 	<div id="main">
 		<div class="wrapper">
@@ -75,50 +104,45 @@ table.dataTable tbody td {
 		<section id="content" class="col m12 l12 s12">
 				<div class="center">
 					<h1
-						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Notificar Renuncias y 
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Notificar Renuncias y
 						 Abandonos</h1>
 				</div>
 				<div class="divider"></div>
 
 			</section>
-		<div class="row"
+			<div class="row"
 				style="width: 100%;  max-width:90%">
-			<ul class="collapsible popout">
-				<li class="active">
-					<div class="collapsible-header active">
-						<i class="mdi-social-notifications-on"></i> Renuncias y Abandonos por Notificar
-					</div>
-					<div class="collapsible-body"
+				<ul class="collapsible popout">
+					<li id="autorize" class="active">
+						<div class="collapsible-header active">
+							<i class="mdi-social-notifications-on"></i> Verificar Abandonos Pendientes
+						</div>
+						<div class="collapsible-body"
 							style="display: none;">	
 							<div class="row" style="padding:1em">
 								<div class="contT"></div>
 							</div>			
 						</div>
-<!-- 					<div id="data-table-row-grouping col s12 m8 l9" -->
-<!-- 						class="card-panel collapsible-body display #e3f2fd blue lighten-5" -->
-<!-- 						style="display: none;"> -->
-<!-- 						<div class="col s12 m8 l9 contT"></div> -->
-<!-- 					</div> -->
-				</li>
-				<li>
-					<div class="collapsible-header active">
-						<i class="mdi-toggle-check-box"></i> Entregar documento de Renuncias y Abandono
-					</div>
-					<div id="tabla-notificada "
-						class="card-panel collapsible-body "
+					</li>
+					<li id="autorized" class="">
+						<div class="collapsible-header" >
+							<i class="mdi-toggle-check-box"></i> Verificar Abandonos Autorizados
+						</div> 
+						<div class="card-panel collapsible-body "
 							style="display: none;">
-						<div class="col s12 m8 l9 conN"></div>
-					</div>
-				</li>
-			</ul>
-		</div>
+							<div class="row" style="padding:1em">
+								<div class="contP"></div>
+							</div>
+
+							</div>
+
+						</li>
+					</ul>
+				</div>
+
 	</div>
 
 	<div id="first">
-		<!-- 		<div id="modalnotificar" class="modal modal-fixed-footer" -->
-		<!-- 			style="width: 70%; border: 5px solid black"> -->
-		<!-- 			<div class="card z-depth-2" style="width: 80%; margin-left: 5%"> -->
-		<!-- 				<div class="row card-panel"> -->
 		<div class="remodal" data-remodal-id="modal">
 			<button data-remodal-action="close" class="remodal-close"></button>
 			<h4 class="light italic black-text">Motivos de Rechazo</h4>
@@ -132,7 +156,7 @@ table.dataTable tbody td {
 			<div class="col s12">
 				<p id="men">
 				<p id="mensaje1">
-					SeÃ±or <span id="nombre"></span> sus documentos ya se encuentran
+					Señor <span id="nombre"></span> sus documentos ya se encuentran
 					listos para ser entregados, por favor se le invita a pasar por la
 					oficina de Gestion de Talentos Humanos (GTH) a recoger sus
 					documentos de beneficios sociales en la fecha
@@ -156,9 +180,6 @@ table.dataTable tbody td {
 	<div id="first">
 		<div class="remodal" data-remodal-id="modal1">
 			<button data-remodal-action="close" class="remodal-close"></button>
-			<!-- 			<div id="modalentregar" class="modal modal-fixed-footer" -->
-			<!-- 				style="width: 60%; height: 80%; border: 5px solid black"> -->
-			<!-- 				<div class="modal-header #1de9b6 teal lighten-1"> -->
 			<h4 style="font-family: 'Dosis', sans-serif;">Entregar
 				Documentos</h4>
 
@@ -199,7 +220,7 @@ table.dataTable tbody td {
 
 				<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 				<button data-remodal-action="confirm" class="remodal-confirm"
-					id="NotificarR">Enviar</button>
+					onclick="NotificarR()">Enviar</button>
 				<div class="col s4"></div>
 				<input type="hidden" id="array_motivos" />
 			</form>
@@ -208,33 +229,37 @@ table.dataTable tbody td {
 
 	</div>
 
-	<div style="position: fixed; width: 100%; bottom: 0;">
+	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
-	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-		type="text/javascript">
-		
-	</script>
+
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
 		<script
-		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		src="<c:url value='/resources/js/dataTables.responsive.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
-		<script
-				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
-				type="text/javascript"></script>
+	<script
+		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-				type="text/javascript"></script>
+		type="text/javascript">			
+	</script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
+		<script
+		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		type="text/javascript"></script>
 		
 	
 </body>

@@ -45,6 +45,7 @@ public class GestionarEntregaDocController {
 	private Gson gson = new Gson();
 	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
+	Legajo ob = new Legajo();
 
 	@Autowired
 	ServletContext context;
@@ -75,15 +76,20 @@ public class GestionarEntregaDocController {
 			out.println(rd.enviarCorreo(de, clave, para, mensaje, asunto));
 			break;
 
+//		case 4:
+//			Legajo l = new Legajo();
+//			l.setIdtrabajador(request.getParameter("idtr"));
+//			l.setId_tipo_doc("DLE-000001");
+//			l.setOtros(request.getParameter("otros"));
+//			l.setDetalle_otros(request.getParameter("detalle"));
+//			out.println(ldao.insertarLegajo(l));
+//			break;
 		case 4:
 			Legajo l = new Legajo();
-			l.setIdtrabajador(request.getParameter("idtr"));
-			l.setId_tipo_doc("DLE-000001");
-			l.setOtros(request.getParameter("otros"));
-			l.setDetalle_otros(request.getParameter("detalle"));
+			l.setIdcontrato(request.getParameter("idc"));
+			l.setIdtrabajador(request.getParameter("idtr"));			
 			out.println(ldao.insertarLegajo(l));
 			break;
-
 		case 5:
 
 			ServletContext cntx = request.getServletContext();
@@ -134,18 +140,11 @@ public class GestionarEntregaDocController {
 			r.setId_renuncia(idra);
 			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 			out.println(rd.notificarRenuncia(r,idusuario,tipo1));
-//			Renuncia r1 = new Renuncia();
-//			r1.setId_renuncia(request.getParameter("idr"));
-//			System.out.println(r1.getId_renuncia());
-//			// r.setEstado("Notificado");
-//			// l.setOtros(request.getParameter("otros"));
-//			// l.setDetalle_otros(request.getParameter("detalle"));
-//			out.println(rd.notificarRenuncia(r1));
 			break;
 
 		case 7:
 			out.println(gson.toJson(rd.listarNotificados()));
-			break;
+			break;			
 
 		}
 
@@ -163,6 +162,29 @@ public class GestionarEntregaDocController {
 
 			// String dni = request.getParameter("dni");
 			out.println(ldao.insertarMaxrRenuncia(l));
+			break;
+		case 2:
+			String de = request.getParameter("de");
+			String clave = request.getParameter("clave");
+			String para = request.getParameter("para");
+			String mensaje = request.getParameter("mensaje");
+			String asunto = request.getParameter("asunto");
+			String foto = request.getParameter("foto");
+			// boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
+			out.println(ldao.NotificarDocumentos(de, clave, para, mensaje, asunto, foto));
+			break;
+		case 3:
+			String idle = request.getParameter("idle");
+			String descripcion = request.getParameter("descripcion");
+			String no_archivo = request.getParameter("no_archivo");
+			String ti_archivo = request.getParameter("ti_archivo");
+			String fecha_registro = request.getParameter("fecha_registro");
+			ob.setIdlegajo(idle);
+			ob.setDescripcion(descripcion);
+			ob.setNo_archivo(no_archivo);
+			ob.setTi_archivo(ti_archivo);
+			ob.setFecha_registro(fecha_registro);
+			out.println(ldao.InsertarDocBenfSoc(ob));
 			break;
 		}
 
