@@ -114,31 +114,6 @@ table.dataTable tbody td {
 		</div>
 	</div>
 
-
-	<!-- 	<div id="first"> -->
-	<!-- 		<div class="remodal" data-remodal-id="modal"> -->
-	<!-- 			<button data-remodal-action="close" class="remodal-close"></button> -->
-	<!-- 			<h4 class="light italic black-text">Motivos de Rechazo</h4> -->
-
-	<!-- 			<hr> -->
-
-	<!-- 			<div class="row"> -->
-	<!-- 				<div class="col s12"> -->
-	<!-- 					<div class="input-field col s7"> -->
-	<!-- 						<h5 class="light italic black-text">Descripción de rechazo:</h5> -->
-	<!-- 						<div class="input-field col s12"> -->
-	<!-- 							<textarea id="observaciones" class="materialize-textarea"></textarea> -->
-	<!-- 						</div> -->
-	<!-- 					</div> -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-
-	<!-- 			<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button> -->
-	<!-- 			<button data-remodal-action="confirm" class="remodal-confirm" -->
-	<!-- 				id="RechazarRenuncia">Enviar</button> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
-
 	<div id="first">
 		<!-- 		<div id="modalnotificar" class="modal modal-fixed-footer" -->
 		<!-- 			style="width: 70%; border: 5px solid black"> -->
@@ -236,40 +211,30 @@ table.dataTable tbody td {
 	<div style="position: fixed; width: 100%; bottom: 0;">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
+	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+		type="text/javascript">
+		
+	</script>
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
-	
-	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-		type="text/javascript">		
-	</script>	
+		<script
+		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-	
-		
-		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-				type="text/javascript"></script>
-				
-		<script
-		src="<c:url value='/resources/js/dataTables.responsive.min.js'></c:url>"
-		type="text/javascript"></script>
-		<script
-		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
-		type="text/javascript"></script>
-		<script
+	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
 		<script
 				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 				type="text/javascript"></script>
-
-				<script
-		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
+		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+				type="text/javascript"></script>
 		
 	
 </body>

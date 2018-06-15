@@ -439,9 +439,8 @@ function DetalleRenuncia(idc,tipo) {
 				}else{
 					$("#certi_salud").text("No");
 				}
-//				var img = document.getElementById("carta")
 				$("#carta").text(detalle[0].ARCHIVO);
-				
+
 				$("#procesarRen").click(function(){
 					var idr= $("#idr").val();
 					if(tipo=="RENUNCIA"){
@@ -456,8 +455,7 @@ function DetalleRenuncia(idc,tipo) {
 					}else{
 						alertify.confirm('Confirmar autorización', 'Está seguro(a) de procesar el abandono de este trabajador?', function(){
 							 $.get("ProcesarR",{opc:4,tipo:'A',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/processR";					 
-								
+								 window.location.href = gth_context_path +"/renaban/processR";					 								
 //				        		 alert(data);
 //				        		 alert("Abandono")
 				        	});
@@ -468,60 +466,64 @@ function DetalleRenuncia(idc,tipo) {
 					}
 					 
 				});
-				$("#RechazarRenuncia").click(function(){
-					var id= $("#idr").val();
-					var idra = $("#idr").val();
-					var observaciones = $("#observaciones").val();
-					var observacion = $("#observaciones").val();
-					 alert(tipon);
-					if(tipo=="RENUNCIA"){
-						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-							 $.get("ProcesarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
-								 alert("Rechazo Renuncia");
-//								 alert("BIEN Nicole");
-//				        		 alert(data);
-//				        		 alert(id);
-//				        		 alert(observaciones);				        	
-				        		 window.location.href = gth_context_path +"/renaban/processR";
-				        	});
-							 
-					     	} , function(){ 
-					        	
-					        });
-					}else{
-						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-							 $.get("ProcesarR",{opc:7,tipo:'A',sidr:idra,observaciones:observacion},function(data){
-								 alert("Rechazo Abandono")
-//								 alert("BIEN Nicole");
-//				        		 alert(data);
-								
-				        		 alert(idra);
-				        		 alert(observacion);
-				        		 window.location.href = gth_context_path +"/renaban/processR";
-				        	});
-							 
-					     	} , function(){ 
-					        	
-					        });
-					}
-					 
-				});
-				
-				var idr = detalle[0].ID_RENABAN;
-				var tipo= $("#tipo").val();
-				$.get("ProcesarR",{idr:idr,opc:8,tipo:tipo},function(data){
-					if(data==1){
-						
+
+//				$("#RechazarRenuncia").click(function(){
+//					var id= $("#idr").val();
+//					var idra = $("#idr").val();
+//					var observaciones = $("#observaciones").val();
+//					var observacion = $("#observaciones").val();
+//					 alert(tipon);
+//					if(tipo=="RENUNCIA"){
+//						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
+//							 $.get("ProcesarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
+//
+//								 alert("Rechazo Renuncia");			        	
+//
+////								 alert("Rechazo Renuncia");
+////								 alert("BIEN Nicole");
+////				        		 alert(data);
+////				        		 alert(id);
+////				        		 alert(observaciones);				        	
+//
+//				        		 window.location.href = gth_context_path +"/renaban/processR";
+//				        	});
+//							 
+//					     	} , function(){ 
+//					        	
+//					        });
+//					}else{
+//						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
+//							 $.get("ProcesarR",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
+////								 alert("Rechazo Abandono")
+////								 alert("BIEN Nicole");
+////				        		 alert(data);
+//								
+////				        		 alert(idra);
+////				        		 alert(observacion);
+//
+//				        		 window.location.href = gth_context_path +"/renaban/processR";
+//							   	});
+//							 
+//						     	} , function(){ 
+//						        	
+//						        });
+//						}
+//						 
+//					});
+				var idr = detalle[0].ID_RENABAN;			
+				$.get("ProcesarR",{idr:idr,opc:8,tipo:tipon},function(data){
+
+						if(data==1){
+									
 							$("#RECHAZAR").css("display","none");
+									
+									
+									
+						}else{
+							$("#RECHAZAR").css("display","block");
+							}
+					});	
 						
-						
-						
-					}else{
-						$("#RECHAZAR").css("display","block");
-					}
-				});
-				
-					
 				u = "";
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
 				u += ''
@@ -534,18 +536,16 @@ function DetalleRenuncia(idc,tipo) {
 					var c = "";
 				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle[0].ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"
 
-				
+				console.log("	archivo "+detalle[0].ARCHIVO);
 				var tipod = detalle[0].ARCHIVO.split(".")[1];
 				if (tipod=="pdf"){
 					$("#picture_del").html(c);
 				}else{
 					$("#picture_del").html(u);
 				}
-				$('.materialboxed').materialbox();
-		 });
+				$('.materialboxed').materialbox();			
+		});
 	});
-	
-	
 }
 
 
@@ -603,4 +603,5 @@ function ParsearMes(mesint) {
 		break;
 	}
 	return mes;
+
 }

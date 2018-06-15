@@ -64,15 +64,11 @@ import pe.edu.upeu.gth.dto.Renuncia;
 				case 4:
 					String idr = request.getParameter("idr");
 					String tipo = request.getParameter("tipo");
-					System.out.println("Esta llegando un idr:" +idr);
+					System.out.println("Esta llegando un tipo:" +tipo);
 					r.setId_renuncia(idr);
 					String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-					out.println(ra.ProcesarRenuncia(r,idusuario,tipo));
+					out.println(ra.ProcesarRenuncia(r,idr,idusuario,tipo));
 					break;
-//					String idr = request.getParameter("idr");
-//					r.setId_renuncia(idr);
-//					out.println(ra.ProcesarRenuncia(r));
-//					break;
 				case 5:
 					out.println(gson.toJson(ra.Procesado()));
 					break;
@@ -86,13 +82,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 					out.println(ra.RechazarRenuncia(re, tipo1));
 					break;
 				case 7: 
-					String tipo2 = request.getParameter("tipo");
-					String idra = request.getParameter("idr");
-					System.out.println(idra);
-					String observacion = request.getParameter("observacion");				
-					ju.setId_renaban(idra);
-					ju.setObservacion(observacion);
-					out.println(ra.JustificarAbandono(ju, tipo2));
+					
 					break;
 				case 8:
 					String idrol = ((CustomUser) authentication.getPrincipal()).getID_ROL();
