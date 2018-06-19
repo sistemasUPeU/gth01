@@ -70,6 +70,23 @@ public class ConfiguracionesController {
 
 		return gs.toJson(co.crearConfigSolicitud(fecha1));
 	}
+	@RequestMapping(path = "/insertarSolicitudPrograma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String insertarSolicitudPrograma(HttpServletRequest request) {
+		String fecha_solicitud = request.getParameter("fecha_solicitud");
+		String fecha_programa = request.getParameter("fecha_programa");
+		System.out.println();
+		
+
+		return gs.toJson(co.crearConfiguracion(fecha_solicitud, fecha_programa));
+	}
+	@RequestMapping(path = "/departamento", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String listarDepartamento(HttpServletRequest request) {
+
+	System.out.println("Gson DEPARTAMENTO "+gs.toJson(co.listarDepartamento()));
+		
+
+		return gs.toJson(co.listarDepartamento());
+	}
 	
 	
 	
