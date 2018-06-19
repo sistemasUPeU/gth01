@@ -63,7 +63,7 @@ public class GestionarConsolidadoController {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id_det = request.getParameter("id_det");
 		String[] idarray = id_det.split(",");
-		return g.toJson(gc.apobarVacCon(usuario, idarray));
+		return g.toJson(gc.insertHistorial(usuario, idarray, "PAS-000054", 3, "PAS-000052", 3));
 	}
 
 	@RequestMapping(path = "/enviarCorreoAprobarConsolidado", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -107,10 +107,21 @@ public class GestionarConsolidadoController {
 	}
 
 	@RequestMapping(path = "/updateFirma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarFirma(HttpServletRequest request) {
+	public @ResponseBody String actualizarFirma(HttpServletRequest request, Authentication authentication) {
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id = request.getParameter("id");
 		int inicio = Integer.parseInt(request.getParameter("inicio"));
 		int fin = Integer.parseInt(request.getParameter("fin"));
+		int fsm = Integer.parseInt(request.getParameter("fsm"));
+		String[] id_det_arr = new String[1];
+		id_det_arr[0] = id;
+		if (inicio == 1 && fin == 1 && fsm == 2) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 3, "PAS-000092", 3);
+		} else if (fin == 1) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 2, "PAS-000092", 3);
+		} else {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 3, "PAS-000092", 2);
+		}
 		return g.toJson(gc.updateFechas(id, inicio, fin));
 	}
 
@@ -121,6 +132,7 @@ public class GestionarConsolidadoController {
 		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
 		// PrintWriter out = response.getWriter();
 		String url = "";
+		String filename = "";
 		String traba = request.getParameter("traba");
 		String id_det = request.getParameter("id_det");
 		int op = Integer.parseInt(request.getParameter("op"));
@@ -131,13 +143,13 @@ public class GestionarConsolidadoController {
 		switch (op) {
 		case 1:
 			url = (String) result1.get(0).get("URL_SOLICITUD");
-
+			filename = cntx.getRealPath("/resources/files/solicitud/" + url.trim());
 			break;
 		case 2:
 			url = (String) result1.get(0).get("URL_PAPELETA");
+			filename = cntx.getRealPath("/resources/files/papeleta/" + url.trim());
 			break;
 		}
-		String filename = cntx.getRealPath("/WEB-INF/" + url.trim());
 		// String filename = url;
 		// String filenam1e
 		// ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\"+nom;
@@ -180,15 +192,23 @@ public class GestionarConsolidadoController {
 	@RequestMapping(path = "/subirArchivo", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("idvac") String idvac,
 			@RequestParam("id_det") String id_det, @RequestParam("value") int value,
-			MultipartHttpServletRequest request) throws IOException {
+			MultipartHttpServletRequest request, Authentication authentication) throws IOException {
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		List<String> archi = new ArrayList<>();
+		String path = "";
 		System.out.println(file + "!!!!!!!!!!!!" + idvac + "!!!!!!!!!!!!" + id_det + "!!!!!!!!!!!!" + value);
 		int res = 0;
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
 					System.out.println(file);
-					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					if (value == 0) {
+						path = context.getRealPath("/resources/files/solicitud/") + File.separator
+								+ fi.getOriginalFilename();
+					} else if (value == 1) {
+						path = context.getRealPath("/resources/files/papeleta/") + File.separator
+								+ fi.getOriginalFilename();
+					}
 					File destFile = new File(path);
 					fi.transferTo(destFile);
 					archi.add(destFile.getName());
@@ -201,6 +221,11 @@ public class GestionarConsolidadoController {
 					System.out.println(nombre);
 
 					res = gc.subirDocumento(fi.getOriginalFilename(), idvac, id_det, value);
+					if (value == 1) {
+						String[] id_det_arr = new String[1];
+						id_det_arr[0] = id_det;
+						gc.insertHistorial(usuario, id_det_arr, "PAS-000052", 3, "PAS-000090", 3);
+					}
 				}
 
 			} catch (IOException | IllegalStateException ec) {

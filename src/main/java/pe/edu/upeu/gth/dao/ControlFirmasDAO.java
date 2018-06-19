@@ -64,4 +64,19 @@ public class ControlFirmasDAO {
 			return 0;
 		}
 	}
+	
+	public int UPDATEPAPELETA(String id, String idtrab) {
+		try {
+			DataSource DS = AppConfig.getDataSource();
+			CallableStatement CST = DS.getConnection().prepareCall("{call RHSP_INSERT_GEST_FIRMAS_PAP (?, ?)}");
+			CST.setString(1, idtrab);
+			CST.setString(2, id);
+			CST.execute();
+			
+			return 1;
+		} catch (Exception E) {
+			System.out.println("ERROR: " + E);
+			return 0;
+		}
+	}
 }

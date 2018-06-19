@@ -164,27 +164,22 @@
 							<object id="request" type="application/pdf" data="" width="800"
 								height="380"></object>
 						</div>
-						<button
-							class="modal-action modal-close waves-effect waves-green btn-flat"
-							aria-label="Close">
-							<span aria-hidden="true">CANCELAR</span>
-						</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<script
-			src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
-			type="text/javascript"></script>
-		<script
-			src="<c:url value='/resources/js/businessCore/holidays/gest_consol.js'></c:url>"
-			type="text/javascript"></script>
+	</div>
+	<script
+		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/businessCore/holidays/gest_consol.js'></c:url>"
+		type="text/javascript"></script>
 </body>
 </html>

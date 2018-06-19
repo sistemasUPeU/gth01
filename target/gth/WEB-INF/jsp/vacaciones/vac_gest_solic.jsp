@@ -59,36 +59,52 @@
 
 			<!-- 					<div id="icon-prefixes" class="section"> -->
 			<h4 class="header">Datos Generales</h4>
-			<div class="row card-panel">
-				<div class="col s12 m12 l12">
+
+			<div class="row">
+				<div class="col s12 m9 l8">
+					<div class="row card-panel">
 
 
-					<div class="input-field col s12 l4">
-						<i class="mdi-action-account-circle prefix"></i> <input
-							id="nombres" type="text" class="validate" disabled> <label
-							for="icon_prefix3">Nombres y Apellidos</label>
-					</div>
-					<div class="input-field col s12 l4">
-						<i class="mdi-action-perm-identity prefix"></i> <input id="dni"
-							type="number" class="validate" disabled> <label
-							for="icon_telephone">DNI</label>
-					</div>
-					<div class="input-field col s12 l4">
-						<i class="mdi-content-content-paste prefix"></i> <input id="tipo"
-							type="text" class="validate"
-							<%-- 							 value="${tipo}"  --%>
+
+						<div class="input-field col s12 l6">
+							<i class="mdi-action-account-circle prefix"></i> <input
+								id="nombres" type="text" class="validate" disabled> <label
+								for="icon_prefix3">Nombres y Apellidos</label>
+						</div>
+						<div class="input-field col s12 l3">
+							<i class="mdi-action-perm-identity prefix"></i> <input id="dni"
+								type="number" class="validate" disabled> <label
+								for="icon_telephone">DNI</label>
+						</div>
+						<div class="input-field col s12 l3">
+							<i class="mdi-content-content-paste prefix"></i> <input id="tipo"
+								type="text" class="validate"
+								<%-- 							 value="${tipo}"  --%>
 							disabled> <label
-							for="icon-request">Tipo de Solicitud</label>
+								for="icon-request">Tipo de Solicitud</label>
+						</div>
+
+						<input id="idtrb" class="hide"> <input id="idrol"
+							class="hide"> <input id="user" class="hide">
+
+
+
+
+
 					</div>
-
-					<input id="idtrb" class="hide"> <input id="idrol"
-						class="hide"> <input id="user" class="hide">
-
-
-
+				</div>
+				<div class="col s12 m3 l4" style="line-height: 215%;" >
+					<div id="card-alert" class="card cyan lighten-1">
+						<div class="card-content white-text" id="message_date" style="height: 115px;">
+							
+						</div>
+<!-- 						<button type="button" class="close white-text" -->
+<!-- 							data-dismiss="alert" aria-label="Close"> -->
+<!-- 							<span aria-hidden="true">×</span> -->
+<!-- 						</button> -->
+					</div>
 				</div>
 			</div>
-
 			<!-- 					</div> -->
 			<h4 class="header">Programa de Horarios</h4>
 			<div class="row">
@@ -169,8 +185,7 @@
 						<div class="col s12 m12 l12 center">
 							<input type="file" name="file" id="file-input" class="dropify"
 								data-max-file-size="10M" data-errors-position="outside" /> <input
-								type="text" id="idvac" name="idvac" value=""
-								class="hide" />
+								type="text" id="idvac" name="idvac" value="" class="hide" />
 						</div>
 
 
@@ -207,8 +222,8 @@
 			<div class="modal-content" id="show_request">
 
 				<!-- 				D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jasper -->
-<!-- 				<object id="request" data="" type="application/pdf" width="800" -->
-<!-- 					height="600"> </object> -->
+				<!-- 				<object id="request" data="" type="application/pdf" width="800" -->
+				<!-- 					height="600"> </object> -->
 			</div>
 		</div>
 		<br>

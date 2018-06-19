@@ -990,7 +990,6 @@ div.dataTables_length {
 
 						});
 
-<<<<<<< HEAD
 		$("#fec_up").click(function() {
 			var f = new Date();
 			parseDate($("#fec_in").val());
@@ -1015,7 +1014,7 @@ div.dataTables_length {
 				Materialize.toast('Escoge una fecha correcta!', 3000, 'rounded');
 			}
 		});
-=======
+
 		$("#fec_up").click(
 				function() {
 					var f = new Date();
@@ -1044,7 +1043,6 @@ div.dataTables_length {
 								'rounded');
 					}
 				});
->>>>>>> 22942ec83d72b395ac785385f7326cbbc19a8109
 
 		$("#fec_in").change(
 				function() {
