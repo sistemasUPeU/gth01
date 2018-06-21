@@ -351,7 +351,7 @@ public class TrabajadorDAO {
     		liston = jt.queryForMap(sql,idtr);
         	System.out.println("Mapenado trabajador"+gson.toJson(liston));
         	mapita = jt.queryForMap(sql2,iddepa);
-        	System.out.println("Mapeando al depa" + mapita);
+        	System.out.println("Mapeando al depa" + mapita);    
     			map = new HashMap<>();
     			System.out.println("llegado indice 2: "+liston.get("NOMBRES").toString());
     			SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
