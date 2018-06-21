@@ -38,7 +38,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 @Controller
 @Scope("request")
 @RequestMapping("/renaban/")
-public class GestionarEntregaDocController {
+public class GestionarEntregaController {
 	Renuncia r = new Renuncia();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
 	LegajoDAO ldao = new LegajoDAO(AppConfig.getDataSource());

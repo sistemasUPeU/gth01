@@ -322,7 +322,7 @@ function listarNotificados() {
 								s +='<td>' +TIPO+'<label class= "tipon" hidden>'
 								+ TIPO
 								+ '</label></td>';
-								s += '<td><a class="InsertarLegajo waves-effect waves-light btn #00e676 green accent-3">ENTREGAR</a>';
+								s += '<td><a class="entregar waves-effect waves-light btn #00e676 green accent-3" data-remodal-target="modal1">ENTREGAR</a>';
 								
 								s += '</td>';
 								s += '</tr>';
@@ -346,6 +346,37 @@ function listarNotificados() {
 							"ordering": false
 							    }
 						);
+						
+//						$(".InsertarLegajo").click(
+//								function() {
+//
+//									idc = $(this).parents("tr").find("td")
+//											.eq(0).find(".idtr").text();
+//									console.log(idc);
+//									
+//									tipon = $(this).parents(
+//									"tr").find("td")
+//									.find(".tipon")
+//									.eq(0)
+//									.text();
+//									console.log("esto es tipon"+tipon);
+//									
+//									idr = $(this).parents(
+//									"tr").find("td")
+//									.find(".idrenaban")
+//									.eq(0)
+//									.text();
+//									console.log("esto es idrenaban"+idr);
+//									
+//									$("#tipo").text(tipon);
+//									$("#idr").text(idr);
+//									verCorreo(idc);
+//
+//									// $("#otros").val(cantidad);
+//
+//									// otros
+//								});
+
 		
 						$(".entregar").click(
 								function() {
@@ -522,8 +553,7 @@ function NotificarR() {
 //	var para = $("#correo").text();
 	var para = "estefannygarcia@upeu.edu.pe";
 	var clave = "GTH123456";
-//	var mensaje = $("#cartaNotarial").val();
-	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
+	var mensaje = $("#mensaje2").text();
 	var msjs = msj + $("#fecha").val() + mensaje + ".";
 	var asunto = "GTH";
 	var idrenaban =$("#idr").text();
@@ -544,7 +574,7 @@ function NotificarR() {
 		if (data == 1) {
 			alert("SE MANDO");
 			InsertarLegajo(idle);
-//			listarAutorizados();
+//			listarAutorizados();     
 			// insertarLegajo();
 		} else {
 			alert(" NOOOOOOOOOOOOO SE MANDO");
@@ -554,7 +584,7 @@ function NotificarR() {
 }
 
 //ENTREGAR DOCUMENTOS
-function InsertarLegajo(idle) {
+function entregar(idle) {
 	var idle = idle;
 //	var tipo1 = tipo1;
 	alert("Insertar legajo entrooooooooo");
@@ -577,14 +607,14 @@ function notificar(idrab,tipo1) {
 //	var inst = $('[data-remodal-id=modal]').remodal();
 	var idra = idrab;
 	var tipo1 = tipo1;
-	alert(idrab);
-	alert(tipo1);
+//	alert(idrab);
+//	alert(tipo1);
 	if(tipo1=="RENUNCIA"){
 		alertify.confirm('Confirmar Notificación', 'Está seguro(a) de notificar la renuncia de este trabajador?', function(){
 			 $.get("listarxd",{opc:6,tipo1:'R',idra:idra},function(data){
 				 window.location.href = gth_context_path +"/renaban/deliveryR";					 
 				
-        		 alert(data);
+//        		 alert(data);
         	});
 			 
 	     	} , function(){ 
@@ -595,7 +625,7 @@ function notificar(idrab,tipo1) {
 			 $.get("listarxd",{opc:6,tipo1:'A',idra:idra},function(data){
 				 window.location.href = gth_context_path +"/renaban/deliveryR";					 
 				
-        		 alert(data);
+//        		 alert(data);
         	});
 			 
 	     	} , function(){ 

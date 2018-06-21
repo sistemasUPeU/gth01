@@ -256,22 +256,9 @@
 		</div>
 	</div>
 
-
-
-
-
-
-
-
-
 	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
-	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/businessCore/ProcesarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
 </body>
 </body>
 </html>

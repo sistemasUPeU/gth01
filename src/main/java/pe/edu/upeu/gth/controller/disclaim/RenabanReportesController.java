@@ -26,7 +26,7 @@ import pe.edu.upeu.gth.util.DateFormat;
 @Controller
 @Scope("request")
 @RequestMapping("/reportes/")
-public class ReporteRenunciasController {
+public class RenabanReportesController {
 	DataSource d = AppConfig.getDataSource();
 	RenunciaDAO rd = new RenunciaDAO(d);
 	Gson gson = new Gson();

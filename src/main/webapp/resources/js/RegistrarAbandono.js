@@ -131,7 +131,7 @@ function buscarDetalle(){
 				// location.reload();
 							$("#detalleA").hide();
 							$("#fo").show();
-							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha Abandondado");
+							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o ha Abandondado. Es posible, además, que el usuario no pertenezca a vuestro departamento");
 							$("#dni").val("");
 						}else{
 							$("#fo").hide();

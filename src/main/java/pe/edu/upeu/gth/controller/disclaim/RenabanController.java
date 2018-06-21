@@ -39,7 +39,7 @@ import pe.edu.upeu.gth.util.DateFormat;
 @Controller
 @Scope("request")
 @RequestMapping("/renaban/")
-public class RenunciaController {
+public class RenabanController {
 	
 	private Gson gson = new Gson();
 	Renuncia r = new Renuncia();
@@ -63,7 +63,7 @@ public class RenunciaController {
 	//NUEVO
 	@RequestMapping(value = "/listaRA", method = RequestMethod.GET)
 	public ModelAndView reportes(ModelMap model) {
-		return new ModelAndView("renuncia/renaban");
+		return new ModelAndView("renuncia/ListaRenaban");
 	}
 
 
@@ -97,7 +97,7 @@ public class RenunciaController {
 	public ModelAndView imprimir(ModelMap model) {
 		return new ModelAndView("renuncia/ren_emitir");
 	}
-
+  
 	@RequestMapping(value = "/recepcionargth", method = RequestMethod.GET)
 	public ModelAndView recepcionarenuncia(ModelMap model) {
 		return new ModelAndView("renuncia/RecepcionarDetalle");
@@ -113,28 +113,15 @@ public class RenunciaController {
 		return new ModelAndView("abandono/SegundaCarta");
 	}
 	
-//	@RequestMapping(path = "/crearR", method = RequestMethod.GET)
-//	public String insertarRenuncias(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		String url = "/";
-//		String array = request.getParameter("array");
-//		String[] listaMotivos = array.split(",");
-//		System.out.println("arreglo" + listaMotivos);
-//		rd.insertarMotivos(listaMotivos);
-//		return "redirect:" + url;
-//	}
+	@RequestMapping(value = "/firstLetter", method = RequestMethod.GET)
+	public ModelAndView detalleCartaNotarial(ModelMap model) {
 
-	
-
+		return new ModelAndView("abandono/DetallePriCarta");
+	}
 
 	@RequestMapping(value = "/mostrardoc1")
 	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
-		// Get the absolute path of the image
-		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-//		PrintWriter out = response.getWriter();
-
-//		List<Map<String, Object>> result1 = rd.cargarMotivo("CTO-001841");
-//		System.out.println(gson.toJson(result1));
 		System.out.println();
 
 //		String nom = (String) result1.get(0).get("NO_ARCHIVO");
@@ -172,49 +159,6 @@ public class RenunciaController {
 
 	}
 
-//	@RequestMapping(value = "/mostrardoc1")
-//	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		ServletContext cntx = request.getServletContext();
-//		// Get the absolute path of the image
-//		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-////		PrintWriter out = response.getWriter();
-//
-//		List<Map<String, Object>> result1 = rd.cargarMotivo("CTO-002058");
-//		System.out.println(gson.toJson(result1));
-//		System.out.println();
-//
-//		String nom = (String) result1.get(0).get("NO_ARCHIVO");
-////		String tipo = (String) result1.get(0).get("TI_ARCHIVO");
-////		String filename = cntx.getRealPath("/WEB-INF/david/" + nom.trim());
-//		 String filename ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\norm.jpg";
-//
-//		System.out.println(nom + "//" + "//" + filename);
-////		out.println(filename);
-//		// retrieve mimeType dynamically
-//		String mime = cntx.getMimeType(filename);
-//		if (mime == null) {
-//			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-//			return;
-//		}
-//
-//		response.setContentType(mime);
-//		File file = new File(filename);
-//		response.setContentLength((int) file.length());
-//
-//		FileInputStream in = new FileInputStream(file);
-//		OutputStream out = response.getOutputStream();
-//
-//		// Copy the contents of the file to the output stream
-//		byte[] buf = new byte[1024];
-//		int count = 0;
-//		while ((count = in.read(buf)) >= 0) {
-//			out.write(buf, 0, count);
-//		}
-//		out.close();
-//		in.close();
-//
-//	}
-
 	@RequestMapping(value = "/uploaded")
 	public void getUploadedPicture(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -234,32 +178,5 @@ public class RenunciaController {
 			response.getOutputStream().write(bytes);
 		}
 	}
-
-	// <<<<<<< HEAD
-
-//	@RequestMapping(value = "/gg", method = RequestMethod.GET)
-//	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		PrintWriter out = response.getWriter();
-//		int op = Integer.parseInt(request.getParameter("opc"));
-//		switch (op) {
-//		case 1:
-//			// String dni = request.getParameter("dni");
-//			out.println(gson.toJson(rd.gg()));
-//			break;
-//
-//		case 2:/*
-//				 * Pedido d = new Pedido();
-//				 * d.setIdfecha(Integer.parseInt(request.getParameter("idfecha")));
-//				 * d.setHora(request.getParameter("hora"));
-//				 * d.setIdcurso(Integer.parseInt(request.getParameter("idcurso")));
-//				 * d.setIdaula(Integer.parseInt(request.getParameter("idaula")));
-//				 * out.println((hs.create(d)));
-//				 */
-//			break;
-//		}
-//
-//	}
-
 
 }

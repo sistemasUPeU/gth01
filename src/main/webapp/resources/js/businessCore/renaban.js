@@ -200,6 +200,23 @@ function crearModal(id) {
 	$.getJSON(gth_context_path + "/renaban/detalleR",
 			{opc:8,idrenaban:id},
 			function(data){
+//				console.log("fechota: "+data[0].FECHA_RENABAN)
+				fechon= data[0].FECHA_CARTA;
+				var fecha = new Date(fechon);
+				var dd = fecha.getDate();
+				var mm = fecha.getMonth(); //January is 0!
+
+				var yyyy = fecha.getFullYear();
+				if(dd<10){ 
+				    dd='0'+dd;
+				} 
+				if(mm<10){
+				    mm='0'+mm;
+				} 
+				var today = dd+'/'+mm+'/'+yyyy;
+				var newDate = new Date(yyyy,mm,dd);
+//				console.log("nueva fecha : "+newDate )
+//				console.log(today);
 				$("#renabancito").val(id);
 				$("#idcontrato").val(data[0].ID_CONTRATO);
 				$("#tipo").val(data[0].TIPO);
@@ -209,7 +226,7 @@ function crearModal(id) {
 					selectYears : 15, // Creates a dropdown of 15 years to control
 					format : 'dd/mm/yyyy',
 					onStart: function() {
-						this.set('select', data[0].FECHA_RENABAN);
+						this.set('select', newDate);
 					}
 				});
 			   var archivo = gth_context_path + '/resources/files/'
@@ -237,12 +254,15 @@ $(document).on('confirmation', '.remodal', function () {
 	var renaban = $('#UpdatingR')[0];
 	//Obtener el formulario
 //	console.log(renaban);
-
+	var idrenaban = $("#renabancito").val();
+	var fecha = $("#fecha").val();
 	// Crear un objeto formData para capturar los valores indiviuales del formulario
     var data = new FormData(renaban);
 //    console.log(data);
+    var nom_archivo = $("#nom_file").val();
 	open();
     alertify.confirm('Actualizar renuncia o abandono', '¿Desea actualizar este registro?', function(){
+    	console.log("archivo: "+file + " fecha "+ fecha)
     	if(file!=""&&fecha!=""){
         	$.ajax({
                 type: "POST",
@@ -275,9 +295,32 @@ $(document).on('confirmation', '.remodal', function () {
                     
                 }
             });
-        }else{          	
-        	alertify
-            .errorAlert("Rellene todos los campos<br/>");
+        }else{
+        	if(nom_archivo==""){
+        		alertify
+                .errorAlert("Rellene todos los campos<br/>");
+        	}else{
+        		console.log("fecha: "+fecha +" idrenaban: "+idrenaban);
+
+        		$.get("detalleR",{fecha:fecha,renabancito:idrenaban,opc:10},function(data){
+        			 if(data==1){
+        				 alertify.notify('Actualizando...', 'custom', 1,
+     							function() {
+                         			listarRegistrados();
+                         			$( "#card-alert2" ).fadeIn( 1200, function() {
+                         			    // Animation complete.
+                         				window.setTimeout(function() {
+                         					
+                         				    $("#card-alert2").fadeTo(1000, 0).slideUp(800, function(){
+                         				        $(this).hide(); 
+                         				    });
+                         				}, 2000);
+                         			  });
+     							});
+        			 }
+        		});
+        	}
+        	
         }
     	        	
     	}

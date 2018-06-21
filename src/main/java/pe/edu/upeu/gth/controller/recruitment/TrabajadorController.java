@@ -876,7 +876,8 @@ public class TrabajadorController {
         return mp;
 	}
 	
-	//REPORTES
+//	------------------------------------------------------------
+	//RENABAN: MÉTODO PARA CARGAR EL DATASOURCE DEL JASPER REPORT 
 	
 	@RequestMapping(value = "/carta_de_renuncia")
 	// public @ResponseBody
@@ -892,8 +893,6 @@ public class TrabajadorController {
 		List<Map<String,Object>> carta = tr.DATOS_TRABAJADOR(idtr,iddepa);
 		System.out.println("");
 		System.out.println(" Esto es del controller: "+carta);
-//		System.out.println(carta.get(7).toString());
-
 		String fecha = request.getParameter("fecha");
 		String argumento =request.getParameter("argumento");
 		System.out.println("Fecha: "+fecha + "Argumento: "+argumento);
@@ -917,7 +916,7 @@ public class TrabajadorController {
 	
 
 
-	
+	//RENABAN: MÉTODO PARA MOSTRAR LOS DÍAS DE ANTICIPACIÓN PARA PRESENTAR LA CARTA DE RENUNCIA
 	@RequestMapping("limiteR")
 	public void limit(HttpServletResponse response) throws IOException {
 		int x = tr.limite_renuncia();

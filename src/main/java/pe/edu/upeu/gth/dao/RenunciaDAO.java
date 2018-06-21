@@ -41,7 +41,6 @@ import pe.edu.upeu.gth.dto.Renuncia;
  * @author Nicole
  */
 public class RenunciaDAO {
-	//comentando..
 	String sql;
 	PreparedStatement ps;
 	CallableStatement cs;
@@ -53,51 +52,6 @@ public class RenunciaDAO {
 
 	public RenunciaDAO(DataSource dataSource) {
 		jt = new JdbcTemplate(dataSource);
-	}
-
-	public ArrayList<Map<String, Object>> listar() {
-		sql = "SELECT * FROM RENUNCIA r,RHTM_DGP d,RHTM_TRABAJADOR t\n" + "where r.ID_DGP=d.ID_DGP\n"
-				+ "and d.ID_TRABAJADOR=t.ID_TRABAJADOR;";
-		ArrayList<Map<String, Object>> lista = new ArrayList<>();
-		try {
-			cn = d.getConnection();
-			ps = cn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Map<String, Object> m = new HashMap<>();
-				m.put("idrenuncia", rs.getString("idrenuncia"));
-				// m.put("no_trabajador", rs.getString("no_trabajador"));
-				// m.put("ap_paterno", rs.getString("ap_paterno"));
-				// m.put("ap_materno", rs.getString("ap_materno"));
-				// m.put("id_contrato", rs.getString("id_contrato"));
-				lista.add(m);
-
-			}
-		} catch (Exception e) {
-			System.out.println("Error al Listar Renuncias" + e);
-		} finally {
-			try {
-				cn.close();
-			} catch (SQLException ex) {
-				Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		return lista;
-	}
-
-	public boolean add(Object o) {
-		throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-																		// Tools | Templates.
-	}
-
-	public boolean edit(Object o) {
-		throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-																		// Tools | Templates.
-	}
-
-	public boolean delete(Object o) {
-		throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-																		// Tools | Templates.
 	}
 	
 	// LISTA A TODOS LOS EMPLEADOS POR DEPARTAMENTO
@@ -161,12 +115,12 @@ public class RenunciaDAO {
 	}
 	
 	//LISTAR RENABAN - CRUD 
-	public List<Map<String, Object>> Renaban(String depa) {
+	public List<Map<String, Object>> listarRenaban(String depa) {
 		sql = "select ra.ID_CONTRATO as ID_CONTRATO,ra.ID_RENABAN as ID_RENABAN,ra.ID_TRABAJADOR as ID_TRABAJADOR, ra.MES as MES,";
 	    sql +="ra.NOMBRES as NOMBRES,ra.PATERNO as PATERNO, ra.MATERNO as MATERNO, ra.FECHA_NAC as FECHA_NAC, ra.DOMICILIO as DOMICILIO,";
 	    sql += "ra.DNI as DNI, ra.FECHA_CONTRATO as FECHA_CONTRATO, ra.NOM_DEPA as NOM_DEPA, ra.NOM_AREA as NOM_AREA,ra.NOM_SECCION as NOM_SECCION,";
 	    sql += "ra.NOM_PUESTO as NOM_PUESTO, ra.CENTRO_COSTO as CENTRO_COSTO,ra.TIPO_CONTRATO as TIPO_CONTRATO,ra.DESCRIPCION as DESCRIPCION,";
-	    sql += "ra.ANTECEDENTES as ANTECEDENTES,ra.CERTI_SALUD as CERTI_SALUD,ra.MFL as MFL, ra.ARCHIVO as ARCHIVO,ra.FECHA_RENABAN as FECHA_RENABAN,";
+	    sql += "ra.ANTECEDENTES as ANTECEDENTES,ra.CERTI_SALUD as CERTI_SALUD,ra.MFL as MFL, ra.ARCHIVO as ARCHIVO,ra.FECHA_CARTA as FECHA_RENABAN,";
 	    sql += "ra.CORREO as CORREO, ra.TIPO as TIPO,jus.OBSERVACION as JUSTIFICACION, re.OBSERVACIONES as RECHAZO";
 		sql += " from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN  ";
 		sql += " LEFT JOIN RA_JUSTIFICACION jus ON ra.ID_RENABAN=jus.ID_RENABAN ";
@@ -275,6 +229,21 @@ public class RenunciaDAO {
 		}
 		return x;
 	}
+	
+	public int actualizarRenuncia2(Renuncia r) {
+		int x = 0;
+		String sql = "UPDATE RA_RENABAN SET FECHA_CARTA=?,USU_MOD=? WHERE ID_RENABAN =?";
+		System.out.println("fecha :"+r.getFecha()+" usuario: "+r.getUsu_mod()+ " renaban"+r.getId_renuncia());
+		try {
+			jt.update(sql, new Object[] { r.getFecha(),r.getUsu_mod(),r.getId_renuncia()});
+			
+			x= 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
 
 	// DOCUMENTOS
 	public List<Map<String, Object>> mostrardocs(String id) {
@@ -282,7 +251,7 @@ public class RenunciaDAO {
 		return jt.queryForList(sql);
 	}
 
-	// INSERTAR MOTIVOS
+	// INSERTAR LOS MOTIVOS DE LA RENUNCIA 
 	// @SuppressWarnings("deprecation")
 	public int insertarMotivos(String[] array) {
 		int x = 0;

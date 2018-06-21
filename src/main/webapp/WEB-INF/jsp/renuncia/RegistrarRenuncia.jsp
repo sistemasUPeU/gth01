@@ -63,7 +63,7 @@
 }
 </style>
 </head>
-<body class="#e8f5e9 green lighten-5">
+<body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -77,6 +77,7 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<div id="table-datatables">
 			<div class="wrapper">
+							<div class="divider"></div>
 				<section id="content" class="col m12 l12 s12">
 				<div class="container">
 					<h1
@@ -86,7 +87,7 @@
 				<div class="divider"></div>
 
 				</section>
-				<div class="row">
+				<div class="row">                                                                                                                          
 					<div class="container">
 						<form class="col s12">
 							<div class="row">
@@ -109,28 +110,13 @@
 
 						</form>
 						<div id="fo" class="col s12" hidden>
-							<div id="msj" class="card-panel teal lighten-2"></div>
+							<div id="msj" class="card-panel #0091ea light-blue accent-4" style="color:white"></div>
 						</div>
 
 
 
 					</div>
 				</div>
-				<!-- AQUÍ SE INSERTA A TRAVÉS DE FORM PERO DAAHHH -->
-				<!-- 				<div> -->
-				<!-- 					<object data="" id="hola" type="application/pdf" width="300" -->
-				<!-- 						height="200"> -->
-				<!-- 						alt : <a href="test.pdf">test.pdf</a> -->
-				<!-- 					</object> -->
-				<!-- 				</div> -->
-				<!-- 				<form method="post" action="form" enctype="multipart/form-data"> -->
-				<!-- 					<input type="file" name="file"  class="dropify" -->
-				<!-- 						accept="image/jpeg,image/png,image/gif,application/pdf" /> <input -->
-				<!-- 						type="text" name="idtr" id="idtr" value=""> <input -->
-				<!-- 						type="submit" value="Subir archivo" /> -->
-				<!-- 				</form> -->
-
-				<!-- 				<a href="#" onclick="Prueba()">ver</a> -->
 			</div>
 			<div class="container" style="margin-bottom: 4em">
 				<div id="detalleR" style="display: none">

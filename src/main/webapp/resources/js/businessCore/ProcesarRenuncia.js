@@ -89,19 +89,19 @@ function listarAutorizados() {
 									+ mes;
 									+ '</td>';
 							s += '<td class="">'
-							var p = "";
-							var f = "";
-							var t = "";
-							var ct = "";
-							(Motivo === 1) ? p = "Trabajador Nuevo"
-									: ((Motivo === 2) ? p = "Renovación"
-											: p = "No Registrado");
-							(MFL === 1) ? f = "Si"
-									: f = "No";
-							(plazo === 1) ? t = "Cumplió Plazo"
-									: t = "No Cumplió";
-							(plazo === 1) ? ct = "green accent-3"
-									: ct = "red darken-1";
+//							var p = "";
+//							var f = "";
+//							var t = "";
+//							var ct = "";
+//							(Motivo === 1) ? p = "Trabajador Nuevo"
+//									: ((Motivo === 2) ? p = "Renovación"
+//											: p = "No Registrado");
+//							(MFL === 1) ? f = "Si"
+//									: f = "No";
+//							(plazo === 1) ? t = "Cumplió Plazo"
+//									: t = "No Cumplió";
+//							(plazo === 1) ? ct = "green accent-3"
+//									: ct = "red darken-1";
 							
 
 									+ lista[i].PATERNO

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@
 }
 </style>
 </head>
-<body class="#e8f5e9 green lighten-5">
+<body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -58,6 +58,7 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<div id="table-datatables">
 			<div class="wrapper">
+			<div class="divider"></div>
 				<section id="content" class="col m12 l12 s12">
 					<div class="container">
 						<h1
@@ -90,7 +91,7 @@
 
 						</form>
 						<div id="fo" class="col s12" hidden>
-							<div id="msj" class="card-panel teal lighten-2"></div>
+							<div id="msj" class="card-panel #0091ea light-blue accent-4" style="color:white"></div>
 						</div>
 
 

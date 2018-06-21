@@ -107,7 +107,7 @@ public class RenProcesarDAO implements CRUDOperations{
 	// PROCESAR RENUNCIA
 	public int ProcesarRenuncia(Renuncia r,String idr,String idusuario,String tipo) {
 		int x = 0;
-		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
+//		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
 		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000436' AND ID_RENABAN=?";
 		String sql3 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000437' AND ID_RENABAN=?";
 
@@ -116,10 +116,10 @@ public class RenProcesarDAO implements CRUDOperations{
 		System.out.println("llegooooooooooooooooo"+ tipo);
 		try {
 			if(tipo.equals("R")) {
-				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000438",idusuario,fechon});
+//				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000438",idusuario,fechon});
 				jt.update(sql2,new Object[] { r.getId_renuncia()});
 			}else {
-				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000439",idusuario,fechon});
+//				jt.update(sql, new Object[] { r.getId_renuncia(),"PAS-000439",idusuario,fechon});
 				jt.update(sql3,new Object[] { r.getId_renuncia()});
 			}
 			

@@ -35,7 +35,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 @Controller
 @Scope("request")
 @RequestMapping("/renaban/")
-public class PriCartaNotarialController {
+public class CartaNotarialController {
 	private Gson gson = new Gson();
 	Abandono r = new Abandono();
 	Justificacion ju = new Justificacion();

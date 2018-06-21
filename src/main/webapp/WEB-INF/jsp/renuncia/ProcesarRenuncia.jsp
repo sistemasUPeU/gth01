@@ -121,8 +121,5 @@ table.dataTable tbody td {
 	<script
 		src="<c:url value='/resources/js/businessCore/ProcesarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
-	<!-- 		<script -->
-	<%-- 		src="<c:url value='/resources/js/businessCore/Procesado.js'></c:url>" --%>
-	<!-- 		type="text/javascript"></script> -->
 </body>
 </html>

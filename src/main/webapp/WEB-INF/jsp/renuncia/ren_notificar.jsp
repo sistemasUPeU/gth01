@@ -192,12 +192,12 @@ table.dataTable tbody td {
 					<div class="col s12">
 						<div class="row">
 							<div class=" input-field col s6">
-								<p>Hoja de liquidacion</p>
+								<p id="liquidacion">Hoja de liquidacion</p>
 								<input type="file" name="archivo" id="input-file-now"
 									class="dropify" data-default-file="" data-height="300" />
 							</div>
 							<div class=" input-field col s6">
-								<p>Carta CTS</p>
+								<p id="cts">Carta CTS</p>
 								<input type="file" name="archivo" id="input-file-now"
 									class="dropify" data-default-file="" data-height="300" />
 							</div>
@@ -205,12 +205,12 @@ table.dataTable tbody td {
 					</div>
 					<div class="col s12">
 						<div class=" input-field col s6">
-							<p>Certificado de Trabajo</p>
+							<p id="certificado">Certificado de Trabajo</p>
 							<input type="file" name="archivo" id="input-file-now"
 								class="dropify" data-default-file="" data-height="300" />
 						</div>
 						<div class=" input-field col s6">
-							<p>Reporte de Remuneraciones</p>
+							<p id="remu">Reporte de Remuneraciones</p>
 							<input type="file" name="archivo" id="input-file-now"
 								class="dropify" data-default-file="" data-height="300" />
 						</div>
@@ -248,9 +248,6 @@ table.dataTable tbody td {
 	<script
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
-		type="text/javascript"></script>
 		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
 		type="text/javascript">			
 	</script>
@@ -260,7 +257,9 @@ table.dataTable tbody td {
 		<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-		
+		<script
+		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
 	
 </body>
 </html>

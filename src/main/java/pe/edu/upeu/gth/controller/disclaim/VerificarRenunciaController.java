@@ -35,7 +35,7 @@ import pe.edu.upeu.gth.dto.Renuncia;
 @Controller
 @Scope("request")
 @RequestMapping("/renaban/")
-public class VerificarRenuncia {
+public class VerificarRenunciaController {
 	private Gson gson = new Gson();
 	Renuncia r = new Renuncia();
 	Rechazo re = new Rechazo();

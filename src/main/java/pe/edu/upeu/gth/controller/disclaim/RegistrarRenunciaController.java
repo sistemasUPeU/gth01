@@ -60,23 +60,24 @@ public class RegistrarRenunciaController {
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
 		
-		// REGISTRAR RENUNCIA
+		// BUSCAR AL TRABAJADOR POR DNI
 		case 1:
 			String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
 			String dni = request.getParameter("dni");
 			out.println(gson.toJson(rd.Buscar_DetalleTrabajador(dni,depa)));
 			break;
-
+		//MOSTRAR LOS POSIBLES MOTIVOS DE UNA RENUNCIA	
 		case 2:
 			out.println(gson.toJson(rd.mostrarMotivo()));
 			break;
 		case 3:
+		//SE INSERTA LOS MOTIVOS DE LA RENUNCIA DE UN TRABAJADOR
 			String array = request.getParameter("array");
 			String[] listaMotivos = array.split(",");
 			System.out.println("arreglo" + listaMotivos);
 			out.print(rd.insertarMotivos(listaMotivos));
 			break;
-
+			
 		case 4:
 			out.println(gson.toJson(rd.cargarMotivo(request.getParameter("idtr"))));
 			break;
@@ -88,8 +89,8 @@ public class RegistrarRenunciaController {
 		case 6:
 			//listar RENABAN
 			String depa2 = ((CustomUser) authentication.getPrincipal()).getNO_DEP() ;
-			out.println(gson.toJson(rd.Renaban(depa2)));
-			System.out.println(gson.toJson(rd.Renaban(depa2)));
+			out.println(gson.toJson(rd.listarRenaban(depa2)));
+			System.out.println(gson.toJson(rd.listarRenaban(depa2)));
 			break;
 		case 7:
 			String id = request.getParameter("idr");
@@ -113,6 +114,18 @@ public class RegistrarRenunciaController {
 			r.setId_renuncia(idra);
 			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
 			out.println(rd.DerivarRenuncia(r,idra,idusuario,tipo));
+			break;
+		case 10:
+			String midusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+			String fechon = request.getParameter("fecha");
+			String midrenaban = request.getParameter("renabancito");
+			Renuncia r = new Renuncia();
+			r.setFecha(fechon);
+			r.setUsu_mod(midusuario);
+			r.setId_renuncia(midrenaban);
+			if(rd.actualizarRenuncia2(r)==1) {
+				out.println(1);
+			}
 			break;
 		}
 

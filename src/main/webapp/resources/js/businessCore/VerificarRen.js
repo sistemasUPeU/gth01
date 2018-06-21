@@ -91,21 +91,21 @@ function listarRegistrados() {
 								+ mes;
 								+ '</td>';
 						s += '<td class="">'
-						var p = "";
-						var f = "";
-						var t = "";
-						var ct = "";
-						(Motivo === 1) ? p = "Trabajador Nuevo"
-								: ((Motivo === 2) ? p = "Renovación"
-										: p = "No Registrado");
-						(MFL === 1) ? f = "Si"
-								: f = "No";
-						(plazo === 1) ? t = "Cumplió Plazo"
-								: t = "No Cumplió";
-						(plazo === 1) ? ct = "green accent-3"
-								: ct = "red darken-1";
+//						var p = "";
+//						var f = "";
+//						var t = "";
+//						var ct = "";
+//						(Motivo === 1) ? p = "Trabajador Nuevo"
+//								: ((Motivo === 2) ? p = "Renovación"
+//										: p = "No Registrado");
+//						(MFL === 1) ? f = "Si"
+//								: f = "No";
+//						(plazo === 1) ? t = "Cumplió Plazo"
+//								: t = "No Cumplió";
+//						(plazo === 1) ? ct = "green accent-3"
+//								: ct = "red darken-1";
 						
-
+						
 								+ lista[i].PATERNO
 								+ ' '
 								+ lista[i].MATERNO
@@ -443,7 +443,7 @@ function DetalleRenuncia(idc,tipo) {
 					alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar la renuncia de este trabajador?', function(){
 						 $.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
 							 window.location.href = gth_context_path +"/renaban/verificarRenuncia";	
-							 alert("Renuncia");
+//							 alert("Renuncia");
 							
 //			        		 alert(data);
 			        	});
@@ -471,10 +471,10 @@ function DetalleRenuncia(idc,tipo) {
 					var observaciones = $("#observaciones").val();					
 					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
 						 $.get("Verificar",{opc:6,idr:id,observaciones:observaciones},function(data){
-							 alert("BIEN Nicole");
-			        		 alert(data);
-			        		 alert(id);
-			        		 alert(observaciones);
+//							 alert("BIEN Nicole");
+//			        		 alert(data);
+//			        		 alert(id);
+//			        		 alert(observaciones);
 			        		 window.location.href = gth_context_path +"/renaban/verificarRenuncia";
 			        	});
 						 

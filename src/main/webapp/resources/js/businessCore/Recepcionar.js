@@ -91,19 +91,19 @@ function listarRegistrados() {
 								+ mes;
 								+ '</td>';
 						s += '<td class="">'
-						var p = "";
-						var f = "";
-						var t = "";
-						var ct = "";
-						(Motivo === 1) ? p = "Trabajador Nuevo"
-								: ((Motivo === 2) ? p = "Renovación"
-										: p = "No Registrado");
-						(MFL === 1) ? f = "Si"
-								: f = "No";
-						(plazo === 1) ? t = "Cumplió Plazo"
-								: t = "No Cumplió";
-						(plazo === 1) ? ct = "green accent-3"
-								: ct = "red darken-1";
+//						var p = "";
+//						var f = "";
+//						var t = "";
+//						var ct = "";
+//						(Motivo === 1) ? p = "Trabajador Nuevo"
+//								: ((Motivo === 2) ? p = "Renovación"
+//										: p = "No Registrado");
+//						(MFL === 1) ? f = "Si"
+//								: f = "No";
+//						(plazo === 1) ? t = "Cumplió Plazo"
+//								: t = "No Cumplió";
+//						(plazo === 1) ? ct = "green accent-3"
+//								: ct = "red darken-1";
 						
 
 								+ lista[i].PATERNO
@@ -463,12 +463,12 @@ function DetalleRenuncia(idc,tipo) {
 //					alert(idc);
 //					alert(tipon);
 //					var tipo= $("#tipo").val();
-					alert(tipon);
+//					alert(tipon);
 					if(tipo=="RENUNCIA"){
 						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar la renuncia de este trabajador?', function(){
 							 $.get("Recepcionar",{opc:4,tipo:'R',idr:idr},function(data){
 								 window.location.href = gth_context_path +"/renaban/recepcionar";					 
-								alert("Renuncia");
+//								alert("Renuncia");
 //				        		 alert(data);
 				        	});
 							 
@@ -480,7 +480,7 @@ function DetalleRenuncia(idc,tipo) {
 							 $.get("Recepcionar",{opc:4,tipo:'A',idr:idr},function(data){
 								 window.location.href = gth_context_path +"/renaban/recepcionar";					 
 								
-				        		 alert("Abandono");
+//				        		 alert("Abandono");
 				        	});
 							 
 					     	} , function(){ 
@@ -494,15 +494,15 @@ function DetalleRenuncia(idc,tipo) {
 					var idra = $("#idr").val();
 					var observaciones = $("#observaciones").val();
 					var observacion = $("#observaciones").val();
-					 alert(tipon);
+//					 alert(tipon);
 					if(tipo=="RENUNCIA"){
 						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
 							 $.get("Recepcionar",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
 //								 alert("Rechazo Renuncia");
-								 alert("BIEN Nicole");
-				        		 alert(data);
+//								 alert("BIEN Nicole");
+//				        		 alert(data);
 //				        		 alert(id);
-				        		 alert("RENUNCIA");				        	
+//				        		 alert("RENUNCIA");				        	
 				        		 window.location.href = gth_context_path +"/renaban/recepcionar";
 				        	});
 							 
@@ -514,10 +514,10 @@ function DetalleRenuncia(idc,tipo) {
 							 $.get("Recepcionar",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
 //								 alert("Rechazo Abandono")
 //								 alert("BIEN Nicole");
-				        		 alert(data);
+//				        		 alert(data);
 								
 //				        		 alert(idra);
-				        		 alert("ABANDONO");
+//				        		 alert("ABANDONO");
 				        		 window.location.href = gth_context_path +"/renaban/recepcionar";
 				        	});
 							 

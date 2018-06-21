@@ -512,7 +512,7 @@ function DetalleRenuncia(idc,tipo) {
 					 
 				});
 				
-				$.get("AutorizarR",{idrol:idrol,opc:8,tipo:tipo},function(data){
+				$.get(gth_context_path + "/renaban/AutorizarR",{opc:8,tipo:tipo},function(data){
 					var idrol = detalle[0].ID_RENABAN;
 					var tipo= $("#tipo").val();
 					if(data==1){
@@ -525,7 +525,7 @@ function DetalleRenuncia(idc,tipo) {
 						$("#RECHAZAR").css("display","none");
 					}
 				});
-				
+				console.log(detalle)
 				
 				
 				u = "";

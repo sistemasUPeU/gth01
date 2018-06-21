@@ -158,23 +158,19 @@ function open(){
 		$("#alertyboton2").addClass("btn waves-effect waves-light #bdbdbd grey lighten-1");
 }
 
-// MOSTRANDO LOS DETALLES DE TRABAJADOR
+// MOSTRANDO LOS DETALLES DE TRABAJADOR AL FILTRAR POR DNI
 function buscarDetalle(){	
 	dni = $("#dni").val();
 	
 	$.get("detalleR",{dni:dni,opc:1},function(data,status){
-// alert(data);
 		var detalle = JSON.parse(data);
-		console.log(detalle);
-	
+//		console.log(detalle);
 			if(detalle.length==0){
-				// location.reload();
 							$("#detalleR").hide();
 							$("#fo").show();
-							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o se encuentre en un proceso de renuncia o abandono de trabajo, es posible además que el usuario no pertenezca a vuestro departamento");
+							$("#msj").text("El trabajador identificado con DNI: " +dni+ " no tiene un contrato activo o se encuentre en un proceso de renuncia. Es posible, además, que el usuario no pertenezca a vuestro departamento");
 							$("#dni").val("");
-						}else{
-						
+						}else{						
 							$("#fo").hide();
 							$("#detalleR").show();
 							$("#nombres").text(detalle[0].NOMBRES);
@@ -191,52 +187,13 @@ function buscarDetalle(){
 							$("#idcontrato").val(detalle[0].ID_CONTRATO);
 							$("#dni").val("");
 							$("#dni").focus();
-						}
-		
-		
+						}		
 		  
 	});
 
 }
 
-// function Pruebita() {
-// alert("Hola Pelon c:");
-// var x = $(".dropify-filename-inner").text();
-// alert(x);
-// var m = x.split(".");
-// var no_archivo = m[0];
-// alert(no_archivo);
-// var ti_archivo = m[1];
-// alert(ti_archivo);
-// $.get("detalleR",{idtr:idtr,no_arch:no_archivo,ti_arch:ti_archivo,opc:3},function(data,status){
-// alert(status);
-// alert(data);
-// });
-  
-  
-  
-// var idtr = "TRB-003651";
-// var x = $("#file").val();
-// $.get("detalleR",{idtr:idtr,file:x,opc:3},function(data,status){
-// alert(data);
-// });
-// console.log(x);
-
-// }
-
-
-
-// function Prueba() {
-// var idtr = $("#idtr").val();
-// // var x = $("#file").val();
-// $.get("uploaded",{idtr:idtr},function(data,status){
-// alert(data);
-// $("#hola").data(data);
-// });
-// // console.log(x);
-// }
-
-
+//SE INSERTA LOS MOTIVOS DE LA RENUNCIA
 function insertarMotivos(){
 // alert("Motivos: "+$("#array_motivos").val());
 	var array = $("#array_motivos").val();
@@ -258,15 +215,9 @@ function insertarMotivos(){
 	});
 }
 
-// INSERTAR OTROS
+//SI EL MOTIVO ES OTRO QUE NO APARECE EN LA LISTA, SE INSERTA LO SIGUIENTE
 function insertarOtros(otros){
 	$.get("detalleR",{otros:otros,opc:5},function(data,status){
 		// alert(data);
 	});
-}
-limpiar();
-
-function limpiar(){
-
-	
 }

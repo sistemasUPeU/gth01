@@ -68,11 +68,6 @@ public class ConfigTest {
 		System.out.println(gs.toJson(au.Autorizar()));
 	}
 	
-	public static void Renuncia() {
-		DataSource d = AppConfig.getDataSource();
-		System.out.println(gs.toJson(re.listar()));
-	}
-	
 	public static void Procesar() {
 		System.out.println(gs.toJson(pr.Procesar()));
 	}

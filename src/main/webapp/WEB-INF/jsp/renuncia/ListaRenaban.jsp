@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -64,7 +64,7 @@
 }
 </style>
 </head>
-<body class="#e8f5e9 green lighten-5">
+<body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -78,6 +78,7 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="wrapper">
+			<div class="divider"></div>
 			<section id="content" class="col m12 l12 s12">
 			<div class="container">
 				<h1
