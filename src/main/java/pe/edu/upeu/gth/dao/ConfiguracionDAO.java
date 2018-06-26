@@ -62,34 +62,34 @@ public class ConfiguracionDAO {
 		return ls;
 	}
 	
-	public int crearConfigPrograma(String fecha) {
-		int ls = 0;
-		try {
-			sql = "INSERT INTO RHMV_CONF_PROGRAMA(ESTADO, FECHA_PLAZO) VALUES (?,?)";
-			ls = jt.update(sql,1, fecha);
-
-		} catch (Exception e) {
-			// // TODO: handle exception
-			System.out.println("dao conf> " + e);
-
-		}
-
-		return ls;
-	}
-	public int crearConfigSolicitud(String fecha) {
-		int ls = 0;
-		try {
-			sql = "INSERT INTO RHMV_CONF_SOLICITUD(ESTADO, FECHA_PLAZO) VALUES (?,?)";
-			ls = jt.update(sql,1, fecha);
-
-		} catch (Exception e) {
-			// // TODO: handle exception
-			System.out.println("dao conf> " + e);
-
-		}
-
-		return ls;
-	}
+//	public int crearConfigPrograma(String fecha) {
+//		int ls = 0;
+//		try {
+//			sql = "INSERT INTO RHMV_CONF_PROGRAMA(ESTADO, FECHA_PLAZO) VALUES (?,?)";
+//			ls = jt.update(sql,1, fecha);
+//
+//		} catch (Exception e) {
+//			// // TODO: handle exception
+//			System.out.println("dao conf> " + e);
+//
+//		}
+//
+//		return ls;
+//	}
+//	public int crearConfigSolicitud(String fecha) {
+//		int ls = 0;
+//		try {
+//			sql = "INSERT INTO RHMV_CONF_SOLICITUD(ESTADO, FECHA_PLAZO) VALUES (?,?)";
+//			ls = jt.update(sql,1, fecha);
+//
+//		} catch (Exception e) {
+//			// // TODO: handle exception
+//			System.out.println("dao conf> " + e);
+//
+//		}
+//
+//		return ls;
+//	}
 	public int crearConfiguracion(String fecha_solicitud, String fecha_programa) {
 		System.out.println("dao configuracion insertar " + fecha_solicitud +" , " + fecha_programa);
 		int i = 0;
