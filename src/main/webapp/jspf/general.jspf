@@ -10,6 +10,8 @@
 <!-- Global Styles-->
 <link href="<c:url value='/resources/css/materialize.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
+<link href="<c:url value='/resources/css/alertify/alertify.min.css'></c:url>"
+	rel="stylesheet" type="text/css" />
 <link href="<c:url value='/resources/css/style.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
 <link
@@ -26,6 +28,9 @@
 <script src="<c:url value='/resources/js/plugins.min.js'></c:url>"
 	type="text/javascript"></script>
 <script src="<c:url value='/resources/js/data/jsConnector.js'></c:url>"
+	type="text/javascript"></script>
+<script
+	src="<c:url value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 	type="text/javascript"></script>
 <script>
 	var gth_context_path = '${pageContext.request.contextPath}';
