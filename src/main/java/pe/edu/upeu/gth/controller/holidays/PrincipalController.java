@@ -122,9 +122,12 @@ public class PrincipalController {
 	}
 	
 	@RequestMapping(path = "/readallHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllHistorialTramite() {
+	public @ResponseBody String getAllHistorialTramite(HttpServletRequest RQ, Authentication authentication) {
+		authentication=SecurityContextHolder.getContext().getAuthentication();
+		String idtrab = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		System.out.println(idtrab + " :ID_TRABAJADOR");
 		HistorialTramiteDAO DAO = new HistorialTramiteDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL());
+		return GSON.toJson(DAO.READALL(idtrab));
 	}
 	
 	@RequestMapping(path = "/readHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
