@@ -119,7 +119,27 @@ public class ConfiguracionDAO {
 		
 		List<Map<String, Object>> lista = new ArrayList<>();
 		try {
-			sql = "SELECT * FROM RHTX_DEPARTAMENTO WHERE ES_DEPARTAMENTO = 1";
+			sql = "SELECT RT.ID_TRABAJADOR, RT.AP_PATERNO, RT.AP_MATERNO, RT.NO_TRABAJADOR,RT.DI_CORREO_PERSONAL,RT.NU_DOC,\r\n" + 
+					"RD.NO_DEP, RD.ID_DEPARTAMENTO,\r\n" + 
+					"RE.ID_EMPLEADO,RR.NO_ROL, TO_CHAR(RVC.FECHA_PLAZO,'dd/mm/yyyy') as FECHA_PROGRAMA, TO_CHAR(RVS.FECHA_PLAZO,'dd/mm/yyyy') AS FECHA_SOLICITUD\r\n" + 
+					"FROM RHTM_TRABAJADOR RT\r\n" + 
+					"LEFT JOIN RHTM_CONTRATO RC ON RT.ID_TRABAJADOR = RC.ID_TRABAJADOR\r\n" + 
+					"LEFT JOIN RHTR_PUESTO RP ON RC.ID_PUESTO = RP.ID_PUESTO \r\n" + 
+					"LEFT JOIN RHTR_SECCION RS ON RP.ID_SECCION = RS.ID_SECCION\r\n" + 
+					"LEFT JOIN RHTD_AREA RA ON RS.ID_AREA = RA.ID_AREA \r\n" + 
+					"LEFT JOIN RHTX_DEPARTAMENTO RD ON RA.ID_DEPARTAMENTO = RD.ID_DEPARTAMENTO\r\n" + 
+					"LEFT JOIN RHTD_EMPLEADO RE ON RE.ID_TRABAJADOR = RT.ID_TRABAJADOR\r\n" + 
+					"LEFT JOIN RHTC_USUARIO RU ON RE.ID_EMPLEADO = RU.ID_EMPLEADO\r\n" + 
+					"LEFT JOIN RHTR_ROL RR ON RR.ID_ROL = RU.ID_ROL\r\n" + 
+					"LEFT JOIN RHMV_DETALLE_CONFIG RVD ON RVD.ID_DEPARTAMENTO = RD.ID_DEPARTAMENTO\r\n" + 
+					"LEFT JOIN RHMV_CONF_PROGRAMA RVC ON RVC.ID_CONF_PROGRAMA = RVD.ID_CONF_PROGRAMA\r\n" + 
+					"LEFT JOIN RHMV_CONF_SOLICITUD RVS ON RVD.ID_CONF_SOLICITUD = RVS.ID_CONF_SOLICITUD\r\n" + 
+					"WHERE RT.ID_TRABAJADOR = RC.ID_TRABAJADOR\r\n" + 
+					"AND RC.ES_CONTRATO IN (1,2)\r\n" + 
+					"AND RD.ES_DEPARTAMENTO=1\r\n" + 
+					"AND RR.ID_ROL='ROL-0003'\r\n" + 
+					"AND RVC.ESTADO=1\r\n" + 
+					"AND RVS.ESTADO=1";
 			lista = jt.queryForList(sql);
 
 		} catch (Exception e) {
@@ -131,6 +151,73 @@ public class ConfiguracionDAO {
 //		System.out.println(lista);
 		return lista;
 	}
+	
+	
+	
+	public int insertar_nuevo_plazo(String iddep, String fecha, int tipo) {
+		
+		try {
+			DataSource DS = AppConfig.getDataSource();
+			CallableStatement cst = DS.getConnection().prepareCall("{call RHSP_VAC_INSERT_NUEVO_PLAZO (?,?,?,?)}");
+			cst.setString(1, iddep);
+			cst.setString(2,fecha);
+			cst.setInt(3, tipo);
+			cst.registerOutParameter(4,Types.NUMERIC);
+			cst.execute();
+			int i = cst.getInt(4);
+			return i;
+		} catch (SQLException E) {
+			E.printStackTrace();
+			System.out.println("ERROR INSERTAR NUEVO PLAZO: " + E);
+			return 0;
+		}
+	}
+	
+	public List<Map<String, Object>> buscarTrabajador(String dni) {
+		String sql = null;
+		
+		List<Map<String, Object>> lista = new ArrayList<>();
+		try {
+			sql = "   SELECT RT.ID_TRABAJADOR, RT.AP_PATERNO, RT.AP_MATERNO, RT.NO_TRABAJADOR, RT.DI_CORREO_PERSONAL,RT.NU_DOC, RT.VA_PRIVILEGIO,\r\n" + 
+					" RS.ID_SECCION, RS.NO_SECCION, RA.ID_AREA, RA.NO_AREA, RD.ID_DEPARTAMENTO, RD.NO_DEP, RR.NO_ROL, RR.ID_ROL\r\n" + 
+					"FROM RHTM_TRABAJADOR RT\r\n" + 
+					"LEFT JOIN RHTM_CONTRATO RC ON RT.ID_TRABAJADOR = RC.ID_TRABAJADOR\r\n" + 
+					"LEFT JOIN RHTR_PUESTO RP ON RC.ID_PUESTO = RP.ID_PUESTO \r\n" + 
+					"LEFT JOIN RHTR_SECCION RS ON RP.ID_SECCION = RS.ID_SECCION\r\n" + 
+					"LEFT JOIN RHTD_AREA RA ON RS.ID_AREA = RA.ID_AREA \r\n" + 
+					"LEFT JOIN RHTX_DEPARTAMENTO RD ON RA.ID_DEPARTAMENTO = RD.ID_DEPARTAMENTO\r\n" + 
+					"LEFT JOIN RHTD_EMPLEADO RE ON RE.ID_TRABAJADOR = RT.ID_TRABAJADOR\r\n" + 
+					"LEFT JOIN RHTC_USUARIO RU ON RE.ID_EMPLEADO = RU.ID_EMPLEADO\r\n" + 
+					"LEFT JOIN RHTR_ROL RR ON RR.ID_ROL = RU.ID_ROL\r\n" + 
+					"WHERE RT.ID_TRABAJADOR = RC.ID_TRABAJADOR\r\n" + 
+					"AND RC.ES_CONTRATO IN (1,2)\r\n" + 
+					"AND RD.ES_DEPARTAMENTO=1\r\n" + 
+					"AND RT.NU_DOC = '"+dni+"'";
+			lista = jt.queryForList(sql);
+			
+		} catch (Exception e) {
+			// // TODO: handle exception
+			System.out.println("listar departmento configuraciones dao> " + e);
+			lista= null;
 
+		}
+		return lista;
+	}
+	
+	public int guardarPrivilegio(String idtrab, int privilegio) {
+		int ls = 0;
+		try {
+			sql = "UPDATE RHTM_TRABAJADOR SET VA_PRIVILEGIO = ? WHERE ID_TRABAJADOR = ?";
+			ls = jt.update(sql,privilegio, idtrab);
+			
+		} catch (Exception e) {
+			// // TODO: handle exception
+			System.out.println("dao conf> " + e);
+
+		}
+		System.out.println("dao respuesta guardar privilegio > " +ls);
+		return ls;
+	}
+	
 
 }

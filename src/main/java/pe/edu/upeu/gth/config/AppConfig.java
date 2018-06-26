@@ -72,10 +72,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
-
-	
-
-
 	@Bean
     public static DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
