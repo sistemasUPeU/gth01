@@ -163,13 +163,13 @@ div.dataTables_length {
 		$("#f1_control").empty();
 		$("#f2_control").empty();
 		var fecha;
-		var FECHA_MOD_CS = "";
-		var FECHA_MOD_AP1 = "";
-		var FECHA_MOD_AP2 = "";
-		var FECHA_MOD_CO = "";
-		var FECHA_MOD_PA = "";
-		var FECHA_MOD_FI1 = "";
-		var FECHA_MOD_FI2 = "";
+		var FECHA_MOD_CS;
+		var FECHA_MOD_AP1;
+		var FECHA_MOD_AP2;
+		var FECHA_MOD_CO;
+		var FECHA_MOD_PA;
+		var FECHA_MOD_FI1;
+		var FECHA_MOD_FI2;
 		var id = $(this).attr("name");
 		console.log(id);
 		var j = "";
@@ -217,36 +217,48 @@ div.dataTables_length {
 				console.log(obj);
 				for (var i = 0; i < obj.length; i++) {
 					var ID_PASOSOS = $.trim(obj[i].ID_PASOS);
-					console.log(ID_PASOSOS + "sisisi");
+					console.log(ID_PASOSOS + " °°°");
 					if (ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD != null || ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD != null) {
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_CS = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
 					}
-					if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "2") {
+					if (ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "2") {
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_AP1 = fecha.toLocaleDateString("es-ES", tt);
-						console.log(FECHA_MOD_AP1 + "nonono")
+						console.log(obj[i]);
 					}
-					if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "3") {
+					if (ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "3") {
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_AP2 = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
 					}
-					if (ID_PASOS == "PAS-000054" || ID_PASOS == "PAS-000052") { 
+					if (ID_PASOSOS == "PAS-000054" || ID_PASOS == "PAS-000052") { 
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_CO = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
 					}
-					if (ID_PASOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+					if (ID_PASOSOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_PA = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
 					}
-					if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 1 && obj[i].FIRMA_ENTRADA == 0) { 
+					if (ID_PASOSOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+						fecha = new Date(obj[i].FECHA_MOD);
+						FECHA_MOD_PA = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
+					}
+					if (ID_PASOSOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 1 && obj[i].FIRMA_ENTRADA == 0) { 
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_FI1 = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
 					}
-					if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_ENTRADA == 1) { 
+					if (ID_PASOSOS == "PAS-000092" && obj[i].FIRMA_ENTRADA == 1) { 
 						fecha = new Date(obj[i].FECHA_MOD);
 						FECHA_MOD_FI2 = fecha.toLocaleDateString("es-ES", tt);
+						console.log(obj[i]);
 					}
+					console.log(FECHA_MOD_CS, FECHA_MOD_AP1, FECHA_MOD_AP2, FECHA_MOD_CO, FECHA_MOD_PA, FECHA_MOD_FI1, FECHA_MOD_FI2);
 					if (obj[i].ESTADO == 1) {
 						var ID_PASOS = $.trim(obj[i].ID_PASOS);
 						if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD == null) {
@@ -264,6 +276,7 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(aa);
 							$("#b_consolidar").append(bb);
@@ -288,6 +301,7 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(aa);
 							$("#b_consolidar").append(bb);
@@ -303,6 +317,7 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("pink lighten-2");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(aa);
 							$("#b_consolidar").append(bb);
@@ -319,6 +334,7 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_consolidar").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -338,6 +354,7 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_consolidar").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -358,6 +375,7 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
@@ -381,6 +399,37 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
+							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
+							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
+							$("#d_papeleta").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=2');
+							$("#d_papeleta").attr("target", "_blank");
+							$("#b_control").removeClass("disabled").addClass("pink lighten-2");
+							$("#b_programacion").append(cc);
+							$("#b_aprobacion").append(cc);
+							$("#b_consolidar").append(cc);
+							$("#b_papeleta").append(cc);
+							$("#b_control").append(bb);
+							$("#s_programacion").append(ee);
+							$("#s1_aprobacion").append(gg);
+							$("#s2_aprobacion").append(ii);
+							$("#s_consolidar").append(mm);
+							$("#s_papeleta").append(oo);
+							$("#s1_control").append(pp);
+							$("#s2_control").append(rr);
+							$("#f_programacion").append(FECHA_MOD_CS);
+							$("#f1_aprobacion").append(FECHA_MOD_AP1);
+							$("#f2_aprobacion").append(FECHA_MOD_AP2);
+							$("#f_consolidar").append(FECHA_MOD_CO);
+							$("#f_papeleta").append(FECHA_MOD_PA);
+							console.log("PAPELETA ENTREGADA");
+						} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+							$("#b_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
+							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
 							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
@@ -410,10 +459,12 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
 							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
 							$("#d_papeleta").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=2');
+							$("#d_papeleta").attr("target", "_blank");
 							$("#b_control").removeClass("disabled").addClass("pink lighten-2");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);
@@ -439,10 +490,12 @@ div.dataTables_length {
 							$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").removeClass("disabled").addClass("green accent-3");
 							$("#d_programacion").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=1');
+							$("#d_programacion").attr("target","_blank");
 							$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
 							$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
 							$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
 							$("#d_papeleta").attr("href",gth_context_path+'/vacaciones/consolidado/mostrardoc?traba='+obj[i].ID_TRABAJADOR+'&id_det='+obj[i].ID_DET_VACACIONES+'&op=2');
+							$("#d_papeleta").attr("target", "_blank");
 							$("#b_control").removeClass("disabled").addClass("green accent-3");
 							$("#b_programacion").append(cc);
 							$("#b_aprobacion").append(cc);

@@ -14,8 +14,8 @@ public class globalProperties {
 	public static final String DOCENTESXCURSO_METHOD[] = { "DocenteXCurso", "ns1", "ns1:DocenteXCursoResponse" };
 
 	/* oracle DB connection */
-	public static final String HOSTNAME = "localhost";
-//	public static final String HOSTNAME = "192.168.21.9";
+	//	public static final String HOSTNAME = "localhost";
+	public static final String HOSTNAME = "192.168.21.9";
 	public static final String USER = "gth";
 	public static final String USER_PWD = "123";
 	public static final String PORT = "1521";
