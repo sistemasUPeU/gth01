@@ -219,51 +219,21 @@
 								</div>
 							</div>
 
-							<!-- 								<div class="col s12 m12 l6" id="programa_vacaciones"> -->
-							<!-- 									<br> -->
-							<!-- 									<div class="card-panel"> -->
-							<!-- 										<h5 class="header" style="text-align: center;">Plazo de -->
-							<!-- 											envío de Programa de vacaciones</h5> -->
-							<!-- 										<br> -->
-
-							<!-- 										<form> -->
-							<!-- 											<div class="container" style="width: 70%"> -->
-							<!-- 												<div class="row"> -->
-							<!-- 													<div class="input-field col s8"> -->
-							<!-- 														<i class="mdi-action-today prefix"></i> <input type="date" -->
-							<!-- 															class="datepicker" id="date_programa"> <label -->
-							<!-- 															for="dob">Plazo de Envío</label> -->
-							<!-- 													</div> -->
-							<!-- 													<div class="col s12 m6 l4"> -->
-							<!-- 														<a -->
-							<!-- 															class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right " -->
-							<!-- 															id="savePrograma"><i class="mdi-content-save center"></i></a> -->
-							<!-- 													</div> -->
-
-
-							<!-- 												</div> -->
-							<!-- 											</div> -->
-							<!-- 										</form> -->
-
-							<!-- 									</div> -->
-							<!-- 								</div> -->
-
-
 
 
 						</div>
 
 						<div class="col s12" id="modificar">
 							<br>
-							<div class="container" style="width: 70%">
+							<div class="container" style="width: 75%">
 								<div class="card-panel">
 									<br>
 									<div class="container" style="width: 90%">
 										<div class="row">
 											<div class=" col s6">
 												<div class="switch">
-													<label> <input type="checkbox"> <span
-														class="lever" id="1" onclick="activar(this.id)"></span>
+													<label> <input type="checkbox" id="1"
+														onclick="activar(this.id)"> <span class="lever"></span>
 														Programa de Vacaciones
 													</label>
 												</div>
@@ -271,8 +241,8 @@
 
 											<div class="col s6">
 												<div class="switch">
-													<label> <input type="checkbox"> <span
-														class="lever" id="2" onclick="activar(this.id)"></span>
+													<label> <input type="checkbox" id="2"
+														onclick="activar(this.id)"> <span class="lever"></span>
 														Solicitud de Vacaciones
 													</label>
 												</div>
@@ -280,44 +250,13 @@
 										</div>
 
 										<div class="row">
-											<!-- 											<div class="input-field col s4"> -->
-											<!-- 												<i class="mdi-action-search prefix"></i> <input -->
-											<!-- 													id="searchDepartamento" type="text" class="validate" -->
-											<!-- 													onkeyup="searchDepartamento()"> <label -->
-											<!-- 													for="searchDepartamento">Departamento</label> -->
-											<!-- 											</div> -->
-											<!-- 															<div class="input-field col s4"> -->
-											<!-- 																<i class="mdi-action-account-balance prefix"></i> <input -->
-											<!-- 																	id="direccion" type="tel" class="validate"> <label -->
-											<!-- 																	for="direccion">Dirección</label> -->
-											<!-- 															</div> -->
-
-											<!-- 											<div class="input-field col s12"> -->
-											<!-- 												<div class="autocomplete" id="single"> -->
-											<!-- 													<div class="ac-input"> -->
-											<!-- 														<input type="text" id="departamento" -->
-											<!-- 															placeholder="Please input some letters" -->
-											<!-- 															data-activates="singleDropdown" data-beloworigin="true"="off"> -->
-											<!-- 													</div> -->
-											<!-- 													<ul id="singleDropdown" -->
-											<!-- 														class="dropdown-content ac-dropdown"></ul> -->
-											<!-- 												</div> -->
-											<!-- 												<label class="active" for="singleInput">Departamento -->
-											<!-- 												</label> -->
-											<!-- 											</div> -->
-
-
 
 											<div class="input-field col s13" id='hey'>
 												<i class="mdi-action-search prefix"></i> <input type="text"
 													id="autocomplete" class="autocomplete"> <label
 													for="autocomplete" id="auto_dep">Departamento</label>
 											</div>
-
-
-
-
-
+											<input type="text" id="iddep" class="hide">
 										</div>
 
 
@@ -329,21 +268,29 @@
 													id="jefe" type="text" class="validate"> <label
 													for="jefe">Jefe de Departamento</label>
 											</div>
-											<div class="input-field col s3">
+											<div class="input-field col s4">
 												<i class="mdi-action-today prefix"></i> <input type="date"
 													class="datepicker" id='date_edit'> <label for="dob">Plazo
 													de Envío</label>
 											</div>
-											<div class=" input-field col s2">
-												<a
-													class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right"><i
-													class="mdi-editor-mode-edit center"></i></a>
+											<div class=" input-field col s1">
+												<button onclick="editarPlazo()"
+													class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right">
+													<i class="mdi-editor-mode-edit center"></i>
+												</button>
 											</div>
 
-											<div class="input-field col s2">
-												<a
-													class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "><i
-													class="mdi-content-save center"></i></a>
+											<div class="input-field col s1">
+												<button onclick="guardarPlazo()"
+													class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right ">
+													<i class="mdi-content-save center"></i>
+												</button>
+											</div>
+											<div class="input-field col s1">
+												<button onclick="cancelarPlazo()"
+													class="btn-floating btn-large waves-effect waves-light  red darken-2 right ">
+													<i class=" mdi-action-delete center"></i>
+												</button>
 											</div>
 
 										</div>
@@ -373,65 +320,81 @@
 											<!-- 										</div> -->
 											<div class="input-field col s6">
 												<i class="mdi-action-search prefix"></i> <input
-													id="searchTrabajador" type="text" class="validate"
-													onkeyup="searchTrabajador()"> <label
-													for="searchTrabajador">Trabajador</label>
+													id="searchTrabajador" type="text" maxlength="8"
+													pattern="/^([0-9])*$/" onkeyup="searchTrabajador()">
+												<label for="searchTrabajador">DNI Trabajador</label> <label
+													id="alerta" style="color: red; top: 72px"></label>
+											</div>
+
+											<div class="col s6">
+												<button
+													class="btn-large waves-effect waves-light  #00e676 center"
+													onclick="buscarPorDni()">
+													<i class="mdi-action-search large center"
+														style="font-size: 30px"></i>
+												</button>
 											</div>
 
 										</div>
 
 										<div class="row">
-											<div class="input-field col s3">
+											<div class="input-field col s6">
 												<i class="mdi-action-account-circle prefix"></i> <input
-													id="icon_prefix3" type="text" class="validate"> <label
+													type="text" id="name" disabled> <label
 													for="icon_prefix3">Nombres y Apellidos</label>
 											</div>
 											<div class="input-field col s3">
 												<i class="mdi-action-account-balance prefix"></i> <input
-													id="seccion" type="tel" class="validate"> <label
+													id="seccion" type="text" disabled> <label
 													for="seccion">Sección</label>
 											</div>
 											<div class="input-field col s3">
 												<i class="mdi-action-account-balance prefix"></i> <input
-													id="area" type="tel" class="validate"> <label
-													for="area">Área</label>
+													id="area" type="text" disabled> <label for="area">Área</label>
 											</div>
-											<div class="input-field col s3">
-												<i class="mdi-action-account-balance prefix"></i> <input
-													id="departamento" type="tel" class="validate"> <label
-													for="departamento">Departamento</label>
-											</div>
+
 										</div>
 
 										<div class="row">
+											<div class="input-field col s4">
+												<i class="mdi-action-account-balance prefix"></i> <input
+													id="departamento" type="text" disabled> <label
+													for="departamento">Departamento</label> <input
+													id="idtrabajador" type="text" class="hide">
 
+											</div>
 											<div id="input-select">
 
-												<div class="col s12 m6 l6">
-													<div class="input-field col s12 m12 l12">
-														<label>Nro de partición de vacaciones</label> <select>
-															<option value="" disabled selected>Choose your option</option>
-															<option value="1">Option 1</option>
-															<option value="2">Option 2</option>
-															<option value="3">Option 3</option>
+												<div class="col s12 m4">
+													<div class="input-field">
+														<label>Nro de partición de vacaciones</label> <select
+															id="select_option">
+															<option value="0" disabled selected>Selecciona una opción</option>
+															<option value="1">1 vacaciones</option>
+															<option value="2">2 vacaciones</option>
+															<option value="3">3 vacaciones</option>
 														</select>
 													</div>
 												</div>
 
-												<div class="col s3 m2">
-													<a
-														class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right"><i
-														class="mdi-editor-mode-edit center"></i></a>
+												<!-- 												<div class="col s3 m2"> -->
+												<!-- 													<button -->
+												<!-- 														class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right"><i -->
+												<!-- 														class="mdi-editor-mode-edit center"></i></button> -->
+												<!-- 												</div> -->
+												<div class="col s2 m2">
+													<button
+														class="btn-floating btn-large waves-effect waves-light red right"
+														onclick="cancelarPrivilegio()">
+														<i class="mdi-content-clear center"></i>
+													</button>
 												</div>
-												<div class="col s3 m2">
-													<a
-														class="btn-floating btn-large waves-effect waves-light red right"><i
-														class="mdi-content-clear center"></i></a>
-												</div>
-												<div class="col s3 m2">
-													<a
-														class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "><i
-														class="mdi-content-save center"></i></a>
+												<div class="col s2 m2">
+													<button
+														class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "
+														onclick="guardarPrivilegio()">
+														<i class="mdi-content-save center"></i>
+													</button>
 												</div>
 											</div>
 

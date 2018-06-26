@@ -63,10 +63,12 @@ public class AprobarProgramaVacacionesController {
 	@RequestMapping(path = "/guardarObservar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String guardarObservar(HttpServletRequest request, Authentication authentication) {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		String id_det = request.getParameter("id_det");
 		String text = request.getParameter("text");
 		String emisor = request.getParameter("emisor");
-		return g.toJson(t.observarVac(usuario, id_det, text, emisor));
+		String receptor = request.getParameter("receptor");
+		return g.toJson(t.observarVac(usuario, depa, id_det, text, emisor, receptor));
 	}
 
 	@RequestMapping(path = "/enviarObservacion", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

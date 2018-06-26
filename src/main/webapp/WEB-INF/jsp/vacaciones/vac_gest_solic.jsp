@@ -55,7 +55,7 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 
-		<div class="container" style="width: 90%">
+		<div class="container" style="width: 80%">
 
 			<!-- 					<div id="icon-prefixes" class="section"> -->
 			<h4 class="header">Datos Generales</h4>

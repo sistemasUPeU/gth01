@@ -54,22 +54,22 @@ public class ConfiguracionesController {
 	}
 	
 	
-	@RequestMapping(path = "/insertarPrograma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String crearConfigPrograma(HttpServletRequest request) {
-		String fecha = request.getParameter("fecha");
-		
-		
-
-		return gs.toJson(co.crearConfigPrograma(fecha));
-	}
-	@RequestMapping(path = "/insertarSolicitud", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String crearConfigSolicitud(HttpServletRequest request) {
-		String fecha1 = request.getParameter("fecha");
-		
-		
-
-		return gs.toJson(co.crearConfigSolicitud(fecha1));
-	}
+//	@RequestMapping(path = "/insertarPrograma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody String crearConfigPrograma(HttpServletRequest request) {
+//		String fecha = request.getParameter("fecha");
+//		
+//		
+//
+//		return gs.toJson(co.crearConfigPrograma(fecha));
+//	}
+//	@RequestMapping(path = "/insertarSolicitud", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody String crearConfigSolicitud(HttpServletRequest request) {
+//		String fecha1 = request.getParameter("fecha");
+//		
+//		
+//
+//		return gs.toJson(co.crearConfigSolicitud(fecha1));
+//	}
 	@RequestMapping(path = "/insertarSolicitudPrograma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String insertarSolicitudPrograma(HttpServletRequest request) {
 		String fecha_solicitud = request.getParameter("fecha_solicitud");
@@ -87,8 +87,36 @@ public class ConfiguracionesController {
 
 		return gs.toJson(co.listarDepartamento());
 	}
+
+	@RequestMapping(path = "/insertarNuevoPlazo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String insertarNuevoPlazo(HttpServletRequest request) {
+		String iddep = request.getParameter("iddepartamento");
+		String fecha = request.getParameter("fecha");
+		int tipo = Integer.parseInt(request.getParameter("tipo"));
+	System.out.println("Gson RESPUESTA insertar NUEVO PLAZO "+gs.toJson(co.insertar_nuevo_plazo(iddep, fecha, tipo)));
+		
+
+		return gs.toJson(co.insertar_nuevo_plazo(iddep, fecha, tipo));
+	}
 	
 	
+	@RequestMapping(path = "/buscarTrabajador", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String buscarTrabajador(HttpServletRequest request) {
+		String dni = request.getParameter("dni");
+	System.out.println("Gson RESPUESTA get trabajador "+gs.toJson(co.buscarTrabajador(dni)));
+		
+
+		return gs.toJson(gs.toJson(co.buscarTrabajador(dni)));
+	}
 	
-	
+
+	@RequestMapping(path = "/guardarPrivilegio", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String guardarPrivilegio(HttpServletRequest request) {
+		String idtrab = request.getParameter("idtrabajador");
+		int valor =  Integer.parseInt(request.getParameter("valor"));
+	System.out.println("Gson RESPUESTA get trabajador "+gs.toJson(co.guardarPrivilegio(idtrab, valor)));
+		
+
+		return gs.toJson(gs.toJson(co.guardarPrivilegio(idtrab, valor)));
+	}
 }

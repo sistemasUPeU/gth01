@@ -95,16 +95,18 @@ public class AprobarProgramaVacaciones {
 		return i;
 	}
 
-	public int observarVac(String usuario, String id_det, String text, String emisor) {
+	public int observarVac(String usuario, String depa, String id_det, String text, String emisor, String receptor) {
 		int i = 0;
 		try {
 			cn = d.getConnection();
 
-			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_OBS_VAC (?,?,?,?)}");
+			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_OBS_VAC (?,?,?,?,?,?)}");
 			cst.setString(1, usuario);
-			cst.setString(2, id_det);
-			cst.setString(3, text);
-			cst.setString(4, emisor);
+			cst.setString(2, depa);
+			cst.setString(3, id_det);
+			cst.setString(4, text);
+			cst.setString(5, emisor);
+			cst.setString(6, receptor);
 			cst.execute();
 			cn.close();
 			i = 1;

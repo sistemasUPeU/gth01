@@ -46,7 +46,8 @@
 			<div class="col s6 m12 l6"
 				style="margin-left: 30%; margin-right: 30%;">
 				<div class="card-panel">
-					<h4 class="header2">Filtra por fechas</h4>
+					<h4 class="header2" style="text-align: center;">Filtra por
+						fechas</h4>
 					<div class="row">
 						<form class="col s12">
 							<div class="row">
@@ -57,12 +58,13 @@
 								</div>
 								<div class="input-field col s5">
 									<i class="mdi-action-perm-contact-cal prefix"></i> <input
-										type="text" class="datepicker" id="fecha2">
-									<label for="dob">Fecha Fin</label>
+										type="text" class="datepicker" id="fecha2"> <label
+										for="dob">Fecha Fin</label>
 								</div>
 								<div class="input-field col s2 ">
 									<a
-										class="btn-floating waves-effect waves-light  cyan darken-2 right" onclick = "mostrarChart()"><i
+										class="btn-floating waves-effect waves-light  cyan darken-2 right"
+										onclick="mostrarChart()"><i
 										class="mdi-action-search center"></i></a>
 								</div>
 
@@ -73,14 +75,7 @@
 					</div>
 				</div>
 			</div>
-
-
-			<div id="contenedor" style=" height: 300px; margin-left: 15%; margin-right: 15%;">
-	
-			</div>
-			<div id="contenedor1" style=" height: 300px; margin-left: 15%; margin-right: 15%;">
-	
-			</div>
+			<div class="container" id="cont_report" style="width: 90%"></div>
 
 		</div>
 	</div>
@@ -98,18 +93,10 @@
 
 	$(document)
 	.ready(
-
 			function() {
+			});
 
-
-
-				});
-
-	
-
-
-
-		var cont=1;
+			var cont=1;
 		function mostrarChart(){
 
 			
@@ -124,11 +111,6 @@
 				
 		    	var reg = JSON.parse(data); 
 
-// // 		        $("#tablita").find("tr:gt(0)").remove();
-// // 		        $.each(reg, function (index, obj){
-// // 		            $("#tablita tr:last").after("<tr><td>"+cont+"</td><td>"+obj.region+"</td><td>"+obj.nroVisitas+"</td></tr>");
-// // 		            cont++;
-// // 		        }); 
 		        console.log(reg);
 		    	graficar(reg);
 		        
@@ -140,7 +122,18 @@
 
 		function graficar(data){
 			
-			
+			var t = "";
+			t +='<div class="card-panel">'
+				t +='<div id="contenedor1"'
+					t +='style="height: 300px; margin-left: 1%; margin-right: 15%;">'
+
+						t +='</div>'
+							t +='<div id="contenedor"'
+								t +='style="height: 350px; margin-left: 10%; margin-right: 10%;">	'
+
+									t +='</div>'
+										t +='</div>'
+							$("#cont_report").html(t);			
 			google.charts.load('current', {'packages':['bar']});
 			google.charts.setOnLoadCallback(function(){
 				drawChart(data);
@@ -150,6 +143,7 @@
 			google.charts.setOnLoadCallback(function(){
 				dibujar(data);
 			});
+			
 			
 		}
 
@@ -173,6 +167,8 @@
 		            chart: {
 		              title: 'Reporte de Trabajadores que salieron de vacaciones por Departamento',
 		              subtitle: '30/8/2017 12:57 pm',
+		              'width':400,
+                      'height':300
 		            },
 				    series: {
 				        0: { axis: 'visitas' } // Bind series 0 to an axis named 'distance'.

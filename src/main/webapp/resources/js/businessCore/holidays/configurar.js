@@ -76,14 +76,40 @@ $(document).ready(
 		});
 
 var lista_departamento = null;
+var eleccion=0;
+var key_to_change=0;
+var dni="";
+var nro_vacaciones=0;
+
 
 function activar(valor) {
 
-	var select = $("#" + valor).prop('checked');
-
-	$("input:checkbox:not('#" + valor + "')").each(function() {
-		$(this).prop('checked', false);
-	})
+	console.log(key_to_change);
+	console.log(valor);
+	if(key_to_change==0){
+		eleccion=valor;
+		$("input:checkbox:not('#" + valor + "')").each(function() {
+			console.log("entro a cambiar");
+			$(this).prop('checked', false);
+		})
+	}else{
+		
+		alertify.alert('Mensaje de alerta', 'Usted ya no puede variar esto al menos que cancele los cambios o los guarde', function(){ 
+			alertify.success('Ok');
+			if(!$("#"+valor).is(":checked")){
+// $("input:checkbox:not('#check" + valor+"')").prop('checked', false);
+				$("#"+valor).prop('checked', true);
+				console.log("no esta chequeado");
+			}else{
+				$("#"+valor).prop('checked', false);
+				
+				console.log("esta chequeado");
+			};
+			
+			
+		});
+	}
+	
 
 };
 
@@ -316,15 +342,56 @@ $('#autocomplete')
 													console.log(value);
 													var array = value
 															.split(search_term)
+													var longitud = array.length;
+// array = array.filter(Boolean);
+console.log(array);
+													
+												
+											var d = '<li id="'+lista_departamento[i].ID_DEPARTAMENTO
+													.trim()+','+lista_departamento[i].NO_DEP.trim()+','+lista_departamento[i].NO_TRABAJADOR.trim()+','+lista_departamento[i].AP_PATERNO.trim()+','+lista_departamento[i].FECHA_PROGRAMA.trim()+','+lista_departamento[i].FECHA_SOLICITUD.trim()+'" onclick=buscarDepartamento(this.id)><span>'
+															
 
-													var d = '<li id="'+lista_departamento[i].ID_DEPARTAMENTO
-													.trim()+'" onclick=buscarDepartamento(this.id)><span>'
-															+ array[0]
-															+ '<span class="highlight">'
-															+ search_term
-															+ '</span>'
-															+ array[1]
-															+ '</span></li>'
+													
+												
+														for (var i=0; i<longitud; i++){
+															
+														if(array[i]==""){
+						
+												if(i!=long){
+									
+														d += '<span class="highlight">'
+																														d += search_term
+																														d += '</span>'
+							}
+													
+														}else{
+														
+															var long = longitud -1
+															
+															if(i==long){
+					
+																d += array[i]
+																console.log(d)
+															}else{
+				
+																d += array[i]
+																d += '<span class="highlight">'
+																																d += search_term
+																																d += '</span>'
+				
+															}
+														
+														
+														}
+														}
+													
+													
+													
+													
+													
+													
+													
+													
 													$("#lista").append(d);
 													cont++;
 												}
@@ -341,6 +408,21 @@ $('#autocomplete')
 											// class="highlight">Micro</span>soft</span></li></ul>'
 
 										});
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 					} else {
 						// var c = '<ul class="autocomplete-content
 						// dropdown-cont" id="lista"></ul>'
@@ -355,6 +437,190 @@ $('#autocomplete')
 function buscarDepartamento(id){
 	
 	console.log(id);
-	$("#autocomplete").val(id);
+	var array = id.split(",");
+	console.log(array);
+	$("#autocomplete").val(array[1].trim());
+	$("#jefe").val(array[2].trim() +', '+ array[3].trim());
+	$("#iddep").val(array[0].trim())
+	if(eleccion==1){
+		$('#date_edit').pickadate('picker').set('select',
+				array[4].trim(), {
+					format : 'dd/mm/yyyy'
+				}).trigger("change");
+		key_to_change=1;
+	}else if(eleccion==2){
+		$('#date_edit').pickadate('picker').set('select',
+				array[5].trim(), {
+					format : 'dd/mm/yyyy'
+				}).trigger("change");
+		key_to_change=1;
+	}else{
+		alertify.alert('Error', 'Debe seleccionar el tipo de plazo a modificar: solicitud o programa.', function(){ alertify.success('Ok'); });
+		$("#autocomplete").val("");
+		$("#jefe").val("");
+	}
+	
+	Materialize.updateTextFields();
 	$("#lista").html("");
 }
+
+
+function editarPlazo(){
+	
+	$("#date_edit").attr("disabled", false);
+	$("#date_edit").attr("enabled", true);
+}
+
+function guardarPlazo(){
+	var date = $("#date_edit").val();
+	var fecha_nueva = parseDate(date);
+	console.log(fecha_nueva);
+	var iddep= $("#iddep").val();
+	var tipo = eleccion;
+	$.get(gth_context_path + "/configuraciones/insertarNuevoPlazo", {"iddepartamento": iddep, "fecha":fecha_nueva, "tipo":tipo}, function(response){
+		console.log(response);
+		if(response==1){
+			alertify.alert('Excelente!', 'Los cambios se guardaron correctamente', function(){ 
+				alertify.success('Ok');
+				$("#jefe").val("");
+				$("#date_edit").val("");
+				$("#iddep").val("");
+				$("#autocomplete").val("");
+				$("#date_edit").attr("disabled", true);
+				$("#date_edit").attr("enabled", false);
+				Materialize.updateTextFields();
+				key_to_change=0;
+			});
+		}else{
+			alertify.alert('Mensaje de alerta', 'Hubo un error al intentar guardar los cambios', function(){ 
+				alertify.success('Ok');
+				
+			});
+		}
+	});
+	
+	
+	key_to_change=0;
+	
+	
+}
+
+function cancelarPlazo(){
+	
+	alertify.confirm('¿Está seguro de cancelar los cambios realizados?', function(){ alertify.success('Ok') 
+		$("#autocomplete").val("");
+	$("#jefe").val("");
+	$("#date_edit").val("");
+	$("#iddep").val("");
+	Materialize.updateTextFields();
+		}, function(){ 
+		
+		alertify.error('Cancel')});
+	key_to_change=0;
+}
+
+
+
+function searchTrabajador(){
+	dni = $("#searchTrabajador").val();
+	console.log(dni);
+
+	if (!/^([0-9])*$/.test(dni)){
+		$("#alerta").html("El valor " + dni + " no es un número");
+	}else{
+		$("#alerta").html("");
+	}
+}
+
+function buscarPorDni(){
+
+	if(dni.length == 8){
+		$.get(gth_context_path + "/configuraciones/buscarTrabajador", {"dni": dni}, function(response){
+			console.log(response);
+			var res = JSON.parse(response);
+			for(var i in res) {
+			    console.log(res[i].VA_PRIVILEGIO);
+			    $("#name").val(+res[i].AP_PATERNO + +res[i].AP_MATERNO +", "+ res[i].NO_TRABAJADOR);
+			    $("#seccion").val(res[i].NO_SECCION);
+			    $("#area").val(res[i].NO_AREA);
+			    $("#departamento").val(res[i].NO_DEP);
+			    $("#idtrabajador").val(res[i].ID_TRABAJADOR);
+			    if(res[i].VA_PRIVILEGIO == null){
+			    	console.log("indefinido");
+			    	var rol = res[i].ID_ROL;
+				
+					if (rol == "ROL-0003") {
+
+						nro_vacaciones = 2;
+
+					} else {
+						if (rol == "ROL-0008") {
+							nro_vacaciones = 3;
+						} else {
+							console.log("sin nada");
+							nro_vacaciones = 1;
+							
+						}
+
+					}
+					
+					$("#select_option").val(nro_vacaciones);
+					$("#select_option").material_select()
+			    }else{
+			    	$("#select_option").val(res[i].VA_PRIVILEGIO);
+					$("#select_option").material_select()
+			    	
+			    }
+			   
+			}
+			 Materialize.updateTextFields();
+		});
+	}else{
+		alertify.alert('Mensaje de alerta', 'Por favor ingreso un dni válido', function(){ 
+			alertify.success('Ok');
+			
+		});
+	}
+
+}
+
+
+function guardarPrivilegio(){
+	var idtrabajador = $("#idtrabajador").val();
+	var valor = $("#select_option").val();
+	$.get(gth_context_path + "/configuraciones/guardarPrivilegio", {"idtrabajador": idtrabajador , "valor":valor}, function(response){
+		console.log(response);
+	
+		if(response==1){
+			alertify.alert('Excelente!', 'Los cambios se guardaron correctamente', function(){ 
+				alertify.success('Ok');
+				cancelarPrivilegio();
+				Materialize.updateTextFields();
+				
+			});
+		}else{
+			alertify.alert('Mensaje de alerta', 'Hubo un error al intentar guardar los cambios', function(){ 
+				alertify.success('Ok');
+				
+			});
+		}
+
+	});
+}
+
+
+function cancelarPrivilegio(){
+	$("#searchTrabajador").val("");
+	$("#name").val("");
+    $("#seccion").val("");
+    $("#area").val("");
+    $("#departamento").val("");
+    $("#idtrabajador").val("");
+    Materialize.updateTextFields();
+    $("#select_option").val(0);
+	$("#select_option").material_select()
+}
+
+
+
+
