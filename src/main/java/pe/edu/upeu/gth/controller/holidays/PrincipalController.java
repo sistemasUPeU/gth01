@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.AdelantoVacacionesDAO;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.HistorialTramiteDAO;
@@ -85,7 +86,16 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/vac_gest_consol");
 
 	}
+	@GetMapping("/adelanto_vac")
+	public ModelAndView adelanto_vac(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/adelanto_vac");
 
+	}
+	@RequestMapping(path = "/readallTrabajadorFiltradoAdelanto", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllTrabajadorFiltradoAdelanto() {
+		AdelantoVacacionesDAO DAO = new AdelantoVacacionesDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.READALL());
+	}
 	@GetMapping("/programa_vacaciones")
 	public ModelAndView programa_vacaciones(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/aprobar_pv");
@@ -215,6 +225,12 @@ public class PrincipalController {
 		System.out.println(depa);
 		return GSON.toJson(DAO.TrabajadoresConSoli(depa));
 
+	}
+	@RequestMapping(path = "/insertarAdelanto", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String insertarAdelanto(Authentication authentication, HttpServletRequest RQ) {
+		String idtra = RQ.getParameter("idtra");
+		AdelantoVacacionesDAO DAO = new AdelantoVacacionesDAO(AppConfig.getDataSource());
+		return GSON.toJson(DAO.INSERTAR_ADELANTO(idtra));
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
