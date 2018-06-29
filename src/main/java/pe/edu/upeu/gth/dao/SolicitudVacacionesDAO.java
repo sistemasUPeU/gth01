@@ -265,28 +265,6 @@ Connection c = ds.getConnection();
 	}
 
 	
-	
-	public List<Map<String, Object>> reportePorDepartamento(String fecha1, String fecha2) {
-
-		String sql = "SELECT COUNT(C.NO_DEP)AS NRO, D.NO_DEP  FROM (\r\n" + 
-				"SELECT B.NO_DEP, TO_CHAR(A.FECHA_CREACION, 'DD/MM/YYYY') FROM RHMV_VACACIONES A \r\n" + 
-				"JOIN RHMV_TRABAJADOR_FILTRADO B ON A.ID_TRABAJADOR_FILTRADO = B.ID_TRABAJADOR_FILTRADO\r\n" + 
-				"WHERE TO_CHAR(A.FECHA_CREACION, 'DD/MM/YYYY') BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YY')) C \r\n" + 
-				"RIGHT JOIN RHTX_DEPARTAMENTO D\r\n" + 
-				"ON C.NO_DEP = D.NO_DEP\r\n" + 
-				"GROUP BY D.NO_DEP\r\n" + 
-				"ORDER BY NRO DESC";
-
-		return jt.queryForList(sql, fecha1, fecha2);
-
-	}
-	public List<Map<String, Object>> reportePorMeses() {
-
-		String sql = "";
-
-		return jt.queryForList(sql);
-
-	}
 
 
 

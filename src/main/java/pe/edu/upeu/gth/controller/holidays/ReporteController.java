@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.ReporteVacacionesDAO;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
 
 @Controller
@@ -27,7 +28,8 @@ public class ReporteController {
 	
 	static List<Map<String, Object>> lista2 = new ArrayList<>();
 	private Gson gson = new Gson();
-	SolicitudVacacionesDAO vd = new SolicitudVacacionesDAO(AppConfig.getDataSource());
+
+	ReporteVacacionesDAO rd = new ReporteVacacionesDAO(AppConfig.getDataSource());
 	
 	@RequestMapping("/listar")
 	public void reportes(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,7 +39,7 @@ public class ReporteController {
 		PrintWriter out = response.getWriter();
 
            
-          lista2 = vd.reportePorDepartamento(fecha1,fecha2 );
+          lista2 = rd.reportePorDepartamento(fecha1,fecha2 );
 		
 		 out.println(gson.toJson(lista2));
 
