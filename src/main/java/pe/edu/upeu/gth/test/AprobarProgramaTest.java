@@ -73,7 +73,7 @@ public class AprobarProgramaTest {
 		List<Map<String, Object>> lista_s = new ArrayList<>();
 		int c = 0;
 		String depa = "Gerencia Financiera";
-		String id_det = "DEV-00007";
+		String id_det = "DEV-00003";
 		String receptor = "TRB-001420";
 		lista_e = t.GetEmailEmployee(depa, id_det, receptor);
 		lista_s = t.GetEmailSecre(depa);
@@ -92,7 +92,7 @@ public class AprobarProgramaTest {
 				+ "El programa de vacaciones observado es del " + fecha_ini + " al " + fecha_fin;
 		System.out.println(g.toJson(arrayEmail));
 		String res = "Su Jefe de departamento ha observado su programa de vacaciones:\r\n" + "no sale sara por dos\r\n"
-				+ "El programa de vacaciones observado es del 30/06/2018 al 29/07/2018";
+				+ "El programa de vacaciones observado es del 13/12/2018 al 11/01/2019";
 		String esperado = format;
 		assertEquals(esperado, res);
 
