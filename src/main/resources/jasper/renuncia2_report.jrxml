@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="renuncia2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="182b4db9-3c5e-4b6d-81b5-0a55d72b9065">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="NO_TRABAJADOR" class="java.lang.String">
+		<parameterDescription><![CDATA[Nombre del trabajador]]></parameterDescription>
+	</parameter>
+	<parameter name="AP_PATERNO" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido paterno]]></parameterDescription>
+	</parameter>
+	<parameter name="AP_MATERNO" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido materno]]></parameterDescription>
+	</parameter>
+	<parameter name="FECHA_CONTRATO" class="java.lang.String">
+		<parameterDescription><![CDATA[fecha contrato]]></parameterDescription>
+	</parameter>
+	<parameter name="NO_PUESTO" class="java.lang.String">
+		<parameterDescription><![CDATA[nombre del puesto]]></parameterDescription>
+	</parameter>
+	<parameter name="NOM" class="java.lang.String">
+		<parameterDescription><![CDATA[Nombre del jefe]]></parameterDescription>
+	</parameter>
+	<parameter name="PAT" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido pat del jefe]]></parameterDescription>
+	</parameter>
+	<parameter name="MAT" class="java.lang.String">
+		<parameterDescription><![CDATA[apellido mat del jefe]]></parameterDescription>
+	</parameter>
+	<parameter name="FECHA_CUSTOM" class="java.lang.String">
+		<parameterDescription><![CDATA[fecha limite]]></parameterDescription>
+	</parameter>
+	<parameter name="ARGUMENTO" class="java.lang.String">
+		<parameterDescription><![CDATA[argumento]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="114" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="30" width="208" height="30" uuid="dfc97d2a-5333-4d96-8b14-1ffb7113327f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="18"/>
+				</textElement>
+				<text><![CDATA[CARTA DE RENUNCIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="431" y="10" width="114" height="90" uuid="5d55ec74-142a-44d8-bb6c-895668dc4c15"/>
+				<imageExpression><![CDATA["https://image.ibb.co/gxwcYy/logo_universidad_peruana_union.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="31" y="84" width="39" height="30" uuid="1931a6cd-4b1b-4101-a938-d28893ba748f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lima,]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement stretchType="ElementGroupHeight" x="70" y="84" width="160" height="30" uuid="e7dfc66c-944d-40c1-b35e-a4c23e590de2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="70" width="130" height="20" uuid="97b21675-17ce-4928-a277-53282d13f0d7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESENTE. -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="40" width="240" height="20" uuid="e30c6015-4e15-481c-9de9-74ee7d6258ba"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOM} + " " + $P{PAT} +" "+ $P{MAT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="10" width="100" height="20" uuid="67f2db2e-d2c8-4712-b776-a39cbf94648b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEÑOR:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="410" splitType="Stretch">
+			<textField>
+				<reportElement key="" mode="Opaque" x="31" y="-10" width="499" height="400" uuid="157e822a-5ca0-48d8-bcc5-24066b407f10">
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Justified"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Es grato dirigirme a usted a fin de comunicarle al amparo de lo establecido en el articulo 18 del D.Leg. N°728 aprobado por D.S. N°003-97-TR formulo mi renuncia al cargo de "+ $P{NO_PUESTO} + " que he venido desempeñando en esta empresa desde " +
+				 $P{FECHA_CONTRATO} + " hasta " + $P{FECHA_CUSTOM} + ". \n \n" + $P{ARGUMENTO} + " \n \n" +
+				 "Asimismo agredeceré mucho que me facilite con prontitud los beneficios sociales que me corresponden, así como la entrega de mi certificado de trabajo y la carta de cese para de esta forma solicitar al banco la compensación por tiempo de servicios depositados."+" \n \n" +
+				 "Agradezco también la confianza y la oportunidad que se me ha dado de trabajar en esta empresa."+" \n \n \n" +
+				 "Atentamente, "+ $P{NO_TRABAJADOR} + " " + $P{AP_PATERNO} +" "+ $P{AP_MATERNO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
