@@ -297,6 +297,23 @@ public class SolicitudVacacionesDAO {
 			return 0;
 		}
 	}
+	
+	public List<Map<String, Object>> mostrarprivilegios(String idt) {
+		
+		List<Map<String, Object>> listmap = new ArrayList<>();
+	
+		try {
+			String sql = "SELECT coalesce(A.VA_PRIVILEGIO, 0) as VA_PRIVILEGIO FROM RHTM_TRABAJADOR A LEFT JOIN RHMV_TRABAJADOR_FILTRADO B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR" + 
+					" WHERE A.ID_TRABAJADOR = ?";
+			listmap = jt.queryForList(sql, idt);
+		
+		} catch (Exception e) {
+			System.out.println("Error: " + e);
+		}
+		return listmap;
+	}
+	
+	
 
 	public void sendEmail(Object object) {
 

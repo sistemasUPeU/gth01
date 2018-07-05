@@ -117,6 +117,6 @@ public class ConfiguracionesController {
 	System.out.println("Gson RESPUESTA get trabajador "+gs.toJson(co.guardarPrivilegio(idtrab, valor)));
 		
 
-		return gs.toJson(gs.toJson(co.guardarPrivilegio(idtrab, valor)));
+		return gs.toJson(co.guardarPrivilegio(idtrab, valor));
 	}
 }

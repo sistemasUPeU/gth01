@@ -37,6 +37,7 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import net.sf.jasperreports.engine.JRException;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
 import pe.edu.upeu.gth.dto.ProductOrder;
 import pe.edu.upeu.gth.interfaz.MailService;
@@ -227,6 +228,25 @@ public class SolicitudController {
 
 	}
 	
+	
+	@RequestMapping(path = "/mostrarpriv", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String mostrarpriv(HttpServletRequest request, Model model, Authentication authentication) {
+		Gson gs = new Gson();
+		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+	
+		System.out.println(idtra);
+		// String rol = request.getParameter("idrol");
+		// System.out.println(trab + "/" + rol);
+
+		List<Map<String, Object>> sd = vd.mostrarprivilegios(idtra);
+		int respuesta = Integer.parseInt(sd.get(0).get("VA_PRIVILEGIO").toString());
+		
+		// String res = sd+"/"+rol;
+		System.out.println("respuesta existencia solicitud" + gs.toJson(sd));
+
+		return gs.toJson(respuesta);
+
+	}
 	
 	
 

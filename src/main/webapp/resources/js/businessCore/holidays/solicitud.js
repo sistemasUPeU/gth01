@@ -1,7 +1,7 @@
 function loadProfile() {
 	location.href = "<%=request.getContextPath()%>/trabajador/profile";
 }
-var divisiones = 0;
+
 var fecha_minima;
 var fecha_minima_format;
 $(window)
@@ -159,6 +159,7 @@ $(window)
 											// console.log("reprogramacion");
 											var datos = "op=2"
 											$("#tipo").val("Reprogramación");
+											Materialize.updateTextFields();
 											// $.get(gth_context_path+'/solicitud/registrar',
 											// datos, function(response) {
 											// console.log(response);
@@ -166,10 +167,41 @@ $(window)
 											// $("#dashboard").html(response);
 											// });
 											break;
+										case 4:
+											$("#subir").attr("disabled", true);
+											$("#subir").attr("enabled", false);
+											$("#print").attr("disabled", true);
+											$("#print").attr("enabled", false);
+											$("#confirmar").attr("disabled",
+													true);
+											$("#confirmar").attr("enabled",
+													false);
+
+											$("#fe_inicio_1").attr("disabled",
+													true);
+											$("#fe_inicio_1").attr("enabled",
+													false);
+											$("#agregar")
+													.attr("disabled", true);
+											$("#agregar")
+													.attr("enabled", false);
+
+											// $("#confirmar").off('click');
+											// $("#print").off('click');
+											Materialize
+													.toast(
+															'Disculpe, aún el analista debe realizar algunas configuraciones. Gracias por su paciencia.',
+															3000, 'rounded',
+															function() {
+
+															});
+
+											break;
 										}
 									});
 				});
-
+var divisiones = 0;
+var privilegios_vacaciones;
 $(document)
 		.ready(
 				function() {
@@ -179,8 +211,8 @@ $(document)
 					fecha_minima = new Date();
 
 					fecha_minima.setDate(fecha_minima.getDate() + 69);// suma
-																		// 70
-																		// dias
+					// 70
+					// dias
 					console.log(fecha_minima + " , "
 							+ fecha_minima.getFullYear() + " , "
 							+ fecha_minima.getDate() + " , "
@@ -199,11 +231,12 @@ $(document)
 
 					message += '	<p>'
 					message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
-					message += ' para tus vacaciones es el <b style="font-size: 19px;">'+fecha_minima_format+'</b>'
+					message += ' para tus vacaciones es el <b style="font-size: 19px;">'
+							+ fecha_minima_format + '</b>'
 					message += '</p>'
 
 					$("#message_date").html(message);
-						
+
 					// $('#confirmar').removeClass("waves-effect
 					// waves-light").addClass('disabled');
 
@@ -245,20 +278,43 @@ $(document)
 
 											var rol = $("#idrol").val();
 											console.log(rol);
-											if (rol == "ROL-0003") {
+											var privilegios;
+											$
+													.get(
+															gth_context_path
+																	+ "/solicitud/mostrarpriv",
+															function(response) {
+																console
+																		.log("privilegios de vacaciones "
+																				+ response);
+																privilegios_vacaciones = response;
+																console.log(privilegios_vacaciones);
+																if (rol == "ROL-0003") {
 
-												divisiones = 2;
+																	divisiones = 2;
 
-											} else {
-												if (rol == "ROL-0008") {
-													divisiones = 3;
-												} else {
-													console.log("sin nada");
-													divisiones = 1;
-													$("#btn-agregar").hide();
-												}
+																} else {
+																	if (rol == "ROL-0008") {
+																		divisiones = 3;
+																	} else {
+																		console.log("sin nada");
+																		divisiones = 1;
+																		console.log(privilegios_vacaciones);
+																		if(privilegios_vacaciones == 0){
+																			console.log("privilegios sonnnnnnnnnnnnnn 0"  );
+																			$("#btn-agregar")
+																			.hide();
+																		}
+																		
+																	}
 
-											}
+																}
+															});
+//											if (privilegios == 0) {
+												
+//											} else {
+//												divisiones = privilegios;
+//											}
 
 										});
 					} catch (e) {
@@ -294,49 +350,48 @@ $(document)
 
 var fecha_extra = "";
 
-$("#print")
-		.click(
-				function() {
+$("#print").click(
+		function() {
 
-					$('.modal').openModal();
-					var idt = $("#idtrb").val();
-					parseDate($("#fe_inicio_1").val().trim());
-					var feinicio1 = fecha_extra;
-					parseDate($("#fe_final_1").val().trim());
-					var fefin2 = fecha_extra;
+			$('.modal').openModal();
+			var idt = $("#idtrb").val();
+			parseDate($("#fe_inicio_1").val().trim());
+			var feinicio1 = fecha_extra;
+			parseDate($("#fe_final_1").val().trim());
+			var fefin2 = fecha_extra;
 
-					console.log(idt + ", " + feinicio1 + ", " + fefin2);
-					var b = "";
-//					b = "<embed src='"
-//							+ gth_context_path
-//							+ '/solicitud/reporte?idtr='+ idt
-////							+ "&feinicio1="
-////							+ feinicio1
-////							+ "&fefin1="
-////							+ fefin2
-////							+ 
-//							"' style='width: 100%; height: 600px; ' type='application/pdf'>"
-					// $("#request").attr("data",
-					// gth_context_path + "/solicitud/reporte?idtr=" +
-					// idt+"&feinicio1="+feinicio1);
-							
-//					b = "<embed src='"
-//						+ gth_context_path
-//						+ '/solicitud/reporte?idtr='+ idt
-////						+ "&feinicio1="
-////						+ feinicio1
-////						+ "&fefin1="
-////						+ fefin2
-////						+ 
-//						"' style='width: 100%; height: 600px; ' type='application/pdf'>"
-						
-					b=	'<object id="request" type="application/pdf" data="'
-						+ gth_context_path
-						+ '/solicitud/reporte?idtr='+ idt+'" style="width: 100%; height: 600px;"></object>'
-							
-					$("#show_request").html(b);
+			console.log(idt + ", " + feinicio1 + ", " + fefin2);
+			var b = "";
+			// b = "<embed src='"
+			// + gth_context_path
+			// + '/solicitud/reporte?idtr='+ idt
+			// // + "&feinicio1="
+			// // + feinicio1
+			// // + "&fefin1="
+			// // + fefin2
+			// // +
+			// "' style='width: 100%; height: 600px; ' type='application/pdf'>"
+			// $("#request").attr("data",
+			// gth_context_path + "/solicitud/reporte?idtr=" +
+			// idt+"&feinicio1="+feinicio1);
 
-				});
+			// b = "<embed src='"
+			// + gth_context_path
+			// + '/solicitud/reporte?idtr='+ idt
+			// // + "&feinicio1="
+			// // + feinicio1
+			// // + "&fefin1="
+			// // + fefin2
+			// // +
+			// "' style='width: 100%; height: 600px; ' type='application/pdf'>"
+
+			b = '<object id="request" type="application/pdf" data="'
+					+ gth_context_path + '/solicitud/reporte?idtr=' + idt
+					+ '" style="width: 100%; height: 600px;"></object>'
+
+			$("#show_request").html(b);
+
+		});
 
 $("#fe_inicio_1").change(
 		function() {
@@ -404,14 +459,15 @@ function calcular_final(begin) {
 	console.log("fecha enviada " + begin.getFullYear() + " , "
 			+ begin.getDate() + " , " + begin.getMonth());
 
-	begin.setDate(begin.getDate() + 29);// suma 30 dias
-	console.log(begin + " , " + begin.getMonth());
-	var anno = begin.getFullYear();
-	var mes = begin.getMonth() + 1;
-	var dia = begin.getDate();
-
 	if (begin > fecha_minima) {
 		console.log("correcto");
+
+		begin.setDate(begin.getDate() + 29);// suma 30 dias
+		console.log(begin + " , " + begin.getMonth());
+		var anno = begin.getFullYear();
+		var mes = begin.getMonth() + 1;
+		var dia = begin.getDate();
+
 		console.log(anno + " , " + mes + " , " + dia)
 		mes = (mes < 10) ? ("0" + mes) : mes;
 		dia = (dia < 10) ? ("0" + dia) : dia;
@@ -422,21 +478,25 @@ function calcular_final(begin) {
 		return fechaFinal;
 	} else {
 		console.log("fecha incorrecta");
-		
-		Materialize.toast(
-				'Por favor elija una fecha después de ' + fecha_minima_format,
-				3000, 'rounded');
-		
+
+		Materialize.toast('Por favor elija una fecha después de '
+				+ fecha_minima_format, 3000, 'rounded');
+
 	}
 
-	
 }
 
 var cont = 2;
 $("#agregar")
 		.click(
 				function() {
-					console.log(divisiones);
+					
+					console.log("yo soy divisiones" + divisiones +" , privilegios_vacaciones" + privilegios_vacaciones);
+					if(privilegios_vacaciones != 0){
+						divisiones = privilegios_vacaciones;
+						
+					}
+					console.log("nuevas divisiones" + divisiones);
 					if (cont <= divisiones) {
 						var s = '';
 						s += '<div class="col s12 m12 l6" id="' + cont + '">';
@@ -543,7 +603,6 @@ function getArray_fechas(op) {
 	return fechas;
 }
 
-
 function validarCampos() {
 	console.log("validar");
 	var cofirm = '';
@@ -562,8 +621,7 @@ function validarCampos() {
 			cofirm += '1';
 			break;
 		}
-		
-		
+
 	}
 
 	if (cofirm == "") {
@@ -673,4 +731,4 @@ $("#subir")
 										alertify
 												.errorAlert("Error al intentar guardar los datos<br/>");
 									});
-});
+				});
