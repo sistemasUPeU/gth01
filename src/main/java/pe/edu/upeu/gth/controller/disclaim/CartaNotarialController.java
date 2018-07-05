@@ -1,11 +1,8 @@
 package pe.edu.upeu.gth.controller.disclaim;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,17 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -57,8 +50,6 @@ public class CartaNotarialController {
 	public ModelAndView PrimerEnvio(ModelMap model) {
 		return new ModelAndView("abandono/PriCartaNotarial");
 	}
-	
-	private static String UPLOADED_FOLDER = "C:\\Usuarios\\ASUS\\git\\gth01\\src\\main\\webapp\\resources\\files";
 	
 	@RequestMapping(value = "/primerEnvio", method = RequestMethod.GET)
 	protected void metodosEnviar(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -122,52 +113,6 @@ public class CartaNotarialController {
 			break;
 		}
 	}
-	
-	@RequestMapping(path = "/firstSent", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, 
-		@RequestParam("de") String de,@RequestParam("para") String para,@RequestParam("mensaje") String mensaje,
-		@RequestParam("asunto") String asunto,
-		Authentication authentication, HttpServletRequest request) throws IOException {
-		ServletContext cntx = request.getServletContext();
-		authentication = SecurityContextHolder.getContext().getAuthentication();
-		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-		Renuncia r = new Renuncia();
-		String url = "/";
-		int exito = 0;
-		if (!file.isEmpty()) {
-			try {
-				for (MultipartFile fi : file) {
-					String nome= fi.getOriginalFilename();
-					SimpleDateFormat simpleDateFormat =
-				    new SimpleDateFormat("MMddhhmmss");
-					String dateAsString = simpleDateFormat.format(new Date());
-					nome="cartaNotarial"+dateAsString;
-					FilenameUtils fich = new FilenameUtils();
-					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
-					path = context.getRealPath("/resources/files/" + nome+"."+
-					FilenameUtils.getExtension(path));
-					System.out.println("ruta del archivo " + path);
-					File destFile = new File(path);
-					fi.transferTo(destFile);
-					archi.add(destFile.getName());
-					archi.add(destFile.getPath());
-					archi.add(FilenameUtils.getExtension(path));				
-					archi.add(String.valueOf(destFile.length()));
-					String nombre = destFile.getName();
-					String url2 = destFile.getPath();
-					System.out.println(nombre+""+url2);
-					
-				}
-			} catch (IOException | IllegalStateException ec) {
-				ec.getMessage();
-				ec.printStackTrace();
-			}
-			System.out.println(gson.toJson(archi));
-			System.out.println("respuesta>> " + exito);
-		}
-		return "redirect:" + url;
-	}
-	
 	//Segunda carta Notarial
 	@RequestMapping(value = "/SegundoEnvio", method = RequestMethod.GET)
 	protected void SegundaCarta(HttpServletRequest request, HttpServletResponse response, Authentication authentication)

@@ -17,7 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UsuarioDAO ud=new UsuarioDAO(AppConfig.getDataSource());
 	private RolDAO rd=new RolDAO(AppConfig.getDataSource());
 	
-   
+    @Override
 	public CustomUser loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		Map<String, Object> userinfo=ud.getByUserName(username);

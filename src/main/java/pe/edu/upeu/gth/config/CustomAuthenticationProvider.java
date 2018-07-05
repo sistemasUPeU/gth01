@@ -22,6 +22,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public CustomAuthenticationProvider() {
 	}
 
+	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println("Ingresando a CustomAuthenticationProvider");
 		String username = authentication.getName();
@@ -58,6 +59,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 	}
 
+	@Override
 	public boolean supports(Class<?> authentication) {
 		// TODO Auto-generated method stub
 		return true;
