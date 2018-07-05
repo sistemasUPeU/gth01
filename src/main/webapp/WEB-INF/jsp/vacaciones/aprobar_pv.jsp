@@ -41,10 +41,6 @@
 			</form>
 			<div id="cuerpo" class="container">
 				<div id="contTable" class="row"></div>
-
-				<!-- Modal Structure -->
-
-				<!-- End of Modal Structure -->
 				<div class="col s24 m12 l6">
 					<p>
 						<a

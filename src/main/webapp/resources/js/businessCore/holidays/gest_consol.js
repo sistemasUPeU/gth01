@@ -52,7 +52,6 @@ $("#modalAprobado")
 									'mdi-navigation-close');
 							$(this).find("#i").addClass('mdi-navigation-check');
 						} else if ($("#nolisto1").attr("name") == "0") {
-							console.log("maincraaa");
 							Materialize
 									.toast(
 											'Cambio no valido, debes confirmar la fecha inicial!',
@@ -80,7 +79,6 @@ $("#guardar")
 		.click(
 				function() {
 					var con = new jsConnector();
-					console.log(z);
 					if (z == 1) {
 						var a, p, q, idtra, idvac;
 						var fsm = 0;
@@ -113,11 +111,6 @@ $("#guardar")
 								fsm += 1;
 							}
 						});
-						console.log("***");
-						console.log(a);
-						console.log(p);
-						console.log(q);
-						console.log("***");
 						con
 								.post(
 										'vacaciones/consolidado/updateFirma?'
@@ -125,7 +118,6 @@ $("#guardar")
 												+ "&fin=" + q + "&fsm=" + fsm,
 										null,
 										function(data) {
-											console.log(data);
 											if (data == 1) {
 												if (p == 0 && q == 0) {
 													Materialize
@@ -156,7 +148,6 @@ $("#contTable")
 				"#openModal",
 				function() {
 					var id = $(this).attr("name");
-					console.log(id);
 					var datos = "id=" + id;
 					var con = new jsConnector();
 					con
@@ -165,7 +156,6 @@ $("#contTable")
 											+ datos,
 									null,
 									function(obj) {
-										console.log(obj);
 										var btnSolicitud = '';
 										var traba = '';
 										var id_det = '';
@@ -189,7 +179,6 @@ $("#contTable")
 															id_det : id_det
 														},
 														function(data) {
-															console.log(data);
 															if (data[0].URL_SOLICITUD != null) {
 																$(
 																		"#verbtnSolicitudsinAprobar")
@@ -251,7 +240,6 @@ $("#contTableAprobado")
 				function() {
 					$("#btnsubirpapeleta").hide();
 					var id = $(this).attr("name");
-					console.log(id);
 					var datos = "id=" + id;
 					var con = new jsConnector();
 					con
@@ -260,7 +248,6 @@ $("#contTableAprobado")
 											+ datos,
 									null,
 									function(obj) {
-										console.log(obj);
 										$("#contenedor_fechas").empty();
 										var j = '';
 										var btnSolicitud = '';
@@ -388,7 +375,6 @@ $("#contTableAprobado")
 															id_det : id_det
 														},
 														function(data) {
-															console.log(data);
 															if (data[0].URL_PAPELETA != null) {
 																$(
 																		"#verbtnPapeleta")
@@ -663,7 +649,6 @@ $("#confirmar")
 					var id_arr = arrid;
 					var id_det = id_arr.join(",");
 					var datos = "id_det=" + id_det;
-					console.log(id_arr);
 					var con = new jsConnector();
 					con
 							.post(
@@ -672,12 +657,18 @@ $("#confirmar")
 									null,
 									function(data) {
 										if (data == 1) {
-											con.post(
-													"vacaciones/consolidado/enviarCorreoAprobarConsolidado?"
-															+ datos, null,
-													function(receptor) {
-														console.log(receptor);
-													});
+											con
+													.post(
+															"vacaciones/consolidado/enviarCorreoAprobarConsolidado?"
+																	+ datos,
+															null,
+															function(receptor) {
+																Materialize
+																		.toast(
+																				'Correos enviados',
+																				3000,
+																				'rounded');
+															});
 											Materialize
 													.toast(
 															'Felicidades!!, ha aprobado a sus trabajadores',

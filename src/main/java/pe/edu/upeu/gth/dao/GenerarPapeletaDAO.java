@@ -22,30 +22,41 @@ public class GenerarPapeletaDAO {
 	}
 
 	public List<Map<String, Object>> generarPapaleta(String idtra) {
-		sql = "select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.AP_MATERNO, tf.NO_DEP ,tf.NO_SECCION, tf.NO_AREA, vtc.NO_PUESTO,\n"
-				+ "to_char(trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))-trunc(to_date(dsv.FECHA_INICIO,'DD/MM/YYYY hh24:mi:ss'))+1) as NU_VAC,\n"
-				+ "t.NU_DOC, to_char(dsv.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, to_char(dsv.FECHA_FIN,'DD/MM/YYYY') as FECHA_FIN, tf.LI_CONDICION,\n"
-				+ "vtc.NO_USUARIO, trim(dsv.ID_DET_VACACIONES) as ID_DET_VACACIONES, sv.ID_VACACIONES, dsv.FIRMA_ENTRADA, dsv.FIRMA_SALIDA,\n"
-				+ "TRIM(to_char(dsv.FECHA_INICIO, 'Month')) as FEC_INI_MON, TRIM(to_char(dsv.FECHA_FIN, 'Month')) as FEC_FIN_MON\n"
-				+ "from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\n"
-				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\n"
-				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
-				+ "and sv.ESTADO=1\n" + "and tf.ESTADO=1\n" + "and dsv.ESTADO<>0\n" + "and hd.ESTADO=1\n"
-				+ "and hd.EVALUACION=3\n" + "and hd.ID_PASOS='PAS-000052'\n"
-				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\n"
-				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\n" + "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
-				+ "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\n" + "and co.ES_CONTRATO=1 and tf.ID_TRABAJADOR='" + idtra
-				+ "'\n" + "and trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))=\n"
-				+ "(SELECT MIN(trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss')))\n"
-				+ "from RHTM_TRABAJADOR t, RHMV_VACACIONES sv, RHMV_TRABAJADOR_FILTRADO tf,\n"
-				+ "RHMV_DET_VACACIONES dsv, RHTM_contrato co, RHVV_TRABAJADOR_CONTRATO vtc, RHMV_HIST_DETALLE hd\n"
-				+ "where sv.ID_VACACIONES=dsv.ID_VACACIONES\n" + "and vtc.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
-				+ "and sv.ESTADO=1\n" + "and tf.ESTADO=1\n" + "and dsv.ESTADO<>0\n" + "and hd.ESTADO=1\n"
-				+ "and hd.EVALUACION=3\n" + "and hd.ID_PASOS='PAS-000052'\n"
-				+ "and hd.ID_DET_VACACIONES=dsv.ID_DET_VACACIONES\n"
-				+ "and tf.ID_TRABAJADOR_FILTRADO=sv.ID_TRABAJADOR_FILTRADO\n" + "and tf.ID_TRABAJADOR=t.ID_TRABAJADOR\n"
-				+ "and t.ID_TRABAJADOR=co.ID_TRABAJADOR\n" + "and co.ES_CONTRATO=1 and tf.ID_TRABAJADOR='" + idtra
-				+ "')";
-		return jt.queryForList(sql);
+		try {
+			sql = "SELECT DISTINCT tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,\n"
+					+ "tf.no_dep,tf.no_seccion,tf.no_area,pst.no_puesto,\n"
+					+ "TO_CHAR(trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) - \n"
+					+ "trunc(TO_DATE(dsv.fecha_inicio,'DD/MM/YYYY hh24:mi:ss') ) + 1) AS nu_vac,\n"
+					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,\n"
+					+ "TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,tf.li_condicion,\n"
+					+ "usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones,\n"
+					+ "sv.id_vacaciones,dsv.firma_entrada,dsv.firma_salida,\n"
+					+ "TRIM(TO_CHAR(dsv.fecha_inicio,'Month') ) AS fec_ini_mon,\n"
+					+ "TRIM(TO_CHAR(dsv.fecha_fin,'Month') ) AS fec_fin_mon\n"
+					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,\n"
+					+ "rhmv_det_vacaciones dsv,rhtm_contrato co,rhtr_puesto pst,rhtc_usuario usr,rhtd_empleado emp,\n"
+					+ "rhmv_hist_detalle hd\n" + "WHERE sv.id_vacaciones = dsv.id_vacaciones\n"
+					+ "AND co.id_puesto = pst.id_puesto\n" + "AND emp.id_trabajador = t.id_trabajador\n"
+					+ "AND emp.id_empleado = usr.id_empleado\n" + "AND sv.estado = 1\n" + "AND tf.estado = 1\n"
+					+ "AND dsv.estado <> 0\n" + "AND hd.estado = 1\n" + "AND hd.evaluacion = 3\n"
+					+ "AND hd.id_pasos = 'PAS-000052'\n" + "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\n"
+					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\n"
+					+ "AND tf.id_trabajador = t.id_trabajador\n" + "AND t.id_trabajador = co.id_trabajador\n"
+					+ "AND co.es_contrato = 1\n" + "AND tf.id_trabajador = '" + idtra + "'\n"
+					+ "AND trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) = (\n"
+					+ "SELECT MIN(trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) )\n"
+					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,\n"
+					+ "rhmv_det_vacaciones dsv,rhtm_contrato co,rhmv_hist_detalle hd\n"
+					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\n" + "AND sv.estado = 1\n" + "AND tf.estado = 1\n"
+					+ "AND dsv.estado <> 0\n" + "AND hd.estado = 1\n" + "AND hd.evaluacion = 3\n"
+					+ "AND hd.id_pasos = 'PAS-000052'\n" + "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\n"
+					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\n"
+					+ "AND tf.id_trabajador = t.id_trabajador\n" + "AND t.id_trabajador = co.id_trabajador\n"
+					+ "AND co.es_contrato = 1\n" + "AND tf.id_trabajador = '" + idtra + "' )";
+			return jt.queryForList(sql);
+		} catch (Exception e) {
+			System.out.println("ERROR:" + e);
+			return null;
+		}
 	}
 }
