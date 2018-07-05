@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -41,6 +42,21 @@ public class SolicitudTest {
 	}
 	
 	@Test
+	public void getFechasVacaciones() {
+		HttpServletRequest request;
+		HttpServletResponse response;
+//		ServletContext cntx = request.getServletContext();
+		assertEquals(5, 2+3);
+//		System.out.println(sd.getFechasVacaciones("TRB-001420"));
+
+		
+		assertNotEquals(null, sd.getFechasVacaciones("TRB-001420"));
+
+	
+	}
+	
+	
+	@Test
 	public void validarTipoSolicitud() {
 //		System.out.println(sd.validarTipoSolicitud("TRB-002953"));
 		assertEquals(1,sd.validarTipoSolicitud("TRB-002953"));
@@ -62,27 +78,27 @@ public class SolicitudTest {
 //		fin[1] = "20/07/2018";
 //		fin[2] = "31/08/2018";
 //		
-//		String idt= "TRB-003942"; //Jair Stalyn
+//		String idt= "TRB-003610"; //Jair Stalyn
 //		String tipo = "Programación";
 //		String user = "mariana";
 //				
-//		
+//		//TRF-00019 
 //		assertNotEquals(1, sd.insertarSolicitud(inicio, fin, idt, tipo, user));
 	}
 	
 	@Test
 	public void subirDocumento() {
-//		String idvac = "VAC-000004";
-//		String url = "archivo1.pdf";
-//		
-//		assertEquals(1,sd.subirDocumento("", "", url, idvac));
+		String idvac = "VAC-000005";
+		String url = "archivo1.pdf";
+		
+		assertEquals(1,sd.subirDocumento("", "", url, idvac));
 	}
 	
 	
 	@Test
 	public void validarSolicitudSubida() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map = sd.validarSolicitudSubida("TRB-003942");
+		map = sd.validarSolicitudSubida("TRB-003610");
 		assertEquals(1, map.get("response"));
 	}
 	

@@ -25,30 +25,30 @@ public class ConfiguracionesTest {
 		
 	}
 	
-//	@Test
-//	public void consolidadoExists() {
-//		assertNotEquals(null, cd.consolidadoExists());
-//	}
-//	
-//	@Test
-//	public void crearConsolidado() {
-//		assertEquals(1, cd.crearConsolidado("30/11/2018"));
-//	}
-//
-//	@Test
-//	public void crearConfiguracion() {
-//		assertEquals(1, cd.crearConfiguracion("20/10/2018", "10/11/2018"));
-//	}
-//	
-//	@Test
-//	public void listarDepartamento() {
-//		assertNotEquals(null, cd.listarDepartamento());
-//	}
-//	
-//	@Test
-//	public void insertar_nuevo_plazo() {
-//		assertEquals(1, cd.insertar_nuevo_plazo("DPT-0088", "30/06/2018", 1));
-//	}
+	@Test
+	public void consolidadoExists() {
+		assertNotEquals(null, cd.consolidadoExists());
+	}
+	
+	@Test
+	public void crearConsolidado() {
+		assertEquals(1, cd.crearConsolidado("30/11/2018"));
+	}
+
+	@Test
+	public void crearConfiguracion() {
+		assertEquals(1, cd.crearConfiguracion("20/10/2018", "10/11/2018"));
+	}
+	
+	@Test
+	public void listarDepartamento() {
+		assertNotEquals(null, cd.listarDepartamento());
+	}
+	
+	@Test
+	public void insertar_nuevo_plazo() {
+		assertEquals(1, cd.insertar_nuevo_plazo("DPT-0088", "30/06/2018", 1));
+	}
 	
 	
 	@Test

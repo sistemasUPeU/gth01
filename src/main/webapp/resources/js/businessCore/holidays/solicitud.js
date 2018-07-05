@@ -307,18 +307,33 @@ $("#print")
 
 					console.log(idt + ", " + feinicio1 + ", " + fefin2);
 					var b = "";
-					b = "<embed src='"
-							+ gth_context_path
-							+ '/solicitud/reporte?idtr='
-							+ idt
-							+ "&feinicio1="
-							+ feinicio1
-							+ "&fefin1="
-							+ fefin2
-							+ "' style='width: 100%; height: 600px; ' type='application/pdf'>"
+//					b = "<embed src='"
+//							+ gth_context_path
+//							+ '/solicitud/reporte?idtr='+ idt
+////							+ "&feinicio1="
+////							+ feinicio1
+////							+ "&fefin1="
+////							+ fefin2
+////							+ 
+//							"' style='width: 100%; height: 600px; ' type='application/pdf'>"
 					// $("#request").attr("data",
 					// gth_context_path + "/solicitud/reporte?idtr=" +
 					// idt+"&feinicio1="+feinicio1);
+							
+//					b = "<embed src='"
+//						+ gth_context_path
+//						+ '/solicitud/reporte?idtr='+ idt
+////						+ "&feinicio1="
+////						+ feinicio1
+////						+ "&fefin1="
+////						+ fefin2
+////						+ 
+//						"' style='width: 100%; height: 600px; ' type='application/pdf'>"
+						
+					b=	'<object id="request" type="application/pdf" data="'
+						+ gth_context_path
+						+ '/solicitud/reporte?idtr='+ idt+'" style="width: 100%; height: 600px;"></object>'
+							
 					$("#show_request").html(b);
 
 				});
