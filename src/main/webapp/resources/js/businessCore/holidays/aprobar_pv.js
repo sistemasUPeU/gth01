@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	listar();
-
 });
 
 var rad = document.myForm.group1;
@@ -401,7 +400,9 @@ function observar(idtr, id_det) {
 						con.post(
 								"vacaciones/programa_vacaciones/enviarObservacion?"
 										+ datos, null, function(receptor) {
-									console.log(receptor);
+									Materialize.toast(
+											'Correo enviado exitosamente',
+											3000, 'rounded');
 								});
 						Materialize.toast('El trabajador ' + nom_tra
 								+ ' ha sido observado(a)', 3000, 'rounded');

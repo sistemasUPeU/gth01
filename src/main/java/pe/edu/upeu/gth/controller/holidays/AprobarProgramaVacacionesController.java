@@ -42,7 +42,6 @@ public class AprobarProgramaVacacionesController {
 	@RequestMapping(path = "/getAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAprobados(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
-		Gson g = new Gson();
 		return g.toJson(t.listarAprobados(depa));
 	}
 
@@ -84,20 +83,27 @@ public class AprobarProgramaVacacionesController {
 		String fecha_ini = lista_e.get(0).get("FECHA_INICIO").toString();
 		String fecha_fin = lista_e.get(0).get("FECHA_FIN").toString();
 		String[] arrayEmail = new String[lista_s.size() + 1];
-		System.out.println(g.toJson(lista_s));
-		for (int i = 0; i < lista_s.size(); i++) {
-			System.out.println(lista_s.get(i).get("DI_CORREO_PERSONAL"));
-			arrayEmail[i] = lista_s.get(i).get("DI_CORREO_PERSONAL").toString();
-			c = i;
+		try {
+			for (int i = 0; i < lista_s.size(); i++) {
+				arrayEmail[i] = lista_s.get(i).get("DI_CORREO_PERSONAL").toString();
+				c = i;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR:" + e);
 		}
-		arrayEmail[c + 1] = lista_e.get(0).get("DI_CORREO_PERSONAL").toString();
+		try {
+			arrayEmail[c + 1] = lista_e.get(0).get("DI_CORREO_PERSONAL").toString();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR:" + e);
+		}
 		String text = lista_e.get(0).get("TEXTO").toString();
 		String format = "Su Jefe de departamento ha observado su programa de vacaciones:\r\n" + text + "\r\n"
 				+ "El programa de vacaciones observado es del " + fecha_ini + " al " + fecha_fin;
 		String[] tempArray = new String[1];
 		tempArray[0] = "104granados@gmail.com";
 		ms.sendEmail(getDummyOrder(), tempArray, format);
-		System.out.println(g.toJson(arrayEmail));
 		return g.toJson(arrayEmail);
 	}
 

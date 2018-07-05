@@ -6,6 +6,7 @@
 YzAtZDE1ZmVjMGM4M2IyOw==]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="realPath" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select tf.ID_TRABAJADOR, tf.NO_TRABAJADOR, tf.AP_PATERNO, tf.AP_MATERNO, tf.NO_DEP ,tf.NO_SECCION, tf.NO_AREA, vtc.NO_PUESTO,
 				to_char(trunc(to_date(dsv.FECHA_FIN,'DD/MM/YYYY hh24:mi:ss'))-trunc(to_date(dsv.FECHA_INICIO,'DD/MM/YYYY hh24:mi:ss'))+1) as NU_VAC,
@@ -82,7 +83,7 @@ YzAtZDE1ZmVjMGM4M2IyOw==]]>
 			</staticText>
 			<image>
 				<reportElement x="60" y="29" width="71" height="69" uuid="6dc7fa46-4723-47da-a8ea-4ecd898e677c"/>
-				<imageExpression><![CDATA["E:/RRHH/GTH/gth01/src/main/webapp/resources/img/logo_upeu.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"logo_upeu.png"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

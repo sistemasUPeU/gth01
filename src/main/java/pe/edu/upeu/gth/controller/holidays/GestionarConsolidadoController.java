@@ -41,7 +41,6 @@ import pe.edu.upeu.gth.interfaz.MailService;
 public class GestionarConsolidadoController {
 	DataSource ds = AppConfig.getDataSource();
 	GestionarConsolidadoDAO gc = new GestionarConsolidadoDAO(ds);
-	// SolicitudVacacionesDAO vd = new SolicitudVacacionesDAO(ds);
 	Gson g = new Gson();
 	@Autowired
 	public MailService ms;
@@ -71,11 +70,15 @@ public class GestionarConsolidadoController {
 		List<Map<String, Object>> lista = new ArrayList<>();
 		lista = gc.getCorreoConsolidado();
 		String[] arrayEmail = new String[lista.size()];
-		System.out.println(g.toJson(lista));
-		for (int i = 0; i < lista.size(); i++) {
-			System.out.println(lista.get(i).get("DI_CORREO_PERSONAL"));
-			arrayEmail[i] = lista.get(i).get("DI_CORREO_PERSONAL").toString();
+		try {
+			for (int i = 0; i < lista.size(); i++) {
+				arrayEmail[i] = lista.get(i).get("DI_CORREO_PERSONAL").toString();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR:" + e);
 		}
+
 		String text = "Esta es una prueba de parte del grupo de desarrolladores GRRAC Enterprise,"
 				+ " trabajando al servicio de la UPeU. Por favor omitir este email.";
 		String[] tempArray = new String[1];
@@ -129,8 +132,6 @@ public class GestionarConsolidadoController {
 	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ServletContext cntx = request.getServletContext();
 		// Get the absolute path of the image
-		// String filename = cntx.getRealPath("/WEB-INF/dddd.png");
-		// PrintWriter out = response.getWriter();
 		String url = "";
 		String filename = "";
 		String traba = request.getParameter("traba");
@@ -138,25 +139,22 @@ public class GestionarConsolidadoController {
 		int op = Integer.parseInt(request.getParameter("op"));
 
 		List<Map<String, Object>> result1 = gc.readFile(traba, id_det);
-		System.out.println(g.toJson(result1));
-		// System.out.println();
-		switch (op) {
-		case 1:
-			url = (String) result1.get(0).get("URL_SOLICITUD");
-			filename = cntx.getRealPath("/resources/files/solicitud/" + url.trim());
-			break;
-		case 2:
-			url = (String) result1.get(0).get("URL_PAPELETA");
-			filename = cntx.getRealPath("/resources/files/papeleta/" + url.trim());
-			break;
+		try {
+			switch (op) {
+			case 1:
+				url = (String) result1.get(0).get("URL_SOLICITUD");
+				filename = cntx.getRealPath("/resources/files/solicitud/" + url.trim());
+				break;
+			case 2:
+				url = (String) result1.get(0).get("URL_PAPELETA");
+				filename = cntx.getRealPath("/resources/files/papeleta/" + url.trim());
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR:" + e);
 		}
-		// String filename = url;
-		// String filenam1e
-		// ="E:\\TRABAJO\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\david\\"+nom;
 
-		System.out.println(url + "//" + "//" + filename);
-		// System.out.println(nom + "//" + "//" + filenam1e);
-		// out.println(filename);
 		// retrieve mimeType dynamically
 		String mime = cntx.getMimeType(filename);
 		if (mime == null) {
@@ -196,12 +194,9 @@ public class GestionarConsolidadoController {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		List<String> archi = new ArrayList<>();
 		String path = "";
-		System.out.println(file + "!!!!!!!!!!!!" + idvac + "!!!!!!!!!!!!" + id_det + "!!!!!!!!!!!!" + value);
-		int res = 0;
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
-					System.out.println(file);
 					if (value == 0) {
 						path = context.getRealPath("/resources/files/solicitud/") + File.separator
 								+ fi.getOriginalFilename();
@@ -215,12 +210,9 @@ public class GestionarConsolidadoController {
 					archi.add(destFile.getPath());
 					archi.add(FilenameUtils.getExtension(path));
 					archi.add(String.valueOf(destFile.length()));
-					System.out.println("controller: " + idvac);
-					System.out.println("controller: " + id_det);
-					String nombre = destFile.getName();
-					System.out.println(nombre);
+					destFile.getName();
 
-					res = gc.subirDocumento(fi.getOriginalFilename(), idvac, id_det, value);
+					gc.subirDocumento(fi.getOriginalFilename(), idvac, id_det, value);
 					if (value == 1) {
 						String[] id_det_arr = new String[1];
 						id_det_arr[0] = id_det;
@@ -232,39 +224,26 @@ public class GestionarConsolidadoController {
 				ec.getMessage();
 				ec.printStackTrace();
 			}
-			System.out.println(g.toJson(archi));
-
-			System.out.println(res);
 
 			return "redirect:/vacaciones/consolidado";
 		}
-		return null;// + url;
-		// return gson.toJson(archi);
+		return null;
 	}
 
 	@RequestMapping(path = "/reporte", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String verReporte(Model model, HttpServletRequest request,
 			@RequestParam(name = "format", defaultValue = "pdf", required = false) String format) throws JRException {
-		// JasperCompileManager.compileReport("D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml");
 
 		try {
-			System.out.println("reporte123");
-			// String idt = request.getParameter("idtr");
-			// System.out.println(idt);
 			List<Map<String, Object>> sd = gc.listarConsolidadoAprobado();
-			System.out.println(sd);
-			System.out.println(model);
 			model.addAttribute("format", format);
 			model.addAttribute("datasource", sd);
 			model.addAttribute("AUTOR", "Tutor de programacion");
-			System.out.println(format);
-			System.out.println(model);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error controller, reporte: " + e);
 		}
 
-		// abrirReporte(getClass().getResource("/src/main/resources/request_report.jrxml").getPath());
 		return "cartas_report";
 	}
 
