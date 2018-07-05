@@ -10,13 +10,16 @@
 <link href="https://fonts.googleapis.com/css?family=Dosis"
 	rel="stylesheet">
 <link
-		href="<c:url value='/resources/js/plugins/morris-chart/morris.css'></c:url>"
-		rel="stylesheet" type="text/css" />
-		<link href="js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
-  <link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
-  <link href="js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+	href="<c:url value='/resources/js/plugins/morris-chart/morris.css'></c:url>"
+	rel="stylesheet" type="text/css" />
+<link href="js/plugins/prism/prism.css" type="text/css" rel="stylesheet"
+	media="screen,projection">
+<link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css"
+	type="text/css" rel="stylesheet" media="screen,projection">
+<link href="js/plugins/chartist-js/chartist.min.css" type="text/css"
+	rel="stylesheet" media="screen,projection">
 </head>
-<body>	
+<body>
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -34,33 +37,34 @@
 			</section>
 
 		</div>
-		
-		
-		
-		
-		
-		<h1 style="font-family: 'Dosis', sans-serif;text-decoration:underline" class="center">REPORTE DE RENUNCIAS POR MOTIVOS GENERALES</h1>	
-		<div>
-			
-			
-		</div>
-		<div class="row center" style="width:75%">
+
+
+
+
+
+		<h1
+			style="font-family: 'Dosis', sans-serif; text-decoration: underline"
+			class="center">REPORTE DE RENUNCIAS POR MOTIVOS GENERALES</h1>
+		<div></div>
+		<div class="row center" style="width: 75%">
 			<div class="col s6 center">
-				<h6 class="col s6">Desde:</h6>			
-				<input class="col s6" type="date" id="fecha1" class="dropify" placeholder="Presione aqui" style="width:50%">
+				<h6 class="col s6">Desde:</h6>
+				<input class="col s6" type="date" id="fecha1" class="dropify"
+					placeholder="Presione aqui" style="width: 50%">
 			</div>
 			<div class="col s6 center">
-				<h6 class="col s6">Hasta:</h6>		
-				<input type="date" class="col s6" id="fecha2" class="dropify" placeholder="Presione aqui" style="width:50%">
+				<h6 class="col s6">Hasta:</h6>
+				<input type="date" class="col s6" id="fecha2" class="dropify"
+					placeholder="Presione aqui" style="width: 50%">
 			</div>
 		</div>
-		<div class="center">		
-			<button id="buscar" class="btn btn-large waves-effect waves-light lime darken-4">Buscar</button>	
+		<div class="center">
+			<button id="buscar"
+				class="btn btn-large waves-effect waves-light lime darken-4">Buscar</button>
 		</div>
 
 		<div class="container">
-			<div id="line-example">
-		</div>
+			<div id="line-example"></div>
 		</div>
 		<div class="container"
 			style="position: relative; height: 60vh; width: 60vw">
@@ -70,21 +74,21 @@
 			<div id="lineal"></div>
 
 		</div>
-		
+
 		<div class="divider"></div>
-            <!--chart dashboard start-->
-            
-                
-	
-	<script
-		src="<c:url value='/resources/js/plugins/raphael-min.js'></c:url>"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/chartjs/Chart.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/morris-chart/morris.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script>
+		<!--chart dashboard start-->
+
+
+
+		<script
+			src="<c:url value='/resources/js/plugins/raphael-min.js'></c:url>"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/chartjs/Chart.js'></c:url>"
+			type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/morris-chart/morris.min.js'></c:url>"
+			type="text/javascript"></script>
+		<script>
 		$(document).ready(function(){
 			var num =0;
 			var cont =0;
@@ -220,6 +224,6 @@
 			  labels: ['Series A', 'Series B']
 			});
 	</script>
-	
-<body>
+
+		<body>
 </html>

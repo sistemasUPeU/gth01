@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -55,6 +54,7 @@
 		font-size: 14px
 	}
 }
+
 .ajs-message.ajs-custom {
 	color: #31708f;
 	background-color: #d9edf7;
@@ -77,7 +77,7 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<div id="table-datatables">
 			<div class="wrapper">
-							<div class="divider"></div>
+				<div class="divider"></div>
 				<section id="content" class="col m12 l12 s12">
 				<div class="container">
 					<h1
@@ -87,7 +87,7 @@
 				<div class="divider"></div>
 
 				</section>
-				<div class="row">                                                                                                                          
+				<div class="row">
 					<div class="container">
 						<form class="col s12">
 							<div class="row">
@@ -110,7 +110,8 @@
 
 						</form>
 						<div id="fo" class="col s12" hidden>
-							<div id="msj" class="card-panel #0091ea light-blue accent-4" style="color:white"></div>
+							<div id="msj" class="card-panel #0091ea light-blue accent-4"
+								style="color: white"></div>
 						</div>
 
 
@@ -271,11 +272,11 @@
 									<!-- 									<button data-remodal-action="close" class="remodal-close" -->
 									<!-- 										data-remodal-options="modifier:'width:75%'"></button> -->
 
-									<h1> Registrar Renuncia </h1>
-									<form method="POST"
-										enctype="multipart/form-data" class="col s12 m8 l11"
-										id="RenunciaForm">
-										<input type="hidden" name="idcontrato" id="idcontrato" value="">
+									<h1>Registrar Renuncia</h1>
+									<form method="POST" enctype="multipart/form-data"
+										class="col s12 m8 l11" id="RenunciaForm">
+										<input type="hidden" name="idcontrato" id="idcontrato"
+											value="">
 										<div class="row section">
 											<div class="col s12">
 												<div class="row">
@@ -327,9 +328,9 @@
 										<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 										<button data-remodal-action="confirm" class="remodal-confirm"
 											type="submit" id="RegistrarR">Confirmar</button>
-								
-								</form>
-							</div>
+
+									</form>
+								</div>
 							</div>
 
 						</div>
@@ -338,32 +339,32 @@
 				</div>
 			</div>
 			<hr />
-			</div>
-			</div>
-			<!-- 	<script -->
-			<%-- 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>" --%>
-			<!-- 		type="text/javascript"></script> -->
+		</div>
+	</div>
+	<!-- 	<script -->
+	<%-- 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>" --%>
+	<!-- 		type="text/javascript"></script> -->
 
-			<!-- 	<script -->
-			<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
-			<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
-				<%@include file="../../../jspf/footer.jspf"%>
-			</div>
-			<!-- 		type="text/javascript"></script> -->
+	<!-- 	<script -->
+	<%-- 		src="<c:url value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" --%>
+	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
+		<%@include file="../../../jspf/footer.jspf"%>
+	</div>
+	<!-- 		type="text/javascript"></script> -->
 
-			<script
-				src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
-				type="text/javascript"></script>
-			<script
-				src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
-				type="text/javascript"></script>
-			<script
-				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
-				type="text/javascript"></script>
+	<script
+		src="<c:url  value='/resources/js/RegistrarRenuncia.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+		type="text/javascript"></script>
 
-			<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-				type="text/javascript"></script>
+	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+		type="text/javascript"></script>
 
-			<%-- 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
+	<%-- 	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%> --%>
 </body>
 </html>

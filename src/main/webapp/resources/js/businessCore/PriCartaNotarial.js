@@ -18,7 +18,30 @@ $(document)
 				
 					listarRegistrados();
 					listarAutorizados();
-					
+					 $('.dropify').dropify(function(event, element){
+			                return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
+			            });
+
+			            // Translated
+			            $('.dropify-fr').dropify({
+			                messages: {
+			                    default: 'Glissez-déposez un fichier ici ou cliquez',
+			                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+			                    remove:  'Supprimer',
+			                    error:   'Désolé, le fichier trop volumineux'
+			                }
+			            });
+
+			            // Used events
+			            var drEvent = $('#pelon1').dropify();
+
+			            drEvent.on('dropify.beforeClear', function(event, element){
+			                return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
+			            });
+
+			            drEvent.on('dropify.afterClear', function(event, element){
+			                alert('Archivo eliminado');
+			            });
 					
 					$("#ProcesarR").click(function(){						
 						var idc=$("#idc").val();
@@ -536,6 +559,7 @@ function listarAutorizados() {
 
 			});
 }
+
 
 
 function createTable1(idDepartamento, idRol) {

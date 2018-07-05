@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -18,12 +17,6 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-<link
-	href="<c:url value='/resources/js/plugins/dropify/css/dropify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
-
-<link href="<c:url value='/resources/css/alertify.min.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
 
 <link href="<c:url value='/resources/css/renuncias.css'></c:url>" />
 <link href="https://fonts.googleapis.com/css?family=Poiret+One"
@@ -32,7 +25,7 @@
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-	
+
 <style>
 @media only screen and (min-width: 641px) {
 	.remodal {
@@ -57,6 +50,7 @@
 		font-size: 14px
 	}
 }
+
 .ajs-message.ajs-custom {
 	color: #31708f;
 	background-color: #d9edf7;
@@ -272,86 +266,7 @@
 	<br>
 	<br>
 	<br>
-	<div id="modalnotificar" class="modal modal-fixed-footer"
-		style="width: 80%; height: 100%; border: 5px solid black">
-		<div class="modal-header #1de9b6 teal lighten-1">
-			<div class="center">
-				<h4 style="font-family: 'Dosis', sans-serif;">Adjuntar
-					Documento Notarial</h4>
-			</div>
-		</div>
-		<div class="modal-content #e0f7fa cyan lighten-5" style="z-index: 0">
-			<div class="row section">
-				<div class="col s12">
-					<div class="row">
-						<div class="input-field col s4"></div>
-						<div class="input-field col s4"></div>
-						<div class="input-field col s2">
-							<h5 style="font-family: 'Dosis', sans-serif;">Correo:</h5>
-						</div>
-						<div class="input-field col s2 ">
-							<h6>
-								<span id="correo"></span><br>
-							</h6>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row section">
-				<div class="col s12">
-					<div class="row">
-						<div class="input-field col s5">
-							<h5 style="font-family: 'Dosis', sans-serif;">Fecha de
-								entrega de la primera carta notarial:</h5>
-						</div>
-						<br>
-						<div class="input-field col s7">
-							<h5 style="font-family: 'Dosis', sans-serif;">Adjunte la
-								carta de renuncia:</h5>
-						</div>
 
-					</div>
-				</div>
-				<div class="col s12">
-					<div class="input-field col s5">
-						<label for=""></label> <input type="date" name="fecha" id="fecha"
-							class="datepicker">
-					</div>
-					<br>
-					<div class="input-field col s7">
-<!--                             <p id="mensaje2"> -->
-<!-- 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span> -->
-<!-- 						</p> -->
-                       
-						<input type="file" name="file" class="dropify" id="cartaNotarial"
-							data-height="300" />
-						
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal-footer  teal lighten-1  darken-2"
-			style="z-index: 5; position: fixed">
-			<div class="row">
-
-				<div class="col s4" style="margin-right: 2em;">
-					<button type="submit"
-						class="btn waves-effect waves-light green indigo" id=""
-						onclick="enviarCorreo()">
-						Registrar primer envio<i class="mdi-content-send right"></i>
-					</button>
-
-				</div>
-				<div class="col s4" style="margin-right: 2em">
-					<a class="btn waves-effect waves-light red modal-close">
-						Cancelar </a>
-
-				</div>
-			</div>
-		</div>
-
-	</div>
 	<div id="modal3" class="modal modal-fixed-footer"
 		style="width: 60%; height: 80%; border: 5px solid black">
 		<div class="modal-content lead black-text ">
@@ -364,10 +279,10 @@
 					<div class="col s12">
 						<div class="input-field col s7">
 							<h5>Descripción de la justificacion:</h5>
-								<div class="input-field col s12">
-						<textarea id="observaciones" class="materialize-textarea"></textarea>
-					</div>
-					</div>
+							<div class="input-field col s12">
+								<textarea id="observaciones" class="materialize-textarea"></textarea>
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>
@@ -399,9 +314,6 @@
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
-		<script
-		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>"
-		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
@@ -409,13 +321,8 @@
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
 	<script
-		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
-		<script
-				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
-				type="text/javascript"></script>
-		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-				type="text/javascript"></script>
 </body>
 </body>
 </html>

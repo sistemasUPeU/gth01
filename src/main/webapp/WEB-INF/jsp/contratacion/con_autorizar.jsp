@@ -43,7 +43,6 @@
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
-
+	<%@include file="../../../resources/js/businessCore/jsAutorizar.jspf"%>
 <body>
 </html>

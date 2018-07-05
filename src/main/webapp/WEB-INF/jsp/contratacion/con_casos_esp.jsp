@@ -13,9 +13,9 @@
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<%@include file="../../../jspf/info_puesto.jspf"%>
 			<section id="content" class="col m12 l12 s12">
-			<div class="card-panel">
-			<h1>Hola</h1>
-			</div>
+				<div class="card-panel">
+					<h1>Hola</h1>
+				</div>
 
 			</section>
 
