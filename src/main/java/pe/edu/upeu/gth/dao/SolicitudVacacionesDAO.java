@@ -245,7 +245,7 @@ Connection c = ds.getConnection();
 				map.put("idvac", listmap.get(0).get("ID_VACACIONES"));
 				map.put("response", x);
 			}
-			
+			System.out.println(map.get("response"));
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error: " + e);

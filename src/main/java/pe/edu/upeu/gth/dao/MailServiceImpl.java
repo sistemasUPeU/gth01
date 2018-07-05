@@ -154,7 +154,7 @@ public class MailServiceImpl implements MailService {
 //			     message.addAttachment("myDocument.pdf", new ClassPathResource("doc/myDocument.pdf"));
 			   }
 			 };
-		
+	
 		
 		return preparator1;
 	}
