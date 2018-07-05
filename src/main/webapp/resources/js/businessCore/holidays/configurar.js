@@ -348,7 +348,7 @@ console.log(array);
 													
 												
 											var d = '<li id="'+lista_departamento[i].ID_DEPARTAMENTO
-													.trim()+','+lista_departamento[i].NO_DEP.trim()+','+lista_departamento[i].NO_TRABAJADOR.trim()+','+lista_departamento[i].AP_PATERNO.trim()+','+lista_departamento[i].FECHA_PROGRAMA.trim()+','+lista_departamento[i].FECHA_SOLICITUD.trim()+'" onclick=buscarDepartamento(this.id)><span>'
+													+','+lista_departamento[i].NO_DEP+','+lista_departamento[i].NO_TRABAJADOR+','+lista_departamento[i].AP_PATERNO+','+lista_departamento[i].FECHA_PROGRAMA+','+lista_departamento[i].FECHA_SOLICITUD+'" onclick=buscarDepartamento(this.id)><span>'
 															
 
 													
@@ -539,8 +539,8 @@ function buscarPorDni(){
 			console.log(response);
 			var res = JSON.parse(response);
 			for(var i in res) {
-			    console.log(res[i].VA_PRIVILEGIO);
-			    $("#name").val(+res[i].AP_PATERNO + +res[i].AP_MATERNO +", "+ res[i].NO_TRABAJADOR);
+			    console.log(res[i].AP_PATERNO);
+			    $("#name").val(res[i].AP_PATERNO + " " +res[i].AP_MATERNO +", "+ res[i].NO_TRABAJADOR);
 			    $("#seccion").val(res[i].NO_SECCION);
 			    $("#area").val(res[i].NO_AREA);
 			    $("#departamento").val(res[i].NO_DEP);

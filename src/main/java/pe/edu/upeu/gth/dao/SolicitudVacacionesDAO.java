@@ -47,8 +47,7 @@ public class SolicitudVacacionesDAO {
 
 	DataSource d = AppConfig.getDataSource();
 	Connection cn;
-	
-	
+
 	@Autowired
 	JavaMailSender mailSender;
 
@@ -56,99 +55,134 @@ public class SolicitudVacacionesDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, String fechafin1, ServletContext cntx, HttpServletResponse response) {
-		
-//		String jasperFile ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
-		String jasperFile = cntx.getRealPath("/jasperreports/request_report.jrxml" );
+	public Map<String, Object> llenar_solicitud(String idtrabajador, String fechainicio1, String fechafin1,
+			ServletContext cntx, HttpServletResponse response) {
+
+		// String jasperFile
+		// ="C:\\Users\\COTA\\git\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml";
+		String jasperFile = cntx.getRealPath("/jasperreports/request_report.jrxml");
 		Map<String, Object> OutValues = new HashMap<>();
-		 String outfilePDF ="";
-		 String outFoler ="";
-		 
-		 
-	    try {
-//	    	// Cargamos el driver JDBC
-//	    		JRDataSource datasource = new JREmptyDataSource();
-//	    	
-////	    	cn=(Connection) jt.getDataSource();
-//	    	 Class.forName("oracle.jdbc.OracleDriver");
-//	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth", "123");
-////	    	 cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth", "123");
-//	    	 cn.setAutoCommit(false);
-	    	 
-	    	 String realPath = cntx.getRealPath("/resources/img/");
-		       	
-		    	Map<String,Object> Inparamets = new HashMap<String,Object>();
-				
-				Inparamets.put("txtidtrab", idtrabajador);
-				Inparamets.put("txtfecha1", fechainicio1);
-				Inparamets.put("txtfecha11", fechafin1);
-//				Inparamets.put("txtIdVacante", idvacante);
-				Inparamets.put("realPath", realPath);
-				System.out.println(Inparamets);
-		      
-				DataSource ds = (DataSource) AppConfig.getDataSource();
-Connection c = ds.getConnection();
-				
-				JasperReport report = JasperCompileManager.compileReport(jasperFile);
-				JasperPrint print = JasperFillManager.fillReport(report, Inparamets,c);
-				System.out.println(report);
-				System.out.println(print);
-				//generar Carpeta 
-				
-//				    outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
-//				   outFoler = "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador;
-				   outFoler = cntx.getRealPath("/resources/files/solicitud/" + idtrabajador );
-			       File outDir = new File(outFoler);
-			       System.out.println("existe o no "+outDir.exists());
-			       if (outDir.exists() == false) { 
-		    	       outDir.mkdirs();
-			    	}
-			       outfilePDF = cntx.getRealPath("/resources/files/solicitud/" + idtrabajador+"/SVP_"+idtrabajador+".pdf" );
-//			        ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\" + idtrabajador+"\\SVP_"+idtrabajador+".pdf";
-//			       outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new - ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
-			       System.out.println("existe ?¡:"+outDir.exists());
-			       
-				 // Exporta el informe a PDF
-				 JasperExportManager.exportReportToPdfFile(print,outfilePDF);
-				 System.out.println("respesta dao 1: " + response.getOutputStream());
-	    }
-	    catch (Exception e) {
-	      e.printStackTrace();
-	    }finally {
-	      try {
-	        if (cn != null) {
-	        	cn.rollback();
-	          System.out.println("ROLLBACK EJECUTADO");
-	          cn.close();
-	        }
-	      }catch (Exception e) {
-	        e.printStackTrace();
-	      }
-	    }
-	    OutValues.put("folder", outFoler);
+		String outfilePDF = "";
+		String outFoler = "";
+
+		try {
+			// // Cargamos el driver JDBC
+			// JRDataSource datasource = new JREmptyDataSource();
+			//
+			//// cn=(Connection) jt.getDataSource();
+			// Class.forName("oracle.jdbc.OracleDriver");
+			// cn =
+			// DriverManager.getConnection("jdbc:oracle:thin:@192.168.21.9:1521:XE","gth",
+			// "123");
+			//// cn =
+			// DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","gth",
+			// "123");
+			// cn.setAutoCommit(false);
+
+			String realPath = cntx.getRealPath("/resources/img/");
+
+			Map<String, Object> Inparamets = new HashMap<String, Object>();
+
+			Inparamets.put("txtidtrab", idtrabajador);
+			Inparamets.put("txtfecha1", fechainicio1);
+			Inparamets.put("txtfecha11", fechafin1);
+			// Inparamets.put("txtIdVacante", idvacante);
+			Inparamets.put("realPath", realPath);
+			System.out.println(Inparamets);
+
+			DataSource ds = (DataSource) AppConfig.getDataSource();
+			Connection c = ds.getConnection();
+
+			JasperReport report = JasperCompileManager.compileReport(jasperFile);
+			JasperPrint print = JasperFillManager.fillReport(report, Inparamets, c);
+			System.out.println(report);
+			System.out.println(print);
+			// generar Carpeta
+
+			// outFoler ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new -
+			// ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo;
+			// outFoler =
+			// "C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\"
+			// + idtrabajador;
+			outFoler = cntx.getRealPath("/resources/files/solicitud/" + idtrabajador);
+			File outDir = new File(outFoler);
+			System.out.println("existe o no " + outDir.exists());
+			if (outDir.exists() == false) {
+				outDir.mkdirs();
+			}
+			outfilePDF = cntx
+					.getRealPath("/resources/files/solicitud/" + idtrabajador + "/SVP_" + idtrabajador + ".pdf");
+			// ="C:\\Users\\COTA\\git\\gth01\\src\\main\\webapp\\resources\\files\\solicitud\\"
+			// + idtrabajador+"\\SVP_"+idtrabajador+".pdf";
+			// outfilePDF ="C:\\Users\\Cesar\\Documents\\ALPHA PROJECTS\\PPP\\new -
+			// ppp\\ppp\\ppp\\src\\main\\webapp\\Portafolios\\FolderPPP\\"+codigo+"\\CartP-"+codigo+"vcn-"+idvacante+".pdf";
+			System.out.println("existe ?¡:" + outDir.exists());
+
+			// Exporta el informe a PDF
+			JasperExportManager.exportReportToPdfFile(print, outfilePDF);
+			System.out.println("respesta dao 1: " + response.getOutputStream());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (cn != null) {
+					cn.rollback();
+					System.out.println("ROLLBACK EJECUTADO");
+					cn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		OutValues.put("folder", outFoler);
 		OutValues.put("pdf", outfilePDF);
 		System.out.println("outvalues: " + OutValues);
 		return OutValues;
-		
-		
-		
-//		List<Map<String, Object>> lista = new ArrayList<>();
-//		try {
-//			String sql = "SELECT a.ID_TRABAJADOR_FILTRADO, a.ID_CONSOLIDADO, b.ID_TRABAJADOR, b.AP_PATERNO, b.AP_MATERNO, b.NO_TRABAJADOR,b.NU_DOC , c.ID_VACACIONES, c.TIPO, c.ESTADO,\r\n"
-//					+ "d.ID_DET_VACACIONES, d.FECHA_INICIO, d.FECHA_FIN, D.ESTADO\r\n"
-//					+ "FROM RHMV_TRABAJADOR_FILTRADO A\r\n"
-//					+ "JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR\r\n"
-//					+ "JOIN RHMV_VACACIONES C  ON C.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO\r\n"
-//					+ "JOIN RHMV_DET_VACACIONES D ON C.ID_VACACIONES = D.ID_VACACIONES\r\n" + "AND C.ESTADO = 1\r\n"
-//					+ "AND B.ID_TRABAJADOR = '" + idt + "'";
-//
-//			lista = jt.queryForList(sql);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println("Error - dao:" + e);
-//		}
-//
-//		return lista;
+
+		// List<Map<String, Object>> lista = new ArrayList<>();
+		// try {
+		// String sql = "SELECT a.ID_TRABAJADOR_FILTRADO, a.ID_CONSOLIDADO,
+		// b.ID_TRABAJADOR, b.AP_PATERNO, b.AP_MATERNO, b.NO_TRABAJADOR,b.NU_DOC ,
+		// c.ID_VACACIONES, c.TIPO, c.ESTADO,\r\n"
+		// + "d.ID_DET_VACACIONES, d.FECHA_INICIO, d.FECHA_FIN, D.ESTADO\r\n"
+		// + "FROM RHMV_TRABAJADOR_FILTRADO A\r\n"
+		// + "JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR\r\n"
+		// + "JOIN RHMV_VACACIONES C ON C.ID_TRABAJADOR_FILTRADO =
+		// A.ID_TRABAJADOR_FILTRADO\r\n"
+		// + "JOIN RHMV_DET_VACACIONES D ON C.ID_VACACIONES = D.ID_VACACIONES\r\n" +
+		// "AND C.ESTADO = 1\r\n"
+		// + "AND B.ID_TRABAJADOR = '" + idt + "'";
+		//
+		// lista = jt.queryForList(sql);
+		// } catch (Exception e) {
+		// // TODO: handle exception
+		// System.out.println("Error - dao:" + e);
+		// }
+		//
+		// return lista;
+	}
+
+	public List<Map<String, Object>> getFechasVacaciones(String id) {
+		List<Map<String, Object>> listmap = new ArrayList<>();
+	
+		int x;
+		try {
+			String sql = "SELECT TO_CHAR(D.FECHA_INICIO,'DD/MM/YYYY') AS FECHA_INICIO,  TO_CHAR(D.FECHA_FIN,'DD/MM/YYYY') AS FECHA_FIN, "
+					+ "A.ID_TRABAJADOR_FILTRADO, A.ID_CONSOLIDADO, B.AP_PATERNO, B.AP_MATERNO, "
+					+ "B.NO_TRABAJADOR, B.NU_DOC, C.TIPO, C.ESTADO FROM RHMV_TRABAJADOR_FILTRADO A JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR "
+					+ "JOIN RHMV_VACACIONES C ON C.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO "
+					+ "JOIN RHMV_DET_VACACIONES D ON "
+					+ "C.ID_VACACIONES = D.ID_VACACIONES AND C.ESTADO = 1 AND B.ID_TRABAJADOR = '" + id + "'";
+
+			listmap = jt.queryForList(sql);
+			System.out.println("TRAER FECHAS VACACIONES> " + listmap + " , " +listmap.get(0).get("FECHA_INICIO").toString() + " , " + listmap.get(0).get("FECHA_FIN"));
+	
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error - dao - get fechas vacaciones:" + e);
+			x = 0;
+		}
+		return listmap;
 	}
 
 	public int trabajador_filtrado(String id) {
@@ -200,7 +234,7 @@ Connection c = ds.getConnection();
 			cst.setString(5, user);
 			cst.registerOutParameter(6, Types.CHAR);
 			cst.execute();
-			System.out.println("dao: "+cst.getString(6).trim());
+			System.out.println("dao: " + cst.getString(6).trim());
 			// cn.commit();
 			cn.close();
 
@@ -225,22 +259,22 @@ Connection c = ds.getConnection();
 		}
 		return x;
 	}
-	
+
 	public Map<String, Object> validarSolicitudSubida(String idtrab) {
 		List<Map<String, Object>> listmap = new ArrayList<>();
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		int x = 0;
 
 		String sql = "SELECT A.ID_VACACIONES, A.URL FROM RHMV_VACACIONES A, RHMV_TRABAJADOR_FILTRADO B WHERE A.ID_TRABAJADOR_FILTRADO=B.ID_TRABAJADOR_FILTRADO AND A.ESTADO=1 AND B.ID_TRABAJADOR= ?";
 		try {
 			listmap = jt.queryForList(sql, idtrab);
 			System.out.println("solicitud subida> " + map + " URL " + listmap.get(0).get("URL"));
-			if(listmap.get(0).get("URL")==null){
-				x=0;
+			if (listmap.get(0).get("URL") == null) {
+				x = 0;
 				map.put("idvac", listmap.get(0).get("ID_VACACIONES"));
 				map.put("response", x);
-			}else {
+			} else {
 				x = 1;
 				map.put("idvac", listmap.get(0).get("ID_VACACIONES"));
 				map.put("response", x);
@@ -252,7 +286,7 @@ Connection c = ds.getConnection();
 		}
 		return map;
 	}
-	
+
 	public int subirPapeleta(String nombre, String tipo, String url, String idvac) {
 		String sql = "UPDATE RHMV_DET_VACACIONES SET URL= ? WHERE ID_DET_VACACIONES = ?";
 		try {
@@ -263,10 +297,23 @@ Connection c = ds.getConnection();
 			return 0;
 		}
 	}
-
 	
-
-
+	public List<Map<String, Object>> mostrarprivilegios(String idt) {
+		
+		List<Map<String, Object>> listmap = new ArrayList<>();
+	
+		try {
+			String sql = "SELECT coalesce(A.VA_PRIVILEGIO, 0) as VA_PRIVILEGIO FROM RHTM_TRABAJADOR A LEFT JOIN RHMV_TRABAJADOR_FILTRADO B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR" + 
+					" WHERE A.ID_TRABAJADOR = ?";
+			listmap = jt.queryForList(sql, idt);
+		
+		} catch (Exception e) {
+			System.out.println("Error: " + e);
+		}
+		return listmap;
+	}
+	
+	
 
 	public void sendEmail(Object object) {
 
@@ -284,35 +331,35 @@ Connection c = ds.getConnection();
 
 	private MimeMessagePreparator getMessagePreparator(final ProductOrder order) {
 
-//		MimeMessagePreparator preparator = new MimeMessagePreparator()
-//		{
-//			public void prepare(MimeMessage mimeMessage) throws Exception {
-//				mimeMessage.setFrom("harolcotac@gmail.com");
-//				mimeMessage.setRecipient(Message.RecipientType.TO,
-//						new InternetAddress(order.getCustomerInfo().getEmail()));
-//				mimeMessage.setText("Dear " + order.getCustomerInfo().getName()
-//						+ ", thank you for placing order. Your order id is " + order.getOrderId() + ".");
-//				mimeMessage.setSubject("Your order on Demoapp");
-//				System.out.println("mime> " + mimeMessage);
-//			}
-//		};
+		// MimeMessagePreparator preparator = new MimeMessagePreparator()
+		// {
+		// public void prepare(MimeMessage mimeMessage) throws Exception {
+		// mimeMessage.setFrom("harolcotac@gmail.com");
+		// mimeMessage.setRecipient(Message.RecipientType.TO,
+		// new InternetAddress(order.getCustomerInfo().getEmail()));
+		// mimeMessage.setText("Dear " + order.getCustomerInfo().getName()
+		// + ", thank you for placing order. Your order id is " + order.getOrderId() +
+		// ".");
+		// mimeMessage.setSubject("Your order on Demoapp");
+		// System.out.println("mime> " + mimeMessage);
+		// }
+		// };
 
-		
 		MimeMessagePreparator preparator1 = new MimeMessagePreparator() {
-			   public void prepare(MimeMessage mimeMessage) throws MessagingException {
-			     MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-			     message.setFrom("harolcotac@gmail.com");
-			     message.setTo("harolcotac@gmail.com");
-			     message.setSubject("mi aplicacion2");
-			     message.setText("my hiiii i am testing, please see it", true);
-//			     message.addInline("myLogo", new ClassPathResource("img/mylogo.gif"));
-//			     message.addAttachment("myDocument.pdf", new ClassPathResource("doc/myDocument.pdf"));
-			   }
-			 };
-		System.out.println("prepa>" +preparator1);
-		
+			public void prepare(MimeMessage mimeMessage) throws MessagingException {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+				message.setFrom("harolcotac@gmail.com");
+				message.setTo("harolcotac@gmail.com");
+				message.setSubject("mi aplicacion2");
+				message.setText("my hiiii i am testing, please see it", true);
+				// message.addInline("myLogo", new ClassPathResource("img/mylogo.gif"));
+				// message.addAttachment("myDocument.pdf", new
+				// ClassPathResource("doc/myDocument.pdf"));
+			}
+		};
+		System.out.println("prepa>" + preparator1);
+
 		return preparator1;
-		
 
 	}
 }

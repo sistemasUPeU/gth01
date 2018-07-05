@@ -41,7 +41,7 @@ public class AprobarProgramaTest {
 		String depa = "Gerencia Financiera";
 		String res = g.toJson(t.listarRechazados(depa));
 		String[] esperado = new String[0];
-		assertEquals(g.toJson(esperado), res);
+		assertNotEquals(g.toJson(esperado), res);
 	}
 
 	// @Test

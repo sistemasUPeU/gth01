@@ -37,6 +37,7 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import net.sf.jasperreports.engine.JRException;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
+import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
 import pe.edu.upeu.gth.dto.ProductOrder;
 import pe.edu.upeu.gth.interfaz.MailService;
@@ -70,7 +71,8 @@ public class SolicitudController {
 		// System.out.println(opcion + "/"+ rol);
 		// ModelAndView model = new ModelAndView("redirect:vacaciones/vac_gest_solic");
 		ModelAndView model = new ModelAndView();
-
+		
+		
 		model.setViewName("vacaciones/vac_gest_solic");
 		// model.addObject("rol",rol);
 		if (opcion == 1) {
@@ -88,72 +90,97 @@ public class SolicitudController {
 		return model;// new ModelAndView("redirect:/gth/solicitud/open", model);
 	}
 
-	// @RequestMapping(value = "/open" )
-	// public String solicitud(HttpServletRequest request, HttpServletResponse
-	// response) {
-	//
-	// return "vacaciones/vac_gest_solic";
-	// }
+
 
 	@RequestMapping(path="/reporte", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void verReporte(Model model, HttpServletRequest request,HttpServletResponse response,
+	public String verReporte(Model model, HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(name = "format", defaultValue = "pdf", required = false) String format) throws JRException, IOException {
 		// JasperCompileManager.compileReport("D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jrxml");
 		ServletContext cntx = request.getServletContext();
 		String idt = "";
+
+		
 		try {
 			System.out.println("reporte");
 			idt = request.getParameter("idtr");
-			String fechainicio1 = request.getParameter("feinicio1");
-			String fechafin1 = request.getParameter("fefin1");
+//			String fechainicio1 = request.getParameter("feinicio1");
+//			String fechafin1 = request.getParameter("fefin1");
 			System.out.println("--------------reporte controller pdf---------------");
 			System.out.println(idt);
-			System.out.println(fechainicio1+", " + fechafin1);
+//			System.out.println(fechainicio1+", " + fechafin1);
+
+//			vd.llenar_solicitud(idt,fechainicio1,fechafin1, cntx , response);
+			List<Map<String, Object>> sd = vd.getFechasVacaciones(idt);
 			
-//			List<Map<String, Object>> sd = 
-			vd.llenar_solicitud(idt,fechainicio1,fechafin1, cntx , response);
-//			model.addAttribute("format", format);
-//			model.addAttribute("datasource", sd);
-//			model.addAttribute("AUTOR", "Tutor de programacion");
+			String[] fecha_array = new String[6];
+			int tamano = sd.size();
+			if(tamano==1) {
+				fecha_array[2] = "-";
+				fecha_array[3] = "-";
+				fecha_array[4] = "-";
+				fecha_array[5] = "-";
+			}else if(tamano == 2) {
+				fecha_array[4] = "-";
+				fecha_array[5] = "-";
+			}
+			
+			
+			for (int i = 0; i < sd.size(); i++) {
+				fecha_array[i] = sd.get(i).get("FECHA_INICIO").toString();
+				fecha_array[i+1] = sd.get(i).get("FECHA_FIN").toString();
+				
+			}
+			
+			System.out.println(sd);
+			model.addAttribute("format", format);
+			model.addAttribute("datasource", sd);
+			model.addAttribute("fechain1", fecha_array[0]);
+			model.addAttribute("fechain2", fecha_array[1]);
+			model.addAttribute("fechain3", fecha_array[2]);
+			model.addAttribute("fechafin1",fecha_array[3]);
+			model.addAttribute("fechafin2", fecha_array[4]);
+			model.addAttribute("fechafin3", fecha_array[5]);
+			model.addAttribute("txtidtrab", idt);
+			model.addAttribute("realPath", cntx.getRealPath("/resources/img/"));
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error controller, reporte: " + e);
 		}
 		
-		
-		
+				
 		//mostrar archivos
 		System.out.println("controller cargar archivo");
 
 		
-		String filename = cntx.getRealPath("/resources/files/solicitud/" + idt + "/SVP_"+idt+".pdf");
-//		String filename = UPLOADED_FOLDER+"\\" + nombre;
-//		 String filenam1e ="E:\\CONEIA\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\h\\"+nom;
-
-		System.out.println( "//" + "//" + filename);
-		
-		
-		String mime = cntx.getMimeType(filename);
-		if (mime == null) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}
-
-		response.setContentType(mime);
-		File file = new File(filename);
-		response.setContentLength((int) file.length());
-
-		FileInputStream in = new FileInputStream(file);
-		OutputStream out = response.getOutputStream();
-		System.out.println(out);
-		// Copy the contents of the file to the output stream
-		byte[] buf = new byte[1024];
-		int count = 0;
-		while ((count = in.read(buf)) >= 0) {
-			out.write(buf, 0, count);
-		}
-		out.close();
-		in.close();
-		
+//		String filename = cntx.getRealPath("/resources/files/solicitud/" + idt + "/SVP_"+idt+".pdf");
+////		String filename = UPLOADED_FOLDER+"\\" + nombre;
+////		 String filenam1e ="E:\\CONEIA\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\gth\\WEB-INF\\h\\"+nom;
+//
+//		System.out.println( "//" + "//" + filename);
+//		
+//		
+//		String mime = cntx.getMimeType(filename);
+//		if (mime == null) {
+//			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//		}
+//
+//		response.setContentType(mime);
+//		File file = new File(filename);
+//		response.setContentLength((int) file.length());
+//
+//		FileInputStream in = new FileInputStream(file);
+//		OutputStream out = response.getOutputStream();
+//		System.out.println(out);
+//		// Copy the contents of the file to the output stream
+//		byte[] buf = new byte[1024];
+//		int count = 0;
+//		while ((count = in.read(buf)) >= 0) {
+//			out.write(buf, 0, count);
+//		}
+//		out.close();
+//		in.close();
+		return "request_report";
 	}
 
 
@@ -161,7 +188,10 @@ public class SolicitudController {
 	@RequestMapping(path = "/validar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String validarTipoSolicitud(HttpServletRequest request, Model model) {
 		Gson gs = new Gson();
-
+		ServletContext cntx = request.getServletContext();
+		String ruta = cntx.getRealPath("/resources/img/");
+		
+		System.out.println(ruta);
 		String trab = request.getParameter("id");
 		System.out.println(trab);
 		// String rol = request.getParameter("idrol");
@@ -198,6 +228,25 @@ public class SolicitudController {
 
 	}
 	
+	
+	@RequestMapping(path = "/mostrarpriv", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String mostrarpriv(HttpServletRequest request, Model model, Authentication authentication) {
+		Gson gs = new Gson();
+		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+	
+		System.out.println(idtra);
+		// String rol = request.getParameter("idrol");
+		// System.out.println(trab + "/" + rol);
+
+		List<Map<String, Object>> sd = vd.mostrarprivilegios(idtra);
+		int respuesta = Integer.parseInt(sd.get(0).get("VA_PRIVILEGIO").toString());
+		
+		// String res = sd+"/"+rol;
+		System.out.println("respuesta existencia solicitud" + gs.toJson(sd));
+
+		return gs.toJson(respuesta);
+
+	}
 	
 	
 
