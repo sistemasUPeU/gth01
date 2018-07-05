@@ -1,25 +1,27 @@
 $(document).ready(function() {
 	listar();
+	listarAprobados();
+	listarRechazados();
 });
 
-var rad = document.myForm.group1;
-var prev = null;
-for (var i = 0; i < rad.length; i++) {
-	rad[i].onclick = function() {
-		if (this.value == 1500) {
-			listar();
-			$("#confirmar").show();
-		}
-		if (this.value == 1600) {
-			listarAprobados();
-			$("#confirmar").hide();
-		}
-		if (this.value == 1700) {
-			listarRechazados();
-			$("#confirmar").hide();
-		}
-	};
-}
+//var rad = document.myForm.group1;
+//var prev = null;
+//for (var i = 0; i < rad.length; i++) {
+//	rad[i].onclick = function() {
+//		if (this.value == 1500) {
+//			listar();
+//			$("#confirmar").show();
+//		}
+//		if (this.value == 1600) {
+//			listarAprobados();
+//			$("#confirmar").hide();
+//		}
+//		if (this.value == 1700) {
+//			listarRechazados();
+//			$("#confirmar").hide();
+//		}
+//	};
+//}
 
 function getSelected() {
 	var allVals = [];
@@ -156,10 +158,10 @@ function listarAprobados() {
 			d += "</td>";
 			d += "</tr>";
 		}
-		$("#contTable").empty();
-		$("#contTable").append(createTable2());
-		$("#data").empty();
-		$("#data").append(d);
+		$("#contTable1").empty();
+		$("#contTable1").append(createTable2());
+		$("#data1").empty();
+		$("#data1").append(d);
 		$("#data-table-row-grouping1").dataTable();
 	});
 
@@ -220,11 +222,11 @@ function listarRechazados() {
 							d += "</td>";
 							d += "</tr>";
 						}
-						$("#contTable").empty();
-						$("#contTable").append(createTable3());
-						$("#data").empty();
-						$("#data").append(d);
-						$("#data-table-row-grouping1").dataTable();
+						$("#contTable3").empty();
+						$("#contTable3").append(createTable3());
+						$("#data3").empty();
+						$("#data3").append(d);
+						$("#data-table-row-grouping3").dataTable();
 					});
 
 };
@@ -264,12 +266,12 @@ function createTable2() {
 	s += "<th>Condición</th>";
 	s += " </tr>";
 	s += "</thead>";
-	s += "<tbody id='data'></tbody>";
+	s += "<tbody id='data1'></tbody>";
 	s += "</table>";
 	return s;
 };
 function createTable3() {
-	var s = "<table id='data-table-row-grouping1' class='display bordered highlight centered' >";
+	var s = "<table id='data-table-row-grouping3' class='display bordered highlight centered' >";
 	s += "<thead>";
 	s += "<tr>";
 	s += "<th>Nombres</th>";
@@ -282,7 +284,7 @@ function createTable3() {
 	s += "<th>Observación</th>";
 	s += " </tr>";
 	s += "</thead>";
-	s += "<tbody id='data'></tbody>";
+	s += "<tbody id='data3'></tbody>";
 	s += "</table>";
 	return s;
 };

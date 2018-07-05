@@ -56,6 +56,12 @@
 
 
 		<div class="container" style="width: 80%">
+		<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Gestionar Solicitud</h5>
+				</div>
+			</center>
 
 			<!-- 					<div id="icon-prefixes" class="section"> -->
 			<h4 class="header">Datos Generales</h4>

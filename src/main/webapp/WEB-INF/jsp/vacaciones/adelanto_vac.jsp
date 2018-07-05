@@ -42,6 +42,12 @@ div.dataTables_length {
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="container">
+		<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Adelanto de Vacaciones</h5>
+				</div>
+			</center>
 			<div class="row">
 
 				<div id="table_contenido" class="col s12 m12 l12"></div>

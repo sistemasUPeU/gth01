@@ -13,6 +13,15 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<style type="text/css">
+.center-btn {
+	text-align: center
+}
+
+div.dataTables_length {
+	display: none !important;
+}
+</style>
 </head>
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
@@ -29,6 +38,12 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="container">
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Gestionar Consolidado</h5>
+				</div>
+			</center>
 			<div class="row">
 				<div class="row">
 					<div class="col s12">
@@ -43,11 +58,11 @@
 						<div id="test001" class="col s12" style="display: block;">
 							<div id="sinAprobar" class="container">
 								<div id="contTable"></div>
-
-								<br> <a class="btn waves-effect waves-light right"
-									id="confirmar"><i class="mdi-navigation-check"></i>
-									Confirmar</a>
-
+								<div class="center-btn">
+									<br> <a class="btn waves-effect waves-light right"
+										id="confirmar"><i class="mdi-navigation-check"></i>
+										Confirmar</a>
+								</div>
 								<div class="row">
 									<div id="table_contenido" class="col s12 m12 l12"></div>
 								</div>

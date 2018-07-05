@@ -46,19 +46,36 @@ div.dataTables_length {
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="container">
-			<h4 class="header">Gestionar Programa de Vacaciones</h4>
-			<form action="#" name="myForm">
-				<p>
-					<input name="group1" type="radio" id="test1500" value="1500" /> <label
-						for="test1500">Sin solicitud</label> <input name="group1"
-						type="radio" id="test1600" value="1600" /> <label for="test1600">Con
-						solicitud</label> <input name="group1" type="radio" id="test1700"
-						value="1700" /> <label for="test1700">Lista de Aprobados</label>
-				</p>
-			</form>
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Gestionar Programa de Vacaciones</h5>
+				</div>
+			</center>
 			<div class="row">
+				<div class="col s12">
+					<ul class="tabs tab-demo z-depth-1" style="width: 100%;">
+						<li class="tab col s3"><a href="#test001">Sin solicitud</a></li>
+						<li class="tab col s3"><a href="#test002" class="">Con
+								Solicitud</a></li>
+						<li class="tab col s3"><a class="active" href="#test003"
+							class="">Lista de Aprobados</a></li>
+					</ul>
+				</div>
 
-				<div id="table_contenido" class="col s12 m12 l12"></div>
+				<div class="col s12">
+					<div id="test001" class="col s12" style="display: block;">
+						<div id="table_contenido1"></div>
+					</div>
+					<div id="test002" class="col s12" style="display: block;">
+						<div id="table_contenido2"></div>
+					</div>
+					<div id="test003" class="col s12" style="display: block;">
+						<div id="table_contenido3"></div>
+					</div>
+				</div>
+
+				<!-- 				<div id="table_contenido" class="col s12 m12 l12"></div> -->
 				<br>
 				<div id="nocargando" class="center-btn row">
 					<a id="confirmar_lista" class="btn waves-effect waves-light"><i
@@ -239,14 +256,12 @@ div.dataTables_length {
 			listarTrabajadoresConSoli();
 
 		});
-
-		</script>
+	</script>
 
 	<script type="text/javascript">
-	function loadProfile(){
-		//location.href="<%=request.getContextPath()%>/trabajador/profile";
+		function loadProfile() {
+			//location.href="<%=request.getContextPath()%>/trabajador/profile";
 		}
-
 		var divisiones = 0;
 		$(document)
 				.ready(
@@ -556,24 +571,25 @@ div.dataTables_length {
 			listarTrabajadoresAprobados();
 			$("#cargando").hide();
 		})
-		var rad = document.myForm.group1;
-		var prev = null;
-		for (var i = 0; i < rad.length; i++) {
-			rad[i].onclick = function() {
-				if (this.value == 1500) {
-					listarTrabajadorFiltrado();
-					$("#confirmar").show();
-				}
-				if (this.value == 1600) {
-					listarTrabajadoresConSoli();
-					$("#confirmar").hide();
-				}
-				if (this.value == 1700) {
-					listarTrabajadoresAprobados();
-					$("#confirmar").hide();
-				}
-			};
-		}
+		// 		var rad = document.myForm.group1;
+		// 		var prev = null;
+		// 		for (var i = 0; i < rad.length; i++) {
+		// 			rad[i].onclick = function() {
+		// 				if (this.value == 1500) {
+		// 					listarTrabajadorFiltrado();
+		// 					$("#confirmar").show();
+		// 				}
+		// 				if (this.value == 1600) {
+		// 					listarTrabajadoresConSoli();
+		// 					$("#confirmar").hide();
+		// 				}
+		// 				if (this.value == 1700) {
+		// 					listarTrabajadoresAprobados();
+		// 					$("#confirmar").hide();
+		// 				}
+		// 			};
+		// 		}
+
 		function getSelected() {
 			var allVals = [];
 			$('#data :checked').each(function() {
@@ -756,11 +772,11 @@ div.dataTables_length {
 																.error("No se esta cargando la información");
 													}
 												});
-								$("#table_contenido").empty();
-								$("#table_contenido").append(createTable());
-								$("#data").empty();
-								$("#data").append(s);
-								$('#data-table-row-grouping').dataTable();
+								$("#table_contenido1").empty();
+								$("#table_contenido1").append(createTable());
+								$("#data1").empty();
+								$("#data1").append(s);
+								$('#data-table-row-grouping1').dataTable();
 								$("#ckbCheckAll").click(
 										function() {
 											$(".checkBoxClass").prop('checked',
@@ -774,6 +790,7 @@ div.dataTables_length {
 					.get(
 							'GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones',
 							function(obj) {
+								console.log(obj);
 								var s = '';
 								var emp = obj[0];
 								for (var i = 0; i < obj.length; i++) {
@@ -820,11 +837,11 @@ div.dataTables_length {
 																.error("No se esta cargando la información");
 													}
 												});
-								$("#table_contenido").empty();
-								$("#table_contenido").append(createTable1());
-								$("#data").empty();
-								$("#data").append(s);
-								$('#data-table-row-grouping').dataTable();
+								$("#table_contenido2").empty();
+								$("#table_contenido2").append(createTable1());
+								$("#data2").empty();
+								$("#data2").append(s);
+								$('#data-table-row-grouping2').dataTable();
 								$("#ckbCheckAll").click(
 										function() {
 											$(".checkBoxClass").prop('checked',
@@ -881,11 +898,11 @@ div.dataTables_length {
 																.error("No se esta cargando la información");
 													}
 												});
-								$("#table_contenido").empty();
-								$("#table_contenido").append(createTable2());
-								$("#data").empty();
-								$("#data").append(s);
-								$('#data-table-row-grouping').dataTable();
+								$("#table_contenido3").empty();
+								$("#table_contenido3").append(createTable2());
+								$("#data3").empty();
+								$("#data3").append(s);
+								$('#data-table-row-grouping3').dataTable();
 								$("#ckbCheckAll").click(
 										function() {
 											$(".checkBoxClass").prop('checked',
@@ -895,7 +912,7 @@ div.dataTables_length {
 							});
 		};
 		function createTable() {
-			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+			var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" width="100%">';
 			s += '<thead>';
 			s += '<tr>';
 			s += '<th class="hide">id</th>';
@@ -909,13 +926,13 @@ div.dataTables_length {
 			s += '<th>Modificar</th>';
 			s += ' </tr>';
 			s += '</thead>';
-			s += '<tbody id="data"></tbody>';
+			s += '<tbody id="data1"></tbody>';
 			s += '</table>';
 			return s;
 
 		};
 		function createTable1() {
-			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+			var s = '<table id="data-table-row-grouping2" class="display" cellspacing="0" width="100%">';
 			s += '<thead>';
 			s += '<tr>';
 			s += '<th class="hide">id</th>';
@@ -928,13 +945,13 @@ div.dataTables_length {
 			s += '<th>Modificar</th>';
 			s += ' </tr>';
 			s += '</thead>';
-			s += '<tbody id="data"></tbody>';
+			s += '<tbody id="data2"></tbody>';
 			s += '</table>';
 			return s;
 
 		};
 		function createTable2() {
-			var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
+			var s = '<table id="data-table-row-grouping3" class="display" cellspacing="0" width="100%">';
 			s += '<thead>';
 			s += '<tr>';
 			s += '<th class="hide">id</th>';
@@ -945,7 +962,7 @@ div.dataTables_length {
 			s += '<th>Fecha Fin</th>';
 			s += ' </tr>';
 			s += '</thead>';
-			s += '<tbody id="data"></tbody>';
+			s += '<tbody id="data3"></tbody>';
 			s += '</table>';
 			return s;
 
@@ -990,30 +1007,39 @@ div.dataTables_length {
 
 						});
 
-		$("#fec_up").click(function() {
-			var f = new Date();
-			parseDate($("#fec_in").val());
-			var fec_in = fecha_extra;
-			var fec_ac = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
-			parseDate($("#fec_fi").val());
-			var fec_fi = fecha_extra;
-			var id = $("#iddet").val();
-			console.log(fec_in + " y " + fec_fi + " y " + id + " fea " + fec_ac);
-			parseDate(fec_in);
-			var fechai=new Date(fecha_recontraextra);
-			parseDate(fec_ac);
-			var fechaa=new Date(fecha_recontraextra);
-			console.log(fechai + fechaa);
-			if (fec_in > fec_ac) {
-				$.get('updateFechaMod', {id : id, inicio : fec_in, fin : fec_fi}, function (data) {
-					console.log(data);
-					listarTrabajadoresConSoli();
-					Materialize.toast('Fecha modificada correctamente', 3000, 'rounded');
-			    });
-			} else {
-				Materialize.toast('Escoge una fecha correcta!', 3000, 'rounded');
-			}
-		});
+		$("#fec_up").click(
+				function() {
+					var f = new Date();
+					parseDate($("#fec_in").val());
+					var fec_in = fecha_extra;
+					var fec_ac = f.getDate() + "/" + (f.getMonth() + 1) + "/"
+							+ f.getFullYear();
+					parseDate($("#fec_fi").val());
+					var fec_fi = fecha_extra;
+					var id = $("#iddet").val();
+					console.log(fec_in + " y " + fec_fi + " y " + id + " fea "
+							+ fec_ac);
+					parseDate(fec_in);
+					var fechai = new Date(fecha_recontraextra);
+					parseDate(fec_ac);
+					var fechaa = new Date(fecha_recontraextra);
+					console.log(fechai + fechaa);
+					if (fec_in > fec_ac) {
+						$.get('updateFechaMod', {
+							id : id,
+							inicio : fec_in,
+							fin : fec_fi
+						}, function(data) {
+							console.log(data);
+							listarTrabajadoresConSoli();
+							Materialize.toast('Fecha modificada correctamente',
+									3000, 'rounded');
+						});
+					} else {
+						Materialize.toast('Escoge una fecha correcta!', 3000,
+								'rounded');
+					}
+				});
 
 		$("#fec_up").click(
 				function() {
@@ -1075,3 +1101,4 @@ div.dataTables_length {
 
 </body>
 </html>
+

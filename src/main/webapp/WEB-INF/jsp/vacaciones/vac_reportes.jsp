@@ -41,7 +41,12 @@
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<%@include file="../../../jspf/info_puesto.jspf"%>
-
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Reportes de Vacaciones</h5>
+				</div>
+			</center>
 
 			<div class="col s6 m12 l6"
 				style="margin-left: 30%; margin-right: 30%;">
@@ -90,158 +95,150 @@
 		src="<c:url value='https://www.gstatic.com/charts/loader.js'></c:url>"
 		type="text/javascript"></script>
 	<script type="text/javascript">
+		$(document).ready(function() {
+		});
 
-	$(document)
-	.ready(
-			function() {
-			});
-
-			var cont=1;
-		function mostrarChart(){
-
-			
+		var cont = 1;
+		function mostrarChart() {
 
 			var fecha1 = parseDate($("#fecha1").val());
 			var fecha2 = parseDate($("#fecha2").val());
-		
+
 			console.log(fecha1);
 			console.log(fecha2);
-			
-			$.get(gth_context_path+"/reporte/listar",{fecha1:fecha1, fecha2:fecha2},function (data, status){
-				
-		    	var reg = JSON.parse(data); 
 
-		        console.log(reg);
-		    	graficar(reg);
-		        
-		        
-		    });
+			$.get(gth_context_path + "/reporte/listar", {
+				fecha1 : fecha1,
+				fecha2 : fecha2
+			}, function(data, status) {
+
+				var reg = JSON.parse(data);
+
+				console.log(reg);
+				graficar(reg);
+
+			});
 
 		}
 
+		function graficar(data) {
 
-		function graficar(data){
-			
 			var t = "";
-			t +='<div class="card-panel">'
-				t +='<div id="contenedor1"'
-					t +='style="height: 300px; margin-left: 1%; margin-right: 15%;">'
+			t += '<div class="card-panel">'
+			t += '<div id="contenedor1"'
+			t += 'style="height: 300px; margin-left: 1%; margin-right: 15%;">'
 
-						t +='</div>'
-							t +='<div id="contenedor"'
-								t +='style="height: 350px; margin-left: 10%; margin-right: 10%;">	'
+			t += '</div>'
+			t += '<div id="contenedor"'
+			t += 'style="height: 350px; margin-left: 10%; margin-right: 10%;">	'
 
-									t +='</div>'
-										t +='</div>'
-							$("#cont_report").html(t);			
-			google.charts.load('current', {'packages':['bar']});
-			google.charts.setOnLoadCallback(function(){
+			t += '</div>'
+			t += '</div>'
+			$("#cont_report").html(t);
+			google.charts.load('current', {
+				'packages' : [ 'bar' ]
+			});
+			google.charts.setOnLoadCallback(function() {
 				drawChart(data);
 			});
 
-			google.charts.load('current', {'packages':['corechart']});
-			google.charts.setOnLoadCallback(function(){
+			google.charts.load('current', {
+				'packages' : [ 'corechart' ]
+			});
+			google.charts.setOnLoadCallback(function() {
 				dibujar(data);
 			});
-			
-			
-		}
 
+		}
 
 		function drawChart(result) {
 
-		    // Create the data table.
-		    var data = new google.visualization.DataTable();
-		    data.addColumn('string', 'Departamento');
-		    data.addColumn('number', 'Nro de Trabajadores');
-		    var dataArray = [];
-		    $.each(result, function(i,obj){
-		    	dataArray.push([obj.NO_DEP, obj.NRO]);	
-		    });
-		    
-		    
-		    data.addRows(dataArray);
-		    
-		    
-		    var options = {
-		            chart: {
-		              title: 'Reporte de Trabajadores que salieron de vacaciones por Departamento',
-		              subtitle: '30/8/2017 12:57 pm',
-		              'width':400,
-                      'height':300
-		            },
-				    series: {
-				        0: { axis: 'visitas' } // Bind series 0 to an axis named 'distance'.
-				        //1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
-				      },
-				    axes: {
-				        y: {
-				          visitas: {label: 'nro trabajadores con vacaciones'} // Left y-axis.
-				          //brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
-				        }
-				      }
-		          };
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Departamento');
+			data.addColumn('number', 'Nro de Trabajadores');
+			var dataArray = [];
+			$.each(result, function(i, obj) {
+				dataArray.push([ obj.NO_DEP, obj.NRO ]);
+			});
 
-		    
-		    var chart = new google.charts.Bar(document.getElementById('contenedor'));
+			data.addRows(dataArray);
 
-		    chart.draw(data, google.charts.Bar.convertOptions(options));
-		    
+			var options = {
+				chart : {
+					title : 'Reporte de Trabajadores que salieron de vacaciones por Departamento',
+					subtitle : '30/8/2017 12:57 pm',
+					'width' : 400,
+					'height' : 300
+				},
+				series : {
+					0 : {
+						axis : 'visitas'
+					}
+				// Bind series 0 to an axis named 'distance'.
+				//1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+				},
+				axes : {
+					y : {
+						visitas : {
+							label : 'nro trabajadores con vacaciones'
+						}
+					// Left y-axis.
+					//brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+					}
+				}
+			};
 
-		    
-		    
-		    
-		    
-		    }
+			var chart = new google.charts.Bar(document
+					.getElementById('contenedor'));
 
+			chart.draw(data, google.charts.Bar.convertOptions(options));
+
+		}
 
 		function dibujar(result) {
 
-			
-			 var chartDiv = document.getElementById('contenedor1');
-			
-		    // Create the data table.
-		    var data = new google.visualization.DataTable();
-		    data.addColumn('string', 'Departamentos');
-		    data.addColumn('number', 'Trabajadores con vacaciones');
-		    var dataArray = [];
-		    $.each(result, function(i,obj){
-		    	dataArray.push([obj.NO_DEP, obj.NRO]);	
-		    });
-		    
-		    
-		    data.addRows(dataArray);
-		    
-		    
-		    var options = {
-		            chart: {
-		              title: 'Reporte de Trabajadores con vacaciones por Departamento',
-		              subtitle: '04/12/2017 9:45 am',
-		            },
-		            series: {
-		                0: { axis: 'visitas' } // Bind series 0 to an axis named 'distance'.
-		                //1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
-		              },
-		            axes: {
-		                y: {
-		                  visitas: {label: 'nro trabajadores con vacaciones'} // Left y-axis.
-		                  //brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
-		                }
-		              }
-		          };
+			var chartDiv = document.getElementById('contenedor1');
 
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Departamentos');
+			data.addColumn('number', 'Trabajadores con vacaciones');
+			var dataArray = [];
+			$.each(result, function(i, obj) {
+				dataArray.push([ obj.NO_DEP, obj.NRO ]);
+			});
 
-	        var chart = new google.visualization.PieChart(document.getElementById('contenedor1'));
-	        chart.draw(data, options);
-		    
-		   
-		    
-		   
+			data.addRows(dataArray);
 
-		    }
+			var options = {
+				chart : {
+					title : 'Reporte de Trabajadores con vacaciones por Departamento',
+					subtitle : '04/12/2017 9:45 am',
+				},
+				series : {
+					0 : {
+						axis : 'visitas'
+					}
+				// Bind series 0 to an axis named 'distance'.
+				//1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+				},
+				axes : {
+					y : {
+						visitas : {
+							label : 'nro trabajadores con vacaciones'
+						}
+					// Left y-axis.
+					//brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+					}
+				}
+			};
 
-	    
+			var chart = new google.visualization.PieChart(document
+					.getElementById('contenedor1'));
+			chart.draw(data, options);
 
+		}
 
 		function parseDate(input) {
 			var map = {
@@ -270,7 +267,7 @@
 					+ '/' + day;
 
 			fecha_extra = day + '/' + month + '/' + input[2];
-// 			var inicio = new Date(newDate);
+			// 			var inicio = new Date(newDate);
 			console.log("fecha_extra: " + fecha_extra);
 			//console.log(inicio);
 
@@ -281,20 +278,6 @@
 
 			return fecha_extra;
 		};
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
 	</script>
 
 </body>

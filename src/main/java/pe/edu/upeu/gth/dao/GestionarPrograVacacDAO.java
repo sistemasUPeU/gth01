@@ -36,7 +36,7 @@ public class GestionarPrograVacacDAO {
 					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO \r\n" + 
 					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
 					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones \r\n" + 
-					"where tf.no_dep ='Servicios'\r\n" + 
+					"where tf.no_dep ='"+depa+"' \r\n" + 
 					"and tf.estado=1\r\n" + 
 					"and detva.FECHA_INICIO is null and detva.FECHA_FIN is null";
 			LST = JDBC.queryForList(SQL);

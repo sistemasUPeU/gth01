@@ -121,7 +121,12 @@
 
 
 		<div class="container">
-
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Configurar Vacaciones</h5>
+				</div>
+			</center>
 			<div id="basic-tabs" class="section">
 				<h4 class="header">Configuraciones básicas</h4>
 				<div class="row">
@@ -369,7 +374,8 @@
 													<div class="input-field">
 														<label>Nro de partición de vacaciones</label> <select
 															id="select_option">
-															<option value="0" disabled selected>Selecciona una opción</option>
+															<option value="0" disabled selected>Selecciona
+																una opción</option>
 															<option value="1">1 vacaciones</option>
 															<option value="2">2 vacaciones</option>
 															<option value="3">3 vacaciones</option>

@@ -36,18 +36,21 @@ public class AprobarProgramaVacacionesController {
 	@RequestMapping(path = "/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getSinAprobar(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		System.out.println(g.toJson(t.listarSinAprobar(depa)));
 		return g.toJson(t.listarSinAprobar(depa));
 	}
 
 	@RequestMapping(path = "/getAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAprobados(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		System.out.println(g.toJson(t.listarAprobados(depa)));
 		return g.toJson(t.listarAprobados(depa));
 	}
 
 	@RequestMapping(path = "/getRechazados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getRechazados(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		System.out.println(g.toJson(t.listarRechazados(depa)));
 		return g.toJson(t.listarRechazados(depa));
 	}
 

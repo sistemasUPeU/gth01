@@ -42,6 +42,12 @@ div.dataTables_length {
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="container">
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Gestionar Lista Filtrada</h5>
+				</div>
+			</center>
 			<div class="row">
 				<div id="table_contenido" class="col s12 m12 l12"></div>
 				<div id="nocargando" class="center-btn row">
@@ -62,8 +68,7 @@ div.dataTables_length {
 							</div>
 						</div>
 					</div>
-					<br>
-					<label>CONFIRMANDO LISTA</label>
+					<br> <label>CONFIRMANDO LISTA</label>
 				</div>
 			</div>
 		</div>
