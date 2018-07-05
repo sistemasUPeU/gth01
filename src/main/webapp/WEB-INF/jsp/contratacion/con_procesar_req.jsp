@@ -12,7 +12,9 @@
 		<div class="wrapper">
 			<%@include file="../../../jspf/aside_left.jspf"%>
 			<%@include file="../../../jspf/info_puesto.jspf"%>
-			<section id="content" class="col m12 l12 s12"></section>
+			<section id="content" class="col m12 l12 s12">
+
+			</section>
 
 		</div>
 

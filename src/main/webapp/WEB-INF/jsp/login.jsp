@@ -20,31 +20,29 @@
 		<div class="col s12 z-depth-4 card-panel grey darken-4">
 			<form class="login-form" action="login" method="POST">
 				<div class="row grey darken-4">
-					<div class="input-field col s12 center">
-						<img src="<c:url value="/resources/img/gth.png"/>" class="col s12"
-							alt="">
-					</div>
+				<div class="input-field col s12 center">
+						<img src="<c:url value="/resources/img/gth.png"/>" class="col s12" alt="">	
+						</div>					
 				</div>
 				<div class="row">
 					<div class="input-field col s12 center">
 
-						<p class="center login-form-text white-text">Sistema de
-							Gestión del Talento Humano</p>
+						<p class="center login-form-text white-text">Sistema de Gestión del
+							Talento Humano</p>
 					</div>
 				</div>
 				<div class="row margin">
 					<div class="input-field col s12">
-						<i class="mdi-social-person-outline prefix green-text accent-3"></i>
-						<input id="txtUsuario" type="text" name="username"
-							class="white-text"> <label for="txtUsuario"
-							class="center-align">Usuario</label>
+						<i class="mdi-social-person-outline prefix green-text accent-3"></i> <input
+							id="txtUsuario" type="text" name="username" class="white-text"> <label
+							for="txtUsuario" class="center-align">Usuario</label>
 					</div>
 				</div>
 				<div class="row margin">
 					<div class="input-field col s12">
-						<i class="mdi-action-lock-outline prefix green-text accent-3"></i>
-						<input id="txtClave" type="password" name="password"
-							class="white-text"> <label for="txtClave">Contraseña</label>
+						<i class="mdi-action-lock-outline prefix green-text accent-3"></i> <input
+							id="txtClave" type="password" name="password" class="white-text"> <label
+							for="txtClave">Contraseña</label>
 					</div>
 				</div>
 				<div class="row margin">

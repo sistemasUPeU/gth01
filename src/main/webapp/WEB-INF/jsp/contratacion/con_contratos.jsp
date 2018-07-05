@@ -77,8 +77,7 @@
 								<div class="col s6">
 									<div class="input-field col s12">
 										<select>
-											<option value="" disabled selected>Seleccionar
-												Dirección</option>
+											<option value="" disabled selected>Seleccionar Dirección</option>
 											<option value="1">Option 1</option>
 											<option value="2">Option 2</option>
 											<option value="3">Option 3</option>
@@ -89,8 +88,7 @@
 								<div class="col s6">
 									<div class="input-field col s12">
 										<select>
-											<option value="" disabled selected>Seleccionar
-												Departamento</option>
+											<option value="" disabled selected>Seleccionar Departamento</option>
 											<option value="1">Option 1</option>
 											<option value="2">Option 2</option>
 											<option value="3">Option 3</option>
@@ -114,8 +112,7 @@
 								<div class="col s6">
 									<div class="input-field col s12">
 										<select>
-											<option value="" disabled selected>Seleccionar
-												Sección</option>
+											<option value="" disabled selected>Seleccionar Sección</option>
 											<option value="1">Option 1</option>
 											<option value="2">Option 2</option>
 											<option value="3">Option 3</option>

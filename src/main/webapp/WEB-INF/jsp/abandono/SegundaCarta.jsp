@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,7 @@
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-
+	
 <style>
 @media only screen and (min-width: 641px) {
 	.remodal {
@@ -56,7 +57,6 @@
 		font-size: 14px
 	}
 }
-
 .ajs-message.ajs-custom {
 	color: #31708f;
 	background-color: #d9edf7;
@@ -319,13 +319,13 @@
 					</div>
 					<br>
 					<div class="input-field col s7">
-						<!--                             <p id="mensaje2"> -->
-						<!-- 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span> -->
-						<!-- 						</p> -->
-
+<!--                             <p id="mensaje2"> -->
+<!-- 							<br> <span>Atentamente GTH,</span><br> <span>Gracias</span> -->
+<!-- 						</p> -->
+                       
 						<input type="file" name="file" class="dropify" id="cartaNotarial"
 							data-height="300" />
-
+						
 					</div>
 				</div>
 			</div>
@@ -364,10 +364,10 @@
 					<div class="col s12">
 						<div class="input-field col s7">
 							<h5>Descripción de la justificacion:</h5>
-							<div class="input-field col s12">
-								<textarea id="observaciones" class="materialize-textarea"></textarea>
-							</div>
-						</div>
+								<div class="input-field col s12">
+						<textarea id="observaciones" class="materialize-textarea"></textarea>
+					</div>
+					</div>
 					</div>
 				</div>
 			</form>
@@ -399,7 +399,7 @@
 	<script
 		src="<c:url value='/resources/js/plugins/prism/prism.js'></c:url>"
 		type="text/javascript"></script>
-	<script
+		<script
 		src="<c:url value='/resources/js/businessCore/PriCartaNotarial.js'></c:url>"
 		type="text/javascript"></script>
 	<script
@@ -411,11 +411,11 @@
 	<script
 		src="<c:url  value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
-		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
-		type="text/javascript"></script>
+		<script
+				src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+				type="text/javascript"></script>
+		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+				type="text/javascript"></script>
 </body>
 </body>
 </html>

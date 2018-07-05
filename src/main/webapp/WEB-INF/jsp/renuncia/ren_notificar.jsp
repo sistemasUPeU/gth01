@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="../../../jspf/general.jspf"%>
 <link href="https://fonts.googleapis.com/css?family=Dosis"
-	rel="stylesheet">
+	rel="stylesheet">	
 <link href="<c:url value='/resources/js/plugins/prism/prism.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <link
@@ -27,9 +27,10 @@
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/css/dataTables.min.css'></c:url>"
-	rel="stylesheet" type="text/css" />
 <link
+	href="<c:url value='/resources/css/dataTables.min.css'></c:url>" 
+	rel="stylesheet" type="text/css" />
+	<link
 	href="<c:url value='/resources/css/responsive.dataTables.min.css'></c:url>"
 	rel="stylesheet" type="text/css" />
 
@@ -47,7 +48,6 @@
 		font-size: 16px
 	}
 }
-
 @media only screen and (max-width: 640px) {
 	.remodal {
 		min-width: 100%;
@@ -62,29 +62,29 @@
 		font-size: 14px
 	}
 }
-
 .ajs-message.ajs-custom {
 	color: #31708f;
 	background-color: #d9edf7;
 	border-color: #31708f;
 	z-index: 999999
 }
-
-div.dataTables_wrapper {
-	width: auto;
-	margin: 0 auto;
+	div.dataTables_wrapper{
+		width:auto;
+        margin: 0 auto;
+    }
+    
+    .dataTables_scroll
+{
+    overflow:auto;
 }
-
-.dataTables_scroll {
-	overflow: auto;
+    
+    
+    .display{
+	width:100%;
 }
-
-.display {
-	width: 100%;
-}
-
-table.dataTable tbody th, table.dataTable tbody td {
-	white-space: nowrap;
+table.dataTable tbody th,
+table.dataTable tbody td {
+    white-space: nowrap;
 }
 </style>
 </head>
@@ -102,42 +102,43 @@ table.dataTable tbody th, table.dataTable tbody td {
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<section id="content" class="col m12 l12 s12">
-			<div class="center">
-				<h1
-					style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Notificar
-					Renuncias y Abandonos</h1>
-			</div>
-			<div class="divider"></div>
+				<div class="center">
+					<h1
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Notificar Renuncias y
+						 Abandonos</h1>
+				</div>
+				<div class="divider"></div>
 
-		</section>
-		<div class="row" style="width: 100%; max-width: 90%">
-			<ul class="collapsible popout">
-				<li id="autorize" class="active">
-					<div class="collapsible-header active">
-						<i class="mdi-social-notifications-on"></i> Verificar Abandonos
-						Pendientes
-					</div>
-					<div class="collapsible-body" style="display: none;">
-						<div class="row" style="padding: 1em">
-							<div class="contT"></div>
+			</section>
+			<div class="row"
+				style="width: 100%;  max-width:90%">
+				<ul class="collapsible popout">
+					<li id="autorize" class="active">
+						<div class="collapsible-header active">
+							<i class="mdi-social-notifications-on"></i> Verificar Abandonos Pendientes
 						</div>
-					</div>
-				</li>
-				<li id="autorized" class="">
-					<div class="collapsible-header">
-						<i class="mdi-toggle-check-box"></i> Verificar Abandonos
-						Autorizados
-					</div>
-					<div class="card-panel collapsible-body " style="display: none;">
-						<div class="row" style="padding: 1em">
-							<div class="contP"></div>
+						<div class="collapsible-body"
+							style="display: none;">	
+							<div class="row" style="padding:1em">
+								<div class="contT"></div>
+							</div>			
 						</div>
+					</li>
+					<li id="autorized" class="">
+						<div class="collapsible-header" >
+							<i class="mdi-toggle-check-box"></i> Verificar Abandonos Autorizados
+						</div> 
+						<div class="card-panel collapsible-body "
+							style="display: none;">
+							<div class="row" style="padding:1em">
+								<div class="contP"></div>
+							</div>
 
-					</div>
+							</div>
 
-				</li>
-			</ul>
-		</div>
+						</li>
+					</ul>
+				</div>
 
 	</div>
 
@@ -167,8 +168,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 					<br> <span>Atentamente GTH,</span><br> <span>Gracias</span>
 				</p>
 			</div>
-			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label><label
-				id="tipo" hidden=""></label>
+			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label><label id="tipo" hidden=""></label>
 			<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 			<button data-remodal-action="confirm" class="remodal-confirm" id=""
 				onclick="enviarCorreo()">Enviar</button>
@@ -225,7 +225,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 				<input type="hidden" id="array_motivos" />
 			</form>
 		</div>
-
+ 
 
 	</div>
 
@@ -239,7 +239,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 	<script
 		src="<c:url value='/resources/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
+		<script
 		src="<c:url value='/resources/js/dataTables.responsive.min.js'></c:url>"
 		type="text/javascript"></script>
 	<script
@@ -248,18 +248,18 @@ table.dataTable tbody th, table.dataTable tbody td {
 	<script
 		src="<c:url  value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
+		<script src="<c:url  value='/resources/js/remodal.min.js'></c:url>"
 		type="text/javascript">			
 	</script>
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
 		type="text/javascript"></script>
-	<script
+		<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
-	<script
+		<script
 		src="<c:url value='/resources/js/businessCore/NotificarRenuncia.js'></c:url>"
 		type="text/javascript"></script>
-
+	
 </body>
 </html>

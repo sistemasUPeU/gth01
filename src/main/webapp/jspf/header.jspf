@@ -8,15 +8,14 @@
 					<li><h1 class="logo-wrapper">
 							<a href="<%=request.getContextPath()%>/menu"
 								class="brand-logo darken-1"><img
-								src="<c:url value="/resources/img/gth.png"/>" alt="gth logo"
-								style="width: 125px;"></a>
+								src="<c:url value="/resources/img/gth.png"/>" alt="gth logo" style="width: 125px;"></a>
 						</h1></li>
 				</ul>
 				<ul class="right hide-on-med-and-down">
 
 					<li>
-						<div class="chip grey darken-1 white-text cgProfile"
-							onclick="loadProfile()" style="cursor: pointer;"></div>
+						<div class="chip grey darken-1 white-text cgProfile" onclick="loadProfile()" style="cursor: pointer;">
+						</div>
 					</li>
 					<li><a href="<%=request.getContextPath()%>/menu"
 						class="waves-effect waves-block waves-light tooltipped"

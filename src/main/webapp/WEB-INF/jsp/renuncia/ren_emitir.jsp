@@ -37,7 +37,7 @@
 
 			<hr>
 			<div class="container">
-
+				
 				<br>
 				<d iv class="row">
 				<div class="input-field">
@@ -73,29 +73,27 @@
 			<div class="row">
 				<!--DARK-->
 				<div class="col s12 m8 l8">
-					<div id="card-alert" class="card orange lighten-5"
-						style="display: none">
+					<div id="card-alert" class="card orange lighten-5" style="display:none">
 						<div class="card-content orange-text">
 							<p>
-								<i class="mdi-alert-warning"></i> ADVERTENCIA : Rellene los dos
-								espacios
+								<i class="mdi-alert-warning"></i> ADVERTENCIA : Rellene los dos espacios
 							</p>
 						</div>
-						<!-- 						<button type="button" class="close orange-text" -->
-						<!-- 							data-dismiss="alert" aria-label="Close"> -->
-						<!-- 							<span aria-hidden="true">×</span> -->
-						<!-- 						</button> -->
+<!-- 						<button type="button" class="close orange-text" -->
+<!-- 							data-dismiss="alert" aria-label="Close"> -->
+<!-- 							<span aria-hidden="true">×</span> -->
+<!-- 						</button> -->
 					</div>
 
 				</div>
 			</div>
 
 
-
+			
 			<hr>
 			<br>
-			<center>
-				<div class="form-group" style="display: none" id="opciones">
+			<center >
+				<div class="form-group" style="display:none" id="opciones">
 					<a
 						class="btn-floating btn-large waves-effect waves-light green accent-3"
 						href="" target="_blank" id="printea"><i
