@@ -157,8 +157,8 @@ public class RenunciaDAO {
 	}
    //
 	public List<Map<String, Object>> correo(String idcontrato) {
-		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO='" + idcontrato + "'";
-		return jt.queryForList(sql);
+		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO=?";
+		return jt.queryForList(sql,idcontrato);
 	}
 
 	// INSERTAR RENUNCIA

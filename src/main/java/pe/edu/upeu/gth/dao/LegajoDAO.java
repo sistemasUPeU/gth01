@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import pe.edu.upeu.gth.dto.Detalle_legajo;
 import pe.edu.upeu.gth.dto.Legajo;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
@@ -41,11 +42,19 @@ public class LegajoDAO {
 		return x;
 	}
 	
-	public int insertarMaxrRenuncia(Legajo r) {
+	public int actualizarPasoFinal(String idr,String tipo) {
+		System.out.println("LLEGANDO AL DAO"+tipo);
 		int x = 0;
-		String sql = "INSERT INTO REN_LEGAJO(ID_RENUNCIA) VALUES(?)";
+		String sql="";
+		if(tipo.equals("R")) {
+			System.out.println("Es renuncia");
+			sql = "UPDATE RA_RENABAN_PASOS SET ESTADO = '1' WHERE ID_RENABAN=? AND ID_PASOS='PAS-000440' ";
+		}else {
+			System.out.println("Es abandono");
+			sql= "UPDATE RA_RENABAN_PASOS SET ESTADO = '1' WHERE ID_RENABAN=? AND ID_PASOS='PAS-000441' ";
+		}
 		try {
-			jt.update(sql, new Object[] { r.getIdrenuncia()});
+			jt.update(sql,idr);
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -54,12 +63,12 @@ public class LegajoDAO {
 		return x;
 	}
 	
-	public int InsertarDocBenfSoc(Legajo ob) {
+	public int InsertarDocBenfSoc(Detalle_legajo ob) {
 		int x = 0;
-		String sql = "call REN_SP_INSERTAR_DOCUMENTOS(? , ? , ?, ?, ?)";
+		String sql = "call RA_SP_INSERTAR_DOCUMENTOS(? , ?, ?, ?)";
 //		String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
 		try {
-		 jt.update(sql,new Object[] {ob.getIdlegajo(),ob.getDescripcion(),ob.getNo_archivo(),ob.getTi_archivo(),ob.getFecha_registro()});
+		 jt.update(sql,new Object[] {ob.getDescripcion(),ob.getNo_archivo(),ob.getTi_archivo(),ob.getFecha_registro()});
 		 x=1;
 		} catch (Exception e) {
 			// TODO: handle exception

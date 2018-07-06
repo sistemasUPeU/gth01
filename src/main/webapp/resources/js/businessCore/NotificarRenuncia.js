@@ -157,7 +157,7 @@ function listarProcesados() {
 								function() {
 
 									idc = $(this).parents("tr").find("td")
-											.eq(0).find(".idtr").text();
+											.eq(0).find(".idc").text();
 									console.log(idc);
 									
 									tipon = $(this).parents(
@@ -283,7 +283,17 @@ function listarNotificados() {
 										+ a
 										+ '<label  class="idc" hidden>'
 										+ lista[i].ID_CONTRATO
-										+ '</label><label class="idrenaban" hidden>'
+										+ '</label>'
+										+ '<label class="tipo" hidden>'
+										+ lista[i].TIPO
+										+ '</label>'
+										+ '<label  class="idr" hidden>'
+										+ lista[i].ID_RENABAN
+										+ '</label>'
+										+ '<label  class="idt" hidden>'
+										+ lista[i].ID_TRABAJADOR
+										+ '</label>'
+										+'<label class="idrenaban" hidden>'
 								+ lista[i].ID_RENABAN
 								+ '</label></td>';
 								s += '<td>'
@@ -382,9 +392,24 @@ function listarNotificados() {
 								function() {
 
 									idc = $(this).parents("tr").find("td")
-											.eq(0).find(".idr").text();
+											.eq(0).find(".idc").text();
+									
+									idt = $(this).parents("tr").find("td")
+									.eq(0).find(".idt").text();
+									
+									idr = $(this).parents("tr").find("td")
+									.eq(0).find(".idr").text();
+									
+									tipo = $(this).parents("tr").find("td")
+									.eq(0).find(".tipo").text();
+									
+									$("#idc").val(idc);
+									$("#idt").val(idt);
+									$("#idra").val(idr);
+									$("#tipon").val(tipo);
+									console.log($("#idc").val()+" "+$("#idt").val()+" idrenabaaan "+$("#idra").val()+" tipoooo "+$("#tipon").val());
 //									alert(idc);
-									Entregar(idc);
+//									Entregar(idc);
 
 									// $("#otros").val(cantidad);
 
@@ -493,6 +518,7 @@ function verCorreo(idc) {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
+		alert(data);
 		// console.log(data);
 		inst.open();
 		var detalle = JSON.parse(data);
@@ -501,10 +527,8 @@ function verCorreo(idc) {
 		$("#idtr").text(detalle[0].ID_TRABAJADOR);
 		$("#idr").text(detalle[0].ID_RENABAN);
 
-		$("#nombre").text(
-				detalle[0].NOMBRES + " " + detalle[0].PATERNO + " "
+		$("#nombre").text(detalle[0].NOMBRES + " " + detalle[0].PATERNO + " "
 						+ detalle[0].MATERNO);
-
 	});
 
 }
@@ -544,11 +568,77 @@ function enviarCorreo() {
 
 	});
 }
-
+if(!alertify.errorAlert){
+	  alertify.dialog('errorAlert',function factory(){
+	    return{
+	            build:function(){
+	                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
+	                +    'style="vertical-align:middle;color:#e10000;">'
+	                + '</span> Error al guardar los datos';
+	                this.setHeader(errorHeader);
+	            }
+	        };
+	    },true,'alert');
+	}
+$("#entredoc").click(function (event) {
+	event.preventDefault();
+    var form = $('#EntregaForm')[0];
+    var data = new FormData(form);
+    var liquidacion=$("#liquidacion").val();
+    var cts=$("#cts").val();
+    var certificado=$("#certificado").val();
+    var remu=$("#remu").val();    
+    open();
+    alertify.confirm('Confirmar entrega de docuemntos', 'Esta seguro(a) de confirmar'+ 
+    		' la entrega de documentos?', function(){    	
+    	if(liquidacion!=""&&cts!=""&&certificado!=""&&remu!=""){
+        	$.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "holamundo",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+       $("#entredoc").prop("disabled", false);
+      
+       alertify.notify('Se ha registrado la renuncia satisfactoriamente.'+ 
+    		   'Redireccionando a reportes...', 'custom', 2,
+					function() {
+                  	window.location.href = gth_context_path+ '/renaban/deliveryR';
+					});
+                },
+                error: function (e) {
+                	alertify
+               .errorAlert("Ha ocurrido un problema, comuníquese con el administradord" +
+               		" el sistema.<br/>");
+                }
+            });
+        }else{          	
+        	alertify
+            .errorAlert("Rellene todos los campos<br/>");
+        }      	
+    	}
+    , function(){        	     	
+    });
+});
+function open(){
+	$(".ajs-header").addClass("#82b1ff  blue accent-1");
+	var isOpen = alertify.confirm().isOpen(); 
+	 if(isOpen=true){
+		 $(".ajs-ok").attr("id","alertyboton");
+		 $(".ajs-cancel").attr("id","alertyboton2");
+		 $(".alertify .ajs-modal").css("z-index","999999");
+	 }
+	 $("#alertyboton").addClass("btn waves-effect waves-light #2962ff blue accent-4");
+		$("#alertyboton2").addClass("btn waves-effect waves-light #bdbdbd grey lighten-1");
+}
 //INSERTAR LEGAJO
 function NotificarR() {
 //	alert(jfksdf);
-	var msj = $("#mensaje1").text();
+	var msj = $("#liquidacion").text();
 	var de = "pruebagth@gmail.com";
 //	var para = $("#correo").text();
 	var para = "estefannygarcia@upeu.edu.pe";

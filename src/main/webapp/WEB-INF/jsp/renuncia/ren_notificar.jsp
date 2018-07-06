@@ -104,7 +104,7 @@ table.dataTable tbody td {
 		<section id="content" class="col m12 l12 s12">
 				<div class="center">
 					<h1
-						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Notificar Renuncias y
+						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Gestión de Renuncias y
 						 Abandonos</h1>
 				</div>
 				<div class="divider"></div>
@@ -115,7 +115,7 @@ table.dataTable tbody td {
 				<ul class="collapsible popout">
 					<li id="autorize" class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-social-notifications-on"></i> Verificar Abandonos Pendientes
+							<i class="mdi-social-notifications-on"></i> Notificar entrega de documentos de Beneficios Sociales 
 						</div>
 						<div class="collapsible-body"
 							style="display: none;">	
@@ -126,7 +126,7 @@ table.dataTable tbody td {
 					</li>
 					<li id="autorized" class="">
 						<div class="collapsible-header" >
-							<i class="mdi-toggle-check-box"></i> Verificar Abandonos Autorizados
+							<i class="mdi-toggle-check-box"></i> Confirmar entrega de documentos - Almacenar al LEGAJO
 						</div> 
 						<div class="card-panel collapsible-body "
 							style="display: none;">
@@ -176,53 +176,55 @@ table.dataTable tbody td {
 
 	</div>
 
-
 	<div id="first">
 		<div class="remodal" data-remodal-id="modal1">
 			<button data-remodal-action="close" class="remodal-close"></button>
 			<h4 style="font-family: 'Dosis', sans-serif;">Entregar
 				Documentos</h4>
 
-			<form method="post"
-				action="<%=request.getContextPath()%>/renuncias/holamundo"
-				enctype="multipart/form-data">
+			<form method="POST"
+				action="<%=request.getContextPath()%>/renaban/holamundo"
+				enctype="multipart/form-data" id="EntregaForm">
 				<!-- 					<div class="modal-content #e0f7fa cyan lighten-5" -->
 				<!-- 						style="z-index: 0"> -->
 				<div class="row section">
 					<div class="col s12">
 						<div class="row">
 							<div class=" input-field col s6">
-								<p id="liquidacion">Hoja de liquidacion</p>
-								<input type="file" name="archivo" id="input-file-now"
+								<p>Hoja de liquidacion</p>
+								<input type="file" name="liquidacion" id="input-file-now" id="liquidacion"
 									class="dropify" data-default-file="" data-height="300" />
 							</div>
 							<div class=" input-field col s6">
-								<p id="cts">Carta CTS</p>
-								<input type="file" name="archivo" id="input-file-now"
+								<p>Carta CTS</p>
+								<input type="file" name="cts" id="input-file-now" id="cts"
 									class="dropify" data-default-file="" data-height="300" />
 							</div>
 						</div>
 					</div>
 					<div class="col s12">
 						<div class=" input-field col s6">
-							<p id="certificado">Certificado de Trabajo</p>
-							<input type="file" name="archivo" id="input-file-now"
+							<p>Certificado de Trabajo</p>
+							<input type="file" name="certificado" id="input-file-now" id="certificado"
 								class="dropify" data-default-file="" data-height="300" />
 						</div>
 						<div class=" input-field col s6">
-							<p id="remu">Reporte de Remuneraciones</p>
-							<input type="file" name="archivo" id="input-file-now"
+							<p>Reporte de Remuneraciones</p>
+							<input type="file" name="remu" id="input-file-now" id="remu"
 								class="dropify" data-default-file="" data-height="300" />
 						</div>
 					</div>
-					<input id="not_idr" type="hidden" name="not_idr">
+						<input id="idc" type="hidden" name="idc">
+						<input type="hidden" id="idt" name="idt"/>
+						<input type="hidden" id="idra" name="idra"/>
+						<input type="hidden" id="tipon" name="tipon"/>
 				</div>
 
 				<button data-remodal-action="cancel" class="remodal-cancel">Cancelar</button>
 				<button data-remodal-action="confirm" class="remodal-confirm"
-					onclick="NotificarR()">Enviar</button>
+					type="submit" id="entredoc">Enviar</button>
 				<div class="col s4"></div>
-				<input type="hidden" id="array_motivos" />
+			
 			</form>
 		</div>
  

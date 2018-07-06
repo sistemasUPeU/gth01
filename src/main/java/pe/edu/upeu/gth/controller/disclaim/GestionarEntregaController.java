@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.LegajoDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
+import pe.edu.upeu.gth.dto.Detalle_legajo;
 import pe.edu.upeu.gth.dto.Legajo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -46,13 +50,13 @@ public class GestionarEntregaController {
 	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
 	Legajo ob = new Legajo();
-
+	private static String UPLOADED_FOLDER = "C:\\Usuarios\\ASUS\\git\\gth01\\src\\main\\webapp\\resources\\files";
 	@Autowired
 	ServletContext context;
 
 	@RequestMapping(value = "/listarxd", method = RequestMethod.GET)
-	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-			throws ServletException, IOException {
+	protected void metodosPedidos2(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
@@ -76,18 +80,18 @@ public class GestionarEntregaController {
 			out.println(rd.enviarCorreo(de, clave, para, mensaje, asunto));
 			break;
 
-//		case 4:
-//			Legajo l = new Legajo();
-//			l.setIdtrabajador(request.getParameter("idtr"));
-//			l.setId_tipo_doc("DLE-000001");
-//			l.setOtros(request.getParameter("otros"));
-//			l.setDetalle_otros(request.getParameter("detalle"));
-//			out.println(ldao.insertarLegajo(l));
-//			break;
+		// case 4:
+		// Legajo l = new Legajo();
+		// l.setIdtrabajador(request.getParameter("idtr"));
+		// l.setId_tipo_doc("DLE-000001");
+		// l.setOtros(request.getParameter("otros"));
+		// l.setDetalle_otros(request.getParameter("detalle"));
+		// out.println(ldao.insertarLegajo(l));
+		// break;
 		case 4:
 			Legajo l = new Legajo();
 			l.setIdcontrato(request.getParameter("idc"));
-			l.setIdtrabajador(request.getParameter("idtr"));			
+			l.setIdtrabajador(request.getParameter("idtr"));
 			out.println(ldao.insertarLegajo(l));
 			break;
 		case 5:
@@ -136,15 +140,15 @@ public class GestionarEntregaController {
 		case 6:
 			String idra = request.getParameter("idra");
 			String tipo1 = request.getParameter("tipo1");
-			System.out.println("Esta llegando un idr:" +idra);
+			System.out.println("Esta llegando un idr:" + idra);
 			r.setId_renuncia(idra);
 			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-			out.println(rd.notificarRenuncia(r,idusuario,tipo1));
+			out.println(rd.notificarRenuncia(r, idusuario, tipo1));
 			break;
 
 		case 7:
 			out.println(gson.toJson(rd.listarNotificados()));
-			break;			
+			break;
 
 		}
 
@@ -155,109 +159,140 @@ public class GestionarEntregaController {
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		int op = Integer.parseInt(request.getParameter("opc"));
-		switch (op) {
-		case 1:
-			Legajo l = new Legajo();
-			l.setIdrenuncia(request.getParameter("idr"));
-
-			// String dni = request.getParameter("dni");
-			out.println(ldao.insertarMaxrRenuncia(l));
-			break;
-		case 2:
-			String de = request.getParameter("de");
-			String clave = request.getParameter("clave");
-			String para = request.getParameter("para");
-			String mensaje = request.getParameter("mensaje");
-			String asunto = request.getParameter("asunto");
-			String foto = request.getParameter("foto");
-			// boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
-			out.println(ldao.NotificarDocumentos(de, clave, para, mensaje, asunto, foto));
-			break;
-		case 3:
-			String idle = request.getParameter("idle");
-			String descripcion = request.getParameter("descripcion");
-			String no_archivo = request.getParameter("no_archivo");
-			String ti_archivo = request.getParameter("ti_archivo");
-			String fecha_registro = request.getParameter("fecha_registro");
-			ob.setIdlegajo(idle);
-			ob.setDescripcion(descripcion);
-			ob.setNo_archivo(no_archivo);
-			ob.setTi_archivo(ti_archivo);
-			ob.setFecha_registro(fecha_registro);
-			out.println(ldao.InsertarDocBenfSoc(ob));
-			break;
-		}
 
 	}
 
 	@RequestMapping(path = "/holamundo", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("archivo") List<MultipartFile> file,
-			@RequestParam("not_idr") String idr) throws IOException {
-
+	public String handleFormUpload(@RequestParam("liquidacion") List<MultipartFile> liquidacion,
+			@RequestParam("cts") List<MultipartFile> cts, @RequestParam("certificado") List<MultipartFile> certificado,
+			@RequestParam("remu") List<MultipartFile> remu, @RequestParam("idc") String idc,
+			@RequestParam("idt") String idt, @RequestParam("idra") String idr, @RequestParam("tipon") String tipo)
+			throws IOException {
+		System.out.println("zzzzz idrrrr "+idr+"aaaaa tipoo "+tipo+"idc "+idc+"idt "+idt);
 		Renuncia r = new Renuncia();
-		String url = "/renuncias/deliveryR";
+		Legajo l = new Legajo();
+		String url = "/renaban/deliveryR";
+		// LegajoDAO le =LegajoDAO();
 		int x = 0;
-		if (!file.isEmpty()) {
-			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
-			// ?, ?)";
-			try {
-				for (MultipartFile fi : file) {
+
+		// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
+		// ?, ?)";
+		try {
+			l.setIdcontrato(idc);
+			l.setIdtrabajador(idt);
+			ldao.insertarLegajo(l);
+			if (!remu.isEmpty() && !liquidacion.isEmpty() && !certificado.isEmpty() && !cts.isEmpty()) {
+				for (MultipartFile fi : liquidacion) {
 					x++;
 					System.out.println(x);
-					List<String> archi = new ArrayList<>();
-					String path = context.getRealPath("/WEB-INF/hola/") + File.separator + fi.getOriginalFilename();
+					List<String> archi1 = new ArrayList<>();
+					String nome = fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome = "liquidacion" + idc + dateAsString;
+					String path = UPLOADED_FOLDER + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome + "." + FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
 					File destFile = new File(path);
 					fi.transferTo(destFile);
-					System.out.println(path);
-					archi.add(destFile.getName());
-					archi.add(destFile.getPath());
-					// FilenameUtils fich = new FilenameUtils();
-					archi.add(FilenameUtils.getExtension(path));
-					archi.add(String.valueOf(destFile.length()));
-					// System.out.println("ARCHIVO " + path);
-					// System.out.println(idcon);
-					// r.setFecha(fecha);
-					// r.setNo_archivo(destFile.getName());
-					// r.setTi_archivo(FilenameUtils.getExtension(path));
-					// r.setId_contrato(idcon);
-					// r.setId_usuario(idusuario);
-					// rd.crearRenuncia(r);
+					archi1.add(FilenameUtils.getExtension(path));
+					archi1.add(String.valueOf(destFile.length()));
 					System.out.println(gson.toJson(archi));
-					System.out.println(idr);
-//					Legajo l = new Legajo();
-//					l.setNo_archivo(destFile.getName());
-//					l.setTi_archivo(FilenameUtils.getExtension(path));
-//					if (x == 1) {
-//						l.setId_tipo_doc("DLE-000001");
-//					}
-//					if (x == 2) {
-//						l.setId_tipo_doc("DLE-000003");
-//					}
-//
-//					if (x == 3) {
-//						l.setId_tipo_doc("DLE-000002");
-//					}
-//					if (x == 4) {
-//						l.setId_tipo_doc("DLE-000004");
-//					}
-//					System.out.println(l.getId_tipo_doc());
-//					ldao.InsertarDocBenfSoc(l);
+					Detalle_legajo leg = new Detalle_legajo();
+					leg.setNo_archivo(destFile.getName());
+					leg.setTi_archivo(FilenameUtils.getExtension(path));
+					leg.setDescripcion("LIQUIDACIÓN");
+					leg.setFecha_registro("06/04/2018");
+					ldao.InsertarDocBenfSoc(leg);
+				}
+				for (MultipartFile fi : cts) {
+					x++;
+					System.out.println(x);
+					List<String> archi2 = new ArrayList<>();
+					String nome = fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome = "cts" + idc + dateAsString;
+					String path = UPLOADED_FOLDER + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome + "." + FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					archi2.add(destFile.getName());
+					archi2.add(destFile.getPath());
+					// FilenameUtils fich = new FilenameUtils();
+					archi2.add(FilenameUtils.getExtension(path));
+					archi2.add(String.valueOf(destFile.length()));
+					System.out.println(gson.toJson(archi2));
+					Detalle_legajo leg = new Detalle_legajo();
+					leg.setNo_archivo(destFile.getName());
+					leg.setTi_archivo(FilenameUtils.getExtension(path));
+					leg.setDescripcion("CTS");
+					leg.setFecha_registro("06/04/2018");
+					ldao.InsertarDocBenfSoc(leg);
+				}
+				for (MultipartFile fi : certificado) {
+					x++;
+					System.out.println(x);
+					List<String> archi3 = new ArrayList<>();
+					String nome = fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome = "certificado" + idc + dateAsString;
+					String path = UPLOADED_FOLDER + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome + "." + FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					archi3.add(destFile.getName());
+					archi3.add(destFile.getPath());
+					// FilenameUtils fich = new FilenameUtils();
+					archi3.add(FilenameUtils.getExtension(path));
+					archi3.add(String.valueOf(destFile.length()));
+					System.out.println(gson.toJson(archi3));
+					Detalle_legajo leg = new Detalle_legajo();
+					leg.setNo_archivo(destFile.getName());
+					leg.setTi_archivo(FilenameUtils.getExtension(path));
+					leg.setDescripcion("CERTIFICADO DE TRABAJO");
+					leg.setFecha_registro("06/04/2018");
+					ldao.InsertarDocBenfSoc(leg);
+				}
+				for (MultipartFile fi : remu) {
+					x++;
+					System.out.println(x);
+					List<String> archi4 = new ArrayList<>();
+					String nome = fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome = "remuneraciones" + idc + dateAsString;
+					String path = UPLOADED_FOLDER + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome + "." + FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					archi4.add(destFile.getName());
+					archi4.add(destFile.getPath());
+					// FilenameUtils fich = new FilenameUtils();
+					archi4.add(FilenameUtils.getExtension(path));
+					archi4.add(String.valueOf(destFile.length()));
+					Detalle_legajo leg = new Detalle_legajo();
+					leg.setNo_archivo(destFile.getName());
+					leg.setTi_archivo(FilenameUtils.getExtension(path));
+					leg.setDescripcion("REMUNERACIONES");
+					leg.setFecha_registro("06/04/2018");
+					ldao.InsertarDocBenfSoc(leg);
 
 				}
-//				System.out.println(idr);
-//				Renuncia r1 = new Renuncia();
-//				r1.setId_renuncia(idr);
-//				ldao.EntregarRenuncia(r1);
-
-			} catch (IOException | IllegalStateException ec) {
-				ec.getMessage();
-				ec.printStackTrace();
 			}
+			System.out.println("LLEGANDO AL CONTROLLER " + idr + ".. " + tipo);
+			ldao.actualizarPasoFinal(idr, tipo);
 
+		} catch (IOException | IllegalStateException ec) {
+			ec.getMessage();
+			ec.printStackTrace();
 		}
+
 		return "redirect:" + url;
 	}
-
-
 
 }
