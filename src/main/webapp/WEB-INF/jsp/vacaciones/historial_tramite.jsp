@@ -276,7 +276,7 @@ div.dataTables_length {
 																		tt);
 														console.log(obj[i]);
 													}
-													if (ID_PASOSOS == "PAS-000055"
+													if (ID_PASOSOS == "PAS-000054"
 															&& obj[i].EVALUACION == "3") {
 														fecha = new Date(
 																obj[i].FECHA_MOD);
@@ -286,8 +286,7 @@ div.dataTables_length {
 																		tt);
 														console.log(obj[i]);
 													}
-													if (ID_PASOSOS == "PAS-000054"
-															|| ID_PASOS == "PAS-000052") {
+													if (ID_PASOSOS == "PAS-000052") {
 														fecha = new Date(
 																obj[i].FECHA_MOD);
 														FECHA_MOD_CO = fecha
@@ -308,7 +307,6 @@ div.dataTables_length {
 														console.log(obj[i]);
 													}
 													if (ID_PASOSOS == "PAS-000092"
-															&& obj[i].FIRMA_SALIDA == 0
 															&& obj[i].URL_PAPELETA != null) {
 														fecha = new Date(
 																obj[i].FECHA_MOD);
@@ -320,7 +318,7 @@ div.dataTables_length {
 													}
 													if (ID_PASOSOS == "PAS-000092"
 															&& obj[i].FIRMA_SALIDA == 1
-															&& obj[i].FIRMA_ENTRADA == 0) {
+															&& obj[i].EVALUACION == 2) {
 														fecha = new Date(
 																obj[i].FECHA_MOD);
 														FECHA_MOD_FI1 = fecha
