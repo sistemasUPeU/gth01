@@ -73,7 +73,7 @@ $("#table_contenido").on("click", "#open", function() {
 		$("#s_programacion").append(dd);
 	} else {
 		//GUARDAR FECHAS DE CADA PASO
-		$.get('readHistorialTramite', {id : id}, function(obj) {
+		$.get('historial/readHistorialTramite', {id : id}, function(obj) {
 			for (var i = 0; i < obj.length; i++) {
 				var ID_PASOSOS = $.trim(obj[i].ID_PASOS);
 				if (ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD != null || ID_PASOSOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD != null) {
@@ -377,7 +377,7 @@ $("#table_contenido").on("click", "#open", function() {
 
 //FUNCION PARA LISTAR EL HISTORIAL DEL USUARIO
 function listarHistorialTramite() {
-	$.get('readallHistorialTramite', function(obj) {
+	$.get('historial/readallHistorialTramite', function(obj) {
 		var s = '';
 		var emp = obj[0];
 		for (var i = 0; i < obj.length; i++) {

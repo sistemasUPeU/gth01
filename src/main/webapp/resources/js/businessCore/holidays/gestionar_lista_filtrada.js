@@ -7,7 +7,7 @@ $(document).ready(function() {
 $("#confirmar_lista").click(function() {
 	$("#nocargando").hide();
 	$("#cargando").show();
-	$.get("confirmarListaFiltrada",function(data, status) {
+	$.get("filtrar/confirmarListaFiltrada",function(data, status) {
 		if (data == 1) {
 			var $toastContent = $('<span>Lista filtrada correctamente</span>');
 			Materialize.toast($toastContent, 10000);
@@ -32,7 +32,7 @@ $("#confirmar_lista").click(function() {
 
 //LISTAR Y LLENAR A LOS TRABAJADORES CON 12 MESES EN LAS TABLAS + CONDICION DE TRABAJO 
 function listarTrabajadorFiltrado() {
-	$.get('readallTrabajadorFiltrado', function(obj) {
+	$.get('filtrar/readallTrabajadorFiltrado', function(obj) {
 		var s = '';
 		var emp = obj[0];
 		for (var i = 0; i < obj.length; i++) {

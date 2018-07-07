@@ -78,7 +78,11 @@ public class PrincipalController {
 	@GetMapping("/gestionar_lista_filtrada")
 	public ModelAndView gestionar_lista_filtrada(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/gestionar_lista_filtrada");
-
+	}
+	
+	@GetMapping("/historial")
+	public ModelAndView historial_tramite(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("vacaciones/historial_tramite");
 	}
 
 	@GetMapping("/consolidado")
@@ -106,102 +110,6 @@ public class PrincipalController {
 	public ModelAndView generar_papeleta(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/generar_papeleta");
 
-	}
-
-	//
-	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllTrabajadorFiltrado() {
-		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL());
-	}
-
-	@RequestMapping(path = "/readallControlFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllControlFirma() {
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL());
-	}
-	
-	@RequestMapping(path = "/readallHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllHistorialTramite(HttpServletRequest RQ, Authentication authentication) {
-		authentication=SecurityContextHolder.getContext().getAuthentication();
-		String idtrab = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
-		System.out.println(idtrab + " :ID_TRABAJADOR");
-		HistorialTramiteDAO DAO = new HistorialTramiteDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READALL(idtrab));
-	}
-	
-	@RequestMapping(path = "/readHistorialTramite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getHistorial(HttpServletRequest RQ) {
-		String id = RQ.getParameter("id");
-		System.out.println(id);
-		HistorialTramiteDAO DAO = new HistorialTramiteDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READ(id));
-	}
-	
-	@Autowired
-	ServletContext context;
-
-	@RequestMapping(path = "/confirmarListaFiltrada", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String confirmarListaFiltrada() {
-		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
-
-		// AbstractApplicationContext context = new
-		// AnnotationConfigApplicationContext(AppConfig.class);
-		//
-		// MailService mailService = (MailService) context.getBean("mailService");
-		// mailService.sendEmail(getDummyOrder());
-		//
-		// ((AbstractApplicationContext) context).close();
-
-		// emailService.sendSimpleMessageUsingTemplate(mailObject.getTo(),
-		// mailObject.getSubject(),
-		// template,
-		// mailObject.getText());
-
-		List<Map<String, Object>> lista = new ArrayList<>();
-		lista = DAO.GetEmail();
-		String[] arrayEmail = new String[lista.size()];
-		System.out.println(GSON.toJson(lista));
-		for (int i = 0; i < lista.size(); i++) {
-			System.out.println(lista.get(i).get("DI_CORREO_PERSONAL"));
-			arrayEmail[i] = lista.get(i).get("DI_CORREO_PERSONAL").toString();
-		}
-		// ms.sendEmail(getDummyOrder(), arrayEmail);
-		return GSON.toJson(DAO.CONFIRMAR());
-	}
-
-	public static ProductOrder getDummyOrder() {
-		ProductOrder order = new ProductOrder();
-		order.setOrderId("1111");
-		order.setProductName("Thinkpad T510");
-		order.setStatus("confirmed");
-
-		CustomerInfo customerInfo = new CustomerInfo();
-		customerInfo.setName("Websystique Admin");
-		customerInfo.setAddress("WallStreet");
-		customerInfo.setEmail("104granados@gmail.com");
-		order.setCustomerInfo(customerInfo);
-		return order;
-	}
-
-	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getFirma(HttpServletRequest RQ) {
-		String id = RQ.getParameter("id");
-		System.out.println(id);
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.READFECHA(id));
-	}
-
-	@RequestMapping(path = "/updateFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarFirma(HttpServletRequest RQ, Authentication authentication) {
-    	authentication=SecurityContextHolder.getContext().getAuthentication();
-		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
-		String id = RQ.getParameter("id");
-		int inicio = Integer.parseInt(RQ.getParameter("inicio"));
-		int fin = Integer.parseInt(RQ.getParameter("fin"));
-		System.out.println(idtrab + " SIIII");
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin, idtrab));
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -266,11 +174,6 @@ public class PrincipalController {
 		return new ModelAndView("vacaciones/vac_reportes");
 	}
 	
-	@GetMapping("/historial")
-	public ModelAndView historial_tramite(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("vacaciones/historial_tramite");
-	}
-	
 	@RequestMapping(path = "/readFechaMod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String leerFechaMod(HttpServletRequest RQ) {
 		String id = RQ.getParameter("id");
@@ -285,15 +188,5 @@ public class PrincipalController {
 		String fin = RQ.getParameter("fin");
 		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
-	}
-	
-	@RequestMapping(path = "/updatePapeletaFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarPapeletaFirma(HttpServletRequest RQ, Authentication authentication) {
-    	authentication=SecurityContextHolder.getContext().getAuthentication();
-		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
-		String id = RQ.getParameter("id");
-		System.out.println(idtrab + " " + id);
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.UPDATEPAPELETA(id, idtrab));
 	}
 }

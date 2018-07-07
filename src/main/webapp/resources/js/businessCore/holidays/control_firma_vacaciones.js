@@ -111,7 +111,7 @@ $("#guardar").click(function() {
 		} else {
 			Materialize.toast('No hay papeleta', 3000, 'rounded');
 		}
-		$.get('updatePapeletaFirma', {id : a}, function(data) {
+		$.get('controlar/updatePapeletaFirma', {id : a}, function(data) {
 		});
 	}
 	//ENVIA FECHAS AL BACK-END
@@ -132,7 +132,7 @@ $("#guardar").click(function() {
 $("#table_contenido").on("click", "#open", function() {
 	var id = $(this).attr("name");
 	idtrab = $(this).attr("title");
-	$.get('readFirma', {id : id}, function(obj) {
+	$.get('controlar/readFirma', {id : id}, function(obj) {
 		$("#contenedor_fechas").empty();
 		var j = '';
 		var k = 0;
@@ -205,7 +205,7 @@ $("#table_contenido").on("click", "#open", function() {
 
 //LLENA TABLA DE FIRMAS CON LOS DATOS DE TRABAJADORES FILTRADOS
 function listarControlFirmas() {
-	$.get('readallControlFirma', function(obj) {
+	$.get('controlar/readallControlFirma', function(obj) {
 		var s = '';
 		var emp = obj[0];
 		for (var i = 0; i < obj.length; i++) {
