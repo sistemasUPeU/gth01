@@ -53,7 +53,7 @@ function listarRegistrados() {
 					function(objJson) {
 						var s = "";
 						var lista = objJson;
-//						console.log(objJson);
+						console.log("Registrados: "+objJson);
 						if (lista.length > 0) {
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
@@ -148,7 +148,7 @@ function listarRegistrados() {
 								responsivePriority : 2,
 								targets : -1
 							} ],
-							"pageLength" : 5,
+							"pageLength" : 2,
 							"bPaginate" : true,
 							"ordering": false
 							 
@@ -221,7 +221,6 @@ function crearModal(id) {
 	$.getJSON(gth_context_path + "/renaban/detalleR",
 			{opc:8,idrenaban:id},
 			function(data){
-//				console.log("fechota: "+data[0].FECHA_RENABAN)
 				fechon= data[0].FECHA_CARTA;
 				var fecha = new Date(fechon);
 				var dd = fecha.getDate();
@@ -382,51 +381,83 @@ function eliminar(id,archivo) {
 			}, function() {
 			});
 }
+//$("#aceptarRenaban").click(function(idrab,tipo){
 function aceptarRenaban(idrab,tipo){
 	var idra= idrab;
 	var tipo= tipo;
 	if(tipo=="RENUNCIA"){
-		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
-			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){				 
-				 $("#data-table-row-grouping").dataTable().fnDestroy();
-					$( "#card-alert" ).fadeTo(1500, 1, function(){
-						listarRegistrados();
-						window.setTimeout(function() {							
-						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
-						        $(this).hide(); 
-						    });
-						}, 2000);
-					  });
-        	});			 
-	     	} , function(){ 
-	     		
-	        });
-	}else{		
-		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar el abandono de este trabajador?', function(){
-			 $.get("detalleR",{opc:9,tipo:'A',idra:idra},function(data){
-//				 window.location.href = gth_context_path +"/renaban/listaRA";					 
-				
-//        		 	 $("#data-table-row-grouping").dataTable().fnDestroy();
-//        		 alert(data);
-//				 alert("Reeeeenuncia")
-				 $( "#card-alert" ).fadeTo(1500, 1, function() {
-					    // Animation complete.  
-					 	listarRegistrados();
-						window.setTimeout(function() {
-							
-						    $("#card-alert").fadeTo(1000, 0, function(){
-						        $(this).hide(); 
-						    });
-						}, 2000);
-					  });
+		swal({
+    		title: "¿Está seguro de autorizar",
+    		text: "la renuncia de este trabajador?",
+    		type: "warning",
+    		showCancelButton: true,
+    		confirmButtonColor: '#40D005',
+    		confirmButtonText: 'Confirmar',
+    		cancelButtonText: 'Cancelar',
+    		closeOnConfirm: false,
+    		closeOnCancel: false
+    	},	
+    	function(isConfirm){
+            if (isConfirm){
+            	$.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){													 
+					if (data==1){
+						  
+						  $( "#card-alert" ).fadeTo(1500, 1, function(){
+								listarRegistrados();
+								listarDerivados();
+								swal("Se derivo", "la renuncia con éxito", "success");
+								window.setTimeout(function() {							
+								    $("#card-alert").fadeTo(1000, 0, function(){
+								        $(this).hide(); 
+								    });
+								}, 2000);
+							  });
+					}else{
+						swal("Error", "Contactarse con el administrador", "error");
+					}
+	        	});			            				           							 					     	 			        	
+            } else {
+            	window.location.href = gth_context_path +"/renaban/listaRA";
+            }
         	});
-			 
-	     	} , function(){ 
-	     		
-	        });
+	}else{	
+		swal({
+    		title: "¿Está seguro de autorizar",
+    		text: "la renuncia de este trabajador?",
+    		type: "warning",
+    		showCancelButton: true,
+    		confirmButtonColor: '#40D005',
+    		confirmButtonText: 'Confirmar',
+    		cancelButtonText: 'Cancelar',
+    		closeOnConfirm: false,
+    		closeOnCancel: false
+    	},	
+    	function(isConfirm){
+            if (isConfirm){
+            	$.get("detalleR",{opc:9,tipo:'A',idra:idra},function(data){													 
+					if (data==1){
+						  
+						  $( "#card-alert" ).fadeTo(1500, 1, function(){
+								listarRegistrados();
+								listarDerivados();
+								swal("Se derivo", "el abandono con éxito", "success");
+								window.setTimeout(function() {							
+								    $("#card-alert").fadeTo(1000, 0, function(){
+								        $(this).hide(); 
+								    });
+								}, 2000);
+							  });
+					}else{
+						swal("Error", "Contactarse con el administrador", "error");
+					}
+	        	});			            				           							 					     	 			        	
+            } else {
+            	window.location.href = gth_context_path +"/renaban/listaRA";
+            }
+        	});
 	}
 }
-
+//DISEÑO DE TABLA 1
 function createTable() {
 	var s = '<table id="data-table-row-grouping" class="display centered responsive" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
@@ -453,6 +484,7 @@ function createTable() {
 	s += '</table>';
 	return s;
 }
+//DISEÑO DE LA TABLA 2
 function createTable2() {
 	var s = '<table id="data-table-row-grouping2" class="display centered" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
@@ -476,6 +508,7 @@ function createTable2() {
 	s += '</table>';
 	return s;
 }
+//LISTAR DERIVADOS
 function listarDerivados() {
 	$.getJSON(
 			gth_context_path + "/renaban/AutorizarR",
@@ -483,7 +516,6 @@ function listarDerivados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(lista[0].PATERNO);
 				if (lista.length > 0) {
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;
@@ -574,6 +606,7 @@ function listarDerivados() {
 						);
 			});
 }
+//FECHA
 function ParsearMes(mesint) {
 	var mes;
 //	console.log(mesint);

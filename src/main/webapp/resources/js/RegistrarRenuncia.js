@@ -1,12 +1,10 @@
 $(document).ready(function(){
-		$("#otrosdiv").hide();
-	
+		$("#otrosdiv").hide();	
     $('#fecha').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
     	selectYears: 15, // Creates a dropdown of 15 years to control
     	format: 'dd/mm/yyyy',
       });
-
 	if(!alertify.errorAlert){
 		  alertify.dialog('errorAlert',function factory(){
 		    return{
@@ -19,88 +17,73 @@ $(document).ready(function(){
 		        };
 		    },true,'alert');
 		}
+	//REGISTRAR RENUNCIA
 	$("#RegistrarR").click(function (event) {
 		event.preventDefault();
         var form = $('#RenunciaForm')[0];
         var data = new FormData(form);
         var file=$("#pelon1").val();
         var fecha = $("#fecha").val();
-        console.log(fecha);
         var array = $("#array_motivos").val();       
         if (!$("#otrosdiv").hasClass("hide")) {
 		} else {
 		}      
         open();
-        
-        alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la'+ 
-        		'renuncia de este trabajador?', function(){    	
-        	if(file!=""&&fecha!=""&&array!=""){
-            	$.ajax({
-                    type: "POST",
-                    enctype: 'multipart/form-data',
-                    url: "reg_ren",
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    timeout: 600000,
-                    success: function (data) {
-           $("#RegistrarR").prop("disabled", false);
-           insertarMotivos();
-           alertify.notify('Se ha registrado la renuncia satisfactoriamente.'+ 
-        		   'Redireccionando a reportes...', 'custom', 2,
-    					function() {
-                      	window.location.href = gth_context_path+ '/renaban/listaRA';
-    					});
-                    },
-                    error: function (e) {
-                    	alertify
-                   .errorAlert("Ha ocurrido un problema, comuníquese con el administradord" +
-                   		" el sistema.<br/>");
-                    }
-                });
-            }else{          	
-            	alertify
-                .errorAlert("Rellene todos los campos<br/>");
-            }      	
-        	}
-        , function(){        	     	
-        });
-    });
-			
-            $('.dropify').dropify(function(event, element){
-                return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
-            });
-
-            // Translated
-            $('.dropify-fr').dropify({
-                messages: {
-                    default: 'Glissez-déposez un fichier ici ou cliquez',
-                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                    remove:  'Supprimer',
-                    error:   'Désolé, le fichier trop volumineux'
-                }
-            });
-
+        //ALERT DINAMICO PARA RENUNCIA
+        swal({
+    		title: "¿Está seguro de confirmar",
+    		text: "la renuncia de este trabajador?",
+    		type: "warning",
+    		showCancelButton: true,
+    		confirmButtonColor: '#40D005',
+    		confirmButtonText: 'Confirmar',
+    		cancelButtonText: 'Cancelar',
+    		closeOnConfirm: false,
+    		closeOnCancel: false
+    	},		        	
+    	function(isConfirm){
+        if (isConfirm){												 
+				if (file!=""&&fecha!=""&&array!=""){
+					$.ajax({
+	                    type: "POST",
+	                    enctype: 'multipart/form-data',
+	                    url: "reg_ren",
+	                    data: data,
+	                    processData: false,
+	                    contentType: false,
+	                    cache: false,
+	                    timeout: 600000,
+	                    success: function (data) {
+	           $("#RegistrarR").prop("disabled", false);
+	           insertarMotivos();
+	           swal("Se ha registrado" ,"la renuncia satisfactoriamente", "success");
+				  window.setTimeout(function() {							
+					  window.location.href = gth_context_path+ '/renaban/listaRA';
+					}, 2000);
+	                    },
+	                });					  
+				}else{
+					swal("Error", "Rellene todos los campos", "error");
+				}        				            				           							 					     	 			        	
+        } else {
+        	window.location.href = gth_context_path+ '/renaban/listaRA';
+        }
+    	});
+    });			
             // Used events
             var drEvent = $('#pelon1').dropify();
-
             drEvent.on('dropify.beforeClear', function(event, element){
                 return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
             });
-
             drEvent.on('dropify.afterClear', function(event, element){
                 alert('Archivo eliminado');
-            });
-            
-            $("#detalleR").hide();
-            
+            });           
+            $("#detalleR").hide();          
             $("#dni").keypress(function(e) {
     			if (e.which == 13) {
     				$("#buscarDetalle").click();
     			}
-    		});
-            
+    		});            
             $('#motivo').material_select();
             $("#motivo option:selected").prop("selected",false);
             $('#motivo').change(function(){
@@ -113,38 +96,29 @@ $(document).ready(function(){
                     if ($(li).hasClass('active')) {
                     	var item = select.children('option').toArray()[i].value;                       
                         newValuesArr.push(item);                     
-                        if(item=='MOT-000007'){
-                        
+                        if(item=='MOT-000007'){                      
                         	$("#otrosdiv").show();
                         }else{
-// $("#otrosdiv").removeClass("show");
                       		$("#otrosdiv").hide();
                       	}                        
                     }
                     if(newValuesArr.length==0){
-                    	$("#otrosdiv").hide();
-                    	
+                    	$("#otrosdiv").hide();                    	
                     }
                     $("#array_motivos").val(newValuesArr);
                 });
                 select.val(newValuesArr);
-                // ---------------------------------
-// alert($("#motivo").val());
-
             });
-       
+            //ESCOGER OPCIONES
             $.get("detalleR",{opc:2},function(data,status){
             	var mot = JSON.parse(data);
             	$('#motivo').html("");
             	$('#motivo').append("<option value='' disabled selected>Elija una o varias opciones</option>");
-            	$.each(mot,function(key,val){
- 
-            		
+            	$.each(mot,function(key,val){           		
             		$('#motivo').append($("<option></option>")
                                .attr("value",val.ID_MOTIVO)
                                .text(val.NO_MOTIVO));  $('#motivo').material_select();
-            	});
-            	 
+            	});            	 
             });
         });
 function open(){
@@ -158,14 +132,11 @@ function open(){
 	 $("#alertyboton").addClass("btn waves-effect waves-light #2962ff blue accent-4");
 		$("#alertyboton2").addClass("btn waves-effect waves-light #bdbdbd grey lighten-1");
 }
-
 // MOSTRANDO LOS DETALLES DE TRABAJADOR AL FILTRAR POR DNI
 function buscarDetalle(){	
-	dni = $("#dni").val();
-	
+	dni = $("#dni").val();	
 	$.get("detalleR",{dni:dni,opc:1},function(data,status){
 		var detalle = JSON.parse(data);
-//		console.log(detalle);
 			if(detalle.length==0){
 							$("#detalleR").hide();
 							$("#fo").show();
@@ -188,15 +159,12 @@ function buscarDetalle(){
 							$("#idcontrato").val(detalle[0].ID_CONTRATO);
 							$("#dni").val("");
 							$("#dni").focus();
-						}		
-		  
-	});
-
-}
+						}				  
+					});
+				}
 
 //SE INSERTA LOS MOTIVOS DE LA RENUNCIA
 function insertarMotivos(){
-// alert("Motivos: "+$("#array_motivos").val());
 	var array = $("#array_motivos").val();
 	$.ajax("detalleR",{
 		data:{
@@ -207,11 +175,9 @@ function insertarMotivos(){
 		success:function(data){
 			otros = $("#otros").val();
 			if (otros=="") {
-				// alert("NO VAS A INSERTAR OTROS XD");
 			} else {
 				insertarOtros(otros);
-			}
-	
+			}	
 		}
 	});
 }
@@ -219,6 +185,5 @@ function insertarMotivos(){
 //SI EL MOTIVO ES OTRO QUE NO APARECE EN LA LISTA, SE INSERTA LO SIGUIENTE
 function insertarOtros(otros){
 	$.get("detalleR",{otros:otros,opc:5},function(data,status){
-		// alert(data);
 	});
 }

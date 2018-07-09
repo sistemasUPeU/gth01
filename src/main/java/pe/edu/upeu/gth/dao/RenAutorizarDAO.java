@@ -78,11 +78,6 @@ public class RenAutorizarDAO implements CRUDOperations{
 		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 and NOM_DEPA='"+depa+"' AND rap.ID_PASOS IN ('PAS-000430','PAS-000431') ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
-	//LISTAR 
-	public List<Map<String,Object>> Autorizar() {
-    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,DNI FROM REN_VIEW_TRABAJADOR";
-        return jt.queryForList(sql);
-    }
 	
 //	public List<Map<String,Object>> DetalleAutorizar() {
 //    	sql = "select ID_CONTRATO,PATERNO,MATERNO,NOMBRES,NOM_PUESTO,NOM_AREA,NOM_DEPA,TIPO_CONTRATO,FECHA_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM REN_VIEW_RENUNCIA";
@@ -161,9 +156,7 @@ public class RenAutorizarDAO implements CRUDOperations{
 					}
 				}else {
 					seracierto = 1;
-				}
-				
-				 
+				}								 
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("ERROR EN BUSCAR ROL:" + e);
