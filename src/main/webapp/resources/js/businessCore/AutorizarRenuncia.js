@@ -61,7 +61,6 @@ function listarRegistrados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(lista[0].PATERNO);
 				if (lista.length > 0) {
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;

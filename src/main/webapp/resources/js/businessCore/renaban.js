@@ -53,7 +53,7 @@ function listarRegistrados() {
 					function(objJson) {
 						var s = "";
 						var lista = objJson;
-//						console.log(objJson);
+						console.log("Registrados: "+objJson);
 						if (lista.length > 0) {
 							for (var i = 0; i < lista.length; i++) {
 								var a = parseInt(i) + 1;
@@ -148,7 +148,7 @@ function listarRegistrados() {
 								responsivePriority : 2,
 								targets : -1
 							} ],
-							"pageLength" : 5,
+							"pageLength" : 2,
 							"bPaginate" : true,
 							"ordering": false
 							 
@@ -221,7 +221,6 @@ function crearModal(id) {
 	$.getJSON(gth_context_path + "/renaban/detalleR",
 			{opc:8,idrenaban:id},
 			function(data){
-//				console.log("fechota: "+data[0].FECHA_RENABAN)
 				fechon= data[0].FECHA_CARTA;
 				var fecha = new Date(fechon);
 				var dd = fecha.getDate();
@@ -389,14 +388,11 @@ function aceptarRenaban(idrab,tipo){
 //	alert(tipo);
 	if(tipo=="RENUNCIA"){
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
-			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){
-//				 window.location.href = gth_context_path +"/renaban/listaRA";					 
-				 $("#data-table-row-grouping").dataTable().fnDestroy();
-//        		 alert(data);
-//				 alert("Reeeeenuncia")
+			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){				 
 					$( "#card-alert" ).fadeTo(1500, 1, function(){
 					    // Animation complete.
 						listarRegistrados();
+						listarDerivados();
 						window.setTimeout(function() {
 							
 						    $("#card-alert").fadeTo(1000, 0, function(){
@@ -491,7 +487,6 @@ function listarDerivados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-				console.log(lista[0].PATERNO);
 				if (lista.length > 0) {
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;

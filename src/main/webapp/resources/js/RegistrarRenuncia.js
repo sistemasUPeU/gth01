@@ -67,20 +67,6 @@ $(document).ready(function(){
         });
     });
 			
-            $('.dropify').dropify(function(event, element){
-                return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
-            });
-
-            // Translated
-            $('.dropify-fr').dropify({
-                messages: {
-                    default: 'Glissez-déposez un fichier ici ou cliquez',
-                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                    remove:  'Supprimer',
-                    error:   'Désolé, le fichier trop volumineux'
-                }
-            });
-
             // Used events
             var drEvent = $('#pelon1').dropify();
 

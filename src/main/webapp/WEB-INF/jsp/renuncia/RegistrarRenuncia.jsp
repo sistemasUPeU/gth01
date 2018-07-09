@@ -253,7 +253,9 @@
 								</div>
 								</section>
 							</div>
-							<div class="col s2">
+							
+						</div>
+						<div class="col s2">
 								<br>
 							</div>
 						</div>
@@ -334,7 +336,7 @@
 
 						</div>
 
-					</div>
+					
 				</div>
 			</div>
 			<hr />
