@@ -56,7 +56,7 @@
 
 
 <style>
-@media only screen and (min-width: 641px) {
+@media only screen and (min-width: 700px) {
 	.remodal {
 		max-width: 65%;
 	}
@@ -102,13 +102,7 @@ table.dataTable tbody th,
 table.dataTable tbody td {
     white-space: nowrap;
 }
-@media only screen and (min-width: 641px){
-.section {
-		max-width: 100%;
-		max-height: 100%;
 
-	}
-}
 .btn{
 background: #3AD80C;
 }
@@ -214,27 +208,34 @@ background: #3AD80C;
 				enctype="multipart/form-data" id="EntregaForm">
 				<div class="container black-text text-darken-2">
          <div class="row">
+<<<<<<< HEAD
+            <div class="section col s12 m12 l12">
+=======
             <div class="section col s12 m12 l12" class="section">
+>>>>>>> branch 'modulo-renuncias' of https://github.com/sistemasUPeU/gth01.git
                <div class="section scrollspy"  id="horizontal-stepper">
                   <div class="row">
                      <div class="col s12">
                         <div class="card">
                            <div class="card-content">
-                              <ul class="stepper horizontal" id="horizontal">
+                              <ul class="stepper horizontal" id="horizontal" >
                                  <li class="step active">
                                     <div data-step-label="Liquidacion" class="step-title waves-effect waves-dark">Doc 1</div>
                                     <div class="step-content">
                                        <div class="row">
                                           <div class="input-field col s12">
                                              <div class="container">
-                                             <p>Hoja de liquidacion</p>
+                                             <p class="center-align">Hoja de liquidación</p>
                                                  <div id="file-upload" class="section">                                              
                                                     <div class="row section">                                                             
                                                     <div class="col s9">
                                                     <input type="file" name="liquidacion" id="input-file-now" id="liquidacion" 
- 									                class="dropify" data-default-file="" data-height="180" data-witdh="150" />
+ 									                class="dropify" data-default-file="" data-height="153"/>
 <!--                                                     <input type="file" name="liquidacion" id="input-file-now" class="dropify" data-default-file="" data-height="200" data-witdh="200"/> -->
                                                     </div>
+<!--                                                     <div class="col s3"> -->
+<!--                                                     <br> -->
+<!--                                                     </div> -->
                                                     <div class="col s3">
                                                     <input type="date" class="datepicker">
                                                     </div>
@@ -339,6 +340,13 @@ background: #3AD80C;
                                     </div>
                                  </li>                                 
                               </ul>
+                              <div>                                                               
+                                        <div id="card-alert" class="card green" style="display:none; ">
+                                        <div class="card-content black-text">
+                                        <p><i class="mdi-naviga20ion-check"></i> Se entregaron los documentos exitosamente.</p>
+                                        </div>
+                                        </div>
+                                </div>
                            </div>
                         </div>
                      </div>

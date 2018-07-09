@@ -391,11 +391,13 @@ function aceptarRenaban(idrab,tipo){
 			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){				 
 					$( "#card-alert" ).fadeTo(1500, 1, function(){
 					    // Animation complete.
+
 						listarRegistrados();
 						listarDerivados();
 						window.setTimeout(function() {
 							
 						    $("#card-alert").fadeTo(1000, 0, function(){
+
 						        $(this).hide(); 
 						    });
 						}, 2000);
@@ -414,7 +416,7 @@ function aceptarRenaban(idrab,tipo){
 //        		 alert(data);
 //				 alert("Reeeeenuncia")
 				 $( "#card-alert" ).fadeTo(1500, 1, function() {
-					    // Animation complete.
+					    // Animation complete.  
 					 	listarRegistrados();
 						window.setTimeout(function() {
 							

@@ -589,7 +589,7 @@ $("#entredoc").click(function (event) {
     var certificado=$("#certificado").val();
     var remu=$("#remu").val();    
     open();
-//    alert("llego documentos:"+liquidacion+"      "+cts+"     "+certificado+"     "+remu)
+    alert("llego documentos:");
     alertify.confirm('Confirmar entrega de docuemntos', 'Esta seguro(a) de confirmar'+ 
     		' la entrega de documentos?', function(){    	
     	if(liquidacion!=""&&cts!=""&&certificado!=""&&remu!=""){
@@ -604,12 +604,23 @@ $("#entredoc").click(function (event) {
                 timeout: 600000,
                 success: function (data) {
        $("#entredoc").prop("disabled", false);
-      
-       alertify.notify('Se ha registrado la renuncia satisfactoriamente.'+ 
-    		   'Redireccionando a reportes...', 'custom', 2,
-					function() {
-                  	window.location.href = gth_context_path+ '/renaban/deliveryR';
-					});
+       
+       $( "#card-alert" ).fadeIn(1200, function() {
+		    // Animation complete.
+    	   listarNotificados();
+			window.setTimeout(function() {
+				
+			    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
+			        $(this).hide(); 
+			        window.location.href = gth_context_path+ '/renaban/deliveryR';
+			    });
+			}, 2000);
+		  });
+//       alertify.notify('Se ha registrado la renuncia satisfactoriamente.'+ 
+//    		   'Redireccionando a reportes...', 'custom', 2,
+//					function() {
+//                  	window.location.href = gth_context_path+ '/renaban/deliveryR';
+//					});
                 },
                 error: function (e) {
                 	alertify
