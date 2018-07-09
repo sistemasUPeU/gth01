@@ -439,19 +439,34 @@ function DetalleRenuncia(idc,tipo) {
 					var idr= $("#idr").val();
 //					var tipo= $("#tipo").val();
 					//alert(idr);
-					
-					alertify.confirm('Confirmar autorización', 'Está seguro(a) de verificar la renuncia de este trabajador?', function(){
-						 $.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
-							 window.location.href = gth_context_path +"/renaban/verificarRenuncia";	
-//							 alert("Renuncia");
-							
-//			        		 alert(data);
-			        	});
-						 
-				     	} , function(){ 
-				     		
-				        });
-					 
+					swal({
+		        		title: "Estas seguro de autorizar",
+		        		text: "la renuncia de este trabajador!",
+		        		type: "warning",
+		        		showCancelButton: true,
+		        		confirmButtonColor: '#40D005',
+		        		confirmButtonText: 'si, autoriza!',
+		        		cancelButtonText: 'No, cancela!',
+		        		closeOnConfirm: false,
+		        		closeOnCancel: false
+		        	},
+		        	function(isConfirm){
+		            if (isConfirm){
+		            	$.get("Verificar",{opc:4,tipo:'R',idr:idr},function(data){
+												 
+							if (data==1){
+								  swal("Se Autorizo", "la renuncia!", "success");
+								  window.setTimeout(function() {							
+									  window.location.href = gth_context_path +"/renaban/verificarRenuncia";
+									}, 2000);
+							}else{
+								swal("Errorr", "la renuncia fue cancelada :)", "error");
+							}
+			        	});			            				           							 					     	 			        	
+		            } else {
+		            	 window.location.href = gth_context_path +"/renaban/verificarRenuncia";
+		            }
+		        	});					 
 				});
 				var idr = detalle[0].ID_RENABAN;
 				var tipo= $("#tipo").val();
@@ -465,24 +480,7 @@ function DetalleRenuncia(idc,tipo) {
 					}else{
 						$("#RECHAZAR").css("display","block");
 					}
-				});
-				$("#RechazarRenuncia").click(function(){
-					var id= $("#idr").val();
-					var observaciones = $("#observaciones").val();					
-					 alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-						 $.get("Verificar",{opc:6,idr:id,observaciones:observaciones},function(data){
-//							 alert("BIEN Nicole");
-//			        		 alert(data);
-//			        		 alert(id);
-//			        		 alert(observaciones);
-			        		 window.location.href = gth_context_path +"/renaban/verificarRenuncia";
-			        	});
-						 
-				     	} , function(){ 
-				        	
-				        });
-				});
-//				
+				});			
 				u = "";
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
 				u += ''
@@ -504,25 +502,6 @@ function DetalleRenuncia(idc,tipo) {
 				}
 				$('.materialboxed').materialbox();
 		 });
-		     
-	
-//		if (data.length == 0) {
-//			// location.reload();
-//			alert("nada de datos");
-//		} else {
-//			
-//			$("#nomes").text(detalle[0].NOMBRES);
-//			
-//			$.get("/mostrardoc1",{
-//				archi: archi
-//			},function(data){
-//				alert(data);
-//			})
-////			
-//			
-//		
-//
-//		}
 
 	});
 	

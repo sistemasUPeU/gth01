@@ -385,17 +385,11 @@ function eliminar(id,archivo) {
 function aceptarRenaban(idrab,tipo){
 	var idra= idrab;
 	var tipo= tipo;
-//	alert(idrab);
-//	alert(tipo);
 	if(tipo=="RENUNCIA"){
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar la renuncia de este trabajador?', function(){
-			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){
-//				 window.location.href = gth_context_path +"/renaban/listaRA";					 
+			 $.get("detalleR",{opc:9,tipo:'R',idra:idra},function(data){				 
 				 $("#data-table-row-grouping").dataTable().fnDestroy();
-//        		 alert(data);
-//				 alert("Reeeeenuncia")
 					$( "#card-alert" ).fadeTo(1500, 1, function(){
-					    // Animation complete.
 						listarRegistrados();
 						window.setTimeout(function() {							
 						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
@@ -403,12 +397,11 @@ function aceptarRenaban(idrab,tipo){
 						    });
 						}, 2000);
 					  });
-        	});
-			 
+        	});			 
 	     	} , function(){ 
 	     		
 	        });
-	}else{
+	}else{		
 		alertify.confirm('Confirmar autorización', 'Está seguro(a) de derivar el abandono de este trabajador?', function(){
 			 $.get("detalleR",{opc:9,tipo:'A',idra:idra},function(data){
 //				 window.location.href = gth_context_path +"/renaban/listaRA";					 

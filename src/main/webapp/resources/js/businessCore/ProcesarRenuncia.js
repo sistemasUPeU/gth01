@@ -444,72 +444,66 @@ function DetalleRenuncia(idc,tipo) {
 				$("#procesarRen").click(function(){
 					var idr= $("#idr").val();
 					if(tipo=="RENUNCIA"){
-						alertify.confirm('Confirmar autorización', 'Está seguro(a) de procesar la renuncia de este trabajador?', function(){
-							 $.get("ProcesarR",{opc:4,tipo:'R',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/processR";					 
-				        	});
-							 
-					     	} , function(){ 
-					     		
-					        });
+						swal({
+			        		title: "Estas seguro de procesar",
+			        		text: "la renuncia de este trabajador!",
+			        		type: "warning",
+			        		showCancelButton: true,
+			        		confirmButtonColor: '#40D005',
+			        		confirmButtonText: 'si, autoriza!',
+			        		cancelButtonText: 'No, cancela!',
+			        		closeOnConfirm: false,
+			        		closeOnCancel: false
+			        	},		        	
+			        	function(isConfirm){
+			            if (isConfirm){
+			            	$.get("ProcesarR",{opc:4,tipo:'R',idr:idr},function(data){
+													 
+								if (data==1){
+									  swal("Se Autorizo", "la renuncia se envio con exito!", "success");
+									  window.setTimeout(function() {							
+										  window.location.href = gth_context_path +"/renaban/processR";
+										}, 2000);
+								}else{
+									swal("Errorr", "la renuncia fue cancelada :)", "error");
+								}
+				        	});			            				           							 					     	 			        	
+			            } else {
+			            	 window.location.href = gth_context_path +"/renaban/processR";
+			            }
+			        	});
 					}else{
-						alertify.confirm('Confirmar autorización', 'Está seguro(a) de procesar el abandono de este trabajador?', function(){
-							 $.get("ProcesarR",{opc:4,tipo:'A',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/processR";					 								
-//				        		 alert(data);
-//				        		 alert("Abandono")
+						swal({
+			        		title: "Estas seguro de autorizar",
+			        		text: "el abandono de este trabajador!",
+			        		type: "warning",
+			        		showCancelButton: true,
+			        		confirmButtonColor: '#40D005',
+			        		confirmButtonText: 'si, autoriza!',
+			        		cancelButtonText: "No, cancela!",
+			        		closeOnConfirm: false,
+			        		closeOnCancel: false
+			        	},
+						function(isConfirm){
+				            if (isConfirm){
+				            	$.get("ProcesarR",{opc:4,tipo:'A',idr:idr},function(data){
+														 
+									if (data==1){
+										  swal("Se Autorizo", "el abandono se envio con exito!", "success");
+										  window.setTimeout(function() {							
+											  window.location.href = gth_context_path +"/renaban/processR";	
+											}, 2000);
+									}else{
+										swal("Errorr", "el abandono fue cancelada :)", "error");
+									}
+					        	});			            				           							 					     	 			        	
+				            } else {
+				            	window.location.href = gth_context_path +"/renaban/processR";	
+				            }
 				        	});
-							 
-					     	} , function(){ 
-					     		
-					        });
 					}
 					 
 				});
-
-//				$("#RechazarRenuncia").click(function(){
-//					var id= $("#idr").val();
-//					var idra = $("#idr").val();
-//					var observaciones = $("#observaciones").val();
-//					var observacion = $("#observaciones").val();
-//					 alert(tipon);
-//					if(tipo=="RENUNCIA"){
-//						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-//							 $.get("ProcesarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
-//
-//								 alert("Rechazo Renuncia");			        	
-//
-////								 alert("Rechazo Renuncia");
-////								 alert("BIEN Nicole");
-////				        		 alert(data);
-////				        		 alert(id);
-////				        		 alert(observaciones);				        	
-//
-//				        		 window.location.href = gth_context_path +"/renaban/processR";
-//				        	});
-//							 
-//					     	} , function(){ 
-//					        	
-//					        });
-//					}else{
-//						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-//							 $.get("ProcesarR",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
-////								 alert("Rechazo Abandono")
-////								 alert("BIEN Nicole");
-////				        		 alert(data);
-//								
-////				        		 alert(idra);
-////				        		 alert(observacion);
-//
-//				        		 window.location.href = gth_context_path +"/renaban/processR";
-//							   	});
-//							 
-//						     	} , function(){ 
-//						        	
-//						        });
-//						}
-//						 
-//					});
 				var idr = detalle[0].ID_RENABAN;			
 				$.get("ProcesarR",{idr:idr,opc:8,tipo:tipon},function(data){
 

@@ -31,6 +31,7 @@ $(document).ready(function(){
 		} else {
 		}      
         open();
+        
         alertify.confirm('Confirmar renuncia', 'Esta seguro(a) de confirmar la'+ 
         		'renuncia de este trabajador?', function(){    	
         	if(file!=""&&fecha!=""&&array!=""){

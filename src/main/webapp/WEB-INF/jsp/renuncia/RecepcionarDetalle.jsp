@@ -5,6 +5,8 @@
 	rel="stylesheet" media="screen,projection">
 <link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	<link href="<c:url value='/resources/js/plugins/sweetalert/sweetalert.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
 <style>
 @media only screen and (min-width: 641px) {
 	.remodal {
@@ -268,10 +270,9 @@
 	<script
 		src="<c:url value='/resources/js/businessCore/Recepcionar.js'></c:url>"
 		type="text/javascript"></script>
-
-	<!-- 	<script -->
-	<%-- 		src="<c:url value='/resources/js/businessCore/AutorizarRenuncia.js'></c:url>" --%>
-	<!-- 		type="text/javascript"></script> -->
+   <script
+		src="<c:url value='/resources/js/plugins/sweetalert/sweetalert.min.js'></c:url>"
+		type="text/javascript"></script>
 </body>
 </body>
 </html>

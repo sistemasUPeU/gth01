@@ -380,9 +380,10 @@ function enviarCorreo() {
 function notificar(idrab,tipo1) {
 	var idra = idrab;
 	var tipo1 = tipo1;
-	alert("Entro a notificar");
-	alert(idra);
-	alert(tipo1);
+	
+//	alert("Entro a notificar");
+//	alert(idra);
+//	alert(tipo1);
 	alertify.confirm('Confirmar Notificación', 'Está seguro(a) de notificar la renuncia de este trabajador?', function(){
 		 $.get("primerEnvio",{opc:8,tipo1:'A',idra:idra},function(data){
 			 window.location.href = gth_context_path +"/renaban/PrimerEnvio";					 

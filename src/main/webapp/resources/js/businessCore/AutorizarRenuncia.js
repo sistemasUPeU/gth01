@@ -161,9 +161,7 @@ function listarRegistrados() {
 									.eq(0)
 									.find(".idc")
 									.text();
-//							console.log(cantidad);
-							
-							
+//							console.log(cantidad);														
 							tipon = $(this).parents(
 							"tr").find("td")
 							.find(".tipon")
@@ -221,7 +219,7 @@ function modalon (){
 	
 }
 
-// LISTAR TODOS LOS TRABAJADORES AUTORIZADOS
+// LISTAR TODOS LOS TRABAJADORES AUTORIZADOS O ABANDONADOS
 function listarAutorizados() {
 	$.getJSON(
 			gth_context_path + "/renaban/AutorizarR",
@@ -315,13 +313,9 @@ function listarAutorizados() {
 							"bPaginate" : true,
 							"ordering": false
 							    }
-						);
-				
-//				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+						);				
 			});
 }
-
-
 
 function createTable1(idDepartamento, idRol) {
 	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
@@ -346,21 +340,15 @@ function createTable1(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-
 var depa="";
 var u = "";
 
-
-// DETALLE PARA AUTORIZAR RENUNCIA
+// DETALLE PARA AUTORIZAR RENUNCIA O ABANDONO
 function DetalleRenuncia(idc,tipo) {
 	$.get("details", {                          
 	}, function(data, status) {
-		//alert(data);		
-//		 alert("BIEN JONAS");
-//		 $("#contenido").html("");
 		 $("#contenido").html(data);
 		 $.get("AutorizarR",{opc:2,idc:idc},function(data,status){	
-//			 alert(data);
 			 var detalle = JSON.parse(data);
 			 $("#idr").val(detalle[0].ID_RENABAN);	
 			 $("#nombres").text(detalle[0].NOMBRES);	
@@ -373,7 +361,6 @@ function DetalleRenuncia(idc,tipo) {
 				$("#area").text(detalle[0].NOM_AREA);
 				$("#seccion").text(detalle[0].NOM_SECCION);
 				$("#puesto").text(detalle[0].NOM_PUESTO);
-//				$("#centro_costo").tex(detalle[0].CENTRO_COSTO);
 				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
 				if(tipon=="RENUNCIA"){
 					$("#tipo_doc").text("Carta de Renuncia");
@@ -386,29 +373,28 @@ function DetalleRenuncia(idc,tipo) {
 				}else{	
 					$("#ante_poli").text("No");
 				}
-//				var archi = detalle[0].ARCHIVO;
 				if(detalle[0].CERTI_SALUD!=0){
 					$("#certi_salud").text("Si");
 				}else{
 					$("#certi_salud").text("No");
 				}
-//				var img = document.getElementById("carta")
 				$("#carta").text(detalle[0].ARCHIVO);
-				
+				//AUTORIZAR RENUNCIA O ABANDONO
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
 					if(tipo=="RENUNCIA"){
+						//ALERT DINAMICO PARA RENUNCIA
 						swal({
 			        		title: "Estas seguro de autorizar",
 			        		text: "la renuncia de este trabajador!",
 			        		type: "warning",
 			        		showCancelButton: true,
-			        		confirmButtonColor: '#DD6B55',
+			        		confirmButtonColor: '#40D005',
 			        		confirmButtonText: 'si, autoriza!',
-			        		cancelButtonText: "No, cancela!",
+			        		cancelButtonText: 'No, cancela!',
 			        		closeOnConfirm: false,
-			        		closeOnCancel: true
-			        	},
+			        		closeOnCancel: false
+			        	},		        	
 			        	function(isConfirm){
 			            if (isConfirm){
 			            	$.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
@@ -421,115 +407,132 @@ function DetalleRenuncia(idc,tipo) {
 								}else{
 									swal("Errorr", "la renuncia fue cancelada :)", "error");
 								}
-//				        		 alert(data);
-//								 alert("Renuncia")
-				        	});
-			            	
-			            
-//			              $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
-//								 window.location.href = gth_context_path +"/renaban/authorizationR";					 							
-////				        		 alert(data);
-////								 alert("Renuncia")
-//				        	});
-							 					     	 
-			        	
+				        	});			            				           							 					     	 			        	
 			            } else {
-			              
-			              
+			            	window.location.href = gth_context_path +"/renaban/authorizationR";
 			            }
 			        	});
-//						alertify.confirm('Confirmar autorización', 'Está seguro(a) de NICOLE la renuncia de este trabajador?', function(){
-//							
-//							 $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
-//								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
-//								
-////				        		 alert(data);
-////								 alert("Renuncia")
-//				        	});
-//							 
-//					     	} , function(){ 
-//					     		
-//					        });
+						//ALERT DINAMICO PARA ABANDONO
 					}else{
-						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar el abandono de este trabajador?', function(){
-							 $.get("AutorizarR",{opc:4,tipo:'A',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
+						swal({
+			        		title: "Estas seguro de autorizar",
+			        		text: "el abandono de este trabajador!",
+			        		type: "warning",
+			        		showCancelButton: true,
+			        		confirmButtonColor: '#40D005',
+			        		confirmButtonText: 'si, autoriza!',
+			        		cancelButtonText: "No, cancela!",
+			        		closeOnConfirm: false,
+			        		closeOnCancel: false
+			        	},
+						function(isConfirm){
+				            if (isConfirm){
+				            	$.get("AutorizarR",{opc:4,tipo:'A',idr:idr},function(data){
+														 
+									if (data==1){
+										  swal("Se Autorizo", "el abandono se envio con exito!", "success");
+										  window.setTimeout(function() {							
+											  window.location.href = gth_context_path +"/renaban/authorizationR";
+											}, 2000);
+									}else{
+										swal("Errorr", "el abandono fue cancelada :)", "error");
+									}
+					        	});			            				           							 					     	 			        	
+				            } else {
+				            	window.location.href = gth_context_path +"/renaban/authorizationR";
+				            }
 				        	});
-							 
-					     	} , function(){ 
-					     		
-					        });
 					}
 					 
 				});
+				//RECHAZAR RENUNCIA O ABANDONO
 				$("#RechazarRenuncia").click(function(){
 					var id= $("#idr").val();
 					var idra = $("#idr").val();
 					var observaciones = $("#observaciones").val();
 					var observacion = $("#observaciones").val();
-					 alert(tipon);
 					if(tipo=="RENUNCIA"){
-						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-							 $.get("AutorizarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
-//								 alert("Rechazo Renuncia");
-//								 alert("BIEN Nicole");
-//				        		 alert(data);
-//				        		 alert(id);
-//				        		 alert(observaciones);				        	
-				        		 window.location.href = gth_context_path +"/renaban/authorizationR";
-				        	});
-							 
-					     	} , function(){ 
-					        	
-					        });
+						//ALERT DINAMICO PARA RECHAZAR RENUNCIA
+						swal({
+			        		title: "Estas seguro de rechazar",
+			        		text: "la renuncia de este trabajador!",
+			        		type: "warning",
+			        		showCancelButton: true,
+			        		confirmButtonColor: '#40D005',
+			        		confirmButtonText: 'si, rechaza!',
+			        		cancelButtonText: 'No, cancela!',
+			        		closeOnConfirm: false,
+			        		closeOnCancel: false
+			        	},
+			        	function(isConfirm){
+			            if (isConfirm){
+			            	$.get("AutorizarR",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
+													 
+								if (data==1){
+									  swal("Se rechazo", "la renuncia!", "success");
+									  window.setTimeout(function() {							
+										  window.location.href = gth_context_path +"/renaban/authorizationR";
+										}, 2000);
+								}else{
+									swal("Errorr", "la renuncia fue cancelada :)", "error");
+								}
+				        	});			            				           							 					     	 			        	
+			            } else {
+			            	window.location.href = gth_context_path +"/renaban/authorizationR";
+			            }
+			        	});
 					}else{
-						alertify.confirm('Confirmar Rechazo de autorización', 'Esta seguro(a) de rechazar la renuncia o abandono de este trabajador?', function(){
-							 $.get("AutorizarR",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
-//								 alert("Rechazo Abandono")
-//								 alert("BIEN Nicole");
-//				        		 alert(data);
-								
-//				        		 alert(idra);
-//				        		 alert(observacion);
-				        		 window.location.href = gth_context_path +"/renaban/authorizationR";
-				        	});
-							 
-					     	} , function(){ 
-					        	
-					        });
+						//ALERT DINAMICO PARA RECHAZAR ABANDONO
+						swal({
+			        		title: "Estas seguro de rechazar",
+			        		text: "el abandono de este trabajador!",
+			        		type: "warning",
+			        		showCancelButton: true,
+			        		confirmButtonColor: '#40D005',
+			        		confirmButtonText: 'si, rechaza!',
+			        		cancelButtonText: 'No, cancela!',
+			        		closeOnConfirm: false,
+			        		closeOnCancel: false
+			        	},
+			        	function(isConfirm){
+			            if (isConfirm){
+			            	$.get("AutorizarR",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
+													 
+								if (data==1){
+									  swal("Se rechazo", "el abandono!", "success");
+									  window.setTimeout(function() {							
+										  window.location.href = gth_context_path +"/renaban/authorizationR";
+										}, 2000);
+								}else{
+									swal("Errorr", "el abandono fue cancelada :)", "error");
+								}
+				        	});			            				           							 					     	 			        	
+			            } else {
+			            	window.location.href = gth_context_path +"/renaban/authorizationR";
+			            }
+			        	});
 					}
 					 
-				});
-				
+				});				
 				$.get(gth_context_path + "/renaban/AutorizarR",{opc:8,tipo:tipo},function(data){
 					var idrol = detalle[0].ID_RENABAN;
 					var tipo= $("#tipo").val();
-					if(data==1){
-						
-							$("#RECHAZAR").css("display","block");
-						
-						
-						
+					if(data==1){						
+							$("#RECHAZAR").css("display","block");																		
 					}else{
 						$("#RECHAZAR").css("display","none");
 					}
 				});
-				console.log(detalle)
-				
-				
+				console.log(detalle)							
 				u = "";
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
 				u += ''
 				u += 'src="' + gth_context_path + '/resources/files/'
 						+ detalle[0].ARCHIVO + '" '
 				u += 'alt="sample"'
-				u += 'data-caption="Esc para volver" ></div>'
-
-					
+				u += 'data-caption="Esc para volver" ></div>'					
 					var c = "";
-				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle[0].ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"
-
-				
+				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle[0].ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"				
 				var tipod = detalle[0].ARCHIVO.split(".")[1];
 				if (tipod=="pdf"){
 					$("#picture_del").html(c);
@@ -538,31 +541,10 @@ function DetalleRenuncia(idc,tipo) {
 				}
 				$('.materialboxed').materialbox();
 		 });
-		     
-	
-//		if (data.length == 0) {
-//			// location.reload();
-//			alert("nada de datos");
-//		} else {
-//			
-//			$("#nomes").text(detalle[0].NOMBRES);
-//			
-//			$.get("/mostrardoc1",{
-//				archi: archi
-//			},function(data){
-//				alert(data);
-//			})
-////			
-//			
-//		
-//
-//		}
-
-	});
-	
-	
+	});		
 }
 
+//FECHA
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year 
@@ -576,12 +558,11 @@ window.picker = $('.datepicker').pickadate({
 $("#Date").val('SYSDATE');
 
 function id(idc) {
-//	alert(idc);
+
 }
 
 function ParsearMes(mesint) {
 	var mes;
-//	console.log(mesint);
 	switch (mesint) {
 	case 01:
 		mes = "ENE";

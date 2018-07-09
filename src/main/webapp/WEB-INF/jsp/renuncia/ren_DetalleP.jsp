@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="<c:url value='/resources/css/remodal.css'/>" type="text/css"
 	rel="stylesheet" media="screen,projection">
-<link href="<c:url value='/resources/css/remodal-default-theme.css'/>"
+<link href="<c:url value='/resources/js/plugins/sweetalert/sweetalert.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 <style>
 @media only screen and (min-width: 641px) {
@@ -259,6 +259,9 @@
 	<div style="position: fixed; width: 100%; bottom: 0; z-index: 5">
 		<%@include file="../../../jspf/footer.jspf"%>
 	</div>
+	<script
+		src="<c:url value='/resources/js/plugins/sweetalert/sweetalert.min.js'></c:url>"
+		type="text/javascript"></script>
 </body>
 </body>
 </html>
