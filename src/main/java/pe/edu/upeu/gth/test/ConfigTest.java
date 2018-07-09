@@ -63,10 +63,6 @@ public class ConfigTest {
 		System.out.println("checked!");
 		
 	}
-	public static void Autorizar() {
-//		DataSource d = AppConfig.getDataSource();
-		System.out.println(gs.toJson(au.Autorizar()));
-	}
 	
 	public static void Procesar() {
 		System.out.println(gs.toJson(pr.Procesar()));
