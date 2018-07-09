@@ -518,7 +518,6 @@ function verCorreo(idc) {
 		idc : idc,
 		opc : 2
 	}, function(data, status) {
-		alert(data);
 		// console.log(data);
 		inst.open();
 		var detalle = JSON.parse(data);
@@ -580,6 +579,7 @@ if(!alertify.errorAlert){
 	        };
 	    },true,'alert');
 	}
+//INSERTAR AL LEGAJO
 $("#entredoc").click(function (event) {
 	event.preventDefault();
     var form = $('#EntregaForm')[0];
@@ -589,6 +589,7 @@ $("#entredoc").click(function (event) {
     var certificado=$("#certificado").val();
     var remu=$("#remu").val();    
     open();
+//    alert("llego documentos:"+liquidacion+"      "+cts+"     "+certificado+"     "+remu)
     alertify.confirm('Confirmar entrega de docuemntos', 'Esta seguro(a) de confirmar'+ 
     		' la entrega de documentos?', function(){    	
     	if(liquidacion!=""&&cts!=""&&certificado!=""&&remu!=""){
@@ -769,7 +770,21 @@ function Entregar(idc) {
 		
 	});
 }
+//nuevo diseño
+function someFunction() {
+    setTimeout(function(){$('#feedbacker').nextStep();},1000);
+ }
 
+ function someOtherFunction() {
+     return true;
+ }
+
+ $(document).ready(function(){
+    $('.toc-wrapper').pushpin({ top: $('.toc-wrapper').offset().top, offset: 77 });
+    $('.scrollspy').scrollSpy();
+    $('.stepper').activateStepper();
+ });
+ 
 // FECHA
 $('.datepicker').pickadate({
 	selectMonths : true, // Creates a dropdown to control month
