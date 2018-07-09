@@ -374,6 +374,8 @@ $("#confirmar")
 															'Felicidades!!, ha aprobado a sus trabajadores',
 															3000, 'rounded');
 											listar();
+											listarAprobados();
+											listarRechazados();
 										} else {
 											Materialize
 													.toast(
@@ -409,6 +411,8 @@ function observar(idtr, id_det) {
 						Materialize.toast('El trabajador ' + nom_tra
 								+ ' ha sido observado(a)', 3000, 'rounded');
 						listar();
+						listarAprobados();
+						listarRechazados();
 					} else {
 						Materialize.toast(
 								'UPS!!, No se ha registrado su observación',

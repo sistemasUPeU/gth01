@@ -13,6 +13,16 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<style type="text/css">
+.center-btn {
+	text-align: center
+}
+
+div.dataTables_length {
+	display: none !important;
+}
+
+</style>
 </head>
 
 <body>
@@ -47,21 +57,22 @@
 			<div id="cuerpo" class="container">
 				<div class="col s12">
 					<ul class="tabs tab-demo z-depth-1" style="width: 100%;">
-						<li class="tab col s3"><a href="#test004">Sin Aprobar</a></li>
+						<li class="tab col s3"><a href="#test004" class="active">Sin Aprobar</a></li>
 						<li class="tab col s3"><a href="#test005" class="">Aprobados</a></li>
-						<li class="tab col s3"><a class="active" href="#test006" class="">Observados</a></li>
+						<li class="tab col s3"><a href="#test006"
+							class="">Observados</a></li>
 					</ul>
 				</div>
 				<div class="col s12">
 					<div id="test004" class="col s12" style="display: block;">
 						<div id="contTable"></div>
-							<div class="col s24 m12 l6">
-					<p>
-						<a
-							class="btn btn-large waves-effect waves-light light-green darken-4"
-							id="confirmar" type="submit">Confirmar</a>
-					</p>
-				</div>
+						<div class="col s24 m12 l6">
+							<p>
+								<a
+									class="btn btn-large waves-effect waves-light light-green darken-4"
+									id="confirmar" type="submit">Confirmar</a>
+							</p>
+						</div>
 					</div>
 					<div id="test005" class="col s12" style="display: block;">
 						<div id="contTable1"></div>
@@ -70,7 +81,7 @@
 						<div id="contTable3"></div>
 					</div>
 				</div>
-			
+
 
 			</div>
 
