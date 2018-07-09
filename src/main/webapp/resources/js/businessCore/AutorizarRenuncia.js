@@ -447,17 +447,58 @@ function DetalleRenuncia(idc,tipo) {
 //					alert(idc);
 //					alert(tipon);
 					if(tipo=="RENUNCIA"){
-						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar la renuncia de este trabajador?', function(){
-							 $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
-								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
-								
+						swal({
+			        		title: "Estas seguro de autorizar",
+			        		text: "la renuncia de este trabajador!",
+			        		type: "warning",
+			        		showCancelButton: true,
+			        		confirmButtonColor: '#DD6B55',
+			        		confirmButtonText: 'si, autoriza!',
+			        		cancelButtonText: "No, cancela!",
+			        		closeOnConfirm: false,
+			        		closeOnCancel: true
+			        	},
+			        	function(isConfirm){
+			            if (isConfirm){
+			            	$.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
+													 
+								if (data==1){
+									  swal("Se Autorizo", "la renuncia se envio con exito!", "success");
+									  window.setTimeout(function() {							
+										  window.location.href = gth_context_path +"/renaban/authorizationR";
+										}, 2000);
+								}else{
+									swal("Errorr", "la renuncia fue cancelada :)", "error");
+								}
 //				        		 alert(data);
 //								 alert("Renuncia")
 				        	});
-							 
-					     	} , function(){ 
-					     		
-					        });
+			            	
+			            
+//			              $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
+//								 window.location.href = gth_context_path +"/renaban/authorizationR";					 							
+////				        		 alert(data);
+////								 alert("Renuncia")
+//				        	});
+							 					     	 
+			        	
+			            } else {
+			              
+			              
+			            }
+			        	});
+//						alertify.confirm('Confirmar autorización', 'Está seguro(a) de NICOLE la renuncia de este trabajador?', function(){
+//							
+//							 $.get("AutorizarR",{opc:4,tipo:'R',idr:idr},function(data){
+//								 window.location.href = gth_context_path +"/renaban/authorizationR";					 
+//								
+////				        		 alert(data);
+////								 alert("Renuncia")
+//				        	});
+//							 
+//					     	} , function(){ 
+//					     		
+//					        });
 					}else{
 						alertify.confirm('Confirmar autorización', 'Está seguro(a) de autorizar el abandono de este trabajador?', function(){
 							 $.get("AutorizarR",{opc:4,tipo:'A',idr:idr},function(data){

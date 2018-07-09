@@ -376,8 +376,7 @@ function aceptarRenaban(idrab,tipo){
 					$( "#card-alert" ).fadeIn(1200, function() {
 					    // Animation complete.
 						listarRegistrados();
-						window.setTimeout(function() {
-							
+						window.setTimeout(function() {							
 						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
 						        $(this).hide(); 
 						    });
