@@ -4,6 +4,27 @@ $(document).ready(function() {
 	 
 	
 	listarRegistrados();
+	listarDerivados();
+	
+	$('#autorized').bind('click', function() {
+        if($(this).hasClass('active')) {
+        	var table = $('#data-table-row-grouping2').DataTable();
+        	 
+        	$('#data-table-row-grouping2').css( 'display', 'table' );
+        	 
+        	table.responsive.recalc();
+        }
+    });
+	
+	$('#autorize').bind('click', function() {
+        if($(this).hasClass('active')) {
+        	var table = $('#data-table-row-grouping').DataTable();
+        	 
+        	$('#data-table-row-grouping').css( 'display', 'table' );
+        	 
+        	table.responsive.recalc();
+        }
+    });
 	if(!alertify.errorAlert){
 		  alertify.dialog('errorAlert',function factory(){
 		    return{
@@ -278,7 +299,7 @@ $(document).on('confirmation', '.remodal', function () {
                     alertify.notify('Actualizando...', 'custom', 1,
 							function() {
                     			listarRegistrados();
-                    			$( "#card-alert2" ).fadeIn( 1200, function() {
+                    			$( "#card-alert2" ).fadeTo(1500, 1, function() {
                     			    // Animation complete.
                     				window.setTimeout(function() {
                     					
@@ -307,11 +328,11 @@ $(document).on('confirmation', '.remodal', function () {
         				 alertify.notify('Actualizando...', 'custom', 1,
      							function() {
                          			listarRegistrados();
-                         			$( "#card-alert2" ).fadeIn( 1200, function() {
+                         			$( "#card-alert2" ).fadeTo(1500, 1, function(){
                          			    // Animation complete.
                          				window.setTimeout(function() {
                          					
-                         				    $("#card-alert2").fadeTo(1000, 0).slideUp(800, function(){
+                         				    $("#card-alert2").fadeTo(1000, 0, function(){
                          				        $(this).hide(); 
                          				    });
                          				}, 2000);
@@ -343,11 +364,11 @@ function eliminar(id,archivo) {
 						alertify.notify('Eliminando...', 'custom', 1,
 								function() {
 									listarRegistrados();
-									$( "#card-alert3" ).fadeIn( 1200, function() {
+									$( "#card-alert3" ).fadeTo(1500, 1, function() {
 									    // Animation complete.
 										window.setTimeout(function() {
 											
-										    $("#card-alert3").fadeTo(1000, 0).slideUp(800, function(){
+										    $("#card-alert3").fadeTo(1000, 0, function(){
 										        $(this).hide(); 
 										    });
 										}, 2000);
@@ -373,12 +394,12 @@ function aceptarRenaban(idrab,tipo){
 				 $("#data-table-row-grouping").dataTable().fnDestroy();
 //        		 alert(data);
 //				 alert("Reeeeenuncia")
-					$( "#card-alert" ).fadeIn(1200, function() {
+					$( "#card-alert" ).fadeTo(1500, 1, function(){
 					    // Animation complete.
 						listarRegistrados();
 						window.setTimeout(function() {
 							
-						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
+						    $("#card-alert").fadeTo(1000, 0, function(){
 						        $(this).hide(); 
 						    });
 						}, 2000);
@@ -396,12 +417,12 @@ function aceptarRenaban(idrab,tipo){
 //        		 	 $("#data-table-row-grouping").dataTable().fnDestroy();
 //        		 alert(data);
 //				 alert("Reeeeenuncia")
-				 $( "#card-alert" ).fadeIn( 1200, function() {
+				 $( "#card-alert" ).fadeTo(1500, 1, function() {
 					    // Animation complete.
 					 	listarRegistrados();
 						window.setTimeout(function() {
 							
-						    $("#card-alert").fadeTo(1000, 0).slideUp(800, function(){
+						    $("#card-alert").fadeTo(1000, 0, function(){
 						        $(this).hide(); 
 						    });
 						}, 2000);
@@ -440,7 +461,127 @@ function createTable() {
 	s += '</table>';
 	return s;
 }
+function createTable2() {
+	var s = '<table id="data-table-row-grouping2" class="display centered" cellspacing="0" style="width:100%"> ';
+	s += '<thead>';
+	s += '<tr>';
+	s += '<th>N</th>';
+	s += '<th data-priority="2">Mes</th>';
+	s += '<th data-priority="3">Apellidos y Nombres</th>';
+	s += '<th data-priority="4">Puesto</th>';
+	s += '<th data-priority="5">Area</th>';
+	s += '<th data-priority="6">Departamento</th>';
+	s += '<th>Tipo de Contrato</th>';
+	s += '<th>Descripcion</th>';
+	s += '<th>Fecha de registro</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';	
+	s += '<th data-priority="1">Tipo</th>';
+	s += '</tr>';
+	s += '</thead>';
+	s += '<tbody id="dataReq2">';
+	s += '</tbody>';
+	s += '</table>';
+	return s;
+}
+function listarDerivados() {
+	$.getJSON(
+			gth_context_path + "/renaban/AutorizarR",
+			"opc=3",
+			function(objJson) {
+				var s = "";
+				var lista = objJson;
+				console.log(lista[0].PATERNO);
+				if (lista.length > 0) {
+					for (var i = 0; i < lista.length; i++) {
+						var a = parseInt(i) + 1;
+						var MFL = parseInt(lista[i].ES_MFL);
+						var Motivo = parseInt(lista[i].LI_MOTIVO);
+						var plazo = parseInt(lista[i].VAL_PLAZO);
+						var fe_creacion = new Date(
+								lista[i].FECHA_RENABAN);
+						var mesInt = parseInt(fe_creacion
+								.getMonth()) + 1;
+						var mes = ParsearMes(mesInt);
+						var mfl="";
+						if(lista[i].VAL_PLAZO=='1'){
+							 mfl="Sí"
+						}else{
+							 mfl="No";
+						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
+						}
+						s += '<tr>';
+						s += '<td>'
+								+ a
+								+ '<label  class="idc" hidden>'
+								+ lista[i].ID_CONTRATO
+								+ '</label></td>';
+						s += '<td>'
+								+ mes;
+								+ '</td>';
+						s += '<td class="">'
+						
 
+						+ lista[i].PATERNO + ' ' + lista[i].MATERNO
+						+ ' ' + lista[i].NOMBRES + '</td>';
+						s += '<td>'
+								+ lista[i].NOM_PUESTO
+								+ '</td>';
+						s += '<td>' + lista[i].NOM_AREA
+								+ '</td>';
+						s += '<td>' + lista[i].NOM_DEPA
+								+ '</td>';
+						s += '<td>'
+								+ lista[i].TIPO_CONTRATO
+								+ '</td>';
+						s += '<td><a class="green-text accent-3" href="#">'
+								+ lista[i].DESCRIPCION
+								+ '</a></td>';
+						s += '<td>'
+								+lista[i].FECHA_RENABAN+
+								 '</td>';
+						s += '<td>'
+							+lista[i].DNI+
+							 '</td>';
+						s += '<td>'
+							+mfl+
+							 '</td>';
+						s +='<td >' +TIPO+ '<label class="tipon" hidden>'
+						+ TIPO
+						+ '</label></td>';
+						s += '</tr>';
+					}
+				} else {
+					s += "";
+				}
+
+				var r = createTable2();
+				$(".contP").empty();
+				$(".contP").append(r);
+				$("#dataReq2").empty();
+				$("#dataReq2").append(s);
+
+				$("#data-table-row-grouping2")
+						.DataTable(
+								{
+								    responsive: true,
+								    columnDefs: [
+								        { responsivePriority: 1, targets: 0 },
+								        { responsivePriority: 2, targets: -1 }
+								    ],
+								"pageLength" : 5,
+								"bPaginate" : true,
+								"ordering": false,
+								
+								}
+						);
+			});
+}
 function ParsearMes(mesint) {
 	var mes;
 //	console.log(mesint);

@@ -117,7 +117,21 @@
 								</div>
 							</div>
 						</li>
+						<li id="autorized" class="">
+						<div class="collapsible-header" >
+							<i class="mdi-toggle-check-box"></i> Renuncias o Abandonos Autorizados
+						</div> 
+						<div class="card-panel collapsible-body "
+							style="display: none;">
+							<div class="row" style="padding:1em">
+								<div class="contP"></div>
+							</div>
+
+							</div>
+
+						</li>
 					</ul>
+					
 				</div>
 				<div class="remodal" data-remodal-id="modal">
 									<button data-remodal-action="close" class="remodal-close"></button>

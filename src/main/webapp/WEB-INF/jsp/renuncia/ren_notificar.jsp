@@ -214,7 +214,7 @@ background: #3AD80C;
 				enctype="multipart/form-data" id="EntregaForm">
 				<div class="container black-text text-darken-2">
          <div class="row">
-            <div class="section col s20 m10 l10" class="section">
+            <div class="section col s12 m12 l12" class="section">
                <div class="section scrollspy"  id="horizontal-stepper">
                   <div class="row">
                      <div class="col s12">
@@ -305,7 +305,7 @@ background: #3AD80C;
                                     </div>
                                  </li>
                                  <li class="step">
-                                    <div data-step-label="Remuneraciones" class="step-title waves-effect waves-dark">Doc 4</div>
+                                    <div data-step-label="Remuneraciones" class="step-title waves-effect waves-dark" style="width:11em">Doc 4</div>
                                     <div class="step-content">
                                        <div class="row">
                                           <div class="input-field col s12">
