@@ -1,7 +1,6 @@
 $(document)
 		.ready(
-				function() {
-				
+				function() {				
 					if(!alertify.errorAlert){
 						  alertify.dialog('errorAlert',function factory(){
 						    return{
@@ -13,13 +12,9 @@ $(document)
 						            }
 						        };
 						    },true,'alert');
-						}
-
-				
+						}				
 					listarRegistrados();
-					listarAutorizados();
-					
-					
+					listarAutorizados();										
 					$("#ProcesarR").click(function(){						
 						var idc=$("#idc").val();
 						$.get("ProcesarR", {
@@ -27,26 +22,17 @@ $(document)
 							opc : 4
 						}, function(data, status) {
 							 alert(data);
-							var detalle = JSON.parse(data);
-							
+							var detalle = JSON.parse(data);							
 							console.log(detalle);
-							if(data==1){
-								alert("BUENA JONAS")
-								
+							if(data==1){								
 							}else{
-								alert("NADA JONAS");
 							}
 							});
-					});
-					
+					});					
 					$("#RechazarR").click(function(){
 						alert("rechaza");
-					});
-						
-					
-
+					});											
 				});
-
 
 //	LISTAR TODOS LOS TRABAJADORES REGISTRADOS QUE ESTAN EN PROCESO DE RENUNCIA O ABANDONO
 function listarRegistrados() {
@@ -56,9 +42,7 @@ function listarRegistrados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-//				console.log(objJson);
-				if (lista.length > 0) {
-					// alert("si hay datos causita c:");	
+				if (lista.length > 0) {	
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;
 						var MFL = parseInt(lista[i].ES_MFL);
@@ -134,7 +118,6 @@ function listarRegistrados() {
 				$(".contT").append(r);
 				$("#dataReq").empty();
 				$("#dataReq").append(s);
-
 				$("#data-table-row-grouping")
 						.DataTable(
 								{
@@ -148,33 +131,25 @@ function listarRegistrados() {
 								"ordering": false
 								}
 						);
-
 				$("#data-table-row-grouping tbody").on('click','.notificar',
 						function() {
-
 							cantidad = $(this).parents(
 									"tr").find("td")
 									.eq(0)
 									.find(".idc")
-									.text();
-//							console.log(cantidad);
-							
-							
+									.text();														
 							tipon = $(this).parents(
 							"tr").find("td")
 							.find(".tipon")
 							.eq(0)
 							.text();
-							console.log("esto es tipon"+tipon);
-
 							DetalleRenuncia(cantidad,tipon);
-
-							$("#otros").val(cantidad);	
-					
-						
+							$("#otros").val(cantidad);												
 						});
 			});
 }
+
+//DISEÑO DE LA TABLA 1
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
@@ -201,7 +176,6 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-
 function modalon (){
 	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
 	s+= ' <div class="input-field col s6">';
@@ -228,10 +202,7 @@ function listarAutorizados() {
 			function(objJson) {
 				var s = "";
 				var lista = objJson;
-//				console.log(objJson);
 				if (lista.length > 0) {
-					// alert("si hay datos causita c:");
-
 					for (var i = 0; i < lista.length; i++) {
 						var a = parseInt(i) + 1;
 						var MFL = parseInt(lista[i].ES_MFL);
@@ -268,7 +239,6 @@ function listarAutorizados() {
 								+ mes;
 								+ '</td>';
 						s += '<td class="">'
-
 								+ lista[i].PATERNO
 								+ ' '
 								+ lista[i].MATERNO
@@ -308,7 +278,6 @@ function listarAutorizados() {
 				$(".contP").append(r);
 				$("#dataReq1").empty();
 				$("#dataReq1").append(s);
-
 				$("#data-table-row-grouping1")
 						.DataTable({
 							"pageLength" : 10,
@@ -320,8 +289,7 @@ function listarAutorizados() {
 			});
 }
 
-
-
+//DISEÑO DE LA TABLA 2
 function createTable1(idDepartamento, idRol) {
 	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
 	s += '<thead>';
@@ -345,21 +313,15 @@ function createTable1(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-
 var depa="";
 var u = "";
-
 
 // DETALLE PARA AUTORIZAR RENUNCIA Y ABANDONO
 function DetalleRenuncia(idc,tipo) {
 	$.get("recepcionargth", {                          
 	}, function(data, status) {
-		//alert(data);		
-//		 alert("BIEN JONAS");
-//		 $("#contenido").html("");
 		 $("#contenido").html(data);
 		 $.get("Recepcionar",{opc:2,idc:idc},function(data,status){	
-//			 alert(data);
 			 var detalle = JSON.parse(data);
 			 $("#idr").val(detalle[0].ID_RENABAN);	
 			 $("#nombres").text(detalle[0].NOMBRES);	
@@ -372,54 +334,47 @@ function DetalleRenuncia(idc,tipo) {
 				$("#area").text(detalle[0].NOM_AREA);
 				$("#seccion").text(detalle[0].NOM_SECCION);
 				$("#puesto").text(detalle[0].NOM_PUESTO);
-//				$("#centro_costo").tex(detalle[0].CENTRO_COSTO);
 				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
 				if(tipon=="RENUNCIA"){
 					$("#tipo_doc").text("Carta de Renuncia");
 				}else{
 					$("#tipo_doc").text("Evidencia de Abandono");
-				}
-				
+				}				
 				if(detalle[0].ANTECEDENTES!=1){
 					$("#ante_poli").text("Si");
 				}else{	
 					$("#ante_poli").text("No");
 				}
-//				var archi = detalle[0].ARCHIVO;
 				if(detalle[0].CERTI_SALUD!=0){
 					$("#certi_salud").text("Si");
 				}else{
 					$("#certi_salud").text("No");
 				}
-//				var img = document.getElementById("carta")
-				$("#carta").text(detalle[0].ARCHIVO);
-				
+				$("#carta").text(detalle[0].ARCHIVO);				
 				$("#RecepcionarRen").click(function(){
 					var idr= $("#idr").val();
-					alert(tipon);
 					if(tipo=="RENUNCIA"){
 						swal({
-			        		title: "Estas seguro de autorizar",
-			        		text: "la renuncia de este trabajador!",
+			        		title: "¿Está seguro de autorizar",
+			        		text: "la renuncia de este trabajador?",
 			        		type: "warning",
 			        		showCancelButton: true,
 			        		confirmButtonColor: '#40D005',
-			        		confirmButtonText: 'si, autoriza!',
-			        		cancelButtonText: 'No, cancela!',
+			        		confirmButtonText: 'Confirmar',
+			        		cancelButtonText: "Cancelar",
 			        		closeOnConfirm: false,
 			        		closeOnCancel: false
 			        	},		        	
 			        	function(isConfirm){
 			            if (isConfirm){
-			            	$.get("Recepcionar",{opc:4,tipo:'R',idr:idr},function(data){
-													 
+			            	$.get("Recepcionar",{opc:4,tipo:'R',idr:idr},function(data){													 
 								if (data==1){
-									  swal("Se Autorizo", "la renuncia se envio con exito!", "success");
+									  swal("Se Autorizó", "la renuncia con éxito!", "success");
 									  window.setTimeout(function() {							
 										  window.location.href = gth_context_path +"/renaban/recepcionar";
 										}, 2000);
 								}else{
-									swal("Errorr", "la renuncia fue cancelada :)", "error");
+									swal("Error", "Contactarse con el administrador", "error");
 								}
 				        	});			            				           							 					     	 			        	
 			            } else {
@@ -428,27 +383,26 @@ function DetalleRenuncia(idc,tipo) {
 			        	});
 					}else{
 						swal({
-			        		title: "Estas seguro de autorizar",
-			        		text: "el abandono de este trabajador!",
+							title: "¿Está seguro de autorizar",
+			        		text: "el abandono de este trabajador?",
 			        		type: "warning",
 			        		showCancelButton: true,
 			        		confirmButtonColor: '#40D005',
-			        		confirmButtonText: 'si, autoriza!',
-			        		cancelButtonText: "No, cancela!",
+			        		confirmButtonText: 'Confirmar',
+			        		cancelButtonText: "Cancelar",
 			        		closeOnConfirm: false,
 			        		closeOnCancel: false
 			        	},
 						function(isConfirm){
 				            if (isConfirm){
-				            	$.get("Recepcionar",{opc:4,tipo:'A',idr:idr},function(data){
-														 
+				            	$.get("Recepcionar",{opc:4,tipo:'A',idr:idr},function(data){														 
 									if (data==1){
-										  swal("Se Autorizo", "el abandono se envio con exito!", "success");
+										 swal("Se Autorizó", "el abandono con éxito", "success");
 										  window.setTimeout(function() {							
 											  window.location.href = gth_context_path +"/renaban/recepcionar";
 											}, 2000);
 									}else{
-										swal("Errorr", "el abandono fue cancelada :)", "error");
+										swal("Error", "Contactarse con el administrador", "error");
 									}
 					        	});			            				           							 					     	 			        	
 				            } else {
@@ -462,30 +416,28 @@ function DetalleRenuncia(idc,tipo) {
 					var idra = $("#idr").val();
 					var observaciones = $("#observaciones").val();
 					var observacion = $("#observaciones").val();
-//					 alert(tipon);
 					if(tipo=="RENUNCIA"){
 						swal({
-			        		title: "Estas seguro de rechazar",
+							title: "Está seguro de rechazar",
 			        		text: "la renuncia de este trabajador!",
 			        		type: "warning",
 			        		showCancelButton: true,
 			        		confirmButtonColor: '#40D005',
-			        		confirmButtonText: 'si, rechaza!',
-			        		cancelButtonText: 'No, cancela!',
+			        		confirmButtonText: 'Confirmar',
+			        		cancelButtonText: 'Cancelar',
 			        		closeOnConfirm: false,
 			        		closeOnCancel: false
 			        	},
 			        	function(isConfirm){
 			            if (isConfirm){
-			            	$.get("Recepcionar",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){
-													 
+			            	$.get("Recepcionar",{opc:6,tipo:'R',idr:id,observaciones:observaciones},function(data){													 
 								if (data==1){
-									  swal("Se rechazo", "la renuncia!", "success");
+									 swal("Se ha rechazado", "la renuncia", "success");
 									  window.setTimeout(function() {							
 										  window.location.href = gth_context_path +"/renaban/recepcionar";
 										}, 2000);
 								}else{
-									swal("Errorr", "la renuncia fue cancelada :)", "error");
+									swal("Errorr", "Contactarse con el administrador", "error");
 								}
 				        	});			            				           							 					     	 			        	
 			            } else {
@@ -495,7 +447,7 @@ function DetalleRenuncia(idc,tipo) {
 					}else{
 						//ALERT DINAMICO PARA RECHAZAR ABANDONO
 						swal({
-			        		title: "Estas seguro de rechazar",
+							title: "Está seguro de rechazar",
 			        		text: "el abandono de este trabajador!",
 			        		type: "warning",
 			        		showCancelButton: true,
@@ -510,12 +462,12 @@ function DetalleRenuncia(idc,tipo) {
 			            	$.get("Recepcionar",{opc:7,tipo:'A',idr:idra,observacion:observacion},function(data){
 													 
 								if (data==1){
-									  swal("Se rechazo", "el abandono!", "success");
+									swal("Se ha rechazado", "el abandono", "success");
 									  window.setTimeout(function() {							
 										  window.location.href = gth_context_path +"/renaban/recepcionar";
 										}, 2000);
 								}else{
-									swal("Errorr", "el abandono fue cancelada :)", "error");
+									swal("Error", "Contactarse con el administrador", "error");
 								}
 				        	});			            				           							 					     	 			        	
 			            } else {
@@ -523,8 +475,7 @@ function DetalleRenuncia(idc,tipo) {
 			            }
 			        	});
 					}					 
-				});
-				
+				});				
 				u = "";
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
 				u += ''
@@ -545,22 +496,19 @@ function DetalleRenuncia(idc,tipo) {
 	});		
 }
 
+//FECHA
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year 
   });
-
 window.picker = $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 100, // Creates a dropdown of 15 years to control year
     format: 'dd/mm/yyyy'    
 });
 $("#Date").val('SYSDATE');
-
 function id(idc) {
-	alert(idc);
 }
-
 function ParsearMes(mesint) {
 	var mes;
 	console.log(mesint);
@@ -603,5 +551,4 @@ function ParsearMes(mesint) {
 		break;
 	}
 	return mes;
-
 }

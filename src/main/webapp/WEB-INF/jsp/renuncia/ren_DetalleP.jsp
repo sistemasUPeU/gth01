@@ -220,9 +220,7 @@
 					<input type="hidden" id="tipo"/>
 			</div>
 			<div class="input-field col s4 center">
-				<a
-					class="waves-effect waves-light btn modal-trigger btn-large red darken-4 "
-					data-remodal-target="modal" id="RECHAZAR">Rechazar</a>
+				
 			</div>
 		</div>
 	</form>

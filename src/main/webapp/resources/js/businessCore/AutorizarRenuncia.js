@@ -155,6 +155,7 @@ function listarRegistrados() {
 						});
 			});
 }
+
 //DISEÑO DE LA TABLA 1
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
@@ -194,10 +195,8 @@ function modalon (){
 	s+= '<div class="input-field col s6">'
 	s+= '<input type="file" name="file" class="dropify" id="pelon1"'
 	s+= 'data-height="300" />'
-	s+= '</div>'
-		
-		return s;
-	
+	s+= '</div>'		
+		return s;	
 }
 
 // LISTAR TODOS LOS TRABAJADORES AUTORIZADOS O ABANDONADOS
@@ -245,7 +244,6 @@ function listarAutorizados() {
 								+ mes;
 								+ '</td>';
 						s += '<td class="">'
-
 								+ lista[i].PATERNO
 								+ ' '
 								+ lista[i].MATERNO
@@ -295,6 +293,7 @@ function listarAutorizados() {
 						);				
 			});
 }
+
 //DISEÑO DE LA TABLA 2
 function createTable1(idDepartamento, idRol) {
 	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
@@ -520,9 +519,7 @@ window.picker = $('.datepicker').pickadate({
 $("#Date").val('SYSDATE');
 
 function id(idc) {
-
 }
-
 function ParsearMes(mesint) {
 	var mes;
 	switch (mesint) {

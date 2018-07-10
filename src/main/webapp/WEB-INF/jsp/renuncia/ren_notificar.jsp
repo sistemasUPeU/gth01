@@ -53,6 +53,8 @@
 <link href="js/plugins/dropify/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 <%-- <script src="<c:url  value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" type="text/javascript"></script> --%>
 <script src="<c:url  value='/resources/js/materialize.min.js'></c:url>" type="text/javascript"></script>
+<link href="<c:url value='/resources/js/plugins/sweetalert/sweetalert.css'/>"
+	type="text/css" rel="stylesheet" media="screen,projection">
 
 
 <style>
@@ -208,6 +210,7 @@ background: #3AD80C;
 				enctype="multipart/form-data" id="EntregaForm">
 				<div class="container black-text text-darken-2">
          <div class="row">
+            <div class="section col s12 m12 l12">
                <div class="section scrollspy"  id="horizontal-stepper">
                   <div class="row">
                      <div class="col s12">
@@ -400,7 +403,9 @@ background: #3AD80C;
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <script src="<c:url  value='/resources/js/materialize-stepper.min.js'></c:url>" type="text/javascript"></script>
 <script src="<c:url  value='/resources/js/plugins/dropify/css/dropify.min.css'></c:url>" type="text/javascript"></script>
-		
+<script
+		src="<c:url value='/resources/js/plugins/sweetalert/sweetalert.min.js'></c:url>"
+		type="text/javascript"></script>		
 	
 </body>
 </html>
