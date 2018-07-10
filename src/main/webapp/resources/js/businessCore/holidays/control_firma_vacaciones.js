@@ -5,6 +5,7 @@ $(document).ready(function() {
 //VARIABLES GLOBALES
 var z;
 var idtrab;
+var vali = 66;
 
 //SCRIPT PARA CAMBIAR ESTADO DE FECHA INICIO Y FIN
 $("#modal").on("click",".check",function() {
@@ -16,6 +17,7 @@ $("#modal").on("click",".check",function() {
 			$(this).attr("name", "1");
 			$(this).find("#i").removeClass('mdi-navigation-close');
 			$(this).find("#i").addClass('mdi-navigation-check');
+			vali = 77;
 		} else {
 			Materialize.toast('Es necesario la papeleta para continuar', 3000, 'rounded');
 		}
@@ -63,6 +65,7 @@ $("#guardar").click(function() {
 			a = $(this).attr("name");
 		}
 	});
+	var compro = 5;
 	$(".check").each(function() {
 		if ($(this).val() == 1) {
 			p = $(this).attr("name");
@@ -72,8 +75,9 @@ $("#guardar").click(function() {
 		}
 		if ($(this).attr('id') == 'nolisto1') {
 			fsm = 1;
+			compro = 6; 
 		}
-		if ($(this).attr('id') == 'nolisto2') {
+		if ($(this).attr('id') == 'nolisto2' && compro == 5) {
 			fsm += 1;
 		}
 	});
@@ -113,6 +117,10 @@ $("#guardar").click(function() {
 		}
 		$.get('controlar/updatePapeletaFirma', {id : a}, function(data) {
 		});
+	}
+	if (vali == 77) {
+		fsm = 3;
+		vali == 66;
 	}
 	//ENVIA FECHAS AL BACK-END
 	con.post('vacaciones/consolidado/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {

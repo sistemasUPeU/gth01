@@ -2,6 +2,7 @@ package pe.edu.upeu.gth.controller.holidays;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.ControlFirmasDAO;
+import pe.edu.upeu.gth.dao.GestionarConsolidadoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.interfaz.MailService;
 
@@ -31,40 +33,27 @@ public class ControlFirmasController {
 	@Autowired
 	ServletContext context;
 	
+	ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
+	
 	@RequestMapping(path = "/readallControlFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllControlFirma() {
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READALL());
 	}
 	
 	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getFirma(HttpServletRequest RQ) {
 		String id = RQ.getParameter("id");
-		System.out.println(id);
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.READFECHA(id));
-	}
-
-	//USELESS
-	@RequestMapping(path = "/updateFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarFirma(HttpServletRequest RQ, Authentication authentication) {
-    	authentication=SecurityContextHolder.getContext().getAuthentication();
-		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
-		String id = RQ.getParameter("id");
-		int inicio = Integer.parseInt(RQ.getParameter("inicio"));
-		int fin = Integer.parseInt(RQ.getParameter("fin"));
-		System.out.println(idtrab + " SIIII");
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin, idtrab));
 	}
 	
 	@RequestMapping(path = "/updatePapeletaFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String actualizarPapeletaFirma(HttpServletRequest RQ, Authentication authentication) {
+	public @ResponseBody int actualizarPapeletaFirma(HttpServletRequest RQ, Authentication authentication) {
     	authentication=SecurityContextHolder.getContext().getAuthentication();
 		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id = RQ.getParameter("id");
-		System.out.println(idtrab + " " + id);
-		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-		return GSON.toJson(DAO.UPDATEPAPELETA(id, idtrab));
+		String[] id_det_arr = new String[1];
+		id_det_arr[0] = id;
+		GestionarConsolidadoDAO GC = new GestionarConsolidadoDAO(AppConfig.getDataSource());
+		return GC.insertHistorial(idtrab, id_det_arr, "PAS-000052", 3, "PAS-000090", 5);
 	}
 }

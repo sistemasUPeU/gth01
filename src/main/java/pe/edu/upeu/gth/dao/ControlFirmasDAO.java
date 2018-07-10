@@ -46,37 +46,15 @@ public class ControlFirmasDAO {
 		}
 	}
 	
-	public int UPDATEFECHA(String id, int inicio, int fin, String idtrab) {
-
-		String SQL = "UPDATE RHMV_DET_VACACIONES SET FIRMA_SALIDA = ?, FIRMA_ENTRADA = ? WHERE ID_DET_VACACIONES = ?";
+	public List<Map<String, Object>> ACTUALIZAR_ESTADO(String id) {
+		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			JDBC.update(SQL, new Object[] { inicio, fin, id });
-			
-			DataSource DS = AppConfig.getDataSource();
-			CallableStatement CST = DS.getConnection().prepareCall("{call RHSP_INSERT_GEST_FIRMAS (?, ?)}");
-			CST.setString(1, idtrab);
-			CST.setString(2, id);
-			CST.execute();
-			
-			return 1;
+			String SQL = "";
+			LST = JDBC.queryForList(SQL, id);
+			return LST;
 		} catch (Exception E) {
-			System.out.println("ERROR: " + E);
-			return 0;
-		}
-	}
-	
-	public int UPDATEPAPELETA(String id, String idtrab) {
-		try {
-			DataSource DS = AppConfig.getDataSource();
-			CallableStatement CST = DS.getConnection().prepareCall("{call RHSP_INSERT_GEST_FIRMAS_PAP (?, ?)}");
-			CST.setString(1, idtrab);
-			CST.setString(2, id);
-			CST.execute();
-			
-			return 1;
-		} catch (Exception E) {
-			System.out.println("ERROR: " + E);
-			return 0;
+			System.out.println("ERROR:" + E);
+			return null;
 		}
 	}
 }

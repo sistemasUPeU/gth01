@@ -118,12 +118,13 @@ public class GestionarConsolidadoController {
 		int fsm = Integer.parseInt(request.getParameter("fsm"));
 		String[] id_det_arr = new String[1];
 		id_det_arr[0] = id;
-		if (inicio == 1 && fin == 1 && fsm == 2) {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 3, "PAS-000092", 3);
-		} else if (fin == 1) {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 2, "PAS-000092", 3);
-		} else {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 3, "PAS-000092", 2);
+		if (inicio == 1 && fin == 1 && fsm == 3) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+		}else if (inicio == 1 && fin == 1 && fsm == 1) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+		} else if (inicio == 1 && fin == 0 && fsm == 3) {
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
 		}
 		return g.toJson(gc.updateFechas(id, inicio, fin));
 	}

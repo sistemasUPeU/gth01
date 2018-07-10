@@ -69,7 +69,7 @@ $("#table_contenido").on("click", "#open", function() {
 		$("#b_consolidar").append(bb);
 		$("#b_papeleta").append(bb);
 		$("#b_control").append(bb);
-		$("#t_programacion").append("PROGRAMACIÓN:");
+		$("#t_programacion").append("PROGRAMACI\u00D3N:");
 		$("#s_programacion").append(dd);
 	} else {
 		//GUARDAR FECHAS DE CADA PASO
@@ -92,19 +92,15 @@ $("#table_contenido").on("click", "#open", function() {
 					fecha = new Date(obj[i].FECHA_MOD);
 					FECHA_MOD_CO = fecha.toLocaleDateString("es-ES", tt);
 				}
-				if (ID_PASOSOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+				if (ID_PASOSOS == "PAS-000090" && obj[i].EVALUACION == 5 && obj[i].URL_PAPELETA != null) {
 					fecha = new Date(obj[i].FECHA_MOD);
 					FECHA_MOD_PA = fecha.toLocaleDateString("es-ES", tt);
 				}
-				if (ID_PASOSOS == "PAS-000092" && obj[i].URL_PAPELETA != null) {
-					fecha = new Date(obj[i].FECHA_MOD);
-					FECHA_MOD_PA = fecha.toLocaleDateString("es-ES", tt);
-				}
-				if (ID_PASOSOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 1 && obj[i].EVALUACION == 2) {
+				if (ID_PASOSOS == "PAS-000092" && obj[i].EVALUACION == 6) {
 					fecha = new Date(obj[i].FECHA_MOD);
 					FECHA_MOD_FI1 = fecha.toLocaleDateString("es-ES", tt);
 				}
-				if (ID_PASOSOS == "PAS-000092" && obj[i].FIRMA_ENTRADA == 1) {
+				if (ID_PASOSOS == "PAS-000092" && obj[i].EVALUACION == 7) {
 					fecha = new Date(obj[i].FECHA_MOD);
 					FECHA_MOD_FI2 = fecha.toLocaleDateString("es-ES", tt);
 				}
@@ -243,37 +239,7 @@ $("#table_contenido").on("click", "#open", function() {
 						$("#f2_aprobacion").append(FECHA_MOD_AP2);
 						$("#f_consolidar").append(FECHA_MOD_CO);
 					//PAPELETA
-					} else if (ID_PASOS == "PAS-000090" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
-						$("#b_programacion").removeClass("disabled").addClass("green accent-3");
-						$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
-						$("#d_programacion").removeClass("disabled").addClass("green accent-3");
-						$("#d_programacion").attr("href", gth_context_path + '/vacaciones/consolidado/mostrardoc?traba=' + obj[i].ID_TRABAJADOR + '&id_det=' + obj[i].ID_DET_VACACIONES + '&op=1');
-						$("#d_programacion").attr("target","_blank");
-						$("#b_consolidar").removeClass("disabled").addClass("green accent-3");
-						$("#b_papeleta").removeClass("disabled").addClass("green accent-3");
-						$("#d_papeleta").removeClass("disabled").addClass("green accent-3");
-						$("#d_papeleta").attr("href", gth_context_path + '/vacaciones/consolidado/mostrardoc?traba=' + obj[i].ID_TRABAJADOR + '&id_det=' + obj[i].ID_DET_VACACIONES + '&op=2');
-						$("#d_papeleta").attr("target","_blank");
-						$("#b_control").removeClass("disabled").addClass("pink lighten-2");
-						$("#b_programacion").append(cc);
-						$("#b_aprobacion").append(cc);
-						$("#b_consolidar").append(cc);
-						$("#b_papeleta").append(cc);
-						$("#b_control").append(bb);
-						$("#s_programacion").append(ee);
-						$("#s1_aprobacion").append(gg);
-						$("#s2_aprobacion").append(ii);
-						$("#s_consolidar").append(mm);
-						$("#s_papeleta").append(oo);
-						$("#s1_control").append(pp);
-						$("#s2_control").append(rr);
-						$("#f_programacion").append(FECHA_MOD_CS);
-						$("#f1_aprobacion").append(FECHA_MOD_AP1);
-						$("#f2_aprobacion").append(FECHA_MOD_AP2);
-						$("#f_consolidar").append(FECHA_MOD_CO);
-						$("#f_papeleta").append(FECHA_MOD_PA);
-					//PAPELETA
-					} else if (ID_PASOS == "PAS-000092" && obj[i].FIRMA_SALIDA == 0 && obj[i].URL_PAPELETA != null) {
+					} else if (ID_PASOS == "PAS-000090" && obj[i].EVALUACION == 5 && obj[i].URL_PAPELETA != null) {
 						$("#b_programacion").removeClass("disabled").addClass("green accent-3");
 						$("#b_aprobacion").removeClass("disabled").addClass("green accent-3");
 						$("#d_programacion").removeClass("disabled").addClass("green accent-3");
@@ -386,28 +352,28 @@ function listarHistorialTramite() {
 			s += '<td>' + obj[i].FECHA_CREACION + '</td>';
 			//SIN SOLICITUD - PROGRAMACION
 			if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD == null) {
-				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="PROGRAMACIÓN: Sin Solicitud">1</a></td>';
+				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="PROGRAMACI\u00D3N: Sin Solicitud">1</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">2</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">3</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">4</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">5</a></td>';
 			//CON SOLICITUD - PROGRAMACION
 			} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "1" && obj[i].URL_SOLICITUD != null) {
-				s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="PROGRAMACIÓN: Solicitud Hecha">1</a></td>';
+				s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="PROGRAMACI\u00D3N: Solicitud Hecha">1</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="SECRETARIA: Sin Aprobar | JEFE: Sin Aprobar">2</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">3</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">4</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">5</a></td>';
 			//SIN SOLICITUD - REPROGRAMACION
 			} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD == null) {
-				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="REPROGRAMACIÓN: Sin Solicitud">1</a></td>';
+				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="REPROGRAMACI\u00D3N: Sin Solicitud">1</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">2</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">3</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">4</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">5</a></td>';
 			//CON SOLICITUD - REPROGRAMACION
 			} else if (ID_PASOS == "PAS-000055" && obj[i].EVALUACION == "4" && obj[i].URL_SOLICITUD != null) {
-				s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="REPROGRAMACIÓN: Solicitud Hecha">1</a></td>';
+				s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="REPROGRAMACI\u00D3N: Solicitud Hecha">1</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="SECRETARIA: Sin Aprobar | JEFE: Sin Aprobar">2</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">3</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">4</a></td>';
@@ -470,7 +436,7 @@ function listarHistorialTramite() {
 				s += '<td><a class="btn-floating btn-large green accent-3 tooltipped" data-position="top" data-tooltip="FIRMA SALIDA: Hecho | FIRMA ENTRADA: Hecho">5</a></td>';
 			//NO CUMPLE CONDICIONALES DE ARRIBA PERO SI EXISTE VACACION
 			} else {
-				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="PROGRAMACIÓN: Sin Solicitud">1</a></td>';
+				s += '<td><a class="btn-floating btn-large pink lighten-2 tooltipped" data-position="top" data-tooltip="PROGRAMACI\u00D3N: Sin Solicitud">1</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">2</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">3</a></td>';
 				s += '<td><a class="btn-floating btn-large pink lighten-2 disabled">4</a></td>';
@@ -493,8 +459,8 @@ function createTable() {
 	s += '<thead>';
 	s += '<tr>';
 	s += '<th>Fecha</th>';
-	s += '<th>Programación</th>';
-	s += '<th>Aprobación</th>';
+	s += '<th>Programaci\u00F3n</th>';
+	s += '<th>Aprobaci\u00F3n</th>';
 	s += '<th>Consolidar</th>';
 	s += '<th>Papeleta</th>';
 	s += '<th>Control Firma</th>';
