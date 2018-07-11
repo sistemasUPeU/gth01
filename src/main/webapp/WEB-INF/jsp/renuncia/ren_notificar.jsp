@@ -47,15 +47,10 @@
 <link href="<c:url value='/resources/css/prism.css'></c:url>" rel="stylesheet" type="text/css" />
 <link href="<c:url value='/resources/css/style.css'></c:url>" rel="stylesheet" type="text/css" />
 <link href="<c:url value='/resources/css/materialize-stepper.min.css'></c:url>" rel="stylesheet" type="text/css" />
-
-<%-- <script src="<c:url  value='/resources/js/plugins/jquery-2.2.3.min.js'></c:url>" type="text/javascript"></script> --%>
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet"> -->
 <link href="js/plugins/dropify/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-<%-- <script src="<c:url  value='/resources/js/plugins/jquery-1.11.2.min.js'></c:url>" type="text/javascript"></script> --%>
 <script src="<c:url  value='/resources/js/materialize.min.js'></c:url>" type="text/javascript"></script>
 <link href="<c:url value='/resources/js/plugins/sweetalert/sweetalert.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
-
 
 <style>
 @media only screen and (min-width: 700px) {
@@ -235,7 +230,7 @@ background: #3AD80C;
 <!--                                                     <br> -->
 <!--                                                     </div> -->
                                                     <div class="col s3">
-                                                    <input type="date" class="datepicker">
+                                                    <input type="date" class="datepicker" name="fecha1" id="fecha1"/>
                                                     </div>
                                                     </div>
                                                  </div>
@@ -262,7 +257,7 @@ background: #3AD80C;
 <!--                                                      <input type="file" id="input-file-now" class="dropify" data-default-file="" />  -->
                                                     </div>
                                                     <div class="col s3">
-                                                    <input type="date" class="datepicker">
+                                                    <input type="date" class="datepicker" name="fecha2" id="fecha2">
                                                     </div>
                                                     </div>
                                                  </div>
@@ -290,7 +285,7 @@ background: #3AD80C;
 <!--                                                     <input type="file" id="input-file-now" class="dropify" data-default-file="" /> -->
                                                     </div>
                                                     <div class="col s3">
-                                                    <input type="date" class="datepicker">
+                                                    <input type="date" class="datepicker" name="fecha3" id="fecha3">
                                                     </div>
                                                     </div>
                                                  </div>
@@ -318,7 +313,7 @@ background: #3AD80C;
 <!--                                                     <input type="file" id="input-file-now" class="dropify" data-default-file="" /> -->
                                                     </div>
                                                     <div class="col s3">
-                                                    <input type="date" class="datepicker">
+                                                    <input type="date" class="datepicker" name="fecha4" id="fecha4">
                                                     </div>
                                                     </div>
                                                  </div>

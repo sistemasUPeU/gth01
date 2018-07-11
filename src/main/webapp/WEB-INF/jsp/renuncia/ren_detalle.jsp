@@ -39,9 +39,12 @@
 <body class="#e8f5e9 green lighten-5">
 	<div class="row">
 		<div class="col s2">
+		
 			<br>
 		</div>
 		<div class="col s8">
+			
+		
 			<section class="plans-container" id="plans">
 				<div class="card " style="box-shadow: 0px 0px 20px 20px #888888">
 					<div class="card-image #607d8b blue-grey waves-effect ">
@@ -209,6 +212,13 @@
 			</section>
 		</div>
 		<div class="col s2">
+		<center >
+		<div class="form-group" id="opciones">
+					 <a
+						class="btn-floating btn-large waves-effect waves-light  light-green accent-3"
+						href="<c:url value="/renaban/authorizationR"/>"><i class="mdi-content-backspace"></i></a>
+				</div>
+		</center>
 			<br>
 		</div>
 	</div>
@@ -257,6 +267,7 @@
 				 id="RechazarRenuncia">Enviar</button>
 		</div>
 	</div>
+				
 	
 	
 	

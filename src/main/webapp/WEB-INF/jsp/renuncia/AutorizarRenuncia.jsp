@@ -57,6 +57,7 @@ table.dataTable tbody td {
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 		<section id="content" class="col m12 l12 s12">
 				<div class="center">
+				
 					<h1
 						style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Autorizar
 						Renuncias y Abandonos</h1>

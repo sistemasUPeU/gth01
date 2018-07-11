@@ -1,10 +1,26 @@
 $(document).ready(function(){
 		$("#otrosdiv").hide();	
-    $('#fecha').pickadate({
-    	selectMonths: true, // Creates a dropdown to control month
-    	selectYears: 15, // Creates a dropdown of 15 years to control
-    	format: 'dd/mm/yyyy',
-      });
+		var fecha = new Date();
+		var dd = fecha.getDate();
+		var mm = fecha.getMonth(); //January is 0!
+		var yyyy = fecha.getFullYear();
+		if(dd<10){ 
+		    dd='0'+dd;
+		} 
+		if(mm<10){
+		    mm='0'+mm;
+		} 
+		var today = dd+'/'+mm+'/'+yyyy;
+		$("#fecha").val(today);
+	window.picker = $('.datepicker').pickadate({
+		selectMonths : true, // Creates a dropdown to control month
+		selectYears : 100, // Creates a dropdown of 15 years to control year
+		format : 'dd/mm/yyyy',
+		onStart: function ()
+	    {
+			this.set('select', today);
+	    }
+	});
 	if(!alertify.errorAlert){
 		  alertify.dialog('errorAlert',function factory(){
 		    return{

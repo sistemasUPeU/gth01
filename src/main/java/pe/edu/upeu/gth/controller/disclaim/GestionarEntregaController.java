@@ -166,7 +166,9 @@ public class GestionarEntregaController {
 	public String handleFormUpload(@RequestParam("liquidacion") List<MultipartFile> liquidacion,
 			@RequestParam("cts") List<MultipartFile> cts, @RequestParam("certificado") List<MultipartFile> certificado,
 			@RequestParam("remu") List<MultipartFile> remu, @RequestParam("idc") String idc,
-			@RequestParam("idt") String idt, @RequestParam("idra") String idr, @RequestParam("tipon") String tipo)
+			@RequestParam("idt") String idt, @RequestParam("idra") String idr, @RequestParam("tipon") String tipo,
+			@RequestParam("fecha1") String fecha1,@RequestParam("fecha2") String fecha2,@RequestParam("fecha3") String fecha3,
+			@RequestParam("fecha4") String fecha4)
 			throws IOException {
 		System.out.println("zzzzz idrrrr "+idr+"aaaaa tipoo "+tipo+"idc "+idc+"idt "+idt);
 		Renuncia r = new Renuncia();
@@ -202,7 +204,7 @@ public class GestionarEntregaController {
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("LIQUIDACIÓN");
-					leg.setFecha_registro("06/04/2018");
+					leg.setFecha_registro(fecha1);
 					ldao.InsertarDocBenfSoc(leg);
 				}
 				for (MultipartFile fi : cts) {
@@ -228,7 +230,7 @@ public class GestionarEntregaController {
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("CTS");
-					leg.setFecha_registro("06/04/2018");
+					leg.setFecha_registro(fecha2);
 					ldao.InsertarDocBenfSoc(leg);
 				}
 				for (MultipartFile fi : certificado) {
@@ -254,7 +256,7 @@ public class GestionarEntregaController {
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("CERTIFICADO DE TRABAJO");
-					leg.setFecha_registro("06/04/2018");
+					leg.setFecha_registro(fecha3);
 					ldao.InsertarDocBenfSoc(leg);
 				}
 				for (MultipartFile fi : remu) {
@@ -279,7 +281,7 @@ public class GestionarEntregaController {
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("REMUNERACIONES");
-					leg.setFecha_registro("06/04/2018");
+					leg.setFecha_registro(fecha4);
 					ldao.InsertarDocBenfSoc(leg);
 
 				}

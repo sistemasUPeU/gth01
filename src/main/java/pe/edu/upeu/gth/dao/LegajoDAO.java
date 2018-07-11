@@ -1,5 +1,7 @@
 package pe.edu.upeu.gth.dao;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -22,7 +24,7 @@ import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
 public class LegajoDAO {
-	
+	String sql;
 	private static JdbcTemplate jt;
 
 	public LegajoDAO(DataSource dataSource) {
@@ -175,7 +177,25 @@ public class LegajoDAO {
 		}
 		return x;
 	}
+	
+	//LEGAJO DE TODO LOS TRABAJADORES
+	public List<Map<String, Object>> legajos(String depa){
+		System.out.println("Esto es nom depa: "+depa);
+		sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=1 AND rap.ID_PASOS IN ('PAS-000440','PAS-000441') ORDER BY ra.FECHA_RENABAN DESC";
+		return jt.queryForList(sql);
+	}
+	//OBSERVAR LEGAJOS
+	public List<Map<String, Object>> Buscar_Documentos(String idl) {
+		sql = "SELECT * FROM RA_DETALLE_LEGAJO";
 
+		sql += " where ID_LEGAJO='" + idl + "' ";
 
+		return jt.queryForList(sql);
+	}
+	
+	public List<Map<String, Object>> doc(String idcontrato) {
+		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO=?";
+		return jt.queryForList(sql,idcontrato);
+	}
 
 }

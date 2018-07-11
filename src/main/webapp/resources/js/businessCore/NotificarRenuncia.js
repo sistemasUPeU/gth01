@@ -468,7 +468,11 @@ $("#entredoc").click(function (event) {
     var liquidacion=$("#liquidacion").val();
     var cts=$("#cts").val();
     var certificado=$("#certificado").val();
-    var remu=$("#remu").val();    
+    var remu=$("#remu").val();
+    var fecha1=$("#fecha1").val();
+    var fecha2=$("#fecha2").val();
+    var fecha3=$("#fecha3").val();
+    var fecha4=$("#fecha4").val();
     open();
     swal({
 		title: "¿Está seguro de confirmar",
@@ -528,26 +532,34 @@ function someFunction() {
  }
  function someOtherFunction() {
      return true;
- }
+ } 
  $(document).ready(function(){
     $('.toc-wrapper').pushpin({ top: $('.toc-wrapper').offset().top, offset: 77 });
     $('.scrollspy').scrollSpy();
     $('.stepper').activateStepper();
  });
- 
-// FECHA
-$('.datepicker').pickadate({
-	selectMonths : true, // Creates a dropdown to control month
-	selectYears : 15, // Creates a dropdown of 15 years to control
-	format : 'dd/mm/yyyy'
-});
-
+//FECHA
+ var fecha = new Date();
+	var dd = fecha.getDate();
+	var mm = fecha.getMonth(); //January is 0!
+	var yyyy = fecha.getFullYear();
+	if(dd<10){ 
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var today = dd+'/'+mm+'/'+yyyy;
+	$("#fecha").val(today);
 window.picker = $('.datepicker').pickadate({
 	selectMonths : true, // Creates a dropdown to control month
 	selectYears : 100, // Creates a dropdown of 15 years to control year
-	format : 'dd/mm/yyyy'
+	format : 'dd/mm/yyyy',
+	onStart: function ()
+    {
+		this.set('select', today);
+    }
 });
-$("#Date").val('SYSDATE');
 
 function id(ida) {
 	alert(ida);
