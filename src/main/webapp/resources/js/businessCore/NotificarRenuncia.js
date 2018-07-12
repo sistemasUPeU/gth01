@@ -473,6 +473,7 @@ $("#entredoc").click(function (event) {
     var fecha2=$("#fecha2").val();
     var fecha3=$("#fecha3").val();
     var fecha4=$("#fecha4").val();
+    
     open();
     swal({
 		title: "¿Está seguro de confirmar",

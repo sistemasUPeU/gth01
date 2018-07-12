@@ -35,7 +35,7 @@ import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.LegajoDAO;
 import pe.edu.upeu.gth.dao.RenunciaDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
-import pe.edu.upeu.gth.dto.Detalle_legajo;
+
 import pe.edu.upeu.gth.dto.Legajo;
 import pe.edu.upeu.gth.dto.Renuncia;
 
@@ -88,12 +88,12 @@ public class GestionarEntregaController {
 		// l.setDetalle_otros(request.getParameter("detalle"));
 		// out.println(ldao.insertarLegajo(l));
 		// break;
-		case 4:
-			Legajo l = new Legajo();
-			l.setIdcontrato(request.getParameter("idc"));
-			l.setIdtrabajador(request.getParameter("idtr"));
-			out.println(ldao.insertarLegajo(l));
-			break;
+//		case 4:
+//			Legajo l = new Legajo();
+//			l.setIdcontrato(request.getParameter("idc"));
+//			l.setIdtrabajador(request.getParameter("idtr"));
+//			out.println(ldao.insertarLegajo(l));
+//			break;
 		case 5:
 
 			ServletContext cntx = request.getServletContext();
@@ -180,9 +180,9 @@ public class GestionarEntregaController {
 		// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
 		// ?, ?)";
 		try {
-			l.setIdcontrato(idc);
-			l.setIdtrabajador(idt);
-			ldao.insertarLegajo(l);
+//			l.setIdcontrato(idc);
+//			l.setIdtrabajador(idt);
+//			ldao.insertarLegajo(l);
 			if (!remu.isEmpty() && !liquidacion.isEmpty() && !certificado.isEmpty() && !cts.isEmpty()) {
 				for (MultipartFile fi : liquidacion) {
 					x++;
@@ -200,11 +200,18 @@ public class GestionarEntregaController {
 					archi1.add(FilenameUtils.getExtension(path));
 					archi1.add(String.valueOf(destFile.length()));
 					System.out.println(gson.toJson(archi));
-					Detalle_legajo leg = new Detalle_legajo();
+					Legajo leg = new Legajo();
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("LIQUIDACIÓN");
-					leg.setFecha_registro(fecha1);
+					leg.setFecha_registro(fecha1);					
+					if(tipo.equals("R")) {
+						leg.setId_procesos("PCO-000005");
+					}else {
+						leg.setId_procesos("PCO-000006");
+					}
+					leg.setId_contrato(idc);
+					leg.setId_trabajador(idt);
 					ldao.InsertarDocBenfSoc(leg);
 				}
 				for (MultipartFile fi : cts) {
@@ -226,11 +233,18 @@ public class GestionarEntregaController {
 					archi2.add(FilenameUtils.getExtension(path));
 					archi2.add(String.valueOf(destFile.length()));
 					System.out.println(gson.toJson(archi2));
-					Detalle_legajo leg = new Detalle_legajo();
+					Legajo leg = new Legajo();
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("CTS");
 					leg.setFecha_registro(fecha2);
+					if(tipo.equals("R")) {
+						leg.setId_procesos("PCO-000005");
+					}else {
+						leg.setId_procesos("PCO-000006");
+					}
+					leg.setId_contrato(idc);
+					leg.setId_trabajador(idt);
 					ldao.InsertarDocBenfSoc(leg);
 				}
 				for (MultipartFile fi : certificado) {
@@ -252,11 +266,18 @@ public class GestionarEntregaController {
 					archi3.add(FilenameUtils.getExtension(path));
 					archi3.add(String.valueOf(destFile.length()));
 					System.out.println(gson.toJson(archi3));
-					Detalle_legajo leg = new Detalle_legajo();
+					Legajo leg = new Legajo();
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("CERTIFICADO DE TRABAJO");
 					leg.setFecha_registro(fecha3);
+					if(tipo.equals("R")) {
+						leg.setId_procesos("PCO-000005");
+					}else {
+						leg.setId_procesos("PCO-000006");
+					}
+					leg.setId_contrato(idc);
+					leg.setId_trabajador(idt);
 					ldao.InsertarDocBenfSoc(leg);
 				}
 				for (MultipartFile fi : remu) {
@@ -277,11 +298,18 @@ public class GestionarEntregaController {
 					// FilenameUtils fich = new FilenameUtils();
 					archi4.add(FilenameUtils.getExtension(path));
 					archi4.add(String.valueOf(destFile.length()));
-					Detalle_legajo leg = new Detalle_legajo();
+					Legajo leg = new Legajo();
 					leg.setNo_archivo(destFile.getName());
 					leg.setTi_archivo(FilenameUtils.getExtension(path));
 					leg.setDescripcion("REMUNERACIONES");
 					leg.setFecha_registro(fecha4);
+					if(tipo.equals("R")) {
+						leg.setId_procesos("PCO-000005");
+					}else {
+						leg.setId_procesos("PCO-000006");
+					}
+					leg.setId_contrato(idc);
+					leg.setId_trabajador(idt);
 					ldao.InsertarDocBenfSoc(leg);
 
 				}

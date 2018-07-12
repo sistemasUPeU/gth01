@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import pe.edu.upeu.gth.dto.Detalle_legajo;
 import pe.edu.upeu.gth.dto.Legajo;
 import pe.edu.upeu.gth.dto.Rechazo;
 import pe.edu.upeu.gth.dto.Renuncia;
@@ -31,18 +30,18 @@ public class LegajoDAO {
 		jt = new JdbcTemplate(dataSource);
 	}
 	
-	public int insertarLegajo(Legajo r) {
-		int x = 0;
-		String sql = "INSERT INTO RA_LEGAJO(ID_CONTRATO,ID_TRABAJADOR) VALUES(?,?)";
-		try {
-			jt.update(sql, new Object[] { r.getIdcontrato(),r.getIdtrabajador()});
-			x = 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error: " + e);
-		}
-		return x;
-	}
+//	public int insertarLegajo(Legajo r) {
+//		int x = 0;
+//		String sql = "INSERT INTO RA_LEGAJO(ID_CONTRATO,ID_TRABAJADOR) VALUES(?,?)";
+//		try {
+//			jt.update(sql, new Object[] { r.getIdcontrato(),r.getIdtrabajador()});
+//			x = 1;
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.out.println("Error: " + e);
+//		}
+//		return x;
+//	}
 	
 	public int actualizarPasoFinal(String idr,String tipo) {
 		System.out.println("LLEGANDO AL DAO"+tipo);
@@ -65,12 +64,12 @@ public class LegajoDAO {
 		return x;
 	}
 	
-	public int InsertarDocBenfSoc(Detalle_legajo ob) {
+	public int InsertarDocBenfSoc(Legajo ob) {
 		int x = 0;
-		String sql = "call RA_SP_INSERTAR_DOCUMENTOS(? , ?, ?, ?)";
+		String sql = "call RA_SP_INSERTAR_DOCUMENTOS(? , ?, ?, ?, ?, ?, ?)";
 //		String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?, FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
 		try {
-		 jt.update(sql,new Object[] {ob.getDescripcion(),ob.getNo_archivo(),ob.getTi_archivo(),ob.getFecha_registro()});
+		 jt.update(sql,new Object[] {ob.getDescripcion(),ob.getNo_archivo(),ob.getTi_archivo(),ob.getFecha_registro(),ob.getId_procesos(),ob.getId_contrato(),ob.getId_trabajador()});
 		 x=1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -181,17 +180,20 @@ public class LegajoDAO {
 	//LEGAJO DE TODO LOS TRABAJADORES
 	public List<Map<String, Object>> legajos(String depa){
 		System.out.println("Esto es nom depa: "+depa);
-		sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=1 AND rap.ID_PASOS IN ('PAS-000440','PAS-000441') ORDER BY ra.FECHA_RENABAN DESC";
+		sql="SELECT l.ID_CONTRATO, l.ID_LEGAJO, t.AP_PATERNO, t.AP_MATERNO, t.NO_TRABAJADOR,c.FE_DESDE,c.FE_HASTA, t.NU_DOC FROM LEGAJO l, RHTM_CONTRATO c, RHTM_TRABAJADOR t where l.ID_CONTRATO=c.ID_CONTRATO and l.ID_TRABAJADOR=t.ID_TRABAJADOR";
 		return jt.queryForList(sql);
 	}
 	//OBSERVAR LEGAJOS
 	public List<Map<String, Object>> Buscar_Documentos(String idl) {
-		sql = "SELECT * FROM RA_DETALLE_LEGAJO";
-
-		sql += " where ID_LEGAJO='" + idl + "' ";
-
-		return jt.queryForList(sql);
+		System.out.println("llegooo"+idl);
+		sql = "SELECT le.ID_LEGAJO,le.ID_CONTRATO,de.ID_DETALLE_LEGAJO,r.AP_PATERNO,r.AP_MATERNO,r.NO_TRABAJADOR,de.DESCRIPCION,de.NO_ARCHIVO, de.FECHA_REGISTRO FROM RHTM_TRABAJADOR r, RA_LEGAJO le, RA_DETALLE_LEGAJO de, RHTM_CONTRATO c where le.ID_LEGAJO=de.ID_LEGAJO AND le.ID_TRABAJADOR=r.ID_TRABAJADOR AND le.ID_CONTRATO=c.ID_CONTRATO and le.ID_LEGAJO=?";
+		return jt.queryForList(sql,idl);
 	}
+	
+//	public List<Map<String, Object>> Buscar_legajo() {
+//		sql = "SELECT * FROM RA_LEGAJO";
+//		return jt.queryForList(sql);
+//	}
 	
 	public List<Map<String, Object>> doc(String idcontrato) {
 		sql = "select * from RA_VIEW_RENABAN where ID_CONTRATO=?";

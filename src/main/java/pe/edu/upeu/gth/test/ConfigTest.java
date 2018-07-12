@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.config.UserDetailsServiceImpl;
+import pe.edu.upeu.gth.dao.LegajoDAO;
 import pe.edu.upeu.gth.dao.PriCartaNotarialDAO;
 import pe.edu.upeu.gth.dao.RecepcionarDAO;
 import pe.edu.upeu.gth.dao.RenAutorizarDAO;
@@ -31,6 +32,7 @@ public class ConfigTest {
 	public static PriCartaNotarialDAO pc = new PriCartaNotarialDAO(d);
 	public static RenAutorizarDAO ra = new RenAutorizarDAO(d);
 	public static RecepcionarDAO rep = new RecepcionarDAO(d);
+	public static LegajoDAO lega = new LegajoDAO(d);
 
 	public static void main(String[] args) {
 //		conect();
@@ -40,7 +42,8 @@ public class ConfigTest {
 //		Procesar1();
 		//Renuncia();
 //		justificacion();
-		Recepcionar();
+//		Recepcionar();
+		legajos();
 	}
 
 	public static void conect() {	
@@ -94,4 +97,11 @@ public static void Recepcionar() {
 	System.out.println(gs.toJson(rep.Pendiente("Productos Union")));
 }
 
+public static void legajo() {
+	System.out.println(gs.toJson(lega.Buscar_Documentos("LEG-000001")));
+}
+
+public static void legajos() {
+	System.out.println(gs.toJson(lega.legajos("Productos Union")));
+}
 }
