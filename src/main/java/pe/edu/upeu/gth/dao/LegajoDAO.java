@@ -180,14 +180,14 @@ public class LegajoDAO {
 	//LEGAJO DE TODO LOS TRABAJADORES
 	public List<Map<String, Object>> legajos(String depa){
 		System.out.println("Esto es nom depa: "+depa);
-		sql="SELECT l.ID_CONTRATO, l.ID_LEGAJO, t.AP_PATERNO, t.AP_MATERNO, t.NO_TRABAJADOR,c.FE_DESDE,c.FE_HASTA, t.NU_DOC FROM LEGAJO l, RHTM_CONTRATO c, RHTM_TRABAJADOR t where l.ID_CONTRATO=c.ID_CONTRATO and l.ID_TRABAJADOR=t.ID_TRABAJADOR";
+		sql="SELECT l.ID_CONTRATO, l.ID_LEGAJO, t.AP_PATERNO, t.AP_MATERNO, t.NO_TRABAJADOR,c.FE_DESDE,c.FE_HASTA, t.NU_DOC , p.NO_PROCESO FROM LEGAJO l, RHTM_CONTRATO c, RHTM_TRABAJADOR t,RHTV_PROCESO p where l.ID_CONTRATO=c.ID_CONTRATO and l.ID_TRABAJADOR=t.ID_TRABAJADOR AND l.ID_PROCESO=p.ID_PROCESO";
 		return jt.queryForList(sql);
 	}
 	//OBSERVAR LEGAJOS
-	public List<Map<String, Object>> Buscar_Documentos(String idl) {
-		System.out.println("llegooo"+idl);
-		sql = "SELECT le.ID_LEGAJO,le.ID_CONTRATO,de.ID_DETALLE_LEGAJO,r.AP_PATERNO,r.AP_MATERNO,r.NO_TRABAJADOR,de.DESCRIPCION,de.NO_ARCHIVO, de.FECHA_REGISTRO FROM RHTM_TRABAJADOR r, RA_LEGAJO le, RA_DETALLE_LEGAJO de, RHTM_CONTRATO c where le.ID_LEGAJO=de.ID_LEGAJO AND le.ID_TRABAJADOR=r.ID_TRABAJADOR AND le.ID_CONTRATO=c.ID_CONTRATO and le.ID_LEGAJO=?";
-		return jt.queryForList(sql,idl);
+	public List<Map<String, Object>> Buscar_Documentos(String idc) {
+		System.out.println("llegooo"+idc);
+		sql = "SELECT l.ID_CONTRATO, l.ID_LEGAJO, t.AP_PATERNO, t.AP_MATERNO, t.NO_TRABAJADOR,l.DESCRIPCION,l.NO_ARCHIVO,l.FECHA_REGISTRO FROM LEGAJO l, RHTM_CONTRATO c, RHTM_TRABAJADOR t,RHTV_PROCESO p where l.ID_CONTRATO=c.ID_CONTRATO and l.ID_TRABAJADOR=t.ID_TRABAJADOR AND l.ID_PROCESO=p.ID_PROCESO and l.ID_CONTRATO=?";
+		return jt.queryForList(sql,idc);
 	}
 	
 //	public List<Map<String, Object>> Buscar_legajo() {

@@ -55,7 +55,7 @@ public class LegajoController {
 					out.println(gson.toJson(ldao.legajos(lega)));
 					break;
 				case 2:
-					out.println(gson.toJson(ldao.Buscar_Documentos(request.getParameter("idl"))));
+					out.println(gson.toJson(ldao.Buscar_Documentos(request.getParameter("idc"))));
 					break;					
 //				case 3:					
 //					out.println(gson.toJson(ldao.doc(request.getParameter("idc"))));

@@ -42,15 +42,15 @@
 
 <!-- //Nuevo link -->
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="<c:url value='/resources/css/materialize.min.css'></c:url>" rel="stylesheet" type="text/css" />
-<link href="<c:url value='/resources/css/prism.css'></c:url>" rel="stylesheet" type="text/css" />
-<link href="<c:url value='/resources/css/style.css'></c:url>" rel="stylesheet" type="text/css" />
-<link href="<c:url value='/resources/css/materialize-stepper.min.css'></c:url>" rel="stylesheet" type="text/css" />
-<link href="js/plugins/dropify/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-<script src="<c:url  value='/resources/js/materialize.min.js'></c:url>" type="text/javascript"></script>
-<link href="<c:url value='/resources/js/plugins/sweetalert/sweetalert.css'/>"
-	type="text/css" rel="stylesheet" media="screen,projection">
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+<%-- <link href="<c:url value='/resources/css/materialize.min.css'></c:url>" rel="stylesheet" type="text/css" /> --%>
+<%-- <link href="<c:url value='/resources/css/prism.css'></c:url>" rel="stylesheet" type="text/css" /> --%>
+<%-- <link href="<c:url value='/resources/css/style.css'></c:url>" rel="stylesheet" type="text/css" /> --%>
+<%-- <link href="<c:url value='/resources/css/materialize-stepper.min.css'></c:url>" rel="stylesheet" type="text/css" /> --%>
+<!-- <link href="js/plugins/dropify/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection"> -->
+<%-- <script src="<c:url  value='/resources/js/materialize.min.js'></c:url>" type="text/javascript"></script> --%>
+<%-- <link href="<c:url value='/resources/js/plugins/sweetalert/sweetalert.css'/>" --%>
+<!-- 	type="text/css" rel="stylesheet" media="screen,projection"> -->
 
 <style>
 @media only screen and (min-width: 700px) {
@@ -153,15 +153,12 @@ background: #3AD80C;
 			<div class="col s12">
 				<h4>Documentos</h4>
 			</div>
-			<div class="col s12">
-				<span>Nombre:</span> <span id="nombre"></span>
-			</div>
 			<div class="row"
 				style="width: 100%;  max-width:90%">
 				<ul class="collapsible popout">
 					<li id="autorized" class="active">
 						<div class="collapsible-header active" >
-							<i class="mdi-toggle-check-box"></i> DOCMENTOS
+							<i class="mdi-toggle-check-box"></i> DOCUMENTOS
 						</div> 
 						<div class="card-panel collapsible-body "
 							style="display: none;">
@@ -174,30 +171,6 @@ background: #3AD80C;
 						</li>
 					</ul>
 				</div>
-<!--    <table id="data-table-simple" class="responsive-table display" cellspacing="0"> -->
-<!--    				<thead> -->
-<!--                         <tr> -->
-<!--                             <th>Nª</th> -->
-<!--                             <th>Paterno</th> -->
-<!--                             <th>Materno</th> -->
-<!--                             <th>Nombre</th> -->
-<!--                             <th>DESCRIPCION</th> -->
-<!--                             <th>ARCHIVO</th> -->
-<!--                             <th>FECHA DE REGISTRO</th> -->
-<!--                         </tr> -->
-<!--                     </thead> -->
-<!--                     <tbody> -->
-<!--                      <tr> -->
-<!--                             <td><span id="nombre"></span></td> -->
-<!--                             <td>System Architect</td> -->
-<!--                             <td>Edinburgh</td> -->
-<!--                             <td>61</td> -->
-<!--                             <td>2011/04/25</td> -->
-<!--                             <td>$320,800</td> -->
-<!--                             <td>$320,800</td> -->
-<!--                         </tr> -->
-<!--                     </tbody> -->
-<!--              </table> -->
 			<label id="idtr" hidden=""></label> <label id="idr" hidden=""></label><label id="tipo" hidden=""></label>
 			<button data-remodal-action="cancel" class="remodal-cancel">Cerrar</button>
 		</div>
@@ -237,12 +210,12 @@ background: #3AD80C;
 		
 <!-- 	link nuevos  -->
 
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-<script src="<c:url  value='/resources/js/materialize-stepper.min.js'></c:url>" type="text/javascript"></script>
-<script src="<c:url  value='/resources/js/plugins/dropify/css/dropify.min.css'></c:url>" type="text/javascript"></script>
-<script
-		src="<c:url value='/resources/js/plugins/sweetalert/sweetalert.min.js'></c:url>"
-		type="text/javascript"></script>		
+<!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script> -->
+<%-- <script src="<c:url  value='/resources/js/materialize-stepper.min.js'></c:url>" type="text/javascript"></script> --%>
+<%-- <script src="<c:url  value='/resources/js/plugins/dropify/css/dropify.min.css'></c:url>" type="text/javascript"></script> --%>
+<!-- <script -->
+<%-- 		src="<c:url value='/resources/js/plugins/sweetalert/sweetalert.min.js'></c:url>" --%>
+<!-- 		type="text/javascript"></script>		 -->
 	
 </body>
 </html>

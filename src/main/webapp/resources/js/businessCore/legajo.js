@@ -116,9 +116,12 @@ function listarNotificados() {
 								s += '<td>'
 									+lista[i].NU_DOC+
 									 '</td>';
-								s +='<td>' +TIPO+'<label class= "tipon" hidden>'
-								+ TIPO
-								+ '</label></td>';								
+								s += '<td>'
+									+lista[i].NO_PROCESO+
+									 '</td>';
+//								s +='<td>' +TIPO+'<label class= "tipon" hidden>'
+//								+ TIPO
+//								+ '</label></td>';								
 								s += '<td><a class="legajo  waves-effect waves-light btn #00e676 green accent-3" data-remodal-target="modal1">LEGAJO</a>';								
 								s += '</td>';
 								s += '</tr>';
@@ -162,8 +165,8 @@ function listarNotificados() {
 									.text();									
 									$("#tipo").text(tipon);
 									$("#idr").text(idr);
-									console.log(idl);
-									listarDocumentos(idl);
+									console.log(idc);
+									listarDocumentos(idc);
 								});
 					});
 }
@@ -180,7 +183,7 @@ function createTable1(idDepartamento, idRol) {
 	s += '<th>Fecha de Inicio</th>';
 	s += '<th>Fecha de Final</th>';
 	s += '<th>DNI</th>';
-	s += '<th data-priority="2">Tipo</th>';
+	s += '<th data-priority="2">Tipo de Proceso</th>';
 	s += '<th data-priority="1">Opcion</th>';	
 	s += '</tr>';
 	s += '</thead>';
@@ -192,16 +195,16 @@ function createTable1(idDepartamento, idRol) {
 var depa="";
 var u = "";
 
-function listarDocumentos(idl) {
+function listarDocumentos(idc) {
 	var inst = $('[data-remodal-id=modal1]').remodal();
 	inst.open();
 	$.get(
 		gth_context_path + "/renaban/Legajo",{
-		opc:2,idl:idl},
+		opc:2,idc:idc},
 		function(objJson) {
 			var s = "";
 			var lista = JSON.parse( objJson);
-			alert("TABLA DOCUMENTOS" + "   "+idl)
+			alert("TABLA DOCUMENTOS" + "   "+idc)
 			console.log(objJson);
 			if (lista.length > 0) {					
 				for (var i = 0; i < lista.length; i++) {
@@ -265,7 +268,7 @@ function listarDocumentos(idl) {
 					+ lista[i].AP_PATERNO + ' ' + lista[i].AP_MATERNO
 					+ ' ' + lista[i].NO_TRABAJADOR + '</td>';
 					s += '<td>'
-							+ lista[i].ID_CONTRATO
+							+ lista[i].DESCRIPCION
 							+ '</td>';
 					
 					s += '<td>' +
