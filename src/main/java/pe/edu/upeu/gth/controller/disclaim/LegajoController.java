@@ -41,7 +41,8 @@ public class LegajoController {
 	@RequestMapping(value = "/legajo", method = RequestMethod.GET)
 	public ModelAndView PrimerEnvio(ModelMap model) {
 		return new ModelAndView("renuncia/Legajo");		
-	}
+	}	
+	
 	// AUTORIZAR RENUNCIA
 			@RequestMapping(value = "/Legajo", method = RequestMethod.GET)
 			protected void metodosAutorizar(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -57,9 +58,10 @@ public class LegajoController {
 				case 2:
 					out.println(gson.toJson(ldao.Buscar_Documentos(request.getParameter("idc"))));
 					break;					
-//				case 3:					
-//					out.println(gson.toJson(ldao.doc(request.getParameter("idc"))));
-//					break;
+				case 3:					
+					String idt = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+					out.println(gson.toJson(ldao.legajos_tra(idt)));
+					break;
 				}
 
 			}

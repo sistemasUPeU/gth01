@@ -118,6 +118,11 @@ public class RenabanController {
 
 		return new ModelAndView("abandono/DetallePriCarta");
 	}
+	
+	@RequestMapping(value = "/Legajo_trabajador", method = RequestMethod.GET)
+	public ModelAndView Legajo_tra(ModelMap model) {
+		return new ModelAndView("renuncia/legajo_trabajador");		
+	}
 
 	@RequestMapping(value = "/mostrardoc1")
 	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {

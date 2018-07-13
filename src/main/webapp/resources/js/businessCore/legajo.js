@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
 	listarNotificados();
-//	listarDocumentos();
+	listarDocTra();
 	$('.dropify').dropify(function(event, element){
         return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
     });
@@ -204,7 +204,7 @@ function listarDocumentos(idc) {
 		function(objJson) {
 			var s = "";
 			var lista = JSON.parse( objJson);
-			alert("TABLA DOCUMENTOS" + "   "+idc)
+//			alert("TABLA DOCUMENTOS" + "   "+idc)
 			console.log(objJson);
 			if (lista.length > 0) {					
 				for (var i = 0; i < lista.length; i++) {
@@ -271,7 +271,7 @@ function listarDocumentos(idc) {
 							+ lista[i].DESCRIPCION
 							+ '</td>';
 					
-					s += '<td>' +
+					s += '<td class="materialboxed responsive-img initialized">' +
 								imagen
 							+ '</td>';
 					
@@ -302,6 +302,7 @@ function listarDocumentos(idc) {
 			);
 		});
 }
+//DISEÑO DE LA TABLA 2
 function createTable(idDepartamento, idRol) {
 	var Rol = idRol.toString();
 	var Departamento = idDepartamento.toString();
@@ -310,9 +311,9 @@ function createTable(idDepartamento, idRol) {
 	s += '<tr>';
 	s += '<th>N</th>';     
 	s += '<th>Apellidos y Nombres</th>';
-	s += '<th>DESCRIPCION</th>';
+	s += '<th>Descripción</th>';
 	s += '<th data-priority="2">ARCHIVO</th>';
-	s += '<th>FECHA DE REGISTRO</th>';
+	s += '<th>Fecha de Registro</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq">';
@@ -320,6 +321,152 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
+function listarDocTra() {
+	$.getJSON(
+			gth_context_path + "/renaban/Legajo",
+			"opc=3",
+			function(objJson) {
+				var s = "";
+				var lista = objJson;
+//			alert("Trabajador"+ idt)
+			console.log(objJson);
+			if (lista.length > 0) {					
+				for (var i = 0; i < lista.length; i++) {
+					var a = parseInt(i) + 1;
+					var MFL = parseInt(lista[i].ES_MFL);
+					var Motivo = parseInt(lista[i].LI_MOTIVO);
+					var plazo = parseInt(lista[i].VAL_PLAZO);
+					var imagen="";
+					var u = "";
+					u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
+						u += ''
+						u += 'src="' + gth_context_path + '/resources/files/'
+								+ lista[i].NO_ARCHIVO + '" '
+						u += 'alt="sample"'
+						u += 'data-caption="Esc para volver" ></div>'					
+							var c = "";
+						c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + lista[i].NO_ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"				
+						var tipod = lista[i].NO_ARCHIVO.split(".")[1];
+						if (tipod=="pdf"){
+							imagen=c;
+						}else{
+							imagen=u;
+						}
+						$('.materialboxed').materialbox();
+					var fe_creacion = new Date(
+							lista[i].FECHA_RENABAN);
+					var mesInt = parseInt(fe_creacion
+							.getMonth()) + 1;
+					var mes = ParsearMes(mesInt);
+					var TIPO="";
+					if(lista[i].TIPO=='R'){
+						 TIPO="RENUNCIA"
+					}else{
+						 TIPO="ABANDONO";
+					}
+					s += '<tr>';
+					s += '<td>'
+						+ a
+						+ '<label  class="idc" hidden>'
+						+ lista[i].ID_CONTRATO
+						+ '</label>'
+						+ '<label  class="idl" hidden>'
+						+ lista[i].ID_LEGAJO
+						+ '</label>'
+						+ '<label  class="idte" hidden>'
+						+ lista[i].ID_DETALLE_LEGAJO
+						+ '</label>'
+						+ '<label class="tipo" hidden>'
+						+ lista[i].TIPO
+						+ '</label>'
+						+ '<label  class="idr" hidden>'
+						+ lista[i].ID_RENABAN
+						+ '</label>'
+						+ '<label  class="idt" hidden>'
+						+ lista[i].ID_TRABAJADOR
+						+ '</label>'
+						+'<label class="idrenaban" hidden>'
+				+ lista[i].ID_RENABAN
+				+ '</label></td>';
+					s += '<td class="">'								
+					+ lista[i].AP_PATERNO + ' ' + lista[i].AP_MATERNO
+					+ ' ' + lista[i].NO_TRABAJADOR + '</td>';
+					s += '<td>'
+							+ lista[i].DESCRIPCION
+							+ '</td>';
+					
+					s += '<td class="materialboxed responsive-img initialized">' +
+								imagen
+							+ '</td>';
+					
+					s += '<td>' + lista[i].FECHA_REGISTRO
+							+ '</td>';
+					s += '</tr>';
+				}
+			} else {
+				s += "";
+			}
+			var r = createTable2("s", "d");
+			$(".contL").empty();
+			$(".contL").append(r);
+			$("#dataReq2").empty();
+			$("#dataReq2").append(s);						
+			$("#data-table-row-grouping2")
+			.DataTable(
+					{
+					    responsive: true,
+					    columnDefs: [
+					        { responsivePriority: 1, targets: 0 },
+					        { responsivePriority: 2, targets: -1 }
+					    ],
+					"pageLength" : 2,
+					"bPaginate" : true,
+					"ordering": false,								
+					}
+			);
+			$(".legajo").click(
+					function() {
+						idc = $(this).parents("tr").find("td")
+								.eq(0).find(".idc").text();
+						idl = $(this).parents("tr").find("td")
+						.eq(0).find(".idl").text();	
+						tipon = $(this).parents(
+						"tr").find("td")
+						.find(".tipon")
+						.eq(0)
+						.text();									
+						idr = $(this).parents(
+						"tr").find("td")
+						.find(".idrenaban")
+						.eq(0)
+						.text();									
+						$("#tipo").text(tipon);
+						$("#idr").text(idr);
+						console.log(idc);
+//						listarDocumentos(idc);
+					});
+		});
+}
+//DISEÑO DE LA TABLA 3
+function createTable2(idDepartamento, idRol) {
+	var Rol = idRol.toString();
+	var Departamento = idDepartamento.toString();
+	var s = '<table id="data-table-row-grouping2" class="bordered centered display" cellspacing="0" style="width:100%;" >';
+	s += '<thead>';
+	s += '<tr>';
+	s += '<th>N</th>';     
+	s += '<th>Apellidos y Nombres</th>';
+	s += '<th>Descripción</th>';
+	s += '<th data-priority="2">ARCHIVO</th>';
+	s += '<th>Fecha de Registro</th>';
+	s += '</tr>';
+	s += '</thead>';
+	s += '<tbody id="dataReq2">';
+	s += '</tbody>';
+	s += '</table>';
+	return s;
+}
+
 var depa="";
 var u = "";
 function open(){
