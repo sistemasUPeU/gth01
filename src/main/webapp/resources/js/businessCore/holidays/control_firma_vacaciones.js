@@ -6,18 +6,23 @@ $(document).ready(function() {
 var z;
 var idtrab;
 var vali = 66;
+var ti, to;
 
 //SCRIPT PARA CAMBIAR ESTADO DE FECHA INICIO Y FIN
 $("#modal").on("click",".check",function() {
 	if ($(this).attr("name") == 0 && $(this).attr("id") == "nolisto1") {
 		var file = $("#file-input").val();
 		if (file != "") {
-			$(this).removeClass('pink lighten-2');
-			$(this).addClass('green accent-3');
-			$(this).attr("name", "1");
-			$(this).find("#i").removeClass('mdi-navigation-close');
-			$(this).find("#i").addClass('mdi-navigation-check');
-			vali = 77;
+			if ($(".check").hasClass("disabled") != true) {
+				$(this).removeClass('pink lighten-2');
+				$(this).addClass('green accent-3');
+				$(this).attr("name", "1");
+				$(this).find("#i").removeClass('mdi-navigation-close');
+				$(this).find("#i").addClass('mdi-navigation-check');
+				vali = 77;
+			} else {
+				Materialize.toast('Guarde la papeleta para continuar', 3000, 'rounded');
+			}
 		} else {
 			Materialize.toast('Es necesario la papeleta para continuar', 3000, 'rounded');
 		}
@@ -123,17 +128,17 @@ $("#guardar").click(function() {
 		vali == 66;
 	}
 	//ENVIA FECHAS AL BACK-END
-	con.post('vacaciones/consolidado/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
-		if (data == 1) {
-			if (p == 0 && q == 0) {
-				Materialize.toast('Ninguna firma se ha actualizado!', 3000, 'rounded');
-			} else {
+	if (p == ti && q == to) {
+		Materialize.toast('Ninguna firma se ha actualizado!', 3000, 'rounded');
+	} else {
+		con.post('vacaciones/consolidado/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
+			if (data == 1) {
 				Materialize.toast('Firma actualizada correctamente!', 3000, 'rounded');
+			} else {
+				Materialize.toast('No se obtuvieron datos, consulte con su jefe', 3000, 'rounded');
 			}
-		} else {
-			Materialize.toast('No se obtuvieron datos, consulte con su jefe', 3000, 'rounded');
-		}
-	});
+		});
+	}
 });
 
 //ABRE MODAL Y LO LLENA CON LAS FECHAS DE VACACIONES
@@ -141,6 +146,8 @@ $("#table_contenido").on("click", "#open", function() {
 	var id = $(this).attr("name");
 	idtrab = $(this).attr("title");
 	$.get('controlar/readFirma', {id : id}, function(obj) {
+		ti = obj[0].FIRMA_SALIDA;
+		to = obj[0].FIRMA_ENTRADA;
 		$("#contenedor_fechas").empty();
 		var j = '';
 		var k = 0;
@@ -206,6 +213,8 @@ $("#table_contenido").on("click", "#open", function() {
 				+ '<input type="text" id="idvac" name="idvac" value="" class="hide" />'
 				+ '</div></div></form>';
 			$("#zorro").append(btnPapeleta);
+			$(".check").addClass("disabled");
+			$(".check").attr("disabled");
 		}
 	});
 	$("#modal").openModal();

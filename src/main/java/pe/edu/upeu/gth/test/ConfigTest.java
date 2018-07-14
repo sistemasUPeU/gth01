@@ -76,7 +76,7 @@ public class ConfigTest {
 	private static void TestJhorman() {
 		ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 		Gson GSON = new Gson();
-		System.out.println(GSON.toJson(DAO.UPDATEFECHA("DEV-00003", 1, 0, "")));
+//		System.out.println(GSON.toJson(DAO.UPDATEFECHA("DEV-00003", 1, 0, "")));
 	}
 	
 	private static void TestHarold() {
