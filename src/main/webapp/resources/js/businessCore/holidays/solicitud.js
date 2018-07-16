@@ -202,6 +202,8 @@ $(window)
 				});
 var divisiones = 0;
 var privilegios_vacaciones;
+var nro_dias = 0;
+var arraydias = []
 $(document)
 		.ready(
 				function() {
@@ -210,9 +212,11 @@ $(document)
 
 					fecha_minima = new Date();
 
-					fecha_minima.setDate(fecha_minima.getDate() + 69);// suma
-					// 70
+					fecha_minima.setDate(fecha_minima.getDate() + 45);// suma
+					// 46
 					// dias
+					
+					
 					console.log(fecha_minima + " , "
 							+ fecha_minima.getFullYear() + " , "
 							+ fecha_minima.getDate() + " , "
@@ -222,20 +226,44 @@ $(document)
 					var dia = fecha_minima.getDate();
 
 					console.log(anno + " , " + mes + " , " + dia)
-					mes = (mes < 10) ? ("0" + mes) : mes;
-					dia = (dia < 10) ? ("0" + dia) : dia;
-					fecha_minima_format = dia + "/" + mes + "/" + anno;
+					
+					
+					if(dia >2){
+						console.log("el dia es mayor a 2")
+						mes ++;
+						dia=1
+						mes = (mes < 10) ? ("0" + mes) : mes;
+						dia = (dia < 10) ? ("0" + dia) : dia;
+						fecha_minima_format = dia + "/" + mes + "/" + anno;
+						fecha_minima = new Date(anno,mes-1,dia)
+						console.log("nueva fecha minima long format " + fecha_minima);
+						console.log("fecha minima: " + fecha_minima_format);
+						var message = ""
 
-					console.log("fecha minima: " + fecha_minima_format);
-					var message = ""
+						message += '	<p>'
+						message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
+						message += ' para tus vacaciones es el <b style="font-size: 19px;">'
+								+ fecha_minima_format + '</b>'
+						message += '</p>'
 
-					message += '	<p>'
-					message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
-					message += ' para tus vacaciones es el <b style="font-size: 19px;">'
-							+ fecha_minima_format + '</b>'
-					message += '</p>'
+						$("#message_date").html(message);
+					}else{
+						mes = (mes < 10) ? ("0" + mes) : mes;
+						dia = (dia < 10) ? ("0" + dia) : dia;
+						fecha_minima_format = dia + "/" + mes + "/" + anno;
+						console.log("fecha minima: " + fecha_minima_format);
+						var message = ""
 
-					$("#message_date").html(message);
+						message += '	<p>'
+						message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
+						message += ' para tus vacaciones es el <b style="font-size: 19px;">'
+								+ fecha_minima_format + '</b>'
+						message += '</p>'
+
+						$("#message_date").html(message);
+					}
+					
+					
 
 					// $('#confirmar').removeClass("waves-effect
 					// waves-light").addClass('disabled');
@@ -402,7 +430,7 @@ $("#fe_inicio_1").change(
 			console.log("fecha_inicio_return: " + fecha_inicio);
 
 			$('#fe_final_1').pickadate('picker').set('select',
-					calcular_final(fecha_inicio), {
+					calcular_final(fecha_inicio,arraydias[0]), {
 						format : 'dd/mm/yyyy'
 					}).trigger("change");
 			Materialize.updateTextFields();
@@ -453,16 +481,16 @@ function parseDate(input) {
 	return inicio;
 };
 
-function calcular_final(begin) {
+function calcular_final(begin, sumadias) {
 
 	console.log("fecha enviada " + begin);
 	console.log("fecha enviada " + begin.getFullYear() + " , "
 			+ begin.getDate() + " , " + begin.getMonth());
 
-	if (begin > fecha_minima) {
-		console.log("correcto");
-
-		begin.setDate(begin.getDate() + 29);// suma 30 dias
+	if (begin >= fecha_minima) {
+		console.log("correcto"  + sumadias);
+		sumadias = sumadias-1
+		begin.setDate(begin.getDate() + sumadias);// suma 30 dias
 		console.log(begin + " , " + begin.getMonth());
 		var anno = begin.getFullYear();
 		var mes = begin.getMonth() + 1;
@@ -479,7 +507,7 @@ function calcular_final(begin) {
 	} else {
 		console.log("fecha incorrecta");
 
-		Materialize.toast('Por favor elija una fecha después de '
+		Materialize.toast('Por favor elija una fecha a partir de '
 				+ fecha_minima_format, 3000, 'rounded');
 
 	}
@@ -528,6 +556,7 @@ $("#agregar")
 						s += '</div>	</div>';
 
 						$("#space").append(s);
+						daysperdivision(2)
 						cont++;
 					} else {
 						Materialize.toast(
@@ -549,16 +578,68 @@ $("#agregar")
 				});
 
 function eliminarVacaciones(id) {
+	
 	if (id == 2 && cont == 4) {
 
 		$("#3").remove();
 		cont--
+		daysperdivision(1)
 	} else {
 
 		$("#" + id).remove();
 		cont--;
+		daysperdivision(1)
 	}
+	
+	cleandata()
 
+}
+//calcular los dias por cada division
+
+function daysperdivision(addorremove){
+	arraydias = []
+if(addorremove == 1){
+	var conta=cont-1
+	console.log("nro divisiones actuales " + conta)
+	if(conta>3){
+		arraydias = [7,7,7,9]
+	}else{
+		nro_dias=30/conta
+		for(var i = 0; i<conta ; i++){
+			arraydias[i] = nro_dias;
+		}
+	}
+	
+	console.log("array dias " + arraydias)
+}else{
+	console.log("nro divisiones actuales " + cont)
+	if(cont>3){
+		arraydias = [7,7,7,9]
+	}else{
+		nro_dias=30/cont
+		for(var i = 0; i<cont ; i++){
+			arraydias[i] = nro_dias;
+		}
+	}
+	
+	console.log("array dias " + arraydias)
+}
+	
+	
+
+}
+
+
+function cleandata(){
+	for (var i = 1; i < cont; i++) {
+		$("#fe_inicio_" + i).val("");
+
+	}
+	for (var i = 1; i < cont; i++) {
+		$("#fe_final_" + i).val("");
+
+	}
+	Materialize.updateTextFields();
 }
 
 function setti(id) {
@@ -570,11 +651,12 @@ function setti(id) {
 	var num = array[2];
 	console.log(num);
 	var fecha_inicio3 = parseDate(fei);
-
+console.log("probando si array dias llega " + arraydias + arraydias[0] + num)
 	$('#fe_final_' + num).pickadate('picker').set('select',
-			calcular_final(fecha_inicio3), {
+			calcular_final(fecha_inicio3,arraydias[num-1]), {
 				format : 'dd/mm/yyyy'
 			}).trigger("change");
+	
 	Materialize.updateTextFields();
 }
 
@@ -623,11 +705,25 @@ function validarCampos() {
 		}
 
 	}
+	
+	
 
+	
+	for (var i = 1; i < cont-1; i++) {
+
+		if ($("#fe_final_" + i).val() > $("#fe_inicio_" + i+1).val()) {
+			console.log("error, en la segunda fecha inicio");
+			cofirm += '1';
+			break;
+		}
+
+	}
+	
 	if (cofirm == "") {
 		console.log("campos llenos");
 		insertar();
 	}
+	
 }
 
 function insertar() {

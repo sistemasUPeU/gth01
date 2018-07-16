@@ -112,34 +112,42 @@ public class SolicitudController {
 //			vd.llenar_solicitud(idt,fechainicio1,fechafin1, cntx , response);
 			List<Map<String, Object>> sd = vd.getFechasVacaciones(idt);
 			
-			String[] fecha_array = new String[6];
+			
+			String[] fecha_array_inicio = new String[3];
+			String[] fecha_array_fin = new String[3];
 			int tamano = sd.size();
 			if(tamano==1) {
-				fecha_array[2] = "-";
-				fecha_array[3] = "-";
-				fecha_array[4] = "-";
-				fecha_array[5] = "-";
+				fecha_array_inicio[1] = "-";
+				fecha_array_fin[1] = "-";
+				fecha_array_inicio[2] = "-";
+				fecha_array_fin[2] = "-";
 			}else if(tamano == 2) {
-				fecha_array[4] = "-";
-				fecha_array[5] = "-";
+				fecha_array_inicio[2] = "-";
+				fecha_array_fin[2] = "-";
 			}
 			
 			
 			for (int i = 0; i < sd.size(); i++) {
-				fecha_array[i] = sd.get(i).get("FECHA_INICIO").toString();
-				fecha_array[i+1] = sd.get(i).get("FECHA_FIN").toString();
+				
+		
+				fecha_array_inicio[i] = sd.get(i).get("FECHA_INICIO").toString();
+					
+				fecha_array_fin[i] = sd.get(i).get("FECHA_FIN").toString();
+
 				
 			}
 			
 			System.out.println(sd);
+			System.out.println(fecha_array_inicio[0] + " , " +fecha_array_fin[0] + " , " +fecha_array_inicio[1]+ " , " +fecha_array_fin[1]+ " , " +fecha_array_inicio[2]+ " , " + fecha_array_fin[2]);
+
 			model.addAttribute("format", format);
 			model.addAttribute("datasource", sd);
-			model.addAttribute("fechain1", fecha_array[0]);
-			model.addAttribute("fechain2", fecha_array[1]);
-			model.addAttribute("fechain3", fecha_array[2]);
-			model.addAttribute("fechafin1",fecha_array[3]);
-			model.addAttribute("fechafin2", fecha_array[4]);
-			model.addAttribute("fechafin3", fecha_array[5]);
+			model.addAttribute("fechain1", fecha_array_inicio[0]);
+			model.addAttribute("fechain2", fecha_array_fin[1]);
+			model.addAttribute("fechain3", fecha_array_inicio[2]);
+			model.addAttribute("fechafin1",fecha_array_fin[0]);
+			model.addAttribute("fechafin2", fecha_array_inicio[1]);
+			model.addAttribute("fechafin3", fecha_array_fin[2]);
 			model.addAttribute("txtidtrab", idt);
 			model.addAttribute("realPath", cntx.getRealPath("/resources/img/"));
 			
