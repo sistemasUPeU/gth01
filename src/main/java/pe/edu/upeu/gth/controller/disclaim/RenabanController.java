@@ -123,6 +123,11 @@ public class RenabanController {
 	public ModelAndView Legajo_tra(ModelMap model) {
 		return new ModelAndView("renuncia/legajo_trabajador");		
 	}
+	
+	@RequestMapping(value = "/requerimientos", method = RequestMethod.GET)
+	public ModelAndView Requerimientos(ModelMap model) {
+		return new ModelAndView("renuncia/Requerimientos");		
+	}
 
 	@RequestMapping(value = "/mostrardoc1")
 	public void jarchiv1(HttpServletRequest request, HttpServletResponse response) throws IOException {
