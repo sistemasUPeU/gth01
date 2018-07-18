@@ -1,0 +1,17 @@
+
+span.circulo {
+  background: #F5F9F5;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #0F100F;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.3em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.3em; 
+  -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
