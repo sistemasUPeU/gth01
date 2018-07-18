@@ -1,50 +1,51 @@
 $(document)
 		.ready(
 				function() {
-				
-					if(!alertify.errorAlert){
-						  alertify.dialog('errorAlert',function factory(){
-						    return{
-						            build:function(){
-						                var errorHeader = '<span class="fa fa-times-circle fa-2x" '
-						                +    'style="vertical-align:middle;color:#e10000;">'
-						                + '</span> Error al guardar los datos';
-						                this.setHeader(errorHeader);
-						            }
-						        };
-						    },true,'alert');
-						}
+					
+					var drEvent = $('.dropify').dropify();
+					$('.stepper').activateStepper({
+						
+						showFeedbackLoader: true
+					});
+					
+					var fecha = new Date();
+					var dd = fecha.getDate();
+					var mm = fecha.getMonth(); //January is 0!
 
+					var yyyy = fecha.getFullYear();
+					if (dd < 10) {
+						dd = '0' + dd;
+					}
+					if (mm < 10) {
+						mm = '0' + mm;
+					}
+					var today = dd + '/' + mm + '/' + yyyy;
+					$('#fecha').pickadate({
+						selectMonths : true, // Creates a dropdown to control month
+						selectYears : 15, // Creates a dropdown of 15 years to control
+						format : 'dd/mm/yyyy',
+						onStart : function() {
+							this.set('select', today);
+						}
+					});
 				
 					listarRegistrados();
 					listarAutorizados();
 					
-					
-					$("#ProcesarR").click(function(){						
-						var idc=$("#idc").val();
-						$.get("ProcesarR", {
-							idc : idc,
-							opc : 4
-						}, function(data, status) {
-//							 alert(data);
-							var detalle = JSON.parse(data);
-							
-//							console.log(detalle);
-							if(data==1){
-//								alert("BUENA JONAS")
-								
-							}else{
-//								alert("NADA JONAS");
-							}
-							});
-					});
-					
-					$("#RechazarR").click(function(){
-//						alert("rechaza");
-					});
-						
-					
-
+					$('#autorized').bind('click', function() {
+				        if($(this).hasClass('active')) {
+				        	var table = $('#data-table-row-grouping1').DataTable();				        	 
+				        	$('#data-table-row-grouping1').css( 'display', 'table' );				        	 
+				        	table.responsive.recalc();
+				        }
+				    });					
+					$('#autorize').bind('click', function() {
+				        if($(this).hasClass('active')) {
+				        	var table = $('#data-table-row-grouping').DataTable();				        	 
+				        	$('#data-table-row-grouping').css( 'display', 'table' );				        	 
+				        	table.responsive.recalc();
+				        }
+				    });
 				});
 
 function listarRegistrados() {
@@ -124,7 +125,7 @@ function listarRegistrados() {
 						s +='<td >' +TIPO+ '<label class="tipon" hidden>'
 						+ TIPO
 						+ '</label></td>';
-						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">Detalle</a>';
+						s += '<td><a class="notificar waves-effect waves-light btn #00e676 green accent-3">PRIMER ENVÍO</a>';
 						
 						s += '</td>';
 						s += '</tr>';
@@ -151,7 +152,7 @@ function listarRegistrados() {
 								    ],
 								"pageLength" : 5,
 								"bPaginate" : true,
-								"ordering": false,
+								"ordering": false
 								
 								}
 						);
@@ -173,16 +174,18 @@ function listarRegistrados() {
 							.text();
 							console.log("esto es idrenaban"+idr);
 							
-							cantidad = $(this).parents(
+							idc = $(this).parents(
 									"tr").find("td")
 									.eq(0)
 									.find(".idc")
 									.text();
-							console.log(cantidad);
+							console.log(idc);
 							
-							$("#tipo").text(tipon);
-							$("#idr").text(idr);
-							DetalleAbandono(cantidad,tipon);
+//							$("#tipo").text(tipon);
+//							$("#idr").text(idr);
+//							DetalleAbandono(cantidad,tipon);
+							location.href = gth_context_path+ '/renaban/firstNLetter?idc='+idc;
+
 						});
 			});
 }
@@ -212,171 +215,6 @@ function createTable(idDepartamento, idRol) {
 	s += '</table>';
 	return s;
 }
-function modalon (){
-	var s = '<input type="hidden" name="idcontrato" id="idcontrato" value="">';
-	s+= ' <div class="input-field col s6">';
-	s+= ' <input name="renabancito" id="renabancito" value="" type="hidden"/>';
-	s+= ' <input name ="tipo" id="tipo" value="" type="hidden"/>';
-	s+= ' <input name="nom_file" id="nom_file" value="" type="hidden"/>';
-	s+= ' <label for=""></label> <input type="text" name="fecha"';
-	s+=		' id="fecha" class="datepicker">';
-	s+= '</div>'
-	s+= '<div class="input-field col s6">'
-	s+= '<input type="file" name="file" class="dropify" id="pelon1"'
-	s+= 'data-height="300" />'
-	s+= '</div>'
-		
-		return s;
-	
-}
-// Detalle de Carta Notarial
-function DetalleAbandono(ida) {
-	$
-			.get(
-					"firstLetter",
-					{},
-					function(data, status) {
-						// alert(data);
-						// alert("BIEN JONAS");
-						// $("#contenido").html("");
-						$("#contenido").html(data);
-						$
-								.get(
-										"primerEnvio",
-										{
-											opc : 2,
-											ida : ida
-										},
-										function(data, status) {
-											// alert(data);
-											var detalle = JSON.parse(data);
-											$("#idr")
-													.val(detalle[0].ID_RENABAN);
-											$("#nombres").text(
-													detalle[0].NOMBRES);
-											$("#paterno").text(
-													detalle[0].PATERNO);
-											$("#materno").text(
-													detalle[0].MATERNO);
-											$("#fecha_nac").text(
-													detalle[0].FECHA_NAC);
-											$("#fecha_inicio").text(
-													detalle[0].FECHA_CONTRATO);
-											$("#direccion").text(
-													detalle[0].DOMICILIO);
-											$("#departamento").text(
-													detalle[0].NOM_DEPA);
-											$("#area")
-													.text(detalle[0].NOM_AREA);
-											$("#seccion").text(
-													detalle[0].NOM_SECCION);
-											$("#puesto").text(
-													detalle[0].NOM_PUESTO);
-											// $("#centro_costo").tex(detalle[0].CENTRO_COSTO);
-											$("#tipo_contrato").text(
-													detalle[0].TIPO_CONTRATO);
-											$("#correo")
-													.text(detalle[0].CORREO);
-											if (detalle[0].ANTECEDENTES != 1) {
-												$("#antecedentes_policiales")
-														.text("Si");
-											} else {
-												$("#antecedentes_policiales")
-														.text("No");
-											}
-											// var archi = detalle[0].ARCHIVO;
-											if (detalle[0].CERTI_SALUD != 0) {
-												$("#certificado_salud").text(
-														"Si");
-											} else {
-												$("#certificado_salud").text(
-														"No");
-											}
-											// var img =
-											// document.getElementById("carta")
-											$("#carta")
-													.text(detalle[0].ARCHIVO);
-											$("#pricarta")
-											$("#RechazarPrimeraCarta").click(function(){
-												var idra= $("#idr").val();
-												var observacion = $("#observaciones").val();	
-												alert(tipon);
-												 alertify.confirm('Confirmar Justificacion ', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
-													 $.get("primerEnvio",{opc:6,tipo:'A',idr:idra,observacion:observacion},function(data){
-														 alert("BIEN Nicole");
-//										        		 alert(data);
-//										        		 alert(id);
-										        		 alert(observacion);
-										        		 window.location.href = gth_context_path +"/renaban/PrimerEnvio";
-										        	});
-													 
-											     	} , function(){ 
-											        	
-											        });
-											});
-										});
-
-						// if (data.length == 0) {
-						// // location.reload();
-						// alert("nada de datos");
-						// } else {
-						//			
-						// $("#nomes").text(detalle[0].NOMBRES);
-						//			
-						// $.get("/mostrardoc1",{
-						// archi: archi
-						// },function(data){
-						// alert(data);
-						// })
-						// //
-						//			
-						//		
-						//
-						// }
-
-					});
-
-}
-
-//PRIMERA CARTA NOTARIAL
-function enviarCorreo() {
-//	alert(jfksdf);
-	var msj = $("#mensaje1").text();
-	var de = "pruebagth@gmail.com";
-//	var para = $("#correo").text();
-	var para = "estefannygarcia@upeu.edu.pe";
-	var clave = "GTH123456";
-//	var mensaje = $("#cartaNotarial").val();
-	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
-	var msjs = msj + $("#fecha").val() + mensaje + ".";
-	var asunto = "GTH";
-	var idrenaban =$("#idr").text();
-	var tipo =$("#tipo").text();
-	alert(mensaje);
-	 console.log(msjs);
-	$.get(gth_context_path+"/renaban/primerEnvio", {
-		de : de,
-		clave : clave,
-		para : para,
-		mensaje : msjs,
-		asunto : asunto,
-//		foto:foto,
-		opc : 7
-	}, function(data, status) {
-		console.log(data);
-		// $("#modalnotificar").closeModal();
-		if (data == 1) {
-			alert("SE MANDO");
-			notificar(idr,tipon);
-//			listarAutorizados();
-			// insertarLegajo();
-		} else {
-			alert(" NOOOOOOOOOOOOO SE MANDO");
-		}
-
-	});
-}
-
 function notificar(idrab,tipo1) {
 	var idra = idrab;
 	var tipo1 = tipo1;
@@ -409,6 +247,23 @@ function listarAutorizados() {
 					// alert("si hay datos causita c:");
 
 					for (var i = 0; i < lista.length; i++) {
+//						var diferencia =diferenciaHoras(lista[i].ID_RENABAN);
+						var idrenaban = lista[i].ID_RENABAN;
+						var diferencia='';
+				
+						    $.ajax({
+						    	type: 'GET',
+						        url: gth_context_path + "/renaban/primerEnvio?opc=9&idrenaban="+lista[i].ID_RENABAN,
+						        //PERMITE RECONOCER LOS VALORES DEL SUCCESS AFUERA DEL AJAX
+						        async: false,
+						        success:function(data){
+						        	if(parseInt(data)>144){
+						    			diferencia='<a class="notificar1 waves-effect waves-light btn #00e676 green accent-3">SEGUNDO ENVÍO</a>';
+						    		}else{
+						    			diferencia='<a class="justificar waves-effect waves-light btn #00e676 red accent-3">JUSTIFICAR</a>';
+						    		}
+						        }
+						    });
 						var a = parseInt(i) + 1;
 						var MFL = parseInt(lista[i].ES_MFL);
 						var Motivo = parseInt(lista[i].LI_MOTIVO);
@@ -478,9 +333,7 @@ function listarAutorizados() {
 						s +='<td>' +TIPO+'<label class= "tipon" hidden>'
 						+ TIPO
 						+ '</label></td>';
-						s += '<td><a class="notificar1 waves-effect waves-light btn #00e676 green accent-3">Segunda Carta Notarial</a>';
-						
-						s += '</td>';
+						s += '<td>'+diferencia+'</td>';
 						s += '</tr>';
 					}
 
@@ -497,9 +350,14 @@ function listarAutorizados() {
 
 				$("#data-table-row-grouping1")
 						.DataTable({
-							"pageLength" : 10,
+							"pageLength" : 5,
 							"bPaginate" : true,
-							"ordering": false
+							"ordering": false,
+							responsive:true,
+							 columnDefs: [
+							        { responsivePriority: 1, targets: 0 },
+							        { responsivePriority: 2, targets: -1 }
+							    ]
 							    }
 						);
 				
@@ -520,42 +378,64 @@ function listarAutorizados() {
 							.text();
 							console.log("esto es idrenaban"+idr);
 							
-							cantidad = $(this).parents(
+							idc = $(this).parents(
 									"tr").find("td")
 									.eq(0)
 									.find(".idc")
 									.text();
-							console.log(cantidad);
+							console.log("Este idcontrato: "+idc);
 							
-							$("#tipo").text(tipon);
-							$("#idr").text(idr);
-							SegundaCarta(cantidad,tipon);
+//							$("#tipo").text(tipon);
+//							$("#idr").text(idr);
+							SegundaCarta(idc);
 						});
 				
-				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+				$(".justificar").click(
+						function() {
+
+							idr = $(this).parents(
+							"tr").find("td")
+							.find(".idrenaban")
+							.eq(0)
+							.text();
+							console.log("esto es idrenaban"+idr);
+							
+							idc = $(this).parents(
+									"tr").find("td")
+									.eq(0)
+									.find(".idc")
+									.text();
+							console.log("Este idcontrato: "+idc);
+							
+//							$("#tipo").text(tipon);
+//							$("#idr").text(idr);
+							ModalJustAbandono1(idr);
+						});
+				
 			
 
 			});
 }
 
-
 function createTable1(idDepartamento, idRol) {
-	var s = '<table id="data-table-row-grouping1" class="bordered centered display" cellspacing="0" style="width:100%;" >';
+	var Rol = idRol.toString();
+	var Departamento = idDepartamento.toString();
+	var s = '<table id="data-table-row-grouping1" class="display" cellspacing="0" style="width:100%"> ';
 	s += '<thead>';
 	s += '<tr>';
-	s += '<th>N</th>';     
-	s += '<th>Mes</th>';
-	s += '<th>Apellidos y Nombres</th>';
-	s += '<th>Puesto</th>';
-	s += '<th>Area</th>';
-	s += '<th>Departamento</th>';
+	s += '<th>N</th>';
+	s += '<th data-priority="3">Mes</th>';
+	s += '<th data-priority="4">Apellidos y Nombres</th>';
+	s += '<th data-priority="5">Puesto</th>';
+	s += '<th data-priority="6">Area</th>';
+	s += '<th data-priority="7">Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
 	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
-	s += '<th>MFL</th>';
-	s += '<th>Tipo</th>';
-	s += '<th>Opcion</th>';
+	s += '<th>MFL</th>';	
+	s += '<th data-priority="2">Tipo</th>';
+	s += '<th data-priority="1">Opcion</th>';
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq1">';
@@ -564,155 +444,53 @@ function createTable1(idDepartamento, idRol) {
 	return s;
 }
 
+
+//function createTable2(idDepartamento, idRol) {
+//	var s = '<table id="data-table-row-grouping2" class="bordered centered display" cellspacing="0" style="width:100%;" >';
+//	s += '<thead>';
+//	s += '<tr>';
+//	s += '<th>N</th>';     
+//	s += '<th>Mes</th>';
+//	s += '<th>Apellidos y Nombres</th>';
+//	s += '<th>Puesto</th>';
+//	s += '<th>Area</th>';
+//	s += '<th>Departamento</th>';
+//	s += '<th>Tipo de Contrato</th>';
+//	s += '<th>Descripcion</th>';
+//	s += '<th>Fecha de registro</th>';
+//	s += '<th>DNI</th>';
+//	s += '<th>MFL</th>';
+//	s += '<th>Tipo</th>';
+//	s += '<th>Opcion</th>';
+//	s += '</tr>';
+//	s += '</thead>';
+//	s += '<tbody id="dataReq2">';
+//	s += '</tbody>';
+//	s += '</table>';
+//	return s;
+//}
+
 var depa="";
 var u = "";
 //SEGUNDA CARTA NOTARIAL
 function SegundaCarta(ids) {
-	$
-			.get(
-					"segundoEnvio",
-					{},
-					function(data, status) {
-						// alert(data);
-						// alert("BIEN JONAS");
-						// $("#contenido").html("");
-						$("#contenido").html(data);
-						$
-								.get(
-										"SegundoEnvio",
-										{
-											opc : 2,
-											ids : ids
-										},
-										function(data, status) {
+	var inst = $('[data-remodal-id=modal]').remodal();
+	inst.open();	
+	$.get("SegundoEnvio",
+			{opc : 2,ids : ids},function(data, status) {
 											// alert(data);
-											var detalle = JSON.parse(data);
-											$("#idr")
+				var detalle = JSON.parse(data);
+											$("#pelon1").val("");
+											$("#idrenaban")
 													.val(detalle[0].ID_RENABAN);
-											$("#nombres").text(
-													detalle[0].NOMBRES);
-											$("#paterno").text(
-													detalle[0].PATERNO);
-											$("#materno").text(
-													detalle[0].MATERNO);
-											$("#fecha_nac").text(
-													detalle[0].FECHA_NAC);
-											$("#fecha_inicio").text(
-													detalle[0].FECHA_CONTRATO);
-											$("#direccion").text(
-													detalle[0].DOMICILIO);
-											$("#departamento").text(
-													detalle[0].NOM_DEPA);
-											$("#area")
-													.text(detalle[0].NOM_AREA);
-											$("#seccion").text(
-													detalle[0].NOM_SECCION);
-											$("#puesto").text(
-													detalle[0].NOM_PUESTO);
-											// $("#centro_costo").tex(detalle[0].CENTRO_COSTO);
-											$("#tipo_contrato").text(
-													detalle[0].TIPO_CONTRATO);
-											$("#correo")
-													.text(detalle[0].CORREO);
-											if (detalle[0].ANTECEDENTES != 1) {
-												$("#antecedentes_policiales")
-														.text("Si");
-											} else {
-												$("#antecedentes_policiales")
-														.text("No");
-											}
-											// var archi = detalle[0].ARCHIVO;
-											if (detalle[0].CERTI_SALUD != 0) {
-												$("#certificado_salud").text(
-														"Si");
-											} else {
-												$("#certificado_salud").text(
-														"No");
-											}
-											// var img =
-											// document.getElementById("carta")
-											$("#carta")
-													.text(detalle[0].ARCHIVO);
-											$("#pricarta")
-											$("#RechazarCarta").click(function(){
-												var idra= $("#idr").val();
-												var observacion = $("#observaciones").val();
-												alert(tipon);
-												 alertify.confirm('Confirmar Justificacion ', 'Esta seguro(a) de rechazar la renuncia de este trabajador?', function(){
-													 $.get("SegundoEnvio",{opc:3,tipo:'A',idr:idra,observacion:observacion},function(data){
-														 alert("BIEN Nicole Segunda carta ");
-//										        		 alert(data);
-//										        		 alert(id);
-										        		 alert(observacion);
-										        		 window.location.href = gth_context_path +"/renaban/PrimerEnvio";
-										        	});
-													 
-											     	} , function(){ 
-											        	
-											        });
-											});
+											$("#mensaje").val("Señor(a) "+detalle[0].NOMBRES+" "+detalle[0].PATERNO+" "+detalle[0].MATERNO+ ", se le hace presente el siguiente documento para indicarle que usted ha sido despedido por abandono de trabajo. Usted tiene 6 días a partir del envío de el presente correo para justificarse en Recursos Humanos")
+											$("#correo").focus().val(detalle[0].CORREO);
 										});
 
-						// if (data.length == 0) {
-						// // location.reload();
-						// alert("nada de datos");
-						// } else {
-						//			
-						// $("#nomes").text(detalle[0].NOMBRES);
-						//			
-						// $.get("/mostrardoc1",{
-						// archi: archi
-						// },function(data){
-						// alert(data);
-						// })
-						// //
-						//			
-						//		
-						//
-						// }
-
-					});
 
 }
 
-//SEGUNDA CARTA NOTARIAL
-function enviarCorreo1() {
-//	alert(jfksdf);
-	var msj = $("#mensaje1").text();
-	var de = "pruebagth@gmail.com";
-//	var para = $("#correo").text();
-	var para = "estefannygarcia@upeu.edu.pe";
-	var clave = "GTH123456";
-//	var mensaje = $("#cartaNotarial").val();
-	var mensaje = $("#cartaNotarial").val().replace(/C:\\fakepath\\/i, '');
-	var msjs = msj + $("#fecha").val() + mensaje + ".";
-	var asunto = "GTH";
-	var idrenaban =$("#idr").text();
-	var tipo =$("#tipo").text();
-	alert(mensaje);
-	 console.log(msjs);
-	$.get(gth_context_path+"/renaban/primerEnvio", {
-		de : de,
-		clave : clave,
-		para : para,
-		mensaje : msjs,
-		asunto : asunto,
-//		foto:foto,
-		opc : 7
-	}, function(data, status) {
-		console.log(data);
-		// $("#modalnotificar").closeModal();
-		if (data == 1) {
-			alert("SE MANDO");
-			notificar1(idr,tipon);
-//			listarAutorizados();
-			// insertarLegajo();
-		} else {
-			alert(" NOOOOOOOOOOOOO SE MANDO");
-		}
 
-	});
-}
 //SEGUNDA CARTA NOTARIAL
 function notificar1(idrab,tipo2) {
 	var idra = idrab;
@@ -731,22 +509,49 @@ function notificar1(idrab,tipo2) {
     		
        });
 }
-
-$('.datepicker').pickadate({
-	selectMonths : true, // Creates a dropdown to control month
-	selectYears : 15
-// Creates a dropdown of 15 years to control year
-});
-
-window.picker = $('.datepicker').pickadate({
-	selectMonths : true, // Creates a dropdown to control month
-	selectYears : 100, // Creates a dropdown of 15 years to control year
-	format : 'dd/mm/yyyy'
-});
-$("#Date").val('SYSDATE');
+function anyThing() {
+	setTimeout(function() {
+		$('.stepper').nextStep();
+	}, 1000);
+}
 
 function id(ida) {
 	alert(ida);
+}
+
+function ModalJustAbandono1(idr){
+	var inst = $('[data-remodal-id=modalon]').remodal();
+	inst.open();	
+	$("#idrenaban2").val(idr);
+}
+
+function JustificarAbandono1(){
+	var idr = $("#idrenaban2").val();
+	var observacion = $("#observaciones").val();
+	swal({
+		title: "¿Está seguro de justificar",
+		text: "el abandono de este trabajador?",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: '#40D005',
+		confirmButtonText: 'Confirmar',
+		cancelButtonText: 'Cancelar',
+		closeOnConfirm: false,
+		closeOnCancel: true
+	},
+	function(isConfirm){
+    if (isConfirm){
+    	$.get(gth_context_path +"/renaban/primerEnvio",{opc:6,idr:idr,observacion:observacion},function(data){
+    		if(data==1){
+    			swal("Se ha justificado", "el abandono", "success");
+				  window.setTimeout(function() {							
+					  window.location.href = gth_context_path +"/renaban/PrimerEnvio";
+					}, 2000);
+    		}
+    	});
+    }});
+    
+	
 }
 
 function ParsearMes(mesint) {

@@ -149,6 +149,9 @@ public class GestionarEntregaController {
 		case 7:
 			out.println(gson.toJson(rd.listarNotificados()));
 			break;
+		case 8:
+			out.println(gson.toJson(rd.listarEntregados()));
+			break;
 
 		}
 

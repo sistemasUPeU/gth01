@@ -2,9 +2,10 @@ package pe.edu.upeu.gth.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -114,6 +115,20 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		}
 		return x;
 	}
+	
+	public int JustificarAbandono(String idrenaban,String observacion) {
+		int x = 0;
+		String sql = "INSERT INTO RA_JUSTIFICACION (ID_RENABAN,FECHA_JUSTIFICACION,OBSERVACION) VALUES(?,?,?) ";
+		Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+		try {
+			jt.update(sql, new Object[] { idrenaban,fechaActual, observacion});
+			x = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e);
+		}
+		return x;
+	}
 
 //	public int JustificarAbandono(Justificacion ob) {
 //		int x = 0;
@@ -132,30 +147,28 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 //	}
 
 	// Enviar Primera Carta Notarial
-	public int enviarCorreo(String de, String clave, String para, String mensaje, String asunto,String foto) {
-//		de = "pruebagth@gmail.com";
-//		clave = "GTH123456";
-//		para = "estefannygarcia@upeu.edu.pe";
+	public int enviarCorreo(String correo, String mensaje, String asunto,String ruta,String nombreArchivo,String idusuario,String idrenaban) {
+		String de = "pruebagth@gmail.com";
+		String clave = "GTH123456";
+		String para = "jonathanromero@upeu.edu.pe";
 //		mensaje = "que pasho!!!";
 //		asunto = "Con todo menos miedo";
 		int enviado = 0;
 		try {
+			String new_mensaje = "<p style='text-align:justify'>"+mensaje+"</p ></br> Atentamente Recursos Humanos - Universidad Peruana Unión, <br> Gracias </br>";
 
 			BodyPart texto = new MimeBodyPart();
-			texto.setContent(mensaje, "text/html");
+			texto.setContent(new_mensaje, "text/html");
 
 			BodyPart adjunto = new MimeBodyPart();
 //			((MimeBodyPart) adjunto).attachFile(foto);
 			adjunto.setDataHandler(
-			new DataHandler(new FileDataSource("C:/Users/AlphaTeam-02-NicoleG/Pictures/mem1.jpg")));
-			adjunto.setFileName("mem1.jpg");
+			new DataHandler(new FileDataSource(ruta)));
+			adjunto.setFileName(nombreArchivo);
 
 			MimeMultipart miltiparte = new MimeMultipart();
 			miltiparte.addBodyPart(texto);
 			miltiparte.addBodyPart(adjunto);
-			
-			
-
 			String host = "smtp.gmail.com";
 			int port = 587;
 
@@ -206,8 +219,11 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 			transport.sendMessage(message, message.getAllRecipients());
 
 			transport.close();
+			
+			//PAS-000435
 
 			enviado = 1;
+			PrimeraCarta(idrenaban, idusuario);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,18 +231,103 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 
 		return enviado;
 	}
+	
+	// Enviar Segunda Carta Notarial
+		public int enviarCorreo2(String correo, String mensaje, String asunto,String ruta,String nombreArchivo,String idusuario,String idrenaban) {
+			String de = "pruebagth@gmail.com";
+			String clave = "GTH123456";
+			String para = "jonathanromero@upeu.edu.pe";
+//			mensaje = "que pasho!!!";
+//			asunto = "Con todo menos miedo";
+			int enviado = 0;
+			try {
+				String new_mensaje = "<p style='text-align:justify'>"+mensaje+"</p ></br> Atentamente Recursos Humanos - Universidad Peruana Unión, <br> Gracias </br>";
+
+				BodyPart texto = new MimeBodyPart();
+				texto.setContent(new_mensaje, "text/html");
+
+				BodyPart adjunto = new MimeBodyPart();
+//				((MimeBodyPart) adjunto).attachFile(foto);
+				adjunto.setDataHandler(
+				new DataHandler(new FileDataSource(ruta)));
+				adjunto.setFileName(nombreArchivo);
+
+				MimeMultipart miltiparte = new MimeMultipart();
+				miltiparte.addBodyPart(texto);
+				miltiparte.addBodyPart(adjunto);
+				String host = "smtp.gmail.com";
+				int port = 587;
+
+				Properties prop = System.getProperties();
+				String[] parts = de.split("@");
+				String part1 = parts[0]; // 123
+				String tipo = parts[1]; // 654321
+
+				if (tipo.equals("live.com") || tipo.equals("hotmail.com") || tipo.equals("outlook.com")) {
+					host = "smtp.live.com";
+					port = 27;
+				}
+
+				prop.put("mail.smtp.starttls.enable", "true");
+				prop.put("mail.smtp.host", host);
+				prop.put("mail.smtp.user", de);
+				prop.put("mail.smtp.password", clave);
+				prop.put("mail.smtp.port", port);
+				prop.put("mail.smtp.auth", "true");
+
+				Session sesion = Session.getDefaultInstance(prop, null);
+
+				MimeMessage message = new MimeMessage(sesion);
+
+				message.setFrom(new InternetAddress(de));
+
+				/*
+				 * 
+				 * NOTA: para enviar correo electronico masivo
+				 * 
+				 * InternetAddress[] direcciones = new InternetAddress[para.length]; for(int
+				 * i=0;i<para.length;i++){ direcciones[i] = new InternetAddress(para[i]); }
+				 * 
+				 * for(int i=0;i<direcciones.length;i++){
+				 * message.addRecipient(Message.RecipientType.TO, direcciones[i]); }
+				 * 
+				 */
+
+				message.setRecipient(Message.RecipientType.TO, new InternetAddress(para));
+
+				message.setSubject(asunto);
+				message.setContent(miltiparte);
+
+				Transport transport = sesion.getTransport("smtp");
+
+				transport.connect(host, de, clave);
+
+				transport.sendMessage(message, message.getAllRecipients());
+
+				transport.close();
+				
+				//PAS-000435
+
+				enviado = 1;
+				SegundaCarta(idrenaban, idusuario);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return enviado;
+		}
 //PRIMERA CARTA NOTARIAL
-	public int notificarAbandono(Abandono a, String idusuario, String tipo1 ) {
+	public int PrimeraCarta(String idrenaban, String idusuario) {
 		int x = 0;
 		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
-		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000435' AND ID_RENABAN=?";
+		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1,FECHA_MOD=? WHERE ID_PASOS='PAS-000435' AND ID_RENABAN=?";
 		
 		Date fechon = new java.sql.Date(System.currentTimeMillis());
 		System.out.println(fechon);
-		System.out.println("legooooooooo" + tipo1);
 		try {
-			jt.update(sql, new Object[] { a.getIdabandono(),"PAS-000442",idusuario,fechon});
-			jt.update(sql2,new Object[] { a.getIdabandono()});
+			jt.update(sql, new Object[] { idrenaban,"PAS-000442",idusuario,fechon});
+			jt.update(sql2,new Object[] {fechon, idrenaban});
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error: " + e);
@@ -234,25 +335,48 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		return x;
 	}
 
+
 //SEGUNDA CARTA NOTARIAL
-	public int SegundaCarta(Abandono a, String idusuario1, String tipo2 ) {
+	public int SegundaCarta(String idrenaban, String idusuario) {
 		int x = 0;
 		String sql = "INSERT INTO RA_RENABAN_PASOS(ID_RENABAN,ID_PASOS,ID_USUARIO,FECHA_MOD) VALUES(?,?,?,?)";
-		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1 WHERE ID_PASOS='PAS-000442' AND ID_RENABAN=?";
+		String sql2 = "UPDATE RA_RENABAN_PASOS SET ESTADO=1,FECHA_MOD=? WHERE ID_PASOS='PAS-000442' AND ID_RENABAN=?";
 		
 		Date fechon = new java.sql.Date(System.currentTimeMillis());
 		System.out.println(fechon);
-		System.out.println("legooooooooo" + tipo2);
 		try {
-			jt.update(sql, new Object[] { a.getIdabandono(),"PAS-000437",idusuario1,fechon});
-			jt.update(sql, new Object[] { a.getIdabandono(),"PAS-000439",idusuario1,fechon});
-			jt.update(sql2,new Object[] { a.getIdabandono()});
+			jt.update(sql, new Object[] { idrenaban,"PAS-000437",idusuario,fechon});
+			jt.update(sql, new Object[] { idrenaban,"PAS-000439",idusuario,fechon});
+			jt.update(sql2,new Object[] {fechon,idrenaban});
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error: " + e);
 		}
 		return x;
 	}
+	
+	//PREGUNTAR SI PASARON LOS 6 DÍAS(144 horas) DESDE LA PRIMERA CARTA
+		public double PreguntarPrimera(String idrenaban) {
+			double x =0;
+			sql = "SELECT* FROM RA_RENABAN_PASOS WHERE ID_RENABAN='" + idrenaban + "' AND ID_PASOS='PAS-000435'";
+			try {
+				 Map<String, Object> o = jt.queryForMap(sql);
+				 String fecha =o.get("FECHA_MOD").toString();
+				 Date fechaActual = new Date();
+				 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			     Date fechaCartaNotarial = sdf.parse(fecha);
+//			    x = fechaActual.compareTo(fechaCartaNotarial);
+			    int difference= (int)(fechaActual.getTime()-fechaCartaNotarial.getTime());
+			    x=difference/3600000;
+			    System.out.println("Valor de x después de la operación: "+x);
+//			    System.out.println("Esta es la fecha del sistema: "+fechaActual);
+//			    System.out.println("Y esta otra es la de la primera carta: "+fechaCartaNotarial);
+//			    System.out.println("Esta es la diferencia: "+(int)(fechaActual.getTime()-fechaCartaNotarial.getTime()));
+			} catch (Exception e) {
+				System.out.println("Error en preguntarPrimera: "+e);
+			}
+			return x;
+		}
 	
 	//SEGUNDA CARTA NOTARIAL
 	public List<Map<String, Object>> Buscar_Detalle(String ids) {
@@ -263,13 +387,14 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		return jt.queryForList(sql);
 	}
 	
-	public int JustificarAbandono(Justificacion ju, String tipo2) {
+	
+	//JUSTIFICAR PRIMERA CARTA
+	public int JustificarPrimeraCarta(String idrenaban, String observacion) {
 		int x = 0;
-		String sql = "call REN_PRI_CARTA( ? , ?)";
-		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
-		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
+		String sql = "call RA_JUST_PRI_CARTA( ? , ?, ?)";
+		Date fechaActual = new java.sql.Date(System.currentTimeMillis());
 		try {
-			jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
+			jt.update(sql, new Object[] { idrenaban,fechaActual,observacion});
 			x = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -279,22 +404,21 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 
 	}
 	
-	//SEGUNDA CARTA NOTARIAL
-	public int JustificarSegundaCarta(Justificacion ju, String tipo) {
-		int x = 0;
-		String sql = "call REN_SEG_CARTA( ? , ?)";
-		// String sql = "UPDATE REN_RENUNCIA SET ESTADO ='Rechazado', OBSERVACIONES=?,
-		// FECHA_RECHAZO=SYSDATE WHERE ID_RENUNCIA =? ";
-		try {
-			jt.update(sql, new Object[] { ju.getId_renaban(),ju.getObservacion()});
-			x = 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error:" + e);
-		}
-		return x;
+	//JUSTIFICAR SEGUNDA CARTA
+		public int JustificarSegundaCarta(String idrenaban, String observacion) {
+			int x = 0;
+			String sql = "call RA_JUST_SEG_CARTA( ? , ?, ?)";
+			Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+			try {
+				jt.update(sql, new Object[] { idrenaban,fechaActual,observacion});
+				x = 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Error:" + e);
+			}
+			return x;
 
-	}
+		}
 
 //	public List<Map<String, Object>> listarNotificados() {
 //		sql = "select * from RA_VIEW_RENABAN WHERE ESTADO='Notificado'";

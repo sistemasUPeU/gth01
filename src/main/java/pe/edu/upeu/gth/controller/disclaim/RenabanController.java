@@ -113,10 +113,14 @@ public class RenabanController {
 		return new ModelAndView("abandono/SegundaCarta");
 	}
 	
-	@RequestMapping(value = "/firstLetter", method = RequestMethod.GET)
-	public ModelAndView detalleCartaNotarial(ModelMap model) {
-
-		return new ModelAndView("abandono/DetallePriCarta");
+	@RequestMapping(value = "/firstNLetter", method = RequestMethod.GET)
+	public ModelAndView detalleCartaNotarial(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("abandono/DetallePriCarta");
+		String idc = request.getParameter("idc");
+		System.out.println(idc);
+		model.addObject("listaDetalle",ra.Buscar_DetalleTrabajador(idc));
+		System.out.println(gson.toJson(ra.Buscar_DetalleTrabajador(idc)));
+		return model;
 	}
 
 	@RequestMapping(value = "/mostrardoc1")
@@ -139,7 +143,7 @@ public class RenabanController {
 		if (mime == null) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
-		}
+		} 
 
 		response.setContentType(mime);
 		File file = new File(filename);

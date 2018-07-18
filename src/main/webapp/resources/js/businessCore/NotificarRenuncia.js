@@ -1,6 +1,35 @@
 $(document).ready(function() {
 	listarProcesados();
 	listarNotificados();
+	listarEntregados();
+	$('#delivery').bind('click', function() {
+        if($(this).hasClass('active')) {
+        	var table = $('#data-table-row-grouping2').DataTable();
+        	 
+        	$('#data-table-row-grouping2').css( 'display', 'table' );
+        	 
+        	table.responsive.recalc();
+        }
+    });
+	$('#autorized').bind('click', function() {
+        if($(this).hasClass('active')) {
+        	var table = $('#data-table-row-grouping1').DataTable();
+        	 
+        	$('#data-table-row-grouping1').css( 'display', 'table' );
+        	 
+        	table.responsive.recalc();
+        }
+    });
+	
+	$('#autorize').bind('click', function() {
+        if($(this).hasClass('active')) {
+        	var table = $('#data-table-row-grouping').DataTable();
+        	 
+        	$('#data-table-row-grouping').css( 'display', 'table' );
+        	 
+        	table.responsive.recalc();
+        }
+    });
 	$('.dropify').dropify(function(event, element){
         return confirm("¿Desea eliminar el archivo \"" + element.filename + "\" ?");
     });
@@ -289,7 +318,8 @@ function listarNotificados() {
 						.DataTable({
 							"pageLength" : 10,
 							"bPaginate" : true,
-							"ordering": false
+							"ordering": false,
+							responsive:true
 							    }
 						);
 						$(".entregar").click(
@@ -307,7 +337,134 @@ function listarNotificados() {
 									$("#idra").val(idr);
 									$("#tipon").val(tipo);
 								});
-						jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+						
+					});
+}
+
+function listarEntregados() {
+	$
+			.getJSON(
+					gth_context_path + "/renaban/listarxd",
+					"opc=8",
+					function(objJson) {
+						var s = "";
+						var lista = objJson;
+						console.log(objJson);
+						if (lista.length > 0) {
+							// alert("si hay datos causita c:");
+
+							for (var i = 0; i < lista.length; i++) {
+								var a = parseInt(i) + 1;
+								var MFL = parseInt(lista[i].ES_MFL);
+								var Motivo = parseInt(lista[i].LI_MOTIVO);
+								var plazo = parseInt(lista[i].VAL_PLAZO);
+								var fe_creacion = new Date(
+										lista[i].FECHA_RENABAN);
+								var mesInt = parseInt(fe_creacion
+										.getMonth()) + 1;
+								var mes = ParsearMes(mesInt);
+								var mfl="";
+								if(lista[i].VAL_PLAZO=='1'){
+									 mfl="Sí"
+								}else{
+									 mfl="No";
+								}
+								var TIPO="";
+								if(lista[i].TIPO=='R'){
+									 TIPO="RENUNCIA"
+								}else{
+									 TIPO="ABANDONO";
+								}
+								var p = "";
+								var f = "";
+								var t = "";
+								var ct = "";
+								s += '<tr>';
+								s += '<td>'
+										+ a
+										+ '<label  class="idc" hidden>'
+										+ lista[i].ID_CONTRATO
+										+ '</label>'
+										+ '<label class="tipo" hidden>'
+										+ lista[i].TIPO
+										+ '</label>'
+										+ '<label  class="idr" hidden>'
+										+ lista[i].ID_RENABAN
+										+ '</label>'
+										+ '<label  class="idt" hidden>'
+										+ lista[i].ID_TRABAJADOR
+										+ '</label>'
+										+'<label class="idrenaban" hidden>'
+								+ lista[i].ID_RENABAN
+								+ '</label></td>';
+								s += '<td>'
+										+ mes;
+										+ '</td>';
+								s += '<td class="">'
+
+										+ lista[i].PATERNO
+										+ ' '
+										+ lista[i].MATERNO
+										+ ' '
+										+ lista[i].NOMBRES
+										+ '</td>';
+								s += '<td>'
+										+ lista[i].NOM_PUESTO
+										+ '</td>';
+								s += '<td>' + lista[i].NOM_AREA
+										+ '</td>';
+								s += '<td>' + lista[i].NOM_DEPA
+										+ '</td>';
+								s += '<td>'
+										+ lista[i].TIPO_CONTRATO
+										+ '</td>';
+								s += '<td><a class="green-text accent-3" href="#">'
+										+ lista[i].DESCRIPCION
+										+ '</a></td>';
+								s += '<td>'
+										+lista[i].FECHA_RENABAN+
+										 '</td>';
+								s += '<td>'
+									+lista[i].DNI+
+									 '</td>';
+								s += '<td>'
+									+mfl+
+									 '</td>';
+								s +='<td>' +TIPO+'<label class= "tipazo" hidden>'
+								+ TIPO
+								+ '</label></td>';
+								s += '</tr>';
+							}
+
+						} else {
+							//alert("no hay datos");
+							s += "";
+						}
+						var r = createTable2();
+						$(".contE").empty();
+						$(".contE").append(r);
+						$("#dataReq2").empty();
+						$("#dataReq2").append(s);
+						
+						$("#data-table-row-grouping2")
+						.DataTable({
+							"pageLength" : 5,
+							 columnDefs: [
+							        { responsivePriority: 1, targets: 0 },
+							        { responsivePriority: 2, targets: -1 },
+							        { responsivePriority: 3, targets: -2 },
+							        { responsivePriority: 4, targets: -3 },
+							        { responsivePriority: 5, targets: -4 },
+							  
+							    ],
+							"bPaginate" : true,
+							"ordering": false,
+							responsive:true
+							    }
+						);
+						
+//						jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+
 					});
 }
 
@@ -334,6 +491,31 @@ function createTable1(idDepartamento, idRol) {
 	s += '</tr>';
 	s += '</thead>';
 	s += '<tbody id="dataReq1">';
+	s += '</tbody>';
+	s += '</table>';
+	return s;
+}
+
+function createTable2() {
+	var s = '<table id="data-table-row-grouping2" class="bordered centered display" cellspacing="0" style="width:100%;" >';
+	s += '<thead>';
+	s += '<tr>';
+	s += '<th>N</th>';     
+	s += '<th data-priority="1">Mes</th>';
+	s += '<th data-priority="3">Apellidos y Nombres</th>';
+	s += '<th data-priority="4">Puesto</th>';
+	s += '<th data-priority="5">Area</th>';
+	s += '<th data-priority="6">Departamento</th>';
+	s += '<th data-priority="7">Tipo de Contrato</th>';
+	s += '<th data-priority="8">Descripcion</th>';
+	s += '<th data-priority="9">Fecha de registro</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';
+	s += '<th data-priority="2">Tipo</th>';
+	s += '</tr>';
+	s += '</thead>';
+	s += '<tbody id="dataReq2">';
+//	s += '<tbody id="dataNot">';
 	s += '</tbody>';
 	s += '</table>';
 	return s;

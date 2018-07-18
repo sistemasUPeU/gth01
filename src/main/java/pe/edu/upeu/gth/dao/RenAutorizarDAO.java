@@ -85,13 +85,12 @@ public class RenAutorizarDAO implements CRUDOperations{
 //    }
 	
 	//AL SELECCIONAR DETALLE LISTA LOS DATOS DEL TRABAJADOR
-	public List<Map<String, Object>> Buscar_DetalleTrabajador(String idc) {
-		sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO FROM RA_VIEW_RENABAN";
-
-		sql += " where ID_CONTRATO='" + idc + "' ";
-
-		return jt.queryForList(sql);
-	}
+		public Map<String, Object> Buscar_DetalleTrabajador(String idc) {
+			sql = "select ID_RENABAN,ID_CONTRATO,NOMBRES,PATERNO,MATERNO,FECHA_NAC,DOMICILIO,DNI,FECHA_CONTRATO,NOM_DEPA,NOM_AREA,NOM_SECCION,NOM_PUESTO,CENTRO_COSTO,TIPO_CONTRATO,ANTECEDENTES,CERTI_SALUD,ARCHIVO,CORREO FROM RA_VIEW_RENABAN";
+			sql += " where ID_CONTRATO='" + idc + "' ";
+	 
+			return jt.queryForMap(sql);
+		}
 	
 	//LISTA TODOS LOS TRABAJADORES CON ESTADO AUTORIZADO
 		public List<Map<String, Object>> Autorizado() {

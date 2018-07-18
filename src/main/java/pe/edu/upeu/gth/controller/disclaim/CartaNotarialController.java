@@ -1,8 +1,12 @@
 package pe.edu.upeu.gth.controller.disclaim;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +16,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -40,7 +48,7 @@ public class CartaNotarialController {
 	Abandono r = new Abandono();
 	Justificacion ju = new Justificacion();
 	RenunciaDAO rd = new RenunciaDAO(AppConfig.getDataSource());
-
+	private static String UPLOADED_FOLDER = "C:\\Usuarios\\ASUS\\git\\gth01\\src\\main\\webapp\\resources\\files";
 	PriCartaNotarialDAO ra = new PriCartaNotarialDAO(AppConfig.getDataSource()); 
 	Map<String, Object> mp = new HashMap<>();
 	public List<String> archi = new ArrayList<>();
@@ -78,13 +86,10 @@ public class CartaNotarialController {
 			out.println(gson.toJson(ra.Autorizado()));
 			break;
 		case 6:
-			String tipo2 = request.getParameter("tipo");
+			//JUSTIFICAR PRIMERA CARTA 16/07/2018
 			String idra = request.getParameter("idr");
-			System.out.println(idra);
 			String observacion = request.getParameter("observacion");				
-			ju.setId_renaban(idra);
-			ju.setObservacion(observacion);
-			out.println(ra.JustificarAbandono(ju, tipo2));
+			out.println(ra.JustificarPrimeraCarta(idra, observacion));
 			break;
 		case 7:
 			String de = request.getParameter("de");
@@ -94,7 +99,7 @@ public class CartaNotarialController {
 			String asunto = request.getParameter("asunto");
 			String foto = request.getParameter("foto");
 			// boolean resultado = email.enviarCorreo(de, clave, para, mensaje, asunto);
-			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto, foto));
+//			out.println(ra.enviarCorreo(de, clave, para, mensaje, asunto, foto));
 			break;
 		case 8:
 			String idan = request.getParameter("idra");
@@ -102,7 +107,7 @@ public class CartaNotarialController {
 			System.out.println("Esta llegando un idan:" + idan);
 			r.setIdabandono(idan);
 			String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-			out.println(ra.notificarAbandono(r,idusuario,tipo1));
+//			out.println(ra.notificarAbandono(r,idusuario,tipo1));
 //			Renuncia r1 = new Renuncia();
 //			r1.setId_renuncia(request.getParameter("idr"));
 //			System.out.println(r1.getId_renuncia());
@@ -110,6 +115,10 @@ public class CartaNotarialController {
 //			// l.setOtros(request.getParameter("otros"));
 //			// l.setDetalle_otros(request.getParameter("detalle"));
 //			out.println(rd.notificarRenuncia(r1));
+			break;
+		case 9:
+			String idrenaban = request.getParameter("idrenaban");
+			out.println(ra.PreguntarPrimera(idrenaban));
 			break;
 		}
 	}
@@ -121,29 +130,128 @@ public class CartaNotarialController {
 		int op = Integer.parseInt(request.getParameter("opc"));
 		switch (op) {
 		case 1:
-			String idar = request.getParameter("idra");
-			String tipo2 = request.getParameter("tipo1");
-			System.out.println("Esta llegando un idan:" + idar);
-			r.setIdabandono(idar);
-			String idusuario1 = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
-			out.println(ra.SegundaCarta(r,idusuario1,tipo2));
+		
 			break;
 		case 2:
 			String ids = request.getParameter("ids");
 			out .println(gson.toJson(ra.Buscar_Detalle(ids)));
 			break;
 		case 3:
-			String tipo = request.getParameter("tipo");
+			//JUSTIFICAR PRIMERA CARTA 16/07/2018
 			String idra = request.getParameter("idr");
-			System.out.println(idra);
 			String observacion = request.getParameter("observacion");				
-			ju.setId_renaban(idra);
-			ju.setObservacion(observacion);
-			out.println(ra.JustificarSegundaCarta(ju, tipo));
+			out.println(ra.JustificarSegundaCarta(idra, observacion));
 			break;
 		}
 	}
 	
 	@Autowired
 	ServletContext context;
+	
+	@RequestMapping(path = "/SendLetter", method = RequestMethod.POST)
+	public String handleFormUpload(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,@RequestParam("correo") String correo,@RequestParam("idrenaban") String idrenaban,
+			@RequestParam("idcontrato") String idcon, @RequestParam("idtrabajador") String idt,@RequestParam("asunto") String asunto,@RequestParam("mensaje") String mensaje,
+			Authentication authentication) throws IOException{
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+		
+		byte[] bytes = mensaje.getBytes(StandardCharsets.ISO_8859_1);
+		mensaje = new String(bytes, StandardCharsets.UTF_8);
+		String url = "/";
+		if (!file.isEmpty()) {
+			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
+			// ?, ?)";
+			try {
+				for (MultipartFile fi : file) {
+//					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+//					File destFile = new File(path);
+					String nome= fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome="cartaNotarial1"+idcon+dateAsString;
+					FilenameUtils fich = new FilenameUtils();
+					
+					//ASIGNEMOS UN NOMBRE AL ARCHIVO
+					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome+"."+FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
+					
+					//AGREGUEMOS EL ARCHIVO AL SERVIDOR
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					
+					archi.add(destFile.getName());
+					archi.add(destFile.getPath());
+					archi.add(FilenameUtils.getExtension(path));
+					archi.add(String.valueOf(destFile.length()));
+
+					if(ra.enviarCorreo(correo, mensaje, asunto, path,nome,idusuario,idrenaban)==1) {
+						System.out.println("SE HA ENVIADO EL CORREO");
+					}else {
+						System.out.println("HUBO UN PROBLEMA, NO SE ENVIÓ EL CORREO");
+					}
+					
+				}
+
+			} catch (IllegalStateException ec) {
+				ec.getMessage();
+				ec.printStackTrace();
+			}
+			System.out.println(gson.toJson(archi));
+		}
+		return "redirect:" + url;
+	}
+	
+	@RequestMapping(path = "/SendLetter2", method = RequestMethod.POST)
+	public String segundaCartaNotarial(@RequestParam("file") List<MultipartFile> file, @RequestParam("fecha") String fecha,@RequestParam("correo") String correo,@RequestParam("idrenaban") String idrenaban,
+			@RequestParam("idcontrato") String idcon, @RequestParam("idtrabajador") String idt,@RequestParam("asunto") String asunto,@RequestParam("mensaje") String mensaje,
+			Authentication authentication) throws IOException{
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		String idusuario = ((CustomUser) authentication.getPrincipal()).getID_USUARIO();
+		
+		byte[] bytes = mensaje.getBytes(StandardCharsets.ISO_8859_1);
+		mensaje = new String(bytes, StandardCharsets.UTF_8);
+		String url = "/";
+		if (!file.isEmpty()) {
+			// String sql = "INSERT INTO imagen (nombre, tipo, tamano, pixel) VALUES(?, ?,
+			// ?, ?)";
+			try {
+				for (MultipartFile fi : file) {
+//					String path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+//					File destFile = new File(path);
+					String nome= fi.getOriginalFilename();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+					String dateAsString = simpleDateFormat.format(new Date());
+					nome="cartaNotarial2"+idcon+dateAsString;
+					FilenameUtils fich = new FilenameUtils();
+					
+					//ASIGNEMOS UN NOMBRE AL ARCHIVO
+					String path = UPLOADED_FOLDER  + File.separator + fi.getOriginalFilename();
+					path = context.getRealPath("/resources/files/" + nome+"."+FilenameUtils.getExtension(path));
+					System.out.println("ruta del archivo " + path);
+					
+					//AGREGUEMOS EL ARCHIVO AL SERVIDOR
+					File destFile = new File(path);
+					fi.transferTo(destFile);
+					archi.add(destFile.getName());
+					archi.add(destFile.getPath());
+					archi.add(FilenameUtils.getExtension(path));
+					archi.add(String.valueOf(destFile.length()));
+
+					if(ra.enviarCorreo2(correo, mensaje, asunto, path,nome,idusuario,idrenaban)==1) {
+						System.out.println("SE HA ENVIADO EL CORREO");
+					}else {
+						System.out.println("HUBO UN PROBLEMA, NO SE ENVIÓ EL CORREO");
+					}
+					
+				}
+
+			} catch (IllegalStateException ec) {
+				ec.getMessage();
+				ec.printStackTrace();
+			}
+			System.out.println(gson.toJson(archi));
+		}
+		return "redirect:" + url;
+	}
 }

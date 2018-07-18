@@ -107,6 +107,12 @@ public class RenunciaDAO {
 		sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=0 AND rap.ID_PASOS IN ('PAS-000440','PAS-000441') ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
+	
+	// LISTAR TODOS LOS TRABAJADORES CON ESTADO ENTREGADO
+			public List<Map<String, Object>> listarEntregados() {
+				sql="select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO=1 AND rap.ID_PASOS IN ('PAS-000440','PAS-000441') ORDER BY ra.FECHA_RENABAN DESC";
+				return jt.queryForList(sql);
+			}
 
 	// LISTAR LOS MOTIVOS DE LA RENUNCIA
 	public List<Map<String, Object>> mostrarMotivo() {

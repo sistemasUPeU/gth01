@@ -15,23 +15,25 @@ $(document)
 						}				
 					listarRegistrados();
 					listarAutorizados();										
-					$("#ProcesarR").click(function(){						
-						var idc=$("#idc").val();
-						$.get("ProcesarR", {
-							idc : idc,
-							opc : 4
-						}, function(data, status) {
-							 alert(data);
-							var detalle = JSON.parse(data);							
-							console.log(detalle);
-							if(data==1){								
-							}else{
-							}
-							});
-					});					
-					$("#RechazarR").click(function(){
-						alert("rechaza");
-					});											
+					$('#autorized').bind('click', function() {
+				        if($(this).hasClass('active')) {
+				        	var table = $('#data-table-row-grouping1').DataTable();
+				        	 
+				        	$('#data-table-row-grouping1').css( 'display', 'table' );
+				        	 
+				        	table.responsive.recalc();
+				        }
+				    });
+					
+					$('#autorize').bind('click', function() {
+				        if($(this).hasClass('active')) {
+				        	var table = $('#data-table-row-grouping').DataTable();
+				        	 
+				        	$('#data-table-row-grouping').css( 'display', 'table' );
+				        	 
+				        	table.responsive.recalc();
+				        }
+				    });									
 				});
 
 //	LISTAR TODOS LOS TRABAJADORES REGISTRADOS QUE ESTAN EN PROCESO DE RENUNCIA O ABANDONO
@@ -282,10 +284,11 @@ function listarAutorizados() {
 						.DataTable({
 							"pageLength" : 10,
 							"bPaginate" : true,
-							"ordering": false
+							"ordering": false,
+							responsive:true
 							    }
 						);				
-				jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');			
+				
 			});
 }
 

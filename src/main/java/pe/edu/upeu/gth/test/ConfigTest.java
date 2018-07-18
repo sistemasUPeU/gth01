@@ -43,7 +43,8 @@ public class ConfigTest {
 		//Renuncia();
 //		justificacion();
 //		Recepcionar();
-		legajos();
+//		legajos();
+		probandoAndo();
 	}
 
 	public static void conect() {	
@@ -103,5 +104,9 @@ public static void legajo() {
 
 public static void legajos() {
 	System.out.println(gs.toJson(lega.legajos("Productos Union")));
+}
+
+public static void probandoAndo() {
+	System.out.println(pc.PreguntarPrimera("MRA-000006"));
 }
 }
