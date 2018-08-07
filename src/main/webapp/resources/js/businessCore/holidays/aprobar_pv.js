@@ -4,25 +4,6 @@ $(document).ready(function() {
 	listarRechazados();
 });
 
-//var rad = document.myForm.group1;
-//var prev = null;
-//for (var i = 0; i < rad.length; i++) {
-//	rad[i].onclick = function() {
-//		if (this.value == 1500) {
-//			listar();
-//			$("#confirmar").show();
-//		}
-//		if (this.value == 1600) {
-//			listarAprobados();
-//			$("#confirmar").hide();
-//		}
-//		if (this.value == 1700) {
-//			listarRechazados();
-//			$("#confirmar").hide();
-//		}
-//	};
-//}
-
 function getSelected() {
 	var allVals = [];
 	$('#data :checked').each(function() {
