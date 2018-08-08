@@ -230,7 +230,7 @@ function listarControlFirmas() {
 			s += '<td>' + obj[i].AP_PATERNO + ' ' + obj[i].AP_MATERNO + ' ' + obj[i].NO_TRABAJADOR + '</td>';
 			s += '<td>' + obj[i].FECHA_INICIO + '</td>';
 			s += '<td>' + obj[i].FECHA_FIN + '</td>';
-			s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" title="'+obj[i].ID_TRABAJADOR+'" name="'+obj[i].ID_VACACIONES+'">';
+			s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" title="'+obj[i].ID_TRABAJADOR+'" name="'+obj[i].ID_DET_VACACIONES+'">';
 			s += '<i class="mdi-image-remove-red-eye"></i></button>';
 			s += '</tr>';
 		}
