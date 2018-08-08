@@ -32,6 +32,7 @@ import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarPrograVacacDAO;
 import pe.edu.upeu.gth.dao.HistorialTramiteDAO;
 import pe.edu.upeu.gth.dao.MailServiceImpl;
+import pe.edu.upeu.gth.dao.Notificacion_VacDAO;
 import pe.edu.upeu.gth.dao.TrabajadorFiltradoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -188,5 +189,24 @@ public class PrincipalController {
 		String fin = RQ.getParameter("fin");
 		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
 		return GSON.toJson(DAO.UPDATEFECHA(id, inicio, fin));
+	}
+	
+	@RequestMapping(path = "/getNoti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String GetNoti(HttpServletRequest request, Authentication authentication) {
+		DataSource ds = AppConfig.getDataSource();
+		Notificacion_VacDAO t = new Notificacion_VacDAO(ds);
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		String traba = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		Gson g = new Gson();
+		return g.toJson(t.GetNoti(depa, traba));
+	}
+
+	@RequestMapping(path = "/updateNoti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String updateNoti(HttpServletRequest request, Authentication authentication) {
+		DataSource ds = AppConfig.getDataSource();
+		Notificacion_VacDAO t = new Notificacion_VacDAO(ds);
+		String idnoti = request.getParameter("idnoti");
+		t.updateNoti(idnoti);
+		return "redirect:";
 	}
 }
