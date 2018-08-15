@@ -131,7 +131,7 @@ $("#guardar").click(function() {
 	if (p == ti && q == to) {
 		Materialize.toast('Ninguna firma se ha actualizado!', 3000, 'rounded');
 	} else {
-		con.post('vacaciones/consolidado/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
+		con.post('vacaciones/controlar/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
 			if (data == 1) {
 				Materialize.toast('Firma actualizada correctamente!', 3000, 'rounded');
 			} else {
