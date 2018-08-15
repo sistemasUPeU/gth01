@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	listar();
+	listarAnterior();
 	listarAprobados();
 	listarRechazados();
 });
@@ -12,7 +12,7 @@ function getSelected() {
 	return allVals;
 }
 
-function listar() {
+function listarAnterior() {
 	$
 			.get(
 					"programa_vacaciones/get",
@@ -354,7 +354,7 @@ $("#confirmar")
 													.toast(
 															'Felicidades!!, ha aprobado a sus trabajadores',
 															3000, 'rounded');
-											listar();
+											listarAnterior();
 											listarAprobados();
 											listarRechazados();
 										} else {
@@ -391,7 +391,7 @@ function observar(idtr, id_det) {
 								});
 						Materialize.toast('El trabajador ' + nom_tra
 								+ ' ha sido observado(a)', 3000, 'rounded');
-						listar();
+						listarAnterior();
 						listarAprobados();
 						listarRechazados();
 					} else {
