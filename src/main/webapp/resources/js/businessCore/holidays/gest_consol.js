@@ -12,6 +12,7 @@ function getSelected() {
 }
 
 var z;
+var ti, to;
 
 $("#modalAprobado")
 		.on(
@@ -111,34 +112,43 @@ $("#guardar")
 								fsm += 1;
 							}
 						});
-						con
-								.post(
-										'vacaciones/consolidado/updateFirma?'
-												+ "id=" + a + "&inicio=" + p
-												+ "&fin=" + q + "&fsm=" + fsm,
-										null,
-										function(data) {
-											if (data == 1) {
-												if (p == 0 && q == 0) {
-													Materialize
-															.toast(
-																	'Ninguna firma se ha actualizado!',
-																	3000,
-																	'rounded');
+						if (p == ti && q == to) {
+							Materialize.toast(
+									'Ninguna firma se ha actualizado!', 3000,
+									'rounded');
+						} else {
+							con
+									.post(
+											'vacaciones/consolidado/updateFirma?'
+													+ "id=" + a + "&inicio="
+													+ p + "&fin=" + q + "&fsm="
+													+ fsm,
+											null,
+											function(data) {
+												if (data == 1) {
+													if (p == 0 && q == 0) {
+														Materialize
+																.toast(
+																		'Ninguna firma se ha actualizado!',
+																		3000,
+																		'rounded');
+													} else {
+														Materialize
+																.toast(
+																		'Firma actualizada correctamente!',
+																		3000,
+																		'rounded');
+														listarAprobado();
+													}
 												} else {
 													Materialize
 															.toast(
-																	'Firma actualizada correctamente!',
+																	'No se obtuvieron datos, consulte con su jefe',
 																	3000,
 																	'rounded');
 												}
-											} else {
-												Materialize
-														.toast(
-																'No se obtuvieron datos, consulte con su jefe',
-																3000, 'rounded');
-											}
-										});
+											});
+						}
 					}
 				});
 
@@ -258,6 +268,8 @@ $("#contTableAprobado")
 												.getElementById("contenedor_fechas");
 										var n_n = 0;
 										for (var i = 0; i < obj.length; i++) {
+											ti = obj[i].FIRMA_SALIDA;
+											to = obj[i].FIRMA_ENTRADA;
 											k = k + 1;
 											j += '<div class="col s3">';
 											j += '<p>Fecha Inicio</p>';
