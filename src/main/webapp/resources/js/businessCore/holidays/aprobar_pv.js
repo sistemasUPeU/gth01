@@ -2,6 +2,7 @@ $(document).ready(function() {
 	listarAnterior();
 	listarAprobados();
 	listarRechazados();
+	$("#cargando").hide();
 });
 
 function getSelected() {
@@ -338,6 +339,8 @@ function createModalObs(idde, texto) {
 $("#confirmar")
 		.click(
 				function() {
+					$("#nocargando").hide();
+					$("#cargando").show();
 					arrid = getSelected();
 					var id_arr = arrid;
 					var id_det = id_arr.join(",");
@@ -363,6 +366,8 @@ $("#confirmar")
 															'UPS!!, No se ha registrado su aprobación, verifique si chequeó los datos!',
 															3000, 'rounded');
 										}
+										$("#nocargando").show();
+										$("#cargando").hide();
 									});
 				});
 function observar(idtr, id_det) {
