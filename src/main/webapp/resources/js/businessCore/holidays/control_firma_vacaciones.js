@@ -125,7 +125,7 @@ $("#guardar").click(function() {
 	}
 	if (vali == 77) {
 		fsm = 3;
-		vali == 66;
+		vali = 66;
 	}
 	//ENVIA FECHAS AL BACK-END
 	if (p == ti && q == to) {

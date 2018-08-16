@@ -46,15 +46,14 @@ public class ControlFirmasDAO {
 		}
 	}
 	
-	public List<Map<String, Object>> ACTUALIZAR_ESTADO(String id) {
-		List<Map<String, Object>> LST = new ArrayList<>();
+	public int ACTUALIZAR_ESTADO(String id) {
 		try {
-			String SQL = "";
-			LST = JDBC.queryForList(SQL, id);
-			return LST;
+			String SQL = "UPDATE rhmv_det_vacaciones SET ESTADO = 0 WHERE ID_DET_VACACIONES = ?";
+			JDBC.update(SQL, id);
+			return 1;
 		} catch (Exception E) {
 			System.out.println("ERROR:" + E);
-			return null;
+			return 0;
 		}
 	}
 }

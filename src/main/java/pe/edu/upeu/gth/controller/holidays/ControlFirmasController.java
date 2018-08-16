@@ -26,8 +26,6 @@ import pe.edu.upeu.gth.interfaz.MailService;
 public class ControlFirmasController {
 
 	Gson GSON = new Gson();
-	DataSource ds = AppConfig.getDataSource();
-	GestionarConsolidadoDAO gc = new GestionarConsolidadoDAO(ds);
 
 	@Autowired
 	public MailService ms;
@@ -68,14 +66,18 @@ public class ControlFirmasController {
 		int fsm = Integer.parseInt(request.getParameter("fsm"));
 		String[] id_det_arr = new String[1];
 		id_det_arr[0] = id;
+		GestionarConsolidadoDAO GC = new GestionarConsolidadoDAO(AppConfig.getDataSource());
+		ControlFirmasDAO CF = new ControlFirmasDAO(AppConfig.getDataSource());
 		if (inicio == 1 && fin == 1 && fsm == 3) {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			CF.ACTUALIZAR_ESTADO(id);
 		} else if (inicio == 1 && fin == 1 && fsm == 1) {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			CF.ACTUALIZAR_ESTADO(id);
 		} else if (inicio == 1 && fin == 0 && fsm == 3) {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
 		}
-		return GSON.toJson(gc.updateFechas(id, inicio, fin));
+		return GSON.toJson(GC.updateFechas(id, inicio, fin));
 	}
 }
