@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 
 import net.sf.jasperreports.engine.JRException;
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarConsolidadoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -41,6 +42,7 @@ import pe.edu.upeu.gth.interfaz.MailService;
 public class GestionarConsolidadoController {
 	DataSource ds = AppConfig.getDataSource();
 	GestionarConsolidadoDAO gc = new GestionarConsolidadoDAO(ds);
+	ControlFirmasDAO cf = new ControlFirmasDAO(ds);
 	Gson g = new Gson();
 	@Autowired
 	public MailService ms;
@@ -121,8 +123,10 @@ public class GestionarConsolidadoController {
 		if (inicio == 1 && fin == 1 && fsm == 2) {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			cf.ACTUALIZAR_ESTADO(id);
 		} else if (fin == 1) {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			cf.ACTUALIZAR_ESTADO(id);
 		} else {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
 		}
