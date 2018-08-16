@@ -119,7 +119,8 @@ public class GestionarConsolidadoController {
 		String[] id_det_arr = new String[1];
 		id_det_arr[0] = id;
 		if (inicio == 1 && fin == 1 && fsm == 2) {
-			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 7);
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
+			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
 		} else if (fin == 1) {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
 		} else {
@@ -194,6 +195,7 @@ public class GestionarConsolidadoController {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		List<String> archi = new ArrayList<>();
 		String path = "";
+		String result = null;
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
@@ -218,16 +220,15 @@ public class GestionarConsolidadoController {
 						id_det_arr[0] = id_det;
 						gc.insertHistorial(usuario, id_det_arr, "PAS-000052", 3, "PAS-000090", 5);
 					}
+					result = "redirect:/vacaciones/consolidado";
 				}
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
 				ec.printStackTrace();
 			}
-
-			return "redirect:/vacaciones/consolidado";
 		}
-		return null;
+		return result;
 	}
 
 	@RequestMapping(path = "/reporte", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
