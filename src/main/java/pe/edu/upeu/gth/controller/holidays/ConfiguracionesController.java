@@ -119,4 +119,19 @@ public class ConfiguracionesController {
 
 		return gs.toJson(co.guardarPrivilegio(idtrab, valor));
 	}
+	
+	
+	
+	
+	@RequestMapping(path = "/listarCambiosPrivilegios", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String listarCambiosPrivilegios(HttpServletRequest request) {
+
+	System.out.println("Gson RESPUESTA get trabajador "+gs.toJson(co.listarCambiosPrivilegios()));
+		
+
+		return gs.toJson(co.listarCambiosPrivilegios());
+	}
+	
+	
+	
 }
