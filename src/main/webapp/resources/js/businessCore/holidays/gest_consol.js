@@ -1,6 +1,7 @@
 ﻿$(document).ready(function() {
 	listarSinAprobar();
 	listarAprobado();
+	$("#cargando").hide();
 });
 
 function getSelected() {
@@ -657,6 +658,8 @@ function createTableAprobado() {
 $("#confirmar")
 		.click(
 				function() {
+					$("#nocargando").hide();
+					$("#cargando").show();
 					arrid = getSelected();
 					var id_arr = arrid;
 					var id_det = id_arr.join(",");
@@ -693,6 +696,8 @@ $("#confirmar")
 															'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
 															3000, 'rounded');
 										}
+										$("#nocargando").show();
+										$("#cargando").hide();
 									});
 
 				});
