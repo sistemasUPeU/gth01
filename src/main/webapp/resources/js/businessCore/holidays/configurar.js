@@ -596,18 +596,73 @@ function guardarPrivilegio(){
 				alertify.success('Ok');
 				cancelarPrivilegio();
 				Materialize.updateTextFields();
-				
+				listarCambiosPrivilegios();
 			});
 		}else{
 			alertify.alert('Mensaje de alerta', 'Hubo un error al intentar guardar los cambios', function(){ 
 				alertify.success('Ok');
+				listarCambiosPrivilegios();
 				
 			});
 		}
+		
+		
 
 	});
 }
 
+
+
+function listarCambiosPrivilegios(){
+	$.get(gth_context_path + "/configuraciones/listarCambiosPrivilegios", null, function(obj){
+		console.log("lista de cambios" + obj);
+
+		var d = "";
+		var emp = obj[0];
+		console.log(emp);
+		for (var i = 0; i < obj.length; i++) {
+
+			d += "<tr><td>";
+			d += obj[i].AP_PATERNO + " "
+			d += obj[i].AP_MATERNO;
+			d += ", ";
+			d += obj[i].NO_TRABAJADOR;
+			d += "</td><td>";
+			d += obj[i].NU_DOC;
+			d += "</td><td>";
+			d += obj[i].NO_DEP;
+			d += "</td><td>";
+			d += obj[i].VA_PRIVILEGIO;
+			d += "</td>";
+			d += "</tr>";
+		}
+		$("#data_change").empty();
+		$("#data_change").append(createTable());
+		$("#data").empty();
+		$("#data").append(d);
+		$("#data-table-row-grouping").dataTable();
+		
+		
+	})
+	
+}
+
+
+function createTable() {
+	var s = "<table id='data-table-row-grouping' class='display bordered highlight centered' >";
+	s += "<thead>";
+	s += "<tr>";
+	s += "<th>Nombres</th>";
+	s += "<th>DNI</th>";
+	s += "<th>Departamento</th>";
+	s += "<th>N° Particiones</th>";
+	s += "</tr>";
+	s += "</thead>";
+	s += "<tbody id='data'></tbody>";
+	s += "</table>";
+	return s;
+
+};
 
 function cancelarPrivilegio(){
 	$("#searchTrabajador").val("");
