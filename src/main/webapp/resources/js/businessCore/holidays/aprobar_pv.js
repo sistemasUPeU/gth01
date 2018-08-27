@@ -20,6 +20,37 @@ function listarAnterior() {
 					function(obj) {
 						var s = "";
 						var emp = obj[0];
+
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].EVALUACION == "1") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+
+						function ojalafuncione(ids_vacs) {
+							for (var j = 0; j < obj.length; j++) {
+								findWithAttr(obj, 'ID_VACACIONES', ids_vacs);
+							}
+						}
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].EVALUACION == "1") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+						function findWithAttr(array, attr, value) {
+							for (var i = 0; i < array.length; i += 1) {
+								if (array[i][attr] === value) {
+									obj.splice(i, 1);
+								}
+							}
+						}
+
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].EVALUACION == "1") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+
 						for (var i = 0; i < obj.length; i++) {
 							var con = "";
 							if (obj[i].LI_CONDICION == 1) {
@@ -63,6 +94,8 @@ function listarAnterior() {
 							s += obj[i].FECHA_FIN;
 							s += "</td><td>";
 							s += con;
+							s += "</td><td>";
+							s += obj[i].TIPO;
 							s += "</td>";
 							s += "<td><p style='text-align: center;'>";
 							s += "<input type='checkbox' class='checkBoxClass' id='test"
@@ -137,6 +170,8 @@ function listarAprobados() {
 			d += obj[i].FECHA_FIN;
 			d += "</td><td>";
 			d += con;
+			d += "</td><td>";
+			d += obj[i].TIPO;
 			d += "</td>";
 			d += "</tr>";
 		}
@@ -194,6 +229,8 @@ function listarRechazados() {
 							d += obj[i].FECHA_FIN;
 							d += "</td><td>";
 							d += con;
+							d += "</td><td>";
+							d += obj[i].TIPO;
 							d += "</td>";
 							d += "<td>";
 							d += "<button id='"
@@ -226,6 +263,7 @@ function createTable1() {
 	s += "<th>FEC INI</th>";
 	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Aprobar</th>";
 	s += "<th>Observación</th>";
 	s += "</tr>";
@@ -246,6 +284,7 @@ function createTable2() {
 	s += "<th>FEC INI</th>";
 	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += " </tr>";
 	s += "</thead>";
 	s += "<tbody id='data1'></tbody>";
@@ -263,6 +302,7 @@ function createTable3() {
 	s += "<th>FEC INI</th>";
 	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Observación</th>";
 	s += " </tr>";
 	s += "</thead>";

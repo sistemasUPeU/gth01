@@ -1,6 +1,7 @@
 ﻿$(document).ready(function() {
 	listarSinAprobar();
 	listarAprobado();
+	$("#cargando").hide();
 });
 
 function getSelected() {
@@ -464,14 +465,9 @@ function listarSinAprobar() {
 					function(obj) {
 						var s = "";
 						var emp = obj[0];
-						console.log(obj);
-						var all_vac = [];
-						var indexvac = [];
-						var cas;
 
 						for (var i = 0; i < obj.length; i++) {
 							if (obj[i].ID_PASOS == "PAS-000055") {
-								console.log(obj[i].ID_VACACIONES);
 								ojalafuncione(obj[i].ID_VACACIONES);
 							}
 						}
@@ -483,7 +479,6 @@ function listarSinAprobar() {
 						}
 						for (var i = 0; i < obj.length; i++) {
 							if (obj[i].ID_PASOS == "PAS-000055") {
-								console.log(obj[i].ID_VACACIONES);
 								ojalafuncione(obj[i].ID_VACACIONES);
 							}
 						}
@@ -491,19 +486,15 @@ function listarSinAprobar() {
 							for (var i = 0; i < array.length; i += 1) {
 								if (array[i][attr] === value) {
 									obj.splice(i, 1);
-									console.log(obj);
 								}
 							}
 						}
 
 						for (var i = 0; i < obj.length; i++) {
 							if (obj[i].ID_PASOS == "PAS-000055") {
-								console.log(obj[i].ID_VACACIONES);
 								ojalafuncione(obj[i].ID_VACACIONES);
 							}
 						}
-
-						console.log(obj);
 
 						for (var i = 0; i < obj.length; i++) {
 							var con = "";
@@ -546,6 +537,8 @@ function listarSinAprobar() {
 							s += obj[i].NU_VAC;
 							s += "</td><td>";
 							s += con;
+							s += "</td><td>";
+							s += obj[i].TIPO;
 							s += "</td>";
 							s += '<td><button id="openModal" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'
 									+ obj[i].ID_DET_VACACIONES + '">';
@@ -633,6 +626,8 @@ function listarAprobado() {
 							s += obj[i].NU_VAC;
 							s += "</td><td>";
 							s += con;
+							s += "</td><td>";
+							s += obj[i].TIPO;
 							s += "</td>";
 							s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'
 									+ obj[i].ID_DET_VACACIONES + '">';
@@ -660,6 +655,7 @@ function createTable1() {
 	s += "<th>Fecha-Salida</th>";
 	s += "<th>Dias Totales</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Ver Detalle</th>";
 	s += "<th>";
 	s += "<p style='text-align: center;'>";
@@ -686,6 +682,7 @@ function createTableAprobado() {
 	s += "<th>Fecha-Salida</th>";
 	s += "<th>Dias Totales</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Ver Detalle</th>";
 	s += " </tr>";
 	s += "</thead>";
@@ -698,6 +695,8 @@ function createTableAprobado() {
 $("#confirmar")
 		.click(
 				function() {
+					$("#nocargando").hide();
+					$("#cargando").show();
 					arrid = getSelected();
 					var id_arr = arrid;
 					var id_det = id_arr.join(",");
@@ -734,6 +733,8 @@ $("#confirmar")
 															'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
 															3000, 'rounded');
 										}
+										$("#nocargando").show();
+										$("#cargando").hide();
 									});
 
 				});
