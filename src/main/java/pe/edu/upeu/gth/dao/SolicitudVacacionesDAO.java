@@ -164,7 +164,7 @@ public class SolicitudVacacionesDAO {
 
 	public List<Map<String, Object>> getFechasVacaciones(String id) {
 		List<Map<String, Object>> listmap = new ArrayList<>();
-	
+		System.out.println("id en get fechas vacaciones " + id);
 		int x;
 		try {
 			String sql = "SELECT TO_CHAR(D.FECHA_INICIO,'DD/MM/YYYY') AS FECHA_INICIO,  TO_CHAR(D.FECHA_FIN,'DD/MM/YYYY') AS FECHA_FIN, D.ID_DET_VACACIONES, "

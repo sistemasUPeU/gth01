@@ -486,7 +486,7 @@ function calcular_final(begin, sumadias) {
 	console.log("fecha enviada " + begin);
 	console.log("fecha enviada " + begin.getFullYear() + " , "
 			+ begin.getDate() + " , " + begin.getMonth());
-
+if(begin.getDate()<3){
 	if (begin >= fecha_minima) {
 		console.log("correcto"  + sumadias);
 		sumadias = sumadias-1
@@ -511,6 +511,11 @@ function calcular_final(begin, sumadias) {
 				+ fecha_minima_format, 3000, 'rounded');
 
 	}
+}else{
+	alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser a inicios de cada mes', function(){});
+	
+}
+	
 
 }
 
@@ -652,13 +657,40 @@ function setti(id) {
 	console.log(num);
 	var fecha_inicio3 = parseDate(fei);
 console.log("probando si array dias llega " + arraydias + arraydias[0] + num)
+
+	if(validarCruceFechas(id) == true){
+
 	$('#fe_final_' + num).pickadate('picker').set('select',
 			calcular_final(fecha_inicio3,arraydias[num-1]), {
 				format : 'dd/mm/yyyy'
 			}).trigger("change");
 	
 	Materialize.updateTextFields();
+	}
 }
+
+
+function validarCruceFechas(idbase){
+	var fechaprobar = $("#" + idbase).val();
+	var separar = idbase.split("_");
+	console.log(separar);
+	console.log(parseInt(separar[2])-1);
+	var numero = parseInt(separar[2])-1;
+	var fechabase = $("#fe_final_" + numero).val();
+	console.log(fechabase);
+	var fechaparse = parseDate(fechabase);
+	var fechaparse1 = parseDate(fechaprobar);
+	
+	if(fechaparse<fechaparse1){
+		console.log(fechaparse + " dddd "+ fechaparse1);
+		console.log("correcto")
+		return true;
+	}else{
+		alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser mayor a las anteriores, por favor, cámbiela', function(){});
+		return false;
+	}
+}
+
 
 function getArray_fechas(op) {
 
@@ -699,15 +731,10 @@ function validarCampos() {
 					}, function() {
 						alertify.error('Cancel')
 					});
-
 			cofirm += '1';
 			break;
 		}
-
 	}
-	
-	
-
 	
 	for (var i = 1; i < cont-1; i++) {
 
@@ -770,9 +797,7 @@ $("#subir")
 		.click(
 				function(event) {
 					// event.preventDefault();
-
 					var file = $("#file-input").val();
-
 					var form = $('#documentoForm')[0];
 
 					// Create an FormData object
