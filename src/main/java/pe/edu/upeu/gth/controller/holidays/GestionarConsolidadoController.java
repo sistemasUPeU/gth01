@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 
 import net.sf.jasperreports.engine.JRException;
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.ControlFirmasDAO;
 import pe.edu.upeu.gth.dao.GestionarConsolidadoDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -41,6 +42,7 @@ import pe.edu.upeu.gth.interfaz.MailService;
 public class GestionarConsolidadoController {
 	DataSource ds = AppConfig.getDataSource();
 	GestionarConsolidadoDAO gc = new GestionarConsolidadoDAO(ds);
+	ControlFirmasDAO cf = new ControlFirmasDAO(ds);
 	Gson g = new Gson();
 	@Autowired
 	public MailService ms;
@@ -118,12 +120,14 @@ public class GestionarConsolidadoController {
 		int fsm = Integer.parseInt(request.getParameter("fsm"));
 		String[] id_det_arr = new String[1];
 		id_det_arr[0] = id;
-		if (inicio == 1 && fin == 1 && fsm == 3) {
+		if (inicio == 1 && fin == 1 && fsm == 2) {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
-		}else if (inicio == 1 && fin == 1 && fsm == 1) {
+			cf.ACTUALIZAR_ESTADO(id);
+		} else if (fin == 1) {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
-		} else if (inicio == 1 && fin == 0 && fsm == 3) {
+			cf.ACTUALIZAR_ESTADO(id);
+		} else {
 			gc.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
 		}
 		return g.toJson(gc.updateFechas(id, inicio, fin));
@@ -195,6 +199,7 @@ public class GestionarConsolidadoController {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		List<String> archi = new ArrayList<>();
 		String path = "";
+		String result = null;
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
@@ -217,18 +222,17 @@ public class GestionarConsolidadoController {
 					if (value == 1) {
 						String[] id_det_arr = new String[1];
 						id_det_arr[0] = id_det;
-						gc.insertHistorial(usuario, id_det_arr, "PAS-000052", 3, "PAS-000090", 3);
+						gc.insertHistorial(usuario, id_det_arr, "PAS-000052", 3, "PAS-000090", 5);
 					}
+					result = "redirect:/vacaciones/consolidado";
 				}
 
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
 				ec.printStackTrace();
 			}
-
-			return "redirect:/vacaciones/consolidado";
 		}
-		return null;
+		return result;
 	}
 
 	@RequestMapping(path = "/reporte", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

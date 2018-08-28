@@ -27,19 +27,22 @@ public class GestionarConsolidadoDAO {
 
 	public List<Map<String, Object>> listarConsolidadoSinAprobar() {
 		try {
-			sql = "SELECT tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,tf.no_seccion,tf.no_dep,\r\n"
+			sql = "SELECT trim(hd.id_pasos) as id_pasos, trim(sv.id_vacaciones) as id_vacaciones, tf.id_trabajador,"
+					+ "tf.no_trabajador,tf.ap_paterno,tf.ap_materno,tf.no_seccion,tf.no_dep,\r\n"
 					+ "trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) - \r\n"
 					+ "trunc(TO_DATE(dsv.fecha_inicio,'DD/MM/YYYY hh24:mi:ss') ) + 1 AS nu_vac,\r\n"
 					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,\r\n"
 					+ "TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,tf.li_condicion,\r\n"
 					+ "usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones,\r\n"
-					+ "sv.id_vacaciones,sv.url,dsv.firma_entrada,dsv.firma_salida\r\n"
+					+ "sv.url,dsv.firma_entrada,dsv.firma_salida, sv.tipo\r\n"
 					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,rhmv_det_vacaciones dsv,\r\n"
 					+ "rhtm_contrato co,rhtc_usuario usr,rhtd_empleado emp,rhmv_hist_detalle hd\r\n"
 					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND emp.id_trabajador = t.id_trabajador\r\n"
 					+ "AND emp.id_empleado = usr.id_empleado\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
-					+ "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n" + "AND hd.evaluacion = 3\r\n"
-					+ "AND hd.id_pasos = 'PAS-000054'\r\n" + "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
+					+ "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n"
+					+ "AND (hd.evaluacion = 3 OR hd.evaluacion = 2)\r\n"
+					+ "AND (hd.id_pasos = 'PAS-000054' OR hd.id_pasos = 'PAS-000055')\r\n"
+					+ "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
 					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
 					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
 					+ "AND co.es_contrato = 1";
@@ -60,15 +63,16 @@ public class GestionarConsolidadoDAO {
 					+ "usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones,\r\n"
 					+ "sv.id_vacaciones,dsv.firma_entrada,dsv.firma_salida,\r\n"
 					+ "TRIM(TO_CHAR(dsv.fecha_inicio,'Month') ) AS fec_ini_mon,\r\n"
-					+ "TRIM(TO_CHAR(dsv.fecha_fin,'Month') ) AS fec_fin_mon\r\n"
+					+ "TRIM(TO_CHAR(dsv.fecha_fin,'Month') ) AS fec_fin_mon, sv.tipo\r\n"
 					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,rhmv_det_vacaciones dsv,\r\n"
 					+ "rhtr_puesto pst,rhtm_contrato co,rhtc_usuario usr,rhtd_empleado emp,rhmv_hist_detalle hd\r\n"
 					+ "WHERE co.id_puesto = pst.id_puesto\r\n" + "AND sv.id_vacaciones = dsv.id_vacaciones\r\n"
 					+ "AND emp.id_trabajador = t.id_trabajador\r\n" + "AND emp.id_empleado = usr.id_empleado\r\n"
 					+ "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n" + "AND dsv.estado <> 0\r\n"
 					+ "AND hd.estado = 1\r\n" + "AND (hd.evaluacion = 3\r\n" + "OR hd.evaluacion = 2\r\n"
-					+ ") AND ( hd.id_pasos = 'PAS-000052'\r\n" + "OR hd.id_pasos = 'PAS-000090'\r\n"
-					+ "OR hd.id_pasos = 'PAS-000092'\r\n" + ") AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
+					+ "OR hd.evaluacion >= 5\r\n" + ") AND ( hd.id_pasos = 'PAS-000052'\r\n"
+					+ "OR hd.id_pasos = 'PAS-000090'\r\n" + "OR hd.id_pasos = 'PAS-000092'\r\n"
+					+ ") AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
 					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
 					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
 					+ "AND co.es_contrato = 1";
@@ -131,7 +135,7 @@ public class GestionarConsolidadoDAO {
 					+ "rhmv_det_vacaciones dsv,rhtm_contrato co,rhmv_hist_detalle hd\r\n"
 					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND sv.estado = 1\r\n"
 					+ "AND tf.estado = 1\r\n" + "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n"
-					+ "AND ( hd.evaluacion = 3\r\n" + "OR hd.evaluacion = 2\r\n"
+					+ "AND ( hd.evaluacion = 3\r\n" + "OR hd.evaluacion = 2\r\n" + "OR hd.evaluacion >= 5\r\n"
 					+ ") AND ( hd.id_pasos = 'PAS-000054'\r\n" + "OR hd.id_pasos = 'PAS-000052'\r\n"
 					+ "OR hd.id_pasos = 'PAS-000090'\r\n" + "OR hd.id_pasos = 'PAS-000092'\r\n"
 					+ ") AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
@@ -166,10 +170,10 @@ public class GestionarConsolidadoDAO {
 					+ "AND sv.id_vacaciones = dsv.id_vacaciones\r\n"
 					+ "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n" + "AND sv.estado = 1\r\n"
 					+ "AND tf.estado = 1\r\n" + "AND dsv.estado <> 0\r\n" + "AND ( hd.evaluacion = 3\r\n"
-					+ "OR hd.evaluacion = 2\r\n" + ") AND ( hd.id_pasos = 'PAS-000054'\r\n"
-					+ "OR hd.id_pasos = 'PAS-000052'\r\n" + "OR hd.id_pasos = 'PAS-000090'\r\n"
-					+ "OR hd.id_pasos = 'PAS-000092'\r\n" + ") AND hd.estado = 1" + "AND tf.ID_TRABAJADOR='" + traba
-					+ "'\r\n" + "AND dsv.ID_DET_VACACIONES='" + id_det + "'";
+					+ "OR hd.evaluacion = 2\r\n" + "OR hd.evaluacion >= 5\r\n"
+					+ ") AND ( hd.id_pasos = 'PAS-000054'\r\n" + "OR hd.id_pasos = 'PAS-000052'\r\n"
+					+ "OR hd.id_pasos = 'PAS-000090'\r\n" + "OR hd.id_pasos = 'PAS-000092'\r\n" + ") AND hd.estado = 1"
+					+ "AND tf.ID_TRABAJADOR='" + traba + "'\r\n" + "AND dsv.ID_DET_VACACIONES='" + id_det + "'";
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);

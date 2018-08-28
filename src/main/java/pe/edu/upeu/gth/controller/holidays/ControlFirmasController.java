@@ -26,34 +26,58 @@ import pe.edu.upeu.gth.interfaz.MailService;
 public class ControlFirmasController {
 
 	Gson GSON = new Gson();
-	
+
 	@Autowired
 	public MailService ms;
-	
+
 	@Autowired
 	ServletContext context;
-	
+
 	ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
-	
+
 	@RequestMapping(path = "/readallControlFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllControlFirma() {
 		return GSON.toJson(DAO.READALL());
 	}
-	
+
 	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getFirma(HttpServletRequest RQ) {
 		String id = RQ.getParameter("id");
 		return GSON.toJson(DAO.READFECHA(id));
 	}
-	
+
 	@RequestMapping(path = "/updatePapeletaFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody int actualizarPapeletaFirma(HttpServletRequest RQ, Authentication authentication) {
-    	authentication=SecurityContextHolder.getContext().getAuthentication();
+		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String idtrab = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String id = RQ.getParameter("id");
 		String[] id_det_arr = new String[1];
 		id_det_arr[0] = id;
 		GestionarConsolidadoDAO GC = new GestionarConsolidadoDAO(AppConfig.getDataSource());
 		return GC.insertHistorial(idtrab, id_det_arr, "PAS-000052", 3, "PAS-000090", 5);
+	}
+
+	@RequestMapping(path = "/updateFirma", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarFirma(HttpServletRequest request, Authentication authentication) {
+		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
+		String id = request.getParameter("id");
+		int inicio = Integer.parseInt(request.getParameter("inicio"));
+		int fin = Integer.parseInt(request.getParameter("fin"));
+		int fsm = Integer.parseInt(request.getParameter("fsm"));
+		String[] id_det_arr = new String[1];
+		id_det_arr[0] = id;
+		GestionarConsolidadoDAO GC = new GestionarConsolidadoDAO(AppConfig.getDataSource());
+		ControlFirmasDAO CF = new ControlFirmasDAO(AppConfig.getDataSource());
+		if (inicio == 1 && fin == 1 && fsm == 3) {
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			CF.ACTUALIZAR_ESTADO(id);
+		} else if (inicio == 1 && fin == 1 && fsm == 1) {
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000092", 6, "PAS-000092", 7);
+			CF.ACTUALIZAR_ESTADO(id);
+		} else if (inicio == 1 && fin == 0 && fsm == 3) {
+			GC.insertHistorial(usuario, id_det_arr, "PAS-000090", 5, "PAS-000092", 6);
+		}
+		return GSON.toJson(GC.updateFechas(id, inicio, fin));
 	}
 }

@@ -1,27 +1,9 @@
 $(document).ready(function() {
-	listar();
+	listarAnterior();
 	listarAprobados();
 	listarRechazados();
+	$("#cargando").hide();
 });
-
-//var rad = document.myForm.group1;
-//var prev = null;
-//for (var i = 0; i < rad.length; i++) {
-//	rad[i].onclick = function() {
-//		if (this.value == 1500) {
-//			listar();
-//			$("#confirmar").show();
-//		}
-//		if (this.value == 1600) {
-//			listarAprobados();
-//			$("#confirmar").hide();
-//		}
-//		if (this.value == 1700) {
-//			listarRechazados();
-//			$("#confirmar").hide();
-//		}
-//	};
-//}
 
 function getSelected() {
 	var allVals = [];
@@ -31,13 +13,44 @@ function getSelected() {
 	return allVals;
 }
 
-function listar() {
+function listarAnterior() {
 	$
 			.get(
 					"programa_vacaciones/get",
 					function(obj) {
 						var s = "";
 						var emp = obj[0];
+
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].EVALUACION == "1") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+
+						function ojalafuncione(ids_vacs) {
+							for (var j = 0; j < obj.length; j++) {
+								findWithAttr(obj, 'ID_VACACIONES', ids_vacs);
+							}
+						}
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].EVALUACION == "1") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+						function findWithAttr(array, attr, value) {
+							for (var i = 0; i < array.length; i += 1) {
+								if (array[i][attr] === value) {
+									obj.splice(i, 1);
+								}
+							}
+						}
+
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].EVALUACION == "1") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+
 						for (var i = 0; i < obj.length; i++) {
 							var con = "";
 							if (obj[i].LI_CONDICION == 1) {
@@ -81,6 +94,8 @@ function listar() {
 							s += obj[i].FECHA_FIN;
 							s += "</td><td>";
 							s += con;
+							s += "</td><td>";
+							s += obj[i].TIPO;
 							s += "</td>";
 							s += "<td><p style='text-align: center;'>";
 							s += "<input type='checkbox' class='checkBoxClass' id='test"
@@ -155,6 +170,8 @@ function listarAprobados() {
 			d += obj[i].FECHA_FIN;
 			d += "</td><td>";
 			d += con;
+			d += "</td><td>";
+			d += obj[i].TIPO;
 			d += "</td>";
 			d += "</tr>";
 		}
@@ -212,6 +229,8 @@ function listarRechazados() {
 							d += obj[i].FECHA_FIN;
 							d += "</td><td>";
 							d += con;
+							d += "</td><td>";
+							d += obj[i].TIPO;
 							d += "</td>";
 							d += "<td>";
 							d += "<button id='"
@@ -244,6 +263,7 @@ function createTable1() {
 	s += "<th>FEC INI</th>";
 	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Aprobar</th>";
 	s += "<th>Observación</th>";
 	s += "</tr>";
@@ -264,6 +284,7 @@ function createTable2() {
 	s += "<th>FEC INI</th>";
 	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += " </tr>";
 	s += "</thead>";
 	s += "<tbody id='data1'></tbody>";
@@ -281,6 +302,7 @@ function createTable3() {
 	s += "<th>FEC INI</th>";
 	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Observación</th>";
 	s += " </tr>";
 	s += "</thead>";
@@ -357,6 +379,8 @@ function createModalObs(idde, texto) {
 $("#confirmar")
 		.click(
 				function() {
+					$("#nocargando").hide();
+					$("#cargando").show();
 					arrid = getSelected();
 					var id_arr = arrid;
 					var id_det = id_arr.join(",");
@@ -373,7 +397,7 @@ $("#confirmar")
 													.toast(
 															'Felicidades!!, ha aprobado a sus trabajadores',
 															3000, 'rounded');
-											listar();
+											listarAnterior();
 											listarAprobados();
 											listarRechazados();
 										} else {
@@ -382,6 +406,8 @@ $("#confirmar")
 															'UPS!!, No se ha registrado su aprobación, verifique si chequeó los datos!',
 															3000, 'rounded');
 										}
+										$("#nocargando").show();
+										$("#cargando").hide();
 									});
 				});
 function observar(idtr, id_det) {
@@ -410,7 +436,7 @@ function observar(idtr, id_det) {
 								});
 						Materialize.toast('El trabajador ' + nom_tra
 								+ ' ha sido observado(a)', 3000, 'rounded');
-						listar();
+						listarAnterior();
 						listarAprobados();
 						listarRechazados();
 					} else {

@@ -58,11 +58,27 @@ div.dataTables_length {
 						<div id="test001" class="col s12" style="display: block;">
 							<div id="sinAprobar" class="container">
 								<div id="contTable"></div>
-								<div class="center-btn">
-									<br> <a class="btn waves-effect waves-light right"
+								<div id="nocargando" class="center-btn row">
+									<br> <a class="btn btn-large waves-effect waves-light"
 										id="confirmar"><i class="mdi-navigation-check"></i>
 										Confirmar</a>
 								</div>
+								<div id="cargando" class="center-btn">
+							<div class="preloader-wrapper small active">
+								<div class="spinner-layer spinner-green-only">
+									<div class="circle-clipper left">
+										<div class="circle"></div>
+									</div>
+									<div class="gap-patch">
+										<div class="circle"></div>
+									</div>
+									<div class="circle-clipper right">
+										<div class="circle"></div>
+									</div>
+								</div>
+							</div>
+							<br> <label>CONFIRMANDO LISTA</label>
+						</div>
 								<div class="row">
 									<div id="table_contenido" class="col s12 m12 l12"></div>
 								</div>

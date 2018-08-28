@@ -128,7 +128,7 @@
 				</div>
 			</center>
 			<div id="basic-tabs" class="section">
-				<h4 class="header">Configuraciones básicas</h4>
+				
 				<div class="row">
 
 					<div class="col s12 m12 l12">
@@ -418,6 +418,17 @@
 
 				</div>
 			</div>
+			
+			
+			
+			<div class="row">
+
+				<div id="data_change" class="col s12 m12 l12"></div>
+
+			</div>
+		
+		
+		
 		</div>
 
 
@@ -434,7 +445,12 @@
 	<!-- 	<script -->
 	<%-- 		src="<c:url value='/resources/js/jquery.materialize-autocomplete.min.js'></c:url>" --%>
 	<!-- 		type="text/javascript"></script> -->
-
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/js/jquery.dataTables.min.js'></c:url>"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
+		type="text/javascript"></script>
 	<script>
 		var v = '<ul id="singleDropdown" class="dropdown-content ac-dropdown"'
 		v+='style="width: 702px; position: absolute; top: 60px; left: 11.25px; opacity: 1; display: none;">'

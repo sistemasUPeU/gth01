@@ -125,13 +125,13 @@ $("#guardar").click(function() {
 	}
 	if (vali == 77) {
 		fsm = 3;
-		vali == 66;
+		vali = 66;
 	}
 	//ENVIA FECHAS AL BACK-END
 	if (p == ti && q == to) {
 		Materialize.toast('Ninguna firma se ha actualizado!', 3000, 'rounded');
 	} else {
-		con.post('vacaciones/consolidado/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
+		con.post('vacaciones/controlar/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
 			if (data == 1) {
 				Materialize.toast('Firma actualizada correctamente!', 3000, 'rounded');
 			} else {
@@ -230,7 +230,7 @@ function listarControlFirmas() {
 			s += '<td>' + obj[i].AP_PATERNO + ' ' + obj[i].AP_MATERNO + ' ' + obj[i].NO_TRABAJADOR + '</td>';
 			s += '<td>' + obj[i].FECHA_INICIO + '</td>';
 			s += '<td>' + obj[i].FECHA_FIN + '</td>';
-			s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" title="'+obj[i].ID_TRABAJADOR+'" name="'+obj[i].ID_VACACIONES+'">';
+			s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" title="'+obj[i].ID_TRABAJADOR+'" name="'+obj[i].ID_DET_VACACIONES+'">';
 			s += '<i class="mdi-image-remove-red-eye"></i></button>';
 			s += '</tr>';
 		}
