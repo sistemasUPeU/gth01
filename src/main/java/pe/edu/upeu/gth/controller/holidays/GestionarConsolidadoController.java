@@ -203,12 +203,14 @@ public class GestionarConsolidadoController {
 		if (!file.isEmpty()) {
 			try {
 				for (MultipartFile fi : file) {
+					path = context.getRealPath("/WEB-INF/") + File.separator + fi.getOriginalFilename();
+					String nome = fi.getOriginalFilename();
 					if (value == 0) {
-						path = context.getRealPath("/resources/files/solicitud/") + File.separator
-								+ fi.getOriginalFilename();
+						nome = "SOL_" + idvac.replace(" ", "") + "." + FilenameUtils.getExtension(path);
+						path = context.getRealPath("/resources/files/solicitud/" + nome);
 					} else if (value == 1) {
-						path = context.getRealPath("/resources/files/papeleta/") + File.separator
-								+ fi.getOriginalFilename();
+						nome = "PAP_" + id_det.replace(" ", "") + "." + FilenameUtils.getExtension(path);
+						path = context.getRealPath("/resources/files/papeleta/" + nome);
 					}
 					File destFile = new File(path);
 					fi.transferTo(destFile);
@@ -218,7 +220,7 @@ public class GestionarConsolidadoController {
 					archi.add(String.valueOf(destFile.length()));
 					destFile.getName();
 
-					gc.subirDocumento(fi.getOriginalFilename(), idvac, id_det, value);
+					gc.subirDocumento(nome, idvac, id_det, value);
 					if (value == 1) {
 						String[] id_det_arr = new String[1];
 						id_det_arr[0] = id_det;
@@ -230,6 +232,7 @@ public class GestionarConsolidadoController {
 			} catch (IOException | IllegalStateException ec) {
 				ec.getMessage();
 				ec.printStackTrace();
+				result = "0";
 			}
 		}
 		return result;

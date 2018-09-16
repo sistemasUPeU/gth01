@@ -64,21 +64,21 @@ div.dataTables_length {
 										Confirmar</a>
 								</div>
 								<div id="cargando" class="center-btn">
-							<div class="preloader-wrapper small active">
-								<div class="spinner-layer spinner-green-only">
-									<div class="circle-clipper left">
-										<div class="circle"></div>
+									<div class="preloader-wrapper small active">
+										<div class="spinner-layer spinner-green-only">
+											<div class="circle-clipper left">
+												<div class="circle"></div>
+											</div>
+											<div class="gap-patch">
+												<div class="circle"></div>
+											</div>
+											<div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+										</div>
 									</div>
-									<div class="gap-patch">
-										<div class="circle"></div>
-									</div>
-									<div class="circle-clipper right">
-										<div class="circle"></div>
-									</div>
+									<br> <label>CONFIRMANDO LISTA</label>
 								</div>
-							</div>
-							<br> <label>CONFIRMANDO LISTA</label>
-						</div>
 								<div class="row">
 									<div id="table_contenido" class="col s12 m12 l12"></div>
 								</div>
@@ -89,9 +89,23 @@ div.dataTables_length {
 								<a class="waves-effect waves-light btn-large" id="print">Imprimir
 									Cartas</a>
 							</div>
+
+							<div class="col s12 m3 l4" style="line-height: 100%;">
+								<div id="card-alert" class="card cyan lighten-1">
+									<div class="card-content white-text" id="message_date"
+										style="height: 100%;">
+										<i class="mdi-action-info-outline"></i> Recuerda IMPRIMIR
+										CARTAS antes de confirmar las firmas, después no se podrá
+									</div>
+									<button type="button" class="close white-text"
+										data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+							</div>
+
 							<div id="cuerpoAprobado" class="container">
 								<div id="contTableAprobado"></div>
-
 								<div class="row">
 									<div id="table_contenido_aprobado" class="col s12 m12 l12"></div>
 								</div>
