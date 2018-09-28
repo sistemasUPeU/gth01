@@ -88,8 +88,7 @@ textarea.materialize-textarea {
 		<section id="content" class="col m12 l12 s12">
 			<div class="center">
 				<h1
-					style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Verificar
-					Abandonos</h1>
+					style="font-family: 'Cormorant Garamond', serif; font-weight: bold">Gestión de Abandono de Trabajo</h1>
 			</div>
 			<div class="divider"></div>
 
@@ -99,8 +98,7 @@ textarea.materialize-textarea {
 				<ul class="collapsible popout">
 					<li id="autorize" class="active">
 						<div class="collapsible-header active">
-							<i class="mdi-social-notifications-on"></i> Verificar Abandonos
-							Pendientes
+							<i class="mdi-social-notifications-on"></i> Envío de Primera Carta Notarial
 						</div>
 						<div class="collapsible-body" style="display: none;">
 							<div class="row" style="padding: 1em">
@@ -110,12 +108,23 @@ textarea.materialize-textarea {
 					</li>
 					<li id="autorized" class="">
 						<div class="collapsible-header">
-							<i class="mdi-toggle-check-box"></i> Verificar Abandonos
-							Autorizados
+							<i class="mdi-toggle-check-box"></i>Justificación 1º Carta - Envío de Segunda Carta Notarial
 						</div>
 						<div class="card-panel collapsible-body " style="display: none;">
 							<div class="row" style="padding: 1em">
 								<div class="contP"></div>
+							</div>
+
+						</div>
+
+					</li>
+					<li id="delivery" class="">
+						<div class="collapsible-header">
+							<i class="mdi-toggle-check-box"></i>Justificación 2º Carta - Abandono de Trabajo derivados
+						</div>
+						<div class="card-panel collapsible-body " style="display: none;">
+							<div class="row" style="padding: 1em">
+								<div class="contE"></div>
 							</div>
 
 						</div>

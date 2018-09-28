@@ -45,7 +45,7 @@ function listarRegistrados() {
 								var Motivo = parseInt(lista[i].LI_MOTIVO);
 								var plazo = parseInt(lista[i].VAL_PLAZO);
 								var fe_creacion = new Date(
-										lista[i].FECHA_RENABAN);
+										lista[i].FECHA_REGISTRO);
 								var mesInt = parseInt(fe_creacion.getMonth()) + 1;
 								var mes = ParsearMes(mesInt);
 								var mfl = "";
@@ -73,9 +73,7 @@ function listarRegistrados() {
 								s += '<td>' + lista[i].NOM_AREA + '</td>';
 								s += '<td>' + lista[i].NOM_DEPA + '</td>';
 								s += '<td>' + lista[i].TIPO_CONTRATO + '</td>';
-								s += '<td><a class="green-text accent-3" href="#">'
-										+ lista[i].DESCRIPCION + '</a></td>';
-								s += '<td>' + lista[i].FECHA_RENABAN + '</td>';
+								s += '<td>' + lista[i].FECHA_REGISTRO + '</td>';
 								s += '<td>' + lista[i].DNI + '</td>';
 								s += '<td>' + mfl + '</td>';
 								s += '<td>'
@@ -407,7 +405,6 @@ function createTable() {
 	s += '<th data-priority="6">Area</th>';
 	s += '<th data-priority="7">Departamento</th>';
 	s += '<th>Tipo de Contrato</th>';
-	s += '<th>Descripcion</th>';
 	s += '<th>Fecha de registro</th>';
 	s += '<th>DNI</th>';
 	s += '<th>MFL</th>';

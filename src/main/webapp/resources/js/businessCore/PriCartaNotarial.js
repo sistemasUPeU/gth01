@@ -31,6 +31,7 @@ $(document)
 				
 					listarRegistrados();
 					listarAutorizados();
+					listarDerivados();
 					
 					$('#autorized').bind('click', function() {
 				        if($(this).hasClass('active')) {
@@ -43,6 +44,13 @@ $(document)
 				        if($(this).hasClass('active')) {
 				        	var table = $('#data-table-row-grouping').DataTable();				        	 
 				        	$('#data-table-row-grouping').css( 'display', 'table' );				        	 
+				        	table.responsive.recalc();
+				        }
+				    });
+					$('#delivery').bind('click', function() {
+				        if($(this).hasClass('active')) {
+				        	var table = $('#data-table-row-grouping2').DataTable();				        	 
+				        	$('#data-table-row-grouping2').css( 'display', 'table' );				        	 
 				        	table.responsive.recalc();
 				        }
 				    });
@@ -444,31 +452,213 @@ function createTable1(idDepartamento, idRol) {
 	return s;
 }
 
+function listarDerivados() {
+	$.getJSON(
+			gth_context_path + "/renaban/SegundoEnvio",
+			"opc=4",
+			function(objJson) {
+				var s = "";
+				var lista = objJson;
+//				console.log(objJson);
+				if (lista.length > 0) {
+					// alert("si hay datos causita c:");
 
-//function createTable2(idDepartamento, idRol) {
-//	var s = '<table id="data-table-row-grouping2" class="bordered centered display" cellspacing="0" style="width:100%;" >';
-//	s += '<thead>';
-//	s += '<tr>';
-//	s += '<th>N</th>';     
-//	s += '<th>Mes</th>';
-//	s += '<th>Apellidos y Nombres</th>';
-//	s += '<th>Puesto</th>';
-//	s += '<th>Area</th>';
-//	s += '<th>Departamento</th>';
-//	s += '<th>Tipo de Contrato</th>';
-//	s += '<th>Descripcion</th>';
-//	s += '<th>Fecha de registro</th>';
-//	s += '<th>DNI</th>';
-//	s += '<th>MFL</th>';
-//	s += '<th>Tipo</th>';
-//	s += '<th>Opcion</th>';
-//	s += '</tr>';
-//	s += '</thead>';
-//	s += '<tbody id="dataReq2">';
-//	s += '</tbody>';
-//	s += '</table>';
-//	return s;
-//}
+					for (var i = 0; i < lista.length; i++) {
+//						var diferencia =diferenciaHoras(lista[i].ID_RENABAN);
+						var idrenaban = lista[i].ID_RENABAN;
+						var diferencia='';
+				
+						    $.ajax({
+						    	type: 'GET',
+						        url: gth_context_path + "/renaban/primerEnvio?opc=9&idrenaban="+lista[i].ID_RENABAN,
+						        //PERMITE RECONOCER LOS VALORES DEL SUCCESS AFUERA DEL AJAX
+						        async: false,
+						        success:function(data){
+						        	if(parseInt(data)>144){
+						    			diferencia='<a class="notificar1 waves-effect waves-light btn #00e676 green accent-3">SEGUNDO ENVÍO</a>';
+						    		}else{
+						    			diferencia='<a class="justificar waves-effect waves-light btn #00e676 red accent-3">JUSTIFICAR</a>';
+						    		}
+						        }
+						    });
+						var a = parseInt(i) + 1;
+						var MFL = parseInt(lista[i].ES_MFL);
+						var Motivo = parseInt(lista[i].LI_MOTIVO);
+						var plazo = parseInt(lista[i].VAL_PLAZO);
+						var fe_creacion = new Date(
+								lista[i].FECHA_RENABAN);
+						var mesInt = parseInt(fe_creacion
+								.getMonth()) + 1;
+						var mes = ParsearMes(mesInt);
+						var mfl="";
+						if(lista[i].VAL_PLAZO=='1'){
+							 mfl="Sí"
+						}else{
+							 mfl="No";
+						}
+						var TIPO="";
+						if(lista[i].TIPO=='R'){
+							 TIPO="RENUNCIA"
+						}else{
+							 TIPO="ABANDONO";
+						}
+						var p = "";
+						var f = "";
+						var t = "";
+						var ct = "";
+						s += '<tr>';
+						s += '<td>'
+								+ a
+								+ '<label  class="idc" hidden>'
+								+ lista[i].ID_CONTRATO
+								+ '</label><label class="idrenaban" hidden>'
+						+ lista[i].ID_RENABAN
+						+ '</label></td>';
+						s += '<td>'
+								+ mes;
+								+ '</td>';
+						s += '<td class="">'
+
+								+ lista[i].PATERNO
+								+ ' '
+								+ lista[i].MATERNO
+								+ ' '
+								+ lista[i].NOMBRES
+								+ '</td>';
+						s += '<td>'
+								+ lista[i].NOM_PUESTO
+								+ '</td>';
+						s += '<td>' + lista[i].NOM_AREA
+								+ '</td>';
+						s += '<td>' + lista[i].NOM_DEPA
+								+ '</td>';
+						s += '<td>'
+								+ lista[i].TIPO_CONTRATO
+								+ '</td>';
+						s += '<td><a class="green-text accent-3" href="#">'
+								+ lista[i].DESCRIPCION
+								+ '</a></td>';
+						s += '<td>'
+								+lista[i].FECHA_RENABAN+
+								 '</td>';
+						s += '<td>'
+							+lista[i].DNI+
+							 '</td>';
+						s += '<td>'
+							+mfl+
+							 '</td>';
+						s +='<td>' +TIPO+'<label class= "tipon" hidden>'
+						+ TIPO
+						+ '</label></td>';
+						s += '<td>'+diferencia+'</td>';
+						s += '</tr>';
+					}
+
+				} else {
+					//alert("no hay datos");
+					s += "";
+				}
+
+				var r = createTable2("", "");
+				$(".contE").empty();
+				$(".contE").append(r);
+				$("#dataReq2").empty();
+				$("#dataReq2").append(s);
+
+				$("#data-table-row-grouping2")
+						.DataTable({
+							"pageLength" : 5,
+							"bPaginate" : true,
+							"ordering": false,
+							responsive:true,
+							 columnDefs: [
+							        { responsivePriority: 1, targets: 0 },
+							        { responsivePriority: 2, targets: -1 }
+							    ]
+							    }
+						);
+				
+				$(".notificar1").click(
+						function() {
+							
+							tipon = $(this).parents(
+							"tr").find("td")
+							.find(".tipon")
+							.eq(0)
+							.text();
+							console.log("esto es tipon"+tipon);
+							
+							idr = $(this).parents(
+							"tr").find("td")
+							.find(".idrenaban")
+							.eq(0)
+							.text();
+							console.log("esto es idrenaban"+idr);
+							
+							idc = $(this).parents(
+									"tr").find("td")
+									.eq(0)
+									.find(".idc")
+									.text();
+							console.log("Este idcontrato: "+idc);
+							
+//							$("#tipo").text(tipon);
+//							$("#idr").text(idr);
+							SegundaCarta(idc);
+						});
+				
+				$(".justificar").click(
+						function() {
+
+							idr = $(this).parents(
+							"tr").find("td")
+							.find(".idrenaban")
+							.eq(0)
+							.text();
+							console.log("esto es idrenaban"+idr);
+							
+							idc = $(this).parents(
+									"tr").find("td")
+									.eq(0)
+									.find(".idc")
+									.text();
+							console.log("Este idcontrato: "+idc);
+							
+//							$("#tipo").text(tipon);
+//							$("#idr").text(idr);
+							ModalJustAbandono1(idr);
+						});
+				
+			
+
+			});
+}
+
+
+function createTable2(idDepartamento, idRol) {
+	var s = '<table id="data-table-row-grouping2" class="bordered centered display" cellspacing="0" style="width:100%;" >';
+	s += '<thead>';
+	s += '<tr>';
+	s += '<th>N</th>';     
+	s += '<th>Mes</th>';
+	s += '<th>Apellidos y Nombres</th>';
+	s += '<th>Puesto</th>';
+	s += '<th>Area</th>';
+	s += '<th>Departamento</th>';
+	s += '<th>Tipo de Contrato</th>';
+	s += '<th>Descripcion</th>';
+	s += '<th>Fecha de registro</th>';
+	s += '<th>DNI</th>';
+	s += '<th>MFL</th>';
+	s += '<th>Tipo</th>';
+	s += '<th>Opcion</th>';
+	s += '</tr>';
+	s += '</thead>';
+	s += '<tbody id="dataReq2">';
+	s += '</tbody>';
+	s += '</table>';
+	return s;
+}
 
 var depa="";
 var u = "";

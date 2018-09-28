@@ -134,13 +134,16 @@ public class CartaNotarialController {
 			break;
 		case 2:
 			String ids = request.getParameter("ids");
-			out .println(gson.toJson(ra.Buscar_Detalle(ids)));
+			out.println(gson.toJson(ra.Buscar_Detalle(ids)));
 			break;
 		case 3:
 			//JUSTIFICAR PRIMERA CARTA 16/07/2018
 			String idra = request.getParameter("idr");
 			String observacion = request.getParameter("observacion");				
 			out.println(ra.JustificarSegundaCarta(idra, observacion));
+			break;
+		case 4:
+			out.println(ra.DerivadoSegundaCarta());
 			break;
 		}
 	}

@@ -102,6 +102,12 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 		sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='0' AND rap.ID_PASOS='PAS-000442' ORDER BY ra.FECHA_RENABAN DESC";
 		return jt.queryForList(sql);
 	}
+	
+	// LISTA TODOS LOS TRABAJADORES CON LA SEGUNDA CARTA NOTARIAL ENVIADA
+		public List<Map<String, Object>> DerivadoSegundaCarta() {
+			sql = "select* from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN WHERE rap.ESTADO='1' AND rap.ID_PASOS='PAS-000442' ORDER BY ra.FECHA_RENABAN DESC";
+			return jt.queryForList(sql);
+		}
 
 	public int AutorizarRenuncia(Abandono r) {
 		int x = 0;
@@ -377,6 +383,29 @@ public class PriCartaNotarialDAO implements CRUDOperations {
 			}
 			return x;
 		}
+		
+		//PREGUNTAR SI PASARON LOS 6 DÍAS(144 horas) DESDE LA PRIMERA CARTA
+				public double PreguntarSegunda(String idrenaban) {
+					double x =0;
+					sql = "SELECT* FROM RA_RENABAN_PASOS WHERE ID_RENABAN='" + idrenaban + "' AND ID_PASOS='PAS-000435'";
+					try {
+						 Map<String, Object> o = jt.queryForMap(sql);
+						 String fecha =o.get("FECHA_MOD").toString();
+						 Date fechaActual = new Date();
+						 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					     Date fechaCartaNotarial = sdf.parse(fecha);
+//					    x = fechaActual.compareTo(fechaCartaNotarial);
+					    int difference= (int)(fechaActual.getTime()-fechaCartaNotarial.getTime());
+					    x=difference/3600000;
+					    System.out.println("Valor de x después de la operación: "+x);
+//					    System.out.println("Esta es la fecha del sistema: "+fechaActual);
+//					    System.out.println("Y esta otra es la de la primera carta: "+fechaCartaNotarial);
+//					    System.out.println("Esta es la diferencia: "+(int)(fechaActual.getTime()-fechaCartaNotarial.getTime()));
+					} catch (Exception e) {
+						System.out.println("Error en preguntarPrimera: "+e);
+					}
+					return x;
+				}
 	
 	//SEGUNDA CARTA NOTARIAL
 	public List<Map<String, Object>> Buscar_Detalle(String ids) {

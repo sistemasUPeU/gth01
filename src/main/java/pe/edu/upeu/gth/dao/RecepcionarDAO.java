@@ -12,7 +12,11 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
+import oracle.jdbc.internal.OracleTypes;
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dto.Justificacion;
 import pe.edu.upeu.gth.dto.Rechazo;
@@ -166,19 +170,20 @@ public class RecepcionarDAO implements CRUDOperations{
 		}
 		
 		//LISTAR RENABAN - CRUD
-		public List<Map<String, Object>> Renaban(String depa) {
-			sql = "select ra.ID_CONTRATO as ID_CONTRATO,ra.ID_RENABAN as ID_RENABAN,ra.ID_TRABAJADOR as ID_TRABAJADOR, ra.MES as MES,";
-		    sql +="ra.NOMBRES as NOMBRES,ra.PATERNO as PATERNO, ra.MATERNO as MATERNO, ra.FECHA_NAC as FECHA_NAC, ra.DOMICILIO as DOMICILIO,";
-		    sql += "ra.DNI as DNI, ra.FECHA_CONTRATO as FECHA_CONTRATO, ra.NOM_DEPA as NOM_DEPA, ra.NOM_AREA as NOM_AREA,ra.NOM_SECCION as NOM_SECCION,";
-		    sql += "ra.NOM_PUESTO as NOM_PUESTO, ra.CENTRO_COSTO as CENTRO_COSTO,ra.TIPO_CONTRATO as TIPO_CONTRATO,ra.DESCRIPCION as DESCRIPCION,";
-		    sql += "ra.ANTECEDENTES as ANTECEDENTES,ra.CERTI_SALUD as CERTI_SALUD,ra.MFL as MFL, ra.ARCHIVO as ARCHIVO,ra.FECHA_RENABAN as FECHA_RENABAN,";
-		    sql += "ra.CORREO as CORREO, ra.TIPO as TIPO,jus.OBSERVACION as JUSTIFICACION, re.OBSERVACIONES as RECHAZO";
-			sql += " from RA_VIEW_RENABAN ra LEFT JOIN RA_RENABAN_PASOS rap ON ra.ID_RENABAN=rap.ID_RENABAN  ";
-			sql += " LEFT JOIN RA_JUSTIFICACION jus ON ra.ID_RENABAN=jus.ID_RENABAN ";
-			sql += " LEFT JOIN RA_RECHAZO re ON ra.ID_RENABAN=re.ID_RENABAN ";
-			sql += " WHERE rap.ESTADO=0 and ra.NOM_DEPA='"+depa+"'";
-			sql +=" AND rap.ID_PASOS IN ('PAS-000428','PAS-000429') ORDER BY ra.FECHA_RENABAN DESC";
+		@SuppressWarnings("unchecked")
+		public List<Map<String, Object>> listarRenaban(String depa) {
+			 List<Map<String, Object>> liston;
+			sql = "REN_SP_LISTA_RENABAN";
+			
 			System.out.println("esto es depa" + depa);
-			return jt.queryForList(sql);
+			SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jt)
+				    .withProcedureName(sql);
+
+				jdbcCall.addDeclaredParameter(new SqlParameter("depa", OracleTypes.VARCHAR));
+				jdbcCall.addDeclaredParameter(new SqlOutParameter("c_listaRenaban", OracleTypes.CURSOR));
+				Map<String, Object> resultado = jdbcCall.execute(depa);
+				liston = (List<Map<String, Object>>) resultado.get("c_listaRenaban");	
+			
+			return liston;
 		}
 }

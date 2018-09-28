@@ -323,39 +323,40 @@ var u = "";
 
 // DETALLE PARA AUTORIZAR RENUNCIA O ABANDONO
 function DetalleRenuncia(idc,tipo) {
-	$.get("details", {                          
+	$.get(gth_context_path +"/renaban/details", {                          
 	}, function(data, status) {
 		 $("#contenido").html(data);
-		 $.get("AutorizarR",{opc:2,idc:idc},function(data,status){	
+		 $.get(gth_context_path +"/renaban/AutorizarR",{opc:2,idc:idc},function(data,status){
+			 
 			 var detalle = JSON.parse(data);
-			 $("#idr").val(detalle[0].ID_RENABAN);	
-			 $("#nombres").text(detalle[0].NOMBRES);	
-			 $("#paterno").text(detalle[0].PATERNO);
-				$("#materno").text(detalle[0].MATERNO);
-				$("#fecha_nac").text(detalle[0].FECHA_NAC);
-				$("#fecha_inicio").text(detalle[0].FECHA_CONTRATO);
-				$("#direccion").text(detalle[0].DOMICILIO);
-				$("#departamento").text(detalle[0].NOM_DEPA);
-				$("#area").text(detalle[0].NOM_AREA);
-				$("#seccion").text(detalle[0].NOM_SECCION);
-				$("#puesto").text(detalle[0].NOM_PUESTO);
-				$("#tipo_contrato").text(detalle[0].TIPO_CONTRATO);
+			 $("#idr").val(detalle.ID_RENABAN);	
+			 $("#nombres").text(detalle.NOMBRES);	
+			 $("#paterno").text(detalle.PATERNO);
+				$("#materno").text(detalle.MATERNO);
+				$("#fecha_nac").text(detalle.FECHA_NAC);
+				$("#fecha_inicio").text(detalle.FECHA_CONTRATO);
+				$("#direccion").text(detalle.DOMICILIO);
+				$("#departamento").text(detalle.NOM_DEPA);
+				$("#area").text(detalle.NOM_AREA);
+				$("#seccion").text(detalle.NOM_SECCION);
+				$("#puesto").text(detalle.NOM_PUESTO);
+				$("#tipo_contrato").text(detalle.TIPO_CONTRATO);
 				if(tipon=="RENUNCIA"){
 					$("#tipo_doc").text("Carta de Renuncia");
 				}else{
 					$("#tipo_doc").text("Evidencia de Abandono");
 				}				
-				if(detalle[0].ANTECEDENTES!=1){
+				if(detalle.ANTECEDENTES!=1){
 					$("#ante_poli").text("Si");
 				}else{	
 					$("#ante_poli").text("No");
 				}
-				if(detalle[0].CERTI_SALUD!=0){
+				if(detalle.CERTI_SALUD!=0){
 					$("#certi_salud").text("Si");
 				}else{
 					$("#certi_salud").text("No");
 				}
-				$("#carta").text(detalle[0].ARCHIVO);
+				$("#carta").text(detalle.ARCHIVO);
 				//AUTORIZAR RENUNCIA O ABANDONO
 				$("#autorizarRen").click(function(){
 					var idr= $("#idr").val();
@@ -489,12 +490,12 @@ function DetalleRenuncia(idc,tipo) {
 				u += '<div class="container" style="width:80%"><img class="materialboxed responsive-img" '
 				u += ''
 				u += 'src="' + gth_context_path + '/resources/files/'
-						+ detalle[0].ARCHIVO + '" '
+						+ detalle.ARCHIVO + '" '
 				u += 'alt="sample"'
 				u += 'data-caption="Esc para volver" ></div>'					
 					var c = "";
-				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle[0].ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"				
-				var tipod = detalle[0].ARCHIVO.split(".")[1];
+				c="<embed src='" + gth_context_path + '/renaban/viewdoc?nombre=' + detalle.ARCHIVO+ "' style='width: 90%; height: 540px; ' type='application/pdf'>"				
+				var tipod = detalle.ARCHIVO.split(".")[1];
 				if (tipod=="pdf"){
 					$("#picture_del").html(c);
 				}else{
