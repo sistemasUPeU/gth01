@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	listarAnterior();
+	listarAnteriorCollapsible();
 	listarAprobados();
 	listarRechazados();
 	$("#cargando").hide();
@@ -106,13 +106,11 @@ function listarAnterior() {
 							s += "<button id='"
 									+ obj[i].ID_DET_VACACIONES
 									+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' "
-									+ "value='"
-									+ obj[i].AP_PATERNO
-									+ " "
-									+ obj[i].AP_MATERNO
-									+ ", "
+									+ "value='" + obj[i].AP_PATERNO + " "
+									+ obj[i].AP_MATERNO + ", "
 									+ obj[i].NO_TRABAJADOR
-									+ "'  onclick='preba(this.value, this.id);'></button>";
+									+ "'  onclick='preba(this.value, this.id,'"
+									+ obj[i].ID_VACACIONES + "');'></button>";
 							s += "</td>";
 							s += "</tr>";
 						}
@@ -312,14 +310,21 @@ function createTable3() {
 };
 
 var nom_tra = "";
-function preba(nombre, idde) {
+var check;
+function preba(nombre, idde, idvac) {
+	check = document.getElementById("calendar_frame").contentWindow.obj_observados;
+	var texto;
+	for (var i = 0; i < check.length; i++) {
+		if (check[i].id_det_vac == idde) {
+			texto = check[i].mensaje;
+		}
+	}
 	var idtr = $('#' + idde).parents("tr").find("td").eq(1).text();
 	nom_tra = nombre;
 	$("#modal" + idde).remove();
-	$("#cuerpo").append(createModal(idde, idtr));
+	$("#cuerpo").append(createModal(idde, idtr, idvac, texto));
 	$("#modal" + idde).openModal();
 	$('#textarea' + idde).characterCounter();
-
 };
 
 function openVerObsModal(texto, idde) {
@@ -328,7 +333,7 @@ function openVerObsModal(texto, idde) {
 	$("#modal" + idde).openModal();
 };
 
-function createModal(idde, idtr) {
+function createModal(idde, idtr, idvac, texto) {
 	var s = "<td><div id='modal" + idde + "' class='modal'>\r\n";
 
 	s += "<div class='modal-content'>\r\n";
@@ -340,19 +345,24 @@ function createModal(idde, idtr) {
 	s += "<div class='row'>\r\n";
 	s += "<div class='input-field col s12'>\r\n";
 	s += "<textarea id='textarea" + idde
-			+ "' class='materialize-textarea' length='150'></textarea>\r\n";
+			+ "' class='materialize-textarea' length='150'>" + texto
+			+ "</textarea>\r\n";
 	s += "<label for='textarea" + idde + "'>Escriba Observación para: ";
 	s += nom_tra;
 	s += "</label></div></div></form></div></div>\r\n";
 	s += "<div class='modal-footer'>\r\n";
-	s += "<button href='#!'";
-	s += " class='modal-action modal-close btn waves-effect waves-light' value='"
+	s += '<button class="modal-action modal-close waves-effect waves-green btn-flat" value="'
 			+ idde
-			+ "' id='"
-			+ idtr
-			+ "' onclick='observar(this.id, this.value);' >ENVIAR!</button>\r\n";
-	s += '<button class="modal-action modal-close waves-effect waves-green btn-flat" data-dismiss="alert" aria-label="Close">'
-			+ '<span aria-hidden="true">CANCELAR</span></button>'
+			+ '" id="'
+			+ idvac
+			+ '" onclick="eliminarTexto(this.value, this.id);">'
+			+ 'Eliminar</button>';
+	s += '<button class="modal-action modal-close btn waves-effect waves-light" value="'
+			+ idde
+			+ '" id="'
+			+ idvac
+			+ '" onclick="guardarTexto(this.value, this.id);">'
+			+ 'Guardar</button>';
 	s += "</div>\r\n" + "</div></td>";
 	return s;
 };
@@ -376,40 +386,35 @@ function createModalObs(idde, texto) {
 	return s;
 };
 
-$("#confirmar")
-		.click(
-				function() {
-					$("#nocargando").hide();
-					$("#cargando").show();
-					arrid = getSelected();
-					var id_arr = arrid;
-					var id_det = id_arr.join(",");
-					var datos = "id_det=" + id_det;
-					var con = new jsConnector();
-					con
-							.post(
-									"vacaciones/programa_vacaciones/guardarAprobar?"
-											+ datos,
-									null,
-									function(data) {
-										if (data == 1) {
-											Materialize
-													.toast(
-															'Felicidades!!, ha aprobado a sus trabajadores',
-															3000, 'rounded');
-											listarAnterior();
-											listarAprobados();
-											listarRechazados();
-										} else {
-											Materialize
-													.toast(
-															'UPS!!, No se ha registrado su aprobación, verifique si chequeó los datos!',
-															3000, 'rounded');
-										}
-										$("#nocargando").show();
-										$("#cargando").hide();
-									});
-				});
+function aprobar(id_det) {
+	$("#nocargando").hide();
+	$("#cargando").show();
+	var datos = "id_det=" + id_det;
+	var con = new jsConnector();
+	con
+			.post(
+					"vacaciones/programa_vacaciones/guardarAprobar?" + datos,
+					null,
+					function(data) {
+						if (data == 1) {
+							Materialize
+									.toast(
+											'Felicidades!!, ha aprobado la programación de vacaciones',
+											3000, 'rounded');
+							listarAnteriorCollapsible();
+							listarAprobados();
+							listarRechazados();
+						} else {
+							Materialize
+									.toast(
+											'NO se ha aprobado nigún programa de vacaciones',
+											3000, 'rounded');
+						}
+						$("#nocargando").show();
+						$("#cargando").hide();
+					});
+}
+
 function observar(idtr, id_det) {
 	var obs = $(".hiddendiv").text();
 	var extra = obs.length - 150;
@@ -436,7 +441,7 @@ function observar(idtr, id_det) {
 								});
 						Materialize.toast('El trabajador ' + nom_tra
 								+ ' ha sido observado(a)', 3000, 'rounded');
-						listarAnterior();
+						listarAnteriorCollapsible();
 						listarAprobados();
 						listarRechazados();
 					} else {
@@ -447,3 +452,185 @@ function observar(idtr, id_det) {
 				});
 	}
 }
+
+function guardarTexto(id_det, idvac) {
+	check = document.getElementById("calendar_frame").contentWindow.obj_observados;
+	var obs = $(".hiddendiv").text();
+	var extra = obs.length - 150;
+	if (obs.length > 150) {
+		obs = "";
+		Materialize.toast('Observación no Guardada, ha escrito ' + extra
+				+ ' carácter(es) extra', 3000, 'rounded');
+	} else {
+		for (var i = 0; i < check.length; i++) {
+			if (check[i].id_det_vac == id_det) {
+				check[i].estado = "1";
+				check[i].mensaje = obs;
+			}
+		}
+		Materialize.toast('Observación escrita está guardada', 3000, 'rounded');
+	}
+	document.getElementById("calendar_frame").contentWindow
+			.calendarProperties(idvac);
+}
+
+function eliminarTexto(id_det, idvac) {
+	check = document.getElementById("calendar_frame").contentWindow.obj_observados;
+	for (var i = 0; i < check.length; i++) {
+		if (check[i].id_det_vac == id_det) {
+			check[i].estado = "0";
+			check[i].mensaje = "";
+			Materialize.toast('Observación escrita está eliminada', 3000,
+					'rounded');
+		}
+	}
+
+	document.getElementById("calendar_frame").contentWindow
+			.calendarProperties(idvac);
+}
+
+var arr_apr = new Array();
+var arr_obs = new Array();
+var arr_idtr = new Array();
+var count_apr = 0;
+var count_idtr = 0;
+var count_obs = 0;
+function recorrerDatos() {
+	check = document.getElementById("calendar_frame").contentWindow.obj_observados;
+
+	for (var i = 0; i < check.length; i++) {
+		if (check[i].estado == 1) {
+			arr_obs[count_obs] = check[i].id_det_vac;
+			arr_idtr[count_idtr] = check[i].idtr;
+			count_obs++;
+			count_idtr++;
+		} else if (check[i].estado == 0 && check[i].fecha_fin != "") {
+			arr_apr[count_apr] = check[i].id_det_vac;
+			count_apr++;
+		}
+	}
+
+	for (var i = 0; i < arr_obs.length; i++) {
+		observar(arr_idtr[i], arr_obs[i]);
+	}
+
+	aprobar(arr_apr);
+}
+
+function listarAnteriorCollapsible() {
+	$
+			.get(
+					"programa_vacaciones/getNombres",
+					function(obj) {
+						var s = "";
+
+						for (var i = 0; i < obj.length; i++) {
+							var con = "";
+							if (obj[i].LI_CONDICION == 1) {
+								con = "CONTRATADO";
+							}
+							if (obj[i].LI_CONDICION == 2) {
+								con = "EMPLEADO";
+							}
+							if (obj[i].LI_CONDICION == 3) {
+								con = "MISIONERO";
+							}
+							if (obj[i].LI_CONDICION == 4) {
+								con = "MFL, Practicas Pre -- Profesionales";
+							}
+							if (obj[i].LI_CONDICION == 5) {
+								con = "MFL, Practicas Profesionales";
+							}
+							if (obj[i].LI_CONDICION == 6) {
+								con = "MFL, CLJ, Convenio laboral Juvenil";
+							}
+							if (obj[i].LI_CONDICION == 7) {
+								con = "MFL -- Contrato";
+							}
+							s += '<li><div class="collapsible-header" id="'
+									+ obj[i].ID_VACACIONES
+									+ '" onclick="showCalendar(this.id)">';
+							s += obj[i].AP_PATERNO + " " + obj[i].AP_MATERNO;
+							s += ", ";
+							s += obj[i].NO_TRABAJADOR;
+							s += '</div>';
+							s += '<div class="collapsible-body">';
+							s += '<p>Sección: ';
+							s += obj[i].NO_SECCION;
+							s += '</p>';
+							s += '<p>Dias totales: ';
+							s += '30'
+							s += '</p>';
+							s += '<p>DNI: ';
+							s += obj[i].NU_DOC;
+							s += '</p>';
+							s += '<p>Condición: ';
+							s += con;
+							s += '</p>';
+							s += '<p>Tipo de solicitud: ';
+							s += obj[i].TIPO;
+							s += '</p>';
+							s += '<center>';
+							s += '<p>';
+							s += '<button class="btn waves-effect waves-light" onclick="recorrerDatos()">Confirmar';
+							s += '</button>';
+							s += '</p>';
+							s += '</center>';
+							s += '</div></li>';
+						}
+						$("#listarAnteriorCollapsible").empty();
+						$("#listarAnteriorCollapsible").append(s);
+						$('.collapsible').collapsible();
+					});
+
+};
+
+jQuery.ajax({
+	type : 'GET',
+	data : jQuery(this).serialize(),
+	url : 'programa_vacaciones/getCalendar',
+	success : function(data, textStatus) {
+		jQuery('#calendar_frame').contents().find('body').html(data);
+	},
+	error : function(XMLHttpRequest, textStatus, errorThrown) {
+	}
+});
+
+var frame = document.getElementById('calendar_frame');
+var script = frame.contentWindow.document.createElement('script');
+script.type = 'text/javascript';
+script.src = "/gth/resources/js/jquery-1.11.2.min.js";
+frame.contentWindow.document.body.appendChild(script);
+
+var frame = document.getElementById('calendar_frame');
+var script = frame.contentWindow.document.createElement('script');
+script.type = 'text/javascript';
+script.src = "/gth/resources/js/businessCore/holidays/aprobar_pv/calendar.js";
+frame.contentWindow.document.body.appendChild(script);
+
+var frame = document.getElementById('calendar_frame');
+var script = frame.contentWindow.document.createElement('script');
+script.type = 'text/javascript';
+script.src = "/gth/resources/js/plugins/datepickk-master/dist/datepickk.js";
+frame.contentWindow.document.body.appendChild(script);
+
+var btncargarcalendar;
+function showCalendar(id_vac) {
+	document.getElementById("divcollapsible").setAttribute("class",
+			"col s12 m5 l5");
+	$("#containerframe").attr("class", "col s12 m7 l7");
+	btncargarcalendar = window.frames["calendar_frame"].document
+			.getElementById("btncargarcalendar");
+
+	btncargarcalendar
+			.setAttribute("onclick", "multiFunction('" + id_vac + "')");
+	btncargarcalendar.click();
+	var lastHeight = parseFloat($("#listarAnteriorCollapsible").css('height'));
+	if (lastHeight != collapsibleHeight) {
+		collapsibleHeight = lastHeight + 507;
+		$("#containerframe").css('height', collapsibleHeight + 'px');
+	} else if (lastHeight == collapsibleHeight) {
+		$("#containerframe").css('height', lastHeight + 'px');
+	}
+}
+var collapsibleHeight;

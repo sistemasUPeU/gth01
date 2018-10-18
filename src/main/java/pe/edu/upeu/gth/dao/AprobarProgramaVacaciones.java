@@ -25,21 +25,44 @@ public class AprobarProgramaVacaciones {
 		jt = new JdbcTemplate(datasource);
 	}
 
-	public List<Map<String, Object>> listarSinAprobar(String depa) {
+	public List<Map<String, Object>> listarSinAprobar(String depa, String id_vac) {
 		try {
-			sql = "SELECT DISTINCT TRIM(dsv.id_vacaciones) AS id_vacaciones, TRIM(hd.evaluacion) AS evaluacion,\r\n"
+			sql = "SELECT TRIM(dsv.id_vacaciones) AS id_vacaciones, TRIM(hd.evaluacion) AS evaluacion,\r\n"
 					+ "tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,tf.no_seccion,\r\n"
 					+ "trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) - \r\n"
 					+ "trunc(TO_DATE(dsv.fecha_inicio,'DD/MM/YYYY hh24:mi:ss') ) + 1 AS nu_vac,\r\n"
-					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,\r\n"
-					+ "tf.li_condicion,usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones, sv.tipo\r\n"
+					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'YYYY/MM/DD') AS fecha_inicio,TO_CHAR(dsv.fecha_fin,'YYYY/MM/DD') AS fecha_fin,\r\n"
+					+ "tf.li_condicion,usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones,sv.tipo\r\n"
 					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,rhmv_det_vacaciones dsv,rhtm_contrato co,\r\n"
 					+ "rhmv_hist_detalle hd,rhtc_usuario usr,rhtd_empleado emp\r\n"
 					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND emp.id_trabajador = t.id_trabajador\r\n"
 					+ "AND emp.id_empleado = usr.id_empleado\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
 					+ "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n"
 					+ "AND (hd.evaluacion = 1 OR hd.evaluacion = 2)\r\n" + "AND hd.id_pasos = 'PAS-000055'\r\n"
+					+ "AND sv.id_vacaciones = '" + id_vac + "'\r\n"
 					+ "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
+					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
+					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
+					+ "AND co.es_contrato = 1" + " AND tf.no_dep = '" + depa + "'\r\n" + "order by dsv.fecha_inicio";
+			return jt.queryForList(sql);
+		} catch (Exception e) {
+			System.out.println("ERROR:" + e);
+			return null;
+		}
+	}
+
+	public List<Map<String, Object>> listarSinAprobarNombres(String depa) {
+		try {
+			sql = "SELECT distinct TRIM(sv.id_vacaciones) AS id_vacaciones,\r\n"
+					+ "tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,\r\n"
+					+ "tf.no_seccion,t.nu_doc,tf.li_condicion,sv.tipo\r\n"
+					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,\r\n"
+					+ "rhmv_det_vacaciones dsv,rhtm_contrato co,\r\n"
+					+ "rhmv_hist_detalle hd,rhtc_usuario usr,rhtd_empleado emp\r\n"
+					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND emp.id_trabajador = t.id_trabajador\r\n"
+					+ "AND emp.id_empleado = usr.id_empleado\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
+					+ "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n" + "AND hd.evaluacion = 2\r\n"
+					+ "AND hd.id_pasos = 'PAS-000055'\r\n" + "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
 					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
 					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
 					+ "AND co.es_contrato = 1" + " AND tf.no_dep = '" + depa + "'";
@@ -90,9 +113,9 @@ public class AprobarProgramaVacaciones {
 					+ "AND emp.id_empleado = usr.id_empleado\r\n"
 					+ "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
 					+ "AND dsv.id_det_vacaciones = noti.id_det_vacaciones\r\n"
-					+ "AND men.id_mensaje = noti.id_mensaje\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
-					+ "AND dsv.estado <> 0\r\n" + "AND hd.evaluacion = 4\r\n" + "AND hd.id_pasos = 'PAS-000054'\r\n"
-					+ "AND hd.estado = 1\r\n" + "AND tf.no_dep = '" + depa + "'";
+					+ "AND men.id_mensaje = noti.id_mensaje\r\n" + "AND (sv.estado = 1 or sv.estado = 2)\r\n"
+					+ "AND tf.estado = 1\r\n" + "AND dsv.estado <> 0\r\n" + "AND hd.evaluacion = 4\r\n"
+					+ "AND hd.id_pasos = 'PAS-000054'\r\n" + "AND hd.estado = 1\r\n" + "AND tf.no_dep = '" + depa + "'";
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);
@@ -146,7 +169,7 @@ public class AprobarProgramaVacaciones {
 					+ "TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin\r\n"
 					+ "FROM rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,rhmv_det_vacaciones dsv,rhtm_contrato co,\r\n"
 					+ "rhtm_trabajador t,rhmv_hist_detalle hd,rhmv_mensaje men,rhmv_notificaciones noti\r\n"
-					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND sv.estado = 1\r\n"
+					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND (sv.estado = 1 or sv.estado = 2)\r\n"
 					+ "AND tf.estado = 1\r\n" + "AND dsv.estado <> 0\r\n" + "AND hd.evaluacion = 4\r\n"
 					+ "AND hd.id_pasos = 'PAS-000054'\r\n" + "AND sv.id_vacaciones = dsv.id_vacaciones\r\n"
 					+ "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n" + "AND dsv.id_det_vacaciones = '" + id_det

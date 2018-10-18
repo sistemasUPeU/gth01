@@ -23,7 +23,7 @@ public class AprobarProgramaTest {
 	@Test
 	public void getSinAprobar() {
 		String depa = "Gerencia Financiera";
-		String res = g.toJson(t.listarSinAprobar(depa));
+		String res = g.toJson(t.listarSinAprobarNombres(depa));
 		String[] esperado = new String[0];
 		assertEquals(g.toJson(esperado), res);
 	}
