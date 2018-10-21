@@ -220,24 +220,32 @@ $("#contTable")
 																		"#file-input-s")
 																		.change(
 																				function() {
-																					console
-																							.log("está vacío");
-																					$(
-																							"#file-input-field")
-																							.show(
-																									0)
-																							.delay(
-																									500)
-																							.hide(
-																									0);
-																					$(
-																							"#btnsubirsolicitud")
-																							.hide(
-																									0)
-																							.delay(
-																									500)
-																							.show(
-																									0);
+																					var file_solicitud = document
+																							.getElementById("file-input-s").files[0].size;
+																					if (file_solicitud < 10485760) {
+																						$(
+																								"#file-input-field")
+																								.show(
+																										0)
+																								.delay(
+																										500)
+																								.hide(
+																										0);
+																						$(
+																								"#btnsubirsolicitud")
+																								.hide(
+																										0)
+																								.delay(
+																										500)
+																								.show(
+																										0);
+																					} else {
+																						Materialize
+																								.toast(
+																										'UPS!!, El archivo es muy pesado!',
+																										3000,
+																										'rounded');
+																					}
 																				});
 															}
 														});
@@ -433,24 +441,32 @@ $("#contTableAprobado")
 																		"#file-input-p")
 																		.change(
 																				function() {
-																					console
-																							.log("está vacío");
-																					$(
-																							"#file-input-field-p")
-																							.show(
-																									0)
-																							.delay(
-																									500)
-																							.hide(
-																									0);
-																					$(
-																							"#btnsubirpapeleta")
-																							.hide(
-																									0)
-																							.delay(
-																									500)
-																							.show(
-																									0);
+																					var file_papeleta = document
+																							.getElementById("file-input-p").files[0].size;
+																					if (file_papeleta < 10485760) {
+																						$(
+																								"#file-input-field-p")
+																								.show(
+																										0)
+																								.delay(
+																										500)
+																								.hide(
+																										0);
+																						$(
+																								"#btnsubirpapeleta")
+																								.hide(
+																										0)
+																								.delay(
+																										500)
+																								.show(
+																										0);
+																					} else {
+																						Materialize
+																								.toast(
+																										'UPS!!, El archivo es muy pesado!',
+																										3000,
+																										'rounded');
+																					}
 																				});
 															}
 														});
@@ -739,9 +755,19 @@ $("#confirmar")
 
 				});
 
-$("#print").click(
-		function() {
-			$('#modal1').openModal();
-			$("#request").attr("data",
-					gth_context_path + "/vacaciones/consolidado/reporte?");
-		});
+$("#print")
+		.click(
+				function() {
+					if ($("#data2").html() != '<tr class="odd"><td valign="top" colspan="10" class="dataTables_empty">No data available in table</td></tr>') {
+						$('#modal1').openModal();
+						$("#request").attr(
+								"data",
+								gth_context_path
+										+ "/vacaciones/consolidado/reporte?");
+					} else {
+						Materialize
+								.toast(
+										'PRIMERO, tienes que aprobar del anterior listado',
+										3000, 'rounded');
+					}
+				});
