@@ -204,6 +204,8 @@ var divisiones = 0;
 var privilegios_vacaciones;
 var nro_dias = 0;
 var arraydias = []
+var jsonObj = []
+
 $(document)
 		.ready(
 				function() {
@@ -434,38 +436,48 @@ $("#fe_inicio_1").change(
 
 // var fecha_fin = new Date();
 function parseDate(input) {
-	var map = {
-		enero : 01,
-		febrero : 02,
-		marzo : 03,
-		abril : 04,
-		mayo : 05,
-		junio : 06,
-		julio : 07,
-		agosto : 08,
-		septiembre : 09,
-		octubre : 10,
-		noviembre : 11,
-		diciembre : 12
-	};
-	input = input.split(" ");
-	var mes0 = input[1].split("");
-	console.log(mes0);
-	mes0.pop();
-	console.log(mes0);
-	var mes1 = mes0.join("");
-	console.log(mes1);
+	var inicio;
+	console.log(input);
+//	if(input === '' || typeof input === 'undefined'){
+//		alertify.alert('Mensaje de alerta', 'Existe una fecha sin completar', function(){});
+//		
+//	}else{
+		var map = {
+				enero : 01,
+				febrero : 02,
+				marzo : 03,
+				abril : 04,
+				mayo : 05,
+				junio : 06,
+				julio : 07,
+				agosto : 08,
+				septiembre : 09,
+				octubre : 10,
+				noviembre : 11,
+				diciembre : 12
+			};
+			input = input.split(" ");
+			var mes0 = input[1].split("");
+			console.log(mes0);
+			mes0.pop();
+			console.log(mes0);
+			var mes1 = mes0.join("");
+			console.log(mes1);
 
-	mes = map[mes1.toLowerCase()];
-	console.log("mes:" + mes);
+			mes = map[mes1.toLowerCase()];
+			console.log("mes:" + mes);
 
-	month = mes < 10 ? '0' + mes : mes;
-	day = input[0] < 10 ? '0' + input[0] : input[0];
-	newDate = input[2] + '/' + month + '/' + day;
+			month = mes < 10 ? '0' + mes : mes;
+			day = input[0] < 10 ? '0' + input[0] : input[0];
+			newDate = input[2] + '/' + month + '/' + day;
 
-	fecha_extra = day + '/' + month + '/' + input[2];
-	var inicio = new Date(newDate);
-	console.log("fecha_extra: " + fecha_extra);
+			fecha_extra = day + '/' + month + '/' + input[2];
+			inicio = new Date(newDate);
+			console.log("fecha_extra: " + fecha_extra);
+			return inicio;
+//	}
+	
+	
 	// console.log(inicio);
 
 	// inicio.getDate() + '/' +
@@ -473,7 +485,7 @@ function parseDate(input) {
 	// fecha_fin = calcular_final(inicio);
 	// console.log("fecha_fin_return: "+fecha_fin);
 
-	return inicio;
+	
 };
 
 function calcular_final(begin, sumadias) {
@@ -520,6 +532,18 @@ $("#agregar")
 				function() {
 					
 					
+					prev_cont = cont-2;
+					var json = getJsonFechas();
+					if(json[prev_cont].feinicio != "" && json[prev_cont].fefinal != ""){
+						console.log("esta lleno, procede");
+						var card = crearCard(cont,"","");
+						$("#space").append(card);
+						cont++;
+					}else{
+						
+						alertify.alert('Mensaje de alerta', 'Antes de crear una nueva partición, debe completar la anterior.', function(){});
+					}
+					
 					
 					
 //					console.log("yo soy divisiones" + divisiones +" , privilegios_vacaciones" + privilegios_vacaciones);
@@ -530,10 +554,10 @@ $("#agregar")
 //					console.log("nuevas divisiones" + divisiones);
 //					if (cont <= divisiones) {
 
-						var card = crearCard(cont,"","");
-						$("#space").append(card);
+						//var card = crearCard(cont,"","");
+						//$("#space").append(card);
 						//daysperdivision(2)
-						cont++;
+						//cont++;
 //					} else {
 //						Materialize.toast(
 //								'Ya no puede particionar más sus vacaciones!',
@@ -571,12 +595,12 @@ function crearCard(numero, fechainicio, fechafin){
 
 	s += '<div class="row" style="    margin-bottom: 0px;">';
 	s += '<div class="input-field col s6">';
-	s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" value="'+fechainicio+'" onchange="setti(this.id)" id="fe_inicio_'
+	s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" value="'+fechainicio+'" onchange="settinicio(this.id)" id="fe_inicio_'
 			+ numero
 			+ '"> <label for="dob">Fecha Inicio</label>';
 	s += '</div>'
 	s += '<div class="input-field col s6">';
-	s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text"  value="'+fechafin +'" class="datepicker" id="fe_final_'
+	s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text"  value="'+fechafin +'" onchange="settifinal(this.id)" class="datepicker" id="fe_final_'
 			+ numero
 			+ '" ><label for="dob">Fecha Fin</label>';
 	s += '</div>';
@@ -664,30 +688,137 @@ function cleandata(){
 	Materialize.updateTextFields();
 }
 
-function setti(id) {
+function settinicio(id) {
 	console.log(id);
-	console.log("hi everyone");
+
 	var fei = $("#" + id).val();
 	console.log(fei);
 	var array = id.split("_");
 	var num = array[2];
 	console.log(num);
-	var fecha_inicio3 = parseDate(fei);
-console.log("probando si array dias llega " + arraydias + arraydias[0] + num)
+	var fecha_ini_ma = parseDate(fei);
+	
+	var fechas = getJsonFechas();
 
-	if(validarCruceFechas(id) == true){
+	
+	console.log("validando cruce >>> fecha mayor> " + fecha_ini_ma + " fecha menor >> " + fechamenor);
+
+	if(validarjson_fechas()){
+		var pos = num-2;
 
 		
-		//estabecer la fecha final
-		//	$('#fe_final_' + num).pickadate('picker').set('select',
-		//			calcular_final(fecha_inicio3,arraydias[num-1]), {
-		//				format : 'dd/mm/yyyy'
-		//			}).trigger("change");
-		//	
-		//	Materialize.updateTextFields();
+		var fechamenor = parseDate(fechas[pos].fefinal);
+		if(fechamenor<fecha_ini_ma){
+			
+			console.log("correcto >> la fecha " +  fechamenor+  " es menor que  " + fecha_ini_ma )
+			
+		}else{
+			alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser mayor a la anterior, por favor, cámbiela', function(){});
+			$("#" + id).val("");
+			
+		}
+	}else{
+		alertify.alert('Mensaje de alerta', 'Una o más fechas anteriores están vacías.', function(){});
+		$("#" + id).val("");
 	}
+	
+	
+	
+
+
+//	if(validarCruceFechas(id) == true){
+//
+//		
+//		//estabecer la fecha final
+//		//	$('#fe_final_' + num).pickadate('picker').set('select',
+//		//			calcular_final(fecha_inicio3,arraydias[num-1]), {
+//		//				format : 'dd/mm/yyyy'
+//		//			}).trigger("change");
+//		//	
+//		//	Materialize.updateTextFields();
+//	}
 }
 
+function settifinal(id){
+	console.log("validar fecha final " + id);
+	var fefi = $("#" + id).val();
+	console.log(fefi);
+
+	var array = id.split("_");
+	var num = array[2];
+	console.log(num);
+	var fecha_fin_ma = parseDate(fefi);
+	
+	var fechas = getJsonFechas();
+	var pos = num-1;
+	
+	console.log("setti final " + fechas[pos].feinicio);
+	if(fechas[pos].feinicio ==""){
+		alertify.alert('Mensaje de alerta', 'Una o más fechas anteriores están vacías.', function(){});
+		$("#" + id).val("");
+	}else{
+		var fechamenor = parseDate(fechas[pos].feinicio);
+		console.log("validando cruce >>> fecha mayor> " + fecha_fin_ma + " fecha menor >> " + fechamenor);
+	
+		if(validarjson_fechas()){
+			if(fechamenor<=fecha_fin_ma){
+				
+				console.log("correcto >> la fecha " +  fechamenor+  " es menor que  " + fecha_fin_ma )
+				
+			}else{
+				alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser mayor a la anterior, por favor, cámbiela', function(){});
+				$("#" + id).val("");
+			}
+		}else{
+			alertify.alert('Mensaje de alerta', 'Una o más fechas anteriores están vacías.', function(){});
+			$("#" + id).val("");
+		}
+		
+	}
+
+
+	
+	
+}
+
+
+function validarjson_fechas(){
+	var response = true;
+	numiter = jsonObj.length - 1;
+	for(var i in jsonObj) {
+	    console.log(jsonObj[i].fefinal);  // (o el campo que necesites)
+	    if(i == numiter){
+	    	break;
+	    }else{
+		    if(jsonObj[i].fefinal == ""){
+		    	console.log(jsonObj[i].fefinal);
+		    	console.log("error en fefinal, pos > " + i )
+		    	if (jsonObj[i].feinicio == ""){
+		    		console.log(jsonObj[i].feinicio);
+		    		response = false;
+		    		console.log("error en feinicio, pos > " + i )
+		    		break;
+		    	}
+		    	response = false;
+		    	break;
+		    }else{
+		    	if (jsonObj[i].feinicio == ""){
+		    		console.log(jsonObj[i].feinicio);
+		    		response = false;
+		    		console.log("error en feinicio, pos > " + i )
+		    		break;
+		    	}else{
+		    		response = true;
+		    	}
+		    	
+		    }
+	    }
+
+	}
+	
+	
+	return response;
+}
 
 function validarCruceFechas(idbase){
 	var fechaprobar = $("#" + idbase).val();
@@ -831,7 +962,7 @@ function listarVacaciones(fechajson){
 
 function getJsonFechas(){
 	console.log("entra get json fechas " + cont);
-	jsonObj = []
+	jsonObj = [];
 	for(var i=1 ; i < cont; i++){
 		var feinicio = $("#fe_inicio_"+i).val();
 		var fefinal = $("#fe_final_"+i).val();
@@ -842,7 +973,8 @@ function getJsonFechas(){
 		jsonObj.push(item)
 
 	}
-	console.log(jsonObj + " , " + jsonObj.length)
-	return jsonObj;
+	var json = JSON.stringify(jsonObj);
+	console.log(json + " , " + jsonObj.length);
+	return jsonObj
 }
 

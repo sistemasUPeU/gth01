@@ -185,7 +185,7 @@
 								</div>
 								<div class="input-field col s6">
 									<i class="mdi-action-perm-contact-cal prefix"></i> <input
-										type="text" class="datepicker" id="fe_final_1">
+										type="text" class="datepicker" onchange="settifinal(this.id)" id="fe_final_1">
 									<label for="fe_final_1">Fecha Fin</label>
 								</div>
 
