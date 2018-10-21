@@ -127,8 +127,12 @@
 					<h5>Configurar Vacaciones</h5>
 				</div>
 			</center>
+
+			
+
+
 			<div id="basic-tabs" class="section">
-				
+
 				<div class="row">
 
 					<div class="col s12 m12 l12">
@@ -307,6 +311,14 @@
 									</div>
 
 								</div>
+
+
+								<div class="row">
+
+									<div id="data_change_end_date" class="col s12 m12 l12"></div>
+
+								</div>
+
 							</div>
 						</div>
 
@@ -411,6 +423,14 @@
 
 									</div>
 								</div>
+
+								<div class="row">
+
+									<div id="data_change" class="col s12 m12 l12"></div>
+
+								</div>
+
+
 							</div>
 						</div>
 
@@ -418,17 +438,13 @@
 
 				</div>
 			</div>
-			
-			
-			
-			<div class="row">
 
-				<div id="data_change" class="col s12 m12 l12"></div>
 
-			</div>
-		
-		
-		
+
+
+
+
+
 		</div>
 
 

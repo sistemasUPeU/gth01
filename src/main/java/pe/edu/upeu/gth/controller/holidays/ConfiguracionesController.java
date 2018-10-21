@@ -133,5 +133,14 @@ public class ConfiguracionesController {
 	}
 	
 	
+	@RequestMapping(path = "/listarPlazosModificados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String listarPlazosModificados(HttpServletRequest request) {
+
+	System.out.println("Gson RESPUESTA get trabajador plazos modificados "+gs.toJson(co.listarPlazosModificados()));
+		
+
+		return gs.toJson(co.listarPlazosModificados());
+	}
+	
 	
 }

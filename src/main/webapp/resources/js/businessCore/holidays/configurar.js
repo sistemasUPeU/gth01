@@ -1,6 +1,9 @@
 $(document).ready(
 		function() {
+			
 			listar_departamento();
+			listarPlazosModificados()
+			listarCambiosPrivilegios();
 			var url = "/gth/configuraciones/validar";
 			// var data ="&id=" + id ;
 
@@ -490,6 +493,7 @@ function guardarPlazo(){
 				$("#date_edit").attr("enabled", false);
 				Materialize.updateTextFields();
 				key_to_change=0;
+				listarPlazosModificados();
 			});
 		}else{
 			alertify.alert('Mensaje de alerta', 'Hubo un error al intentar guardar los cambios', function(){ 
@@ -640,7 +644,15 @@ function listarCambiosPrivilegios(){
 		$("#data_change").append(createTable());
 		$("#data").empty();
 		$("#data").append(d);
-		$("#data-table-row-grouping").dataTable();
+		$("#data-table-row-grouping").dataTable({
+			
+			"pageLength" : 10,
+			"bPaginate" : true,
+			"bLengthChange" : false,
+			"bFilter" : true,
+			"bInfo" : false,
+			"bAutoWidth" : true,
+		});
 		
 		
 	})
@@ -677,5 +689,59 @@ function cancelarPrivilegio(){
 }
 
 
+function listarPlazosModificados(){
+	$.get(gth_context_path + "/configuraciones/listarPlazosModificados", null, function(obj){
+		console.log("lista de cambios plazos solicitud y programa " + obj);
 
+		var d = "";
+		console.log(obj[0].NO_DEP + " - " + obj[0].FECHA_PLAZO);
+		var lista = obj[0];
+		
+		console.log("SOLICTIDU Y PROGRAMA "+ lista);
+		for (var i = 0; i < obj.length; i++) {
+
+			d += "<tr><td>";
+			d += obj[i].NO_DEP
+			d += "</td><td>";
+			d += obj[i].FECHA_PROGRAMA;
+			d += "</td><td>";
+			d += obj[i].FECHA_SOLICITUD;
+			d += "</td><td>";
+			d += obj[i].FECHA_MODIFICACION;
+			d += "</td>";
+			d += "</tr>";
+		}
+		$("#data_change_end_date").empty();
+		$("#data_change_end_date").append(createTable2());
+		$("#data2").empty();
+		$("#data2").append(d);
+		$("#data-table-row-grouping1").dataTable({
+			
+			"pageLength" : 10,
+			"bPaginate" : true,
+			"bLengthChange" : false,
+			"bFilter" : true,
+			"bInfo" : false,
+			"bAutoWidth" : true,
+		});
+		
+		
+	})
+	
+}
+function createTable2() {
+	var s = "<table id='data-table-row-grouping1' class='display bordered highlight centered' >";
+	s += "<thead>";
+	s += "<tr>";
+	s += "<th>Departamento</th>";
+	s += "<th>Nueva Fecha Programa</th>";
+	s += "<th>Nueva Fecha Solicitud</th>";
+	s += "<th>Fecha de Modificacion</th>";
+	s += "</tr>";
+	s += "</thead>";
+	s += "<tbody id='data2'></tbody>";
+	s += "</table>";
+	return s;
+
+};
 

@@ -23,6 +23,33 @@
 	href="<c:url value='/resources/css/alertify/themes/default.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
 
+<!-- <link -->
+<%-- 	href="<c:url value='/resources/js/plugins/datepick/datepickk.min.css'/>" --%>
+<!-- 	type="text/css" rel="stylesheet" media="screen,projection"> -->
+
+<!-- <script -->
+<%-- 	src="<c:url value='/resources/js/plugins/datepick/datepickk.min.js'></c:url>" --%>
+<!-- 	type="text/javascript"></script> -->
+<!-- <link -->
+<%-- 	href="<c:url value='/resources/js/plugins/datepick/doc.css'/>" --%>
+<!-- 	type="text/css" rel="stylesheet" media="screen,projection"> -->
+
+<!-- 	<link -->
+<%-- 	href="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/zenburn.min.css'/>" --%>
+<!-- 	type="text/css" rel="stylesheet" media="screen,projection"> -->
+<!-- 	<link -->
+<%-- 	href="<c:url value='https://fonts.googleapis.com/css?family=Raleway:400,600'/>" --%>
+<!-- 	type="text/css" rel="stylesheet" media="screen,projection"> -->
+<!-- 	<link -->
+<%-- 	href="<c:url value='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'/>" --%>
+<!-- 	type="text/css" rel="stylesheet" media="screen,projection"> -->
+
+
+<!-- 				<script -->
+<%-- 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js'></c:url>" --%>
+<!-- 		type="text/javascript"></script> -->
+
+
 </head>
 
 
@@ -56,7 +83,7 @@
 
 
 		<div class="container" style="width: 80%">
-		<center>
+			<center>
 				<div class="chip red lighten-2 black-text"
 					style="height: 50px; margin-bottom: 30px;">
 					<h5>Gestionar Solicitud</h5>
@@ -99,154 +126,177 @@
 
 					</div>
 				</div>
-				<div class="col s12 m3 l4" style="line-height: 215%;" >
+				<div class="col s12 m3 l4" style="line-height: 215%;">
 					<div id="card-alert" class="card cyan lighten-1">
-						<div class="card-content white-text" id="message_date" style="height: 115px;">
-							
-						</div>
-<!-- 						<button type="button" class="close white-text" -->
-<!-- 							data-dismiss="alert" aria-label="Close"> -->
-<!-- 							<span aria-hidden="true">×</span> -->
-<!-- 						</button> -->
+						<div class="card-content white-text" id="message_date"
+							style="height: 115px;"></div>
+					
 					</div>
 				</div>
 			</div>
-			<!-- 					</div> -->
+
 			<h4 class="header">Programa de Horarios</h4>
-			<div class="row">
 
-				<div class="col s12 m12 l12" id="btn-agregar">
+				<div class="row">
 
-					<p>
-						<a
-							class="btn-floating btn-large waves-effect waves-light green accent-3 left"
-							id="agregar"><i class="mdi-content-add left"></i></a>
-					</p>
+					<div class="col s12 m6 l6" id="btn-agregar">
+
+						<p>
+							<a
+								class="btn-floating btn-large waves-effect waves-light green accent-3 left"
+								id="agregar"><i class="mdi-content-add left"></i></a>
+						</p>
+
+					</div>
+										<div class="col s12 m3 l4 ">
+                                <div class="card" style="margin:0;">
+                                    <div class="card-content  green white-text" style="padding-top: 16px; padding-bottom: 3px;">
+                                        <p class="card-stats-title center"><i class="mdi-action-info-outline"></i> Información </p>
+                                        <h6 class="card-stats-number center" style="margin:18px">La primera partición deber ser de 7,8 o 15 días</h6>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+					<div class="col s12 m3 l2 right">
+                                <div class="card" style="margin:0;">
+                                    <div class="card-content  green white-text" style="padding-top: 16px; padding-bottom: 3px;">
+                                        <p class="card-stats-title center"><i class="mdi-action-event"></i> Total de días</p>
+                                        <h4 class="card-stats-number center">566</h4>
+                                    </div>
+                                   
+                                </div>
+                            </div>
 
 				</div>
 
-			</div>
-
-			<div class="row" id="space">
-				<div class="col s12 m12 l6">
-					<div class="card-panel">
+				<div class="row" id="space">
+					<div class="col s12 m12 l6">
+						<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;">
 
 
-						<div class="row" style="margin-bottom: 0px;">
-							<div class="col s3 m12">
-								<h4 class="header2">Vacaciones 1</h4>
+							<div class="row holiday" style="margin-bottom: 0px;">
+								<div class="col s3 m12">
+									<h4 class="header2"><b>Vacaciones N° 1</b></h4>
+								</div>
+								<div class="input-field col s6">
+									<i class="mdi-action-perm-contact-cal prefix"></i> <input
+										type="text" class="datepicker" id="fe_inicio_1"> <label
+										for="fe_inicio_1">Fecha Inicio</label>
+								</div>
+								<div class="input-field col s6">
+									<i class="mdi-action-perm-contact-cal prefix"></i> <input
+										type="text" class="datepicker" id="fe_final_1">
+									<label for="fe_final_1">Fecha Fin</label>
+								</div>
+
+
 							</div>
-							<div class="input-field col s6">
-								<i class="mdi-action-perm-contact-cal prefix"></i> <input
-									type="text" class="datepicker" id="fe_inicio_1"> <label
-									for="fe_inicio_1">Fecha Inicio</label>
-							</div>
-							<div class="input-field col s6">
-								<i class="mdi-action-perm-contact-cal prefix"></i> <input
-									type="text" class="datepicker" id="fe_final_1" disabled>
-								<label for="fe_final_1">Fecha Fin</label>
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+				<div class="row">
+
+					<div class="col s7 m8 l10">
+						<button class="waves-effect waves-light btn right" id="print">
+							<i class="mdi-action-print right"></i>Imprimir
+						</button>
+						<!-- 								<a -->
+						<!-- 								class="waves-effect waves-light btn modal-trigger" -->
+						<!-- 								href="#modal1">Modal</a> -->
+					</div>
+					<div class="col s5 m4 l2">
+						<button class="btn waves-effect waves-light  cyan darken-2 right"
+							onclick="validarCampos()" id="confirmar">
+							Confirmar<i class="mdi-navigation-check right"></i>
+						</button>
+
+					</div>
+
+
+				</div>
+
+				<form method="post"
+					action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}"
+					enctype="multipart/form-data" class="col s12 m8 l11"
+					id="documentoForm">
+
+					<div id="file-upload" class="section center">
+
+						<div class="row section"
+							style="margin-left: 20%; margin-right: 20%">
+
+							<div class="col s12 m12 l12 center">
+								<input type="file" name="file" id="file-input" class="dropify"
+									data-max-file-size="10M" data-errors-position="outside" /> <input
+									type="text" id="idvac" name="idvac" value="" class="hide" />
 							</div>
 
 
 						</div>
 					</div>
-				</div>
-
-			</div>
 
 
 
-
-			<div class="row">
-
-				<div class="col s7 m8 l10">
-					<button class="waves-effect waves-light btn right" id="print">
-						<i class="mdi-action-print right"></i>Imprimir
-					</button>
-					<!-- 								<a -->
-					<!-- 								class="waves-effect waves-light btn modal-trigger" -->
-					<!-- 								href="#modal1">Modal</a> -->
-				</div>
-				<div class="col s5 m4 l2">
-					<button class="btn waves-effect waves-light  cyan darken-2 right"
-						onclick="validarCampos()" id="confirmar">
-						Confirmar<i class="mdi-navigation-check right"></i>
-					</button>
-
-				</div>
-
-
-			</div>
-
-			<form method="post"
-				action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}"
-				enctype="multipart/form-data" class="col s12 m8 l11"
-				id="documentoForm">
-
-				<div id="file-upload" class="section center">
-
-					<div class="row section"
-						style="margin-left: 20%; margin-right: 20%">
-
-						<div class="col s12 m12 l12 center">
-							<input type="file" name="file" id="file-input" class="dropify"
-								data-max-file-size="10M" data-errors-position="outside" /> <input
-								type="text" id="idvac" name="idvac" value="" class="hide" />
-						</div>
-
+					<div class="col s6 center" style="margin-right: 2em;">
+						<button type="submit" class="btn waves-effect waves-light center"
+							id="subir">
+							Enviar <i class="mdi-content-send right"></i>
+						</button>
+						<%-- 							<input type="hidden" name="${_csrf.parameterName}" --%>
+						<%-- 							value="${_csrf.token}" /> --%>
 
 					</div>
+				</form>
+
+				<!-- 					<div class="row"> -->
+				<!-- 						<div class="col s7 m8 l12 center"> -->
+				<!-- 							<a class="waves-effect waves-light btn center" id="subir"><i -->
+				<!-- 								class="mdi-file-file-upload right"></i>Guardar documento</a> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+
+
+
+			</div>
+
+			<!-- 			</section> -->
+			<!-- 		</div> -->
+			<div id="modal1" class="modal" style="width: 850px; height: 2000px;">
+				<div class="modal-content" id="show_request">
+
+					<!-- 				D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jasper -->
+					<!-- 				<object id="request" data="" type="application/pdf" width="800" -->
+					<!-- 					height="600"> </object> -->
 				</div>
-
-
-
-				<div class="col s6 center" style="margin-right: 2em;">
-					<button type="submit" class="btn waves-effect waves-light center"
-						id="subir">
-						Enviar <i class="mdi-content-send right"></i>
-					</button>
-					<%-- 							<input type="hidden" name="${_csrf.parameterName}" --%>
-					<%-- 							value="${_csrf.token}" /> --%>
-
-				</div>
-			</form>
-
-			<!-- 					<div class="row"> -->
-			<!-- 						<div class="col s7 m8 l12 center"> -->
-			<!-- 							<a class="waves-effect waves-light btn center" id="subir"><i -->
-			<!-- 								class="mdi-file-file-upload right"></i>Guardar documento</a> -->
-			<!-- 						</div> -->
-			<!-- 					</div> -->
-
-
-
+			</div>
+			<br>
 		</div>
-
-		<!-- 			</section> -->
 		<!-- 		</div> -->
-		<div id="modal1" class="modal" style="width: 850px; height: 2000px;">
-			<div class="modal-content" id="show_request">
-
-				<!-- 				D:\\RRHH\\GTH\\gth01\\src\\main\\resources\\jasperreports\\request_report.jasper -->
-				<!-- 				<object id="request" data="" type="application/pdf" width="800" -->
-				<!-- 					height="600"> </object> -->
-			</div>
-		</div>
-		<br>
-	</div>
-	<!-- 		</div> -->
 
 
-	<script
-		src="<c:url value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/businessCore/holidays/solicitud.js'></c:url>"
-		type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/dropify/js/dropify.min.js'></c:url>"
+			type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/plugins/alertify/alertify.min.js'></c:url>"
+			type="text/javascript"></script>
+		<script
+			src="<c:url value='/resources/js/businessCore/holidays/solicitud.js'></c:url>"
+			type="text/javascript"></script>
 
-
+		<!-- 	<script -->
+		<%-- 		src="<c:url value='/resources/js/plugins/datepick/doc.js'></c:url>" --%>
+		<!-- 		type="text/javascript"></script> -->
+		<!-- 			<script -->
+		<%-- 		src="<c:url value='/resources/js/plugins/datepick/demo.js'></c:url>" --%>
+		<!-- 		type="text/javascript"></script> -->
+		<!-- 			<script -->
+		<%-- 		src="<c:url value='https://buttons.github.io/buttons.js'></c:url>" --%>
+		<!-- 		type="text/javascript"></script> -->
 </body>
 </html>

@@ -250,4 +250,28 @@ public class ConfiguracionDAO {
 	}
 	
 
+	
+	public List<Map<String, Object>> listarPlazosModificados() {
+		
+		List<Map<String, Object>> lista = new ArrayList<>();
+		try {
+			sql = "SELECT D.NO_DEP, TO_CHAR(B.FECHA_PLAZO, 'DD/MM/YY') AS FECHA_PROGRAMA, TO_CHAR(C.FECHA_PLAZO , 'DD/MM/YY') AS FECHA_SOLICITUD, TO_CHAR(A.FECHA_MODIFICACION, 'DD/MM/YY') AS FECHA_MODIFICACION FROM RHMV_DETALLE_CONFIG A,\r\n" + 
+					"RHMV_CONF_PROGRAMA B, RHTX_DEPARTAMENTO D , RHMV_CONF_SOLICITUD C \r\n" + 
+					"WHERE A.ID_CONF_PROGRAMA = B.ID_CONF_PROGRAMA\r\n" + 
+					"AND A.ID_CONF_SOLICITUD = C.ID_CONF_SOLICITUD\r\n" + 
+					"AND A.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO\r\n" + 
+					"AND TO_CHAR(A.FECHA_MODIFICACION, 'DD/MM/YY') <> TO_CHAR((SELECT M.FECHA_CREACION FROM RHMV_CONSOLIDADO M WHERE M.ESTADO = 1), 'DD/MM/YY')";
+			lista = jt.queryForList(sql);
+			
+		} catch (Exception e) {
+			// // TODO: handle exception
+			System.out.println("dao conf listar plazos modificados> " + e);
+
+		}
+		System.out.println("dao respuesta listar plazos modificados > " +lista);
+		return lista;
+	}
+	
+
+	
 }

@@ -307,43 +307,38 @@ $(document)
 											var rol = $("#idrol").val();
 											console.log(rol);
 											var privilegios;
-											$
-													.get(
-															gth_context_path
-																	+ "/solicitud/mostrarpriv",
-															function(response) {
-																console
-																		.log("privilegios de vacaciones "
-																				+ response);
-																privilegios_vacaciones = response;
-																console.log(privilegios_vacaciones);
-																if (rol == "ROL-0003") {
-
-																	divisiones = 2;
-
-																} else {
-																	if (rol == "ROL-0008") {
-																		divisiones = 3;
-																	} else {
-																		console.log("sin nada");
-																		divisiones = 1;
-																		console.log(privilegios_vacaciones);
-																		if(privilegios_vacaciones == 0){
-																			console.log("privilegios sonnnnnnnnnnnnnn 0"  );
-																			$("#btn-agregar")
-																			.hide();
-																		}
-																		
-																	}
-
-																}
-															});
-//											if (privilegios == 0) {
-												
-//											} else {
-//												divisiones = privilegios;
-//											}
-
+//											$
+//													.get(
+//															gth_context_path
+//																	+ "/solicitud/mostrarpriv",
+//															function(response) {
+//																console
+//																		.log("privilegios de vacaciones "
+//																				+ response);
+//																privilegios_vacaciones = response;
+//																console.log(privilegios_vacaciones);
+//																if (rol == "ROL-0003") {
+//
+//																	divisiones = 2;
+//
+//																} else {
+//																	if (rol == "ROL-0008") {
+//																		divisiones = 3;
+//																	} else {
+//																		console.log("sin nada");
+//																		divisiones = 1;
+//																		console.log(privilegios_vacaciones);
+//																		if(privilegios_vacaciones == 0){
+//																			console.log("privilegios sonnnnnnnnnnnnnn 0"  );
+//																			$("#btn-agregar")
+//																			.hide();
+//																		}
+//																		
+//																	}
+//
+//																}
+//															});
+//											
 										});
 					} catch (e) {
 						console.error("error al listar info : " + e);
@@ -428,12 +423,12 @@ $("#fe_inicio_1").change(
 			console.log(fei);
 			var fecha_inicio = parseDate(fei);
 			console.log("fecha_inicio_return: " + fecha_inicio);
-
-			$('#fe_final_1').pickadate('picker').set('select',
-					calcular_final(fecha_inicio,arraydias[0]), {
-						format : 'dd/mm/yyyy'
-					}).trigger("change");
-			Materialize.updateTextFields();
+//establecer la fecha final
+//			$('#fe_final_1').pickadate('picker').set('select',
+//					calcular_final(fecha_inicio,arraydias[0]), {
+//						format : 'dd/mm/yyyy'
+//					}).trigger("change");
+//			Materialize.updateTextFields();
 
 		});
 
@@ -486,7 +481,7 @@ function calcular_final(begin, sumadias) {
 	console.log("fecha enviada " + begin);
 	console.log("fecha enviada " + begin.getFullYear() + " , "
 			+ begin.getDate() + " , " + begin.getMonth());
-if(begin.getDate()<3){
+//if(begin.getDate()<3){
 	if (begin >= fecha_minima) {
 		console.log("correcto"  + sumadias);
 		sumadias = sumadias-1
@@ -511,10 +506,10 @@ if(begin.getDate()<3){
 				+ fecha_minima_format, 3000, 'rounded');
 
 	}
-}else{
-	alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser a inicios de cada mes', function(){});
-	
-}
+//}else{
+//	alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser a inicios de cada mes', function(){});
+//	
+//}
 	
 
 }
@@ -524,50 +519,26 @@ $("#agregar")
 		.click(
 				function() {
 					
-					console.log("yo soy divisiones" + divisiones +" , privilegios_vacaciones" + privilegios_vacaciones);
-					if(privilegios_vacaciones != 0){
-						divisiones = privilegios_vacaciones;
-						
-					}
-					console.log("nuevas divisiones" + divisiones);
-					if (cont <= divisiones) {
-						var s = '';
-						s += '<div class="col s12 m12 l6" id="' + cont + '">';
-						s += '<div class="card-panel">';
+					
+					
+					
+//					console.log("yo soy divisiones" + divisiones +" , privilegios_vacaciones" + privilegios_vacaciones);
+//					if(privilegios_vacaciones != 0){
+//						divisiones = privilegios_vacaciones;
+//						
+//					}
+//					console.log("nuevas divisiones" + divisiones);
+//					if (cont <= divisiones) {
 
-						s += '<div class="row" style="    margin-bottom: 0px;">'
-						s += '<div class="col s3 m6">'
-						s += '<h4 class="header2">Vacaciones ' + cont + '</h4>';
-						s += '</div>'
-						s += '<div class="col s3 m6">'
-						s += '<button onclick="eliminarVacaciones('
-								+ cont
-								+ ');" class="btn-floating waves-effect waves-light  red darken-4 right"><i class="mdi-content-clear center"></i></button>'
-						s += '</div>'
-						s += '</div>'
-
-						s += '<div class="row" style="    margin-bottom: 0px;">';
-						s += '<div class="input-field col s6">';
-						s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" onchange="setti(this.id)" id="fe_inicio_'
-								+ cont
-								+ '"> <label for="dob">Fecha Inicio</label>';
-						s += '</div>'
-						s += '<div class="input-field col s6">';
-						s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" id="fe_final_'
-								+ cont
-								+ '" disabled><label for="dob">Fecha Fin</label>';
-						s += '</div>';
-						s += '</div>';
-						s += '</div>	</div>';
-
-						$("#space").append(s);
-						daysperdivision(2)
+						var card = crearCard(cont,"","");
+						$("#space").append(card);
+						//daysperdivision(2)
 						cont++;
-					} else {
-						Materialize.toast(
-								'Ya no puede particionar más sus vacaciones!',
-								3000, 'rounded');
-					}
+//					} else {
+//						Materialize.toast(
+//								'Ya no puede particionar más sus vacaciones!',
+//								3000, 'rounded');
+//					}
 
 					$('.datepicker').pickadate({
 						selectMonths : true, // Creates a dropdown to control
@@ -582,29 +553,75 @@ $("#agregar")
 					});
 				});
 
+function crearCard(numero, fechainicio, fechafin){
+	var s = '';
+	s += '<div class="col s12 m12 l6" id="' + numero + '">';
+	s += '<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;">';
+
+	s += '<div class="row holiday" style="    margin-bottom: 0px;">'
+	s += '<div class="col s3 m6">'
+	s += '<h4 class="header2"><b>Vacaciones N° ' + numero + '</b></h4>';
+	s += '</div>'
+	s += '<div class="col s3 m6">'
+	s += '<button style="margin-top: 7px;" onclick="eliminarVacaciones('
+			+ numero
+			+ ');" class="btn-floating waves-effect waves-light  red darken-4 right"><i class="mdi-content-clear center"></i></button>'
+	s += '</div>'
+	s += '</div>'
+
+	s += '<div class="row" style="    margin-bottom: 0px;">';
+	s += '<div class="input-field col s6">';
+	s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text" class="datepicker" value="'+fechainicio+'" onchange="setti(this.id)" id="fe_inicio_'
+			+ numero
+			+ '"> <label for="dob">Fecha Inicio</label>';
+	s += '</div>'
+	s += '<div class="input-field col s6">';
+	s += '<i class="mdi-action-perm-contact-cal prefix"></i> <input type="text"  value="'+fechafin +'" class="datepicker" id="fe_final_'
+			+ numero
+			+ '" ><label for="dob">Fecha Fin</label>';
+	s += '</div>';
+	s += '</div>';
+	s += '</div>	</div>';
+	return s;
+}
+
 function eliminarVacaciones(id) {
-	
-	if (id == 2 && cont == 4) {
 
-		$("#3").remove();
-		cont--
-		daysperdivision(1)
-	} else {
-
-		$("#" + id).remove();
+	var jsonfechas =getJsonFechas();
+	del = id -1;
+	jsonfechas.splice(del,1)
+	var limite = cont-2;
+	if (jsonfechas.length == limite){
+		$("#"+id).remove();
 		cont--;
-		daysperdivision(1)
+	}else{
+		console.log("tamano ideal del array de fechas ees >>> " + cont + " obtenido " + jsonfechas.length);
 	}
 	
+
+	
+//	if (id == 2 && cont == 4) {
+//
+//		$("#3").remove();
+//		cont--;
+//		daysperdivision(1)
+//	} else {
+//
+//		$("#" + cont-1).remove();
+//		cont--;
+//		daysperdivision(1)
+//	}
+	
 	cleandata()
+	listarVacaciones(jsonfechas)
 
 }
 //calcular los dias por cada division
-
+var conta;
 function daysperdivision(addorremove){
 	arraydias = []
 if(addorremove == 1){
-	var conta=cont-1
+	conta=cont-1
 	console.log("nro divisiones actuales " + conta)
 	if(conta>3){
 		arraydias = [7,7,7,9]
@@ -660,12 +677,14 @@ console.log("probando si array dias llega " + arraydias + arraydias[0] + num)
 
 	if(validarCruceFechas(id) == true){
 
-	$('#fe_final_' + num).pickadate('picker').set('select',
-			calcular_final(fecha_inicio3,arraydias[num-1]), {
-				format : 'dd/mm/yyyy'
-			}).trigger("change");
-	
-	Materialize.updateTextFields();
+		
+		//estabecer la fecha final
+		//	$('#fe_final_' + num).pickadate('picker').set('select',
+		//			calcular_final(fecha_inicio3,arraydias[num-1]), {
+		//				format : 'dd/mm/yyyy'
+		//			}).trigger("change");
+		//	
+		//	Materialize.updateTextFields();
 	}
 }
 
@@ -793,63 +812,37 @@ function insertar() {
 
 };
 
-$("#subir")
-		.click(
-				function(event) {
-					// event.preventDefault();
-					var file = $("#file-input").val();
-					var form = $('#documentoForm')[0];
 
-					// Create an FormData object
-					var data = new FormData(form);
-					console.log(csrfHeader + "  " + csrfToken);
-					console.log(file + "  " + form + "  " + data);
+function listarVacaciones(fechajson){
 
-					alertify
-							.confirm(
-									'Confirmar vacaciones',
-									'Esta seguro(a) de subir este archivo?',
-									function() {
-										if (file != "") {
-											$
-													.ajax({
-														type : "POST",
-														enctype : 'multipart/form-data',
-														url : gth_context_path
-																+ "/solicitud/archivos",
-														data : data,
-														processData : false,
-														contentType : false,
-														cache : false,
-														timeout : 600000,
-														beforeSend : function(
-																xhr) {
-															xhr
-																	.setRequestHeader(
-																			csrfHeader,
-																			csrfToken);
-														},
-														success : function(data) {
-															console.log(data);
+	console.log("tamano json" + fechajson.length + " , " + fechajson[0].feinicio + " , " + fechajson[1].fefinal + "  , ");
+	$("#space").html("");
+	for(var j=0; j< fechajson.length; j++){
+		var order = j+1;
+		var card = crearCard(order,fechajson[j].feinicio, fechajson[j].fefinal)
+		
+		$("#space").append(card);
+		//daysperdivision(2);
+	}
+	Materialize.updateTextFields();
+	
+}
 
-														},
-														error : function(e) {
-															alert(
-																	"NADA pepe : ",
-																	e);
-															$("#subir").prop(
-																	"disabled",
-																	false);
-														}
-													});
-										} else {
-											alertify
-													.error("Suba un documento<br/>");
-										}
 
-									},
-									function() {
-										alertify
-												.errorAlert("Error al intentar guardar los datos<br/>");
-									});
-				});
+function getJsonFechas(){
+	console.log("entra get json fechas " + cont);
+	jsonObj = []
+	for(var i=1 ; i < cont; i++){
+		var feinicio = $("#fe_inicio_"+i).val();
+		var fefinal = $("#fe_final_"+i).val();
+		item = {}
+		console.log(feinicio + " , " + fefinal);
+		item["feinicio"] = feinicio;
+		item["fefinal"] = fefinal;
+		jsonObj.push(item)
+
+	}
+	console.log(jsonObj + " , " + jsonObj.length)
+	return jsonObj;
+}
+
