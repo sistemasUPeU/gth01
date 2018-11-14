@@ -167,7 +167,7 @@ public class SolicitudVacacionesDAO {
 		System.out.println("id en get fechas vacaciones " + id);
 		int x;
 		try {
-			String sql = "SELECT TO_CHAR(D.FECHA_INICIO,'DD/MM/YYYY') AS FECHA_INICIO,  TO_CHAR(D.FECHA_FIN,'DD/MM/YYYY') AS FECHA_FIN, D.ID_DET_VACACIONES, "
+			String sql = "SELECT 'Vacaciones ' || row_number() over( order by D.ID_DET_VACACIONES asc) AS NUMERO , TO_CHAR(D.FECHA_INICIO,'DD/MM/YYYY') AS FECHA_INICIO,  TO_CHAR(D.FECHA_FIN,'DD/MM/YYYY') AS FECHA_FIN, D.ID_DET_VACACIONES, "
 					+ "A.ID_TRABAJADOR_FILTRADO, A.ID_CONSOLIDADO, B.AP_PATERNO, B.AP_MATERNO, "
 					+ "B.NO_TRABAJADOR, B.NU_DOC, C.TIPO, C.ESTADO FROM RHMV_TRABAJADOR_FILTRADO A JOIN RHTM_TRABAJADOR B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR "
 					+ "JOIN RHMV_VACACIONES C ON C.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO "
@@ -199,21 +199,22 @@ public class SolicitudVacacionesDAO {
 		return x;
 	}
 
-	public int validarTipoSolicitud(String codigo) {
+	public int validarTipoSolicitud(String codigo) throws SQLException {
+		System.out.println("entra a validar");
 		int i = 0;
-		try {
-			DataSource d = AppConfig.getDataSource();
-			CallableStatement cst = d.getConnection().prepareCall("{call RHSP_VALIDAR_SOLICITUD1 (?,?)}");
-			cst.setString(1, codigo);
-			cst.registerOutParameter(2, Types.NUMERIC);
-			cst.execute();
-			System.out.println(cst.getInt(2));
-
-			i = cst.getInt(2);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String sql = "SELECT RHFU_VAL_REQUEST('"+codigo+"') FROM DUAL";
+		String sql = "SELECT RHFU_VAL_REQUEST(?) FROM DUAL";
+		//jt.queryForList(sql);
+		i = Integer.parseInt(jt.queryForObject(sql, new Object[] { codigo }, String.class));
+		
+//			DataSource d = AppConfig.getDataSource();
+//			CallableStatement cst = d.getConnection().prepareCall("{call RHSP_VALIDAR_SOLICITUD1 (?,?)}");
+//			cst.setString(1, codigo);
+//			cst.registerOutParameter(2, Types.NUMERIC);
+//			cst.execute();
+//			System.out.println(cst.getInt(2));
+		System.out.println("respuesta de validacion de tipo de solicitud>>>>> " + i );
+//			i = cst.getInt(2);
 		return i;
 	}
 
@@ -306,6 +307,31 @@ public class SolicitudVacacionesDAO {
 			String sql = "SELECT coalesce(A.VA_PRIVILEGIO, 0) as VA_PRIVILEGIO FROM RHTM_TRABAJADOR A LEFT JOIN RHMV_TRABAJADOR_FILTRADO B ON A.ID_TRABAJADOR = B.ID_TRABAJADOR" + 
 					" WHERE A.ID_TRABAJADOR = ?";
 			listmap = jt.queryForList(sql, idt);
+		
+		} catch (Exception e) {
+			System.out.println("Error: " + e);
+		}
+		return listmap;
+	}
+	
+	
+	
+	public List<Map<String, Object>> detallesolicitud(String idtrab) {
+		
+		List<Map<String, Object>> listmap = new ArrayList<>();
+	
+		try {
+			String sql = "SELECT D.ID_TRABAJADOR,A.ID_VACACIONES, D.ID_TRABAJADOR_FILTRADO, A.TIPO, A.ESTADO, to_char(B.FECHA_INICIO,'DD/MM/YYYY') as FEINICIO, to_char(B.fecha_fin,'DD/MM/YYYY') as FEFINAL, C.EVALUACION \r\n" + 
+					"	FROM RHMV_TRABAJADOR_FILTRADO D \r\n" + 
+					"	LEFT JOIN RHMV_VACACIONES A ON D.ID_TRABAJADOR_FILTRADO = A.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"	LEFT JOIN  RHMV_DET_VACACIONES B ON A.ID_VACACIONES = B.ID_VACACIONES \r\n" + 
+					"	LEFT JOIN RHMV_HIST_DETALLE C ON B.ID_DET_VACACIONES = C.ID_DET_VACACIONES\r\n" + 
+					"	WHERE D.ID_TRABAJADOR = '"+idtrab +"'\r\n" + 
+					"	AND D.ESTADO=1\r\n" + 
+					"	AND C.ESTADO = 1\r\n" + 
+					"	AND A.ESTADO = 1\r\n" + 
+					"	AND B.ESTADO in (1,2) ORDER BY B.ID_DET_VACACIONES ASC";
+			listmap = jt.queryForList(sql);
 		
 		} catch (Exception e) {
 			System.out.println("Error: " + e);

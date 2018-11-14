@@ -81,7 +81,6 @@
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
-
 		<div class="container" style="width: 80%">
 			<center>
 				<div class="chip red lighten-2 black-text"
@@ -114,7 +113,7 @@
 								type="text" class="validate"
 								<%-- 							 value="${tipo}"  --%>
 							disabled> <label
-								for="icon-request">Tipo de Solicitud</label>
+								for="icon-request">Tipo solicitud</label>
 						</div>
 
 						<input id="idtrb" class="hide"> <input id="idrol"
@@ -142,9 +141,9 @@
 					<div class="col s12 m6 l6" id="btn-agregar">
 
 						<p>
-							<a
+							<button
 								class="btn-floating btn-large waves-effect waves-light green accent-3 left"
-								id="agregar"><i class="mdi-content-add left"></i></a>
+								id="agregar"><i class="mdi-content-add left"></i></button>
 						</p>
 
 					</div>
@@ -161,7 +160,7 @@
                                 <div class="card" style="margin:0;">
                                     <div class="card-content  green white-text" style="padding-top: 16px; padding-bottom: 3px;">
                                         <p class="card-stats-title center"><i class="mdi-action-event"></i> Total de días</p>
-                                        <h4 class="card-stats-number center">566</h4>
+                                        <h4 class="card-stats-number center" id="numdias"></h4>
                                     </div>
                                    
                                 </div>
@@ -170,29 +169,29 @@
 				</div>
 
 				<div class="row" id="space">
-					<div class="col s12 m12 l6">
-						<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;">
+<!-- 					<div class="col s12 m12 l6"> -->
+<!-- 						<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;"> -->
 
 
-							<div class="row holiday" style="margin-bottom: 0px;">
-								<div class="col s3 m12">
-									<h4 class="header2"><b>Vacaciones N° 1</b></h4>
-								</div>
-								<div class="input-field col s6">
-									<i class="mdi-action-perm-contact-cal prefix"></i> <input
-										type="text" class="datepicker" id="fe_inicio_1"> <label
-										for="fe_inicio_1">Fecha Inicio</label>
-								</div>
-								<div class="input-field col s6">
-									<i class="mdi-action-perm-contact-cal prefix"></i> <input
-										type="text" class="datepicker" onchange="settifinal(this.id)" id="fe_final_1">
-									<label for="fe_final_1">Fecha Fin</label>
-								</div>
+<!-- 							<div class="row holiday" style="margin-bottom: 0px;"> -->
+<!-- 								<div class="col s3 m12"> -->
+<!-- 									<h4 class="header2"><b>Vacaciones N° 1</b></h4> -->
+<!-- 								</div> -->
+<!-- 								<div class="input-field col s6"> -->
+<!-- 									<i class="mdi-action-perm-contact-cal prefix"></i> <input -->
+<!-- 										type="text" class="datepicker" id="fe_inicio_1"> <label -->
+<!-- 										for="fe_inicio_1">Fecha Inicio</label> -->
+<!-- 								</div> -->
+<!-- 								<div class="input-field col s6"> -->
+<!-- 									<i class="mdi-action-perm-contact-cal prefix"></i> <input -->
+<!-- 										type="text" class="datepicker" onchange="settifinal(this.id)" id="fe_final_1"> -->
+<!-- 									<label for="fe_final_1">Fecha Fin</label> -->
+<!-- 								</div> -->
 
 
-							</div>
-						</div>
-					</div>
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 
 				</div>
 
@@ -211,7 +210,7 @@
 					</div>
 					<div class="col s5 m4 l2">
 						<button class="btn waves-effect waves-light  cyan darken-2 right"
-							onclick="validarCampos()" id="confirmar">
+							onclick="confirmarFechas()" id="confirmar">
 							Confirmar<i class="mdi-navigation-check right"></i>
 						</button>
 
@@ -275,6 +274,9 @@
 				</div>
 			</div>
 			<br>
+			
+		
+		
 		</div>
 		<!-- 		</div> -->
 

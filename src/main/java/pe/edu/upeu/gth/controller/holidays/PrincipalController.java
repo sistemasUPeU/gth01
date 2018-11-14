@@ -127,15 +127,11 @@ public class PrincipalController {
 	}
 
 	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-
-	// @RequestMapping(path = "/readallProgramaVacaciones", method =
-	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-
 	public @ResponseBody String getAllTrabajadoresConSoli(Authentication authentication) {
 		
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		System.out.println(depa);
+		System.out.println("gson trabajadores con solicitud  >>>>> " + GSON.toJson(DAO.TrabajadoresConSoli(depa)));
 		return GSON.toJson(DAO.TrabajadoresConSoli(depa));
 
 	}

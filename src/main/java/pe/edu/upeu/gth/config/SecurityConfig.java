@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/login").permitAll().and().logout().permitAll()/*.and().
 				authorizeRequests().antMatchers("/menu").permitAll().anyRequest().
 				anonymous()*/;
+		http.headers().disable();
 	}
 	
 	public CustomAuthenticationProvider authenticationProvider() {

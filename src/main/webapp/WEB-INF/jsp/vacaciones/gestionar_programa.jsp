@@ -17,7 +17,20 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+	
+
+
 <style type="text/css">
+
+[type="checkbox"]+label:before {
+
+	border: 0px
+}
+
+[type="checkbox"]:checked+label:before {
+	display: none
+}
+
 .center-btn {
 	text-align: center
 }
@@ -56,9 +69,9 @@ div.dataTables_length {
 				<div class="col s12">
 					<ul class="tabs tab-demo z-depth-1" style="width: 100%;">
 						<li class="tab col s3"><a href="#test001">Sin solicitud</a></li>
-						<li class="tab col s3"><a href="#test002" class="">Con
+						<li class="tab col s3"><a class="active" href="#test002" class="">Con
 								Solicitud</a></li>
-						<li class="tab col s3"><a class="active" href="#test003"
+						<li class="tab col s3"><a  href="#test003"
 							class="">Lista de Aprobados</a></li>
 					</ul>
 				</div>
@@ -67,34 +80,34 @@ div.dataTables_length {
 					<div id="test001" class="col s12" style="display: block;">
 						<div id="table_contenido1"></div>
 					</div>
-					<div id="test002" class="col s12" style="display: block;">
-						<div id="table_contenido"></div>
-						<div id="nocargando" class="center-btn row">
-							<a id="confirmar_lista" class="btn waves-effect waves-light"><i
-								class="mdi-navigation-check"></i> Confirmar</a>
-							<!-- 						<p> -->
-							<!-- 						<a -->
-							<!-- 							class="btn btn-large waves-effect waves-light light-green darken-4" -->
-							<!-- 							id="confirmar-aprob" type="submit">Cuaderno de vacaciones</a> -->
-							<!-- 					</p> -->
-						</div>
-						<div id="cargando" class="center-btn">
-							<div class="preloader-wrapper small active">
-								<div class="spinner-layer spinner-green-only">
-									<div class="circle-clipper left">
-										<div class="circle"></div>
-									</div>
-									<div class="gap-patch">
-										<div class="circle"></div>
-									</div>
-									<div class="circle-clipper right">
-										<div class="circle"></div>
-									</div>
-								</div>
-							</div>
-							<br> <label>CONFIRMANDO LISTA</label>
-						</div>
-					</div>
+<!-- 					<div id="test002" class="col s12" style="display: block;"> -->
+<!-- 						<div id="table_contenido"></div> -->
+<!-- 						<div id="nocargando" class="center-btn row"> -->
+<!-- 							<a id="confirmar_lista" class="btn waves-effect waves-light"><i -->
+<!-- 								class="mdi-navigation-check"></i> Confirmar</a> -->
+<!-- 													<p> -->
+<!-- 													<a -->
+<!-- 														class="btn btn-large waves-effect waves-light light-green darken-4" -->
+<!-- 														id="confirmar-aprob" type="submit">Cuaderno de vacaciones</a> -->
+<!-- 												</p> -->
+<!-- 						</div> -->
+<!-- 						<div id="cargando" class="center-btn"> -->
+<!-- 							<div class="preloader-wrapper small active"> -->
+<!-- 								<div class="spinner-layer spinner-green-only"> -->
+<!-- 									<div class="circle-clipper left"> -->
+<!-- 										<div class="circle"></div> -->
+<!-- 									</div> -->
+<!-- 									<div class="gap-patch"> -->
+<!-- 										<div class="circle"></div> -->
+<!-- 									</div> -->
+<!-- 									<div class="circle-clipper right"> -->
+<!-- 										<div class="circle"></div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<br> <label>CONFIRMANDO LISTA</label> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<div id="test003" class="col s12" style="display: block;">
 						<div id="table_contenido3"></div>
 					</div>
@@ -125,127 +138,166 @@ div.dataTables_length {
 				</div>
 			</div>
 			<div id="modal1" class="modal">
-				<div class="modal-content">
-					<!--start container-->
-					<div class="container">
-						<!-- 					</div> -->
-						<h4 class="header">Programa de Horarios</h4>
-						<div class="row">
+			
+<%-- 			<%@include file="../../../jspf/request.jspf"%> --%>
+			
+<!-- 				<iframe src="/gth/vacaciones/solicitud" style="height:450px;width:100%;"></iframe> -->
+			
+<!-- 				<div class="modal-content"> -->
+<!-- 					start container -->
+<!-- 					<div class="container"> -->
+<!-- 											</div> -->
+<!-- 						<h4 class="header">Programa de Horarios</h4> -->
+<!-- 						<div class="row"> -->
 
-							<div class="col s12 m12 l12" id="btn-agregar">
+<!-- 							<div class="col s12 m12 l12" id="btn-agregar"> -->
 
-								<p>
-									<a
-										class="btn-floating btn-large waves-effect waves-light green accent-3 left"
-										id="agregar"><i class="mdi-content-add left"></i></a>
-								</p>
+<!-- 								<p> -->
+<!-- 									<a -->
+<!-- 										class="btn-floating btn-large waves-effect waves-light green accent-3 left" -->
+<!-- 										id="agregar"><i class="mdi-content-add left"></i></a> -->
+<!-- 								</p> -->
 
-							</div>
+<!-- 							</div> -->
 
-							<input id="idtrb" class="hide"> <input id="tiposolicitud"
-								class="hide"> <input id="idvacaciones" class="hide">
+<!-- 							<input id="idtrb" class="hide"> <input id="tiposolicitud" -->
+<!-- 								class="hide"> <input id="idvacaciones" class="hide"> -->
 
-						</div>
-						<br>
-						<div class="row" id="space">
-							<div class="col s12 m12 l12">
-								<div class="card-panel">
-									<h4 class="header2">Vacaciones 1</h4>
-									<div class="row">
-										<form class="col s12">
-											<div class="row">
-												<div class="input-field col s6">
-													<i class="mdi-action-perm-contact-cal prefix"></i> <input
-														type="text" class="datepicker" id="fe_inicio_1"> <label
-														for="dob">Fecha Inicio</label>
-												</div>
-												<div class="input-field col s6">
-													<i class="mdi-action-perm-contact-cal prefix"></i> <input
-														type="text" class="datepicker" id="fe_final_1" disabled>
-													<label for="dob">Fecha Fin</label>
-												</div>
+<!-- 						</div> -->
+<!-- 						<br> -->
+<!-- 						<div class="row" id="space"> -->
+<!-- 							<div class="col s12 m12 l12"> -->
+<!-- 								<div class="card-panel"> -->
+<!-- 									<h4 class="header2">Vacaciones 1</h4> -->
+<!-- 									<div class="row"> -->
+<!-- 										<form class="col s12"> -->
+<!-- 											<div class="row"> -->
+<!-- 												<div class="input-field col s6"> -->
+<!-- 													<i class="mdi-action-perm-contact-cal prefix"></i> <input -->
+<!-- 														type="text" class="datepicker" id="fe_inicio_1"> <label -->
+<!-- 														for="dob">Fecha Inicio</label> -->
+<!-- 												</div> -->
+<!-- 												<div class="input-field col s6"> -->
+<!-- 													<i class="mdi-action-perm-contact-cal prefix"></i> <input -->
+<!-- 														type="text" class="datepicker" id="fe_final_1" disabled> -->
+<!-- 													<label for="dob">Fecha Fin</label> -->
+<!-- 												</div> -->
 
-											</div>
-											<div class="row">
-												<div class="col s10 m12">
-													<a
-														class="btn-floating waves-effect waves-light  red darken-4 right"><i
-														class="mdi-action-delete center"></i></a>
-												</div>
-											</div>
+<!-- 											</div> -->
+<!-- 											<div class="row"> -->
+<!-- 												<div class="col s10 m12"> -->
+<!-- 													<a -->
+<!-- 														class="btn-floating waves-effect waves-light  red darken-4 right"><i -->
+<!-- 														class="mdi-action-delete center"></i></a> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
 
-										</form>
-									</div>
-								</div>
-							</div>
+<!-- 										</form> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 
-						</div>
-
-
-
-
-						<div class="row">
-
-							<div class="col s7 m8 l5">
-								<a class="waves-effect waves-light btn right" id="printRequest"><i
-									class="mdi-action-print right"></i>Imprimir</a>
-								<!-- 								<a -->
-								<!-- 								class="waves-effect waves-light btn modal-trigger" -->
-								<!-- 								href="#modal1">Modal</a> -->
-							</div>
-							<div class="col s5 m4 l5">
-								<a class="btn waves-effect waves-light  cyan darken-2 right"
-									onclick="insertar()" id="confirmarSolicitud" disabled>Confirmar<i
-									class="mdi-navigation-check right"></i></a>
-
-							</div>
-
-
-						</div>
-
-						<form method="post"
-							action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}"
-							enctype="multipart/form-data" class="col s12 m8 l11"
-							id="uploadForm">
-
-							<div id="file-upload" class="section center">
-
-								<div class="row section"
-									style="margin-left: 20%; margin-right: 20%">
-
-									<div class="col s12 m12 l12 center">
-										<input type="file" name="file" id="file-input" class="dropify"
-											data-max-file-size="10M" data-errors-position="outside" /> <input
-											type="text" id="idvac" name="idvac" value="" class="hide" />
-									</div>
-
-
-								</div>
-							</div>
+<!-- 						</div> -->
 
 
 
-							<div class="col s6 center" style="margin-right: 2em;">
-								<button type="submit"
-									class="btn waves-effect waves-light center" id="saveFile">
-									Enviar <i class="mdi-content-send right"></i>
-								</button>
-								<%-- 							<input type="hidden" name="${_csrf.parameterName}" --%>
-								<%-- 							value="${_csrf.token}" /> --%>
 
-							</div>
-						</form>
+<!-- 						<div class="row"> -->
+
+<!-- 							<div class="col s7 m8 l5"> -->
+<!-- 								<a class="waves-effect waves-light btn right" id="printRequest"><i -->
+<!-- 									class="mdi-action-print right"></i>Imprimir</a> -->
+<!-- 																<a -->
+<!-- 																class="waves-effect waves-light btn modal-trigger" -->
+<!-- 																href="#modal1">Modal</a> -->
+<!-- 							</div> -->
+<!-- 							<div class="col s5 m4 l5"> -->
+<!-- 								<a class="btn waves-effect waves-light  cyan darken-2 right" -->
+<!-- 									onclick="insertar()" id="confirmarSolicitud" disabled>Confirmar<i -->
+<!-- 									class="mdi-navigation-check right"></i></a> -->
+
+<!-- 							</div> -->
+
+
+<!-- 						</div> -->
+
+<!-- 						<form method="post" -->
+<%-- 							action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}" --%>
+<!-- 							enctype="multipart/form-data" class="col s12 m8 l11" -->
+<!-- 							id="uploadForm"> -->
+
+<!-- 							<div id="file-upload" class="section center"> -->
+
+<!-- 								<div class="row section" -->
+<!-- 									style="margin-left: 20%; margin-right: 20%"> -->
+
+<!-- 									<div class="col s12 m12 l12 center"> -->
+<!-- 										<input type="file" name="file" id="file-input" class="dropify" -->
+<!-- 											data-max-file-size="10M" data-errors-position="outside" /> <input -->
+<!-- 											type="text" id="idvac" name="idvac" value="" class="hide" /> -->
+<!-- 									</div> -->
+
+
+<!-- 								</div> -->
+<!-- 							</div> -->
 
 
 
-					</div>
+<!-- 							<div class="col s6 center" style="margin-right: 2em;"> -->
+<!-- 								<button type="submit" -->
+<!-- 									class="btn waves-effect waves-light center" id="saveFile"> -->
+<!-- 									Enviar <i class="mdi-content-send right"></i> -->
+<!-- 								</button> -->
+<%-- 															<input type="hidden" name="${_csrf.parameterName}" --%>
+<%-- 															value="${_csrf.token}" /> --%>
 
-				</div>
+<!-- 							</div> -->
+<!-- 						</form> -->
+
+
+
+<!-- 					</div> -->
+
+<!-- 				</div> -->
+				
+				
+				
+				
 				<!--     <div class="modal-footer"> -->
 				<!--       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a> -->
 				<!--     </div> -->
 			</div>
 			<input id='username' class='hide' />
+		
+		
+		
+		
+			<div id="modal_review" class="modal modal-fixed-footer" >
+				<div class="modal-content" id="show_request">
+					<div class="row">
+
+							<div class="col s3 offset-s3 " id="column1">
+			
+							</div>
+							<div class="col s5 m5 l5 " id="column2">
+		
+							</div>
+
+					</div>
+					<div id="tabla-detalle">
+					
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a id="fec_up" href="#!"
+						class="modal-action modal-close waves-effect waves-green btn-flat" onclick="guardarCambios()">Guardar Cambios</a>
+				</div>
+			</div>
+		
+		
+		
+		
+		
 		</div>
 	</div>
 	<script
@@ -568,6 +620,7 @@ div.dataTables_length {
 	<script
 		src="<c:url value='/resources/js/businessCore/holidays/gestionar_programa.js'></c:url>"
 		type="text/javascript"></script>
+
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -191,7 +192,20 @@ public class SolicitudController {
 		return "request_report";
 	}
 
+	@RequestMapping("/generardocumento")
+    public String generardocumento(Model model, HttpServletRequest request,HttpServletResponse response, @RequestParam(name = "format", defaultValue = "pdf", required = false) String format) {
+		ServletContext cntx = request.getServletContext();
+		String idt = request.getParameter("idtr").trim();
 
+		List<Map<String, Object>> sd = vd.getFechasVacaciones(idt);
+		
+        model.addAttribute("format", format);
+        model.addAttribute("datasource", sd);
+        model.addAttribute("ID_TRAB",idt);
+        model.addAttribute("AUTOR", "Tutor de programacion");
+        model.addAttribute("realPath", cntx.getRealPath("/resources/img/"));
+        return "request_report";
+    }
 
 	@RequestMapping(path = "/validar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String validarTipoSolicitud(HttpServletRequest request, Model model) {
@@ -205,7 +219,13 @@ public class SolicitudController {
 		// String rol = request.getParameter("idrol");
 		// System.out.println(trab + "/" + rol);
 
-		int sd = vd.validarTipoSolicitud(trab);
+		int sd = 0;
+		try {
+			sd = vd.validarTipoSolicitud(trab);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// String res = sd+"/"+rol;
 		System.out.println("validación de tipo solicitud" + gs.toJson(sd));
 
@@ -400,4 +420,21 @@ public class SolicitudController {
 		
 		return result;
 	}
+	
+	@RequestMapping(path = "/getdetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getdetails(HttpServletRequest request, Model model, Authentication authentication) {
+		Gson gs = new Gson();
+		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+	
+		List<Map<String, Object>> sd = vd.detallesolicitud(idtra);
+		//int respuesta = Integer.parseInt(sd.get(0).get("VA_PRIVILEGIO").toString());
+		
+		// String res = sd+"/"+rol;
+		System.out.println("respuesta existencia solicitud" + gs.toJson(sd));
+
+		return gs.toJson(sd);
+
+	}
+	
+	
 }

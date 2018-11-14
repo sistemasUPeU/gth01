@@ -3,6 +3,7 @@ $(document).ready(function() {
 			listarTrabajadoresConSoli();
 			listarTrabajadoresAprobados();
 			$("#cargando").hide();
+
 		})
 		function getSelected() {
 			var allVals = [];
@@ -11,6 +12,8 @@ $(document).ready(function() {
 			});
 			return allVals;
 		}
+
+
 		$("#table_contenido").on(
 				"click",
 				"#abrir-modal2",
@@ -194,22 +197,33 @@ $(document).ready(function() {
 											+ obj[i].AP_MATERNO + '</td>';
 									s += '<td>' + obj[i].NO_AREA + '</td>';
 									s += '<td>' + obj[i].NO_SECCION + '</td>';
-									if (obj[i].FECHA_INICIO == null
-											&& obj[i].FECHA_FIN == null) {
-										s += '<td>--</td>';
-										s += '<td>--</td>';
-									} else {
-										s += '<td>' + obj[i].FECHA_INICIO
-												+ '</td>';
-										s += '<td>' + obj[i].FECHA_FIN
-												+ '</td>';
+									s += '<td>' + obj[i].TIPO + '</td>';
+									
+									if(obj[i].VALIDACION == 3){
+										//REVIEW
+										s += '<td style=" text-align: center;" ><a onclick= "verdetalle(this.id)" class="btn-floating btn-large waves-effect waves-light green accent-3" id="'+ obj[i].ID_TRABAJADOR +'"><i class="mdi-maps-rate-review"></i></a></td>';
+									}else if(obj[i].VALIDACION == 1){
+										//REPROGRAMAR
+										s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id)" class="btn-floating btn-large waves-effect waves-light cyan darken-2" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-cached"></i></a></td>';
+
 									}
-									s += '<td><p style="text-align: center;">';
-									s += '<input type="checkbox" id="test'+i+'">';
-									s += '<label for="test'+i+'"></label>';
-									s += '</p></td>';
-									s += '<td><button id="abrir-modal2" name="' + obj[i].ID_DET_VACACIONES + '" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
-									s += '</tr>';
+									
+//									if (obj[i].FECHA_INICIO == null
+//											&& obj[i].FECHA_FIN == null) {
+//										s += '<td>--</td>';
+//										s += '<td>--</td>';
+//									} else {
+//										s += '<td>' + obj[i].FECHA_INICIO
+//												+ '</td>';
+//										s += '<td>' + obj[i].FECHA_FIN
+//												+ '</td>';
+//									}
+//									s += '<td><p style="text-align: center;">';
+//									s += '<input type="checkbox" id="test'+i+'">';
+//									s += '<label for="test'+i+'"></label>';
+//									s += '</p></td>';
+//									s += '<td><button id="abrir-modal2" name="' + obj[i].ID_DET_VACACIONES + '" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
+//									s += '</tr>';
 
 								}
 								$
@@ -332,10 +346,8 @@ $(document).ready(function() {
 			s += '<th>Apellidos y Nombres</th>';
 			s += '<th>Área</th>';
 			s += '<th>Sección</th>';
-			s += '<th>Fecha Inicio</th>';
-			s += '<th>Fecha Fin</th>';
-			s += '<th>Aprobar</th>';
-			s += '<th>Modificar</th>';
+			s += '<th>Tipo solicitud</th>';
+			s += '<th>Operaciones</th>';
 			s += ' </tr>';
 			s += '</thead>';
 			s += '<tbody id="data"></tbody>';
@@ -494,3 +506,270 @@ $(document).ready(function() {
 			console.log("fecha calculada: " + fechaFinal);
 			return fechaFinal;
 		}
+		
+		
+		
+		
+		var lista_ap = new Array(); // lista aprobados
+		function verdetalle(idtrab){
+			console.log("listo para ver detalle "  + idtrab);
+			$('#modal_review').openModal()
+			$
+			.get(
+					gth_context_path + '/vacaciones/gestionar_programa/mostrardetalle', {idtrab : idtrab},
+					function(obj) {
+						console.log(JSON.stringify(obj[0]));
+						var s = '';
+						var emp = obj[0];
+						
+						var m = '';
+						m += '<p> <i class="small mdi-social-person small cyan-text text-darken-2"'
+							m += 'style="margin-right: 6%; vertical-align: -8px;"></i>' + obj[0].NO_TRABAJADOR
+								m += '</p>'
+									 m += '<p> <i class="small mdi-action-home small cyan-text text-darken-2"'
+										 m += 'style="margin-right: 6%;vertical-align: -8px;"></i>'  +  obj[0].NO_AREA
+											 m += '</p>'
+								
+						$("#column1").html(m);
+						var n = '';
+						n += '<p>'
+							n += '<i'
+								n += '	class="small mdi-social-person-outline small cyan-text text-darken-2"'
+									n += 'style="margin-right: 6%;vertical-align: -8px;"></i>' + obj[0].AP_PATERNO +' ' + obj[0].AP_MATERNO
+									n += '</p>'
+									 n += '<p> <i	class="small mdi-action-home small cyan-text text-darken-2"'
+										 n += 'style="margin-right: 6%;vertical-align: -8px;"></i> ' + obj[0].NO_SECCION
+					
+												 n += '</p>	'
+						 $("#column2").html(n);
+						console.log("bucle adentro")
+						
+						for (var i in obj) {
+							s += '<tr>';
+							s += '<td class="hide">'
+									+ obj[i].ID_DET_VACACIONES
+									+ '</td>';
+							s += '<td style="text-align: center;">' + obj[i].FECHA_INICIO +'</td>';
+							s += '<td style="text-align: center;">' + obj[i].FECHA_FIN + '</td>';
+							s += '<td style="text-align: center;">' + obj[i].DIAS + '</td>';
+							s += '<td style="text-align: center;"><p style="text-align: center;">';
+//							s += '<input type="checkbox" id="test'+i+'">';
+//							s += '<label for="test'+i+'"></label>';
+							
+//							s += '<input type="checkbox" name="checkbox'+i+'" id="checkbox'+i+'" class="css-checkbox" />'
+//							s += '<label  for="checkbox'+i+'" class="css-label radGroup'+i+'"></label>'
+							s += ' <div class="switch"> <label>   <input class="switch-class" onchange = "controlCambios(this.value, this.id)" id = "'+i+'" type="checkbox" value = "'+obj[i].ID_DET_VACACIONES+'"> <span class="lever"></span> </label> </div>'
+							s += '</p></td>';
+						
+
+							s += '</tr>';
+
+						}
+						
+						$("#tabla-detalle").empty();
+						$("#tabla-detalle").append(createTable3());
+						$("#data4").empty();
+						$("#data4").append(s);
+						$('#data-table-row-grouping4').dataTable({
+							"pageLength" : 3,
+							"bPaginate" : true,
+							"bLengthChange" : false,
+							"bFilter" : false,
+							"bInfo" : false,
+							"bAutoWidth" : true,
+							"language" : {
+								// "lengthMenu": "Display _MENU_ records per page",
+								"zeroRecords" : "Nada para mostrar - disculpe",
+								"info" : "Mostrando página _pag_ de _pags_",
+								"infoEmpty" : "Ningún alumno agregado"
+							// "infoFiltered": "(filtered from _MAX_ total records)"
+							}
+					
+							});
+						console.log("truinnng")
+						$('#data-table-row-grouping4').DataTable().column(4).nodes().to$().find('input[type=checkbox]').prop('checked', true)
+						console.log($('#data-table-row-grouping4').DataTable().column(4).nodes().to$().find('input[type=checkbox]'));
+						//.to$().find('input[type=checkbox]').prop('checked', $(this).prop('checked'));
+						var nodes = $('#data-table-row-grouping4').DataTable().column(4).nodes().to$().find('input[type=checkbox]');
+						lista_ap = new Array();
+						for(var j =0; j<nodes.length; j++){
+							console.log(nodes[j]);
+							console.log(nodes[j].value);
+							
+							lista_ap.push(nodes[j].value);
+							console.log(lista_ap)
+						}
+
+						
+//						$(".switch-class").each(function(){
+//							$(this).prop('checked', true);
+//							lista_ap.push($(this).val().trim());
+//							console.log(lista_ap);
+//						});
+
+//						$("#ckbCheckAll").click(
+//								function() {
+//									$(".checkBoxClass").prop('checked',
+//											$(this).prop('checked'));
+//								});
+//						$(".css-checkbox").click(
+//								function() {
+//									
+//									$(this).
+//									
+//									$(".checkBoxClass").prop('checked',
+//											$(this).prop('checked'));
+//									console.log($(this).val());
+////									$(this).bind_onclick();
+//									
+////									chk_labels(this, false);
+//								});
+
+					});
+			
+			
+		}
+		var lista_re = new Array(); //lista rechazados
+		
+//se encarga de controlar los cambios del switch en el detalle de cada trabajador
+		function controlCambios(iddet, id){
+			console.log(iddet);
+			for( var i in lista_ap){
+				lista_ap[i] = lista_ap[i].trim();
+		    	
+			}	
+			if($("#"+id.trim()).is(":checked")) {
+			      console.log("Is checked");
+
+			      for( var i in lista_re){
+			    	  if(lista_re[i] == iddet.trim()){
+			    		  lista_re.splice(i,1);
+			    		  
+			    	  }
+			      }
+			      
+			      lista_ap.push(iddet.trim());
+
+			    }
+			    else {
+			      console.log("Is Not checked");
+
+			      lista_re.push(iddet.trim());
+			      
+			      for( var i in lista_ap){
+			    	  if(lista_ap[i] == iddet.trim()){
+			    		  lista_ap.splice(i,1);
+			    		  
+			    	  }
+			      }
+			    }
+			 console.log("lista de rechazados : " + lista_re);
+		     console.log("lista de aprobados : " +lista_ap);
+			
+		
+		}
+		
+		function reprogramar(idtrab){
+			console.log("listo para reprogramar "  + idtrab);
+			
+		}
+		
+		//Crear tabla del detalle de cada trabajador con solicitud por aprobar		
+		function createTable3() {
+			var s = '<table id="data-table-row-grouping4" class="display" cellspacing="0" width="100%">';
+			s += '<thead>';
+			s += '<tr>';
+			s += '<th class="hide" >id</th>';
+			s += '<th style="text-align: center;">Fecha Inicio</th>';
+			s += '<th style="text-align: center;">Fecha Fin</th>';
+			s += '<th style="text-align: center;">Total de Días</th>';
+			s += '<th style="text-align: center;">Operaciones</th>';
+			s += ' </tr>';
+			s += '</thead>';
+			s += '<tbody id="data4"></tbody>';
+			s += '</table>';
+			return s;
+
+		};
+		
+		
+	//guarda los cambios realizados en el detalle del trabajador
+		function guardarCambios(){
+			var tipo = 0;
+			var jsonObj = [];
+			if(lista_re == ''){
+				//aprobacion completa , tipo 1
+				console.log("aprueba toda la solicitud   " + lista_ap);
+				tipo = 1;
+			}else if(lista_ap == ''){
+				//rechazo completo , tipo 2
+				console.log("debe insertar las observacione  " + lista_re);
+				tipo = 2;
+			}else{
+				//rechazo y aprobacion, tipo 3
+				console.log("debe insertar las observacione y aprobaciones  " + lista_re + " , " + lista_ap);
+				tipo = 3;
+			}
+			
+			
+			var con = new jsConnector();
+			console.log(gth_context_path);
+//			item = {}
+//			item["lista_ap"] = lista_ap;
+//			item["lista_re"] = lista_re;
+			
+			var joiner, joiner1, str = '';
+			joiner_ap = lista_ap.join(',');
+			joiner_re = lista_re.join(',');
+			
+			var final = joiner_ap + ',&,'+joiner_re;
+			
+//			for(var n in lista_ap){
+//				t += lista_re[n] + ','
+//			}
+//			jsonObj.push("-");
+//			t += ' - ,';
+//			for(var m in lista_re){
+////				jsonObj.push(lista_re[m]);
+//				t += lista_re[m] + ',';
+//			}
+
+			
+			
+//			var enviar = JSON.stringify(t);
+
+//			var final = JSON.stringify(str);
+			con.post('vacaciones/gestionar_programa/insertarAprobacion', final, 
+					function(response){
+				console.log(response);
+				lista_re = new Array(); //lista rechazados
+				lista_ap = new Array(); //lista aprobados
+				
+				if(response == 1){
+					Materialize
+					.toast(
+							'Bien!, los cambios se guardaron correctamente',
+							3000,
+							'rounded');
+					listarTrabajadoresConSoli();
+					listarTrabajadoresAprobados();
+				}else{
+					Materialize
+					.toast(
+							'Error!, ha surgido un problema.',
+							3000,
+							'rounded');
+					
+					
+				}
+				
+				
+			});
+			
+			
+			
+		}
+		
+		
+		
+		
