@@ -5,419 +5,386 @@ function loadProfile() {
 var fecha_minima;
 var fecha_minima_format;
 var cont = 1;
-$(window)
-		.load(
-				function() {
-					
-					console.log("window cargo");
-					$("#numdias").text(0);
-					var id = $("#trab").val();
 
-					var url = "/gth/solicitud/validar";
-					var data = "&id=" + id;
-					var solicitud = 0;
-
-					$
-							.getJSON(
-									url,
-									data,
-									function(res, status) {
-
-										console.log("devuelve controller: "
-												+ res);
-
-										switch (res) {
-										case 0:
-											
-								
-											var datos = "op=1"
-									
-
-											$("#tipo").val("Programación");
-											
-											$("#subir").attr("disabled", true);
-											$("#subir").attr("enabled", false);
-											$("#print").attr("disabled", true);
-											$("#print").attr("enabled", false);
-											
-											var card = crearCard(cont,"","",1,1);
-											$("#space").append(card);
-											cont++;
-											console.log(cont)
-											Materialize.updateTextFields();
-											$('.datepicker').pickadate({
-												selectMonths : true, // Creates a dropdown to control
-												// month
-												selectYears : 5, // Creates a dropdown of 15 years to
-												// control year,
-												today : 'Today',
-												clear : 'Clear',
-												close : 'Ok',
-												closeOnSelect : false
-											// Close upon selecting a date,
-											});
-											$("#fe_inicio_1").change(function() {
-												var fei = $("#fe_inicio_1").val();
-
-												console.log(fei);
-												var fecha_inicio = parseDate(fei);
-												console.log("fecha_inicio_return: " + fecha_inicio);
-//												if(validarFechaMinima(fecha_inicio)){
-//													console.log("ok");
-//												}else{
-//													alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
-//													$("#fe_inicio_1").val("");
-//												}
-											//establecer la fecha final
-//												$('#fe_final_1').pickadate('picker').set('select',
-//														calcular_final(fecha_inicio,arraydias[0]), {
-//															format : 'dd/mm/yyyy'
-//														}).trigger("change");
-//												Materialize.updateTextFields();
-												calcularTotalDias();
-											});
-											
-											
-
-
-											break;
-										case 1:
-											
-											var datos = "op=2"
-											$("#tipo").val("Reprogramación");
-											Materialize.updateTextFields();
-											
-											
-											//listar los detalles tanto observados como aprobados
-											
-											$.get(gth_context_path+ '/solicitud/getdetails',
-													function(response) {
-														console.log(response.length);
-														if(response.length >0){
-															listarVacaciones(response,2);//va a listar considerando los detalles de vacaciones observados
-															//getJsonFechas();
-														}
-														
-													});
-											
-											
-											
-											break;
-										case 2:
-
-											
-											$("#subir").attr("disabled", true);
-											$("#subir").attr("enabled", false);
-											$("#print").attr("disabled", true);
-											$("#print").attr("enabled", false);
-											$("#confirmar").attr("disabled",
-													true);
-											$("#confirmar").attr("enabled",
-													false);
-											$("#agregar").attr("disabled", true);
-											$("#agregar").attr("enabled", false);
-											// $("#confirmar").off('click');
-											// $("#print").off('click');
-											Materialize
-													.toast(
-															'Aun no ha llegado su tiempo para recibir vacaciones!',
-															3000, 'rounded',
-															function() {
-																
-															});
-											
-											
-											
-
-											break;
-										case 3:
-											Materialize
-											.toast(
-													'Usted tiene una solicitud en proceso!',
-													3000,
-													'rounded',
-													function() {
-													});
-											
-
-											$.get(gth_context_path+ '/solicitud/getdetails',
-													function(response) {
-														console.log(response.length);
-														if(response.length >0){
-															var tipo = response[0].TIPO.toLowerCase();
-															tipo = keepFirstCapitalLetter(tipo);
-															$("#tipo").val(tipo);
-															
-															listarVacaciones(response,2);//va a listar considerando los detalles de vacaciones observados
-															//getJsonFechas();
-														}
-														
-													});
-
-									$("#print").attr("disabled", true);
-									$("#print").attr("enabled", false);
-									$("#confirmar").attr("disabled",
-											true);
-									$("#confirmar").attr("enabled",
-											false);
-									$("#agregar").attr("disabled", true);
-									$("#agregar").attr("enabled", false);
-
-									$
-											.getJSON(
-													gth_context_path
-															+ "/solicitud/existenciasolicitud",
-													data,
-													function(response) {
-														console
-																.log("existencia solicitud "
-																		+ response
-																		+ " :: "
-																		+ response.response);
-														$("#idvac")
-																.val(
-																		response.idvac);
-														if (response.response == 1) {
-															console
-																	.log("deshabilitando el boton print");
-															$("#subir")
-																	.attr(
-																			"disabled",
-																			true);
-															$("#subir")
-																	.attr(
-																			"enabled",
-																			false);
-														} else {
-															Materialize
-																	.toast(
-																			'Por favor suba su solicitud firmada.',
-																			3000,
-																			'rounded',
-																			function() {
-
-																			});
-															$("#print").attr("enabled", true);
-															$("#print").attr("disabled", false);
-														}
-													});
-											break;
-										case 4:
-											$("#subir").attr("disabled", true);
-											$("#subir").attr("enabled", false);
-											$("#print").attr("disabled", true);
-											$("#print").attr("enabled", false);
-											$("#confirmar").attr("disabled",
-													true);
-											$("#confirmar").attr("enabled",
-													false);
-
-											$("#fe_inicio_1").attr("disabled",
-													true);
-											$("#fe_inicio_1").attr("enabled",
-													false);
-											$("#agregar")
-													.attr("disabled", true);
-											$("#agregar")
-													.attr("enabled", false);
-
-											// $("#confirmar").off('click');
-											// $("#print").off('click');
-											Materialize
-													.toast(
-															'Disculpe, aún el analista debe realizar algunas configuraciones. Gracias por su paciencia.',
-															3000, 'rounded',
-															function() {
-
-															});
-
-											break;
-										}
-									});
-					
-
-					
-				});
 var divisiones = 0;
 var privilegios_vacaciones;
 var nro_dias = 0;
 var arraydias = []
 var jsonObj = []
 
-$(document)
-		.ready(
-				function() {
 
-					$("#otrosdiv").hide();
 
-					fecha_minima = new Date();
-
-					fecha_minima.setDate(fecha_minima.getDate() + 45);// suma
-					
-					
-					console.log(fecha_minima + " , "
-							+ fecha_minima.getFullYear() + " , "
-							+ fecha_minima.getDate() + " , "
-							+ fecha_minima.getMonth())
-					var anno = fecha_minima.getFullYear();
-					var mes = fecha_minima.getMonth() + 1;
-					var dia = fecha_minima.getDate();
-
-					console.log(anno + " , " + mes + " , " + dia)
-					
-					
-					if(dia >2){
-						console.log("el dia es mayor a 2")
-						mes ++;
-						dia=1
-						mes = (mes < 10) ? ("0" + mes) : mes;
-						dia = (dia < 10) ? ("0" + dia) : dia;
-						fecha_minima_format = dia + "/" + mes + "/" + anno;
-						fecha_minima = new Date(anno,mes-1,dia)
-						console.log("nueva fecha minima long format " + fecha_minima);
-						dia = fecha_minima.getDate()
-						dia = (dia < 10) ? ("0" + dia) : dia;
-						fecha_minima_format = dia + "/" + fecha_minima.getMonth() +1 + "/" + fecha_minima.getFullYear();
-						
-						console.log("fecha minima: " + fecha_minima_format);
-						var message = ""
-
-						message += '	<p>'
-						message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
-						message += ' para tus vacaciones es el <b style="font-size: 19px;">'
-								+ fecha_minima_format + '</b>'
-						message += '</p>'
-
-						$("#message_date").html(message);
-					}else{
-						mes = (mes < 10) ? ("0" + mes) : mes;
-						dia = (dia < 10) ? ("0" + dia) : dia;
-						fecha_minima = new Date(anno,mes-1,dia)
-						console.log("nueva fecha minima long format " + fecha_minima);
-						dia = fecha_minima.getDate()
-						dia = (dia < 10) ? ("0" + dia) : dia;
-						fecha_minima_format = dia + "/" + fecha_minima.getMonth() +1 + "/" + fecha_minima.getFullYear();
-						console.log("fecha minima: " + fecha_minima_format);
-						var message = ""
-
-						message += '	<p>'
-						message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
-						message += ' para tus vacaciones es el <b style="font-size: 19px;">'
-								+ fecha_minima_format + '</b>'
-						message += '</p>'
-
-						$("#message_date").html(message);
-					}
-					
-					
-
-					// $('#confirmar').removeClass("waves-effect
-					// waves-light").addClass('disabled');
-
-					var csrfHeader = $("meta[name='_csrf_header']").attr(
-							"content");
-					var csrfToken = $("meta[name='_csrf']").attr("content");
-					console.log(csrfToken + " / " + csrfHeader);
-
-					// $("#hide").val(csrfToken);
-					// $("#hide").attr("name",csrfHeader);
-
-					try {
-						$
-								.getJSON(
-										gth_context_path + '/components',
-										"opc=usuario",
-										function(objJSON) {
-											if (objJSON !== null) {
-
-												var s = objJSON.datos_usuario;
-												var d = objJSON.dni;
-												var t = objJSON.idtrb;
-												var r = objJSON.idrol;
-												var u = objJSON.username;
-												console.log(s + d + t);
-												$("#nombres").val("");
-												$("#nombres").val(s);
-												$("#dni").val(d);
-												$("#idtrb").val(t);
-												$("#idrol").val(r);
-												console.log($("#idrol").val());
-												$("#user").val(u);
-
-												Materialize.updateTextFields();
-											} else {
-												console
-														.error("No se esta cargando la información");
-											}
-
-											var rol = $("#idrol").val();
-											console.log(rol);
-											var privilegios;
-//											$
-//													.get(
-//															gth_context_path
-//																	+ "/solicitud/mostrarpriv",
-//															function(response) {
-//																console
-//																		.log("privilegios de vacaciones "
-//																				+ response);
-//																privilegios_vacaciones = response;
-//																console.log(privilegios_vacaciones);
-//																if (rol == "ROL-0003") {
-//
-//																	divisiones = 2;
-//
-//																} else {
-//																	if (rol == "ROL-0008") {
-//																		divisiones = 3;
-//																	} else {
-//																		console.log("sin nada");
-//																		divisiones = 1;
-//																		console.log(privilegios_vacaciones);
-//																		if(privilegios_vacaciones == 0){
-//																			console.log("privilegios sonnnnnnnnnnnnnn 0"  );
-//																			$("#btn-agregar")
-//																			.hide();
-//																		}
-//																		
-//																	}
-//
-//																}
-//															});
-//											
-										});
-					} catch (e) {
-						console.error("error al listar info : " + e);
-					}
-
-					$('.dropify').dropify();
-
-					// Translated
-					// $('.dropify-fr').dropify({
-					// messages: {
-					// default: 'Glissez-déposez un fichier ici ou cliquez',
-					// replace: 'Glissez-déposez un fichier ou cliquez pour
-					// remplacer',
-					// remove: 'Supprimer',
-					// error: 'Désolé, le fichier trop volumineux'
-					// }
-					// });
-
-					// Used events
-					var drEvent = $('.dropify-event').dropify();
-
-					drEvent.on('dropify.beforeClear', function(event, element) {
-						return confirm("Do you really want to delete \""
-								+ element.filename + "\" ?");
-					});
-
-					drEvent.on('dropify.afterClear', function(event, element) {
-						alert('File deleted');
-					});
-
-				});
 
 var fecha_insert = "";
+
+
+function setFechaMinima(idtrab,callback){
+	$("#otrosdiv").hide();
+
+	fecha_minima = new Date();
+
+	fecha_minima.setDate(fecha_minima.getDate() + 45);// suma
+	
+	
+	console.log(fecha_minima + " , "
+			+ fecha_minima.getFullYear() + " , "
+			+ fecha_minima.getDate() + " , "
+			+ fecha_minima.getMonth())
+	var anno = fecha_minima.getFullYear();
+	var mes = fecha_minima.getMonth() + 1;
+	var dia = fecha_minima.getDate();
+
+	console.log(anno + " , " + mes + " , " + dia)
+	
+	
+	if(dia >2){
+		console.log("el dia es mayor a 2")
+		mes ++;
+		dia=1
+		mes = (mes < 10) ? ("0" + mes) : mes;
+		dia = (dia < 10) ? ("0" + dia) : dia;
+		fecha_minima_format = dia + "/" + mes + "/" + anno;
+		fecha_minima = new Date(anno,mes-1,dia)
+		console.log("nueva fecha minima long format " + fecha_minima);
+		dia = fecha_minima.getDate()
+		dia = (dia < 10) ? ("0" + dia) : dia;
+		fecha_minima_format = dia + "/" + fecha_minima.getMonth() +1 + "/" + fecha_minima.getFullYear();
+		
+		console.log("fecha minima: " + fecha_minima_format);
+		var message = ""
+
+		message += '	<p>'
+		message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
+		message += ' para tus vacaciones es el <b style="font-size: 19px;">'
+				+ fecha_minima_format + '</b>'
+		message += '</p>'
+
+		$("#message_date").html(message);
+		console.log("first");
+		
+	}else{
+		mes = (mes < 10) ? ("0" + mes) : mes;
+		dia = (dia < 10) ? ("0" + dia) : dia;
+		fecha_minima = new Date(anno,mes-1,dia)
+		console.log("nueva fecha minima long format " + fecha_minima);
+		dia = fecha_minima.getDate()
+		dia = (dia < 10) ? ("0" + dia) : dia;
+		fecha_minima_format = dia + "/" + fecha_minima.getMonth() +1 + "/" + fecha_minima.getFullYear();
+		console.log("fecha minima: " + fecha_minima_format);
+		var message = ""
+
+		message += '	<p>'
+		message = '	<i class="mdi-action-info-outline"></i> <b>INFO : </b>  Recuerda que la fecha mínima'
+		message += ' para tus vacaciones es el <b style="font-size: 19px;">'
+				+ fecha_minima_format + '</b>'
+		message += '</p>'
+
+		$("#message_date").html(message);
+		console.log("first");
+		
+	}
+//	if(idtrab==""){
+//		console.log("solicitud.js estoy en la funcion de set Fecha minima")
+//		callback("",setDatosSolicitud);
+//	}else{
+//		callback(idtrab,setDatosSolicitud);
+//	}
+	console.log("solicitud.js estoy en la funcion de set Fecha minima")
+	callback(idtrab,setDatosSolicitud);
+}
+
+
+function setDatosUser(idtrab, callback){
+	console.log("second");
+	console.log("window cargo");
+	$("#numdias").text(0);
+	if(idtrab==""){
+		console.log("idtrab vacio");
+		try {
+			$
+					.getJSON(
+							gth_context_path + '/components',
+							"opc=usuario",
+							function(objJSON) {
+								console.log(objJSON)
+								if (objJSON !== null) {
+
+									var s = objJSON.datos_usuario;
+									var d = objJSON.dni;
+									var t = objJSON.idtrb;
+									var r = objJSON.idrol;
+									var u = objJSON.username;
+									console.log(s + d + t);
+									$("#nombres").val("");
+									$("#nombres").val(s);
+									$("#dni").val(d);
+									console.log(t);
+									$("#idtrb").val(t);
+									$("#idrol").val(r);
+									console.log($("#idrol").val());
+									$("#user").val(u);
+
+									Materialize.updateTextFields();
+									var id = $("#idtrb").val();
+									console.log(id);
+									callback(id);
+								} else {
+									console
+											.error("No se esta cargando la información");
+								}
+
+								var rol = $("#idrol").val();
+								console.log(rol);
+								var privilegios;
+//								
+							});
+		} catch (e) {
+			console.error("error al listar info : " + e);
+			
+		}
+		
+		
+		
+	}else{
+		console.log("estoy llamando desde la vista de gestionar programa de vacaciones " + idtrab);
+		$("#idtrb_modal").val(idtrab);
+		var id = $("#idtrb_modal").val();
+		console.log("solicitud.js estoy en la funcion de set setDatosUser " + id);
+		callback(id);
+	}
+	
+	
+
+	
+}
+
+
+function setDatosSolicitud(id){
+	console.log("set datos solicitud >>>>>>> " + id)
+	var url = "/gth/solicitud/validar";
+	var data = "&id=" + id;
+	var solicitud = 0;
+
+	$
+			.getJSON(
+					url,
+					data,
+					function(res, status) {
+
+						console.log("devuelve controller: "
+								+ res);
+
+						switch (res) {
+						case 0:
+							
+				
+							var datos = "op=1"
+					
+
+							$("#tipo").val("Programación");
+							
+							$("#subir").attr("disabled", true);
+							$("#subir").attr("enabled", false);
+							$("#print").attr("disabled", true);
+							$("#print").attr("enabled", false);
+							
+							var card = crearCard(cont,"","",1,1);
+							$("#space").append(card);
+							cont++;
+							console.log(cont)
+							Materialize.updateTextFields();
+							$('.datepicker').pickadate({
+								selectMonths : true, // Creates a dropdown to control
+								// month
+								selectYears : 5, // Creates a dropdown of 15 years to
+								// control year,
+								today : 'Today',
+								clear : 'Clear',
+								close : 'Ok',
+								closeOnSelect : false
+							// Close upon selecting a date,
+							});
+							$("#fe_inicio_1").change(function() {
+								var fei = $("#fe_inicio_1").val();
+
+								console.log(fei);
+								var fecha_inicio = parseDate(fei);
+								console.log("fecha_inicio_return: " + fecha_inicio);
+//								if(validarFechaMinima(fecha_inicio)){
+//									console.log("ok");
+//								}else{
+//									alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
+//									$("#fe_inicio_1").val("");
+//								}
+							//establecer la fecha final
+//								$('#fe_final_1').pickadate('picker').set('select',
+//										calcular_final(fecha_inicio,arraydias[0]), {
+//											format : 'dd/mm/yyyy'
+//										}).trigger("change");
+//								Materialize.updateTextFields();
+								calcularTotalDias();
+							});
+							
+							
+
+
+							break;
+						case 1:
+							
+							var datos = "op=2"
+							console.log("reprogramacionn");
+							$("#tipo").val("Reprogramación");
+							Materialize.updateTextFields();
+							
+							
+							//listar los detalles tanto observados como aprobados
+							
+							$.get(gth_context_path+ '/solicitud/getdetails',{idtrab:id},
+									function(response) {
+										console.log(response.length);
+										if(response.length >0){
+											listarVacaciones(response,2);//va a listar considerando los detalles de vacaciones observados
+											//getJsonFechas();
+										}
+										
+									});
+							
+							
+							
+							break;
+						case 2:
+
+							
+							$("#subir").attr("disabled", true);
+							$("#subir").attr("enabled", false);
+							$("#print").attr("disabled", true);
+							$("#print").attr("enabled", false);
+							$("#confirmar").attr("disabled",
+									true);
+							$("#confirmar").attr("enabled",
+									false);
+							$("#agregar").attr("disabled", true);
+							$("#agregar").attr("enabled", false);
+							// $("#confirmar").off('click');
+							// $("#print").off('click');
+							Materialize
+									.toast(
+											'Aun no ha llegado su tiempo para recibir vacaciones!',
+											3000, 'rounded',
+											function() {
+												
+											});
+							
+							
+							
+
+							break;
+						case 3:
+							Materialize
+							.toast(
+									'Usted tiene una solicitud en proceso!',
+									3000,
+									'rounded',
+									function() {
+									});
+							
+
+							$.get(gth_context_path+ '/solicitud/getdetails',
+									function(response) {
+										console.log(response.length);
+										if(response.length >0){
+											var tipo = response[0].TIPO.toLowerCase();
+											tipo = keepFirstCapitalLetter(tipo);
+											$("#tipo").val(tipo);
+											
+											listarVacaciones(response,2);//va a listar considerando los detalles de vacaciones observados
+											//getJsonFechas();
+										}
+										
+									});
+
+					$("#print").attr("disabled", true);
+					$("#print").attr("enabled", false);
+					$("#confirmar").attr("disabled",
+							true);
+					$("#confirmar").attr("enabled",
+							false);
+					$("#agregar").attr("disabled", true);
+					$("#agregar").attr("enabled", false);
+
+					$
+							.getJSON(
+									gth_context_path
+											+ "/solicitud/existenciasolicitud",
+									data,
+									function(response) {
+										console
+												.log("existencia solicitud "
+														+ response
+														+ " :: "
+														+ response.response);
+										$("#idvac")
+												.val(
+														response.idvac);
+										if (response.response == 1) {
+											console
+													.log("deshabilitando el boton print");
+											$("#subir")
+													.attr(
+															"disabled",
+															true);
+											$("#subir")
+													.attr(
+															"enabled",
+															false);
+										} else {
+											Materialize
+													.toast(
+															'Por favor suba su solicitud firmada.',
+															3000,
+															'rounded',
+															function() {
+
+															});
+											$("#print").attr("enabled", true);
+											$("#print").attr("disabled", false);
+										}
+									});
+							break;
+						case 4:
+							$("#subir").attr("disabled", true);
+							$("#subir").attr("enabled", false);
+							$("#print").attr("disabled", true);
+							$("#print").attr("enabled", false);
+							$("#confirmar").attr("disabled",
+									true);
+							$("#confirmar").attr("enabled",
+									false);
+
+							$("#fe_inicio_1").attr("disabled",
+									true);
+							$("#fe_inicio_1").attr("enabled",
+									false);
+							$("#agregar")
+									.attr("disabled", true);
+							$("#agregar")
+									.attr("enabled", false);
+
+							// $("#confirmar").off('click');
+							// $("#print").off('click');
+							Materialize
+									.toast(
+											'Disculpe, aún el analista debe realizar algunas configuraciones. Gracias por su paciencia.',
+											3000, 'rounded',
+											function() {
+
+											});
+
+							break;
+						}
+						
+					});
+}
 
 $("#print").click(
 		function() {
@@ -1132,7 +1099,7 @@ function insertar() {
 
 	var con = new jsConnector();
 	con.post('/solicitud/insertar?' + datos, null, function(response) {
-		if (response != null) {
+		if (response != "") {
 			console.log("jquery:" + response);
 			Materialize.toast('Vacaciones registrada correctamente!', 3000,
 					'rounded');
@@ -1144,6 +1111,7 @@ function insertar() {
 			$("#print").attr("disabled", false);
 			$("#print").attr("enabled", true);
 		} else {
+			console.log(response);
 			Materialize.toast('UPS!!, No se ha registrado sus vacaciones!',
 					3000, 'rounded');
 		}

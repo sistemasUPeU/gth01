@@ -38,9 +38,9 @@ $(document).ready(function() {
 					});
 					$("#modal2").openModal();
 				});
-		function abrirModalSolicitud(value) {
+		function abrirModalSolicitud(value, callback) {
 			console.log("abriendo modal s " + value);
-			$("#modal1").openModal();
+			$("#space").html("");
 			$("#idtrb").val(value);
 
 			$('.dropify').dropify();
@@ -73,6 +73,15 @@ $(document).ready(function() {
 					element) {
 				alert('File deleted');
 			});
+			//funcion que pertenece a solicitud.js
+			console.log("a punto de llamar a setDatosUser desde gestionar programa " + value );
+			
+			$("#modal_gest_programa").openModal();
+			console.log("antes de llamar el callback de fecha minima")
+			callback(value,setDatosUser);
+			$(".class-picker").css("height","2500px");
+
+			
 
 		}
 
@@ -114,10 +123,14 @@ $(document).ready(function() {
 									// 									s += '<input type="checkbox" id="test'+i+'">';
 									// 									s += '<label for="test'+i+'"></label>';
 									// 									s += '</p></td>';
-									s += '<td><button id="abrir-modal1" value="'
-											+ obj[i].ID_TRABAJADOR
-											+ '" class="waves-effect waves-light btn red" onclick=abrirModalSolicitud(this.value)>&#128197;</button></td>';
+//									s += '<td><button id="abrir-modal1" value="'
+//											+ obj[i].ID_TRABAJADOR
+//											+ '" class="waves-effect waves-light btn red" onclick=abrirModalSolicitud(this.value)>&#128197;</button></td>';
 									// 									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
+									
+									s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id, setFechaMinima)" class="btn-floating btn-large waves-effect waves-light cyan darken-2" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-event"></i></a></td>';
+
+									
 									s += '</tr>';
 
 								}
@@ -176,7 +189,7 @@ $(document).ready(function() {
 										s += '<td style=" text-align: center;" ><a onclick= "verdetalle(this.id)" class="btn-floating btn-large waves-effect waves-light green accent-3" id="'+ obj[i].ID_TRABAJADOR +'"><i class="mdi-maps-rate-review"></i></a></td>';
 									}else if(obj[i].VALIDACION == 1){
 										//REPROGRAMAR
-										s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id)" class="btn-floating btn-large waves-effect waves-light cyan darken-2" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-cached"></i></a></td>';
+										s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id, setFechaMinima)" class="btn-floating btn-large waves-effect waves-light cyan darken-2" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-cached"></i></a></td>';
 
 									}
 									

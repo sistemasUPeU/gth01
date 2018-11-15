@@ -153,29 +153,6 @@
 				</div>
 
 				<div class="row" id="space">
-<!-- 					<div class="col s12 m12 l6"> -->
-<!-- 						<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;"> -->
-
-
-<!-- 							<div class="row holiday" style="margin-bottom: 0px;"> -->
-<!-- 								<div class="col s3 m12"> -->
-<!-- 									<h4 class="header2"><b>Vacaciones N° 1</b></h4> -->
-<!-- 								</div> -->
-<!-- 								<div class="input-field col s6"> -->
-<!-- 									<i class="mdi-action-perm-contact-cal prefix"></i> <input -->
-<!-- 										type="text" class="datepicker" id="fe_inicio_1"> <label -->
-<!-- 										for="fe_inicio_1">Fecha Inicio</label> -->
-<!-- 								</div> -->
-<!-- 								<div class="input-field col s6"> -->
-<!-- 									<i class="mdi-action-perm-contact-cal prefix"></i> <input -->
-<!-- 										type="text" class="datepicker" onchange="settifinal(this.id)" id="fe_final_1"> -->
-<!-- 									<label for="fe_final_1">Fecha Fin</label> -->
-<!-- 								</div> -->
-
-
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 
 				</div>
 
@@ -274,6 +251,48 @@
 		<script
 			src="<c:url value='/resources/js/businessCore/holidays/solicitud.js'></c:url>"
 			type="text/javascript"></script>
+			
+		<script type="text/javascript">
+
+		
+		$(document)
+		.ready(
+				function() {
+
+					setFechaMinima("",setDatosUser);
+					
+					
+
+					// $('#confirmar').removeClass("waves-effect
+					// waves-light").addClass('disabled');
+
+					var csrfHeader = $("meta[name='_csrf_header']").attr(
+							"content");
+					var csrfToken = $("meta[name='_csrf']").attr("content");
+					console.log(csrfToken + " / " + csrfHeader);
+
+					// $("#hide").val(csrfToken);
+					// $("#hide").attr("name",csrfHeader);
+
+					
+
+					$('.dropify').dropify();
+
+
+					var drEvent = $('.dropify-event').dropify();
+
+					drEvent.on('dropify.beforeClear', function(event, element) {
+						return confirm("Do you really want to delete \""
+								+ element.filename + "\" ?");
+					});
+
+					drEvent.on('dropify.afterClear', function(event, element) {
+						alert('File deleted');
+					});
+
+				});
+		
+		</script>
 
 		<!-- 	<script -->
 		<%-- 		src="<c:url value='/resources/js/plugins/datepick/doc.js'></c:url>" --%>

@@ -137,7 +137,7 @@ div.dataTables_length {
 						class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>
 				</div>
 			</div>
-			<div id="modal1" class="modal">
+			<div id="modal_gest_programa" class="modal">
 			
 <%-- 			<%@include file="../../../jspf/request.jspf"%> --%>
 			
@@ -145,49 +145,17 @@ div.dataTables_length {
 					<div class="container" style="width: 90%">
 
 			<!-- 					<div id="icon-prefixes" class="section"> -->
-			<h4 class="header">Datos Generales</h4>
 
-<!-- 			<div class="row"> -->
-				<div class="col s6 m8 l8">
-					<div class="row card-panel">
-
-
-
-						<div class="input-field col s12 l6">
-							<i class="mdi-action-account-circle prefix"></i> <input
-								id="nombres" type="text" class="validate" disabled> <label
-								for="icon_prefix3">Nombres y Apellidos</label>
-						</div>
-						<div class="input-field col s12 l3">
-							<i class="mdi-action-perm-identity prefix"></i> <input id="dni"
-								type="number" class="validate" disabled> <label
-								for="icon_telephone">DNI</label>
-						</div>
-						<div class="input-field col s12 l3">
-							<i class="mdi-content-content-paste prefix"></i> <input id="tipo"
-								type="text" class="validate"
-								<%-- 							 value="${tipo}"  --%>
-							disabled> <label
-								for="icon-request">Tipo solicitud</label>
-						</div>
-
-						<input id="idtrb" class="hide"> <input id="idrol"
-							class="hide"> <input id="user" class="hide">
-
-
-
-
-
-					</div>
-				</div>
+		
 				<div class="container" style="width: 60%" >
 				<div id="card-alert" class=" card cyan darken-2 center" >
 					<div class="card-content white-text" id="message_date"
 						style="margin: 2px;"></div>
 				
 				</div>
+				<input id="idtrb_modal" class="hide">
 				</div>
-<!-- 			</div> -->
+
 
 			<h4 class="header">Programa de Horarios</h4>
 				<div class="row">
@@ -365,6 +333,10 @@ div.dataTables_length {
 	<script
 		src="<c:url value='/resources/js/businessCore/holidays/gestionar_programa.js'></c:url>"
 		type="text/javascript"></script>
+	
+	<script
+	src="<c:url value='/resources/js/businessCore/holidays/solicitud.js'></c:url>"
+	type="text/javascript"></script>
 
 
 </body>

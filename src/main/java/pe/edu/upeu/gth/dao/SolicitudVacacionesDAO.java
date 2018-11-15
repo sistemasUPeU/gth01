@@ -213,8 +213,9 @@ public class SolicitudVacacionesDAO {
 //			cst.registerOutParameter(2, Types.NUMERIC);
 //			cst.execute();
 //			System.out.println(cst.getInt(2));
-		System.out.println("respuesta de validacion de tipo de solicitud>>>>> " + i );
+			System.out.println("respuesta de validacion de tipo de solicitud>>>>> " + i );
 //			i = cst.getInt(2);
+			
 		return i;
 	}
 

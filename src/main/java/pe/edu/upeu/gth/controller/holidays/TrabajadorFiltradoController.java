@@ -52,6 +52,7 @@ public class TrabajadorFiltradoController {
 	@RequestMapping(path = "/readallTrabajadorFiltrado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAllTrabajadorFiltrado() {
 		TrabajadorFiltradoDAO DAO = new TrabajadorFiltradoDAO(AppConfig.getDataSource());
+		System.out.println("read all trabajador filtrado");
 		return GSON.toJson(DAO.READALL());
 	}
 	

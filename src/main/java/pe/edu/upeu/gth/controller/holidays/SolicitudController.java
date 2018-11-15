@@ -424,8 +424,8 @@ public class SolicitudController {
 	@RequestMapping(path = "/getdetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getdetails(HttpServletRequest request, Model model, Authentication authentication) {
 		Gson gs = new Gson();
-		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
-	
+//		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		String idtra = request.getParameter("idtrab");
 		List<Map<String, Object>> sd = vd.detallesolicitud(idtra);
 		//int respuesta = Integer.parseInt(sd.get(0).get("VA_PRIVILEGIO").toString());
 		
