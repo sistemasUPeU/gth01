@@ -125,10 +125,10 @@ function createMonthCalendar(id_vac, obj) {
 				inline : true,
 				onSelect : function(checked) {
 					var state = (checked) ? 'selected' : 'unselected';
-					var date_slctd = this.toLocaleDateString().split("/");
-					var day_slctd = date_slctd[0];
-					var month_slctd = date_slctd[1];
-					var year_slctd = date_slctd[2];
+					var date_slctd = new Date(this);
+					var day_slctd = date_slctd.getDate().toString();
+					var month_slctd = (date_slctd.getMonth() + 1).toString();
+					var year_slctd = date_slctd.getFullYear().toString();
 					date_number = parseInt(year_slctd
 							+ (month_slctd > 9 ? '' : '0') + month_slctd
 							+ (day_slctd > 9 ? '' : '0') + day_slctd);
