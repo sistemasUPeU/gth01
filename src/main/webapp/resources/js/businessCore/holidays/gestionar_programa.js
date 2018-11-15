@@ -43,63 +43,35 @@ $(document).ready(function() {
 			$("#modal1").openModal();
 			$("#idtrb").val(value);
 
-			var idtrbselected = value;
+			$('.dropify').dropify();
 
-			$.getJSON(gth_context_path + "/solicitud/validar", {
-				id : idtrbselected
-			}, function(res, status) {
-
-				console.log("devuelve controller: " + res);
-
-				switch (res) {
-
-				case 1:
-
-					//						window.location.href = gth_context_path +"/solicitud/registrar?op=1";
-					var datos = "op=1"
-					console.log("Programacion");
-					$("#tiposolicitud").val("Programacion");
-					$("#tipo").val("Programación");
-					Materialize.updateTextFields();
-
-					break;
-				case 2:
-
-					//					window.location.href = gth_context_path +"/";
-					Materialize.toast('Usted tiene una solicitud en proceso!',
-							3000, 'rounded', function() {
-								var datos = "op=3"
-								$.get(
-										gth_context_path
-												+ '/solicitud/registrar',
-										datos, function(response) {
-											console.log(response);
-											$("#desktop").html(response);
-										});
-
+			// 							Translated
+			$('.dropify-fr')
+					.dropify(
+							{
+								messages : {
+									// default: 'Glissez-déposez un fichier ici ou cliquez',
+									replace : 'Glissez-déposez un fichier ou cliquez pour remplacer',
+									remove : 'Supprimer',
+									error : 'Désolé, le fichier trop volumineux'
+								}
 							});
-					$("#subir").attr("disabled", true);
-					$("#subir").attr("enabled", false);
-					$("#print").attr("disabled", true);
-					$("#print").attr("enabled", false);
-					$("#confirmar").attr("disabled", true);
-					$("#confirmar").attr("enabled", false);
 
-					break;
-				case 3:
-					//						window.location.href = "http://localhost:8099/gth/solicitud/registrar?op=2";
-					//						console.log("reprogramacion");
-					var datos = "op=2"
-					console.log("Reprogramacion");
-					$("#tiposolicitud").val("Reprogramación");
-					$("#tipo").val("Reprogramación");
-					//						$.get(gth_context_path+'/solicitud/registrar', datos, function(response) {
-					//							console.log(response);
-					//							
-					//							$("#dashboard").html(response);
-					//						});
-					break;
-				}
+			// 							Used events
+			var drEvent = $('.dropify-event').dropify();
+
+			drEvent
+					.on(
+							'dropify.beforeClear',
+							function(event, element) {
+								return confirm("Do you really want to delete \""
+										+ element.filename
+										+ "\" ?");
+							});
+
+			drEvent.on('dropify.afterClear', function(event,
+					element) {
+				alert('File deleted');
 			});
 
 		}

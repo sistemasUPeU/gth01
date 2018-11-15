@@ -54,20 +54,7 @@
 
 
 <body>
-	<%-- 	<%@include file="../../../jspf/header.jspf"%> --%>
-	<!-- 	<div id="loader-wrapper"> -->
-	<!-- 		<div id="loader"></div> -->
-	<!-- 		<div class="loader-section section-left"></div> -->
-	<!-- 		<div class="loader-section section-right"></div> -->
-	<!-- 	</div> -->
-	<!-- 		<div id="main"> -->
-	<!-- 		<div class="wrapper"> -->
-	<%-- 			<%@include file="../../../jspf/aside_left.jspf"%> --%>
-	<%-- 			<%@include file="../../../jspf/info_puesto.jspf"%> --%>
 
-	<!-- 			<section id="content" style="margin-left: 10%; margin-right: 10%;"> -->
-
-	<!--start container-->
 	<%@include file="../../../jspf/header.jspf"%>
 	<div id="loader-wrapper">
 		<div id="loader"></div>
@@ -92,8 +79,8 @@
 			<!-- 					<div id="icon-prefixes" class="section"> -->
 			<h4 class="header">Datos Generales</h4>
 
-			<div class="row">
-				<div class="col s12 m9 l8">
+<!-- 			<div class="row"> -->
+				<div class="col s6 m8 l8">
 					<div class="row card-panel">
 
 
@@ -125,21 +112,18 @@
 
 					</div>
 				</div>
-				<div class="col s12 m3 l4" style="line-height: 215%;">
-					<div id="card-alert" class="card cyan lighten-1">
-						<div class="card-content white-text" id="message_date"
-							style="height: 115px;"></div>
-					
-					</div>
+				<div class="container" style="width: 60%" >
+				<div id="card-alert" class=" card cyan darken-2 center" >
+					<div class="card-content white-text" id="message_date"
+						style="margin: 2px;"></div>
+				
 				</div>
-			</div>
+				</div>
+<!-- 			</div> -->
 
 			<h4 class="header">Programa de Horarios</h4>
-
 				<div class="row">
-
-					<div class="col s12 m6 l6" id="btn-agregar">
-
+					<div class="col s12 m4 l5" id="btn-agregar" style="margin-bottom:10px;" >
 						<p>
 							<button
 								class="btn-floating btn-large waves-effect waves-light green accent-3 left"
@@ -147,7 +131,7 @@
 						</p>
 
 					</div>
-										<div class="col s12 m3 l4 ">
+						<div class="col s12 m5 l4 " style="margin-bottom:10px;">
                                 <div class="card" style="margin:0;">
                                     <div class="card-content  green white-text" style="padding-top: 16px; padding-bottom: 3px;">
                                         <p class="card-stats-title center"><i class="mdi-action-info-outline"></i> Información </p>
@@ -155,8 +139,8 @@
                                     </div>
                                    
                                 </div>
-                            </div>
-					<div class="col s12 m3 l2 right">
+                        </div>
+					<div class="col s12 m3 l3 right" style="margin-bottom:10px;">
                                 <div class="card" style="margin:0;">
                                     <div class="card-content  green white-text" style="padding-top: 16px; padding-bottom: 3px;">
                                         <p class="card-stats-title center"><i class="mdi-action-event"></i> Total de días</p>
@@ -241,7 +225,7 @@
 
 
 
-					<div class="col s6 center" style="margin-right: 2em;">
+					<div class="col s12 center">
 						<button type="submit" class="btn waves-effect waves-light center"
 							id="subir">
 							Enviar <i class="mdi-content-send right"></i>

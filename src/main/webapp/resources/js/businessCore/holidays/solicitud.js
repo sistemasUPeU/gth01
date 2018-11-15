@@ -625,11 +625,11 @@ function crearCard(numero, fechainicio, fechafin, obs, mode){
 	s += '<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;">';
 
 	s += '<div class="row holiday" style="    margin-bottom: 0px;">'
-	s += '<div class="col s3 m6">'
+	s += '<div class="col s6 m6">'
 	s += '<h4 class="header2"><b>Vacaciones N° ' + numero + '</b></h4>';
 	s += '</div>'
 //		if(numero != 1){
-			s += '<div class="col s3 m6">'
+			s += '<div class="col s6 m6 right">'
 				s += '<button style="margin-top: 7px;" onclick="eliminarVacaciones('
 						+ numero
 						+ ');" class="btn-floating waves-effect waves-light  red darken-4 right"'
