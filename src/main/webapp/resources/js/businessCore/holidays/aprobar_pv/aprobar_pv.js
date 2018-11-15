@@ -218,13 +218,9 @@ function listarRechazados() {
 							d += "</td><td>";
 							d += obj[i].NO_SECCION;
 							d += "</td><td>";
-							d += obj[i].NU_VAC;
+							d += "30";
 							d += "</td><td>";
 							d += obj[i].NU_DOC;
-							d += "</td><td>";
-							d += obj[i].FECHA_INICIO;
-							d += "</td><td>";
-							d += obj[i].FECHA_FIN;
 							d += "</td><td>";
 							d += con;
 							d += "</td><td>";
@@ -297,8 +293,6 @@ function createTable3() {
 	s += "<th>Sección</th>";
 	s += "<th>Dias Totales</th>";
 	s += "<th>DNI</th>";
-	s += "<th>FEC INI</th>";
-	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
 	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Observación</th>";
@@ -523,60 +517,72 @@ function listarAnteriorCollapsible() {
 					"programa_vacaciones/getNombres",
 					function(obj) {
 						var s = "";
-
-						for (var i = 0; i < obj.length; i++) {
-							var con = "";
-							if (obj[i].LI_CONDICION == 1) {
-								con = "CONTRATADO";
-							}
-							if (obj[i].LI_CONDICION == 2) {
-								con = "EMPLEADO";
-							}
-							if (obj[i].LI_CONDICION == 3) {
-								con = "MISIONERO";
-							}
-							if (obj[i].LI_CONDICION == 4) {
-								con = "MFL, Practicas Pre -- Profesionales";
-							}
-							if (obj[i].LI_CONDICION == 5) {
-								con = "MFL, Practicas Profesionales";
-							}
-							if (obj[i].LI_CONDICION == 6) {
-								con = "MFL, CLJ, Convenio laboral Juvenil";
-							}
-							if (obj[i].LI_CONDICION == 7) {
-								con = "MFL -- Contrato";
-							}
-							s += '<li><div class="collapsible-header" id="'
-									+ obj[i].ID_VACACIONES
-									+ '" onclick="showCalendar(this.id)">';
-							s += obj[i].AP_PATERNO + " " + obj[i].AP_MATERNO;
-							s += ", ";
-							s += obj[i].NO_TRABAJADOR;
+						console.log(obj);
+						if (obj.length == 0) {
+							s += '<li><div class="collapsible-header" >';
+							s += "No hay data disponible!"
 							s += '</div>';
 							s += '<div class="collapsible-body">';
-							s += '<p>Sección: ';
-							s += obj[i].NO_SECCION;
-							s += '</p>';
-							s += '<p>Dias totales: ';
-							s += '30'
-							s += '</p>';
-							s += '<p>DNI: ';
-							s += obj[i].NU_DOC;
-							s += '</p>';
-							s += '<p>Condición: ';
-							s += con;
-							s += '</p>';
-							s += '<p>Tipo de solicitud: ';
-							s += obj[i].TIPO;
-							s += '</p>';
-							s += '<center>';
 							s += '<p>';
-							s += '<button class="btn waves-effect waves-light" onclick="recorrerDatos()">Confirmar';
-							s += '</button>';
+							s += 'Espere!';
 							s += '</p>';
-							s += '</center>';
 							s += '</div></li>';
+						} else {
+							for (var i = 0; i < obj.length; i++) {
+								var con = "";
+								if (obj[i].LI_CONDICION == 1) {
+									con = "CONTRATADO";
+								}
+								if (obj[i].LI_CONDICION == 2) {
+									con = "EMPLEADO";
+								}
+								if (obj[i].LI_CONDICION == 3) {
+									con = "MISIONERO";
+								}
+								if (obj[i].LI_CONDICION == 4) {
+									con = "MFL, Practicas Pre -- Profesionales";
+								}
+								if (obj[i].LI_CONDICION == 5) {
+									con = "MFL, Practicas Profesionales";
+								}
+								if (obj[i].LI_CONDICION == 6) {
+									con = "MFL, CLJ, Convenio laboral Juvenil";
+								}
+								if (obj[i].LI_CONDICION == 7) {
+									con = "MFL -- Contrato";
+								}
+								s += '<li><div class="collapsible-header" id="'
+										+ obj[i].ID_VACACIONES
+										+ '" onclick="showCalendar(this.id)">';
+								s += obj[i].AP_PATERNO + " "
+										+ obj[i].AP_MATERNO;
+								s += ", ";
+								s += obj[i].NO_TRABAJADOR;
+								s += '</div>';
+								s += '<div class="collapsible-body">';
+								s += '<p>Sección: ';
+								s += obj[i].NO_SECCION;
+								s += '</p>';
+								s += '<p>Dias totales: ';
+								s += '30'
+								s += '</p>';
+								s += '<p>DNI: ';
+								s += obj[i].NU_DOC;
+								s += '</p>';
+								s += '<p>Condición: ';
+								s += con;
+								s += '</p>';
+								s += '<p>Tipo de solicitud: ';
+								s += obj[i].TIPO;
+								s += '</p>';
+								s += '<center>';
+								s += '<p>';
+								s += '<button class="btn waves-effect waves-light" onclick="recorrerDatos()">Confirmar';
+								s += '</button>';
+								s += '</p>';
+								s += '</center>';
+								s += '</div></li>';
+							}
 						}
 						$("#listarAnteriorCollapsible").empty();
 						$("#listarAnteriorCollapsible").append(s);

@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 import pe.edu.upeu.gth.config.AppConfig;
 import pe.edu.upeu.gth.dao.AprobarProgramaVacaciones;
-import pe.edu.upeu.gth.dao.Notificacion_VacDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
 import pe.edu.upeu.gth.dto.ProductOrder;
@@ -59,7 +58,7 @@ public class AprobarProgramaVacacionesController {
 	@RequestMapping(path = "/getRechazados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getRechazados(Authentication authentication) {
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
-		return g.toJson(t.listarRechazados(depa));
+		return g.toJson(t.listarRechazadosNombres(depa));
 	}
 
 	@RequestMapping(path = "/guardarAprobar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
