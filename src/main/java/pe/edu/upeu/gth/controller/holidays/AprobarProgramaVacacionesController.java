@@ -61,6 +61,13 @@ public class AprobarProgramaVacacionesController {
 		return g.toJson(t.listarRechazadosNombres(depa));
 	}
 
+	@RequestMapping(path = "/getRechazadosDetalle", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getRechazadosDetalle(HttpServletRequest request, Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		String idtr = request.getParameter("idtr");
+		return g.toJson(t.listarRechazadosDetalle(depa, idtr));
+	}
+
 	@RequestMapping(path = "/guardarAprobar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String guardarAprobar(HttpServletRequest request, Authentication authentication) {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
@@ -82,46 +89,53 @@ public class AprobarProgramaVacacionesController {
 		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		String id_det = request.getParameter("id_det");
+		String[] idarray = id_det.split(",");
 		String text = request.getParameter("text");
+		String[] txtarr = text.split(",");
 		String emisor = request.getParameter("emisor");
 		String receptor = request.getParameter("receptor");
-		return g.toJson(t.observarVac(usuario, depa, id_det, text, emisor, receptor));
+		return g.toJson(t.observarVac(usuario, depa, idarray, txtarr, emisor, receptor));
 	}
 
 	@RequestMapping(path = "/enviarObservacion", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String enviarObservacion(HttpServletRequest request, Authentication authentication) {
 		List<Map<String, Object>> lista_e = new ArrayList<>();
 		List<Map<String, Object>> lista_s = new ArrayList<>();
+		String[] arrayEmail = null;
 		int c = 0;
 		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
 		String id_det = request.getParameter("id_det");
+		String[] idarray = id_det.split(",");
 		String receptor = request.getParameter("receptor");
-		lista_e = t.GetEmailEmployee(depa, id_det, receptor);
-		lista_s = t.GetEmailSecre(depa);
-		String fecha_ini = lista_e.get(0).get("FECHA_INICIO").toString();
-		String fecha_fin = lista_e.get(0).get("FECHA_FIN").toString();
-		String[] arrayEmail = new String[lista_s.size() + 1];
-		try {
-			for (int i = 0; i < lista_s.size(); i++) {
-				arrayEmail[i] = lista_s.get(i).get("DI_CORREO_PERSONAL").toString();
-				c = i;
+		for (int p = 0; p < idarray.length; p++) {
+			lista_e = t.GetEmailEmployee(depa, idarray[p], receptor);
+			lista_s = t.GetEmailSecre(depa);
+			String fecha_ini = lista_e.get(0).get("FECHA_INICIO").toString();
+			String fecha_fin = lista_e.get(0).get("FECHA_FIN").toString();
+			arrayEmail = new String[lista_s.size() + 1];
+			try {
+				for (int i = 0; i < lista_s.size(); i++) {
+					arrayEmail[i] = lista_s.get(i).get("DI_CORREO_PERSONAL").toString();
+					c = i;
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR:" + e);
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("ERROR:" + e);
+			try {
+				arrayEmail[c + 1] = lista_e.get(0).get("DI_CORREO_PERSONAL").toString();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR:" + e);
+			}
+			String text = lista_e.get(0).get("TEXTO").toString();
+			String format = "Su Jefe de departamento ha observado su programa de vacaciones:\r\n" + text + "\r\n"
+					+ "(El programa de vacaciones observado es del " + fecha_ini + " al " + fecha_fin + ")";
+			String[] tempArray = new String[1];
+			tempArray[0] = "104granados@gmail.com";
+
+			// ms.sendEmail(getDummyOrder(), tempArray, format);
 		}
-		try {
-			arrayEmail[c + 1] = lista_e.get(0).get("DI_CORREO_PERSONAL").toString();
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("ERROR:" + e);
-		}
-		String text = lista_e.get(0).get("TEXTO").toString();
-		String format = "Su Jefe de departamento ha observado su programa de vacaciones:\r\n" + text + "\r\n"
-				+ "El programa de vacaciones observado es del " + fecha_ini + " al " + fecha_fin;
-		String[] tempArray = new String[1];
-		tempArray[0] = "104granados@gmail.com";
-		// ms.sendEmail(getDummyOrder(), tempArray, format);
 		return g.toJson(arrayEmail);
 	}
 
@@ -140,8 +154,6 @@ public class AprobarProgramaVacacionesController {
 	}
 
 	@GetMapping(path = "/getCalendar")
-	// @RequestMapping(path = "/getCalendar", method = RequestMethod.POST, produces
-	// = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView geCalendar(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("vacaciones/calendar");
 	}

@@ -103,5 +103,5 @@ $(document).ready(function(){
 		});
 	};
 
-	var timerId = setInterval(comparar, 1000);
+	//var timerId = setInterval(comparar, 1000);
 </script>

@@ -40,8 +40,13 @@ div.dataTables_length {
 			<section id="content"></section>
 		</div>
 		<%@include file="../../../jspf/info_puesto.jspf"%>
-
 		<div class="container">
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Gestionar Lista Filtrada</h5>
+				</div>
+			</center>
 			<div class="row">
 				<div id="table_contenido" class="col s12 m12 l12"></div>
 				<div id="nocargando" class="center-btn row">
@@ -62,8 +67,7 @@ div.dataTables_length {
 							</div>
 						</div>
 					</div>
-					<br>
-					<label>CONFIRMANDO LISTA</label>
+					<br> <label>CONFIRMANDO LISTA</label>
 				</div>
 			</div>
 		</div>
@@ -77,115 +81,8 @@ div.dataTables_length {
 	<script
 		src="<c:url value='/resources/js/plugins/data-tables/data-tables-script.js'></c:url>"
 		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/businessCore/holidays/gestionar_lista_filtrada.js'></c:url>"
+		type="text/javascript"></script>
 </body>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		console.log("si");
-		listarTrabajadorFiltrado();
-		$("#cargando").hide();
-	})
-
-	$("#confirmar_lista")
-			.click(
-					function() {
-						$("#nocargando").hide();
-						$("#cargando").show();
-						$
-								.get(
-										"confirmarListaFiltrada",
-										function(data, status) {
-											console.log(data);
-											if (data == 1) {
-												var $toastContent = $('<span>Lista filtrada correctamente</span>');
-												Materialize.toast(
-														$toastContent, 10000);
-												listarTrabajadorFiltrado();
-											}
-											if (data == 2) {
-												var $toastContent = $('<span>Lista de trabajadores filtrados vacía</span>');
-												Materialize.toast(
-														$toastContent, 10000);
-												listarTrabajadorFiltrado();
-											}
-											if (data == 3) {
-												var $toastContent = $('<span>No existe consolidado activo</span>');
-												Materialize.toast(
-														$toastContent, 10000);
-											}
-											if (data == 0) {
-												var $toastContent = $('<span>Error interno</span>');
-												Materialize.toast(
-														$toastContent, 10000);
-											}
-											$("#nocargando").show();
-											$("#cargando").hide();
-										});
-					});
-
-	function listarTrabajadorFiltrado() {
-		$.get('readallTrabajadorFiltrado', function(obj) {
-			console.log(obj);
-			var s = '';
-			var emp = obj[0];
-			for (var i = 0; i < obj.length; i++) {
-				var con = "--";
-				if (obj[i].LI_CONDICION == 1) {
-					con = "CONTRATADO";
-				}
-				if (obj[i].LI_CONDICION == 2) {
-					con = "EMPLEADO";
-				}
-				if (obj[i].LI_CONDICION == 3) {
-					con = "MISIONERO";
-				}
-				if (obj[i].LI_CONDICION == 4) {
-					con = "PRACTICAS PRE-PROFESIONALES";
-				}
-				if (obj[i].LI_CONDICION == 5) {
-					con = "PRACTICAS PROFESIONALES";
-				}
-				if (obj[i].LI_CONDICION == 6) {
-					con = "CONVENIO LABORAL JUVENIL";
-				}
-				if (obj[i].LI_CONDICION == 7) {
-					con = "CONTRATO";
-				}
-				s += '<tr>';
-				s += '<td>' + obj[i].AP_PATERNO + ' ' + obj[i].AP_MATERNO + ' '
-						+ obj[i].NO_TRABAJADOR + '</td>';
-				s += '<td>' + obj[i].NO_DEP + '</td>';
-				s += '<td>' + obj[i].NO_DEP + '</td>';
-				s += '<td>' + obj[i].NO_AREA + '</td>';
-				s += '<td>' + obj[i].NO_SECCION + '</td>';
-				s += '<td>' + con + '</td>';
-				s += '</tr>';
-
-			}
-			$("#table_contenido").empty();
-			$("#table_contenido").append(createTable());
-			$("#data").empty();
-			$("#data").append(s);
-			$('#data-table-row-grouping').dataTable();
-		});
-	};
-
-	function createTable() {
-		var s = '<table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">';
-		s += '<thead>';
-		s += '<tr>';
-		s += '<th>Apellidos y Nombres</th>';
-		s += '<th>Área</th>';
-		s += '<th>Departamento</th>';
-		s += '<th>Área</th>';
-		s += '<th>Sección</th>';
-		s += '<th>Condición</th>';
-		s += ' </tr>';
-		s += '</thead>';
-		s += '<tbody id="data"></tbody>';
-		s += '</table>';
-		return s;
-
-	};
-</script>
 </html>

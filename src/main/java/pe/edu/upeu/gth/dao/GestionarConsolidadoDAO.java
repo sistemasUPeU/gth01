@@ -45,7 +45,7 @@ public class GestionarConsolidadoDAO {
 					+ "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
 					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
 					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
-					+ "AND co.es_contrato = 1" + " AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
+					+ "AND co.es_contrato = 1\r\n" + "AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);

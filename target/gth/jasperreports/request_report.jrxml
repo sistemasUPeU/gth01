@@ -3,34 +3,26 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="request" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="759c7fd3-83c7-41e9-8d2c-21c5172db5ff">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
-	<subDataset name="Dataset1" uuid="60262dbe-8457-4952-be70-5c69d6d882ab">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
-		<parameter name="txtidtrab" class="java.lang.String"/>
-		<queryString language="SQL">
-			<![CDATA[SELECT
-  D.FECHA_INICIO,
-  D.FECHA_FIN
-FROM "RHMV_TRABAJADOR_FILTRADO" A
-	JOIN "RHTM_TRABAJADOR" B ON 
-	 A."ID_TRABAJADOR" = B."ID_TRABAJADOR" 
-	JOIN "RHMV_VACACIONES" C ON 
-	 C."ID_TRABAJADOR_FILTRADO" = A."ID_TRABAJADOR_FILTRADO" 
-	JOIN "RHMV_DET_VACACIONES" D ON 
-	 C."ID_VACACIONES" = D."ID_VACACIONES" 
-	 AND C."ESTADO" = 1]]>
-		</queryString>
-		<field name="FECHA_INICIO" class="java.sql.Timestamp">
-			<property name="com.jaspersoft.studio.field.label" value="FECHA_INICIO"/>
-		</field>
-		<field name="FECHA_FIN" class="java.sql.Timestamp">
-			<property name="com.jaspersoft.studio.field.label" value="FECHA_FIN"/>
-		</field>
-	</subDataset>
+	<style name="row_style" vTextAlign="Middle" fontName="SansSerif">
+		<pen lineWidth="1.0" lineColor="#8A8888"/>
+		<box padding="3">
+			<topPen lineWidth="1.0"/>
+			<leftPen lineWidth="1.0"/>
+			<bottomPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="header_style" mode="Opaque" forecolor="#FFFFFF" backcolor="#828282" hTextAlign="Center" vTextAlign="Middle" isBold="true">
+		<box>
+			<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#424242"/>
+			<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#424242"/>
+			<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#424242"/>
+			<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#424242"/>
+		</box>
+	</style>
 	<parameter name="txtidtrab" class="java.lang.String"/>
-	<parameter name="txtfecha1" class="java.lang.String"/>
 	<parameter name="realPath" class="java.lang.String"/>
-	<parameter name="txtfecha11" class="java.lang.String"/>
+	<parameter name="ID_TRAB" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT A."ID_TRABAJADOR_FILTRADO",
 	A."ID_CONSOLIDADO",
@@ -47,7 +39,7 @@ FROM "RHMV_TRABAJADOR_FILTRADO" A
 	JOIN "RHMV_VACACIONES" C ON 
 	 C."ID_TRABAJADOR_FILTRADO" = A."ID_TRABAJADOR_FILTRADO" 
 	 AND C."ESTADO" = 1 
-	 AND B."ID_TRABAJADOR" = $P{txtidtrab}]]>
+	 AND B."ID_TRABAJADOR" = $P{ID_TRAB}]]>
 	</queryString>
 	<field name="ID_TRABAJADOR_FILTRADO" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ID_TRABAJADOR_FILTRADO"/>
@@ -76,15 +68,18 @@ FROM "RHMV_TRABAJADOR_FILTRADO" A
 	<field name="ESTADO" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ESTADO"/>
 	</field>
+	<field name="FECHA_INICIO" class="java.lang.String"/>
+	<field name="FECHA_FIN" class="java.lang.String"/>
+	<field name="NUMERO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="98" splitType="Stretch">
+		<band height="108" splitType="Stretch">
 			<staticText>
 				<reportElement x="300" y="40" width="250" height="58" uuid="1feefa84-af62-44d3-94f9-9212004a6847"/>
 				<textElement>
-					<font fontName="Arial" size="13"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Solicito:]]></text>
 			</staticText>
@@ -95,144 +90,149 @@ FROM "RHMV_TRABAJADOR_FILTRADO" A
 			<textField>
 				<reportElement x="301" y="56" width="199" height="30" uuid="400fa82b-e896-4d5f-b60b-d26955a2627c"/>
 				<textElement>
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{TIPO} + "de Vacaciones"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TIPO} + " de Vacaciones"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="125" splitType="Stretch">
+		<band height="184">
 			<staticText>
-				<reportElement x="60" y="30" width="100" height="30" uuid="9536a74c-671b-4560-bc19-ddf1a0d80237"/>
+				<reportElement x="60" y="41" width="100" height="30" uuid="9536a74c-671b-4560-bc19-ddf1a0d80237"/>
 				<textElement>
-					<font fontName="Arial" size="13"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Señores,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="80" width="214" height="30" uuid="c1f67049-a474-45ca-a816-8f15d86c0305"/>
+				<reportElement x="60" y="69" width="214" height="30" uuid="c1f67049-a474-45ca-a816-8f15d86c0305"/>
 				<textElement>
-					<font fontName="Arial" size="13"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Universidad Peruana Unión]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="60" y="109" width="440" height="38" uuid="da462380-5364-426e-8f5b-8ec502c473b2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AP_PATERNO} +" "+ $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR} + " identificada(o) con DNI: " + $F{NU_DOC} + " expongo: "]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
-	<detail>
-		<band height="449" splitType="Stretch">
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="60" y="180" width="440" height="40" uuid="b661ea1a-520d-492f-975a-4e3d998cf205"/>
-				<textElement textAlignment="Justified">
-					<font fontName="Arial" size="13"/>
+				<reportElement style="header_style" x="60" y="0" width="120" height="21" uuid="11ed5c8a-0587-47db-bf47-ed16830bdd53">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85ff082c-b7f7-4347-b0a8-8c83a76edee6"/>
+				</reportElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="header_style" x="180" y="0" width="160" height="21" uuid="d32e3c5c-0d2a-4a8f-bfb2-9c1c88fa93a7"/>
+				<text><![CDATA[FECHA_INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="header_style" x="340" y="0" width="160" height="21" uuid="7a3d2e24-2974-4325-9969-295ab8204af4"/>
+				<text><![CDATA[FECHA_FIN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement style="row_style" x="60" y="0" width="120" height="43" uuid="3b849c81-3bb2-481e-8819-b361440d55ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NUMERO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="row_style" x="180" y="0" width="160" height="43" uuid="76a23bc4-4f9f-44d9-be5b-afc259bf0e51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="row_style" x="340" y="0" width="160" height="43" uuid="431a2f70-bc79-41c2-9140-186f60144468"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="264">
+			<staticText>
+				<reportElement x="61" y="70" width="440" height="40" uuid="b661ea1a-520d-492f-975a-4e3d998cf205"/>
+				<textElement>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Por lo expuesto, pido estudie mi solicitud a fin de considerar su aprobación en las fechas antes comprendidas.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="220" width="380" height="30" uuid="dacfe4fa-e8c1-421b-a2ec-4617c602c9aa"/>
+				<reportElement x="61" y="110" width="380" height="30" uuid="dacfe4fa-e8c1-421b-a2ec-4617c602c9aa"/>
 				<textElement textAlignment="Justified">
-					<font fontName="Arial" size="13"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Agradezco su atención y consideración hacia mi solicitud.]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="60" y="260" width="100" height="30" uuid="32458cf1-1426-415d-857f-532897dc6e02"/>
-				<textElement>
-					<font fontName="Arial" size="14"/>
-				</textElement>
-				<text><![CDATA[Atentamente,]]></text>
-			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="314">
 			<textField>
-				<reportElement x="192" y="101" width="100" height="22" uuid="f412887e-37e6-4bd9-a647-3ff49fa406b2"/>
-				<textElement>
-					<font fontName="Arial" size="13" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{txtfecha1}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="60" y="8" width="440" height="62" uuid="da462380-5364-426e-8f5b-8ec502c473b2"/>
-				<textElement>
-					<font fontName="Arial" size="13" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{AP_PATERNO} +" "+ $F{AP_MATERNO} + ", " + $F{NO_TRABAJADOR} + " identificada(o) con DNI: " + $F{NU_DOC} + " expongo: "]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="70" y="80" width="100" height="20" uuid="dace15fa-4aa6-4ff6-9916-d91788589dfa"/>
-				<textElement>
-					<font fontName="Arial" size="13"/>
-				</textElement>
-				<text><![CDATA[Programación]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="70" y="102" width="90" height="20" uuid="67d9df05-37a7-48d0-abf3-48e46b718e6d"/>
-				<textElement>
-					<font fontName="Arial" size="13"/>
-				</textElement>
-				<text><![CDATA[Fecha inicio]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="70" y="122" width="90" height="20" uuid="38eb2974-48b7-495f-a334-2603e4eafbc4"/>
-				<textElement>
-					<font fontName="Arial" size="13"/>
-				</textElement>
-				<text><![CDATA[Fecha final]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="218" y="81" width="44" height="18" uuid="0aa0dfce-02e6-4caa-b632-5b44703c2169"/>
-				<textElement>
-					<font fontName="Arial" size="14"/>
-				</textElement>
-				<text><![CDATA[1ra]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="320" y="81" width="44" height="18" uuid="e342f595-e902-4603-988e-dcc4cd45426f"/>
-				<textElement>
-					<font fontName="Arial" size="14"/>
-				</textElement>
-				<text><![CDATA[2da]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="192" y="119" width="100" height="30" uuid="4141eda5-a5d0-4702-909b-308377948ca8"/>
-				<textElement>
-					<font fontName="Arial" size="13" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{txtfecha11}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="420" y="83" width="44" height="18" uuid="d5008dd2-b638-443e-9a27-c8810c974faf"/>
-				<textElement>
-					<font fontName="Arial" size="14"/>
-				</textElement>
-				<text><![CDATA[3ra]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="351" y="368" width="150" height="30" uuid="b7b92dfb-a748-4dd3-8adf-a7dd96be9727"/>
+				<reportElement x="377" y="210" width="150" height="30" uuid="b7b92dfb-a748-4dd3-8adf-a7dd96be9727"/>
 				<textElement textAlignment="Justified">
-					<font fontName="Arial" size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["DNI: " + $F{NU_DOC}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="138" y="360" width="132" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
-				<textElement textAlignment="Justified">
-					<font fontName="Arial" size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="65" y="360" width="100" height="30" uuid="da132074-ccf7-4bf4-b37b-16184604cf8e"/>
+				<reportElement x="60" y="200" width="100" height="30" uuid="da132074-ccf7-4bf4-b37b-16184604cf8e"/>
 				<textElement>
-					<font size="13"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Lima, Ñaña ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="350" y="349" width="120" height="30" uuid="4284eec8-d089-4af7-a453-57d56e7e904c"/>
+				<reportElement x="61" y="151" width="100" height="30" uuid="32458cf1-1426-415d-857f-532897dc6e02"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="130" y="200" width="132" height="20" uuid="20d36232-f97d-493b-8b2d-ea216be9663e"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="190" width="139" height="30" uuid="4284eec8-d089-4af7-a453-57d56e7e904c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
 				<text><![CDATA[_____________________ ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="62" y="56" width="440" height="40" uuid="c57832a8-58ab-465b-a266-aa69db236aed"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Por lo expuesto, pido estudie mi solicitud a fin de considerar su aprobación en las fechas antes comprendidas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="96" width="380" height="30" uuid="96df2021-d609-44c9-9d13-ffde8bfb4022"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Agradezco su atención y consideración hacia mi solicitud.]]></text>
+			</staticText>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="100" splitType="Stretch"/>
-	</pageFooter>
+	</lastPageFooter>
 </jasperReport>

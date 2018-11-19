@@ -1,6 +1,7 @@
 ﻿$(document).ready(function() {
 	listarSinAprobar();
 	listarAprobado();
+	$("#cargando").hide();
 });
 
 function getSelected() {
@@ -12,6 +13,7 @@ function getSelected() {
 }
 
 var z;
+var ti, to;
 
 $("#modalAprobado")
 		.on(
@@ -52,7 +54,6 @@ $("#modalAprobado")
 									'mdi-navigation-close');
 							$(this).find("#i").addClass('mdi-navigation-check');
 						} else if ($("#nolisto1").attr("name") == "0") {
-							console.log("maincraaa");
 							Materialize
 									.toast(
 											'Cambio no valido, debes confirmar la fecha inicial!',
@@ -76,61 +77,81 @@ $("#modalAprobado")
 					}
 				});
 
-$("#guardar").click(
-		function() {
-			var con = new jsConnector();
-			console.log(z);
-			if (z == 1) {
-				var a, p, q, idtra, idvac;
-				$(".idtra").each(function() {
-					if ($(this).val() == 1) {
-						idtra = $(this).attr("name");
-					}
-				});
-				$(".idvac").each(function() {
-					if ($(this).val() == 1) {
-						idvac = $(this).attr("name");
-					}
-				});
-				$(".det").each(function() {
-					if ($(this).val() == 1) {
-						a = $(this).attr("name");
-					}
-				});
-				$(".check").each(function() {
-					if ($(this).val() == 1) {
-						p = $(this).attr("name");
-					}
-					if ($(this).val() == 2) {
-						q = $(this).attr("name");
-					}
-				});
-				console.log("***");
-				console.log(a);
-				console.log(p);
-				console.log(q);
-				console.log("***");
-				con.post('vacaciones/consolidado/updateFirma?' + "id=" + a
-						+ "&inicio=" + p + "&fin=" + q, null, function(data) {
-					console.log(data);
-					if (data == 1) {
-						if (p == 0 && q == 0) {
+$("#guardar")
+		.click(
+				function() {
+					var con = new jsConnector();
+					if (z == 1) {
+						var a, p, q, idtra, idvac;
+						var fsm = 0;
+						$(".idtra").each(function() {
+							if ($(this).val() == 1) {
+								idtra = $(this).attr("name");
+							}
+						});
+						$(".idvac").each(function() {
+							if ($(this).val() == 1) {
+								idvac = $(this).attr("name");
+							}
+						});
+						$(".det").each(function() {
+							if ($(this).val() == 1) {
+								a = $(this).attr("name");
+							}
+						});
+						$(".check").each(function() {
+							if ($(this).val() == 1) {
+								p = $(this).attr("name");
+							}
+							if ($(this).val() == 2) {
+								q = $(this).attr("name");
+							}
+							if ($(this).attr('id') == 'nolisto1') {
+								fsm = 1;
+							}
+							if ($(this).attr('id') == 'nolisto2') {
+								fsm += 1;
+							}
+						});
+						if (p == ti && q == to) {
 							Materialize.toast(
 									'Ninguna firma se ha actualizado!', 3000,
 									'rounded');
 						} else {
-							Materialize.toast(
-									'Firma actualizada correctamente!', 3000,
-									'rounded');
+							con
+									.post(
+											'vacaciones/consolidado/updateFirma?'
+													+ "id=" + a + "&inicio="
+													+ p + "&fin=" + q + "&fsm="
+													+ fsm,
+											null,
+											function(data) {
+												if (data == 1) {
+													if (p == 0 && q == 0) {
+														Materialize
+																.toast(
+																		'Ninguna firma se ha actualizado!',
+																		3000,
+																		'rounded');
+													} else {
+														Materialize
+																.toast(
+																		'Firma actualizada correctamente!',
+																		3000,
+																		'rounded');
+														listarAprobado();
+													}
+												} else {
+													Materialize
+															.toast(
+																	'No se obtuvieron datos, consulte con su jefe',
+																	3000,
+																	'rounded');
+												}
+											});
 						}
-					} else {
-						Materialize.toast(
-								'No se obtuvieron datos, consulte con su jefe',
-								3000, 'rounded');
 					}
 				});
-			}
-		});
 
 $("#contTable")
 		.on(
@@ -138,7 +159,6 @@ $("#contTable")
 				"#openModal",
 				function() {
 					var id = $(this).attr("name");
-					console.log(id);
 					var datos = "id=" + id;
 					var con = new jsConnector();
 					con
@@ -147,7 +167,6 @@ $("#contTable")
 											+ datos,
 									null,
 									function(obj) {
-										console.log(obj);
 										var btnSolicitud = '';
 										var traba = '';
 										var id_det = '';
@@ -171,7 +190,6 @@ $("#contTable")
 															id_det : id_det
 														},
 														function(data) {
-															console.log(data);
 															if (data[0].URL_SOLICITUD != null) {
 																$(
 																		"#verbtnSolicitudsinAprobar")
@@ -202,24 +220,32 @@ $("#contTable")
 																		"#file-input-s")
 																		.change(
 																				function() {
-																					console
-																							.log("está vacío");
-																					$(
-																							"#file-input-field")
-																							.show(
-																									0)
-																							.delay(
-																									500)
-																							.hide(
-																									0);
-																					$(
-																							"#btnsubirsolicitud")
-																							.hide(
-																									0)
-																							.delay(
-																									500)
-																							.show(
-																									0);
+																					var file_solicitud = document
+																							.getElementById("file-input-s").files[0].size;
+																					if (file_solicitud < 10485760) {
+																						$(
+																								"#file-input-field")
+																								.show(
+																										0)
+																								.delay(
+																										500)
+																								.hide(
+																										0);
+																						$(
+																								"#btnsubirsolicitud")
+																								.hide(
+																										0)
+																								.delay(
+																										500)
+																								.show(
+																										0);
+																					} else {
+																						Materialize
+																								.toast(
+																										'UPS!!, El archivo es muy pesado!',
+																										3000,
+																										'rounded');
+																					}
 																				});
 															}
 														});
@@ -233,7 +259,6 @@ $("#contTableAprobado")
 				function() {
 					$("#btnsubirpapeleta").hide();
 					var id = $(this).attr("name");
-					console.log(id);
 					var datos = "id=" + id;
 					var con = new jsConnector();
 					con
@@ -242,7 +267,6 @@ $("#contTableAprobado")
 											+ datos,
 									null,
 									function(obj) {
-										console.log(obj);
 										$("#contenedor_fechas").empty();
 										var j = '';
 										var btnSolicitud = '';
@@ -253,6 +277,8 @@ $("#contTableAprobado")
 												.getElementById("contenedor_fechas");
 										var n_n = 0;
 										for (var i = 0; i < obj.length; i++) {
+											ti = obj[i].FIRMA_SALIDA;
+											to = obj[i].FIRMA_ENTRADA;
 											k = k + 1;
 											j += '<div class="col s3">';
 											j += '<p>Fecha Inicio</p>';
@@ -370,7 +396,6 @@ $("#contTableAprobado")
 															id_det : id_det
 														},
 														function(data) {
-															console.log(data);
 															if (data[0].URL_PAPELETA != null) {
 																$(
 																		"#verbtnPapeleta")
@@ -379,7 +404,22 @@ $("#contTableAprobado")
 																		"#verbtnPapeleta")
 																		.append(
 																				btnPapeleta);
+																$("#guardar")
+																		.removeAttr(
+																				'disabled');
 															} else if (data[0].URL_PAPELETA == null) {
+																$("#nolisto1")
+																		.attr(
+																				'disabled',
+																				'disabled');
+																$("#nolisto2")
+																		.attr(
+																				'disabled',
+																				'disabled');
+																$("#guardar")
+																		.attr(
+																				'disabled',
+																				'disabled');
 																$(
 																		"#verbtnPapeleta")
 																		.empty();
@@ -401,24 +441,32 @@ $("#contTableAprobado")
 																		"#file-input-p")
 																		.change(
 																				function() {
-																					console
-																							.log("está vacío");
-																					$(
-																							"#file-input-field-p")
-																							.show(
-																									0)
-																							.delay(
-																									500)
-																							.hide(
-																									0);
-																					$(
-																							"#btnsubirpapeleta")
-																							.hide(
-																									0)
-																							.delay(
-																									500)
-																							.show(
-																									0);
+																					var file_papeleta = document
+																							.getElementById("file-input-p").files[0].size;
+																					if (file_papeleta < 10485760) {
+																						$(
+																								"#file-input-field-p")
+																								.show(
+																										0)
+																								.delay(
+																										500)
+																								.hide(
+																										0);
+																						$(
+																								"#btnsubirpapeleta")
+																								.hide(
+																										0)
+																								.delay(
+																										500)
+																								.show(
+																										0);
+																					} else {
+																						Materialize
+																								.toast(
+																										'UPS!!, El archivo es muy pesado!',
+																										3000,
+																										'rounded');
+																					}
 																				});
 															}
 														});
@@ -433,6 +481,37 @@ function listarSinAprobar() {
 					function(obj) {
 						var s = "";
 						var emp = obj[0];
+
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].ID_PASOS == "PAS-000055") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+
+						function ojalafuncione(ids_vacs) {
+							for (var j = 0; j < obj.length; j++) {
+								findWithAttr(obj, 'ID_VACACIONES', ids_vacs);
+							}
+						}
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].ID_PASOS == "PAS-000055") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+						function findWithAttr(array, attr, value) {
+							for (var i = 0; i < array.length; i += 1) {
+								if (array[i][attr] === value) {
+									obj.splice(i, 1);
+								}
+							}
+						}
+
+						for (var i = 0; i < obj.length; i++) {
+							if (obj[i].ID_PASOS == "PAS-000055") {
+								ojalafuncione(obj[i].ID_VACACIONES);
+							}
+						}
+
 						for (var i = 0; i < obj.length; i++) {
 							var con = "";
 							if (obj[i].LI_CONDICION == 1) {
@@ -474,6 +553,8 @@ function listarSinAprobar() {
 							s += obj[i].NU_VAC;
 							s += "</td><td>";
 							s += con;
+							s += "</td><td>";
+							s += obj[i].TIPO;
 							s += "</td>";
 							s += '<td><button id="openModal" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'
 									+ obj[i].ID_DET_VACACIONES + '">';
@@ -561,6 +642,8 @@ function listarAprobado() {
 							s += obj[i].NU_VAC;
 							s += "</td><td>";
 							s += con;
+							s += "</td><td>";
+							s += obj[i].TIPO;
 							s += "</td>";
 							s += '<td><button id="open" class="btn-floating waves-effect waves-light light-blue accent-4" href="#modal" name="'
 									+ obj[i].ID_DET_VACACIONES + '">';
@@ -588,6 +671,7 @@ function createTable1() {
 	s += "<th>Fecha-Salida</th>";
 	s += "<th>Dias Totales</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Ver Detalle</th>";
 	s += "<th>";
 	s += "<p style='text-align: center;'>";
@@ -614,6 +698,7 @@ function createTableAprobado() {
 	s += "<th>Fecha-Salida</th>";
 	s += "<th>Dias Totales</th>";
 	s += "<th>Condición</th>";
+	s += "<th>Tipo de Solicitud</th>";
 	s += "<th>Ver Detalle</th>";
 	s += " </tr>";
 	s += "</thead>";
@@ -626,11 +711,12 @@ function createTableAprobado() {
 $("#confirmar")
 		.click(
 				function() {
+					$("#nocargando").hide();
+					$("#cargando").show();
 					arrid = getSelected();
 					var id_arr = arrid;
 					var id_det = id_arr.join(",");
 					var datos = "id_det=" + id_det;
-					console.log(id_arr);
 					var con = new jsConnector();
 					con
 							.post(
@@ -639,12 +725,18 @@ $("#confirmar")
 									null,
 									function(data) {
 										if (data == 1) {
-											con.post(
-													"vacaciones/consolidado/enviarCorreoAprobarConsolidado?"
-															+ datos, null,
-													function(receptor) {
-														console.log(receptor);
-													});
+											con
+													.post(
+															"vacaciones/consolidado/enviarCorreoAprobarConsolidado?"
+																	+ datos,
+															null,
+															function(receptor) {
+																Materialize
+																		.toast(
+																				'Correos enviados',
+																				3000,
+																				'rounded');
+															});
 											Materialize
 													.toast(
 															'Felicidades!!, ha aprobado a sus trabajadores',
@@ -657,13 +749,25 @@ $("#confirmar")
 															'UPS!!, No se ha registrado su aprobacion, verifique si chequeó los datos!',
 															3000, 'rounded');
 										}
+										$("#nocargando").show();
+										$("#cargando").hide();
 									});
 
 				});
 
-$("#print").click(
-		function() {
-			$('#modal1').openModal();
-			$("#request").attr("data",
-					gth_context_path + "/vacaciones/consolidado/reporte?");
-		});
+$("#print")
+		.click(
+				function() {
+					if ($("#data2").html() != '<tr class="odd"><td valign="top" colspan="10" class="dataTables_empty">No data available in table</td></tr>') {
+						$('#modal1').openModal();
+						$("#request").attr(
+								"data",
+								gth_context_path
+										+ "/vacaciones/consolidado/reporte?");
+					} else {
+						Materialize
+								.toast(
+										'PRIMERO, tienes que aprobar del anterior listado',
+										3000, 'rounded');
+					}
+				});
