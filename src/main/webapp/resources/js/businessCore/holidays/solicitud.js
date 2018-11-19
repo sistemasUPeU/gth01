@@ -12,7 +12,7 @@ var nro_dias = 0;
 var arraydias = []
 var jsonObj = []
 
-
+var tipo_solicitud; //variable que guarda el tipo o estado de la solicitud
 
 
 var fecha_insert = "";
@@ -38,13 +38,13 @@ function setFechaMinima(idtrab,callback){
 	
 	
 	if(dia >2){
-		console.log("el dia es mayor a 2")
-		mes ++;
+//		mes ++;
+		console.log("el dia es mayor a 2 , mes>> " + mes )
+		
 		dia=1
-		mes = (mes < 10) ? ("0" + mes) : mes;
-		dia = (dia < 10) ? ("0" + dia) : dia;
-		fecha_minima_format = dia + "/" + mes + "/" + anno;
-		fecha_minima = new Date(anno,mes-1,dia)
+		mes_date = mes - 1;
+		console.log("mes date> " + mes_date);
+		fecha_minima = new Date(anno,mes_date,dia)
 		console.log("nueva fecha minima long format " + fecha_minima);
 		dia = fecha_minima.getDate()
 		dia = (dia < 10) ? ("0" + dia) : dia;
@@ -63,9 +63,8 @@ function setFechaMinima(idtrab,callback){
 		console.log("first");
 		
 	}else{
-		mes = (mes < 10) ? ("0" + mes) : mes;
-		dia = (dia < 10) ? ("0" + dia) : dia;
-		fecha_minima = new Date(anno,mes-1,dia)
+		mes_date = mes - 1;
+		fecha_minima = new Date(anno,mes_date,dia)
 		console.log("nueva fecha minima long format " + fecha_minima);
 		dia = fecha_minima.getDate()
 		dia = (dia < 10) ? ("0" + dia) : dia;
@@ -149,8 +148,42 @@ function setDatosUser(idtrab, callback){
 		console.log("estoy llamando desde la vista de gestionar programa de vacaciones " + idtrab);
 		$("#idtrb_modal").val(idtrab);
 		var id = $("#idtrb_modal").val();
-		console.log("solicitud.js estoy en la funcion de set setDatosUser " + id);
-		callback(id);
+		//cargar datos de trabajador
+		$.get(gth_context_path + '/solicitud/getdetailworker',{id:id},function(data){
+			console.log(data);
+			$("#nombres_modal").val(data[0].AP_PATERNO + " " + data[0].AP_MATERNO + ", " + data[0].NO_TRABAJADOR);
+			$("#dni_modal").val(data[0].NU_DOC.trim());
+
+		});
+		$
+		.getJSON(
+				gth_context_path + '/components',
+				"opc=usuario",
+				function(objJSON) {
+					console.log(objJSON)
+					if (objJSON !== null) {
+
+						var s = objJSON.datos_usuario;
+						var d = objJSON.dni;
+						var t = objJSON.idtrb;
+						var r = objJSON.idrol;
+						var u = objJSON.username;
+
+						$("#idrol_modal").val(r);
+						$("#user_modal").val(u);
+						console.log("set rol and user " + r + " , "+ u);
+						console.log("solicitud.js estoy en la funcion de set setDatosUser " + id);
+						callback(id);
+						
+					} else {
+						console
+								.error("No se esta cargando la información");
+					}
+
+				
+				});
+		
+
 	}
 	
 	
@@ -173,7 +206,7 @@ function setDatosSolicitud(id){
 
 						console.log("devuelve controller: "
 								+ res);
-
+						tipo_solicitud = res;
 						switch (res) {
 						case 0:
 							
@@ -182,6 +215,7 @@ function setDatosSolicitud(id){
 					
 
 							$("#tipo").val("Programación");
+
 							
 							$("#subir").attr("disabled", true);
 							$("#subir").attr("enabled", false);
@@ -194,6 +228,7 @@ function setDatosSolicitud(id){
 							console.log(cont)
 							Materialize.updateTextFields();
 							$('.datepicker').pickadate({
+								container: 'body',
 								selectMonths : true, // Creates a dropdown to control
 								// month
 								selectYears : 5, // Creates a dropdown of 15 years to
@@ -210,18 +245,27 @@ function setDatosSolicitud(id){
 								console.log(fei);
 								var fecha_inicio = parseDate(fei);
 								console.log("fecha_inicio_return: " + fecha_inicio);
-//								if(validarFechaMinima(fecha_inicio)){
-//									console.log("ok");
-//								}else{
-//									alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
-//									$("#fe_inicio_1").val("");
-//								}
+								if(validarFechaMinima(fecha_inicio)){
+									console.log("ok");
+									
+								}else{
+									alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
+									$("#fe_inicio_1").val("");
+								}
 							//establecer la fecha final
 //								$('#fe_final_1').pickadate('picker').set('select',
 //										calcular_final(fecha_inicio,arraydias[0]), {
 //											format : 'dd/mm/yyyy'
 //										}).trigger("change");
 //								Materialize.updateTextFields();
+								var jsondate = getJsonFechas()
+								
+								if(jsondate[0].numdias == ""){
+									$("#dias_"+1).text("0 dias")
+								}else{
+									$("#dias_"+1).text(jsondate[0].numdias +" dias")
+									
+								}
 								calcularTotalDias();
 							});
 							
@@ -238,17 +282,21 @@ function setDatosSolicitud(id){
 							
 							
 							//listar los detalles tanto observados como aprobados
-							
-							$.get(gth_context_path+ '/solicitud/getdetails',{idtrab:id},
+							console.log("a punto de get details" + id);
+							$.get(gth_context_path+ '/solicitud/getdetails',{id:id},
 									function(response) {
 										console.log(response.length);
 										if(response.length >0){
+											
 											listarVacaciones(response,2);//va a listar considerando los detalles de vacaciones observados
 											//getJsonFechas();
+											
+																					
 										}
 										
 									});
 							
+
 							
 							
 							break;
@@ -289,7 +337,7 @@ function setDatosSolicitud(id){
 									});
 							
 
-							$.get(gth_context_path+ '/solicitud/getdetails',
+							$.get(gth_context_path+ '/solicitud/getdetails',{id:id},
 									function(response) {
 										console.log(response.length);
 										if(response.length >0){
@@ -386,11 +434,18 @@ function setDatosSolicitud(id){
 					});
 }
 
+
+
 $("#print").click(
 		function() {
 
-			$('.modal').openModal();
+			
 			var idt = $("#idtrb").val();
+			var validator = 0;
+			if($("#idtrb").length == 0){
+				idt = $("#idtrb_modal").val();
+				validator = 1;
+			}
 			parseDate($("#fe_inicio_1").val().trim());
 			var feinicio1 = fecha_insert;
 			parseDate($("#fe_final_1").val().trim());
@@ -420,12 +475,31 @@ $("#print").click(
 			// // + fefin2
 			// // +
 			// "' style='width: 100%; height: 600px; ' type='application/pdf'>"
-
-			b = '<object id="request" type="application/pdf" data="'
+			
+			if(validator==1){
+				console.log("mostrar pdf modal");
+//				b = '<object id="request" type="application/pdf" target="_blank" data="'
+//					+ gth_context_path + '/solicitud/generardocumento?idtr=' + idt
+//					+ '" style="width: 100%; height: 600px;"></object>'
+//					b += '<center><div class="row"><a class="waves-effect waves-light btn-large" id="verRequestPrint" href="'
+//						+ gth_context_path
+//						+ '/solicitud/generardocumento?idtr='
+//						+ idt
+//						+ '" target="_blank" >Ver Solicitud</a></div></center>';	
+//				
+//				$("#hide_link_pdf").html(b)
+//				$("#verRequestPrint").trigger("click");
+				window.open(gth_context_path+'/solicitud/generardocumento?idtr='+ idt, '_blank');
+			}else{
+				$('.modal').openModal();
+				b = '<object id="request" type="application/pdf" data="'
 					+ gth_context_path + '/solicitud/generardocumento?idtr=' + idt
 					+ '" style="width: 100%; height: 600px;"></object>'
+				$("#show_request").html(b);
+			}
+			
 
-			$("#show_request").html(b);
+			
 
 		});
 
@@ -538,7 +612,7 @@ $("#agregar")
 						console.log(prev_cont)
 						if(json[prev_cont].FEINICIO != "" && json[prev_cont].FEFINAL != ""){
 							console.log("esta lleno, procede");
-							//calcularTotalDias()
+							
 							var card = crearCard(cont,"","",1,1);
 							$("#space").append(card);
 							console.log("contando voy contando "+cont)
@@ -570,6 +644,7 @@ $("#agregar")
 //					}
 
 					$('.datepicker').pickadate({
+						container: 'body',
 						selectMonths : true, // Creates a dropdown to control
 						// month
 						selectYears : 5, // Creates a dropdown of 15 years to
@@ -582,7 +657,7 @@ $("#agregar")
 					});
 				});
 
-function crearCard(numero, fechainicio, fechafin, obs, mode){
+function crearCard(numero, fechainicio, fechafin, obs, mode, dias){
 	//si la obs es 1 es porque este detalle vacaciones ha sido observado, y tiene evaluacion 4
 	//mode 1 es la creacion del card manualmente
 	//mode 2 es la creacion del card, cuando se lista desde la base de datos, como para reprogramacion o solicitud en proceso
@@ -592,11 +667,11 @@ function crearCard(numero, fechainicio, fechafin, obs, mode){
 	s += '<div class="card-panel" style="padding-top: 10px; padding-bottom: 10px;">';
 
 	s += '<div class="row holiday" style="    margin-bottom: 0px;">'
-	s += '<div class="col s6 m6">'
-	s += '<h4 class="header2"><b>Vacaciones N° ' + numero + '</b></h4>';
+	s += '<div class="col s8 m6">'
+	s += '<h4 class="header2"><b>Vacaciones N° ' + numero + '  </b></h4>';
 	s += '</div>'
 //		if(numero != 1){
-			s += '<div class="col s6 m6 right">'
+			s += '<div class="col s4 m4"><p class="right" id="dias_'+numero+'" style="margin-left: 31px; color: #2ea08cf7; margin-top: 12px;">0 dias</p></div><div class="col s6 m2 right">'
 				s += '<button style="margin-top: 7px;" onclick="eliminarVacaciones('
 						+ numero
 						+ ');" class="btn-floating waves-effect waves-light  red darken-4 right"'
@@ -669,6 +744,7 @@ function eliminarVacaciones(id) {
 		$("#space").append(card);
 		cont++;
 		$('.datepicker').pickadate({
+			container: 'body',
 			selectMonths : true, // Creates a dropdown to control
 			// month
 			selectYears : 5, // Creates a dropdown of 15 years to
@@ -762,12 +838,23 @@ function settinicio(id) {
 	console.log(num);
 	var fecha_ini_ma = parseDate(fei);
 	
-	
-//	if(validarFechaMinima(fecha_ini_ma)){
+	console.log(tipo_solicitud);
+	if(validarFechaMinima(fecha_ini_ma) || tipo_solicitud == 3 ||  tipo_solicitud == 1){
 		console.log("ok");
 		var fechas = getJsonFechas();	
 //		console.log("validando cruce >>> fecha mayor> " + fecha_ini_ma + " fecha menor >> " + fechamenor);
 
+		
+		
+		var pos_arr = num - 1;
+		console.log(pos_arr);
+		if(fechas[pos_arr].numdias == ""){
+			$("#dias_"+num).text("0 dias")
+		}else{
+			$("#dias_"+num).text(fechas[pos_arr].numdias +" dias")
+			
+		}
+		
 		if(validarjson_fechas()){
 			var pos = num-2;
 
@@ -788,10 +875,10 @@ function settinicio(id) {
 		}
 		
 		calcularTotalDias();
-//	}else{
-//		alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
-//		$("#" + id).val("");
-//	}
+	}else{
+		alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
+		$("#" + id).val("");
+	}
 	
 
 	
@@ -807,8 +894,16 @@ function settifinal(id){
 	var num = array[2];
 	console.log(num);
 	var fecha_fin_ma = parseDate(fefi);
-	
-//	if(validarFechaMinima(fecha_fin_ma)){
+	console.log(fecha_fin_ma);
+	//solicitud 3 >>> tipo de solicitud en proceso , solicitud 1 >>> tipo de solicitud con observacion
+	if(validarFechaMinima(fecha_fin_ma) || tipo_solicitud == 3 || tipo_solicitud == 1){
+		
+//		if(tipo_solicitud == 1){
+//			if(fecha_fin_ma > new Date()){
+//				console.log("es mayor que hoy")
+//			}
+//		}
+		
 		console.log("ok");
 		var fechas = getJsonFechas();
 		var pos = num-1;
@@ -816,6 +911,17 @@ function settifinal(id){
 		console.log(fechas)
 		console.log(pos)
 		console.log("setti final " + fechas[pos].FEINICIO);
+		console.log(fechas);
+		var idespecial = id.split("_")[2];
+		var pos_arr = idespecial - 1;
+		console.log(pos_arr);
+		if(fechas[pos_arr].numdias == ""){
+			$("#dias_"+idespecial).text("0 dias")
+		}else{
+			$("#dias_"+idespecial).text(fechas[pos_arr].numdias +" dias")
+			
+		}
+		
 		if(fechas[pos].FEINICIO ==""){
 			alertify.alert('Mensaje de alerta', 'Una o más fechas anteriores están vacías.', function(){});
 			$("#" + id).val("");
@@ -828,6 +934,7 @@ function settifinal(id){
 					
 					console.log("correcto >> la fecha " +  fechamenor+  " es menor que  " + fecha_fin_ma )
 					
+					
 				}else{
 					alertify.alert('Mensaje de alerta', 'La fecha seleccionada debe ser mayor a la anterior, por favor, cámbiela' , function(){});
 					$("#" + id).val("");
@@ -836,20 +943,15 @@ function settifinal(id){
 				alertify.alert('Mensaje de alerta', 'Una o más fechas anteriores están vacías.', function(){});
 				$("#" + id).val("");
 			}
+			calcularTotalDias();
 			
 		}
-		calcularTotalDias();
-//	}else{
-//		alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
-//		$("#" + id).val("");
-//	}
+		
+	}else{
+		alertify.alert('Mensaje de alerta', 'Recuerde que sus vacaciones deben ser después del ' + fecha_minima_format, function(){});
+		$("#" + id).val("");
+	}
 	
-	
-	
-	
-
-
-
 	
 	
 }
@@ -991,8 +1093,87 @@ function confirmarFechas(){
 					console.log("todo conforme");
 					if(fefinmayorfeini()){
 						console.log("vamos a INSERTAR");
+						console.log(jsonObj)
+						if(jsonObj.length == 1){
+							//solo existe una particion, y esta es de 30 dias
+							console.log("solo existe una particion y esta es de 30 dias");
+							insertar();
+						}else{
+							//antes de insertar vamos a comprobar las reglas  de particion de los 7, 8 y 15 dias
+							
+							var last_pos = jsonObj.length - 1;
+							var penultima_pos = jsonObj.length - 2;
+							var first_intervalo = jsonObj[0].numdias;
+							var last_intervalo = jsonObj[last_pos].numdias;
+							if(first_intervalo == 7 || first_intervalo == 8 || first_intervalo == 15 ){
+								console.log("particion obligatoria tomada al inicio");
+								switch (first_intervalo){
+								case 7:
+									var second_inter = jsonObj[1].numdias
+									if(second_inter == 8){
+										//correcto, se completaron los 15 dias
+										console.log("correcto se completaron los 15 dias")
+										insertar();
+									}else{
+										alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+									}
+									break;
+								case 8:
+									var second_inter = jsonObj[1].numdias
+									if(second_inter == 7){
+										//correcto, se completaron los 15 dias
+										console.log("correcto se completaron los 15 dias")
+										insertar();
+									}else{
+										alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+									}
+									break;
+								case 15:
+									console.log("correcto 15 dias de frente")
+									insertar();
+									break;
+								
+								}
+									
+							}else{
+								if(last_intervalo == 7 || last_intervalo == 8 || last_intervalo == 15 ){
+									console.log("particion obligatoria tomada al final");
+									switch (last_intervalo){
+									case 7:
+										var penultimo_inter = jsonObj[penultima_pos].numdias
+										if(penultimo_inter == 8){
+											//correcto, se completaron los 15 dias
+											console.log("correcto se completaron los 15 dias")
+											insertar();
+										}else{
+											alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+										}
+										break;
+									case 8:
+										var penultimo_inter = jsonObj[penultima_pos].numdias
+										if(penultimo_inter == 7){
+											//correcto, se completaron los 15 dias
+											console.log("correcto se completaron los 15 dias")
+											insertar();
+										}else{
+											alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+										}
+										break;
+									case 15:
+										console.log("correcto 15 dias de frente")
+										insertar();
+										break;
+									
+									}
+								}else{
+									alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+								}
+							}
+						}
 						
-						insertar();
+						
+						
+						
 					}
 					
 				}
@@ -1087,6 +1268,9 @@ function insertar() {
 	console.log("ini: " + inicio);
 
 	var idt = $("#idtrb").val();
+	if($("#idtrb").length == 0){
+		idt = $("#idtrb_modal").val();
+	}
 	var tipo = $("#tipo").val();
 	var user = $("#user").val();
 
@@ -1119,7 +1303,7 @@ function insertar() {
 
 };
 
-
+var cont_interno=0
 function listarVacaciones(fechajson, mode){
 	//mode 1 es el modo de listar por programacion, usando el json generado en el mismo script
 	//mode 2 u otro modo es la lista de vacaciones que viene de la base de datos
@@ -1141,6 +1325,7 @@ function listarVacaciones(fechajson, mode){
 			//daysperdivision(2);
 			Materialize.updateTextFields();
 			$('.datepicker').pickadate({
+				container: 'body',
 				selectMonths : true, // Creates a dropdown to control
 				// month
 				selectYears : 5, // Creates a dropdown of 15 years to
@@ -1176,6 +1361,7 @@ function listarVacaciones(fechajson, mode){
 			
 			Materialize.updateTextFields();
 			$('.datepicker').pickadate({
+				container: 'body',
 				selectMonths : true, // Creates a dropdown to control
 				// month
 				selectYears : 5, // Creates a dropdown of 15 years to
@@ -1192,6 +1378,10 @@ function listarVacaciones(fechajson, mode){
 						format : 'dd/mm/yyyy'
 					})
 			console.log("colocando fecha orden final " + order)
+			
+			
+			
+			
 //			estabecer la fecha final
 			$('#fe_final_' + order).pickadate('picker').set('select',
 					fechajson[j].FEFINAL, {
@@ -1200,13 +1390,37 @@ function listarVacaciones(fechajson, mode){
 		}
 	}
 	
+	$("#fe_inicio_1").change(function() {
+		var fei = $("#fe_inicio_1").val();
+		cont_interno ++;
+		
+		console.log(fei + " , " + cont_interno);
+		var fecha_inicio = parseDate(fei);
+		console.log("fecha_inicio_return: " + fecha_inicio);
+		
+		if(cont_interno >= 1 && tipo_solicitud == 1 && !$("#fe_inicio_1").prop('disabled') && fecha_inicio <= new Date()){
+			console.log("la fecha que ingresa debe ser mayor que hoy");
+			alertify.alert('Mensaje de alerta', 'Ingrese una fecha mayor a hoy', function(){});
+			$("#fe_inicio_1").val("");
+		}
+		var jsondate = getJsonFechas()
+		
+		if(jsondate[0].numdias == ""){
+			$("#dias_"+1).text("0 dias")
+		}else{
+			$("#dias_"+1).text(jsondate[0].numdias +" dias")
+			
+		}
+		calcularTotalDias();
+
+	});
+
 
 	
-	
-	
-	
-	
+
 }
+
+
 
 
 function getJsonFechas(){
@@ -1282,7 +1496,18 @@ function calcularTotalDias(){
 		total = total + jsonObj[i].numdias;
 
 	}
-	$("#numdias").text(total);
+	if(total<0){
+		$("#numdias").text(0);
+	}else if(total>=30){
+		$("#numdias").text(total);
+		$("#agregar").attr("disabled", true);
+		$("#agregar").attr("enabled", false);
+	}else{
+		$("#numdias").text(total);
+		$("#agregar").attr("disabled", false);
+		$("#agregar").attr("enabled", true);
+	}
+	
 	
 }
 

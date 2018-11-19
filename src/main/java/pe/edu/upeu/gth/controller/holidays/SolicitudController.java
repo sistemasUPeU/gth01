@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import net.sf.jasperreports.engine.JRException;
 import pe.edu.upeu.gth.config.AppConfig;
+import pe.edu.upeu.gth.dao.HistorialTramiteDAO;
 import pe.edu.upeu.gth.dao.SolicitudVacacionesDAO;
 import pe.edu.upeu.gth.dto.CustomUser;
 import pe.edu.upeu.gth.dto.CustomerInfo;
@@ -425,16 +426,32 @@ public class SolicitudController {
 	public @ResponseBody String getdetails(HttpServletRequest request, Model model, Authentication authentication) {
 		Gson gs = new Gson();
 //		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
-		String idtra = request.getParameter("idtrab");
+		String idtra = request.getParameter("id");
+		System.out.println("get details " + idtra);		
 		List<Map<String, Object>> sd = vd.detallesolicitud(idtra);
 		//int respuesta = Integer.parseInt(sd.get(0).get("VA_PRIVILEGIO").toString());
 		
 		// String res = sd+"/"+rol;
-		System.out.println("respuesta existencia solicitud" + gs.toJson(sd));
+		System.out.println("respuesta get details" + gs.toJson(sd));
 
 		return gs.toJson(sd);
 
 	}
-	
+	@RequestMapping(path = "/getdetailworker", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getdetailworker(HttpServletRequest request, Model model, Authentication authentication) {
+		Gson gs = new Gson();
+//		String idtra = ((CustomUser) authentication.getPrincipal()).getID_TRABAJADOR();
+		String idtra = request.getParameter("id");
+		System.out.println("get details worker" + idtra);		
+		List<Map<String, Object>> sd = vd.detalletrabajador(idtra);
+		//int respuesta = Integer.parseInt(sd.get(0).get("VA_PRIVILEGIO").toString());
+		
+		// String res = sd+"/"+rol;
+		System.out.println("getdetailworker" + gs.toJson(sd));
+
+		return gs.toJson(sd);
+
+	}
+
 	
 }

@@ -135,7 +135,7 @@
                                 <div class="card" style="margin:0;">
                                     <div class="card-content  green white-text" style="padding-top: 16px; padding-bottom: 3px;">
                                         <p class="card-stats-title center"><i class="mdi-action-info-outline"></i> Información </p>
-                                        <h6 class="card-stats-number center" style="margin:18px">La primera partición deber ser de 7,8 o 15 días</h6>
+                                        <h6 class="card-stats-number center" style="margin:18px; margin-left: 5px; margin-right: 5px;">La partición de 7, 8 o 15 días debe tomarse al inicio o fin de sus vacaciones</h6>
                                     </div>
                                    
                                 </div>
@@ -226,6 +226,7 @@
 
 			<!-- 			</section> -->
 			<!-- 		</div> -->
+			
 			<div id="modal1" class="modal" style="width: 850px; height: 2000px;">
 				<div class="modal-content" id="show_request">
 

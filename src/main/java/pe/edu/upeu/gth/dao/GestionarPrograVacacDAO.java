@@ -29,16 +29,13 @@ public class GestionarPrograVacacDAO {
 	public List<Map<String, Object>> READALL(String depa) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.ID_TRABAJADOR , tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, \r\n" + 
-					"tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as FECHA_INICIO, \r\n" + 
-					"to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
+			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.ID_TRABAJADOR , tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno,\r\n" + 
+					"tf.NO_AREA, tf.NO_SECCION\r\n" + 
 					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
-					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO \r\n" + 
-					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
-					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones \r\n" + 
-					"where tf.no_dep ='"+depa+"' \r\n" + 
+					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"where tf.no_dep ='"+depa+"'\r\n" + 
 					"and tf.estado=1\r\n" + 
-					"and detva.FECHA_INICIO is null and detva.FECHA_FIN is null";
+					"and v.URL is null";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
@@ -60,7 +57,8 @@ public class GestionarPrograVacacDAO {
 					"and hisde.EVALUACION=1\r\n" + 
 					"and hisde.ESTADO=1\r\n" + 
 					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
-					"and detva.ESTADO <> 0";
+					"and detva.ESTADO <> 0\r\n"
+					+ "and v.URL is not null";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {

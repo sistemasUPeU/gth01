@@ -40,6 +40,7 @@ $(document).ready(function() {
 				});
 		function abrirModalSolicitud(value, callback) {
 			console.log("abriendo modal s " + value);
+			cont=1;
 			$("#space").html("");
 			$("#idtrb").val(value);
 
@@ -79,7 +80,7 @@ $(document).ready(function() {
 			$("#modal_gest_programa").openModal();
 			console.log("antes de llamar el callback de fecha minima")
 			callback(value,setDatosUser);
-			$(".class-picker").css("height","2500px");
+			
 
 			
 

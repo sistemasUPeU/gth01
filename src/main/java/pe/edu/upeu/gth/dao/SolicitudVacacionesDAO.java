@@ -341,6 +341,31 @@ public class SolicitudVacacionesDAO {
 	}
 	
 	
+public List<Map<String, Object>> detalletrabajador(String idtrab) {
+		
+		List<Map<String, Object>> listmap = new ArrayList<>();
+	
+		try {
+			String sql = "SELECT A.ID_TRABAJADOR_FILTRADO,\r\n" + 
+					"	A.ID_CONSOLIDADO,\r\n" + 
+					"	B.ID_TRABAJADOR,\r\n" + 
+					"	B.AP_PATERNO,\r\n" + 
+					"	B.AP_MATERNO,\r\n" + 
+					"	B.NO_TRABAJADOR,\r\n" + 
+					"	B.NU_DOC\r\n" + 
+					"FROM RHMV_TRABAJADOR_FILTRADO A\r\n" + 
+					"	JOIN RHTM_TRABAJADOR B ON \r\n" + 
+					"	 A.ID_TRABAJADOR = B.ID_TRABAJADOR \r\n" + 
+					"	 AND A.ID_TRABAJADOR = '"+idtrab+"'";
+			listmap = jt.queryForList(sql);
+		
+		} catch (Exception e) {
+			System.out.println("Error: " + e);
+		}
+		return listmap;
+	}
+	
+	
 
 	public void sendEmail(Object object) {
 

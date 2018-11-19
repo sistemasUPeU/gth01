@@ -146,6 +146,33 @@ div.dataTables_length {
 
 			<!-- 					<div id="icon-prefixes" class="section"> -->
 
+					<div class="col s6 m8 l8">
+					<div class="row card-panel">
+						<div class="input-field col s12 l6">
+							<i class="mdi-action-account-circle prefix"></i> <input
+								id="nombres_modal" type="text" class="validate" disabled> <label
+								for="icon_prefix3">Nombres y Apellidos</label>
+						</div>
+						<div class="input-field col s12 l3">
+							<i class="mdi-action-perm-identity prefix"></i> <input id="dni_modal"
+								type="number" class="validate" disabled> <label
+								for="icon_telephone">DNI</label>
+						</div>
+						<div class="input-field col s12 l3">
+							<i class="mdi-content-content-paste prefix"></i> <input id="tipo"
+								type="text" class="validate"
+								<%-- 							 value="${tipo}"  --%>
+							disabled> <label
+								for="icon-request">Tipo solicitud</label>
+						</div>
+
+						<input id="idtrb_modal" class="hide"> <input id="idrol_modal"
+							class="hide"> <input id="user_modal" class="hide">
+
+					</div>
+				</div>
+		
+		
 		
 				<div class="container" style="width: 60%" >
 				<div id="card-alert" class=" card cyan darken-2 center" >
@@ -153,7 +180,7 @@ div.dataTables_length {
 						style="margin: 2px;"></div>
 				
 				</div>
-				<input id="idtrb_modal" class="hide">
+				
 				</div>
 
 
@@ -270,7 +297,7 @@ div.dataTables_length {
 			</div>
 			<input id='username' class='hide' />
 		
-		
+			<div class="hide" id="hide_link_pdf"></div>
 		
 		
 			<div id="modal_review" class="modal modal-fixed-footer" >
