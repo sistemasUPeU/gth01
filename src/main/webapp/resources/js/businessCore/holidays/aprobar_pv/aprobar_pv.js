@@ -228,9 +228,9 @@ function listarRechazados() {
 							d += "</td>";
 							d += "<td>";
 							d += "<button id='"
-									+ obj[i].ID_DET_VACACIONES
+									+ i
 									+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
-									+ obj[i].TEXTO
+									+ obj[i].ID_TRABAJADOR
 									+ "'  onclick='openVerObsModal(this.value, this.id);'></button>";
 							d += "</td>";
 							d += "</tr>";
@@ -321,10 +321,10 @@ function preba(nombre, idde, idvac) {
 	$('#textarea' + idde).characterCounter();
 };
 
-function openVerObsModal(texto, idde) {
-	$("#modal" + idde).remove();
-	$("#cuerpo").append(createModalObs(idde, texto));
-	$("#modal" + idde).openModal();
+function openVerObsModal(idtr, index) {
+	$("#modal" + index).remove();
+	$("#cuerpo").append(createModalObs(index, idtr));
+	$("#modal" + index).openModal();
 };
 
 function createModal(idde, idtr, idvac, texto) {
@@ -361,22 +361,22 @@ function createModal(idde, idtr, idvac, texto) {
 	return s;
 };
 
-function createModalObs(idde, texto) {
-	var s = "<td><div id='modal" + idde + "' class='modal'>\r\n";
+function createModalObs(index, idtr) {
+	var s = "<td><div id='modal" + index + "' class='modal'>\r\n";
 	s += "<div class='modal-content'>\r\n";
 	s += "<center>\r\n";
 	s += "<h4>Observación</h4>\r\n";
 	s += "</center>\r\n";
 	s += "<div class='row'>\r\n";
-	s += "<form class='col s12'>\r\n";
-	s += "<div class='row'>\r\n";
-	s += "<div class='input-field col s12'>\r\n";
-	s += "<p>" + texto + "</p>";
-	s += "</div></div></form></div></div>\r\n";
+	s += "<div class='col s12' style='list-style-type: none'>\r\n";
+	s += "<div class='collapsible' id='modalverobs" + index + "' >";
+	s += "</div>";
+	s += "</div></div></div>\r\n";
 	s += "<div class='modal-footer'>\r\n";
 	s += "<button href='#!'";
 	s += " class='modal-action modal-close waves-effect waves-green btn-flat'>OK!</button>\r\n";
 	s += "</div>\r\n" + "</div></td>";
+	listarDetalleCollapsible(idtr, index);
 	return s;
 };
 
@@ -407,44 +407,39 @@ function aprobar(id_det) {
 						$("#nocargando").show();
 						$("#cargando").hide();
 					});
+	observar(arr_idtr[0], arr_id_det, arr_obs);
+
 }
 
-function observar(idtr, id_det) {
-	var obs = $(".hiddendiv").text();
-	var extra = obs.length - 150;
-	if (obs.length > 150) {
-		obs = "";
-		Materialize.toast('Observación no enviada, ha escrito ' + extra
-				+ ' carácter(es) extra', 3000, 'rounded');
-	} else {
-		var idte = $("#trab").val();
-		var datos = "id_det=" + id_det;
-		datos += "&text=" + obs.trim();
-		datos += "&emisor=" + idte;
-		datos += "&receptor=" + idtr;
-		var con = new jsConnector();
-		con.post("vacaciones/programa_vacaciones/guardarObservar?" + datos,
-				null, function(data) {
-					if (data == 1 && obs.length <= 150) {
-						con.post(
-								"vacaciones/programa_vacaciones/enviarObservacion?"
-										+ datos, null, function(receptor) {
-									Materialize.toast(
-											'Correo enviado exitosamente',
-											3000, 'rounded');
-								});
-						Materialize.toast('El trabajador ' + nom_tra
-								+ ' ha sido observado(a)', 3000, 'rounded');
-						listarAnteriorCollapsible();
-						listarAprobados();
-						listarRechazados();
-					} else {
-						Materialize.toast(
-								'UPS!!, No se ha registrado su observación',
-								3000, 'rounded');
-					}
-				});
-	}
+function observar(idtr, id_det, men_obs) {
+	var obs = men_obs;
+	var idte = $("#trab").val();
+	var datos = "id_det=" + id_det;
+	datos += "&text=" + obs;
+	datos += "&emisor=" + idte;
+	datos += "&receptor=" + idtr;
+	var con = new jsConnector();
+	con.post("vacaciones/programa_vacaciones/guardarObservar?" + datos, null,
+			function(data) {
+				if (data == 1) {
+					con.post(
+							"vacaciones/programa_vacaciones/enviarObservacion?"
+									+ datos, null, function(receptor) {
+								Materialize.toast(
+										'Correo enviado exitosamente', 3000,
+										'rounded');
+							});
+					Materialize.toast('El trabajador ' + nom_tra
+							+ ' ha sido observado(a)', 3000, 'rounded');
+					listarAnteriorCollapsible();
+					listarAprobados();
+					listarRechazados();
+				} else {
+					Materialize.toast(
+							'UPS!!, No se ha registrado su observación', 3000,
+							'rounded');
+				}
+			});
 }
 
 function guardarTexto(id_det, idvac) {
@@ -485,31 +480,68 @@ function eliminarTexto(id_det, idvac) {
 
 var arr_apr = new Array();
 var arr_obs = new Array();
+var arr_id_det = new Array();
 var arr_idtr = new Array();
 var count_apr = 0;
-var count_idtr = 0;
 var count_obs = 0;
 function recorrerDatos() {
 	check = document.getElementById("calendar_frame").contentWindow.obj_observados;
 
 	for (var i = 0; i < check.length; i++) {
 		if (check[i].estado == 1) {
-			arr_obs[count_obs] = check[i].id_det_vac;
-			arr_idtr[count_idtr] = check[i].idtr;
+			arr_obs[count_obs] = check[i].mensaje;
+			arr_id_det[count_obs] = check[i].id_det_vac;
+			arr_idtr[count_obs] = check[i].idtr;
 			count_obs++;
-			count_idtr++;
 		} else if (check[i].estado == 0 && check[i].fecha_fin != "") {
 			arr_apr[count_apr] = check[i].id_det_vac;
 			count_apr++;
 		}
 	}
 
-	for (var i = 0; i < arr_obs.length; i++) {
-		observar(arr_idtr[i], arr_obs[i]);
-	}
-
 	aprobar(arr_apr);
+
+	arr_apr = new Array();
+	arr_obs = new Array();
+	arr_id_det = new Array();
+	arr_idtr = new Array();
+	count_apr = 0;
+	count_obs = 0;
+	$("#containerframe").hide();
+	document.getElementById("divcollapsible").setAttribute("class", "col s12");
 }
+
+function listarDetalleCollapsible(idtr, index) {
+	$.get("programa_vacaciones/getRechazadosDetalle?" + "idtr=" + idtr,
+			function(obj) {
+				var s = "";
+				if (obj.length == 0) {
+					s += '<li><div class="collapsible-header" >';
+					s += "No hay data disponible!"
+					s += '</div>';
+					s += '<div class="collapsible-body">';
+					s += '<p>';
+					s += 'Espere!';
+					s += '</p>';
+					s += '</div></li>';
+				} else {
+					for (var i = 0; i < obj.length; i++) {
+						s += '<li><div class="collapsible-header">';
+						s += obj[i].FECHA_INICIO + " - " + obj[i].FECHA_FIN;
+						s += '</div>';
+						s += '<div class="collapsible-body">';
+						s += '<p>Sección: ';
+						s += obj[i].TEXTO;
+						s += '</p>';
+						s += '</div></li>';
+					}
+				}
+				$("#modalverobs" + index).empty();
+				$("#modalverobs" + index).append(s);
+				$('.collapsible').collapsible();
+			});
+
+};
 
 function listarAnteriorCollapsible() {
 	$
@@ -517,7 +549,6 @@ function listarAnteriorCollapsible() {
 					"programa_vacaciones/getNombres",
 					function(obj) {
 						var s = "";
-						console.log(obj);
 						if (obj.length == 0) {
 							s += '<li><div class="collapsible-header" >';
 							s += "No hay data disponible!"
@@ -624,6 +655,7 @@ var btncargarcalendar;
 function showCalendar(id_vac) {
 	document.getElementById("divcollapsible").setAttribute("class",
 			"col s12 m5 l5");
+	$("#containerframe").show();
 	$("#containerframe").attr("class", "col s12 m7 l7");
 	btncargarcalendar = window.frames["calendar_frame"].document
 			.getElementById("btncargarcalendar");

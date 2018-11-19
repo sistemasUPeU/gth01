@@ -30,7 +30,7 @@
 						class="waves-effect waves-block waves-light notification-button"
 						data-activates="notifications-dropdown"><i
 							class="mdi-social-notifications"><small
-								class="notification-badge">5</small></i> </a></li>
+								class="notification-badge" id="notic">5</small></i> </a></li>
 					<li><a href="<%=request.getContextPath()%>/logout"
 						class="waves-effect waves-block waves-light tooltipped"
 						data-position="bottom" data-delay="50"
@@ -80,3 +80,28 @@ $(document).ready(function(){
 </script>
 
 
+<script type="text/javascript">
+	function listarnotisl(notisl) {
+		$("#notifications-dropdown").empty();
+		$("#notifications-dropdown").append(notisl);
+	};
+
+	function comparar() {
+		var notisl = "";
+		$.get("getNoti", function(obj) {
+			for (var i = 0; i < obj.length; i++) {
+				notisl += '<a href="' + gth_context_path
+				+ '/vacaciones/updateNoti?idnoti=' + obj[i].ID_NOTIFICACIONES + '"><li>';
+				notisl += obj[i].TEXTO;
+				notisl += '</li></a>';
+			}
+			if (notisl != $("#notifications-dropdown").html()) {
+				listarnotisl(notisl);
+				$("#notic").empty();
+				$("#notic").html(i);
+			}
+		});
+	};
+
+	var timerId = setInterval(comparar, 1000);
+</script>

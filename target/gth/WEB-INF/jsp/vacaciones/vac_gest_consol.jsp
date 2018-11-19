@@ -13,6 +13,15 @@
 <link
 	href="<c:url value='/resources/js/plugins/chartist-js/chartist.min.css'/>"
 	type="text/css" rel="stylesheet" media="screen,projection">
+<style type="text/css">
+.center-btn {
+	text-align: center
+}
+
+div.dataTables_length {
+	display: none !important;
+}
+</style>
 </head>
 <body>
 	<%@include file="../../../jspf/header.jspf"%>
@@ -29,6 +38,12 @@
 		<%@include file="../../../jspf/info_puesto.jspf"%>
 
 		<div class="container">
+			<center>
+				<div class="chip red lighten-2 black-text"
+					style="height: 50px; margin-bottom: 30px;">
+					<h5>Gestionar Consolidado</h5>
+				</div>
+			</center>
 			<div class="row">
 				<div class="row">
 					<div class="col s12">
@@ -43,11 +58,27 @@
 						<div id="test001" class="col s12" style="display: block;">
 							<div id="sinAprobar" class="container">
 								<div id="contTable"></div>
-
-								<br> <a class="btn waves-effect waves-light right"
-									id="confirmar"><i class="mdi-navigation-check"></i>
-									Confirmar</a>
-
+								<div id="nocargando" class="center-btn row">
+									<br> <a class="btn btn-large waves-effect waves-light"
+										id="confirmar"><i class="mdi-navigation-check"></i>
+										Confirmar</a>
+								</div>
+								<div id="cargando" class="center-btn">
+									<div class="preloader-wrapper small active">
+										<div class="spinner-layer spinner-green-only">
+											<div class="circle-clipper left">
+												<div class="circle"></div>
+											</div>
+											<div class="gap-patch">
+												<div class="circle"></div>
+											</div>
+											<div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+										</div>
+									</div>
+									<br> <label>CONFIRMANDO LISTA</label>
+								</div>
 								<div class="row">
 									<div id="table_contenido" class="col s12 m12 l12"></div>
 								</div>
@@ -58,9 +89,23 @@
 								<a class="waves-effect waves-light btn-large" id="print">Imprimir
 									Cartas</a>
 							</div>
+
+							<div class="col s12 m3 l4" style="line-height: 100%;">
+								<div id="card-alert" class="card cyan lighten-1">
+									<div class="card-content white-text" id="message_date"
+										style="height: 100%;">
+										<i class="mdi-action-info-outline"></i> Recuerda IMPRIMIR
+										CARTAS antes de confirmar las firmas, después no se podrá
+									</div>
+									<button type="button" class="close white-text"
+										data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+							</div>
+
 							<div id="cuerpoAprobado" class="container">
 								<div id="contTableAprobado"></div>
-
 								<div class="row">
 									<div id="table_contenido_aprobado" class="col s12 m12 l12"></div>
 								</div>
@@ -117,7 +162,7 @@
 									<br> <br>
 									<button id="guardar" type="submit"
 										class="btn waves-effect waves-light modal-action modal-close">
-										<i class="mdi-content-save"></i>Guardar
+										<i class="mdi-content-save"></i>Confirmar
 									</button>
 								</div>
 							</div>
@@ -158,12 +203,9 @@
 						</div>
 					</div>
 
-					<div id="modal1" class="modal"
-						style="width: 850px; height: 2000px;">
-						<div class="modal-content">
-							<object id="request" type="application/pdf" data="" width="800"
-								height="380"></object>
-						</div>
+					<div id="modal1" class="modal" style="width: 850px; height: 100%;">
+						<object id="request" type="application/pdf" data="" width="100%"
+							height="100%"></object>
 					</div>
 				</div>
 			</div>

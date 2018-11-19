@@ -89,7 +89,7 @@ public class AprobarProgramaVacaciones {
 					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
 					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
 					+ "AND co.es_contrato = 1\r\n" + "AND tf.no_dep = '" + depa + "'"
-					+ "AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
+					+ " AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);
@@ -97,15 +97,15 @@ public class AprobarProgramaVacaciones {
 		}
 	}
 
-	public List<Map<String, Object>> listarRechazados(String depa) {
+	public List<Map<String, Object>> listarRechazadosDetalle(String depa, String idtr) {
 
 		try {
-			sql = "SELECT DISTINCT tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,tf.no_seccion,\r\n"
+			sql = "SELECT DISTINCT tf.id_trabajador,\r\n"
 					+ "trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) -\r\n"
 					+ "trunc(TO_DATE(dsv.fecha_inicio,'DD/MM/YYYY hh24:mi:ss') ) + 1 AS nu_vac,\r\n"
 					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,\r\n"
-					+ "TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,tf.li_condicion,\r\n"
-					+ "usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones,men.texto, sv.tipo\r\n"
+					+ "TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,\r\n"
+					+ "TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones,men.texto, sv.tipo\r\n"
 					+ "FROM rhtm_trabajador t,rhmv_trabajador_filtrado tf,rhmv_vacaciones sv,rhmv_det_vacaciones dsv,\r\n"
 					+ "rhtc_usuario usr,rhtd_empleado emp,rhmv_hist_detalle hd,rhmv_mensaje men,rhmv_notificaciones noti\r\n"
 					+ "WHERE tf.id_trabajador = t.id_trabajador\r\n"
@@ -116,7 +116,8 @@ public class AprobarProgramaVacaciones {
 					+ "AND dsv.id_det_vacaciones = noti.id_det_vacaciones\r\n"
 					+ "AND men.id_mensaje = noti.id_mensaje\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
 					+ "AND dsv.estado <> 0\r\n" + "AND hd.evaluacion = 4\r\n" + "AND hd.id_pasos = 'PAS-000054'\r\n"
-					+ "AND hd.estado = 1\r\n" + "AND tf.no_dep = '" + depa + "'";
+					+ "AND hd.estado = 1\r\n" + "AND tf.no_dep = '" + depa + "'\r\n" + "AND tf.id_trabajador='" + idtr
+					+ "'\r\n" + "order by id_det_vacaciones";
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);
@@ -163,16 +164,19 @@ public class AprobarProgramaVacaciones {
 		return i;
 	}
 
-	public int observarVac(String usuario, String depa, String id_det, String text, String emisor, String receptor) {
+	public int observarVac(String usuario, String depa, String[] id_det, String[] text, String emisor,
+			String receptor) {
 		int i = 0;
 		try {
 			cn = d.getConnection();
+			Array idarr = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_ID_DET_VAC", id_det);
+			Array txtarr = ((OracleConnection) cn).createOracleArray("GTH.ARRAY_MENSAJE_OBS", text);
 
 			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_INSERT_OBS_VAC (?,?,?,?,?,?)}");
 			cst.setString(1, usuario);
 			cst.setString(2, depa);
-			cst.setString(3, id_det);
-			cst.setString(4, text);
+			cst.setArray(3, idarr);
+			cst.setArray(4, txtarr);
 			cst.setString(5, emisor);
 			cst.setString(6, receptor);
 			cst.execute();
@@ -184,7 +188,7 @@ public class AprobarProgramaVacaciones {
 		return i;
 	}
 
-	public List<Map<String, Object>> GetEmailEmployee(String depa, String id_det, String traba) {
+	public List<Map<String, Object>> GetEmailEmployee(String depa, String id_det, String id_traba) {
 		try {
 			sql = "SELECT DISTINCT men.texto,t.di_correo_personal,\r\n"
 					+ "TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,\r\n"
@@ -198,7 +202,7 @@ public class AprobarProgramaVacaciones {
 					+ "'\r\n" + "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
 					+ "AND t.id_trabajador = co.id_trabajador\r\n" + "AND co.es_contrato = 1\r\n" + "AND tf.no_dep = '"
 					+ depa + "'\r\n" + "AND men.id_mensaje = noti.id_mensaje\r\n"
-					+ "AND dsv.id_det_vacaciones = noti.id_det_vacaciones\r\n" + "AND t.id_trabajador = '" + traba
+					+ "AND dsv.id_det_vacaciones = noti.id_det_vacaciones\r\n" + "AND t.id_trabajador = '" + id_traba
 					+ "'\r\n" + "AND t.di_correo_personal != '--'\r\n" + "AND t.di_correo_personal != '-'\r\n"
 					+ "AND t.di_correo_personal IS NOT NULL";
 			return jt.queryForList(sql);

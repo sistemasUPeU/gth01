@@ -11,7 +11,9 @@ function jsConnector() {
 function connect(type, url, data, _callback) {
 	var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 	var csrfToken = $("meta[name='_csrf']").attr("content");
-	console.log(data);
+	console.log("data " + data);
+
+//	var enviar = JSON.parse(array);
 	$.ajax({
 		url : gth_context_path + "/" + url,
 		type : type,

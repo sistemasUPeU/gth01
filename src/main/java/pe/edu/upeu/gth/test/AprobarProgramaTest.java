@@ -36,13 +36,13 @@ public class AprobarProgramaTest {
 		assertEquals(g.toJson(esperado), res);
 	}
 
-	@Test
-	public void getRechazados() {
-		String depa = "Gerencia Financiera";
-		String res = g.toJson(t.listarRechazados(depa));
-		String[] esperado = new String[0];
-		assertNotEquals(g.toJson(esperado), res);
-	}
+//	@Test
+//	public void getRechazados() {
+//		String depa = "Gerencia Financiera";
+//		String res = g.toJson(t.listarRechazados(depa));
+//		String[] esperado = new String[0];
+//		assertNotEquals(g.toJson(esperado), res);
+//	}
 
 	// @Test
 	// public void guardarAprobar() {
@@ -54,18 +54,18 @@ public class AprobarProgramaTest {
 	// assertEquals(esperado, res);
 	// }
 
-	@Test
-	public void guardarObservar() {
-		String usuario = "hola";
-		String depa = "Gerencia Financiera";
-		String id_det = "id_det";
-		String text = "text";
-		String emisor = "emisor";
-		String receptor = "receptor";
-		String res = g.toJson(t.observarVac(usuario, depa, id_det, text, emisor, receptor));
-		String esperado = "1";
-		assertEquals(esperado, res);
-	}
+//	@Test
+//	public void guardarObservar() {
+//		String usuario = "hola";
+//		String depa = "Gerencia Financiera";
+//		String id_det = "id_det";
+//		String text = "text";
+//		String emisor = "emisor";
+//		String receptor = "receptor";
+//		String res = g.toJson(t.observarVac(usuario, depa, id_det, text, emisor, receptor));
+//		String esperado = "1";
+//		assertEquals(esperado, res);
+//	}
 
 	@Test
 	public void getObservacion() {
