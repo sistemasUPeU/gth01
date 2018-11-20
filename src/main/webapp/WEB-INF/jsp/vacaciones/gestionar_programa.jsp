@@ -137,7 +137,7 @@ div.dataTables_length {
 						class="modal-action modal-close waves-effect waves-green btn-flat">Modificar</a>
 				</div>
 			</div>
-			<div id="modal_gest_programa" class="modal">
+			<div id="modal_gest_programa" class="modal" style="width:1000px;">
 			
 <%-- 			<%@include file="../../../jspf/request.jspf"%> --%>
 			
@@ -254,7 +254,7 @@ div.dataTables_length {
 
 							<div class="col s12 m12 l12 center">
 								<input type="file" name="file" id="file-input" class="dropify"
-									data-max-file-size="10M" data-errors-position="outside" /> <input
+									data-max-file-size="10M" data-errors-position="outside" required/> <input
 									type="text" id="idvac" name="idvac" value="" class="hide" />
 							</div>
 
@@ -319,6 +319,28 @@ div.dataTables_length {
 				<div class="modal-footer">
 					<a id="fec_up" href="#!"
 						class="modal-action modal-close waves-effect waves-green btn-flat" onclick="guardarCambios()">Guardar Cambios</a>
+				</div>
+			</div>
+			
+			<div id="modal_review_aprobados" class="modal modal-fixed-footer" >
+				<div class="modal-content" id="show_request">
+					<div class="row">
+
+							<div class="col s3 offset-s3 " id="column1_ap">
+			
+							</div>
+							<div class="col s5 m5 l5 " id="column2_ap">
+		
+							</div>
+
+					</div>
+					<div id="tabla-detalle_ap">
+					
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a id="fec_up" href="#!"
+						class="modal-action modal-close waves-effect waves-green btn-flat" >Cerrar</a>
 				</div>
 			</div>
 		

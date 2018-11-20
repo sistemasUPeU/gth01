@@ -96,7 +96,7 @@ $(document).ready(function() {
 		function listarTrabajadorFiltrado() {
 			$
 					.get(
-							'GestionarProgramaVacaciones/readallProgramaVacaciones',
+							gth_context_path + '/vacaciones/gestionar_programa/readallProgramaVacaciones',
 							function(obj) {
 								var s = '';
 								var emp = obj[0];
@@ -105,9 +105,9 @@ $(document).ready(function() {
 									s += '<td class="hide">'
 											+ obj[i].ID_DET_VACACIONES
 											+ '</td>';
-									s += '<td>' + obj[i].NO_TRABAJADOR + ' '
-											+ obj[i].AP_PATERNO + ' '
-											+ obj[i].AP_MATERNO + '</td>';
+									s += '<td>' + obj[i].AP_PATERNO + ' '
+											+ obj[i].AP_MATERNO + ', '
+												+ obj[i].NO_TRABAJADOR + '</td>';
 									s += '<td>' + obj[i].NO_AREA + '</td>';
 									s += '<td>' + obj[i].NO_SECCION + '</td>';
 									if (obj[i].FECHA_INICIO == null
@@ -129,7 +129,14 @@ $(document).ready(function() {
 //											+ '" class="waves-effect waves-light btn red" onclick=abrirModalSolicitud(this.value)>&#128197;</button></td>';
 									// 									s += '<td><button id="abrir-modal2" class="waves-effect waves-light btn modal-trigger light-blue modal-trigger" href="#modal2">&#10000;</button></td>';
 									
-									s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id, setFechaMinima)" class="btn-floating btn-large waves-effect waves-light cyan darken-2" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-event"></i></a></td>';
+									if(obj[i].VALIDACION != 0){
+										//no tiene solicitud subida al sistema
+										s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id, setFechaMinima)" class="btn-floating btn-large waves-effect waves-light orange darken-4" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-event"></i></a></td>';
+
+									}else{
+										s += '<td style=" text-align: center;" ><a onclick= "abrirModalSolicitud(this.id, setFechaMinima)" class="btn-floating btn-large waves-effect waves-light cyan darken-2" id="'+ obj[i].ID_TRABAJADOR+'"><i class="mdi-action-event"></i></a></td>';
+
+									}
 
 									
 									s += '</tr>';
@@ -168,7 +175,7 @@ $(document).ready(function() {
 		function listarTrabajadoresConSoli() {
 			$
 					.get(
-							'GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones',
+							gth_context_path + '/vacaciones/gestionar_programa/TrabajadoresConSoliProgramaVacaciones',
 							function(obj) {
 								console.log(obj);
 								var s = '';
@@ -178,9 +185,9 @@ $(document).ready(function() {
 									s += '<td id="soli" class="hide solici">'
 											+ obj[i].ID_DET_VACACIONES
 											+ '</td>';
-									s += '<td>' + obj[i].NO_TRABAJADOR + ' '
-											+ obj[i].AP_PATERNO + ' '
-											+ obj[i].AP_MATERNO + '</td>';
+									s += '<td>' + obj[i].AP_PATERNO + ' '
+											+ obj[i].AP_MATERNO + ', '
+											+ obj[i].NO_TRABAJADOR + '</td>';
 									s += '<td>' + obj[i].NO_AREA + '</td>';
 									s += '<td>' + obj[i].NO_SECCION + '</td>';
 									s += '<td>' + obj[i].TIPO + '</td>';
@@ -245,30 +252,24 @@ $(document).ready(function() {
 		function listarTrabajadoresAprobados() {
 			$
 					.get(
-							'GestionarProgramaVacaciones/TrabajadoresAprobados',
+							gth_context_path + '/vacaciones/gestionar_programa/TrabajadoresAprobados',
 							function(obj) {
 								var s = '';
 								var emp = obj[0];
 								for (var i = 0; i < obj.length; i++) {
 									s += '<tr>';
-									s += '<td class="hide">'
-											+ obj[i].ID_DET_VACACIONES
-											+ '</td>';
-									s += '<td>' + obj[i].NO_TRABAJADOR + ' '
-											+ obj[i].AP_PATERNO + ' '
-											+ obj[i].AP_MATERNO + '</td>';
+//									s += '<td class="hide">'
+//											+ obj[i].ID_DET_VACACIONES
+//											+ '</td>';
+									s += '<td>' + obj[i].AP_PATERNO + ' '
+											+ obj[i].AP_MATERNO + ', '
+												+ obj[i].NO_TRABAJADOR + '</td>';
 									s += '<td>' + obj[i].NO_AREA + '</td>';
 									s += '<td>' + obj[i].NO_SECCION + '</td>';
-									if (obj[i].FECHA_INICIO == null
-											&& obj[i].FECHA_FIN == null) {
-										s += '<td>--</td>';
-										s += '<td>--</td>';
-									} else {
-										s += '<td>' + obj[i].FECHA_INICIO
-												+ '</td>';
-										s += '<td>' + obj[i].FECHA_FIN
-												+ '</td>';
-									}
+
+									s += '<td>' + obj[i].TIPO + '</td>';
+									s += '<td style=" text-align: center;" ><a onclick= "verdetalleaprobados(this.id)" class="btn-floating btn-large waves-effect waves-light green accent-3" id="'+ obj[i].ID_TRABAJADOR +'"><i class="mdi-av-my-library-books"></i></a></td>';
+
 
 									s += '</tr>';
 
@@ -346,12 +347,12 @@ $(document).ready(function() {
 			var s = '<table id="data-table-row-grouping3" class="display" cellspacing="0" width="100%">';
 			s += '<thead>';
 			s += '<tr>';
-			s += '<th class="hide">id</th>';
+//			s += '<th class="hide">id</th>';
 			s += '<th>Apellidos y Nombres</th>';
 			s += '<th>Área</th>';
 			s += '<th>Sección</th>';
-			s += '<th>Fecha Inicio</th>';
-			s += '<th>Fecha Fin</th>';
+			s += '<th>Tipo solicitud</th>';
+			s += '<th>Operaciones</th>';
 			s += ' </tr>';
 			s += '</thead>';
 			s += '<tbody id="data3"></tbody>';
@@ -376,7 +377,7 @@ $(document).ready(function() {
 							con
 
 									.post(
-											"vacaciones/GestionarProgramaVacaciones/insertProgramaVacaciones?"
+											gth_context_path + "/vacaciones/gestionar_programa/insertProgramaVacaciones?"
 													+ datos,
 											null,
 											function(data) {
@@ -497,7 +498,7 @@ $(document).ready(function() {
 		
 		
 		var lista_ap = new Array(); // lista aprobados
-		function verdetalle(idtrab){
+		function verdetalle(idtrab){//ver detalle de trabajadores con solicitud por aprobar o rechazar
 			console.log("listo para ver detalle "  + idtrab);
 			$('#modal_review').openModal()
 			$
@@ -585,31 +586,6 @@ $(document).ready(function() {
 							lista_ap.push(nodes[j].value);
 							console.log(lista_ap)
 						}
-
-						
-//						$(".switch-class").each(function(){
-//							$(this).prop('checked', true);
-//							lista_ap.push($(this).val().trim());
-//							console.log(lista_ap);
-//						});
-
-//						$("#ckbCheckAll").click(
-//								function() {
-//									$(".checkBoxClass").prop('checked',
-//											$(this).prop('checked'));
-//								});
-//						$(".css-checkbox").click(
-//								function() {
-//									
-//									$(this).
-//									
-//									$(".checkBoxClass").prop('checked',
-//											$(this).prop('checked'));
-//									console.log($(this).val());
-////									$(this).bind_onclick();
-//									
-////									chk_labels(this, false);
-//								});
 
 					});
 			
@@ -725,7 +701,7 @@ $(document).ready(function() {
 //			var enviar = JSON.stringify(t);
 
 //			var final = JSON.stringify(str);
-			con.post('vacaciones/gestionar_programa/insertarAprobacion', final, 
+			con.post('/vacaciones/gestionar_programa/insertarAprobacion', final, 
 					function(response){
 				console.log(response);
 				lista_re = new Array(); //lista rechazados
@@ -755,6 +731,94 @@ $(document).ready(function() {
 			
 			
 		}
+		
+		
+		
+		function verdetalleaprobados(idtrab){
+			console.log("listo para ver detalle "  + idtrab);
+			$('#modal_review_aprobados').openModal()
+			$
+			.get(
+					gth_context_path + '/vacaciones/gestionar_programa/detalleaprobados', {idtrab : idtrab},
+					function(obj) {
+						console.log(JSON.stringify(obj[0]));
+						var s = '';
+						var emp = obj[0];
+						
+						var m = '';
+						m += '<p> <i class="small mdi-social-person small cyan-text text-darken-2"'
+							m += 'style="margin-right: 6%; vertical-align: -8px;"></i>' + obj[0].NO_TRABAJADOR
+								m += '</p>'
+									 m += '<p> <i class="small mdi-action-home small cyan-text text-darken-2"'
+										 m += 'style="margin-right: 6%;vertical-align: -8px;"></i>'  +  obj[0].NO_AREA
+											 m += '</p>'
+								
+						$("#column1_ap").html(m);
+						var n = '';
+						n += '<p>'
+							n += '<i'
+								n += '	class="small mdi-social-person-outline small cyan-text text-darken-2"'
+									n += 'style="margin-right: 6%;vertical-align: -8px;"></i>' + obj[0].AP_PATERNO +' ' + obj[0].AP_MATERNO
+									n += '</p>'
+									 n += '<p> <i	class="small mdi-action-home small cyan-text text-darken-2"'
+										 n += 'style="margin-right: 6%;vertical-align: -8px;"></i> ' + obj[0].NO_SECCION
+					
+												 n += '</p>	'
+						 $("#column2_ap").html(n);
+						console.log("bucle adentro")
+						
+						for (var i in obj) {
+							s += '<tr>';
+							s += '<td class="hide">'
+									+ obj[i].ID_DET_VACACIONES
+									+ '</td>';
+							s += '<td style="text-align: center;">' + obj[i].FECHA_INICIO +'</td>';
+							s += '<td style="text-align: center;">' + obj[i].FECHA_FIN + '</td>';
+							s += '<td style="text-align: center;">' + obj[i].DIAS + '</td>';
+							s += '</tr>';
+
+						}
+						
+						$("#tabla-detalle_ap").empty();
+						$("#tabla-detalle_ap").append(createTable5());
+						$("#data5").empty();
+						$("#data5").append(s);
+						$('#data-table-row-grouping5').dataTable({
+							"pageLength" : 3,
+							"bPaginate" : true,
+							"bLengthChange" : false,
+							"bFilter" : false,
+							"bInfo" : false,
+							"bAutoWidth" : true,
+							"language" : {
+								// "lengthMenu": "Display _MENU_ records per page",
+								"zeroRecords" : "Nada para mostrar - disculpe",
+								"info" : "Mostrando página _pag_ de _pags_",
+								"infoEmpty" : "Ningún alumno agregado"
+							// "infoFiltered": "(filtered from _MAX_ total records)"
+							}
+					
+							});
+						console.log("truinnng")
+						
+					});
+		}
+		
+		function createTable5() {//crea tabla 5 para ver detalle de trabajadores aprobados
+			var s = '<table id="data-table-row-grouping5" class="display" cellspacing="0" width="100%">';
+			s += '<thead>';
+			s += '<tr>';
+			s += '<th class="hide" >id</th>';
+			s += '<th style="text-align: center;">Fecha Inicio</th>';
+			s += '<th style="text-align: center;">Fecha Fin</th>';
+			s += '<th style="text-align: center;">Total de Días</th>';
+			s += ' </tr>';
+			s += '</thead>';
+			s += '<tbody id="data5"></tbody>';
+			s += '</table>';
+			return s;
+
+		};
 		
 		
 		

@@ -30,12 +30,12 @@ public class GestionarPrograVacacDAO {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
 			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.ID_TRABAJADOR , tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno,\r\n" + 
-					"tf.NO_AREA, tf.NO_SECCION\r\n" + 
+					"tf.NO_AREA, tf.NO_SECCION, RHFU_VAL_REQUEST(tf.ID_TRABAJADOR) as VALIDACION\r\n" + 
 					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
 					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
 					"where tf.no_dep ='"+depa+"'\r\n" + 
 					"and tf.estado=1\r\n" + 
-					"and v.URL is null";
+					"and v.URL is null order by tf.ap_paterno asc";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
@@ -54,11 +54,11 @@ public class GestionarPrograVacacDAO {
 					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
 					"where tf.no_dep ='"+ depa +"'\r\n" + 
 					"and tf.estado=1\r\n" + 
-					"and hisde.EVALUACION=1\r\n" + 
+					"and hisde.EVALUACION in (1,4)\r\n" + 
 					"and hisde.ESTADO=1\r\n" + 
 					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
 					"and detva.ESTADO <> 0\r\n"
-					+ "and v.URL is not null";
+					+ "and v.URL is not null order by tf.ap_paterno asc";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
@@ -69,19 +69,17 @@ public class GestionarPrograVacacDAO {
 	public List<Map<String, Object>> TrabajadoresAprobados(String depa) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,  detva.ID_DET_VACACIONES,tf.ap_paterno, \r\n" + 
-					"tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as \r\n" + 
-					"FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin\r\n" + 
-					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
-					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
-					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
-					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
-					"where tf.no_dep ='"+depa+"'  \r\n" + 
-					"and tf.estado=1\r\n" + 
-					"and hisde.EVALUACION=2\r\n" + 
-					"and hisde.ESTADO=1\r\n" + 
-					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
-					"and detva.ESTADO <> 0";
+			String SQL = "SELECT DISTINCT tf.ID_TRABAJADOR ,tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, tf.NO_AREA, tf.NO_SECCION, v.TIPO\r\n" + 
+					"  from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
+					"  left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"  left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones \r\n" + 
+					"  left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
+					"  where tf.no_dep ='"+depa+"' \r\n" + 
+					"  and tf.estado=1 \r\n" + 
+					"  and hisde.EVALUACION=2\r\n" + 
+					"  and hisde.ESTADO=1\r\n" + 
+					"  and hisde.ID_PASOS='PAS-000055'\r\n" + 
+					"  and detva.ESTADO <> 0 order by tf.ap_paterno asc";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
@@ -175,6 +173,30 @@ public class GestionarPrograVacacDAO {
 					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
 					"and detva.ESTADO <> 0\r\n" + 
 					"and tf.ID_TRABAJADOR = '"+ IDTRB +"' ORDER BY detva.ID_DET_VACACIONES ASC";
+			LST = JDBC.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
+			return null;
+		}
+	}
+	public List<Map<String, Object>> listardetalleaprobados(String IDTRB) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "SELECT tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,  detva.ID_DET_VACACIONES,tf.ap_paterno,\r\n" + 
+					"  tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as\r\n" + 
+					"  FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin, detva.fecha_fin - detva.FECHA_INICIO +1 AS DIAS\r\n" + 
+					"  from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
+					"  left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"  left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones \r\n" + 
+					"  left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
+					"  where tf.estado=1 \r\n" + 
+					"  and hisde.EVALUACION=2\r\n" + 
+					"  and hisde.ESTADO=1\r\n" + 
+					"  and hisde.ID_PASOS='PAS-000055'\r\n" + 
+					"  and detva.ESTADO <> 0\r\n" + 
+					"  and tf.ID_TRABAJADOR = '"+IDTRB+"'\r\n" + 
+					"  ORDER BY detva.ID_DET_VACACIONES ASC";
 			LST = JDBC.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {

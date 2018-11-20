@@ -281,7 +281,7 @@ public class SolicitudController {
 
 
 	@RequestMapping(value = "/insertar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String validarTipoSolicitudAAA(HttpServletRequest request) {
+	public @ResponseBody String validarTipoSolicitudAAA(HttpServletRequest request,Authentication authentication) {
 		Gson gs = new Gson();
 		System.out.println("llega");
 		String ini = request.getParameter("inicio");
@@ -290,14 +290,15 @@ public class SolicitudController {
 		String user = request.getParameter("user");
 		String tipo = request.getParameter("tipo");
 		System.out.println(ini + " " + fin + " " + idt + " " + user + " " + tipo);
-
+		
 		String[] fechas_inicio = ini.split("-");
 		System.out.println(fechas_inicio[0]);
 
 		String[] fechas_fin = fin.split("-");
 		System.out.println(fechas_fin[0]);
 
-		return gs.toJson(vd.insertarSolicitud(fechas_inicio, fechas_fin, idt, tipo, user));
+		String user_sys = ((CustomUser) authentication.getPrincipal()).getUsername();
+		return gs.toJson(vd.insertarSolicitud(fechas_inicio, fechas_fin, idt, tipo, user_sys));
 		// System.out.println(gs.toJson(request.getParameter("data")));//(request.getParameter("data"),
 		// ArrayList<String> )request.getParameter("data"), String));
 		// return object.toString();

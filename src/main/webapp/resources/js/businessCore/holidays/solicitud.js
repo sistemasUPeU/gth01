@@ -1096,8 +1096,16 @@ function confirmarFechas(){
 						console.log(jsonObj)
 						if(jsonObj.length == 1){
 							//solo existe una particion, y esta es de 30 dias
-							console.log("solo existe una particion y esta es de 30 dias");
-							insertar();
+							console.log("solo existe una particion y esta es de 30 dias " + jsonObj[0].FEINICIO);
+							if(parseInt(jsonObj[0].FEINICIO.split(" ")[0]) < 3){
+								//ha tomado sus vacaciones de 30 dias, a inicios de mes
+								insertar();
+							}else{
+								//
+								alertify.alert('Mensaje de alerta', 'Por favor, elija una fecha a inicios del mes.', function(){});
+
+							}
+							
 						}else{
 							//antes de insertar vamos a comprobar las reglas  de particion de los 7, 8 y 15 dias
 							
@@ -1440,9 +1448,12 @@ function getJsonFechas(){
 		item["FEFINAL"] = fefinal;
 		if(feinicio == "" || fefinal == ""){
 			item["numdias"] = 0;
+			$("#dias_"+corredor).text("0 dias")
+			
 		}else{
 			console.log("antes de calcularintervalo dias" + feinicio);
 			item["numdias"] = calcularIntervaloDias(parseDate(feinicio), parseDate(fefinal));
+			$("#dias_"+corredor).text(item["numdias"] +" dias")
 		}
 		if($("#fe_inicio_"+corredor).is(":disabled") == true){
 			item["ESTADO"]= 0;

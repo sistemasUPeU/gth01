@@ -113,28 +113,7 @@ public class PrincipalController {
 
 	}
 
-	@RequestMapping(path = "GestionarProgramaVacaciones/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
-	// @RequestMapping(path = "/readallProgramaVacaciones", method =
-	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-
-	public @ResponseBody String getAllProgramaVacaciones(Authentication authentication) {
-		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		System.out.println(depa);
-		return GSON.toJson(DAO.READALL(depa));
-
-	}
-
-	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresConSoliProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllTrabajadoresConSoli(Authentication authentication) {
-		
-		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		System.out.println("gson trabajadores con solicitud  >>>>> " + GSON.toJson(DAO.TrabajadoresConSoli(depa)));
-		return GSON.toJson(DAO.TrabajadoresConSoli(depa));
-
-	}
 	@RequestMapping(path = "/insertarAdelanto", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String insertarAdelanto(Authentication authentication, HttpServletRequest RQ) {
 		String idtra = RQ.getParameter("idtra");
@@ -142,29 +121,7 @@ public class PrincipalController {
 		return GSON.toJson(DAO.INSERTAR_ADELANTO(idtra));
 	}
 
-	@RequestMapping(path = "GestionarProgramaVacaciones/TrabajadoresAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
-	// @RequestMapping(path = "/readallProgramaVacaciones", method =
-	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-
-	public @ResponseBody String getAllTrabajadoresAprobados(Authentication authentication) {
-		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
-		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
-		System.out.println(depa);
-		return GSON.toJson(DAO.TrabajadoresAprobados(depa));
-
-	}
-
-	@RequestMapping(path = "GestionarProgramaVacaciones/insertProgramaVacaciones", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String insertProgramaVacaciones(HttpServletRequest request, Authentication authentication) {
-		DataSource ds = AppConfig.getDataSource();
-		GestionarPrograVacacDAO t = new GestionarPrograVacacDAO(ds);
-		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
-		String id_det = request.getParameter("id_det");
-		String[] asdf = id_det.split(",");
-		Gson g = new Gson();
-		return g.toJson(t.apobarVac(usuario, asdf));
-	}
 
 	@GetMapping("/reporte")
 	public ModelAndView reportes(HttpServletRequest request, HttpServletResponse response) {

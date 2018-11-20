@@ -103,24 +103,58 @@ public class GestionarProgramaController {
 				det_re[cont] = array[j];
 				cont++;
 			}
-//			for(int m = 0 ; m<det_apr.length ; m++) {
-//				System.out.println(det_apr[m] );
-//			}
-//			for(int m = 0 ; m<det_re.length ; m++) {
-//				System.out.println(det_re[m] );
-//			}
-		
+
 			System.out.println("string array  aprobados > " + det_apr + " , string array rechazados >> " +  det_re );
 			tipo = 3;
 			respuesta = ge.registrarCambiosAprobacion(usuario, det_apr, det_re, tipo);
 		}
-		
-		
-//		System.out.println(request.getParameter("fin"));
 
-//		System.out.println(det_apr + " , " + det_re + " , " + tipo);
-		
 		return gs.toJson(respuesta);
+	}
+	
+	@RequestMapping(path = "/readallProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllProgramaVacaciones(Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		System.out.println(depa);
+		return gs.toJson(DAO.READALL(depa));
+
+	}
+
+	@RequestMapping(path = "/TrabajadoresConSoliProgramaVacaciones", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllTrabajadoresConSoli(Authentication authentication) {
+		
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		System.out.println("gson trabajadores con solicitud  >>>>> " + gs.toJson(DAO.TrabajadoresConSoli(depa)));
+		return gs.toJson(DAO.TrabajadoresConSoli(depa));
+
+	}
+	
+	@RequestMapping(path = "/TrabajadoresAprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getAllTrabajadoresAprobados(Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		GestionarPrograVacacDAO DAO = new GestionarPrograVacacDAO(AppConfig.getDataSource());
+		System.out.println(depa);
+		return gs.toJson(DAO.TrabajadoresAprobados(depa));
+
+	}
+
+//	@RequestMapping(path = "GestionarProgramaVacaciones/insertProgramaVacaciones", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody String insertProgramaVacaciones(HttpServletRequest request, Authentication authentication) {
+//		DataSource ds = AppConfig.getDataSource();
+//		GestionarPrograVacacDAO t = new GestionarPrograVacacDAO(ds);
+//		String usuario = ((CustomUser) authentication.getPrincipal()).getUsername();
+//		String id_det = request.getParameter("id_det");
+//		String[] asdf = id_det.split(",");
+//		return gs.toJson(t.apobarVac(usuario, asdf));
+//	}
+	
+	@RequestMapping(path = "/detalleaprobados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String listardetalleaprobados(HttpServletRequest request) {
+		String idtrab = request.getParameter("idtrab");
+		System.out.println("Gson RESPUESTA json detalle del trab  "+gs.toJson(ge.listardetalleaprobados(idtrab)));
+		return gs.toJson(ge.listardetalleaprobados(idtrab));
 	}
 	
 	
