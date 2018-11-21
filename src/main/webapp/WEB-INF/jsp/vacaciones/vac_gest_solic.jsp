@@ -103,7 +103,7 @@
 								for="icon-request">Tipo solicitud</label>
 						</div>
 
-						<input id="idtrb" class="hide"> <input id="idrol"
+						 <input id="idrol"
 							class="hide"> <input id="user" class="hide">
 
 
@@ -181,7 +181,7 @@
 				</div>
 
 				<form method="post"
-					action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}"
+					action="/gth/vacaciones/uploadSingleFIle?${_csrf.parameterName}=${_csrf.token}"
 					enctype="multipart/form-data" class="col s12 m8 l11"
 					id="documentoForm">
 
@@ -194,6 +194,7 @@
 								<input type="file" name="file" id="file-input" class="dropify"
 									data-max-file-size="3M" data-errors-position="outside" required/> <input
 									type="text" id="idvac" name="idvac" value="" class="hide" />
+									<input id="idtrb" name="idtrb"class="hide">
 							</div>
 
 
