@@ -16,7 +16,7 @@ var tipo_solicitud; //variable que guarda el tipo o estado de la solicitud
 
 
 var fecha_insert = "";
-
+var fecha_plazo_solicitud;
 
 function setFechaMinima(idtrab,callback){
 	$("#otrosdiv").hide();
@@ -197,6 +197,10 @@ function setDatosSolicitud(id){
 	var url = "/gth/solicitud/validar";
 	var data = "&id=" + id;
 	var solicitud = 0;
+	
+	
+	
+	
 
 	$
 			.getJSON(
@@ -212,7 +216,7 @@ function setDatosSolicitud(id){
 							
 				
 							var datos = "op=1"
-					
+							fecha_plazo_solicitud();
 
 							$("#tipo").val("Programación");
 
@@ -270,7 +274,7 @@ function setDatosSolicitud(id){
 							});
 							
 							
-
+							
 
 							break;
 						case 1:
@@ -279,7 +283,7 @@ function setDatosSolicitud(id){
 							console.log("reprogramacionn");
 							$("#tipo").val("Reprogramación");
 							Materialize.updateTextFields();
-							
+							fecha_plazo_solicitud();
 							
 							//listar los detalles tanto observados como aprobados
 							console.log("a punto de get details" + id);
@@ -290,6 +294,7 @@ function setDatosSolicitud(id){
 											
 											listarVacaciones(response,2);//va a listar considerando los detalles de vacaciones observados
 											//getJsonFechas();
+											fecha_plazo_solicitud();
 											
 																					
 										}
@@ -323,7 +328,7 @@ function setDatosSolicitud(id){
 												
 											});
 							
-							
+						
 							
 
 							break;
@@ -334,6 +339,7 @@ function setDatosSolicitud(id){
 									3000,
 									'rounded',
 									function() {
+										fecha_plazo_solicitud();
 									});
 							
 
@@ -413,6 +419,10 @@ function setDatosSolicitud(id){
 									true);
 							$("#fe_inicio_1").attr("enabled",
 									false);
+							$("#fe_final_1").attr("disabled",
+									true);
+							$("#fe_final_1").attr("enabled",
+									false);
 							$("#agregar")
 									.attr("disabled", true);
 							$("#agregar")
@@ -422,7 +432,7 @@ function setDatosSolicitud(id){
 							// $("#print").off('click');
 							Materialize
 									.toast(
-											'Disculpe, aún el analista debe realizar algunas configuraciones. Gracias por su paciencia.',
+											'Se necesita aperturar un nuevo consolidado. Gracias por su paciencia.',
 											3000, 'rounded',
 											function() {
 
@@ -434,6 +444,57 @@ function setDatosSolicitud(id){
 					});
 }
 
+
+
+
+//traer la fecha plazo para el envio de la solicitud
+function fecha_plazo_solicitud(){
+	console.log("ingreso a obtener fecha plazo")
+	$.get(gth_context_path + "/solicitud/getFechaPlazoSP", function(respuesta){
+		
+		console.log("fecha_plazo_solicitud" + JSON.stringify(respuesta[0]));
+		fecha_plazo_solicitud = new Date(respuesta[0].FECHA_SOLICITUD.split("/")[2] , respuesta[0].FECHA_SOLICITUD.split("/")[1] - 1, respuesta[0].FECHA_SOLICITUD.split("/")[0]);
+		console.log(fecha_plazo_solicitud);
+		
+		//validacion con la fecha minima de plazo
+		if(fecha_plazo_solicitud <= new Date()){
+			$("#subir").attr("disabled", true);
+			$("#subir").attr("enabled", false);
+			$("#print").attr("disabled", true);
+			$("#print").attr("enabled", false);
+			$("#confirmar").attr("disabled",
+					true);
+			$("#confirmar").attr("enabled",
+					false);
+
+			$("#fe_inicio_1").attr("disabled",
+					true);
+			$("#fe_inicio_1").attr("enabled",
+					false);
+			$("#fe_final_1").attr("disabled",
+					true);
+			$("#fe_final_1").attr("enabled",
+					false);
+			$("#agregar")
+					.attr("disabled", true);
+			$("#agregar")
+					.attr("enabled", false);
+
+			// $("#confirmar").off('click');
+			// $("#print").off('click');
+			Materialize
+					.toast(
+							'Se ha vencido el tiempo de envío de solicitud de vacaciones',
+							3000, 'rounded',
+							function() {
+
+							});
+			
+			
+		}
+		
+	});
+}
 
 
 $("#print").click(
@@ -1061,9 +1122,15 @@ function intervalonegativo(){
 	return back;
 }
 
-
+var first_intervalo;
+var last_intervalo;
+var penultima_pos;
 function confirmarFechas(){
 //	var validacion = validarCampos();
+	
+
+	
+	
 	if (validarCampos()) {
 		console.log("campos llenos");
 //		var json_fechas = getJsonFechas();
@@ -1110,9 +1177,9 @@ function confirmarFechas(){
 							//antes de insertar vamos a comprobar las reglas  de particion de los 7, 8 y 15 dias
 							
 							var last_pos = jsonObj.length - 1;
-							var penultima_pos = jsonObj.length - 2;
-							var first_intervalo = jsonObj[0].numdias;
-							var last_intervalo = jsonObj[last_pos].numdias;
+							penultima_pos = jsonObj.length - 2;
+							first_intervalo = jsonObj[0].numdias;
+							last_intervalo = jsonObj[last_pos].numdias;
 							if(first_intervalo == 7 || first_intervalo == 8 || first_intervalo == 15 ){
 								console.log("particion obligatoria tomada al inicio");
 								switch (first_intervalo){
@@ -1123,7 +1190,8 @@ function confirmarFechas(){
 										console.log("correcto se completaron los 15 dias")
 										insertar();
 									}else{
-										alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+										validarUltimoIntervalo();
+//										alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
 									}
 									break;
 								case 8:
@@ -1133,7 +1201,8 @@ function confirmarFechas(){
 										console.log("correcto se completaron los 15 dias")
 										insertar();
 									}else{
-										alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+										validarUltimoIntervalo();
+//										alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
 									}
 									break;
 								case 15:
@@ -1144,38 +1213,7 @@ function confirmarFechas(){
 								}
 									
 							}else{
-								if(last_intervalo == 7 || last_intervalo == 8 || last_intervalo == 15 ){
-									console.log("particion obligatoria tomada al final");
-									switch (last_intervalo){
-									case 7:
-										var penultimo_inter = jsonObj[penultima_pos].numdias
-										if(penultimo_inter == 8){
-											//correcto, se completaron los 15 dias
-											console.log("correcto se completaron los 15 dias")
-											insertar();
-										}else{
-											alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
-										}
-										break;
-									case 8:
-										var penultimo_inter = jsonObj[penultima_pos].numdias
-										if(penultimo_inter == 7){
-											//correcto, se completaron los 15 dias
-											console.log("correcto se completaron los 15 dias")
-											insertar();
-										}else{
-											alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
-										}
-										break;
-									case 15:
-										console.log("correcto 15 dias de frente")
-										insertar();
-										break;
-									
-									}
-								}else{
-									alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
-								}
+								validarUltimoIntervalo();
 							}
 						}
 						
@@ -1194,12 +1232,47 @@ function confirmarFechas(){
 				
 			}
 		}
-		
-		
 
-		
 	}
 }
+
+function validarUltimoIntervalo(){
+	if(last_intervalo == 7 || last_intervalo == 8 || last_intervalo == 15 ){
+		console.log("particion obligatoria tomada al final");
+		switch (last_intervalo){
+		case 7:
+			var penultimo_inter = jsonObj[penultima_pos].numdias
+			if(penultimo_inter == 8){
+				//correcto, se completaron los 15 dias
+				console.log("correcto se completaron los 15 dias")
+				insertar();
+			}else{
+				alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+			}
+			break;
+		case 8:
+			var penultimo_inter = jsonObj[penultima_pos].numdias
+			if(penultimo_inter == 7){
+				//correcto, se completaron los 15 dias
+				console.log("correcto se completaron los 15 dias")
+				insertar();
+			}else{
+				alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+			}
+			break;
+		case 15:
+			console.log("correcto 15 dias de frente")
+			insertar();
+			break;
+		
+		}
+	}else{
+		alertify.alert('Mensaje de alerta', 'Recuerde que debe particionar sus vacaciones en 7, 8 o 15 días al inicio o fin de sus vacaciones', function(){});
+	}
+}
+
+
+
 //validar que todos los campos esten llenos
 function validarCampos() {
 	console.log("validar");

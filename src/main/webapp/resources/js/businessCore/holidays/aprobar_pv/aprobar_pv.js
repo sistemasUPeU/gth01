@@ -2,8 +2,26 @@ $(document).ready(function() {
 	listarAnteriorCollapsible();
 	listarAprobados();
 	listarRechazados();
+	fecha_plazo_programa();
 	$("#cargando").hide();
 });
+
+
+var fecha_plazo_programa;
+//traer la fecha plazo para el envio de la solicitud
+function fecha_plazo_programa(){
+	console.log("ingreso a obtener fecha plazo")
+	$.get(gth_context_path + "/solicitud/getFechaPlazoSP", function(respuesta){
+		
+		console.log("fecha_plazo_programa" + JSON.stringify(respuesta[0]));
+		fecha_plazo_programa = new Date(respuesta[0].FECHA_PROGRAMA.split("/")[2] , respuesta[0].FECHA_PROGRAMA.split("/")[1] - 1, respuesta[0].FECHA_PROGRAMA.split("/")[0]);
+		console.log(fecha_plazo_programa);
+		
+
+		
+	});
+}
+
 
 function getSelected() {
 	var allVals = [];
@@ -158,19 +176,22 @@ function listarAprobados() {
 			d += obj[i].NO_TRABAJADOR;
 			d += "</td><td>";
 			d += obj[i].NO_SECCION;
-			d += "</td><td>";
-			d += obj[i].NU_VAC;
-			d += "</td><td>";
-			d += obj[i].NU_DOC;
-			d += "</td><td>";
-			d += obj[i].FECHA_INICIO;
-			d += "</td><td>";
-			d += obj[i].FECHA_FIN;
+//			d += "</td><td>";
+//			d += obj[i].NU_VAC;
+//			d += "</td><td>";
+//			d += obj[i].NU_DOC;
+//			d += "</td><td>";
+//			d += obj[i].FECHA_INICIO;
+//			d += "</td><td>";
+//			d += obj[i].FECHA_FIN;
 			d += "</td><td>";
 			d += con;
 			d += "</td><td>";
 			d += obj[i].TIPO;
 			d += "</td>";
+			d += "<td style=' text-align: center;' ><a onclick= 'verDetalleAprobadosPrograma(this.id)'"; 
+			d +=  "class='btn-floating btn-large waves-effect waves-light green accent-3' id='"+ obj[i].ID_TRABAJADOR +"'><i class='mdi-av-my-library-books'></i></a></td>";
+
 			d += "</tr>";
 		}
 		$("#contTable1").empty();
@@ -229,7 +250,7 @@ function listarRechazados() {
 							d += "<td>";
 							d += "<button id='"
 									+ i
-									+ "' class='waves-effect waves-light btn modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
+									+ "' class='btn-floating waves-effect waves-light modal-trigger light-blue getid mdi-image-remove-red-eye' value='"
 									+ obj[i].ID_TRABAJADOR
 									+ "'  onclick='openVerObsModal(this.value, this.id);'></button>";
 							d += "</td>";
@@ -271,14 +292,15 @@ function createTable2() {
 	var s = "<table id='data-table-row-grouping1' class='display bordered highlight centered' >";
 	s += "<thead>";
 	s += "<tr>";
-	s += "<th>Nombres</th>";
+	s += "<th>Apellidos y Nombres</th>";
 	s += "<th>Sección</th>";
-	s += "<th>Dias Totales</th>";
-	s += "<th>DNI</th>";
-	s += "<th>FEC INI</th>";
-	s += "<th>FEC FIN</th>";
+//	s += "<th>Dias Totales</th>";
+//	s += "<th>DNI</th>";
+//	s += "<th>FEC INI</th>";
+//	s += "<th>FEC FIN</th>";
 	s += "<th>Condición</th>";
 	s += "<th>Tipo de Solicitud</th>";
+	s += "<th>Detalle</th>";
 	s += " </tr>";
 	s += "</thead>";
 	s += "<tbody id='data1'></tbody>";
@@ -302,6 +324,95 @@ function createTable3() {
 	s += "</table>";
 	return s;
 };
+
+
+//observa el detalle de los trabajadores aprobados
+function verDetalleAprobadosPrograma(idtrab){
+	$('#modal_programa_aprobados').openModal()
+	$
+	.get(
+			gth_context_path + '/vacaciones/programa_vacaciones/getDetalleAprobados', {idtrab : idtrab},
+			function(obj) {
+				console.log(JSON.stringify(obj));
+				var s = '';
+				var emp = obj[0];
+				
+				var m = '';
+				m += '<p> <i class="small mdi-social-person small cyan-text text-darken-2"'
+					m += 'style="margin-right: 6%; vertical-align: -8px;"></i>' + obj[0].NO_TRABAJADOR
+						m += '</p>'
+							 m += '<p> <i class="small mdi-action-home small cyan-text text-darken-2"'
+								 m += 'style="margin-right: 6%;vertical-align: -8px;"></i>'  +  obj[0].NO_AREA
+									 m += '</p>'
+						
+				$("#column1_proap").html(m);
+				var n = '';
+				n += '<p>'
+					n += '<i'
+						n += '	class="small mdi-social-person-outline small cyan-text text-darken-2"'
+							n += 'style="margin-right: 6%;vertical-align: -8px;"></i>' + obj[0].AP_PATERNO +' ' + obj[0].AP_MATERNO
+							n += '</p>'
+							 n += '<p> <i	class="small mdi-action-home small cyan-text text-darken-2"'
+								 n += 'style="margin-right: 6%;vertical-align: -8px;"></i> ' + obj[0].NO_SECCION
+			
+										 n += '</p>	'
+				 $("#column2_proap").html(n);
+				console.log("bucle adentro")
+				
+				for (var i in obj) {
+					s += '<tr>';
+					s += '<td class="hide">'
+							+ obj[i].ID_DET_VACACIONES
+							+ '</td>';
+					s += '<td style="text-align: center;">' + obj[i].FECHA_INICIO +'</td>';
+					s += '<td style="text-align: center;">' + obj[i].FECHA_FIN + '</td>';
+					s += '<td style="text-align: center;">' + obj[i].DIAS + '</td>';
+					s += '</tr>';
+
+				}
+				
+				$("#table_detail").empty();
+				$("#table_detail").append(createTable6());
+				$("#data33").empty();
+				$("#data33").append(s);
+				$('#data-table-row-grouping33').dataTable({
+					"pageLength" : 3,
+					"bPaginate" : true,
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"bInfo" : false,
+					"bAutoWidth" : true,
+					"language" : {
+						// "lengthMenu": "Display _MENU_ records per page",
+						"zeroRecords" : "Nada para mostrar - disculpe",
+						"info" : "Mostrando página _pag_ de _pags_",
+						"infoEmpty" : "Ningún alumno agregado"
+					// "infoFiltered": "(filtered from _MAX_ total records)"
+					}
+			
+					});
+				console.log("truinnng")
+				
+			});
+	
+}
+
+function createTable6() {//crea tabla 5 para ver detalle de trabajadores aprobados
+	var s = '<table id="data-table-row-grouping33" class="display" cellspacing="0" width="100%">';
+	s += '<thead>';
+	s += '<tr>';
+	s += '<th class="hide" >id</th>';
+	s += '<th style="text-align: center;">Fecha Inicio</th>';
+	s += '<th style="text-align: center;">Fecha Fin</th>';
+	s += '<th style="text-align: center;">Total de Días</th>';
+	s += ' </tr>';
+	s += '</thead>';
+	s += '<tbody id="data33"></tbody>';
+	s += '</table>';
+	return s;
+
+};
+
 
 var nom_tra = "";
 var check;
@@ -436,7 +547,7 @@ function observar(idtr, id_det, men_obs) {
 					listarRechazados();
 				} else {
 					Materialize.toast(
-							'UPS!!, No se ha registrado su observación', 3000,
+							'No se ha registrado ninguna observación', 3000,
 							'rounded');
 				}
 			});
@@ -486,29 +597,45 @@ var count_apr = 0;
 var count_obs = 0;
 function recorrerDatos() {
 	check = document.getElementById("calendar_frame").contentWindow.obj_observados;
+	
+	
+	//validacion con la fecha minima de plazo de programa
+	if(fecha_plazo_programa <= new Date()){
+		
+		Materialize
+				.toast(
+						'Se ha vencido el tiempo de envío de programa de vacaciones',
+						3000, 'rounded',
+						function() {
 
-	for (var i = 0; i < check.length; i++) {
-		if (check[i].estado == 1) {
-			arr_obs[count_obs] = check[i].mensaje;
-			arr_id_det[count_obs] = check[i].id_det_vac;
-			arr_idtr[count_obs] = check[i].idtr;
-			count_obs++;
-		} else if (check[i].estado == 0 && check[i].fecha_fin != "") {
-			arr_apr[count_apr] = check[i].id_det_vac;
-			count_apr++;
+						});
+		
+	}else{
+		for (var i = 0; i < check.length; i++) {
+			if (check[i].estado == 1) {
+				arr_obs[count_obs] = check[i].mensaje;
+				arr_id_det[count_obs] = check[i].id_det_vac;
+				arr_idtr[count_obs] = check[i].idtr;
+				count_obs++;
+			} else if (check[i].estado == 0 && check[i].fecha_fin != "") {
+				arr_apr[count_apr] = check[i].id_det_vac;
+				count_apr++;
+			}
 		}
+
+		aprobar(arr_apr);
+
+		arr_apr = new Array();
+		arr_obs = new Array();
+		arr_id_det = new Array();
+		arr_idtr = new Array();
+		count_apr = 0;
+		count_obs = 0;
+		$("#containerframe").hide();
+		document.getElementById("divcollapsible").setAttribute("class", "col s12");
 	}
 
-	aprobar(arr_apr);
-
-	arr_apr = new Array();
-	arr_obs = new Array();
-	arr_id_det = new Array();
-	arr_idtr = new Array();
-	count_apr = 0;
-	count_obs = 0;
-	$("#containerframe").hide();
-	document.getElementById("divcollapsible").setAttribute("class", "col s12");
+	
 }
 
 function listarDetalleCollapsible(idtr, index) {
@@ -530,7 +657,7 @@ function listarDetalleCollapsible(idtr, index) {
 						s += obj[i].FECHA_INICIO + " - " + obj[i].FECHA_FIN;
 						s += '</div>';
 						s += '<div class="collapsible-body">';
-						s += '<p>Sección: ';
+						s += '<p>Mensaje: ';
 						s += obj[i].TEXTO;
 						s += '</p>';
 						s += '</div></li>';

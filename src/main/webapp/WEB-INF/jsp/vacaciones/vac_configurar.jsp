@@ -128,7 +128,7 @@
 				</div>
 			</center>
 
-			
+
 
 
 			<div id="basic-tabs" class="section">
@@ -140,91 +140,131 @@
 						<div class="row">
 							<div class="col s12">
 								<ul class="tabs tab-demo z-depth-1">
-									<li class="tab col s3"><a class="active" href="#test1">LISTA
-											FILTRADA</a></li>
-									<li class="tab col s3"><a href="#test2">PROGRAMAR
-											PLAZOS</a></li>
-									<li class="tab col s3"><a href="#modificar">MODIFICAR
-											PLAZOS</a></li>
-									<li class="tab col s3"><a href="#test4">OTORGAR
-											PRIVILEGIOS</a></li>
+									<li class="tab col s4" id="first_tab"><a class="active"
+										href="#test1">CONFIGURACION DE INICIO </a></li>
+									<!-- 									<li class="tab col s4"><a href="#test2">PROGRAMAR -->
+									<!-- 											PLAZOS</a></li> -->
+									<li class="tab col s4" id="second_tab"><a
+										href="#modificar">GESTIONAR PLAZOS</a></li>
+									<!-- 									<li class="tab col s3"><a href="#test4">OTORGAR -->
+									<!-- 											PRIVILEGIOS</a></li> -->
 									<!-- 									<li class="tab col s3"><a href="#test5">Test 5</a></li> -->
 								</ul>
 							</div>
 
 							<div class="col s12" id="test1">
 								<br>
-								<div class="container" style="width: 50%">
-									<div class="card-panel">
-										<h4 class="header" style="text-align: center;">Programar
-											aviso de lista filtrada</h4>
+								<div class="container" style="width: 90%">
+									<form id="form_consolidado" action="#">
 										<div class="row">
+											<div class="col s12 m6 l6 ">
+												<div class="card-panel center">
+													<h6 class="header" style="text-align: center;">Gestionar
+														Consolidado</h6>
+													<br>
+													<div class="row">
 
-											<!-- 											<form> -->
+														<!-- 											<form> -->
+														<div class="container" style="width: 80%">
+															<div class="switch center">
+																<label> Desactivado <input class="switch-class"
+																	onchange="controlarConsolidado()" id="switch_activator"
+																	type="checkbox"> <span class="lever"></span>Activado
+																</label>
+															</div>
+															<br>
 
+															<div class="input-field col s12">
+																<i class="mdi-file-folder-open prefix"></i> <input
+																	type="text" id="name_cons" name ="name_co" required> <label for="name_co">Nombre
+																	consolidado</label> <input class="hide" type="text"
+																	id="id_cons_hide">
+															</div>
 
-											<div class="container" style="width: 70%">
-												<div class="input-field col s9">
-													<i class="mdi-action-today prefix"></i> <input type="date"
-														class="datepicker" id="date_cons"> <label
-														for="dob">Fecha de Aviso</label>
-												</div>
+<!-- 															<div class="col s3"> -->
+<!-- 																<button -->
+<!-- 																	class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right " -->
+<!-- 																	id="editarDias"> -->
+<!-- 																	<i class="mdi-editor-border-color center"></i> -->
+<!-- 																</button> -->
+<!-- 															</div> -->
+<!-- 															<div class="col s3"> -->
+<!-- 																<button -->
+<!-- 																	class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right " -->
+<!-- 																	id="consolidado"> -->
+<!-- 																	<i class="mdi-content-save center"></i> -->
+<!-- 																</button> -->
+<!-- 															</div> -->
 
-												<div class="col s3">
-													<button
-														class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "
-														id="consolidado">
-														<i class="mdi-content-save center"></i>
-													</button>
+														</div>
+														<!-- 											</form> -->
+													</div>
+
 												</div>
 
 											</div>
 
+											<div class="col s12 m6 l6 ">
+												<div class="card-panel">
+													<div class="container" style="width: 70%">
+														<div class="row">
+															<h6 class="header" style="text-align: left;">Plazo
+																de envío de Solicitud</h6>
+															<div class="input-field col s12">
+																<i class="mdi-action-today prefix"></i> <input
+																	type="date" class="datepicker" id="date_solicitud" name="soli" required>
+																<label for="soli">Fecha solicitud inicial</label>
+															</div>
+															<h6 class="header" style="text-align: left;">Plazo
+																de envío de Programa</h6>
+															<div class="input-field col s12">
+																<i class="mdi-action-today prefix"></i> <input
+																	type="date" class="datepicker" id="date_programa" name="program" required>
+																<label for="program">Fecha programa inicial</label>
+															</div>
+															<h6 class="header" style="text-align: left;">Número
+																de días mínimos</h6>
+															<div class="input-field col s6">
+																<i class="mdi-image-exposure prefix"></i> <input
+																	type="number" id="minimal_day" name="dias" required> <label
+																	for="dias">Nro de días</label>
+															</div>
+															<div class="col s3">
+																<button
+																	class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right "
+																	id="editarDias" onclick="cambiarNroDias(); return false">
+																	<i class="mdi-editor-border-color center"></i>
+																</button>
+															</div>
+															<div class="col s3">
+																<button
+																	class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "
+																	id="saveDias" onclick="saveNewDias(); return false">
+																	<i class="mdi-content-save center"></i>
+																</button>
+															</div>
 
-											<!-- 											</form> -->
+
+														</div>
+													</div>
+
+												</div>
+											</div>
 										</div>
 
-									</div>
-								</div>
-							</div>
-
-
-
-							<div class="col s12" id="test2">
-								<br>
-								<div class="container" style="width: 85%">
-									<!-- 								<div class="col s12" id="solicitud_vacaciones"> -->
-
-									<div class="card-panel">
-										<h6 class="header" style="text-align: center;">Plazo de
-											envío de Solicitud y Programación de vacaciones</h6>
-										<br>
-										<form>
-											<div class="container" style="width: 85%">
-												<div class="row">
-													<div class="input-field col s5">
-														<i class="mdi-action-today prefix"></i> <input type="date"
-															class="datepicker" id="date_solicitud"> <label
-															for="dob">Plazo de Solicitud</label>
-													</div>
-
-													<div class="input-field col s5">
-														<i class="mdi-action-today prefix"></i> <input type="date"
-															class="datepicker" id="date_programa"> <label
-															for="dob">Plazo de Programa</label>
-													</div>
-													<div class="col s2">
-														<button
-															class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "
-															id="saveRequest">
-															<i class="mdi-content-save center"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</form>
-
-									</div>
+										<div class="col s12 center">
+											<button
+												class="waves-effect waves-light btn-large cyan darken-2 "
+												id="createConsolidado" type="submit">
+												<i class="mdi-content-save right"></i>Crear consolidado
+											</button>
+											<!-- 										<button -->
+											<!-- 											class="btn-large waves-effect waves-light  cyan darken-2 " -->
+											<!-- 											id="saveRequest"> Crear Consolidado  -->
+											<!-- 											<i class="mdi-content-save center"></i> -->
+											<!-- 										</button> -->
+										</div>
+									</form>
 								</div>
 							</div>
 
@@ -235,9 +275,12 @@
 						<div class="col s12" id="modificar">
 							<br>
 							<div class="container" style="width: 75%">
+
+
+
 								<div class="card-panel">
 									<br>
-									<div class="container" style="width: 90%">
+									<div class="container" style="width: 90%" id="cambiar_plazos">
 										<div class="row">
 											<div class=" col s6">
 												<div class="switch">
@@ -324,115 +367,115 @@
 
 
 
-						<div class="col s12" id="test4">
+						<!-- 						<div class="col s12" id="test4"> -->
 
-							<br>
-							<div class="container" style="width: 80%">
-								<div class="card-panel">
-									<!-- 									<h4 class="header">Modificar privilegios del trabajador</h4> -->
-									<div class="container" style="width: 90%">
-										<div class="row">
-											<!-- 										<div class="input-field col s6"> -->
-											<!-- 											<h4 class="header2">Por Trabajador</h4> -->
-											<!-- 										</div> -->
-											<div class="input-field col s6">
-												<i class="mdi-action-search prefix"></i> <input
-													id="searchTrabajador" type="text" maxlength="8"
-													pattern="/^([0-9])*$/" onkeyup="searchTrabajador()">
-												<label for="searchTrabajador">DNI Trabajador</label> <label
-													id="alerta" style="color: red; top: 72px"></label>
-											</div>
+						<!-- 							<br> -->
+						<!-- 							<div class="container" style="width: 80%"> -->
+						<!-- 								<div class="card-panel"> -->
+						<!-- 																		<h4 class="header">Modificar privilegios del trabajador</h4> -->
+						<!-- 									<div class="container" style="width: 90%"> -->
+						<!-- 										<div class="row"> -->
+						<!-- 																					<div class="input-field col s6"> -->
+						<!-- 																						<h4 class="header2">Por Trabajador</h4> -->
+						<!-- 																					</div> -->
+						<!-- 											<div class="input-field col s6"> -->
+						<!-- 												<i class="mdi-action-search prefix"></i> <input -->
+						<!-- 													id="searchTrabajador" type="text" maxlength="8" -->
+						<!-- 													pattern="/^([0-9])*$/" onkeyup="searchTrabajador()"> -->
+						<!-- 												<label for="searchTrabajador">DNI Trabajador</label> <label -->
+						<!-- 													id="alerta" style="color: red; top: 72px"></label> -->
+						<!-- 											</div> -->
 
-											<div class="col s6">
-												<button
-													class="btn-large waves-effect waves-light  #00e676 center"
-													onclick="buscarPorDni()">
-													<i class="mdi-action-search large center"
-														style="font-size: 30px"></i>
-												</button>
-											</div>
+						<!-- 											<div class="col s6"> -->
+						<!-- 												<button -->
+						<!-- 													class="btn-large waves-effect waves-light  #00e676 center" -->
+						<!-- 													onclick="buscarPorDni()"> -->
+						<!-- 													<i class="mdi-action-search large center" -->
+						<!-- 														style="font-size: 30px"></i> -->
+						<!-- 												</button> -->
+						<!-- 											</div> -->
 
-										</div>
+						<!-- 										</div> -->
 
-										<div class="row">
-											<div class="input-field col s6">
-												<i class="mdi-action-account-circle prefix"></i> <input
-													type="text" id="name" disabled> <label
-													for="icon_prefix3">Nombres y Apellidos</label>
-											</div>
-											<div class="input-field col s3">
-												<i class="mdi-action-account-balance prefix"></i> <input
-													id="seccion" type="text" disabled> <label
-													for="seccion">Sección</label>
-											</div>
-											<div class="input-field col s3">
-												<i class="mdi-action-account-balance prefix"></i> <input
-													id="area" type="text" disabled> <label for="area">Área</label>
-											</div>
+						<!-- 										<div class="row"> -->
+						<!-- 											<div class="input-field col s6"> -->
+						<!-- 												<i class="mdi-action-account-circle prefix"></i> <input -->
+						<!-- 													type="text" id="name" disabled> <label -->
+						<!-- 													for="icon_prefix3">Nombres y Apellidos</label> -->
+						<!-- 											</div> -->
+						<!-- 											<div class="input-field col s3"> -->
+						<!-- 												<i class="mdi-action-account-balance prefix"></i> <input -->
+						<!-- 													id="seccion" type="text" disabled> <label -->
+						<!-- 													for="seccion">Sección</label> -->
+						<!-- 											</div> -->
+						<!-- 											<div class="input-field col s3"> -->
+						<!-- 												<i class="mdi-action-account-balance prefix"></i> <input -->
+						<!-- 													id="area" type="text" disabled> <label for="area">Área</label> -->
+						<!-- 											</div> -->
 
-										</div>
+						<!-- 										</div> -->
 
-										<div class="row">
-											<div class="input-field col s4">
-												<i class="mdi-action-account-balance prefix"></i> <input
-													id="departamento" type="text" disabled> <label
-													for="departamento">Departamento</label> <input
-													id="idtrabajador" type="text" class="hide">
+						<!-- 										<div class="row"> -->
+						<!-- 											<div class="input-field col s4"> -->
+						<!-- 												<i class="mdi-action-account-balance prefix"></i> <input -->
+						<!-- 													id="departamento" type="text" disabled> <label -->
+						<!-- 													for="departamento">Departamento</label> <input -->
+						<!-- 													id="idtrabajador" type="text" class="hide"> -->
 
-											</div>
-											<div id="input-select">
+						<!-- 											</div> -->
+						<!-- 											<div id="input-select"> -->
 
-												<div class="col s12 m4">
-													<div class="input-field">
-														<label>Nro de partición de vacaciones</label> <select
-															id="select_option">
+						<!-- 												<div class="col s12 m4"> -->
+						<!-- 													<div class="input-field"> -->
+						<!-- 														<label>Nro de partición de vacaciones</label> <select -->
+						<!-- 															id="select_option">
 															<option value="0" disabled selected>Selecciona
 																una opción</option>
 															<option value="1">1 vacaciones</option>
 															<option value="2">2 vacaciones</option>
-															<option value="3">3 vacaciones</option>
-														</select>
-													</div>
-												</div>
+															<option value="3">3 vacaciones</option> -->
+						<!-- 														</select> -->
+						<!-- 													</div> -->
+						<!-- 												</div> -->
 
-												<!-- 												<div class="col s3 m2"> -->
-												<!-- 													<button -->
-												<!-- 														class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right"><i -->
-												<!-- 														class="mdi-editor-mode-edit center"></i></button> -->
-												<!-- 												</div> -->
-												<div class="col s2 m2">
-													<button
-														class="btn-floating btn-large waves-effect waves-light red right"
-														onclick="cancelarPrivilegio()">
-														<i class="mdi-content-clear center"></i>
-													</button>
-												</div>
-												<div class="col s2 m2">
-													<button
-														class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right "
-														onclick="guardarPrivilegio()">
-														<i class="mdi-content-save center"></i>
-													</button>
-												</div>
-											</div>
-
-
+						<!-- 																								<div class="col s3 m2"> -->
+						<!-- 																									<button -->
+						<!-- 																										class="btn-floating btn-large waves-effect waves-light  yellow darken-4 right"><i -->
+						<!-- 																										class="mdi-editor-mode-edit center"></i></button> -->
+						<!-- 																								</div> -->
+						<!-- 												<div class="col s2 m2"> -->
+						<!-- 													<button -->
+						<!-- 														class="btn-floating btn-large waves-effect waves-light red right" -->
+						<!-- 														onclick="cancelarPrivilegio()"> -->
+						<!-- 														<i class="mdi-content-clear center"></i> -->
+						<!-- 													</button> -->
+						<!-- 												</div> -->
+						<!-- 												<div class="col s2 m2"> -->
+						<!-- 													<button -->
+						<!-- 														class="btn-floating btn-large waves-effect waves-light  cyan darken-2 right " -->
+						<!-- 														onclick="guardarPrivilegio()"> -->
+						<!-- 														<i class="mdi-content-save center"></i> -->
+						<!-- 													</button> -->
+						<!-- 												</div> -->
+						<!-- 											</div> -->
 
 
-										</div>
-
-									</div>
-								</div>
-
-								<div class="row">
-
-									<div id="data_change" class="col s12 m12 l12"></div>
-
-								</div>
 
 
-							</div>
-						</div>
+						<!-- 										</div> -->
+
+						<!-- 									</div> -->
+						<!-- 								</div> -->
+
+						<!-- 								<div class="row"> -->
+
+						<!-- 									<div id="data_change" class="col s12 m12 l12"></div> -->
+
+						<!-- 								</div> -->
+
+
+						<!-- 							</div> -->
+						<!-- 						</div> -->
 
 					</div>
 

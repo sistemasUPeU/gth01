@@ -36,8 +36,9 @@ public class ControlFirmasController {
 	ControlFirmasDAO DAO = new ControlFirmasDAO(AppConfig.getDataSource());
 
 	@RequestMapping(path = "/readallControlFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getAllControlFirma() {
-		return GSON.toJson(DAO.READALL());
+	public @ResponseBody String getAllControlFirma(Authentication authentication) {
+		String depa = ((CustomUser) authentication.getPrincipal()).getNO_DEP();
+		return GSON.toJson(DAO.READALL(depa));
 	}
 
 	@RequestMapping(path = "/readFirma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

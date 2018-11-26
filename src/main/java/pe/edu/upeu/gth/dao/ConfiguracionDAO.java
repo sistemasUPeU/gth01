@@ -23,35 +23,57 @@ public class ConfiguracionDAO {
 		jt = new JdbcTemplate(datasource);
 	}
 
-	public String consolidadoExists() {
-		String ls = null;
+	public List<Map<String, Object>> consolidadoExists() {
+		String sql = null;
+		
+		List<Map<String, Object>> lista = new ArrayList<>();
 		try {
-			sql = "SELECT TRIM(ID_CONSOLIDADO) FROM RHMV_CONSOLIDADO WHERE ESTADO = 1";
-			ls = jt.queryForObject(sql, String.class);
-			// @SuppressWarnings("unchecked")
-			// String ls= (String) jt.queryForObject(sql, new Object[] {},
-			// new BeanPropertyRowMapper<String>(String.class));
+//			sql = "SELECT * FROM RHMV_CONSOLIDADO WHERE ESTADO IN (0,1)";
+			
+			sql="SELECT TO_CHAR(B.FECHA_PLAZO, 'DD/MM/YY') AS FECHA_PROGRAMA, TO_CHAR(C.FECHA_PLAZO , 'DD/MM/YY') AS FECHA_SOLICITUD , D.NO_CONSOLIDADO, D.NUM_DIAS_MINIMO, D.ID_CONSOLIDADO, D.ESTADO FROM RHMV_DETALLE_CONFIG A, \r\n" + 
+					"RHMV_CONF_PROGRAMA B, RHTX_DEPARTAMENTO D , RHMV_CONF_SOLICITUD C , (SELECT Z.ID_CONSOLIDADO, Z.ESTADO, Z.NO_CONSOLIDADO, Z.NUM_DIAS_MINIMO FROM RHMV_CONSOLIDADO Z WHERE Z.ESTADO in (0,1) ) D\r\n" + 
+					"WHERE A.ID_CONF_PROGRAMA = B.ID_CONF_PROGRAMA\r\n" + 
+					"AND A.ID_CONF_SOLICITUD = C.ID_CONF_SOLICITUD\r\n" + 
+					"AND A.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO \r\n" + 
+					"AND TO_CHAR(A.FECHA_MODIFICACION, 'DD/MM/YY') = TO_CHAR((SELECT M.FECHA_CREACION FROM RHMV_CONSOLIDADO M WHERE M.ESTADO in (0,1)), 'DD/MM/YY')\r\n" + 
+					"and A.ESTADO = 1\r\n" + 
+					"and rownum = 1";
+			
+			lista = jt.queryForList(sql);
 
-			// String list = ;
-			//// System.out.println("lista show> "+ls);
-			// if(list.isEmpty()) {
-			// res = "";
-
-			// System.out.println(res);
 		} catch (Exception e) {
 			// // TODO: handle exception
-			System.out.println("dao conf> " + e);
+			System.out.println("listar existencia consolidado dao> " + e);
+			lista= null;
 
 		}
-
-		return ls;
+//		System.out.println(lista);
+		return lista;
 	}
+	
+	
+	
+	
+//	public String consolidadoExists() {
+//		String ls = null;
+//		try {
+//			sql = "SELECT TRIM(ID_CONSOLIDADO) FROM RHMV_CONSOLIDADO WHERE ESTADO = 1";
+//			ls = jt.queryForObject(sql, String.class);
+//	
+//		} catch (Exception e) {
+//			// // TODO: handle exception
+//			System.out.println("dao conf consol exists dao> " + e);
+//
+//		}
+//
+//		return ls;
+//	}
 
-	public int crearConsolidado(String alerta) {
+	public int crearConsolidado(String nombre , Integer numdias) {
 		int ls = 0;
 		try {
-			sql = "INSERT INTO RHMV_CONSOLIDADO (ESTADO, FECHA_INICIO, FECHA_FINAL, ALERTA_MENSUAL) VALUES (?, ?, ?,?)";
-			ls = jt.update(sql,1, "01/01/18", "31/12/18",  alerta);
+			sql = "INSERT INTO RHMV_CONSOLIDADO (ESTADO, FECHA_INICIO, FECHA_FINAL, NO_CONSOLIDADO, NUM_DIAS_MINIMO) VALUES (?, ?, ?,?,?)";
+			ls = jt.update(sql,0, "", "", nombre, numdias);
 
 		} catch (Exception e) {
 			// // TODO: handle exception
@@ -62,34 +84,35 @@ public class ConfiguracionDAO {
 		return ls;
 	}
 	
-//	public int crearConfigPrograma(String fecha) {
-//		int ls = 0;
-//		try {
-//			sql = "INSERT INTO RHMV_CONF_PROGRAMA(ESTADO, FECHA_PLAZO) VALUES (?,?)";
-//			ls = jt.update(sql,1, fecha);
-//
-//		} catch (Exception e) {
-//			// // TODO: handle exception
-//			System.out.println("dao conf> " + e);
-//
-//		}
-//
-//		return ls;
-//	}
-//	public int crearConfigSolicitud(String fecha) {
-//		int ls = 0;
-//		try {
-//			sql = "INSERT INTO RHMV_CONF_SOLICITUD(ESTADO, FECHA_PLAZO) VALUES (?,?)";
-//			ls = jt.update(sql,1, fecha);
-//
-//		} catch (Exception e) {
-//			// // TODO: handle exception
-//			System.out.println("dao conf> " + e);
-//
-//		}
-//
-//		return ls;
-//	}
+	public int actualizarConsolidado(int estado, String id_cons ) {
+		int ls = 0;
+		System.out.println(estado + " , " + id_cons);
+		try {
+//			sql = "UPDATE RHMV_CONSOLIDADO SET ESTADO = "+estado+ "WHERE ID_CONSOLIDADO = '" + id_cons + "'";
+//			ls = jt.update(sql);
+			DataSource d = AppConfig.getDataSource();
+			CallableStatement cst = d.getConnection().prepareCall("{call RHSP_VAC_UPDATE_CONSOLIDADO (?,?,?)}");
+			cst.setString(1, id_cons);
+			cst.setInt(2, estado);
+			
+			cst.registerOutParameter(3, Types.INTEGER);
+			cst.execute();
+			System.out.println(cst.getString(3));
+
+			ls = Integer.parseInt(cst.getString(3));
+			
+			
+			System.out.println("actualizar consolidado " + ls);
+		} catch (Exception e) {
+			// // TODO: handle exception
+			System.out.println("dao conf> " + e);
+
+		}
+
+		return ls;
+	}
+	
+
 	public int crearConfiguracion(String fecha_solicitud, String fecha_programa) {
 		System.out.println("dao configuracion insertar " + fecha_solicitud +" , " + fecha_programa);
 		int i = 0;
@@ -119,7 +142,7 @@ public class ConfiguracionDAO {
 		
 		List<Map<String, Object>> lista = new ArrayList<>();
 		try {
-			sql = "SELECT RT.ID_TRABAJADOR, RT.AP_PATERNO, RT.AP_MATERNO, RT.NO_TRABAJADOR,RT.DI_CORREO_PERSONAL,RT.NU_DOC,\r\n" + 
+			sql = "SELECT DISTINCT RT.ID_TRABAJADOR, RT.AP_PATERNO, RT.AP_MATERNO, RT.NO_TRABAJADOR,RT.DI_CORREO_PERSONAL,RT.NU_DOC,\r\n" + 
 					"RD.NO_DEP, RD.ID_DEPARTAMENTO,\r\n" + 
 					"RE.ID_EMPLEADO,RR.NO_ROL, TO_CHAR(RVC.FECHA_PLAZO,'dd/mm/yyyy') as FECHA_PROGRAMA, TO_CHAR(RVS.FECHA_PLAZO,'dd/mm/yyyy') AS FECHA_SOLICITUD\r\n" + 
 					"FROM RHTM_TRABAJADOR RT\r\n" + 
@@ -139,7 +162,7 @@ public class ConfiguracionDAO {
 					"AND RD.ES_DEPARTAMENTO=1\r\n" + 
 					"AND RR.ID_ROL='ROL-0003'\r\n" + 
 					"AND RVC.ESTADO=1\r\n" + 
-					"AND RVS.ESTADO=1";
+					"AND RVS.ESTADO=1 AND RVD.ESTADO in (1,2)";
 			lista = jt.queryForList(sql);
 
 		} catch (Exception e) {
@@ -260,7 +283,8 @@ public class ConfiguracionDAO {
 					"WHERE A.ID_CONF_PROGRAMA = B.ID_CONF_PROGRAMA\r\n" + 
 					"AND A.ID_CONF_SOLICITUD = C.ID_CONF_SOLICITUD\r\n" + 
 					"AND A.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO\r\n" + 
-					"AND TO_CHAR(A.FECHA_MODIFICACION, 'DD/MM/YY') <> TO_CHAR((SELECT M.FECHA_CREACION FROM RHMV_CONSOLIDADO M WHERE M.ESTADO = 1), 'DD/MM/YY')";
+//					"AND TO_CHAR(A.FECHA_MODIFICACION, 'DD/MM/YY') <> TO_CHAR((SELECT M.FECHA_CREACION FROM RHMV_CONSOLIDADO M WHERE M.ESTADO = 1), 'DD/MM/YY')"+
+					"AND A.ESTADO = 2";
 			lista = jt.queryForList(sql);
 			
 		} catch (Exception e) {
@@ -271,6 +295,23 @@ public class ConfiguracionDAO {
 		System.out.println("dao respuesta listar plazos modificados > " +lista);
 		return lista;
 	}
+	
+	public int refreshdays(int nrodias, String idcons) {
+		idcons = idcons.trim();
+		int ls = 0;
+		try {
+			sql = "UPDATE RHMV_CONSOLIDADO SET NUM_DIAS_MINIMO = ? WHERE TRIM(ID_CONSOLIDADO) = ?";
+			ls = jt.update(sql,nrodias, idcons);
+			
+		} catch (Exception e) {
+			// // TODO: handle exception
+			System.out.println("dao conf> " + e);
+
+		}
+		System.out.println("dao respuesta guardar refreshdays > " +ls);
+		return ls;
+	}
+
 	
 
 	

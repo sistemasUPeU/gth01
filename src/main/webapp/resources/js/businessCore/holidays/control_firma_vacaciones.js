@@ -130,10 +130,12 @@ $("#guardar").click(function() {
 	//ENVIA FECHAS AL BACK-END
 	if (p == ti && q == to) {
 		Materialize.toast('Ninguna firma se ha actualizado!', 3000, 'rounded');
+		listarControlFirmas();
 	} else {
 		con.post('vacaciones/controlar/updateFirma?' + "id=" + a + "&inicio=" + p + "&fin=" + q + "&fsm=" + fsm, null, function(data) {
 			if (data == 1) {
 				Materialize.toast('Firma actualizada correctamente!', 3000, 'rounded');
+				listarControlFirmas();
 			} else {
 				Materialize.toast('No se obtuvieron datos, consulte con su jefe', 3000, 'rounded');
 			}
@@ -157,7 +159,7 @@ $("#table_contenido").on("click", "#open", function() {
 			k = k + 1;
 			j += '<div class="col s4">';
 			j += '<p>Fecha Inicio</p>';
-			j += '<input value="'+obj[i].FECHA_INICIO+'" type="text">';
+			j += '<input disabled value="'+obj[i].FECHA_INICIO+'" type="text">';
 			j += '</div>';
 			j += '<div class="col s3">';
 			j += '<br> <br>';
@@ -174,7 +176,7 @@ $("#table_contenido").on("click", "#open", function() {
 			j += '</div>';
 			j += '<div class="col s4">';
 			j += '<p>Fecha Fin</p>';
-			j += '<input value="'+obj[i].FECHA_FIN+'" type="text">';
+			j += '<input disabled value="'+obj[i].FECHA_FIN+'" type="text">';
 			j += '</div>';
 			j += '<div class="col s1">';
 			j += '<br> <br>';

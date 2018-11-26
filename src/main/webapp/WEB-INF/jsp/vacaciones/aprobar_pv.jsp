@@ -76,6 +76,28 @@ div.dataTables_length {
 
 
 			</div>
+			<div id="modal_programa_aprobados" class="modal modal-fixed-footer" >
+				<div class="modal-content" id="show_request">
+					<div class="row">
+
+							<div class="col s3 offset-s3 " id="column1_proap">
+			
+							</div>
+							<div class="col s5 m5 l5 " id="column2_proap">
+		
+							</div>
+
+					</div>
+					<div id="table_detail">
+					
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a id="fec_up" href="#!"
+						class="modal-action modal-close waves-effect waves-green btn-flat" >Cerrar</a>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 

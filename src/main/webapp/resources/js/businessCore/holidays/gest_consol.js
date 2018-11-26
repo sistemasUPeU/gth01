@@ -117,6 +117,7 @@ $("#guardar")
 							Materialize.toast(
 									'Ninguna firma se ha actualizado!', 3000,
 									'rounded');
+							listarAprobado();
 						} else {
 							con
 									.post(
@@ -133,6 +134,7 @@ $("#guardar")
 																		'Ninguna firma se ha actualizado!',
 																		3000,
 																		'rounded');
+														listarAprobado();
 													} else {
 														Materialize
 																.toast(
@@ -147,6 +149,7 @@ $("#guardar")
 																	'No se obtuvieron datos, consulte con su jefe',
 																	3000,
 																	'rounded');
+													listarAprobado();
 												}
 											});
 						}

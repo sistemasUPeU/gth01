@@ -4,6 +4,7 @@ import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,24 +76,63 @@ public class AprobarProgramaVacaciones {
 
 	public List<Map<String, Object>> listarAprobados(String depa) {
 		try {
-			sql = "SELECT DISTINCT tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,tf.no_seccion,\r\n"
-					+ "trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) - \r\n"
-					+ "trunc(TO_DATE(dsv.fecha_inicio,'DD/MM/YYYY hh24:mi:ss') ) + 1 AS nu_vac,\r\n"
-					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,\r\n"
-					+ "tf.li_condicion,usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones, sv.tipo\r\n"
-					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,rhmv_det_vacaciones dsv,\r\n"
-					+ "rhtm_contrato co,rhmv_hist_detalle hd,rhtc_usuario usr,rhtd_empleado emp\r\n"
-					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND emp.id_trabajador = t.id_trabajador\r\n"
-					+ "AND emp.id_empleado = usr.id_empleado\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
-					+ "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n" + "AND hd.evaluacion = 3\r\n"
-					+ "AND hd.id_pasos = 'PAS-000054'\r\n" + "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
-					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
-					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
-					+ "AND co.es_contrato = 1\r\n" + "AND tf.no_dep = '" + depa + "'"
-					+ " AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
+//			sql = "SELECT DISTINCT tf.id_trabajador,tf.no_trabajador,tf.ap_paterno,tf.ap_materno,tf.no_seccion,\r\n"
+//					+ "trunc(TO_DATE(dsv.fecha_fin,'DD/MM/YYYY hh24:mi:ss') ) - \r\n"
+//					+ "trunc(TO_DATE(dsv.fecha_inicio,'DD/MM/YYYY hh24:mi:ss') ) + 1 AS nu_vac,\r\n"
+//					+ "t.nu_doc,TO_CHAR(dsv.fecha_inicio,'DD/MM/YYYY') AS fecha_inicio,TO_CHAR(dsv.fecha_fin,'DD/MM/YYYY') AS fecha_fin,\r\n"
+//					+ "tf.li_condicion,usr.no_usuario,TRIM(dsv.id_det_vacaciones) AS id_det_vacaciones, sv.tipo\r\n"
+//					+ "FROM rhtm_trabajador t,rhmv_vacaciones sv,rhmv_trabajador_filtrado tf,rhmv_det_vacaciones dsv,\r\n"
+//					+ "rhtm_contrato co,rhmv_hist_detalle hd,rhtc_usuario usr,rhtd_empleado emp\r\n"
+//					+ "WHERE sv.id_vacaciones = dsv.id_vacaciones\r\n" + "AND emp.id_trabajador = t.id_trabajador\r\n"
+//					+ "AND emp.id_empleado = usr.id_empleado\r\n" + "AND sv.estado = 1\r\n" + "AND tf.estado = 1\r\n"
+//					+ "AND dsv.estado <> 0\r\n" + "AND hd.estado = 1\r\n" + "AND hd.evaluacion = 3\r\n"
+//					+ "AND hd.id_pasos = 'PAS-000054'\r\n" + "AND hd.id_det_vacaciones = dsv.id_det_vacaciones\r\n"
+//					+ "AND tf.id_trabajador_filtrado = sv.id_trabajador_filtrado\r\n"
+//					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
+//					+ "AND co.es_contrato = 1\r\n" + "AND tf.no_dep = '" + depa + "'"
+//					+ " AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
+			
+			sql = "SELECT DISTINCT tf.ID_TRABAJADOR ,tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, tf.NO_AREA, tf.NO_SECCION, v.TIPO , con.LI_CONDICION\r\n" + 
+					"from RHMV_TRABAJADOR_FILTRADO tf\r\n" + 
+					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
+					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
+					"left join RHTM_CONTRATO con on con.ID_TRABAJADOR = tf.ID_TRABAJADOR\r\n" + 
+					"where tf.no_dep ='"+depa+"' \r\n" + 
+					"and tf.estado=1 \r\n" + 
+					"and hisde.EVALUACION=3 \r\n" + 
+					"and hisde.ESTADO=1\r\n" + 
+					"and hisde.ID_PASOS='PAS-000054'\r\n" + 
+					"and detva.ESTADO <> 0 order by tf.ap_paterno asc";
+			
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);
+			return null;
+		}
+	}
+	
+	public List<Map<String, Object>> listardetalleaprobados(String IDTRB) {
+		List<Map<String, Object>> LST = new ArrayList<>();
+		try {
+			String SQL = "SELECT tf.ID_TRABAJADOR, tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,detva.ID_DET_VACACIONES, tf.ap_paterno,\r\n" + 
+					"tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as\r\n" + 
+					"FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin, detva.fecha_fin - detva.FECHA_INICIO +1 AS DIAS\r\n" + 
+					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
+					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
+					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
+					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
+					"where tf.estado=1\r\n" + 
+					"and hisde.EVALUACION=3\r\n" + 
+					"and hisde.ESTADO=1\r\n" + 
+					"and hisde.ID_PASOS='PAS-000054'\r\n" + 
+					"and detva.ESTADO <> 0\r\n" + 
+					"and tf.ID_TRABAJADOR = '"+ IDTRB +"' ORDER BY detva.ID_DET_VACACIONES ASC";
+			
+			LST = jt.queryForList(SQL);
+			return LST;
+		} catch (Exception E) {
+			System.out.println("ERROR:" + E);
 			return null;
 		}
 	}

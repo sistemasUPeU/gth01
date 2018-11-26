@@ -32,7 +32,7 @@ public class ConfiguracionesTest {
 	
 	@Test
 	public void crearConsolidado() {
-		assertEquals(1, cd.crearConsolidado("30/11/2018"));
+		assertEquals(1, cd.crearConsolidado("nombre", 5));
 	}
 
 	@Test

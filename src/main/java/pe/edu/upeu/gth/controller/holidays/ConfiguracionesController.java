@@ -33,24 +33,31 @@ public class ConfiguracionesController {
 	}
 	@RequestMapping(path = "/validar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String validarConsolidado() {
-		String x="1";
-		String res = gs.toJson(co.consolidadoExists());
-		System.out.println(res);
-		if(res.equals("null")) {
-			System.out.println("entro");
-			x = "0";
-		}
-		System.out.println(x);
-		return x;
+//		String x="1";
+		System.out.println(gs.toJson(co.consolidadoExists()));
+//		System.out.println(res);
+//		if(res.equals("null")) {
+//			System.out.println("entro");
+//			x = "0";
+//		}
+//		System.out.println(x);
+//		return x;
+		return gs.toJson(co.consolidadoExists());
 	}
 	
 	@RequestMapping(path = "/insertarConsolidado", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String crear(HttpServletRequest request) {
-		String alerta = request.getParameter("fecha");
+		String alerta = request.getParameter("nomcons");
+		int numdias = Integer.parseInt(request.getParameter("numdias"));
+		return gs.toJson(co.crearConsolidado(alerta, numdias));
+	}
+	
+	@RequestMapping(path = "/actualizarConsolidado", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String actualizarEstadoConsolidado(HttpServletRequest request) {
+		int estado = Integer.parseInt(request.getParameter("estado"));
+		String idcons = request.getParameter("idcons");
 		
-		
-
-		return gs.toJson(co.crearConsolidado(alerta));
+		return gs.toJson(co.actualizarConsolidado(estado, idcons));
 	}
 	
 	
@@ -142,5 +149,15 @@ public class ConfiguracionesController {
 		return gs.toJson(co.listarPlazosModificados());
 	}
 	
+	
+	@RequestMapping(path = "/refreshdays", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String refreshdays(HttpServletRequest request) {
+		int nrodias =  Integer.parseInt(request.getParameter("nrodias"));
+		String idcons =  request.getParameter("idcons");
+	System.out.println("Gson RESPUESTA get trabajador plazos modificados "+gs.toJson(co.refreshdays(nrodias, idcons)));
+		
+
+		return gs.toJson(co.refreshdays(nrodias, idcons));
+	}
 	
 }

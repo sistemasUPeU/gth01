@@ -453,6 +453,17 @@ public class SolicitudController {
 		return gs.toJson(sd);
 
 	}
+	
+	
+	@RequestMapping(path = "/getFechaPlazoSP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getFechaPlazoSolicitud(HttpServletRequest request, Model model, Authentication authentication) {
+		Gson gs = new Gson();
+		String iddepa = ((CustomUser) authentication.getPrincipal()).getID_DEPARTAMENTO();
+		List<Map<String, Object>> sd = vd.getFechaPlazoSolicitud(iddepa);
+		System.out.println("getFechaPlazoSolicitud" + gs.toJson(sd));
 
+		return gs.toJson(sd);
+
+	}
 	
 }

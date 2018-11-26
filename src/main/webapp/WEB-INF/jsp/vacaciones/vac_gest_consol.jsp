@@ -85,15 +85,15 @@ div.dataTables_length {
 							</div>
 						</div>
 						<div id="test002" class="col s12" style="display: none;">
-							<div class="input-field col s6">
+							<div class="input-field col s12 m5 l3 center ">
 								<a class="waves-effect waves-light btn-large" id="print">Imprimir
 									Cartas</a>
 							</div>
 
-							<div class="col s12 m3 l4" style="line-height: 100%;">
+							<div class="col s12 m7 l9" style="line-height: 100%;margin-top: 6px;">
 								<div id="card-alert" class="card cyan lighten-1">
-									<div class="card-content white-text" id="message_date"
-										style="height: 100%;">
+									<div class="card-content white-text center" id="message_date"
+										style="height: 100%; ">
 										<i class="mdi-action-info-outline"></i> Recuerda IMPRIMIR
 										CARTAS antes de confirmar las firmas, después no se podrá
 									</div>

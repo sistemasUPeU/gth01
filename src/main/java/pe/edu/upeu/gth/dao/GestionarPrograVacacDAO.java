@@ -56,7 +56,7 @@ public class GestionarPrograVacacDAO {
 					"and tf.estado=1\r\n" + 
 					"and hisde.EVALUACION in (1,4)\r\n" + 
 					"and hisde.ESTADO=1\r\n" + 
-					"and hisde.ID_PASOS='PAS-000055'\r\n" + 
+					"and hisde.ID_PASOS in ('PAS-000055','PAS-000054')\r\n" + 
 					"and detva.ESTADO <> 0\r\n"
 					+ "and v.URL is not null order by tf.ap_paterno asc";
 			LST = JDBC.queryForList(SQL);

@@ -5,6 +5,10 @@ $(document).ready(function() {
 			$("#cargando").hide();
 
 		})
+		
+
+		
+		
 		function getSelected() {
 			var allVals = [];
 			$('#data :checked').each(function() {
@@ -741,7 +745,7 @@ $(document).ready(function() {
 			.get(
 					gth_context_path + '/vacaciones/gestionar_programa/detalleaprobados', {idtrab : idtrab},
 					function(obj) {
-						console.log(JSON.stringify(obj[0]));
+						console.log(JSON.stringify(obj));
 						var s = '';
 						var emp = obj[0];
 						

@@ -414,4 +414,35 @@ public List<Map<String, Object>> detalletrabajador(String idtrab) {
 		return preparator1;
 
 	}
+	
+	
+	public List<Map<String, Object>> getFechaPlazoSolicitud(String iddepa) {
+		String sql = null;
+		
+		List<Map<String, Object>> lista = new ArrayList<>();
+		try {
+//			sql = "SELECT * FROM RHMV_CONSOLIDADO WHERE ESTADO IN (0,1)";
+			
+			sql="SELECT TO_CHAR(B.FECHA_PLAZO, 'DD/MM/YYYY') AS FECHA_PROGRAMA, TO_CHAR(C.FECHA_PLAZO , 'DD/MM/YYYY') AS FECHA_SOLICITUD\r\n" + 
+					"FROM RHMV_DETALLE_CONFIG A, \r\n" + 
+					"RHMV_CONF_PROGRAMA B, RHTX_DEPARTAMENTO D , RHMV_CONF_SOLICITUD C \r\n" + 
+					"WHERE A.ID_CONF_PROGRAMA = B.ID_CONF_PROGRAMA\r\n" + 
+					"AND A.ID_CONF_SOLICITUD = C.ID_CONF_SOLICITUD \r\n" + 
+					"AND A.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO\r\n" + 
+					"AND A.ID_DEPARTAMENTO = '" +iddepa + "'\r\n" + 
+					"and A.ESTADO in (1,2)\r\n" + 
+					"and rownum = 1 ";
+			
+			lista = jt.queryForList(sql);
+
+		} catch (Exception e) {
+			// // TODO: handle exception
+			System.out.println("listar getFechaPlazoSolicitud dao> " + e);
+			lista= null;
+
+		}
+//		System.out.println(lista);
+		return lista;
+	}
+	
 }

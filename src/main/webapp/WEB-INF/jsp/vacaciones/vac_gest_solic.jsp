@@ -181,7 +181,7 @@
 				</div>
 
 				<form method="post"
-					action="/gth/vacaciones/uploadSingleFIle?${_csrf.parameterName}=${_csrf.token}"
+					action="/gth/solicitud/archivos?${_csrf.parameterName}=${_csrf.token}"
 					enctype="multipart/form-data" class="col s12 m8 l11"
 					id="documentoForm">
 

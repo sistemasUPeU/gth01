@@ -151,14 +151,32 @@ public class GestionarConsolidadoDAO {
 	}
 
 	public int updateFechas(String id, int inicio, int fin) {
+//		try {
+//			sql = "UPDATE RHMV_DET_VACACIONES SET FIRMA_SALIDA = ?, FIRMA_ENTRADA = ? WHERE ID_DET_VACACIONES = ?";
+//			jt.update(sql, new Object[] { inicio, fin, id });
+//			return 1;
+//		} catch (Exception e) {
+//			System.out.println("ERROR: " + e);
+//			return 0;
+//		}
+		
+		
+		int i = 0;
 		try {
-			sql = "UPDATE RHMV_DET_VACACIONES SET FIRMA_SALIDA = ?, FIRMA_ENTRADA = ? WHERE ID_DET_VACACIONES = ?";
-			jt.update(sql, new Object[] { inicio, fin, id });
-			return 1;
-		} catch (Exception e) {
-			System.out.println("ERROR: " + e);
-			return 0;
+			cn = d.getConnection();
+
+			CallableStatement cst = d.getConnection().prepareCall("{CALL RHSP_VAC_UPDATE_FECHAS_TRAB (?,?,?)}");
+			cst.setString(1, id);
+			cst.setInt(2, inicio);
+			cst.setInt(3, fin);
+			cst.execute();
+			cn.close();
+			i = 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return i;
+		
 	}
 
 	public List<Map<String, Object>> readFile(String traba, String id_det) {
