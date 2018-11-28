@@ -91,44 +91,39 @@ public class AprobarProgramaVacaciones {
 //					+ "AND tf.id_trabajador = t.id_trabajador\r\n" + "AND t.id_trabajador = co.id_trabajador\r\n"
 //					+ "AND co.es_contrato = 1\r\n" + "AND tf.no_dep = '" + depa + "'"
 //					+ " AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1";
-			
-			sql = "SELECT DISTINCT tf.ID_TRABAJADOR ,tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, tf.NO_AREA, tf.NO_SECCION, v.TIPO , con.LI_CONDICION\r\n" + 
-					"from RHMV_TRABAJADOR_FILTRADO tf\r\n" + 
-					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
-					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
-					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
-					"left join RHTM_CONTRATO con on con.ID_TRABAJADOR = tf.ID_TRABAJADOR\r\n" + 
-					"where tf.no_dep ='"+depa+"' \r\n" + 
-					"and tf.estado=1 \r\n" + 
-					"and hisde.EVALUACION=3 \r\n" + 
-					"and hisde.ESTADO=1\r\n" + 
-					"and hisde.ID_PASOS='PAS-000054'\r\n" + 
-					"and detva.ESTADO <> 0 order by tf.ap_paterno asc";
-			
+
+			sql = "SELECT DISTINCT tf.ID_TRABAJADOR ,tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR, tf.ap_paterno, tf.ap_materno, tf.NO_AREA, tf.NO_SECCION, v.TIPO , con.LI_CONDICION\r\n"
+					+ "from RHMV_TRABAJADOR_FILTRADO tf\r\n"
+					+ "left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n"
+					+ "left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n"
+					+ "left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n"
+					+ "left join RHTM_CONTRATO con on con.ID_TRABAJADOR = tf.ID_TRABAJADOR\r\n" + "where tf.no_dep ='"
+					+ depa + "' \r\n" + "and tf.estado=1 \r\n" + "and hisde.EVALUACION=3 \r\n"
+					+ "and hisde.ESTADO=1\r\n" + "and hisde.ID_PASOS='PAS-000054'\r\n"
+					+ " AND RHFU_VAL_REQUEST(tf.ID_TRABAJADOR)<>1 "
+					+ "and detva.ESTADO <> 0 order by tf.ap_paterno asc";
+
 			return jt.queryForList(sql);
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e);
 			return null;
 		}
 	}
-	
+
 	public List<Map<String, Object>> listardetalleaprobados(String IDTRB) {
 		List<Map<String, Object>> LST = new ArrayList<>();
 		try {
-			String SQL = "SELECT tf.ID_TRABAJADOR, tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,detva.ID_DET_VACACIONES, tf.ap_paterno,\r\n" + 
-					"tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as\r\n" + 
-					"FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin, detva.fecha_fin - detva.FECHA_INICIO +1 AS DIAS\r\n" + 
-					"from RHMV_TRABAJADOR_FILTRADO tf \r\n" + 
-					"left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n" + 
-					"left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n" + 
-					"left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n" + 
-					"where tf.estado=1\r\n" + 
-					"and hisde.EVALUACION=3\r\n" + 
-					"and hisde.ESTADO=1\r\n" + 
-					"and hisde.ID_PASOS='PAS-000054'\r\n" + 
-					"and detva.ESTADO <> 0\r\n" + 
-					"and tf.ID_TRABAJADOR = '"+ IDTRB +"' ORDER BY detva.ID_DET_VACACIONES ASC";
-			
+			String SQL = "SELECT tf.ID_TRABAJADOR, tf.ID_TRABAJADOR_FILTRADO, tf.NO_TRABAJADOR,detva.ID_DET_VACACIONES, tf.ap_paterno,\r\n"
+					+ "tf.ap_materno, tf.NO_AREA, tf.NO_SECCION,to_char(detva.FECHA_INICIO,'DD/MM/YYYY') as\r\n"
+					+ "FECHA_INICIO, to_char(detva.fecha_fin,'DD/MM/YYYY') as fecha_fin, detva.fecha_fin - detva.FECHA_INICIO +1 AS DIAS\r\n"
+					+ "from RHMV_TRABAJADOR_FILTRADO tf \r\n"
+					+ "left join  RHMV_VACACIONES v on v.ID_TRABAJADOR_FILTRADO=tf.ID_TRABAJADOR_FILTRADO\r\n"
+					+ "left join RHMV_DET_VACACIONES detva on detva.id_vacaciones=v.id_vacaciones\r\n"
+					+ "left join RHMV_HIST_DETALLE hisde on hisde.id_det_vacaciones=detva.id_det_vacaciones\r\n"
+					+ "where tf.estado=1\r\n" + "and hisde.EVALUACION=3\r\n" + "and hisde.ESTADO=1\r\n"
+					+ "and hisde.ID_PASOS='PAS-000054'\r\n" + "and detva.ESTADO <> 0\r\n" + "and tf.ID_TRABAJADOR = '"
+					+ IDTRB + "' ORDER BY detva.ID_DET_VACACIONES ASC";
+
 			LST = jt.queryForList(SQL);
 			return LST;
 		} catch (Exception E) {
