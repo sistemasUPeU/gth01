@@ -194,7 +194,7 @@ function setDatosUser(idtrab, callback){
 
 function setDatosSolicitud(id){
 	console.log("set datos solicitud >>>>>>> " + id)
-	var url = "/gth/solicitud/validar";
+	var url = gth_context_path+"/solicitud/validar";
 	var data = "&id=" + id;
 	var solicitud = 0;
 	

@@ -17,7 +17,7 @@ var nro_vacaciones=0;
 var opcion=0;
 
 function cargarConfigConsolidado(){
-	var url = "/gth/configuraciones/validar";
+	var url = gth_context_path + "/configuraciones/validar";
 	// var data ="&id=" + id ;
 
 	$.getJSON(url, null, function(res, status) {

@@ -207,7 +207,7 @@ $("#table_contenido").on("click", "#open", function() {
 		} else {
 			z = 6;
 			$("#zorro").empty();
-			btnPapeleta += '<form method="post" action="/gth/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">'
+			btnPapeleta += '<form method="post" action="'+gth_context_path+'/solicitud/papeleta?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" id="documentoForm">'
 				+ '<div class="file-field input-field">' + '<div id="lobo" class="btn">'
 				+ '<span>File</span> <input id="file-input" type="file" name="file">'
 				+ '</div>' + '<div class="file-path-wrapper">'
